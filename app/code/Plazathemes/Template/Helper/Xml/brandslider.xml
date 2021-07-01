@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="yes"?>  
+<brandslider>
+<records>
+    <record>
+        <title></title>
+        <link>#</link>
+        <image><![CDATA[Plazathemes/brandslider/images/b/r/brand1.jpg]]></image>
+        <description></description>
+        <status>1</status>
+		<store_id>1</store_id>
+    </record>
+	<record>
+        <title></title>
+        <link>#</link>
+        <image><![CDATA[Plazathemes/brandslider/images/b/r/brand2.jpg]]></image>
+        <description></description>
+        <status>1</status>
+		<store_id>1</store_id>
+    </record>
+	<record>
+        <title></title>
+        <link>#</link>
+        <image><![CDATA[Plazathemes/brandslider/images/b/r/brand3.jpg]]></image>
+        <description></description>
+        <status>1</status>
+		<store_id>1</store_id>
+    </record>
+	<record>
+        <title></title>
+        <link>#</link>
+        <image><![CDATA[Plazathemes/brandslider/images/b/r/brand4.jpg]]></image>
+        <description></description>
+        <status>1</status>
+		<store_id>1</store_id>
+    </record>
+	<record>
+        <title></title>
+        <link>#</link>
+        <image><![CDATA[Plazathemes/brandslider/images/b/r/brand5.jpg]]></image>
+        <description></description>
+        <status>1</status>
+		<store_id>1</store_id>
+    </record>
+	<record>
+        <title></title>
+        <link>#</link>
+        <image><![CDATA[Plazathemes/brandslider/images/b/r/brand2_1.jpg]]></image>
+        <description></description>
+        <status>1</status>
+		<store_id>1</store_id>
+    </record>	
+</records>
+</brandslider>

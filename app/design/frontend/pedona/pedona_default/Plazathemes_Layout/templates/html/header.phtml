@@ -1,0 +1,92 @@
+<?php $block->renderFileLessToCss(); ?>
+<header class="header-container">
+		<div class="top-bar">
+			<div class="container-inner">
+				<div class="container-size">
+					<div class="row">
+						<div class="col-md-6">
+							<?php //echo $this->getChildHtml("header.links"); ?>
+							<div class="link-contact-header">
+								<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('link_contact_header')->toHtml();?>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<?php echo $this->getChildHtml("currency"); ?>
+							<?php echo $this->getChildHtml("store_language"); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header">
+			<div class="container-inner">
+				<div class="row">
+					<div class="col-md-4">
+						<?php echo $this->getChildHtml("top.search"); ?>	
+					</div>
+					<div class="col-md-4 h-logo">
+						<?php echo $this->getChildHtml("logo"); ?>
+					</div>
+					<div class="col-md-4">
+						<div class="absolute">
+							<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p>
+							<?php echo $this->getChildHtml("minicart");?>
+							<div class="link-hover">
+								<p class="icon"></p>
+								<div>
+									<div class="my-acount">
+										<strong class="label"><span><?php /* @escapeNotVerified */ echo __('My Account') ?></span></strong>
+										<?php echo $this->getChildHtml("top.links"); ?>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="nav-ozmegamenu-inner">
+				<div class="mobile-bar-icon"><span><?php /* @escapeNotVerified */ echo __('mobile icon'); ?></span></div>
+			</div>
+			<div class="mobile-bar-content">
+				<div class ="mobile-bar-close"><?php /* @escapeNotVerified */ echo __('Close'); ?></div>
+				<ul class = "tabs-mobile">
+					<li class="item item-menu"><?php /* @escapeNotVerified */ echo __('Menu'); ?></li>
+				</ul>
+				<div class="tabs-content-mobile tabs-menu">
+					<?php echo $this->getChildHtml("mobilemenu"); ?>
+				</div>
+			</div>
+		</div>
+
+		<div class="nav-menu">
+			<div class="container-inner">
+				<?php echo $this->getChildHtml("hozmegamenu_top"); ?>
+			</div>
+		</div>		
+</header>
+<script type="text/javascript">
+require(["jquery"], function($){
+	$(document).ready(function(){
+		<!-- show, hide mobile bar content -->
+		$(".mobile-bar-icon").click(function(){
+			$(".mobile-bar-content").addClass("open");
+		});
+		$(".mobile-bar-close").click(function(){
+			$(".mobile-bar-content").removeClass("open");
+		});
+	
+	});
+	$(window).scroll(function () {
+	   if ($(this).scrollTop() > 150) {
+		 $('.nav-menu').addClass("fix-nav-menu");
+	   } else {
+		$('.nav-menu').removeClass("fix-nav-menu");
+	   }
+	});
+});
+</script>
+
+
+

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Model\Category" type="Plazathemes\Override\Model\Category" />
+    <preference for="Magento\Catalog\Model\Category\DataProvider" type="Plazathemes\Override\Model\Category\DataProvider" />
+    <preference for="Magento\Catalog\Controller\Adminhtml\Category\Image\Upload" type="Plazathemes\Override\Controller\Adminhtml\Category\Image\Upload" />
+    <preference for="Magento\Catalog\Controller\Adminhtml\Category\Add" type="Plazathemes\Override\Controller\Adminhtml\Category\Add" />
+    <preference for="Magento\Catalog\Controller\Adminhtml\Category\Edit" type="Plazathemes\Override\Controller\Adminhtml\Category\Edit" />
+    <preference for="Magento\Catalog\Controller\Adminhtml\Category\Save" type="Plazathemes\Override\Controller\Adminhtml\Category\Save" />
+</config>

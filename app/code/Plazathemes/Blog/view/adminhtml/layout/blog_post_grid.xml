@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etclayout_generic.xsd">
+    <update handle="formkey"/>
+    <update handle="blog_post_grid_block"/>
+    <container name="root">
+        <block class="Magento\Backend\Block\Widget\Grid\Container" name="blog.post.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+    </container>
+</layout>

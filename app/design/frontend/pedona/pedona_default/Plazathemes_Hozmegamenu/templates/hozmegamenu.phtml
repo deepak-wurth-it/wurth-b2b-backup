@@ -1,0 +1,248 @@
+<?php
+	$data = $block->getConfig('status');
+	if(!$block->getConfig('status')) return ; 
+	$items = $block->getItemsActive();
+	$itemsActive = json_decode($items); 
+	$htmlLink = array();
+?>
+	<?php  
+					$type_menu = $block->getConfig('type_menu');
+						if($type_menu==1) {
+				?>
+		<nav class="nav-container visible-lg visible-md">
+						<div id="pt_custommenu" class="pt_custommenu">
+						<?php
+						
+						$showhome = $block->getConfig('is_home');	
+						$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+						$request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+						//var_dump($request); die('111');
+						$active = '';
+						if ($request->getFullActionName() == 'cms_index_index') {
+							$active = ' act';
+						}
+						$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+
+						$base_url = $urlInterface->getBaseUrl();
+						if($showhome){
+							$id     = "_home";
+							$html[] = '<div id="pt_menu' . $id . '" class="pt_menu' . $active . '">';
+							$html[] = '<div class="parentMenu">';
+							$html[] = '<a href="'.$base_url.'">';
+							$html[] = '<span>'.__('Home').'</span>';
+							$html[] = '</a>';
+							$html[] = '</div>';
+							$html[] = '</div>';
+							$html = implode("\n", $html);
+							echo $html;
+						}
+						if(count($itemsActive)): 
+							$item = 0;
+				
+							$id = null; 
+							$label = null; 
+							foreach($itemsActive as $itemActive) { 
+									$item++;
+									$item1 =  explode( '_', $itemActive ) ;
+									$label = $item1[0]; 
+									$id = $item1[1];
+									 switch ($label) {
+										case "cms":							
+												echo $block->CmsLink($id,'desktop'); 
+											break;
+										case "block":			
+												echo $block->CustomLink($id,'desktop');
+											break;
+										case "category":									
+												echo $block->drawCustomMenuItem($id,0,false,$item);											
+											break;
+										}
+							
+					
+								?>
+								
+								
+								
+								<?php																						
+
+							}
+								?>						
+						<div class="clearBoth"></div>
+						<?php endif ?>
+					</div>
+					
+				
+		</nav>
+		
+		<?php } ?>
+
+		<script type="text/javascript">
+			require(["jquery"], function(jQuery){
+				
+				(function(jQuery){
+						 jQuery.fn.extend({  
+							 mobilemenu: function() {       
+								return this.each(function() {
+									
+									var jQueryul = jQuery(this);
+									
+									if(jQueryul.data('accordiated'))
+										return false;
+																		
+									jQuery.each(jQueryul.find('ul, li>div'), function(){
+										jQuery(this).data('accordiated', true);
+										jQuery(this).hide();
+									});
+									
+									jQuery.each(jQueryul.find('span.head'), function(){
+										jQuery(this).click(function(e){
+											activate(this);
+											return void(0);
+										});
+									});
+									
+									var active = (location.hash)?jQuery(this).find('a[href=' + location.hash + ']')[0]:'';
+
+									if(active){
+										activate(active, 'toggle');
+										jQuery(active).parents().show();
+									}
+									
+									function activate(el,effect){
+										jQuery(el).parent('li').toggleClass('active').siblings().removeClass('active').children('ul, div').slideUp('fast');
+										jQuery(el).siblings('ul, div')[(effect || 'slideToggle')]((!effect)?'fast':null);
+									}
+									
+								});
+							} 
+						}); 
+					})(jQuery);
+
+					jQuery("ul.mobilemenu li.level1, ul.level2 li").each(function(){ 
+						if(jQuery(this).find('li').length > 0) {
+							jQuery(this).addClass('have_sub');
+							jQuery(this).append('<span class="head"><a href="javascript:void(0)"></a></span>');
+						}
+					  });			
+					jQuery('ul.mobilemenu').mobilemenu();
+					jQuery("ul.mobilemenu li.active").each(function(){
+						jQuery(this).children().next("ul").css('display', 'block');
+					});
+					
+					//mobile
+					jQuery('.btn-navbar').click(function() {
+						
+						var chk = 0;
+						if ( jQuery('#navbar-inner').hasClass('navbar-inactive') && ( chk==0 ) ) {
+							jQuery('#navbar-inner').removeClass('navbar-inactive');
+							jQuery('#navbar-inner').addClass('navbar-active');
+							jQuery('#ma-mobilemenu').css('display','block');
+							chk = 1;
+						}
+						if (jQuery('#navbar-inner').hasClass('navbar-active') && ( chk==0 ) ) {
+							jQuery('#navbar-inner').removeClass('navbar-active');
+							jQuery('#navbar-inner').addClass('navbar-inactive');			
+							jQuery('#ma-mobilemenu').css('display','none');
+							chk = 1;
+						}
+					}); 
+					
+					
+
+					require(["jquery"], function(jQuery){
+
+						jQuery("#pt_menu_link ul li").each(function(){
+							var url = document.URL;
+							jQuery("#pt_menu_link ul li a").removeClass("act");
+							jQuery('#pt_menu_link ul li a[href="'+url+'"]').addClass('act');
+						}); 
+						
+						jQuery('.pt_menu_no_child').hover(function(){
+							jQuery(this).addClass("active");
+						},function(){
+							jQuery(this).removeClass("active");
+						})
+						
+						jQuery('.pt_menu').hover(function(){
+							if(jQuery(this).attr("id") != "pt_menu_link"){
+								jQuery(this).addClass("active");
+							}
+						},function(){
+							jQuery(this).removeClass("active");
+						})
+						
+						jQuery('.pt_menu').hover(function(){
+						   /*show popup to calculate*/
+						   jQuery(this).find('.popup').css('display','inline-block');
+						   
+						   /* get total padding + border + margin of the popup */
+						   var extraWidth       = 0
+						   var wrapWidthPopup   = jQuery(this).find('.popup').outerWidth(true); /*include padding + margin + border*/
+						   var actualWidthPopup = jQuery(this).find('.popup').width(); /*no padding, margin, border*/
+						   extraWidth           = wrapWidthPopup - actualWidthPopup;    
+						   
+						   /* calculate new width of the popup*/
+						   var widthblock1 = jQuery(this).find('.popup .block1').outerWidth(true);
+						   var widthblock2 = jQuery(this).find('.popup .block2').outerWidth(true);
+						   var new_width_popup = 0;
+						   if(widthblock1 && !widthblock2){
+							   new_width_popup = widthblock1;
+						   }
+						   if(!widthblock1 && widthblock2){
+							   new_width_popup = widthblock2;
+						   }
+						   if(widthblock1 && widthblock2){
+								if(widthblock1 >= widthblock2){
+									new_width_popup = widthblock1;
+								}
+								if(widthblock1 < widthblock2){
+									new_width_popup = widthblock2;
+								}
+						   }
+						   var new_outer_width_popup = new_width_popup + extraWidth;
+						   
+						   /*define top and left of the popup*/
+						   var wraper = jQuery('.pt_custommenu');
+						   var wWraper = wraper.outerWidth();
+						   var posWraper = wraper.offset();
+						   var pos = jQuery(this).offset();
+						   
+						   var xTop = pos.top - posWraper.top + CUSTOMMENU_POPUP_TOP_OFFSET;
+						   var xLeft = pos.left - posWraper.left;
+						   if ((xLeft + new_outer_width_popup) > wWraper) xLeft = wWraper - new_outer_width_popup;
+
+						   jQuery(this).find('.popup').css('top',xTop);
+						   jQuery(this).find('.popup').css('left',xLeft);
+						   
+						   /*set new width popup*/
+						   jQuery(this).find('.popup').css('width',new_width_popup);
+						   jQuery(this).find('.popup .block1').css('width',new_width_popup);
+						   
+						   /*return popup display none*/
+						   jQuery(this).find('.popup').css('display','none');
+						   
+						   /*show hide popup*/
+						   if(CUSTOMMENU_POPUP_EFFECT == 0) jQuery(this).find('.popup').stop(true,true).slideDown('slow');
+						   if(CUSTOMMENU_POPUP_EFFECT == 1) jQuery(this).find('.popup').stop(true,true).fadeIn('slow');
+						   if(CUSTOMMENU_POPUP_EFFECT == 2) jQuery(this).find('.popup').stop(true,true).show();
+						},function(){
+						   if(CUSTOMMENU_POPUP_EFFECT == 0) jQuery(this).find('.popup').stop(true,true).slideUp();
+						   if(CUSTOMMENU_POPUP_EFFECT == 1) jQuery(this).find('.popup').stop(true,true).fadeOut('slow');
+						   if(CUSTOMMENU_POPUP_EFFECT == 2) jQuery(this).find('.popup').stop(true,true).hide('fast');
+						})
+
+					});
+
+					
+					
+				});
+		</script>
+
+		<script type="text/javascript">
+		//<![CDATA[
+			var CUSTOMMENU_POPUP_EFFECT = <?php echo $block->getConfig('effect');?>;
+			var CUSTOMMENU_POPUP_TOP_OFFSET = 50;
+		//]]>
+		</script>
+
+

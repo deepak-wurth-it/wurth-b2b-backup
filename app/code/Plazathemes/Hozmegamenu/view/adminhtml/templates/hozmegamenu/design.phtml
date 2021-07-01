@@ -1,0 +1,52 @@
+<?php  
+    $pattern = '/^([A-Z_]*)[0-9]+/';
+	$options = $block->toOptionArray();
+	$model = $block->getModelHozmegamenu();
+	$images = array();
+	if($model->getId()) {
+		$image = $model->getImage();
+		$images = json_decode($image);
+	
+	}
+
+ ?>
+	
+	<table id="design">
+	<?php 
+		if(count($options)) {
+			$i = 0;
+			foreach($options as $cateoption) { $i++;
+				?>
+				<tr>
+					<td><span style='width:50px;'><?php echo $cateoption['label']; ?></span></td>
+					<td><input style='background-color:#<?php if(isset($images->$cateoption['value'])) echo $images->$cateoption['value']; ?>' name='image[<?php echo $cateoption['value']; ?>]' id="colorpickerField<?php echo $i; ?>"  type ='text' value='<?php  if(isset($images->$cateoption['value'])) echo $images->$cateoption['value']; ?>'/></td>
+				</tr>
+				<?php
+			}
+		}
+	?>
+	</table>
+
+
+<script type='text/javascript'>
+require([
+    "jquery",
+    "jquery/ui"
+], function($){
+		$('#colorpickerField1').trigger('click');
+		$('#colorpickerField1, #colorpickerField2, #colorpickerField3,#colorpickerField4, #colorpickerField5, #colorpickerField6,#colorpickerField7, #colorpickerField8, #colorpickerField9').ColorPicker({
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			}
+		})
+		.bind('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+		});
+	});
+
+				
+</script>

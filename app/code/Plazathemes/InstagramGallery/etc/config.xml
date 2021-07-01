@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<instagramgallery>
+			<general>
+				<isactive>1</isactive>
+				<display_title>1</display_title>
+				<title>Instagram Feed</title>
+				<users_id>4286315919</users_id>
+				<access_token>4286315919.1677ed0.1f207b434bc3465c814eb2f8d56de92a</access_token>
+				<limit_image>20</limit_image>
+				<full_name>1</full_name>
+				<target>simple</target>
+				<type_popup>thumb</type_popup>
+			</general>
+		</instagramgallery>
+	</default>
+</config>

@@ -1,0 +1,111 @@
+<?php
+// @codingStandardsIgnoreFile
+$enable_module = $block->getConfig('enabled');
+if($enable_module!=1) return ;
+$title = $block->getConfig('title');
+$content = $block->getConfig('content');
+$width = $block->getConfig('width'); if(!$width) $width = 500;
+$height = $block->getConfig('height'); if(!$height) $height = 400;
+$speed = $block->getConfig('speed');
+$top = $block->getConfig('margin_top');
+$timeout = $block->getConfig('cookie_timeout');
+$mediaUrl = $block->getMediaUrl();
+$background = null;
+if($block->getConfig('background')) {
+	$background = $mediaUrl.'logo/'. $block->getConfig('background');
+}
+
+?>
+<div id="newsletter_pop_up" class="pt_newsletterpopup hidden-xs" style ='background-image:url(<?php echo $background;?>); width:<?php echo $width; ?>px ; height:<?php echo $height;?>px ;' >
+	<span class="b-close"><span><?php /* @escapeNotVerified */ echo __('X') ?></span></span>
+    <div class="title"><strong><?php echo $title; ?></strong></div>
+    <div class="content">
+        <form class="form subscribe"
+            novalidate
+            action="<?php /* @escapeNotVerified */ echo $block->getFormActionUrl() ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+            id="newsletter-validate-detail1">
+            <div class="field newsletter">
+                <label class="label" for="newsletter1"><span><?php echo $content; ?></span></label>
+                <div class="control">
+                    <input name="email" type="email" id="newsletter1"
+                                placeholder="<?php /* @escapeNotVerified */ echo __('Enter your email address') ?>"
+                                data-validate="{required:true, 'validate-email':true}"/>
+					<div class="actions">
+						<button class="action subscribe primary" title="<?php /* @escapeNotVerified */ echo __('Subscribe') ?>" type="submit">
+							<span><?php /* @escapeNotVerified */ echo __('Subscribe') ?></span>
+						</button>
+					</div>
+                </div>
+            </div>
+            
+			<div class="subscribe-bottom">
+				<input type="checkbox" id="newsletter_popup_dont_show_again1">
+				<label for="newsletter_popup_dont_show_again1"><?php echo __("Don't show this popup again")?></label>
+			</div>
+        </form>
+		
+    </div>
+</div>
+
+
+<script type ="text/javascript">
+require(["jquery"], function($){
+		function setCookie(name,value,days)
+		{
+		  if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			  }
+			  else var expires = "";
+			  document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function getCookie(name)
+		{
+			  var nameEQ = name + "=";
+			  var ca = document.cookie.split(';');
+			  for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			  }
+			  return null;
+		}
+			
+		// setCookie("shownewsletter",'1',1);
+		// alert(getCookie("shownewsletter"));
+
+		if(getCookie("shownewsletter") != 1){
+			$('#newsletter_pop_up').bPopup({
+				position: ['auto', <?php if($top != '') echo $top; else echo '120'; ?>],
+				speed: <?php if($speed != '') echo $speed; else echo '450' ?>,
+				transition: 'slideDown',
+				 onOpen: function() {
+					 
+					 	$('#newsletter_popup_dont_show_again1').bind('click', function(){ 
+						console.log('click check box');
+						console.log(getCookie("shownewsletter"));
+						if(getCookie("shownewsletter") != 1){   
+							setCookie("shownewsletter",'1',<?php if($timeout!='') echo $timeout;else echo '1' ?>)
+						}else{
+							setCookie("shownewsletter",'0',<?php if($timeout!='') echo $timeout;else echo '1' ?>)
+						}
+					}); 
+						
+				}, 
+			}); 	
+			
+			}
+			
+			$( "#newsletter_pop_up form" ).submit(function( event ) {
+					setCookie("shownewsletter",'1',<?php if($timeout!='') echo $timeout;else echo '1' ?>);
+			});
+			
+		
+			
+
+ });	 
+</script>

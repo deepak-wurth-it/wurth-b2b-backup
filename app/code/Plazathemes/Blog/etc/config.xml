@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mfblog>
+			<general>
+	            <enable_frontend>1</enable_frontend>
+				<title>From Our Blog</title>
+				<des>Accumsan vitae pede lacus ut ullamcorper sollicitudin quisque libero est.</des>
+	            <auto>0</auto>
+	            <speed>5000</speed>
+	            <pagination>500</pagination>
+	            <default>3</default>
+	            <desktop>3</desktop>
+	            <desktop_small>2</desktop_small>
+	            <tablet>2</tablet>
+	            <mobile>1</mobile>
+	            <rows>1</rows>
+	            <show_description>1</show_description>
+	            <show_next_back>0</show_next_back>
+	            <show_navigation_control>0</show_navigation_control>
+	            <customers_submit>1</customers_submit>
+	            <allow_guest>0</allow_guest>
+	            <approve_testimonials>0</approve_testimonials>
+	            <per_page>5</per_page>
+	            <footer_link>1</footer_link>
+	        </general>
+            <index_page>
+                <title>Blog</title>
+            </index_page>
+            <post_view>
+                <related_posts>
+                    <enabled>1</enabled>
+                    <number_of_posts>5</number_of_posts>
+                </related_posts>
+                <related_products>
+                    <enabled>1</enabled>
+                    <number_of_products>5</number_of_products>
+                </related_products>
+                <comments>
+                    <type>facebook</type>
+                    <number_of_comments>4</number_of_comments>
+                </comments>
+            </post_view>
+            <post_list>
+                <posts_per_page>10</posts_per_page>
+            </post_list>
+            <sidebar>
+                <search>
+                    <enabled>1</enabled>
+                    <sort_order>10</sort_order>
+                </search>
+                <categories>
+                    <enabled>1</enabled>
+                    <sort_order>20</sort_order>
+                </categories>
+                <recent_posts>
+                    <enabled>1</enabled>
+                    <posts_per_page>5</posts_per_page>
+                    <sort_order>30</sort_order>
+                </recent_posts>
+                <archive>
+                    <enabled>1</enabled>
+                    <sort_order>40</sort_order>
+                </archive>
+            </sidebar>
+            <rss_feed>
+                <title>Blog Rss</title>
+            </rss_feed>
+        </mfblog>
+    </default>
+</config>

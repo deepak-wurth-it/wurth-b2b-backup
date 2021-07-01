@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Brand Slider</title>
+    </head>
+    <body>
+        <referenceBlock name="menu">
+            <action method="setActive">
+                <argument name="itemId" xsi:type="string">Plazathemes_Brandslider::Brandslider</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="store_switcher">
+                <action method="setUseConfirm">
+                    <argument name="params" xsi:type="string">1</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+        <block class="Plazathemes\Brandslider\Block\Adminhtml\Brand\Edit" name="brand_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+        <block class="Plazathemes\Brandslider\Block\Adminhtml\Brand\Edit\Tabs" name="brand_edit_tabs">
+            <block class="Plazathemes\Brandslider\Block\Adminhtml\Brand\Edit\Tab\Brand" name="brand_edit_tab_brand"/>
+        	<action method="addTab">
+                <argument name="name" xsi:type="string">main_section</argument>
+                <argument name="block" xsi:type="string">brand_edit_tab_brand</argument>
+            </action>
+        </block>
+        </referenceContainer>
+    </body>
+</page>

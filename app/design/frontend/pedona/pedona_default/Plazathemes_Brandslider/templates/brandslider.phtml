@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+ 
+if($this->getConfig('enable_frontend')):
+$brands = $this->getBrandSlider();
+?>
+<div class="brandslider-container">
+		<div class="title">
+			<!--<h3 class="ma-title"><?php //echo __($this->getConfig('title')) ?></h3>-->
+			<?php
+			$auto = $this->getConfig('auto');
+			if($auto)
+				$auto = 'true';
+			else
+				$auto = 'false';
+			$qty = $this->getConfig('qty');
+			$rows = $this->getConfig('rows');
+			$show_description = $this->getConfig('show_description');
+			$show_next_back = $this->getConfig('show_next_back');
+			$pagination = $this->getConfig('pagination');
+			$speed = $this->getConfig('speed');
+			if($show_next_back)
+				$show_next_back = 'true';
+			else
+				$show_next_back = 'false';
+			$show_navigation_control = $this->getConfig('show_navigation_control');
+			if($show_navigation_control)
+				$show_navigation_control = 'true';
+			else
+				$show_navigation_control = 'false';
+			?>
+		</div>
+		<div class="pt-brand-container">
+			<?php $i = 0; ?>
+		   <ul class="ptowl"> 
+			<?php foreach ($brands as $brand): ?>	
+				<?php $url_image = $this->getMediaFolder().$brand['image']; ?>
+				<?php if($i < $qty): ?>
+					<?php if($i%$rows == 0): ?>
+						<li>
+					<?php endif; ?>
+						<div class="pt-brand">
+							<?php if($brand['link']): ?>
+								<a href="<?php echo $brand['link'] ?>" class="pt-brand-url">
+							<?php endif; ?>
+								<img alt="<?php echo $brand['image_alt'] ?>" src="<?php echo $url_image; ?>"/>
+							<?php if($brand['link']): ?>
+								</a>
+							<?php endif; ?>	
+							<p><?php if($brand['description'] && $show_description) echo $brand['description']; ?></p>
+						</div>
+					<?php if($i%$rows == ($rows - 1)): ?>
+						</li>  
+					<?php endif; ?>    
+				<?php endif; ?>
+				<?php $i++; ?> 
+			<?php endforeach; ?>
+				<?php if($i%$rows != $rows): ?>
+					 
+				<?php endif; ?>  
+			</ul>
+		</div>
+</div>
+<script type="text/javascript">
+require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+		$(document).ready(function(){
+			$(".pt-brand-container .ptowl").owlCarousel({
+				<?php
+					if(($auto== 'true') && $speed):
+				?>
+				autoPlay : <?php echo $speed; ?>,
+				<?php
+					endif;
+				?>
+				items : 5,
+				itemsDesktop : [1199,5],
+				itemsDesktopSmall : [992,4],
+				itemsTablet: [767,3],
+				itemsMobile : [479,2],
+				slideSpeed : <?php echo $pagination; ?>,
+				paginationSpeed : <?php echo $pagination; ?>,
+				rewindSpeed : <?php echo $pagination; ?>,
+				addClassActive: true,
+				navigation : <?php echo $show_next_back; ?>,
+				stopOnHover : true,
+				pagination : <?php echo $show_navigation_control; ?>,
+				scrollPerPage:true,
+			});
+		});
+	});
+</script>
+<?php endif; ?>

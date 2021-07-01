@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="plaza" translate="label" sortOrder="100">
+			<label>Plazathemes</label>
+		</tab>
+		<section id="instagramgallery" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+            <label>Instagram Gallery</label>
+            <tab>plaza</tab>
+			<resource>Plazathemes_InstagramGallery::config_instagramgallery</resource>
+			<group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Options</label>
+				<field id="isactive" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled Extensions</label>
+					<source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+				</field>
+				<field id="display_title" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Display Title</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Title</label>
+					<validate>required-entry</validate>
+				</field>
+				<field id="users_id" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Instagram Users ID</label>
+					<validate>required-entry integer validate-greater-than-zero</validate>
+				</field>
+				<field id="access_token" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Access Token</label>
+					<validate>required-entry </validate>
+				</field>
+				<field id="limit_image" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Limit Images</label>
+					<validate>required-entry integer validate-greater-than-zero</validate>
+				</field>
+				<field id="full_name" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Hide Full Name</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="target" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Target</label>
+					<source_model>Plazathemes\InstagramGallery\Model\Config\Source\Target</source_model>
+				</field>
+				<field id="type_popup" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Type Popup</label>
+					<source_model>Plazathemes\InstagramGallery\Model\Config\Source\TypePopup</source_model>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

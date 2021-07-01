@@ -1,0 +1,82 @@
+<?php
+	$data = $block->getConfig('status');
+	if(!$block->getConfig('status')) return ; 
+	$items = $block->getItemsActive();
+	$itemsActive = json_decode($items); 
+	$htmlLink = array();
+?>
+
+
+
+<?php if(count($itemsActive)): ?>
+			<?php  
+				$type_menu = $block->getConfig('type_menu');
+				if($type_menu==2) {
+			?>
+				
+		<div class="nav-container visible-lg visible-md">
+			<div class="container">
+				<div class="container-inner">
+			
+						<div id="pt_vmegamenu" class="pt_vmegamenu">
+						<?php
+						$showhome = 0;
+						$active = '';
+						if($showhome){
+							$id     = "_home";
+							$html[] = '<div id="pt_menu' . $id . '" class="pt_menu' . $active . '">';
+							$html[] = '<div class="parentMenu">';
+							$html[] = '<a href="#">';
+							$html[] = '<span>Home</span>';
+							$html[] = '</a>';
+							$html[] = '</div>';
+							$html[] = '</div>';
+							$html = implode("\n", $html);
+							echo $html;
+						}
+			
+							$item = 0;
+				
+							$id = null; 
+							$label = null; 
+							foreach($itemsActive as $itemActive) { 
+									$item++;
+									$item1 =  explode( '_', $itemActive ) ;
+									$label = $item1[0]; 
+									$id = $item1[1];
+									 switch ($label) {
+										case "cms":							
+												echo $block->CmsLink($id,'desktop');								
+											break;
+										case "block":			
+												echo $block->CustomLink($id,'desktop');
+											break;
+										case "category":									
+												echo $block->drawCustomMenuItem($id,0,false,$item);											
+											break;
+										}
+							
+					
+								?>
+								
+								
+								
+								<?php																						
+
+							}
+								?>						
+						<div class="clearBoth"></div>
+					</div>
+					
+					
+						
+					
+				</div>
+			</div>	
+		</div>
+		
+		<?php } ?>
+
+
+<?php endif ?>
+

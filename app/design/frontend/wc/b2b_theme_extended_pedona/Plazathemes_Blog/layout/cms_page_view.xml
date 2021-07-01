@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="blog">
+                <arguments>
+                    <argument name="label" xsi:type="string">Blog</argument>
+                    <argument name="path" xsi:type="string">blog</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+		<referenceBlock name="main.content">
+			<!-- <block class="Plazathemes\Blog\Block\Sidebar\Recent" name="blog.sidebar.recent" after="Testimo"  template="sidebar/slider.phtml" /> -->
+        </referenceBlock>
+    </body>
+</page>

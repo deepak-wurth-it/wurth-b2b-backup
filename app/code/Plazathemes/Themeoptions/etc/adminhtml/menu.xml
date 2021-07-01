@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+		<add id="Plazathemes_Themeoptions::themeoptions" title="Themeoptions" module="Plazathemes_Themeoptions" sortOrder="500"  parent="Plazathemes_Hozmegamenu::hozmegamenu" resource="Plazathemes_Hozmegamenu::hozmegamenu"/>
+        <add id="Plazathemes_Themeoptions::settings" title="Settings" module="Plazathemes_Themeoptions" sortOrder="10" parent="Plazathemes_Themeoptions::themeoptions" action="adminhtml/system_config/edit/section/plazathemes_design" resource="Plazathemes_Themeoptions::settings"/>
+    </menu>
+</config>

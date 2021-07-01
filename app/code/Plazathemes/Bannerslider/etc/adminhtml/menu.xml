@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Plazathemes_Bannerslider::bannerslider_bannerslider" title="Banner Slider" module="Plazathemes_Bannerslider" sortOrder="10"  parent="Plazathemes_Hozmegamenu::hozmegamenu" resource="Plazathemes_Hozmegamenu::hozmegamenu"/>
+        <add id="Plazathemes_Bannerslider::bannerslider_banners" title="Manage Banners" module="Plazathemes_Bannerslider" sortOrder="10" parent="Plazathemes_Bannerslider::bannerslider_bannerslider" action="bannerslideradmin/banner" resource="Plazathemes_Bannerslider::bannerslider_banners"/>
+        <add id="Plazathemes_Bannerslider::settings" title="Settings" module="Plazathemes_Bannerslider" sortOrder="20" parent="Plazathemes_Bannerslider::bannerslider_bannerslider" action="adminhtml/system_config/edit/section/bannerslider" resource="Plazathemes_Bannerslider::settings"/>
+    </menu>
+</config>
+
+  

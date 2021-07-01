@@ -1,0 +1,155 @@
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+
+.pt-banner-caption {
+	position: absolute;
+ 	left:0; 
+ 	top:0;	
+	width: 100%;
+	background: none;
+	color: #fff;
+	height: 100%;
+	font-size: 16px;
+	z-index: 999;
+}
+
+.pt-banner-content{ height: 100%; position: relative;}
+
+.pt-banner-content h1,
+.pt-banner-content h2,
+.pt-banner-content h3{ text-transform: uppercase; }
+.ptslider-1 h1{
+	-webkit-animation: bounceInDown 1500ms ease-in-out;
+    -moz-animation: bounceInDown 1500ms ease-in-out;
+    -ms-animation: bounceInDown 1500ms ease-in-out;
+    animation: bounceInDown 1500ms ease-in-out;
+}
+.ptslider-1 h2{
+	-webkit-animation: bounceInDown 1800ms ease-in-out;
+    -moz-animation: bounceInDown 1800ms ease-in-out;
+    -ms-animation: bounceInDown 1800ms ease-in-out;
+    animation: bounceInDown 1800ms ease-in-out;
+}
+.ptslider-1 h3{
+	-webkit-animation: bounceInDown 2200ms ease-in-out;
+    -moz-animation: bounceInDown 2200ms ease-in-out;
+    -ms-animation: bounceInDown 2200ms ease-in-out;
+    animation: bounceInDown 2200ms ease-in-out;
+}
+.ptslider-1 .banner-des{
+	-webkit-animation: bounceInDown 2000ms ease-in-out;
+    -moz-animation: bounceInDown 2000ms ease-in-out;
+    -ms-animation: bounceInDown 2000ms ease-in-out;
+    animation: bounceInDown 2000ms ease-in-out;
+}
+.ptslider-1 img.img1 {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	max-width: none;
+	-webkit-animation: fadeInRight 1500ms ease-in-out;
+    -moz-animation: fadeInRight 1500ms ease-in-out;
+    -ms-animation: fadeInRight 1500ms ease-in-out;
+    animation: fadeInRight 1500ms ease-in-out;
+}
+.ptslider-1 img.img2 {
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	max-width: none;
+	-webkit-animation: bounceInDown 1500ms ease-in-out;
+    -moz-animation: bounceInDown 1500ms ease-in-out;
+    -ms-animation: bounceInDown 1500ms ease-in-out;
+    animation: bounceInDown 1500ms ease-in-out;
+}
+.ptslider-2 h1{
+	-webkit-animation: rotateInDownLeft 1500ms ease-in-out;
+    -moz-animation: rotateInDownLeft 1500ms ease-in-out;
+    -ms-animation: rotateInDownLeft 1500ms ease-in-out;
+    animation: rotateInDownLeft 1500ms ease-in-out;
+}
+.ptslider-2 h2{
+	-webkit-animation: rotateInDownLeft 1800ms ease-in-out;
+    -moz-animation: rotateInDownLeft 1800ms ease-in-out;
+    -ms-animation: rotateInDownLeft 1800ms ease-in-out;
+    animation: rotateInDownLeft 1800ms ease-in-out;
+}
+.ptslider-2 h3{
+	-webkit-animation: rotateInDownLeft 2200ms ease-in-out;
+    -moz-animation: rotateInDownLeft 2200ms ease-in-out;
+    -ms-animation: rotateInDownLeft 2200ms ease-in-out;
+    animation: rotateInDownLeft 2200ms ease-in-out;
+}
+.ptslider-2 .banner-des{
+	-webkit-animation: rotateInDownLeft 2000ms ease-in-out;
+    -moz-animation: rotateInDownLeft 2000ms ease-in-out;
+    -ms-animation: rotateInDownLeft 2000ms ease-in-out;
+    animation: rotateInDownLeft 2000ms ease-in-out;
+}
+.ptslider-2 img.img1 {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	max-width: none;
+	-webkit-animation: bounceInDown 1500ms ease-in-out;
+    -moz-animation: bounceInDown 1500ms ease-in-out;
+    -ms-animation: bounceInDown 1500ms ease-in-out;
+    animation: bounceInDown 1500ms ease-in-out;
+}
+.ptslider-2 img.img2 {
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	max-width: none;
+	-webkit-animation: fadeInRight 1500ms ease-in-out;
+    -moz-animation: fadeInRight 1500ms ease-in-out;
+    -ms-animation: fadeInRight 1500ms ease-in-out;
+    animation: fadeInRight 1500ms ease-in-out;
+}
+.ptslider-3 h1{
+	-webkit-animation: fadeInRight 1500ms ease-in-out;
+    -moz-animation: fadeInRight 1500ms ease-in-out;
+    -ms-animation: fadeInRight 1500ms ease-in-out;
+    animation: fadeInRight 1500ms ease-in-out;
+}
+.ptslider-3 h2{
+	-webkit-animation: fadeInRight 1800ms ease-in-out;
+    -moz-animation: fadeInRight 1800ms ease-in-out;
+    -ms-animation: fadeInRight 1800ms ease-in-out;
+    animation: fadeInRight 1800ms ease-in-out;
+}
+.ptslider-3 h3{
+	-webkit-animation: fadeInRight 2200ms ease-in-out;
+    -moz-animation: fadeInRight 2200ms ease-in-out;
+    -ms-animation: fadeInRight 2200ms ease-in-out;
+    animation: fadeInRight 2200ms ease-in-out;
+}
+.ptslider-3 .banner-des{
+	-webkit-animation: fadeInRight 2000ms ease-in-out;
+    -moz-animation: fadeInRight 2000ms ease-in-out;
+    -ms-animation: fadeInRight 2000ms ease-in-out;
+    animation: fadeInRight 2000ms ease-in-out;
+}
+.ptslider-3 img.img1 {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	max-width: none;
+	-webkit-animation: rotateIn 1500ms ease-in-out;
+    -moz-animation: rotateIn 1500ms ease-in-out;
+    -ms-animation: rotateIn 1500ms ease-in-out;
+    animation: rotateIn 1500ms ease-in-out;
+}
+.ptslider-3 img.img2 {
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	max-width: none;
+	-webkit-animation: bounceIn 1500ms ease-in-out;
+    -moz-animation: bounceIn 1500ms ease-in-out;
+    -ms-animation: bounceIn 1500ms ease-in-out;
+    animation: bounceIn 1500ms ease-in-out;
+}

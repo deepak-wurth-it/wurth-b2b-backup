@@ -1,0 +1,74 @@
+<?php
+/**
+* Copyright © 2016 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+
+$helper = $this->_helper();
+
+$users_id = $this->_getConfig('users_id');
+$access_token = $this->_getConfig('access_token');
+$limit_image = $this->_getConfig('limit_image');
+$full_name = $this->_getConfig('full_name');
+$target = $this->_getConfig('target');
+$type_popup = $this->_getConfig('type_popup');
+$j = 0;
+$class_instagram = 'instagram';
+$json = @file_get_contents('https://api.instagram.com/v1/users/'.$users_id.'/media/recent?access_token='.$access_token.'&count='.$limit_image);
+$json_output = json_decode($json, true);
+$count  = count($json_output['data']);
+?>
+<div class="instagram-items">
+    <?php if(!empty($count)) { ?>
+        <div class="instagram-items-inner row <?php echo $class_instagram;?>">
+            <?php for($i=0; $i < $count ; $i++) {
+                $j++; ?>
+                <div class="instagram-item col-md-3 col-xs-3">
+					<div class="instagram-item">
+						<div class="instagram_users">
+							<div class="img_users">
+								<a title="<?php echo $json_output['data'][$i]['user']['full_name'] ;?>" data-fancybox-group="next" data-target="<?php echo $target ;?>" data-href="<?php echo $json_output['data'][$i]['link']?>" class="instagram_gallery_image gallery_image" rel="" href="<?php echo $json_output['data'][$i]['images']['low_resolution']['url'] ?>?taken-by=<?php echo $json_output['data'][$i]['user']['username'] ?>">
+									<img class="image_users" src="<?php echo $json_output['data'][$i]['images']['low_resolution']['url'] ?>" title="<?php echo $json_output['data'][$i]['user']['full_name'] ;?>" alt="<?php echo $json_output['data'][$i]['user']['full_name'] ;?>" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+            <?php } ?>
+        </div>
+	<?php } else { ?>
+		<div class="no-images"><?php echo "No Images or  Users ID and Access Token incorrect" ?></div>
+	<?php } ?>
+</div>
+<?php if(!empty($count)):
+	$link_insta = 'https://www.instagram.com/'.$json_output['data'][0]['user']['username']; ?>
+	<a href="<?php echo $link_insta; ?>"><?php echo __('Follow Us') ?></a>
+<?php endif; ?>
+<script type="text/javascript">
+	require(["jquery"], function($){
+		
+		$(".gallery_image").fancybox({
+			prevEffect	 : 'none',
+			nextEffect	 : 'none',
+			<?php if($type_popup == 'button') { ?>
+			closeBtn		: false,
+			<?php } ?>
+			helpers: {
+				<?php if($type_popup == 'thumb'){ ?>
+					thumbs	: {
+						width	: 50,
+						height	: 50
+					},
+				<?php } ?>
+				<?php if($type_popup == 'button'){ ?>
+					buttons	: {},
+				<?php } ?>
+				<?php if($full_name) { ?>
+				title : false
+				<?php } ?>
+			}
+			
+		});
+	});
+</script>

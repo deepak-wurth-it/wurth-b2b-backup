@@ -1,0 +1,217 @@
+<?php 
+	$enable = $block->getConfig('enabled');
+	if($enable < 1) return ; 
+	$des = $block->getConfig('des');
+	$items = $block->getConfig('items');
+	$speed = $block->getConfig('speed');
+	$qty = $block->getConfig('qty');
+	$showCart = $block->getConfig('addtocart');
+	$showWishlist = $block->getConfig('wishlist');
+	$showCompare = $block->getConfig('compare');
+	$show_navigation = $block->getConfig('navigation');
+	$show_pagination = $block->getConfig('pagination');
+	$auto = $block->getConfig('auto');
+	$rows = $block->getRow_show();
+	$Items_default = $block->getItems_default();
+	$Items_desktop = $block->getItems_desktop();
+	$Items_desktop_small = $block->getItems_desktop_small();
+	$Items_tablet = $block->getItems_tablet();
+	$Items_mobile = $block->getItems_mobile();
+	$title = $block->getTitle(); 
+	$identify = trim($block->getIdentify()); 
+	$categoryIds = $block->getCategoryIds();
+	$categoryIds = explode(',', $categoryIds);
+
+	$productsOnRow = 2 ;
+	if(!$productsOnRow) $productsOnRow = 3;
+
+?>
+
+<div class="categorytab-container product-tab">
+	<div class="tab-title">
+		<div class="ma-title">
+			<h3><span><?php echo '<span>'.$title.'</span>'; ?></span></h3>
+			<p class="des"><?php echo $des;?> </p>
+		</div>
+
+		<ul class="tabs tabs<?php echo '-'.$identify;?>"> 
+		   <?php 
+			$k = 0;
+			foreach($categoryIds as $cate_id) {
+				$cate_model =  $block->getCategory($cate_id);
+				$cateName = $cate_model->load($cate_id)->getName();
+				//echo "<pre>"; print_r($cate_model->getData()); die; 
+				if($cateName) {
+		   ?>
+					<li class="<?php if($k==0){ echo "active"; }?>" rel="tab<?php echo $cate_id.'-'.$identify;?>"><?php  echo $cateName; ?></li>
+			<?php }  $k++; } ?>
+		</ul>
+	</div>
+     <?php 
+		
+		$imageBlock =  $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+		$image = 'new_products_content_widget_grid';
+		$type = 'widget-new-grid';
+		$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+		$showWishlist = true;
+		$showCompare = true;
+		$showCart = true;
+	?>
+		<div class="tab_container"> 
+			<?php foreach($categoryIds as $cate_id) { ?>
+			<div id="tab<?php echo $cate_id.'-'.$identify;?>" class="tab_content_<?php echo $identify; ?>"> 
+				<?php
+					$cate = $cate_model->load($cate_id);
+					$image_cate = $block->getCategorytaImage($cate_id);
+				?>
+				<div class="content-products">		
+					<div class="category_tab_slider<?php echo '_'.$identify;?> owl-carousel">
+						<?php 
+						$newItems =  $block -> getProductCate($cate_id)->getItems(); 
+						$i=0;
+						foreach($newItems as $_item) { 
+							$productImage = $block->getImage($_item, $image);
+						?>
+						<?php if($i++%$rows==0) { ?> <div class="products-grid"> <?php } ?>
+							<div class="item-inner">
+									<div class="product-item-info">
+										<?php
+										$newFromDate = $_item->getNewsFromDate();
+										$newToDate = $_item->getNewsToDate();                
+										$now = date("Y-m-d H:m:s");
+										// Get the Special Price
+										$specialprice = $_item->getSpecialPrice(); 
+										// Get the Special Price FROM date
+										$specialPriceFromDate = $_item->getSpecialFromDate();
+										// Get the Special Price TO date
+										$specialPriceToDate = $_item->getSpecialToDate();
+										// Get Current date
+										if ($specialprice&&(($specialPriceFromDate <= $now && $specialPriceToDate >= $now) || (($specialPriceFromDate <= $now && $specialPriceFromDate != NULL) && $specialPriceToDate  == ''))){
+										$_savePercent = 100 - round(($_item->getSpecialPrice() / $_item->getPrice())*100);
+										echo "<span class='hot-sale'>-".$_savePercent."%</span>";
+										}else{
+										if((($newFromDate <= $now && $newToDate >= $now) || (($newFromDate <= $now && $newFromDate != NULL) && $newToDate == NULL))) {
+										?>
+										<div class="label-pro-new"><span><?php echo __('new') ?></span></div>
+										<?php
+										}
+										}
+										?>
+										<div class=" product-item-images">
+											<a href="<?php echo $block->getProductUrl($_item) ?>" class="product-item-photo">
+												<?php echo $productImage->toHtml() ?>
+											</a>
+											<div class="product-item-actions">
+												<div class="add-to-cart-primary">
+													<?php if ($showCart): ?>
+
+														<?php if ($_item->isSaleable()): ?>
+															<?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+																<button class="action tocart primary"
+																		data-mage-init='{"redirectUrl":{"url":"<?php echo $block->getAddToCartUrl($_item) ?>"}}'
+																		type="button" title="<?php echo __('Add to Cart') ?>">
+																	<span><?php echo __('Add to Cart') ?></span>
+																</button>
+															<?php else: ?>
+																<?php
+																	$postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+																	$postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+																?>
+																<button class="action tocart primary"
+																		data-post='<?php echo $postData; ?>'
+																		type="button" title="<?php echo __('Add to Cart') ?>">
+																	<span><?php echo __('Add to Cart') ?></span>
+																</button>
+															<?php endif; ?>
+														<?php else: ?>
+															<?php if ($_item->getIsSalable()): ?>
+																<div class="stock available"><span><?php echo __('In stock') ?></span></div>
+															<?php else: ?>
+																<div class="stock unavailable"><span><?php echo __('Out of stock') ?></span></div>
+															<?php endif; ?>
+														<?php endif; ?>
+
+													<?php endif; ?>
+												</div>
+												<div class="add-to-links-secondary">
+													<?php if ($showWishlist || $showCompare): ?>
+
+														<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+															<a href="#"
+															   data-post='<?php echo $block->getAddToWishlistParams($_item); ?>'
+															   class="action wishlist" data-action="add-to-wishlist"
+															   title="<?php echo __('Wishlist') ?>">
+																<span><?php echo __('Wishlist') ?></span>
+															</a>
+														<?php endif; ?>
+														<?php if ($block->getAddToCompareUrl() && $showCompare): ?>
+															<?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+															<a href="#" class="action compare"
+															   data-post='<?php echo $compareHelper->getPostDataParams($_item);?>'
+															   title="<?php echo __('Compare') ?>">
+																<span><?php echo __('Compare') ?></span>
+															</a>
+														<?php endif; ?>
+
+													<?php endif; ?>
+												</div>													
+											</div>	
+										</div>
+										<div class="product-item-details">
+											<?php echo $block->getReviewsSummaryHtml($_item, $templateType,true); ?>
+											 <strong class="product name product-item-name">
+												<a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+												   href="<?php echo $block->getProductUrl($_item) ?>"
+												   class="product-item-link">
+													<?php echo $block->escapeHtml($_item->getName()) ?>
+												</a>
+											</strong>
+											<?php echo $block->getProductPrice($_item); ?>
+										</div>
+									</div>
+							</div>
+								<?php if($i%$rows==0 || $i == count($newItems)) { ?> </div> <?php }?>
+						<?php 
+						}
+						?>
+					</div>
+				</div>	
+			 </div>
+			 <?php }?> 
+		</div>
+</div>
+<script type="text/javascript">
+require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+
+	$(".tab_content_<?php echo $identify; ?>").hide();
+	$(".tab_content_<?php echo $identify; ?>:first").show(); 
+
+	$("ul.tabs<?php echo '-'.$identify;?> li").click(function() {
+		$("ul.tabs<?php echo '-'.$identify;?> li").removeClass("active");
+		$(this).addClass("active");
+		$(".tab_content_<?php echo $identify; ?>").hide();
+		var activeTab = $(this).attr("rel"); 
+		$("#"+activeTab).fadeIn(); 
+	});
+	
+	 $(".category_tab_slider<?php echo '_'.$identify;?>").owlCarousel({
+	    		
+		autoPlay : <?php if($auto) echo 'true'; else echo 'false'; ?>,
+		slideSpeed : <?php if($speed) echo $speed; else echo '500'; ?>,
+		stopOnHover : true,
+		navigation : true,
+		pagination : false,
+		items : <?php if($Items_default) echo $Items_default; else echo '5' ?>,
+		itemsDesktop : [1199,<?php if($Items_desktop) echo $Items_desktop; else echo '5' ?>],
+		itemsDesktopSmall : [992,<?php if($Items_desktop_small) echo $Items_desktop_small; else echo '5' ?>],
+		itemsTablet: [767,<?php if($Items_tablet) echo $Items_tablet; else echo '5' ?>],
+		itemsMobile : [479,<?php if($Items_mobile) echo $Items_mobile; else echo '5' ?>]
+	});
+	
+});
+ 
+
+</script>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etcpage_configuration.xsd">
+    <head>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+    </head>
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Plazathemes\Blog\Block\Adminhtml\Category\Edit" name="blog.category.edit" />
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Plazathemes\Blog\Block\Adminhtml\Category\Edit\Tabs" name="blog.category.edit.tabs">
+                <block class="Plazathemes\Blog\Block\Adminhtml\Category\Edit\Tab\Main" name="blog.category.edit.tab.main"/>
+                <block class="Plazathemes\Blog\Block\Adminhtml\Category\Edit\Tab\Meta" name="blog.category.edit.tab.meta"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">blog.category.edit.tab.main</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">meta_section</argument>
+                    <argument name="block" xsi:type="string">blog.category.edit.tab.meta</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="plaza" translate="label" sortOrder="50">
+            <label>Plazathemes</label>
+        </tab>
+        <section id="plazathemes_design" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Plazathemes Themeoptions</label>
+            <tab>plaza</tab>
+            <resource>Plazathemes_Themeoptions::config</resource>
+            <group id="general" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+				<field id="custom" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="bg_color" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="title_color" translate="label comment" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title Font Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="text_color" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Font Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="link_color" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Links Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="link_hover_color" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Links Hover Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="price_color" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="price_color" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="old_price_color" translate="label comment" type="text" sortOrder="52" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Old Price Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="border_color" translate="label comment" type="text" sortOrder="53" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Border Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="product_name_color" translate="label comment" type="text" sortOrder="53" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Name Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="new_label_color" translate="label comment" type="text" sortOrder="54" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New Label Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="sale_label_color" translate="label comment" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sale Label Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+            </group>
+			<group id="header" translate="label" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Header</label>
+				<field id="custom" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="bg_color" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				
+				<field id="link_color" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Links Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				
+            </group>
+			
+			<group id="footer_top" translate="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Footer Top</label>
+				<field id="custom" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="bg_color" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="title_color" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title Font Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="text_color" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Font Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="link_color" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Links Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+            </group>
+			
+			<group id="footer_bottom" translate="label" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Footer Bottom</label>
+				<field id="custom" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="bg_color" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="text_color" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Font Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				<field id="link_color" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Links Color</label>
+                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
+                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
+					<depends>
+                        <field id="custom">1</field>
+                    </depends>
+                </field>
+				
+            </group>
+        </section>
+    </system>
+</config>

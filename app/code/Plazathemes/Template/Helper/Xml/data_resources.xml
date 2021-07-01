@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<pedona>
+	<resource>
+		<title>Ma pedona 1 - Responsive magento theme</title>
+		<identifier>ma-pedona-1-responsive-magento-theme</identifier>
+		<page_layout>1column</page_layout>
+		<content><![CDATA[
+			<div class="page-content"><em style="display: none;">page-content</em></div>
+		]]></content>
+		<is_active>1</is_active>
+	</resource>
+	
+	 <resource>
+		<title>Ma pedona 2 - Responsive magento theme</title>
+		<identifier>ma-pedona-2-responsive-magento-theme</identifier>
+		<page_layout>1column</page_layout>
+		<content><![CDATA[
+			<div class="page-content"><em style="display: none;">page-content</em></div>
+		]]></content>
+		<is_active>1</is_active>
+	</resource>
+	
+	 <resource>
+		<title>Ma pedona 3 - Responsive magento theme</title>
+		<identifier>ma-pedona-3-responsive-magento-theme</identifier>
+		<page_layout>1column</page_layout>
+		<content><![CDATA[
+			<div class="page-content"><em style="display: none;">page-content</em></div>
+		]]></content>
+		<is_active>1</is_active>
+	</resource>
+	
+	<resource>
+		<title>Ma pedona 4 - Responsive magento theme</title>
+		<identifier>ma-pedona-4-responsive-magento-theme</identifier>
+		<page_layout>1column</page_layout>
+		<content><![CDATA[
+			<div class="page-content"><em style="display: none;">page-content</em></div>
+		]]></content>
+		<is_active>1</is_active>
+	</resource>
+	
+	<resource>
+		<title>Ma pedona 5 - Responsive magento theme</title>
+		<identifier>ma-pedona-5-responsive-magento-theme</identifier>
+		<page_layout>1column</page_layout>
+		<content><![CDATA[
+			<div class="page-content"><em style="display: none;">page-content</em></div>
+		]]></content>
+		<is_active>1</is_active>
+	</resource>
+		
+	<resource>
+		<title>About Us</title>
+		<identifier>about-magento-demo-store</identifier>
+		<page_layout>1column</page_layout>
+		<content><![CDATA[
+			<div class="page-title">
+			<h1>About Magento Store</h1>
+			</div>
+			<div class="col3-set">
+			<div class="col-1">
+			<p style="line-height: 1.2em;"><small>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi luctus. Duis lobortis. Nulla nec velit. Mauris pulvinar erat non massa. Suspendisse tortor turpis, porta nec, tempus vitae, iaculis semper, pede.</small></p>
+			<p style="color: #888; font: 1.2em/1.4em georgia, serif;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi luctus. Duis lobortis. Nulla nec velit. Mauris pulvinar erat non massa. Suspendisse tortor turpis, porta nec, tempus vitae, iaculis semper, pede. Cras vel libero id lectus rhoncus porta.</p>
+			</div>
+			<div class="col-2">
+			<p><strong style="color: #de036f;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi luctus. Duis lobortis. Nulla nec velit.</strong></p>
+			<p>Vivamus tortor nisl, lobortis in, faucibus et, tempus at, dui. Nunc risus. Proin scelerisque augue. Nam ullamcorper. Phasellus id massa. Pellentesque nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc augue. Aenean sed justo non leo vehicula laoreet. Praesent ipsum libero, auctor ac, tempus nec, tempor nec, justo.</p>
+			<p>Maecenas ullamcorper, odio vel tempus egestas, dui orci faucibus orci, sit amet aliquet lectus dolor et quam. Pellentesque consequat luctus purus. Nunc et risus. Etiam a nibh. Phasellus dignissim metus eget nisi. Vestibulum sapien dolor, aliquet nec, porta ac, malesuada a, libero. Praesent feugiat purus eget est. Nulla facilisi. Vestibulum tincidunt sapien eu velit. Mauris purus. Maecenas eget mauris eu orci accumsan feugiat. Pellentesque eget velit. Nunc tincidunt.</p>
+			</div>
+			<div class="col-3">
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi luctus. Duis lobortis. Nulla nec velit. Mauris pulvinar erat non massa. Suspendisse tortor turpis, porta nec, tempus vitae, iaculis semper, pede. Cras vel libero id lectus rhoncus porta. Suspendisse convallis felis ac enim. Vivamus tortor nisl, lobortis in, faucibus et, tempus at, dui. Nunc risus. Proin scelerisque augue. Nam ullamcorper</p>
+			<p><strong style="color: #de036f;">Maecenas ullamcorper, odio vel tempus egestas, dui orci faucibus orci, sit amet aliquet lectus dolor et quam. Pellentesque consequat luctus purus.</strong></p>
+			<p>Nunc et risus. Etiam a nibh. Phasellus dignissim metus eget nisi.</p>
+			<div class="divider">&nbsp;</div>
+			<p>To all of you, from all of us at Magento Store - Thank you and Happy eCommerce!</p>
+			<p style="line-height: 1.2em;"><strong style="font: italic 2em Georgia, serif;">John Doe</strong><br /> <small>Some important guy</small></p>
+			</div>
+			</div>
+		]]></content>
+		<is_active>1</is_active>
+	</resource>
+
+	<resource>
+		<title>404 Not Found</title>
+		<identifier>no-route</identifier>
+		<content_heading> Whoops, our bad... </content_heading>
+		<page_layout>1column</page_layout>
+		<content><![CDATA[
+				<dl><dt>The page you requested was not found, and we have a fine guess why.</dt><dd>
+				<ul class="disc">
+				<li>If you typed the URL directly, please make sure the spelling is correct.</li>
+				<li>If you clicked on a link to get here, the link is outdated.</li>
+				</ul>
+				</dd></dl><dl><dt>What can you do?</dt><dd>Have no fear, help is near! There are many ways you can get back on track with Magento Store.</dd><dd>
+				<ul class="disc">
+				<li><a onclick="history.go(-1); return false;" href="#">Go back</a> to the previous page.</li>
+				<li>Use the search bar at the top of the page to search for your products.</li>
+				<li>Follow these links to get you back on track!<br /><a href="{{store url=""}}">Store Home</a> <span class="separator">|</span> <a href="{{store url="customer/account"}}">My Account</a></li>
+				</ul>
+				</dd></dl>
+		]]></content>
+		<is_active>1</is_active>
+	</resource>
+</pedona>

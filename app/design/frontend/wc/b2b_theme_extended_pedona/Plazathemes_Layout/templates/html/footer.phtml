@@ -1,0 +1,43 @@
+<div class="footer-container">	
+	<div class="footer-top">
+		<div class="container-inner">
+			<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer_static')->toHtml();?>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container-inner">
+			<div class="container-size">
+				<div class="row">
+					<div class="col-md-6">
+						<?php echo $this->getChildHtml('copyright')?>
+					</div>
+					<div class="col-md-6">
+						<div class="link-payment">
+							<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('link_payment')->toHtml();?>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div id="back_top">
+			<a href="#back-top"><span>>top</span></a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+			
+	require(["jquery"], function($){
+
+	   $(window).scroll(function() {
+			if($(this).scrollTop() > 300) {
+				$('#back_top').fadeIn();   
+			} else {
+				$('#back_top').fadeOut();
+			}
+		});
+		   $('#back_top').click(function() {
+			$('body,html').animate({scrollTop:0},500);
+		}); 
+	   
+	});
+</script>

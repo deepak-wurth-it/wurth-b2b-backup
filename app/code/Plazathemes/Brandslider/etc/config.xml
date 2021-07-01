@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+	    <brandslider>
+	        <general>
+	            <title>Our Brands</title>
+	            <enable_frontend>1</enable_frontend>
+	            <auto>0</auto>
+	            <speed>5000</speed>
+	            <pagination>500</pagination>
+	            <qty>12</qty>
+	            <default>5</default>
+	            <desktop>5</desktop>
+	            <desktop_small>4</desktop_small>
+	            <tablet>3</tablet>
+	            <mobile>2</mobile>
+	            <rows>1</rows>
+	            <show_description>0</show_description>
+	            <show_next_back>0</show_next_back>
+	            <show_navigation_control>0</show_navigation_control>
+	        </general>
+	    </brandslider>
+	</default>
+</config>

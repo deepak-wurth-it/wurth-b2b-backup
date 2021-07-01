@@ -1,0 +1,20 @@
+{
+    "name": "Embitel/module-sap",
+    "description": "Embitel Sap Module",
+    "require": {
+      "php": "~7.0.13|~7.1.0",
+      "magento/module-sales":"100.2.*"
+    },
+    "type": "magento2-module",
+    "version": "0.0.1",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Embitel\\Sap\\": ""
+        }
+    }
+}

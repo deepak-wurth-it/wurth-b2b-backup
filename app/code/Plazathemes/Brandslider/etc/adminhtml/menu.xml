@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Plazathemes_Brandslider::brandslider_brandslider" title="Brand Slider" module="Plazathemes_Brandslider" sortOrder="10" parent="Plazathemes_Hozmegamenu::hozmegamenu" resource="Plazathemes_Hozmegamenu::hozmegamenu"/>
+        <add id="Plazathemes_Brandslider::brandslider_brands" title="Manage Brands" module="Plazathemes_Brandslider" sortOrder="10" parent="Plazathemes_Brandslider::brandslider_brandslider" action="brandslideradmin/brand" resource="Plazathemes_Brandslider::brandslider_brands"/>
+        <add id="Plazathemes_Brandslider::settings" title="Settings" module="Plazathemes_Brandslider" sortOrder="20" parent="Plazathemes_Brandslider::brandslider_brandslider" action="adminhtml/system_config/edit/section/brandslider" resource="Plazathemes_Brandslider::settings"/>
+    </menu>
+</config>

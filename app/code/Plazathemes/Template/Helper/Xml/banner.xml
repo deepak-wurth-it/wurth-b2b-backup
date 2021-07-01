@@ -1,0 +1,40 @@
+<?xml version="1.0" standalone="yes"?>  
+<bannerslider>
+<records>
+	<record> 
+		<title1></title1>
+		<title2></title2>
+		<click_url></click_url> 
+		<image><![CDATA[Plazathemes/bannerslider/images/b/a/banner7-11_1.jpg]]></image>
+		<image_alt><![CDATA[Plazathemes/bannerslider/images/b/a/banner7-11_1.jpg]]></image_alt>
+		<description></description>
+		<order>1</order>
+		<store_id>1</store_id> 
+		<status>1</status> 
+	</record>
+	
+	<record> 
+		<title1></title1>
+		<title2></title2>
+		<click_url></click_url> 
+		<image><![CDATA[Plazathemes/bannerslider/images/b/a/banner7-12_1.jpg]]></image>
+		<image_alt><![CDATA[Plazathemes/bannerslider/images/b/a/banner7-12_1.jpg]]></image_alt>
+		<description></description>
+		<order>1</order>
+		<store_id>1</store_id> 
+		<status>1</status> 
+	</record>
+	
+	<record> 
+		<title1></title1>
+		<title2></title2>
+		<click_url></click_url> 
+		<image><![CDATA[Plazathemes/bannerslider/images/b/a/banner7-13_1.jpg]]></image>
+		<image_alt><![CDATA[Plazathemes/bannerslider/images/b/a/banner7-13_1.jpg]]></image_alt>
+		<description></description>
+		<order>1</order>
+		<store_id>1</store_id> 
+		<status>1</status> 
+	</record>
+</records>
+</bannerslider>

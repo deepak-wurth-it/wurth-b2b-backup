@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+?>
+<?php
+/**
+ * Blog available for import template
+ *
+ * @var $block \Magento\Backend\Block\Template
+ */
+?>
+
+<table class="available-imports">
+	<tr>
+		<td>
+			<div class="itm-hld" onclick="window.location='<?php echo $block->getUrl('blog/import/wordpress') ?>'">
+				<img src="<?php echo $this->getViewFileUrl('Plazathemes_Blog::images/wordpress.png') ?>" />
+				<span class="lable">Import from WordPress (beta)</span>
+			</div>
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	<tr>
+</table>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="formkey"/>
+    <head>
+    	<title>Banner Manager</title>
+    </head>
+    <body>
+    	<referenceBlock name="menu">
+    	    <action method="setActive">
+    	        <argument name="itemId" xsi:type="string">Plazathemes_Bannerslider::bannerslider</argument>
+    	    </action>
+    	</referenceBlock>
+    	<referenceBlock name="page.title">
+    	    <action method="setPageTitle">
+    	        <argument name="pageTitle" xsi:type="string">Banner Manager</argument>
+    	    </action>
+    	</referenceBlock>
+    	<referenceContainer name="page.main.actions">
+    	    <block class="Magento\Backend\Block\Store\Switcher" name="store_switcher">
+    	        <action method="setUseConfirm">
+    	            <argument name="params" xsi:type="string">0</argument>
+    	        </action>
+    	    </block>
+    	</referenceContainer>
+        <referenceContainer name="content">
+            <block class="Plazathemes\Bannerslider\Block\Adminhtml\Banner" name="admin.block.banner.grid.container"/>
+        </referenceContainer>
+    </body>
+</page>

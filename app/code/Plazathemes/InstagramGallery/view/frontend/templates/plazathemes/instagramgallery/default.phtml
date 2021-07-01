@@ -1,0 +1,30 @@
+<?php
+/**
+* Copyright © 2016 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+if ($this->_getConfig('isactive')) {
+$helper = $this->_helper();
+
+$tag_id = 'plazathemes_instagram_gallery';
+?>
+<?php if ($this->_getConfig('display_title', 1)) { ?>
+    <?php if ($this->_getConfig('title')) { ?>
+        <div class="title_text">
+            <?php echo $this->_getConfig('title', 'Plazathemes Instagram Gallery'); ?>
+        </div>
+    <?php } ?>
+<?php } ?>
+
+
+<div id="<?php echo $tag_id; ?>" class="plazathemes-instagram-gallery">
+    <div class="instagram-wrap">
+        <!-- End Tabs-->
+        <div class="instagram-items-container" ><!--Begin Items-->
+            <?php include('default_items.phtml'); ?>
+        </div>
+        <!--End Items-->
+    </div>
+</div><!-- End Plazathemes-instagram-products -->
+<?php } ?>

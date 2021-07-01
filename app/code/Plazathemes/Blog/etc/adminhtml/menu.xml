@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Plazathemes_Blog::elements" title="Blogs" module="Plazathemes_Blog" parent="Plazathemes_Hozmegamenu::hozmegamenu" sortOrder="10"  resource="Plazathemes_Hozmegamenu::hozmegamenu"/>
+
+        <add id="Plazathemes_Blog::post" title="Posts" module="Plazathemes_Blog" parent="Plazathemes_Blog::elements" sortOrder="10" action="blog/post/" resource="Plazathemes_Blog::post"/>
+
+        <add id="Plazathemes_Blog::category" title="Categories" module="Plazathemes_Blog" parent="Plazathemes_Blog::elements" sortOrder="20" action="blog/category/" resource="Plazathemes_Blog::category"/>
+
+        <!-- <add id="Plazathemes_Blog::import" title="Import" module="Plazathemes_Blog" parent="Plazathemes_Blog::elements" sortOrder="30" action="blog/import/" resource="Plazathemes_Blog::import"/> -->
+    </menu>
+</config>

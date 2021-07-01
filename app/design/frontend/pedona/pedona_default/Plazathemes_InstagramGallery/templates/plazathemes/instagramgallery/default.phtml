@@ -1,0 +1,28 @@
+<?php
+/**
+* Copyright © 2016 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+if ($this->_getConfig('isactive')) {
+$helper = $this->_helper();
+
+$tag_id = 'plazathemes_instagram_gallery';
+?>
+<?php if ($this->_getConfig('display_title', 1)) { ?>
+    <?php if ($this->_getConfig('title')) { ?>
+        <div class="ma-title ins-title">
+            <h3><span><?php echo $this->_getConfig('title', 'Follow us On Instagram'); ?></span></h3>
+			<p class="des"><?php echo __('Displays an Instagram feed of your photos from your Instagram account on your website.'); ?></p>
+        </div>
+    <?php } ?>
+<?php } ?>
+
+<div id="<?php echo $tag_id; ?>" class="plazathemes-instagram-gallery">
+    <div class="instagram-wrap">
+        <div class="instagram-items-container" >
+			<?php include('default_items.phtml'); ?>
+        </div>
+    </div>
+</div>
+<?php } ?>

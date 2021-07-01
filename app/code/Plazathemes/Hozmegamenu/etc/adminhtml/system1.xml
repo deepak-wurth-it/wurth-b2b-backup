@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/system_file.xsd">
+    <system>
+        <tab id="plaza" translate="label" sortOrder="100">
+            <label>Plazathemes </label>
+        </tab>
+		 <section id="hozmegamenu" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Megamenu</label>
+            <tab>plaza</tab>
+            <resource>Plazathemes_Hozmegamenu::test_config</resource>
+			<group id="active_display" translate="label" type="text" sortOrder="101" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration Options</label>
+                 <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				 <field id="catsid" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show label or link  category</label>
+					 <comment>Only approve for menu have level first.</comment>     
+                    <source_model>Plazathemes\Hozmegamenu\Model\Config\Source\Mycategory</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+				  <field id="showhome" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show homepage</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				 <field id="max_level" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Visible menu depth</label>
+					<comment><![CDATA[e.g. 1, 2, 3, 4 (0 - disable limits). For example, if you set this value to <b>2</b>, only second level categories will be displayed.]]></comment>
+             
+                </field>
+				 <field id="count" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Visible menu depth</label>
+					   <comment>e.g. 1, 2, 3. The maximum number of columns in the popup.</comment>             
+                </field>
+            </group>
+			<group id="popup" translate="label" type="text" sortOrder="102" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Popup settings</label>
+				<field id="top_offset" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                          <label>Top offset</label>
+					       <comment>in pixels</comment>            
+                </field>
+				
+			</group>
+        </section>
+    </system>
+</config>

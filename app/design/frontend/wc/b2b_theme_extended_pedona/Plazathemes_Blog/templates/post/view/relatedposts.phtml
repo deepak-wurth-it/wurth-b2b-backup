@@ -1,0 +1,37 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+?>
+<?php
+/**
+ * Blog related posts template
+ *
+ * @var $block \Plazathemes\Blog\Block\Post\View\RelatedPosts
+ */
+?>
+
+<?php if ($block->displayPosts()) { ?>
+    <?php $_postCollection = $block->getPostCollection(); ?>
+    <?php if ($_postCollection->count()) { ?>
+    <div class="block related">
+        <div class="block-title title">
+            <strong id="block-relatedposts-heading" role="heading" aria-level="2">
+                <?php echo __('Related Posts') ?>
+            </strong>
+        </div>
+        <ol class="block-content">
+            <?php foreach ($_postCollection as $_post) { ?>
+                <li class="item">
+                    <a class="post-item-link"
+                       href="<?php echo $_post->getPostUrl() ?>">
+                        <?php echo $block->escapeHtml($_post->getTitle()); ?>
+                    </a>
+                </li>
+            <?php } ?>
+        </ol>
+    </div>
+    <?php } ?>
+<?php } ?>

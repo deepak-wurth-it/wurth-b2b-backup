@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+?>
+<?php
+/**
+ * Blog rss feed template
+ *
+ * @var $block \Plazathemes\Blog\Block\Rss\Feed
+ */
+?>
+<?php $_postCollection = $block->getPostCollection(); ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+   <title><?php echo $block->escapeHtml($this->getTitle()) ?></title>
+   <link><?php echo $this->getLink() ?></link>
+   <description><?php echo $block->escapeHtml($this->getDescription()) ?></description>
+   <?php foreach($_postCollection as $_post) { ?>
+   <item>
+      <title><?php echo $block->escapeHtml($_post->getTitle(), null, true) ?></title>
+      <link><?php echo $_post->getPostUrl() ?></link>
+      <description><![CDATA[<?php echo substr($block->stripTags($_post->getContent()), 0, 255) ?>]]></description>
+   </item>
+   <?php } ?>
+</channel>
+</rss>

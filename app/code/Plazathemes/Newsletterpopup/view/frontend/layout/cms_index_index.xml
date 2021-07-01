@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+		   <!-- <css src="Plazathemes_Newsletterpopup::css/newsletterpopup.css"/> -->
+		   <script src="Plazathemes_Newsletterpopup::js/jquery.bpopup.min.js"/>
+		 <!--   <script src="Plazathemes_Newsletterpopup::js/js.cookie.js"/> -->
+	</head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Plazathemes\Newsletterpopup\Block\Newsletterpopup" name="newsletterpopup" template="newsletterpopup.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

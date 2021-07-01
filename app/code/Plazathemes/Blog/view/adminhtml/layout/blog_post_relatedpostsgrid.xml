@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etclayout_generic.xsd">
+    <container name="root" label="Root">
+        <block class="Plazathemes\Blog\Block\Adminhtml\Post\Edit\Tab\RelatedPosts" name="blog.post.edit.tab.relatedposts"/>
+    </container>
+</layout>

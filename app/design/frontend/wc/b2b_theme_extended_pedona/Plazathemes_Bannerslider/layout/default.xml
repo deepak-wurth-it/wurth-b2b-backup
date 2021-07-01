@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+		<!-- <css src='Plazathemes_Bannerslider::css/owl.carousel.css' media='all' rel='stylesheet' type='text/css'/> -->
+		<!-- <css src='Plazathemes_Bannerslider::css/animate.css' media='all' rel='stylesheet' type='text/css'/> -->
+		<!-- <css src='Plazathemes_Bannerslider::css/pt.banner.css' media='all' rel='stylesheet' type='text/css'/> -->
+       <!--  <link src='Plazathemes_Bannerslider::js/owl.carousel.js' type='text/javascript'/> -->
+    </head>
+	    <body>
+
+		<!-- <referenceContainer name="content">
+
+			<block class="Plazathemes\Bannerslider\Block\Bannerslider" name="Banner" template="bannerslider.phtml">
+
+			</block>
+
+		</referenceContainer> -->
+
+	</body>
+</page>

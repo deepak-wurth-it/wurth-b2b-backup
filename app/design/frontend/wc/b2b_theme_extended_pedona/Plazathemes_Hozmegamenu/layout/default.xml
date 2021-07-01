@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+		   <!-- <css src="Plazathemes_Hozmegamenu::css/hozmegamenu.css"/> -->
+		  <!--  <css src="Plazathemes_Hozmegamenu::css/verticalmegamenu.css"/>	 -->	   
+		   <!-- <script src="Plazathemes_Hozmegamenu::js/hozmegamenu.js"/> -->
+		  <!--  <script src="Plazathemes_Hozmegamenu::js/verticalmegamenu.js"/> -->
+	</head>
+    <body>
+        <referenceContainer name="page.top">
+            
+        </referenceContainer>
+	    <referenceContainer name="sidebar.main">
+            <block class="Plazathemes\Hozmegamenu\Block\Menu"  name="verticalmegamenu" template="verticalmegamenu.phtml" />
+        </referenceContainer> 
+    </body>
+</page>

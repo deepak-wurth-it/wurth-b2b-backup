@@ -1,0 +1,10 @@
+<div class="main-container">	
+	<div class="container-size">
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Bannerslider\Block\Bannerslider')->setTemplate('Plazathemes_Bannerslider::bannerslider.phtml')->toHtml();?>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('banner_home3')->toHtml(); ?>
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Newproductslider\Block\Newproductslider')->setTemplate('Plazathemes_Newproductslider::newproductslider.phtml')->toHtml();?>
+		<?php //echo $block->getLayout()->createBlock('Plazathemes\InstagramGallery\Block\InstagramGallery')->setTemplate('Plazathemes_InstagramGallery::plazathemes/instagramgallery/default.phtml')->toHtml();?>
+	</div>
+</div>
+
+

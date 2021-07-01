@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+	    <resources>
+	        <resource id="Magento_Backend::admin">
+	        	<resource id="Plazathemes_Hozmegamenu::hozmegamenu" title="Plazathemes" sortOrder="40">
+	        	    <resource id="Plazathemes_Brandslider::brandslider_brandslider" title="Brand Slider" sortOrder="10">
+	        	        <resource id="Plazathemes_Brandslider::brandslider_brands" title="Manage Brands" sortOrder="10" />
+	        	        <resource id="Plazathemes_Brandslider::settings" title="Settings" sortOrder="20" />
+	        	    </resource>
+	        	</resource>
+	            <resource id="Magento_Backend::stores">
+	                <resource id="Magento_Backend::stores_settings">
+	                    <resource id="Magento_Config::config">
+	                        <resource id="Plazathemes_Brandslider::config_brandslider" title="Brand Slider" />
+	                    </resource>
+	                </resource>
+	            </resource>
+	        </resource>
+	    </resources>
+	</acl>
+</config>

@@ -1,0 +1,14 @@
+<div class="main-container">
+	<?php echo $block->getLayout()->createBlock('Plazathemes\Bannerslider\Block\Bannerslider')->setTemplate('Plazathemes_Bannerslider::bannerslider.phtml')->toHtml();?>
+	<div class="container-inner">
+	
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('banner_home1')->toHtml(); ?>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('content_home1')->toHtml(); ?>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('banner_home6')->toHtml(); ?>
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Newproductslider\Block\Newproductslider')->setTemplate('Plazathemes_Newproductslider::newproductslider.phtml')->toHtml();?>
+
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Blog\Block\Sidebar\Recent')->setTemplate('Plazathemes_Blog::sidebar/slider.phtml')->toHtml();?>
+	</div>
+</div>
+
+

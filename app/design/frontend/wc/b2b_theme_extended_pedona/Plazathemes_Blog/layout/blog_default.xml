@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Plazathemes_Blog::css/blog-m.css" />
+        <css src="Plazathemes_Blog::css/blog-l.css" media="screen and (min-width: 768px)"/>
+    </head>
+    <body>
+    	<referenceContainer name="sidebar.additional">
+            <block class="Plazathemes\Blog\Block\Sidebar" name="blog.sidebar" template="sidebar.phtml">
+                <block class="Plazathemes\Blog\Block\Sidebar\Search" name="blog.sidebar.search" template="sidebar/search.phtml" />
+                <block class="Plazathemes\Blog\Block\Sidebar\Categories" name="blog.sidebar.category" template="sidebar/categories.phtml">
+                    <action method="setCacheLifetime">
+                        <argument name="time" xsi:type="string">86400</argument>
+                    </action>
+                </block>
+                <block class="Plazathemes\Blog\Block\Sidebar\Recent" name="blog.sidebar.recent" template="sidebar/recent.phtml">
+                    <action method="setCacheLifetime">
+                        <argument name="time" xsi:type="string">86400</argument>
+                    </action>
+                </block>
+                <block class="Plazathemes\Blog\Block\Sidebar\Archive" name="blog.sidebar.archive" template="sidebar/archive.phtml">
+                    <action method="setCacheLifetime">
+                        <argument name="time" xsi:type="string">86400</argument>
+                    </action>
+                </block>
+            </block>
+            <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+            <referenceBlock name="wishlist_sidebar" remove="true"/>
+        </referenceContainer>
+    </body>
+</page>

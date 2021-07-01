@@ -1,0 +1,243 @@
+<?php  
+    $pattern = '/^([A-Z_]*)[0-9]+/';
+	$options = $block->toOptionArray();
+	//echo "<pre>"; print_r($options);
+	$blocks = $block->getStaticBlockFromIdentify('pt_menu_link'); 
+	$cmsPages = $block->getCmsPages();
+	$effects = $block->toEffects();
+	$model = $block->getModelHozmegamenu();
+	$effect ='fade';
+	$isLink = array(3,4,5);
+	$items = array();
+	if($model->getId()) {
+		$items = $model->getItems();
+		$effect = $model->getEffect();
+		$isLink = $model->getIsLink();
+		$items = json_decode($items); 
+	    if($items == null)
+			$items = array();
+		$isLink = json_decode($isLink);
+		if($isLink == NULL)  $isLink = array(3,9);
+		
+	}
+
+ ?>
+<table style="margin-left: 130px;">
+					<tbody>
+				
+						<tr>
+							<td style="padding-left: 20px;">
+								<select multiple="multiple"  id="availableItems" style="width: 300px; height: 160px;">
+									<optgroup label="Category">
+											<?php 
+												if(count($options)) {
+													foreach($options as $cateoption) {
+														?>
+														<option  value='category_<?php echo $cateoption['value']; ?>'  <?php if(in_array('category_'.$cateoption['value'],$items)){ echo  'selected="selected"'; } ?> > <?php echo $cateoption['label']; ?></option>
+														<?php
+													}
+												}
+											?>
+									</optgroup>		
+									<optgroup label="Custommer Link">
+											<?php 
+												if(count($blocks)) {
+													foreach($blocks as $blockcms) {
+														?>
+														<option  value='block_<?php echo $blockcms['value']; ?>'  <?php if(in_array('block_'.$blockcms['value'],$items)){ echo  'selected="selected"'; } ?>  > <?php echo $blockcms['label']; ?></option>
+														<?php
+													}
+												}
+											?>
+									</optgroup>	
+									<optgroup label="Cms Page">
+											<?php 
+												if(count($cmsPages)) {
+													foreach($cmsPages as $cmsPage) {
+														?>
+														<option  value='cms_<?php echo $cmsPage['value']; ?>' <?php if(in_array('cms_'.$cmsPage['value'],$items)){ echo  'selected="selected"'; } ?> > <?php echo $cmsPage['label']; ?></option>
+														<?php
+													}
+												}
+											?>
+									</optgroup>										
+
+								</select>
+							
+							</td>
+							<td>
+										<select multiple="multiple" name ='items[]' id="items" style="width: 300px; height: 160px;">
+											<?php  
+												if(count($items) > 0) {
+													$id = null; 
+													$label = null; 
+													foreach($items as $item) {
+														    $item1 =  explode( '_', $item ) ;
+															$label = $item1[0]; 
+															$id = $item1[1];
+															 switch ($label) {
+																case "cms":
+																	foreach($cmsPages as $cmsPage) {
+																		if($cmsPage['value'] == $id) {
+																			$label = $cmsPage['label'];
+																		}
+																	}
+																		
+																	break;
+																case "block":
+																		foreach($blocks as $blockcms) {
+																			if($blockcms['value'] == $id) {
+																				$label = $blockcms['label'];
+																			}
+																		}
+																		
+																	break;
+																case "category":
+																		foreach($options as $cateoption) {		
+																			if($cateoption['value'] == $id) {
+																				$label = $cateoption['label'];
+																			}
+																		}
+																
+																	break;
+																}
+													
+											
+														?>
+														
+														<option  selected ="selected" value='<?php echo $item; ?>' > <?php echo $label; ?></option>
+														
+														<?php																						
+					
+													}
+												}
+											?>
+										</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="#" id="addItem" style="border: 1px solid rgb(170, 170, 170); margin: 2px; padding: 2px; text-align: center; display: block; text-decoration: none; background-color: rgb(250, 250, 250); color: rgb(18, 52, 86);">Add &gt;&gt;</a>
+							</td>
+							<td>
+									<a href="#" id="removeItem" style="border: 1px solid rgb(170, 170, 170); margin: 2px; padding: 2px; text-align: center; display: block; text-decoration: none; background-color: rgb(250, 250, 250); color: rgb(18, 52, 86);">Remove &gt;&gt;</a>
+							</td>
+								<td style="vertical-align:top;padding:5px 15px;">
+								<h4 style="margin-top:5px;">Change position</h4> 
+								<a href="#" id="menuOrderUp" class="button" style="font-size:20px;display:block;">&uarr;</a><br/>
+								<a href="#" id="menuOrderDown" class="button" style="font-size:20px;display:block;">&darr;</a><br/>
+							</td>
+						</tr>
+						
+				
+						<tr>
+				
+							<td style="padding-left: 20px;">
+								<select multiple="multiple" name ='is_link[]' id="catsid" style="width: 300px; height: 160px;">
+									<optgroup label="Show link on category">
+											<?php 
+												if(count($options)) {
+													foreach($options as $cateoption) {
+														?>
+														<option  value='<?php echo $cateoption['value']; ?>' <?php if(in_array($cateoption['value'],$isLink)){ echo  'selected="selected"'; } ?>  > <?php echo $cateoption['label']; ?></option>
+														<?php
+													}
+												}
+											?>
+									</optgroup>		
+								</select>
+							</td>
+						</tr>
+						
+						<tr>			
+
+							<td>
+														<h2> Effects </h2>
+								<?php foreach ($effects as  $val => $label){ ?>
+									<input type="radio" value="<?php echo $val ; ?>" <?php if($val== $effect){ echo  'checked="checked"'; } ?>  name="effect"> <?php echo $label; ?><br>
+								<?php } ?>
+							</td>
+						</tr>
+						<input type="hidden" name="store" value="<?php if($this->getRequest()->getParam('store')) echo $this->getRequest()->getParam('store'); else echo '0'; ?>" /><br>
+					
+					</tbody>
+</table>
+
+<script type='text/javascript'>
+require([
+    "jquery",
+    "jquery/ui"
+], function($){
+	function add()
+				{
+					$("#availableItems option:selected").each(function(i){ 
+						var val = $(this).val();
+						var text = $(this).text();
+						text = text.replace(/(^\s*)|(\s*$)/gi,"");
+						if (val == "PRODUCT")
+						{
+							val = prompt("'.$this->l('Set ID product').'");
+							if (val == null || val == "" || isNaN(val))
+								return;
+							text = "'.$this->l('Product ID').' "+val;
+							val = "PRD"+val;
+						}
+						$("#items").append("<option  selected=\"selected\" value=\""+val+"\">"+text+"</option>");
+					});
+					serialize();
+					return false;
+				}
+
+				function remove()
+				{
+					$("#items option:selected").each(function(i){
+						$(this).remove();
+					});
+					serialize();
+					return false;
+				}
+
+				function serialize()
+				{
+					var options = "";
+					$("#items option").each(function(i){
+						options += $(this).val() + ",";
+					});
+					$("#itemsInput").val(options.substr(0, options.length - 1));
+				}
+
+				function move(up)
+				{
+					var tomove = $("#items option:selected");
+					if (tomove.length >1)
+					{
+						alert('Please select just one item');
+						return false;
+					}
+					if (up)
+						tomove.prev().insertAfter(tomove);
+					else
+						tomove.next().insertBefore(tomove);
+					serialize();
+					return false;
+				}
+
+				$(document).ready(function(){
+					$("#addItem").click(add);
+					$("#availableItems").dblclick(add);
+					$("#removeItem").click(remove);
+					$("#items").dblclick(remove);
+					$("#menuOrderUp").click(function(e){
+						e.preventDefault();
+						move(true);
+					});
+					$("#menuOrderDown").click(function(e){
+						e.preventDefault();
+						move();
+					});
+				});
+	
+	});
+
+				
+</script>

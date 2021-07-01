@@ -1,0 +1,321 @@
+<?xml version="1.0"?>
+<pedona>
+    <blocks>
+	
+		<block>
+            <title>Contact us</title>
+            <identifier>contact_us</identifier>
+            <content>
+                    <![CDATA[
+						<div class="contact-us"><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6305.678625317825!2d-122.39957047637722!3d37.793805380191266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858063d63a0215%3A0xcba0af2dfe02048f!2s101+California+Street%2C+San+Francisco%2C+CA+94111%2C+Hoa+K%E1%BB%B3!5e0!3m2!1svi!2s!4v1419099932976" width="100%" height="350"></iframe></div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Footer Static</title>
+            <identifier>footer_static</identifier>
+            <content>
+                    <![CDATA[
+						<div class="footer-static">
+						<div class="row">
+						<div class="col-md-4">
+						<p class="text1"><img src="{{media url="wysiwyg/logo.png"}}" alt="" /></p>
+						<p class="text2"><em>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart [...].</em></p>
+						<p>Address: 6688Princess Road, London, Greater London</p>
+						<p>Phone: (012) 800 456 789-987</p>
+						<p>Email: Contact@plazathemes.com</p>
+						</div>
+						<div class="col-md-2">
+						<h3 class="title">Information</h3>
+						<ul>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Delivery Information</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Terms &amp; Conditions</a></li>
+						<li><a href="#">Customer Service</a></li>
+						</ul>
+						</div>
+						<div class="col-md-2">
+						<h3 class="title">My Account</h3>
+						<ul>
+						<li><a href="#">My Account</a></li>
+						<li><a href="#">Order History</a></li>
+						<li><a href="#">Wish List</a></li>
+						<li><a href="#">Newsletter</a></li>
+						<li><a href="#">Order History</a></li>
+						</ul>
+						</div>
+						<div class="col-md-4">{{block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="subscribe.phtml"}}
+						<ul class="follow">
+						<li><a class="facebook fa fa-facebook" title="Facebook" href="https://www.facebook.com/plazathemes1"><span>facebook</span></a></li>
+						<li class="first"><a class="twitter fa fa-twitter" title="Twitter" href="https://twitter.com/plazathemes"><span>twitter</span></a></li>
+						<li><a class="google fa fa-google-plus" title="Google" href="#"><span>google </span></a></li>
+						<li><a class="youtube fa fa-youtube" title="Youtube" href="https://www.youtube.com/user/plazathemes"><span>youtube </span></a></li>
+						<li><a class="rss fa fa-rss" href="#"><span>rss</span></a></li>
+						</ul>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Link Contact Header</title>
+            <identifier>link_contact_header</identifier>
+            <content>
+                    <![CDATA[
+						<p>Mid-season sale up to 20% OFF. Use code “SALEOFF20”</p>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Link Payment</title>
+            <identifier>link_payment</identifier>
+            <content>
+                    <![CDATA[
+						<p><img src="{{media url="wysiwyg/paypal.png"}}" alt="" /></p>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Corporate About</title>
+            <identifier>corporate_about</identifier>
+            <content>
+                    <![CDATA[
+						<div class="corporate-about">
+						<div class="row">
+						<div class="col-md-3">
+						<div class="box-col">
+						<h3>Free Shipping</h3>
+						<p>Free shipping on all order</p>
+						</div>
+						</div>
+						<div class="col-md-3">
+						<div class="box-col">
+						<h3>Money Return</h3>
+						<p>30 days for free return</p>
+						</div>
+						</div>
+						<div class="col-md-3">
+						<div class="box-col">
+						<h3>Online Support</h3>
+						<p>Support 24 hours a day</p>
+						</div>
+						</div>
+						<div class="col-md-3">
+						<div class="box-col">
+						<h3>Deals &amp; Promotions</h3>
+						<p>Price savings, discounts, coupons</p>
+						</div>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Banner Home1</title>
+            <identifier>banner_home1</identifier>
+            <content>
+                    <![CDATA[
+						<div class="banner-home">
+						<div class="row">
+						<div class="col-md-4">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner11.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-4">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner12.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-4">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner13.jpg"}}" alt="" /></a></div>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Content Home1</title>
+            <identifier>content_home1</identifier>
+            <content>
+                    <![CDATA[
+						<div>{{widget type="Plazathemes\Categorytab\Block\CateWidget" title="New Arrivals Products" identify="23233" category_id="3,4,5" items_default="4" items_desktop="4" items_desktop_small="3" items_tablet="2" items_mobile="1" show_addtocart="1" show_wishlist="1" show_compare="1" row_show="1" show_pager="1" template="categorytab/grid.phtml" page_var_name="polujp"}}</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Banner Text 1</title>
+            <identifier>banner_text_1</identifier>
+            <content>
+                    <![CDATA[
+						<div class="text-box"><img src="{{media url="wysiwyg/text-1.png"}}" alt="" />
+						<h3><span>Hurry Up!</span> Daily Deal Of The Day</h3>
+						<p class="des">Abdul, a young, widowed Muslim man, needed to leave Syria and not be delayed by the authorities in getting to Europe. The best way to do this, he reasoned, was to acquire another family as cover, and he found one. It was all a sham, however, just a means to an end.</p>
+						<p class="a-button"><a href="#">Discover Now</a></p>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Banner Home2</title>
+            <identifier>banner_home2</identifier>
+            <content>
+                    <![CDATA[
+						<div class="banner-home">
+						<div class="row">
+						<div class="col-md-4">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner21.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-4">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner22.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-4">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner23.jpg"}}" alt="" /></a></div>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Banner Home3</title>
+            <identifier>banner_home3</identifier>
+            <content>
+                    <![CDATA[
+						<div class="banner-home">
+						<div class="row">
+						<div class="col-md-6">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner31.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-6">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner32.jpg"}}" alt="" /></a></div>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Footer Static 2</title>
+            <identifier>footer_static2</identifier>
+            <content>
+                    <![CDATA[
+						<div class="footer-static">
+						<div class="row">
+						<div class="col-md-3">
+						<p class="text1"><img src="{{media url="wysiwyg/logo2.png"}}" alt="" /></p>
+						<p class="text2">Copyright © 2018 Plazathemes. All Rights Reserved</p>
+						</div>
+						<div class="col-md-6">{{block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="subscribe.phtml"}}</div>
+						<div class="col-md-3">
+						<ul class="follow">
+						<li><a class="facebook fa fa-facebook" title="Facebook" href="https://www.facebook.com/plazathemes1"><span>facebook</span></a></li>
+						<li class="first"><a class="twitter fa fa-twitter" title="Twitter" href="https://twitter.com/plazathemes"><span>twitter</span></a></li>
+						<li><a class="google fa fa-google-plus" title="Google" href="#"><span>google </span></a></li>
+						<li><a class="youtube fa fa-youtube" title="Youtube" href="https://www.youtube.com/user/plazathemes"><span>youtube </span></a></li>
+						<li><a class="rss fa fa-rss" href="#"><span>rss</span></a></li>
+						</ul>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Banner Home5</title>
+            <identifier>banner_home5</identifier>
+            <content>
+                    <![CDATA[
+						<div class="banner-home">
+						<div class="row">
+						<div class="col-md-3">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner44.jpg"}}" alt="" /></a></div>
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner45.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-3">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner46.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-6">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner47.jpg"}}" alt="" /></a></div>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Banner Home4</title>
+            <identifier>banner_home4</identifier>
+            <content>
+                    <![CDATA[
+						<div class="col-md-3">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner41.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-3">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner42.jpg"}}" alt="" /></a></div>
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner43.jpg"}}" alt="" /></a></div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Banner Home6</title>
+            <identifier>banner_home6</identifier>
+            <content>
+                    <![CDATA[
+						<div class="banner-home">
+						<div class="row">
+						<div class="col-md-6">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner51.jpg"}}" alt="" /></a></div>
+						</div>
+						<div class="col-md-6">
+						<div class="banner-box"><a href="#"><img src="{{media url="wysiwyg/banner52.jpg"}}" alt="" /></a></div>
+						</div>
+						</div>
+						</div>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		<block>
+            <title>Link Phone Header</title>
+            <identifier>link_phone_header</identifier>
+            <content>
+                    <![CDATA[
+						<p>+(012) 800 456 789-987 <em>Customer Service</em></p>
+					]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+		
+		
+    </blocks>
+</pedona>
+

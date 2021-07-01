@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="plaza" translate="label" sortOrder="100">
+            <label>Plazathemes</label>
+        </tab>
+        <section id="bannerslider" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Banner Slider</label>
+            <tab>plaza</tab>
+            <resource>Plazathemes_Bannerslider::config_bannerslider</resource>
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable_frontend" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <comment>Enable frontend</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="auto" translate="label comment" type="select" sortOrder="4"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto slide</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<backend_model>Plazathemes\Bannerslider\Model\Config\Backend\Validate</backend_model>
+                </field>
+				<field id="speed" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="0">
+					<depends>
+						<field id="auto">1</field>
+					</depends>
+                    <label>Pause Time</label>
+					<comment>Set the speed of the slideshow cycling, in milliseconds</comment>
+                </field>
+				<field id="pagination" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Animation Speed</label>
+					<comment>Set the speed of animations, in milliseconds</comment>
+                </field>
+				<field id="show_caption" translate="label comment" type="select" sortOrder="13"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Caption</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="next_back" translate="label comment" type="select" sortOrder="16"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Next/Back control</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="nav_ctrl" translate="label comment" type="select" sortOrder="19"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show navigation control:</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

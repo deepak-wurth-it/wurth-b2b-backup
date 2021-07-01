@@ -1,0 +1,106 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+ 
+if($this->getEnable()):
+$banners = $block->getBannerSlider();
+$auto = $this->getConfig('auto');
+$speed = $this->getConfig('speed');
+$pagination = $this->getConfig('pagination');
+$show_caption = $this->getConfig('show_caption');
+$next_back = $this->getConfig('next_back');
+$nav_ctrl = $this->getConfig('nav_ctrl');
+?>
+
+<div class="pt-banner-container">
+   <ul class="ptowl"> 
+   <?php $i = 1; ?>
+    <?php foreach ($banners as $banner): ?>
+	<?php 
+		$store_ids = explode(",",$banner['store_id']);
+		if(in_array($this->getIdStore(),$store_ids) || in_array('0',$store_ids)): ?>
+		<?php $url_image = $this->getMediaFolder().$banner['image']; ?>
+            <li>
+				<?php if($banner['click_url']): ?>
+					<a href="<?php echo $banner['click_url'] ?>" class="pt-url">
+				<?php endif; ?>
+					<img alt="<?php echo $banner['image_alt'] ?>" src="<?php echo $url_image; ?>"/>
+				<?php if($banner['click_url']): ?>
+					</a>
+				<?php endif; ?>
+				
+				<?php if($show_caption): ?>
+					<div id="pt-banner-caption<?php echo $i; ?>" class="pt-caption pt-banner-caption">
+						
+						<div class="pt-banner-content ptslider-<?php echo $i?>">
+							<?php if($banner['name']): ?><h1 class="pt-title1"><span><?php echo __($banner['name']) ?></span></h1><?php endif; ?>						
+							<?php if($banner['title1']): ?><h2 class="pt-title2" ><span><?php echo __($banner['title1']) ?></span></h2><?php endif; ?>
+							<?php if($banner['title2']): ?><h3 class="pt-title3"><span><?php echo __($banner['title2']) ?></span></h3><?php endif; ?>
+							<?php if($banner['description']): ?><div class="pt-banner-des">
+								<p><?php echo __($banner['description']) ?></p>
+							</div><?php endif; ?>
+							
+							<?php if($banner['click_url']): ?>
+								<a href="<?php echo $banner['click_url'] ?>" class="pt-url">shop now</a>
+							<?php endif; ?>
+							
+						</div>	
+					</div>		
+				<?php endif; ?>
+            </li>
+		<?php $i++; ?>            
+    <?php endif; ?>            
+    <?php endforeach; ?>            
+    </ul>
+</div>
+
+<script type="text/javascript">
+require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+		$(document).ready(function(){
+			$(".pt-banner-container .ptowl").owlCarousel({
+				singleItem: true,
+				<?php
+					if($auto && $speed):
+				?>
+				autoPlay : <?php echo $speed; ?>,
+				<?php
+					endif;
+				?>
+				items : 1,
+				itemsDesktop : [1199,1],
+				itemsDesktopSmall : [943,1],
+				itemsTablet: [768,1],
+				itemsMobile : [479,1],
+				slideSpeed : <?php if($pagination) echo $pagination; else echo '500'; ?>,
+				paginationSpeed : <?php if($pagination) echo $pagination; else echo '500'; ?>,
+				rewindSpeed : <?php if($pagination) echo $pagination; else echo '500'; ?>,
+				addClassActive: true,
+				navigation : <?php if($next_back) echo 'true'; else echo 'false'; ?>,
+				stopOnHover : true,
+				pagination : <?php if($nav_ctrl) echo 'true'; else echo 'false'; ?>,
+				scrollPerPage:true,
+				afterMove: nextslide,
+				afterInit: function(){
+					nextslide;
+					$('.pt-banner-container').show();
+				},
+			});
+			function nextslide() {
+				$(".pt-banner-container .owl-item .pt-banner-caption").css('display','none');
+				$(".pt-banner-container .owl-item .pt-banner-caption").removeClass('pt-caption')
+				$(".pt-banner-container .owl-item.active .pt-banner-caption").css('display','block');
+				
+				var heading = $('.pt-banner-container .owl-item.active .pt-banner-caption').clone().removeClass();
+				$('.pt-banner-container .owl-item.active .pt-banner-caption').remove();
+				$('.pt-banner-container .owl-item.active>li').append(heading);
+				$('.pt-banner-container .owl-item.active>li>div').addClass('pt-banner-caption pt-caption');
+			}
+		});
+	});
+</script>
+<?php endif; ?>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="sap_settings" translate="label" sortOrder="120">
+            <label>SAP Settings</label>
+        </tab>
+        <section id="sap_settings" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>SAP Settings</label>
+            <tab>sap_settings</tab>
+            <resource>Embitel_Sms::sap_settings</resource>
+            <group id="config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>SAP Configuration</label>
+                <field id="transaction_url" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Transaction and Closing Webservice Url</label>
+                </field>
+                <field id="transaction_secondary_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Transaction and Closing Webservice Secondary Url</label>
+                </field>
+                <field id="reconciliation_url" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reconciliation Webservice Url</label>
+                </field>
+                <field id="reconciliation_secondary_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reconciliation Webservice Secondary Url</label>
+                </field>
+                <field id="username" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Authentication Username</label>
+                </field>
+                <field id="password" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Authentication Password</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
