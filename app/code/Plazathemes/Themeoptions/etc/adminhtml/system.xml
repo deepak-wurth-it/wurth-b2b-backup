@@ -68,14 +68,6 @@
                         <field id="custom">1</field>
                     </depends>
                 </field>
-				<field id="price_color" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Price Color</label>
-                    <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
-                    <frontend_model>Plazathemes\Themeoptions\Block\System\Config\Form\Field\Color</frontend_model>
-					<depends>
-                        <field id="custom">1</field>
-                    </depends>
-                </field>
 				<field id="old_price_color" translate="label comment" type="text" sortOrder="52" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Old Price Color</label>
                     <backend_model>Plazathemes\Themeoptions\Model\Config\Backend\Design\Color\Validatetransparent</backend_model>
