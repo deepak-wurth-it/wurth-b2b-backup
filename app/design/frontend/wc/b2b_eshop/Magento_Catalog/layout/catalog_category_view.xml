@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+		<referenceContainer name="div.sidebar.additional">
+			<block class="Magento\Cms\Block\Block" name="banner_left" after="recentproductslider">
+				<arguments>
+					<argument name="block_id" xsi:type="string">banner_left</argument>
+				</arguments>
+		   </block>
+		 </referenceContainer>
+		 
+		  <!-- <move element="category.view.container" destination="page.top" before="-"/> -->
+		 <!-- <move element="breadcrumbs" destination="category.view.container" before="page.main.title"/> -->
+		 <!-- <move element="page.main.title" destination="content" before="-"/> -->
+		 <!-- <referenceContainer name="page.main.title" remove="1"/> -->
+		  <move element="category.view.container" destination="content" before="-"/>
+		 <move element="breadcrumbs" destination="page.main.title" before="-"/>
+		 <move element="page.main.title" destination="page.top" before="-"/>
+ 
+    </body>
+</page>
