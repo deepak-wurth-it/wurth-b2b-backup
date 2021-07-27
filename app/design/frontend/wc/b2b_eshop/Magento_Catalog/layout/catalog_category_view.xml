@@ -20,8 +20,8 @@
 		 <!-- <move element="page.main.title" destination="content" before="-"/> -->
 		 <!-- <referenceContainer name="page.main.title" remove="1"/> -->
 		  <move element="category.view.container" destination="content" before="-"/>
-		 <move element="breadcrumbs" destination="page.main.title" before="-"/>
-		 <move element="page.main.title" destination="page.top" before="-"/>
+		 <move element="breadcrumbs" destination="page.top" before="-"/>
+		 <move element="page.main.title" destination="content" before="category.products"/>
  
     </body>
 </page>
