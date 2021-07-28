@@ -639,7 +639,15 @@ dd {
 		}
 	}
 
+	.products{
+		margin:20px 0 30px 0;
+	}
+
+	
+
 }
+
+
 .checkout-success{
 	margin: 50px 0;
 }
@@ -1350,6 +1358,9 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	    width:33.33333333%;
 	    padding: 0 15px;
 	}
+
+
+
 	.page-products .products-grid .product-item:nth-child(3n + 1){
 		clear: left;
 	}
@@ -1359,9 +1370,7 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 		display: block;
 	}
 
-	.products{
-		margin:20px 0 30px 0;
-	}
+
 
 }
 @media (min-width: 640px){
@@ -1594,6 +1603,8 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	    display: flex;
     flex-wrap: wrap;
 }
+
+
 .product-item .price-box{
 	margin:0;
 }
@@ -3855,6 +3866,25 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 
 
 // Fix mobile
+
+@media all and (max-width: 768px), print {
+.page-main, .container-inner{
+	padding: 0 30px;
+}
+.page-products .products-grid .product-item{
+	width:calc((100% - 2%)/ 2);	
+}
+.page-products .products-grid .product-item:nth-child(2n + 1){
+margin-left:0;
+	
+}
+.page-products .products-grid .product-item nth-child(3n+0){
+margin-left:2%;
+	
+}
+
+}
+
 @media only screen and (max-width:1400px){
 	body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 		bottom: 10%;
@@ -4093,6 +4123,10 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	.block-recent-posts{
 		margin: 30px 0;
 	}
+
+	.page-products .products-grid .product-item{
+		width:calc((100% - 0%)/ 1);	
+}
 }
 @media only screen and (max-width: 360px){
 	.minicart-wrapper .block-minicart{
@@ -4107,8 +4141,9 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 /*Fix products-grid */
 @media (min-width: 768px){
 .category-products .products-grid ul > li:nth-of-type(3n+1) {  clear: left;}
-  
+
 }
+
 
 @media (max-width: 767px) and (min-width: 481px){
 .category-products .products-grid ul > li:nth-of-type(2n+1) {clear: left;} 
@@ -4173,6 +4208,13 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	.page-products .products-grid .product-item:nth-child(3n + 1){
 		margin-left:0;
 	}
+
+	ol.products.list.items.product-items{
+		margin-left:-15px;
+		margin-right:-15px;
+	}
+  
+	
 }
 .catalog-product-view{
 	.breadcrumbs{
