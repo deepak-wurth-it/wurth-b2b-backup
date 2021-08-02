@@ -92,7 +92,7 @@ a{
 }
 
 
-.compare span, .wc-wishlist span{
+.wishlist-text, .compare-text{
 	display:none;
 }
 .addToCartButton{
@@ -113,10 +113,70 @@ a{
 	    margin-top:20px;
 	}
 
+.product-item-details a.product-item-link{
+		min-height:51px;
+		display:block;
+}
+
+li.product-item.odd.last{
+	margin-bottom:20px;
+}
+
+.block-compare .actions-toolbar{
+	margin-top:20px;
+}
+span.counter.qty{
+	font-size:1.6rem;
+	color:rgba(0, 0, 0, 60%);
+	margin:0 10px;
+}
+.actions-toolbar .primary{
+	float: inherit;
+	display:inline-block;
+	margin-right:20px;
+}
+
+.actions-toolbar .secondary{
+	float: inherit;
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.actions-toolbar .secondary a{
+	color:@general_link_hover_color_cyan;
+}
+a.action.compare.primary{
+		padding:9px 20px;
+		min-width:150px;
+		height:45px;
+		box-shadow:none;
+		background:#fff;
+		border-color:@general_link_hover_color_primary;
+		color:@general_link_hover_color_primary;
+	}
+
+a:hover.action.compare.primary{
+		background:@general_link_hover_color_primary;
+		border-color:@general_link_hover_color_primary;
+		color:#fff;
+	}	
+
+a.product-item-link, a:active.product-item-link{
+	color:@general_product_name_color;
+}
+
 	input#qty{
 		position:inherit;
 		margin-top:10px;
+		width:45px;
+		display:inline-block;
+		border:none;
+		text-align:center
 	}
+
+ .field.qty{
+ 	position:inherit;
+ }
 
 input,select,textarea { 
 	border: 1px solid @general_border_color;
@@ -162,7 +222,7 @@ button{
 	min-width:160px;
 }
 .action.primary{
-	font-size: 1.2rem;
+	font-size: 1.6rem;
 	background: #181b23;
 	color: #fff;
 	padding: 0 30px;
@@ -704,9 +764,8 @@ dd {
 		width: 100% !important;
 		margin: 40px 0;
 	}
-	.actions-toolbar .primary{
-		float: right;
-	}
+
+
 	.product.data.items{
 		text-align: center;
 		>.item.title{
@@ -2560,12 +2619,13 @@ body{
 	color: @general_product_name_color;
 	margin: 0 0 20px 0;
 	font-size:1.6rem;
-	min-height:51px;
 	&:hover{
 		text-decoration: underline;
 		color: @general_link_hover_color;
 	}
 }
+
+
 .page-title{
 	font-size: 30px;
 	margin: 0 0 20px;
@@ -2601,11 +2661,10 @@ body{
 	.block-title{
 		position: relative;
 		strong{
-			font-size:2rem;
+			font-size:1.8rem;
 			color: @general_title_color;
 			text-transform: capitalize;
 			font-family: @headingfont;
-			font-weight:500;
 		}
 	}
 	
@@ -4180,10 +4239,9 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 
 @media only screen and (max-width: 640px){
 
-	.page-layout-2columns-left .column.main{
+	.page-layout-2columns-left .column.main, .page-layout-2columns-left .sidebar-main{
 		width:inherit;
 	}
-
 
 }
 
@@ -4240,6 +4298,11 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	.button-cyan{
 		min-width:160px;
 	}
+
+	.page-products .products-grid .product-item:nth-child(2n + 0){
+		margin-left:0;
+	
+}
 
 
 

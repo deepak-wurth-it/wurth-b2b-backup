@@ -88,14 +88,28 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 						<?php endif; ?>
 
                     </div>
-                    <input type="number"
-                       name="qty"
-                       id="qty"
-                       maxlength="12"
-                       value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>"
-                       title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty form-control"
-                       data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-                       />
+                    <div class="field qty">
+         <div id="custom-qty" class="control" data-bind="scope: 'qty-counter'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <script type="text/x-magento-init">
+                    {
+                        "#custom-qty": {
+                            "Magento_Ui/js/core/app": {
+                                "components": {
+                                    "qty-counter": {
+                                        "component": "qty-counter",
+                                        "config": {
+                                            "qty": <?php echo $block->getProductDefaultQty() * 1 ?>,
+                                            "dataValidate": <?php echo json_encode($block->getQuantityValidators()) ?>
+                                        }
+                                    }
+                                 }
+                            }
+                        }
+                    }
+                </script>
+            </div>
+        </div>
                     
                     <div class="product-item-actions"<?php echo strpos($pos, $viewMode . '-actions') ? $position : ''; ?>>
 							<div class="add-to-cart-primary addToCartButton"<?php echo strpos($pos, $viewMode . '-primary') ? $position : ''; ?>>
@@ -133,7 +147,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 								   data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_product); ?>'
 								   data-action="add-to-wishlist"
 								   role="button">
-									<span><?php /* @escapeNotVerified */ echo __('Add to WishList') ?></span>
+									<span class="wishlist-text"><?php /* @escapeNotVerified */ echo __('Add to WishList') ?></span>
 								</a>
 								<?php endif; ?>
 
@@ -146,7 +160,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 								   aria-label="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
 								   data-post='<?php /* @escapeNotVerified */ echo $compareHelper->getPostDataParams($_product); ?>'
 								   role="button">
-									<span><?php /* @escapeNotVerified */ echo __('Add to Compare') ?></span>
+									<span class="compare-text"><?php /* @escapeNotVerified */ echo __('Add to Compare') ?></span>
 								</a>
 							</div>
 						</div>
