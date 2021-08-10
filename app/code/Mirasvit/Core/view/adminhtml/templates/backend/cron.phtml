@@ -1,0 +1,51 @@
+<?php
+/** @var \Mirasvit\Core\Block\Adminhtml\Cron $block */
+$lastExecutedJob = $block->getLastExecutedJob();
+?>
+
+<section style="margin-bottom: 2rem;">
+    <div class="admin__page-section-item-title"><span class="title"><?= __('Status') ?></span></div>
+
+    <table class="table data-table admin__table-secondary">
+        <tr>
+            <th><?= __('Server gmt time') ?></th>
+            <td><?= $block->getGmtDateTime() ?></td>
+        </tr>
+        <?php if ($lastExecutedJob): ?>
+            <tr>
+                <th><?= __('Last job') ?></th>
+                <td><?= $lastExecutedJob->getJobCode() ?></td>
+            </tr>
+            <tr>
+                <th><?= __('Executed') ?></th>
+                <td><?= $lastExecutedJob->getExecutedAt() ?></td>
+            </tr>
+            <tr>
+                <th><?= __('Status') ?></th>
+                <td><?= $lastExecutedJob->getStatus() ?></td>
+            </tr>
+        <?php else: ?>
+            <tr>
+                <th><?= __('Last job') ?></th>
+                <td><? __('none') ?></td>
+            </tr>
+        <?php endif ?>
+    </table>
+</section>
+
+<?php if (!$block->isCronRunning()): ?>
+    <section style="margin-bottom: 2rem;">
+        <div class="admin__page-section-item-title"><span class="title"><?= __('Cron setup') ?></span></div>
+        <div class="dashboard-item-content">
+            <?= __(
+                'Cron for Magento is not running. To setup a cron job, follow the link %1',
+                'http://devdocs.magento.com/guides/v2.0/config-guide/cli/config-cli-subcommands-cron.html'
+            ); ?>
+        </div>
+    </section>
+<?php endif ?>
+
+<section style="margin-bottom: 2rem;">
+    <div class="admin__page-section-item-title"><span class="title"><?= __('Cron Jobs') ?></span></div>
+    <div class="dashboard-item-content"><?= $block->getChildHtml('cronJobs') ?></div>
+</section>

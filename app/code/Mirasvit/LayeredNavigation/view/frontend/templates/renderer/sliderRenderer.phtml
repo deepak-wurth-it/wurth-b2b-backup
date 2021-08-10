@@ -1,0 +1,45 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\SliderRenderer
+ */
+
+$attributeCode = $block->getAttributeCode();
+$style         = 'display: none;';
+$sliderData    = $block->getSliderData();
+
+if (!$sliderData) {
+    return;
+}
+?>
+<div class="mst-nav__slider" data-mst-nav-filter="<?= $attributeCode ?>">
+    <?php if (!$block->isFromTo()): ?>
+        <div class="mst-nav__slider-text" data-element="text"></div>
+    <?php endif ?>
+
+    <?php if ($block->isSlider()): ?>
+        <div class="mst-nav__slider-slider" data-element="slider"></div>
+    <?php endif ?>
+
+    <?php if ($block->isFromTo()): ?>
+        <div class="mst-nav__slider-from-to">
+            <input type="number" class="mst-nav__slider-from" data-element="from" placeholder="<?= __('from') ?>">
+            <span class="mst-nav__slider-del">—</span>
+            <input type="number" class="mst-nav__slider-to" data-element="to" placeholder="<?= __('to') ?>">
+            <button data-element="submit"><?= __('OK') ?></button>
+        </div>
+    <?php endif ?>
+</div>
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/slider-renderer' => [
+                'paramTemplate' => $block->getSliderParamTemplate(),
+                'urlTemplate'   => $sliderData['url'],
+                'min'           => $sliderData['min'],
+                'max'           => $sliderData['max'],
+                'from'          => (float)$sliderData['from'],
+                'to'            => (float)$sliderData['to'],
+                'valueTemplate' => $block->getValueTemplate(),
+                'separator'     => $block->getSeparator(),
+            ],
+        ],
+    ]) ?></script>

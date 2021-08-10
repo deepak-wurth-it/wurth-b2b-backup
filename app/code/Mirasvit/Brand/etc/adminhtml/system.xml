@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="brand" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="442">
+            <label>Brands</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_Brand::config_brand</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>General</label>
+                <field id="BrandAttribute" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Brand Attribute</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\BrandAttributeOptions</source_model>
+                    <tooltip><![CDATA[Select brand attribute]]></tooltip>
+                </field>
+
+                <field id="AllBrandUrl" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>All Brands URL</label>
+                    <tooltip><![CDATA[Add url for all brand page. Will use "brand" if not configured]]></tooltip>
+                </field>
+
+                <field id="FormatBrandUrl" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Brand page URL</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\UrlFormatSource</source_model>
+                    <tooltip><![CDATA[/brand/apple/ or /apple/]]></tooltip>
+                </field>
+
+                <field id="url_suffix" translate="label" type="text" showInDefault="1" sortOrder="35" canRestore="1">
+                    <label>Brand URL Suffix</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\Config\Form\Field\UrlSuffix</frontend_model>
+                    <comment><![CDATA[Refresh <strong>Blocks HTML output</strong> cache after saving.]]></comment>
+                </field>
+
+                <field id="BrandLinkPosition" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Brands Link Position</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\BrandsLinkPositionOptions</source_model>
+                    <tooltip><![CDATA[Select brand link position]]></tooltip>
+                </field>
+
+                <field id="BrandLinkLabel" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                    <label>Brand link label</label>
+                    <tooltip><![CDATA[Brand link label]]></tooltip>
+                    <depends>
+                        <field id="BrandLinkPosition" separator="|">1|2</field>
+                    </depends>
+                </field>
+
+                <field id="isShowNotConfiguredBrands" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                    <label>Show Not Configured Brands</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[If enabled will show simple brand pages in frontend automatically (without additional configuration)]]></tooltip>
+                </field>
+
+                <field id="isShowAllCategories" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="80">
+                    <label>Show all categories in filter</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[If enabled show all categories in filter. If disabled show only top level categories.]]></tooltip>
+                </field>
+            </group>
+
+            <group id="brand_page" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>Brand Page</label>
+                <field id="isShowBrandLogo" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Show Brand Logo</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Show Brand Logo]]></tooltip>
+                </field>
+                <field id="isShowBrandDescription" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Show Brand Description</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Show Brand Description]]></tooltip>
+                </field>
+            </group>
+
+            <group id="all_brand_page" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>All Brands Page</label>
+                <field id="isShowBrandLogo" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Show Brand Logo</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Show Brand Logo]]></tooltip>
+                </field>
+                <field id="MetaTitle" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Meta Title</label>
+                    <tooltip><![CDATA[Add Meta Title for all brands page]]></tooltip>
+                </field>
+                <field id="MetaKeyword" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Meta Keyword</label>
+                    <tooltip><![CDATA[Add Meta Keyword for all brands page]]></tooltip>
+                </field>
+                <field id="MetaDescription" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                    <label>Meta Description</label>
+                    <tooltip><![CDATA[Add Meta Description for all brands page]]></tooltip>
+                </field>
+            </group>
+
+            <group id="brand_slider" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>Brand Slider</label>
+                <field id="WidgetCode" translate="label" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label><![CDATA[<strong><u>WidgetCode:</u></strong>]]></label>
+                    <tooltip><![CDATA[Create Brand Slider widget or use this code to add slider to a CMS page or static block]]></tooltip>
+                </field>
+                <field id="ItemsLimit" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Items Limit</label>
+                    <comment><![CDATA[If the field is empty, limit will be used 4]]></comment>
+                    <tooltip><![CDATA[Items Limit]]></tooltip>
+                </field>
+                <field id="Order" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Order</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\BrandSliderOrder</source_model>
+                    <tooltip><![CDATA[Order fo brand slider]]></tooltip>
+                </field>
+                <field id="isShowTitle" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Show Title</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Show Title]]></tooltip>
+                </field>
+                <field id="TitleText" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                    <label>Title Text</label>
+                    <tooltip><![CDATA[Title Text]]></tooltip>
+                    <depends>
+                        <field id="isShowTitle">1</field>
+                    </depends>
+                </field>
+                <field id="TitleTextColor" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                    <label>Title Text Color</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                    <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                    <tooltip><![CDATA[Title Text Color]]></tooltip>
+                    <depends>
+                        <field id="isShowTitle">1</field>
+                    </depends>
+                </field>
+                <field id="TitleBackgroundColor" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="70">
+                    <label>Title Background Color</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                    <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                    <tooltip><![CDATA[Title Background Color]]></tooltip>
+                    <depends>
+                        <field id="isShowTitle">1</field>
+                    </depends>
+                </field>
+                <field id="isShowBrandLabel" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="80">
+                    <label>Show Brand Label</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Show Brand Label]]></tooltip>
+                </field>
+                <field id="BrandLabelColor" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="90">
+                    <label>Brand Label Color</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                    <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                    <tooltip><![CDATA[Brand Label Color]]></tooltip>
+                    <depends>
+                        <field id="isShowBrandLabel">1</field>
+                    </depends>
+                </field>
+                <field id="isShowButton" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                    <label>Show Navigation Buttons</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Show Navigation Buttons]]></tooltip>
+                </field>
+                <field id="isShowPagination" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="110">
+                    <label>Show Pagination</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Show Pagination]]></tooltip>
+                </field>
+                <field id="isAutoPlay" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="120">
+                    <label>Auto Play</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Auto Play]]></tooltip>
+                </field>
+                <field id="isAutoPlayLoop" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="130">
+                    <label>Auto Play Loop</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Auto Play Loop]]></tooltip>
+                    <depends>
+                        <field id="isAutoPlay">1</field>
+                    </depends>
+                </field>
+                <field id="AutoPlayInterval" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="140">
+                    <label>Auto Play Interval</label>
+                    <comment><![CDATA[In milliseconds. If the field is empty, interval will be set to 4000.]]></comment>
+                    <tooltip><![CDATA[Auto Play Interval]]></tooltip>
+                    <depends>
+                        <field id="isAutoPlay">1</field>
+                    </depends>
+                </field>
+                <field id="PauseOnHover" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="150">
+                    <label>Pause on Hover</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Pause on Hover]]></tooltip>
+                    <depends>
+                        <field id="isAutoPlay">1</field>
+                    </depends>
+                </field>
+                <field id="SliderWidth" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="160">
+                    <label>Slider Width</label>
+                    <comment><![CDATA[In pixel. Leave empty to use default value.]]></comment>
+                    <tooltip><![CDATA[Slider Width]]></tooltip>
+                </field>
+                <field id="SliderImageWidth" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="170">
+                    <label>Slider Image Width</label>
+                    <comment><![CDATA[In pixel. Leave empty to use default value.]]></comment>
+                    <tooltip><![CDATA[Slider Image Width]]></tooltip>
+                </field>
+                <field id="SpacingBetweenImages" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="180">
+                    <label>Spacing Between Images</label>
+                    <comment><![CDATA[In pixel. Leave empty to use default value 10px.]]></comment>
+                    <tooltip><![CDATA[Spacing Between Images]]></tooltip>
+                </field>
+                <field id="InactivePagingColor" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="190">
+                    <label>Inactive Paging Color</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                    <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                    <tooltip><![CDATA[Inactive Paging Color]]></tooltip>
+                </field>
+                <field id="ActivePagingColor" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="200">
+                    <label>Active Paging Color</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                    <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                    <tooltip><![CDATA[Active Paging Color]]></tooltip>
+                </field>
+                <field id="HoverPagingColor" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="210">
+                    <label>Hover Paging Color</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                    <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                    <tooltip><![CDATA[Hover Paging Color]]></tooltip>
+                </field>
+                <field id="NavigationButtonsColor" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="220">
+                    <label>Navigation Buttons Color</label>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                    <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                    <tooltip><![CDATA[Navigation Buttons Color]]></tooltip>
+                </field>
+            </group>
+
+            <group id="more_products_from_brand" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>More products from Brand</label>
+
+                <field id="isEnabled" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[If enabled will show the random products of the same brand at the bottom of the Product page]]></tooltip>
+                </field>
+
+                <field id="Title" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Title</label>
+                    <comment><![CDATA[Example: More from {brand_name}]]></comment>
+                    <tooltip><![CDATA[Set block tile. Use {brand_name} to show the same brand Name.]]></tooltip>
+                </field>
+
+                <field id="ProductsLimit" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Products Limit</label>
+                    <comment><![CDATA[If the field is empty, will be applied 6]]></comment>
+                    <tooltip><![CDATA[Products Limit]]></tooltip>
+                </field>
+            </group>
+
+            <group id="brand_logo" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>Brand Logo and Tooltip</label>
+                <field id="ProductListBrandLogoLabel" translate="label" type="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label><![CDATA[<strong><u>Product List:</u></strong>]]></label>
+                </field>
+                <field id="isProductListBrandLogoEnabled" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Display Brand Logo on Product List</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA["Used in Product Listing" for brand attribute should be enabled <br/> If empty will be applied default value 30px]]></comment>
+                    <tooltip><![CDATA[Display Brand Logo on Product List]]></tooltip>
+                </field>
+                <field id="ProductListBrandLogoImageWidth" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Product List Brand Logo Image Width</label>
+                    <comment><![CDATA[If the field is empty, will be applied default value 30px]]></comment>
+                    <tooltip><![CDATA[Product List Brand Logo Image Width]]></tooltip>
+                </field>
+                <field id="ProductListBrandLogoTooltip" translate="label" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Product List Brand Logo Tooltip</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\TooltipOptions</source_model>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\Config\Source\TooltipSelect</frontend_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment><![CDATA[Leave empty to disable]]></comment>
+                    <tooltip><![CDATA[Product List Brand Logo Tooltip]]></tooltip>
+                </field>
+                <field id="ProductPageBrandLogoLabel" translate="label" type="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                    <label><![CDATA[<strong><u>Product Page:</u></strong>]]></label>
+                </field>
+                <field id="isProductPageBrandLogoEnabled" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="110">
+                    <label>Display Brand Logo on Product Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[Display Brand Logo on Product Page]]></tooltip>
+                </field>
+                <field id="ProductPageBrandLogoDescription" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="120">
+                    <label>Display Description on Product Page</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\ProductPageBrandLogoDescription</source_model>
+                    <tooltip><![CDATA[Display Description on Product Page]]></tooltip>
+                </field>
+                <field id="ProductPageBrandLogoImageWidth" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="130">
+                    <label>Product Page Brand Logo Image Width</label>
+                    <comment><![CDATA[If the field is empty, will be applied default value 30px]]></comment>
+                    <tooltip><![CDATA[ProductPage Brand Logo Image Width]]></tooltip>
+                </field>
+                <field id="ProductPageBrandLogoTooltip" translate="label" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="140">
+                    <label>Product Page Brand Logo Tooltip</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\TooltipOptions</source_model>
+                    <frontend_model>Mirasvit\Brand\Block\Adminhtml\Config\Source\TooltipSelect</frontend_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment><![CDATA[Leave empty to disable]]></comment>
+                    <tooltip><![CDATA[Product Page Brand Logo Tooltip]]></tooltip>
+                </field>
+                <field id="ProductListAndProductPageConfig" translate="label" type="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="200">
+                    <label><![CDATA[<strong><u>Product List & Product Page Configuration:</u></strong>]]></label>
+                </field>
+                <field id="TooltipMaxImageWidth" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="210">
+                    <label>Tooltip Max Image Width</label>
+                    <comment><![CDATA[If the field is empty, will be applied default]]></comment>
+                    <tooltip><![CDATA[Tooltip Max Image Width]]></tooltip>
+                </field>
+            </group>
+
+            <group id="seo" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>SEO</label>
+                <field id="robots" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Robots meta header for brand pages</label>
+                    <source_model>Mirasvit\SeoNavigation\Model\Config\Source\MetaRobots</source_model>
+                    <tooltip><![CDATA[This directive controls page visibility by search engines crawlers]]></tooltip>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,56 @@
+<?php
+/** @var \Mirasvit\SeoFilter\Block\Adminhtml\Attribute\Edit\Tab\Fieldset\OptionsFieldset $block */
+$stores = $block->getStores();
+?>
+<div class="fieldset">
+    <div class="grid">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="data border admin__control-table" width="100%">
+                <thead>
+                <tr class="headings">
+                    <th><?= __('Option') ?></th>
+                    <?php foreach ($stores as $store): ?>
+                        <th><?= __('URL Alias') ?> <small>[<?= $store ?>]</small></th>
+                    <?php endforeach ?>
+                </tr>
+                </thead>
+                <tbody id="rewrite_items">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'mage/template'
+    ], function ($, mageTemplate) {
+        let linkTemplate = '' +
+            '<tr>' +
+            '<td>' +
+            '<%= name %>' +
+            '</td>';
+
+        <?php foreach ($stores as $storeId => $store): ?>
+        linkTemplate += '<td>' +
+            '<input type="text" class="input-text" name="seo_filter[options][<%= id %>][<?=$storeId ?>]" value="<%= rewrite[<?=$storeId ?>] %>">' +
+            '</td>';
+        <?php endforeach ?>
+        linkTemplate += '</tr>';
+
+        const linkItems = {
+            tbody:        $('#rewrite_items'),
+            templateText: linkTemplate,
+
+            add: function (data) {
+                const row = mageTemplate(this.templateText, data);
+                $(this.tbody).append(row);
+            }
+        };
+
+        <?php foreach ($block->getOptions() as $item): ?>
+        linkItems.add(<?=\Zend_Json::encode($item) ?>);
+        <?php endforeach; ?>
+    });
+</script>

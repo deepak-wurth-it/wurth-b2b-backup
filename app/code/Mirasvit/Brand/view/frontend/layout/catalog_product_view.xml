@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Mirasvit\Brand\Block\LogoProductAdapter" name="m__brand_product_page_logo" template="Mirasvit_Brand::logo/logo.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="content.aside">
+            <block class="Mirasvit\Brand\Block\MoreFromBrand" name="m__more_from_brand" template="more_from_brand/products.phtml">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="m__more_from_brand.addto" as="addto">
+                    <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                           name="category.product.addto.wishlist" as="wishlist" before="compare"
+                           template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                           name="m__more_from_brand.compare" as="compare"
+                           template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

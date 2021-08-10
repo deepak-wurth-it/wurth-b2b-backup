@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <update handle="layerednavigation"/>
+
+    <body>
+        <referenceContainer name="columns.top">
+            <block class="Mirasvit\Brand\Block\Brand\Banner" name="m.brand.banner.after_title"/>
+        </referenceContainer>
+
+        <referenceContainer name="head.additional">
+            <block class="Mirasvit\Brand\Block\SwatchesCss" name="head.additional.swatches-css" template="Mirasvit_Brand::css.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <container name="brand.view.products" htmlTag="div">
+                <block class="Mirasvit\Brand\Block\Brand\Banner" name="m.brand.banner.before_description"/>
+                <block class="Mirasvit\Brand\Block\Brand\Description" name="brand.description"/>
+                <block class="Mirasvit\Brand\Block\Brand\Banner" name="m.brand.banner.after_description"/>
+
+                <block class="Magento\Catalog\Block\Product\ListProduct" name="category.products.list" template="Magento_Catalog::product/list.phtml">
+                    <container name="category.product.list.additional" as="additional" />
+                    <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                        <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
+                        <block class="Magento\Swatches\Block\Product\Renderer\Listing\Configurable"
+                               name="category.product.type.details.renderers.configurable" as="configurable"
+                               template="Magento_Swatches::product/listing/renderer.phtml"
+                               ifconfig="catalog/frontend/show_swatches_in_product_list">
+                            <arguments>
+                                <argument name="configurable_view_model" xsi:type="object">Magento\Swatches\ViewModel\Product\Renderer\Configurable</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+                        <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                               name="category.product.addto.compare" as="compare"
+                               template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                    </block>
+                    <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                        <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                    </block>
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                    </action>
+                </block>
+            </container>
+
+            <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+                <arguments>
+                    <argument name="triggers" xsi:type="array">
+                        <item name="compareProductLink" xsi:type="string">.action.tocompare</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

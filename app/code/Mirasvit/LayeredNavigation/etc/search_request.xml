@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<requests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Search/etc/search_request.xsd">
+    <request query="catalog_view_container" index="catalogsearch_fulltext">
+        <dimensions>
+            <dimension name="scope" value="default"/>
+        </dimensions>
+
+        <queries>
+            <query xsi:type="boolQuery" name="catalog_view_container" boost="1">
+                <queryReference clause="must" ref="mst_new_products_query"/>
+                <queryReference clause="must" ref="mst_on_sale_query"/>
+                <queryReference clause="must" ref="mst_stock_status_query"/>
+                <queryReference clause="must" ref="rating_summary_query"/>
+            </query>
+
+            <query xsi:type="filteredQuery" name="mst_new_products_query">
+                <filterReference clause="must" ref="mst_new_products_filter"/>
+            </query>
+
+            <query xsi:type="filteredQuery" name="mst_on_sale_query">
+                <filterReference clause="must" ref="mst_on_sale_filter"/>
+            </query>
+
+            <query xsi:type="filteredQuery" name="mst_stock_status_query">
+                <filterReference clause="must" ref="mst_stock_status_filter"/>
+            </query>
+
+            <query xsi:type="filteredQuery" name="rating_summary_query">
+                <filterReference clause="must" ref="rating_summary_filter"/>
+            </query>
+        </queries>
+
+        <filters>
+            <filter xsi:type="rangeFilter" name="mst_new_products_filter" field="mst_new_products" from="$mst_new_products$"/>
+            <filter xsi:type="termFilter" name="mst_on_sale_filter" field="mst_on_sale" value="$mst_on_sale$"/>
+            <filter xsi:type="termFilter" name="mst_stock_status_filter" field="mst_stock_status" value="$mst_stock_status$"/>
+            <filter xsi:type="rangeFilter" name="rating_summary_filter" field="rating_summary" from="$rating_summary$"/>
+        </filters>
+
+        <aggregations>
+            <bucket name="mst_new_products_bucket" field="mst_new_products" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+            <bucket name="mst_on_sale_bucket" field="mst_on_sale" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+            <bucket name="mst_stock_status_bucket" field="mst_stock_status" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+            <bucket name="rating_summary_bucket" field="rating_summary" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+        </aggregations>
+        <from>0</from>
+        <size>10000</size>
+    </request>
+
+    <request query="quick_search_container" index="catalogsearch_fulltext">
+        <dimensions>
+            <dimension name="scope" value="default"/>
+        </dimensions>
+        <queries>
+            <query xsi:type="boolQuery" name="quick_search_container" boost="1">
+                <queryReference clause="must" ref="mst_new_products_query"/>
+                <queryReference clause="must" ref="mst_on_sale_query"/>
+                <queryReference clause="must" ref="mst_stock_status_query"/>
+                <queryReference clause="must" ref="rating_summary_query"/>
+            </query>
+            <query xsi:type="filteredQuery" name="mst_new_products_query">
+                <filterReference clause="must" ref="mst_new_products_filter"/>
+            </query>
+            <query xsi:type="filteredQuery" name="mst_on_sale_query">
+                <filterReference clause="must" ref="mst_on_sale_filter"/>
+            </query>
+            <query xsi:type="filteredQuery" name="mst_stock_status_query">
+                <filterReference clause="must" ref="mst_stock_status_filter"/>
+            </query>
+            <query xsi:type="filteredQuery" name="rating_summary_query">
+                <filterReference clause="must" ref="rating_summary_filter"/>
+            </query>
+        </queries>
+        <filters>
+            <filter xsi:type="rangeFilter" name="mst_new_products_filter" field="mst_new_products" from="$mst_new_products$"/>
+            <filter xsi:type="termFilter" name="mst_on_sale_filter" field="mst_on_sale" value="$mst_on_sale$"/>
+            <filter xsi:type="termFilter" name="mst_stock_status_filter" field="mst_stock_status" value="$mst_stock_status$"/>
+            <filter xsi:type="rangeFilter" name="rating_summary_filter" field="rating_summary" from="$rating_summary$"/>
+        </filters>
+        <aggregations>
+            <bucket name="mst_new_products_bucket" field="mst_new_products" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+            <bucket name="mst_on_sale_bucket" field="mst_on_sale" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+            <bucket name="mst_stock_status_bucket" field="mst_stock_status" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+            <bucket name="rating_summary_bucket" field="rating_summary" xsi:type="termBucket">
+                <metrics>
+                    <metric type="count"/>
+                </metrics>
+            </bucket>
+        </aggregations>
+        <from>0</from>
+        <size>10000</size>
+    </request>
+</requests>

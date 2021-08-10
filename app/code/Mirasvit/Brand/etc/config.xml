@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <brand>
+            <general>
+                <BrandAttribute>0</BrandAttribute>
+                <AllBrandUrl>brand</AllBrandUrl>
+                <FormatBrandUrl>0</FormatBrandUrl>
+                <isShowNotConfiguredBrands>0</isShowNotConfiguredBrands>
+                <isShowAllCategories>0</isShowAllCategories>
+            </general>
+            <brand_slider>
+                <WidgetCode>{{widget type="Mirasvit\Brand\Block\Widget\BrandSlider" template="widget/brand_slider.phtml"}}</WidgetCode>
+            </brand_slider>
+        </brand>
+    </default>
+</config>

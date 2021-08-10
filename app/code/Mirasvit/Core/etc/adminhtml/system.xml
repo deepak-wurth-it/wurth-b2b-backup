@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mirasvit" translate="label" sortOrder="550" class="mirasvit-tab">
+            <label>Mirasvit Extensions</label>
+        </tab>
+
+        <section id="mst_core" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="10000">
+            <label>Developer</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_Core::core_settings</resource>
+
+            <group id="packageList" showInDefault="1" sortOrder="0">
+                <frontend_model>Mirasvit\Core\Block\Adminhtml\Config\PackageListField</frontend_model>
+            </group>
+
+            <group id="menu" showInDefault="1" sortOrder="5">
+                <label>Menu Settings</label>
+
+                <field id="is_enabled" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Enable Mirasvit Menu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>The menu is visible, if you have at least two active Mirasvit extensions.</comment>
+                </field>
+            </group>
+
+            <group id="css" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                <label>CSS Settings</label>
+
+                <field id="include_font_awesome" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Include Font Awesome</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="custom" translate="label comment tooltip" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Additional CSS Styles</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

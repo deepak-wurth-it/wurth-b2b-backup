@@ -1,0 +1,50 @@
+<?php
+/** @var \Mirasvit\Core\Block\Adminhtml\Validator $block */
+
+use Mirasvit\Core\Api\Service\ValidatorInterface;
+
+$results = $block->getResult();
+?>
+<div class="section-config active" style="padding-top: 2rem;">
+    <?php if ($block->isPassed()): ?>
+        <div class="message message-success"><?= __('All tests have been passed') ?></div>
+    <?php endif ?>
+
+    <?php if (count($results)): ?>
+        <div class="admin__data-grid-wrap-static">
+            <table class="data-grid">
+                <thead>
+                <tr>
+                    <th class="data-grid-th" nowrap><?= __('Status') ?></th>
+                    <th class="data-grid-th"><?= __('Module') ?></th>
+                    <th class="data-grid-th"><?= __('Test') ?></th>
+                    <th class="data-grid-th" nowrap><?= __('How to fix') ?></th>
+                </tr>
+                </thead>
+                <?php foreach ($results as $result): ?>
+                    <tr>
+                        <td width="100px">
+                            <?php if ($result[ValidatorInterface::STATUS_CODE] == ValidatorInterface::SUCCESS): ?>
+                                <div class="grid-severity-notice"><span>Success</span></div>
+                            <?php elseif ($result[ValidatorInterface::STATUS_CODE] == ValidatorInterface::WARNING): ?>
+                                <div class="grid-severity-major"><span>Warning</span></div>
+                            <?php elseif ($result[ValidatorInterface::STATUS_CODE] == ValidatorInterface::INFO): ?>
+                                <div class="grid-severity-major"><span>Info</span></div>
+                            <?php else: ?>
+                                <div class="grid-severity-critical"><span>Failed</span></div>
+                            <?php endif ?>
+                        </td>
+
+                        <td width="15%"><?= $result[ValidatorInterface::MODULE_NAME] ?></td>
+
+                        <td width="15%"><?= $result[ValidatorInterface::TEST_NAME] ?></td>
+
+                        <td>
+                            <?= $result[ValidatorInterface::MESSAGE] ?>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </table>
+        </div>
+    <?php endif ?>
+</div>

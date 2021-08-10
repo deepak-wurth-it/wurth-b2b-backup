@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\ActionInterface">
+        <plugin name="Mirasvit_Scroll::scrollResponse" type="Mirasvit\Scroll\Plugin\Frontend\ScrollResponsePlugin" sortOrder="1001"/>
+    </type>
+</config>

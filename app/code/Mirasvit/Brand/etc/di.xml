@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- DATA -->
+    <preference for="Mirasvit\Brand\Api\Data\BrandPageInterface" type="Mirasvit\Brand\Model\BrandPage"/>
+    <preference for="Mirasvit\Brand\Api\Data\BrandInterface" type="Mirasvit\Brand\Model\Brand"/>
+
+
+<!--    <virtualType name="brandFilterList" type="Mirasvit\LayeredNavigation\Model\Layer\FilterList">-->
+<!--        <arguments>-->
+<!--            <argument name="filterableAttributes" xsi:type="object">Magento\Catalog\Model\Layer\Category\FilterableAttributeList</argument>-->
+<!--            <argument name="filters" xsi:type="array">-->
+<!--                <item name="attribute" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\Attribute</item>-->
+<!--                <item name="category" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\Category</item>-->
+<!--                <item name="price" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\Price</item>-->
+<!--                <item name="decimal" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\Decimal</item>-->
+<!--            </argument>-->
+<!--            <argument name="isHorizontal" xsi:type="boolean">false</argument>-->
+<!--        </arguments>-->
+<!--    </virtualType>-->
+
+    <!--Entity Manager-->
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mirasvit\Brand\Api\Data\BrandPageInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\Brand\Api\Data\BrandPageInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\Brand\Api\Data\BrandPageInterface::ID</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Mirasvit\Brand\Api\Data\BrandPageInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--UI-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="brand_brand_listing_data_source" xsi:type="string">Mirasvit\Brand\Model\ResourceModel\BrandPage\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="BrandBrandGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="BrandBrandGridDataProvider" type="Mirasvit\Brand\Ui\BrandPage\Listing\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Mirasvit\Brand\Model\ResourceModel\BrandPage\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">BrandBrandGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- admin logo uploader -->
+    <virtualType name="Mirasvit\Brand\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">brand/tmp/brand</argument>
+            <argument name="basePath" xsi:type="string">brand/brand</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Mirasvit\Brand\Ui\BrandPage\Form\DataProvider">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mirasvit\Brand\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Mirasvit\Brand\Model\BrandPage">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mirasvit\Brand\ImageUploader</argument>
+        </arguments>
+    </type>
+
+    <!-- get attribute code by id -->
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mirasvit\Brand\Api\Data\BrandPageInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mst_brand_page</item>
+                    <item name="identifierField" xsi:type="string">brand_page_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Mirasvit\Brand\Api\Data\BrandPageInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="attributeCodeReader" xsi:type="string">Mirasvit\Brand\Model\Brand\AttributeCode\ReadHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

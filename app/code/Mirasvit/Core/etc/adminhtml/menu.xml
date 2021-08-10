@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mirasvit_Core::menu" title="Mirasvit" module="Mirasvit_Core" sortOrder="70" resource="Mirasvit_Core::menu"/>
+        <add id="Mirasvit_Core::extensions" title="Extensions" module="Mirasvit_Core" sortOrder="1000" action="adminhtml/system_config/edit/section/mst_core" parent="Mirasvit_Core::menu" resource="Mirasvit_Core::core_settings"/>
+        <add id="Mirasvit_Core::marketplace" title="Mirasvit Marketplace" module="Mirasvit_Core" sortOrder="1010" action="mstcore/marketplace" parent="Mirasvit_Core::menu" resource="Mirasvit_Core::menu"/>
+    </menu>
+</config>

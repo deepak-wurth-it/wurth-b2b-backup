@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mst_scroll>
+            <general>
+                <mode>button</mode>
+                <prev_text>Load Previous Page</prev_text>
+                <next_text>Show %limit% more products</next_text>
+                <product_list_selector>.products.product-grid, .products.products-grid, .products.product-list, .products.products-list</product_list_selector>
+            </general>
+        </mst_scroll>
+    </default>
+</config>

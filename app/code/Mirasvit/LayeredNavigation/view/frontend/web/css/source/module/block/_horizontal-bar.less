@@ -1,0 +1,92 @@
+& when (@media-common = true) {
+    .mst-nav__horizontal-bar {
+        padding-bottom: 2rem;
+
+        strong[role=heading] {
+            display: none;
+        }
+
+        .filter-options {
+            display:       flex !important;
+            border-bottom: 1px solid #cccccc;
+
+            .filter-options-item {
+                border-bottom: 0;
+
+                &:first-child {
+                    .filter-options-title {
+                        padding-left: 0;
+                    }
+                }
+
+                &.active {
+                    .filter-options-title {
+                        color: #000000;
+                    }
+                }
+
+                .filter-options-title {
+                    user-select: none;
+                }
+
+                .filter-options-content {
+                    border:           1px solid #cccccc;
+                    background-color: #ffffff;
+                    position:         absolute !important;
+                    z-index:          10000;
+                    display:          none;
+                    max-width:        23rem;
+                }
+            }
+        }
+
+        .block-actions {
+            display: none;
+        }
+
+        .filter-current {
+            strong[role=heading] {
+                display: block;
+            }
+
+            .items {
+                padding: 0;
+
+                .mst-nav__state-filter {
+                    white-space:  nowrap;
+                    padding-left: 1rem;
+                    display:      inline-block;
+
+                    .action.remove {
+                        position: initial;
+                    }
+                }
+
+                .filter-actions {
+                    margin:  1rem 0;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .mst-nav__horizontal-bar {
+        padding-bottom: 2rem;
+
+        strong[role=heading] {
+            display: none;
+        }
+
+        .filter-options {
+            display:       block !important;
+            border-bottom: 1px solid #cccccc;
+
+            .filter-options-item {
+                border-bottom: 0;
+                float: left;
+            }
+        }
+    }
+}

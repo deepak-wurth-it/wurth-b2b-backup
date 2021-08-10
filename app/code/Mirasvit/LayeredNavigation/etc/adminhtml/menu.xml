@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mirasvit_LayeredNavigation::navigation" title="Layered Navigation" module="Mirasvit_LayeredNavigation" sortOrder="100" resource="Mirasvit_LayeredNavigation::navigation" parent="Magento_Backend::content"/>
+        <add id="Mirasvit_LayeredNavigation::configuration" title="Configuration" module="Mirasvit_LayeredNavigation" sortOrder="100" action="adminhtml/system_config/edit/section/mst_nav" resource="Mirasvit_LayeredNavigation::config_layerednavigation" parent="Mirasvit_LayeredNavigation::navigation"/>
+    </menu>
+</config>
