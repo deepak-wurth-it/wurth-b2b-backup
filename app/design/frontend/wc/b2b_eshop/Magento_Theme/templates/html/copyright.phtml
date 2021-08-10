@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+echo $this->getLayout()
+    ->createBlock(\Magento\Cms\Block\Block::class)
+    ->setBlockId('wc_copyright') //replace my_cmsblock_identifier with real CMS bock identifier
+    ->toHtml();
+    ?>
+
