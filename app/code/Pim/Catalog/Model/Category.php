@@ -1,5 +1,8 @@
 <?php
-   
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
 namespace Pim\Category\Model;
 
 use Magento\Catalog\Model\Category as MagentoCategory;
@@ -16,31 +19,6 @@ class Category extends MagentoCategory implements CategoryInterface{
    const PIM_CATEGORY_CODE = 'pim_category_code';
    const PIM_CATEGORY_ID = 'pim_category_id';
    const PIM_CATEGORY_PARENT_ID = 'pim_category_parent_id';
-   
-   /**
-     * CMS page cache tag.
-     */
-    const CACHE_TAG = 'pim_category_records';
-
-    /**
-     * @var string
-     */
-    protected $_cacheTag = 'pim_category_records';
-
-    /**
-     * Prefix of model events names.
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'pim_category_records';
-
-    /**
-     * Initialize resource model.
-     */
-    protected function _construct()
-    {
-        $this->_init(\Pim\Category\Model\ResourceModel\Category::class);
-    }
 
    /**
      * Get pim parent category identifier
