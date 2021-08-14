@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+namespace Pim\Attribute\Model;
+
+use Magento\Framework\ObjectManagerInterface;
+
+class AttributeProcessor
+{
+    const PIM_CATEGORIES_TABLE = 'categories';
+    const PIM_MAGENTO_SYNC_STATUS = 'magento_sync_status';
+    const PIM_MAGENTO_CATEGORY_ID = 'magento_attribute_id';
+    const PIM_MAGENTO_PARENT_CATEGORY_ID = 'magento_parent_attribute_id';
+
+    /**
+     * 
+     */
+    public function __construct(
+        \Magento\Catalog\Api\AttributeRepositoryInterface $attributeRepositoryInterface,
+        \Magento\Framework\App\ResourceConnection $resourceConnection,
+        \Magento\Catalog\Model\AttributeFactory $attributeFactory,
+        ObjectManagerInterface $objectManager,
+        \Magento\Framework\File\Csv $fileCsv,
+        \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
+
+    ) {
+        $this->attributeFactory = $attributeFactory;
+        $this->resourceConnection = $resourceConnection;
+        $this->attributeRepositoryInterface = $attributeRepositoryInterface;
+        $this->objectManager = $objectManager;
+        $this->fileCsv = $fileCsv;
+        $this->directoryList = $directoryList;
+        $this->storeManager = $storeManager;
+    }
+
+
+    public function initExecution()
+    {
+
+        try {
+            $collection = $this->pimAttributeCollection();
+            echo "<pre>";print_r(get_class_methods($collection));exit;
+            foreach ($collection as $data) {
+                try {
+                    $this->creatingAttribute($data);
+                } catch (\Exception $e) {
+                    echo 'Failed to create attribute Pim Id  ' . $data['Id'] . PHP_EOL;
+                    echo $e->getMessage() . "\n" . PHP_EOL;
+                }
+            }
+            echo 'Attribute Sync/Build Has been done' . PHP_EOL;
+        } catch (\Exception $e) {
+            echo 'Something went wrong in pim collection  '. PHP_EOL;
+            echo $e->getMessage() . "\n" . PHP_EOL;
+        }
+    }
+
+    public function creatingAttribute($row)
+    {
+
+
+        $name = $row['Name'] ? $row['Name'] : '';
+        $active = $row['Active'] ? $row['Active'] : '0';
+        $magentoAttributeId = $row['magento_attribute_id'];
+        $magentoParentAttributeId = $row['magento_parent_attribute_id'];
+        $parentId = $row['ParentId'];
+
+        if ($parentId && empty($magentoParentAttributeId) && empty($magentoAttributeId)) {
+            $parentId = $this->attributeRepositoryInterface->getByPimParentId($parentId);
+        } elseif (!empty($magentoParentAttributeId) && !empty($magentoAttributeId)) {
+            $parentId =  $magentoParentAttributeId;
+        } else {
+            $parentId =  2;
+        }
+
+        $attribute = $this->attributeFactory->create();
+
+        $attribute->setName($name);
+        $attribute->setParentId($parentId);
+        $attribute->setIsActive($active);
+        $attribute->setCustomAttributes([
+            'description' => 'attribute example',
+            'meta_title' => 'attribute example',
+            'meta_keywords' => '',
+            'meta_description' => '',
+            'pim_attribute_id' => $row['Id'],
+            'pim_attribute_active_status' => $row['Active'],
+            'pim_attribute_channel_id' => $row['ChannelId'],
+            'pim_attribute_code' => $row['Code'],
+            'pim_attribute_external_id' => $row['ExternalId'],
+            'pim_attribute_parent_id' => $row['ParentId']
+
+        ]);
+
+        if ($magentoAttributeId) {
+            
+            $attribute->setId($magentoAttributeId);
+        }
+
+        $objAttribute = $this->attributeRepositoryInterface->save($attribute);
+
+        if ($objAttribute) {
+
+            $connectionObject = $this->getPimConnection();
+            $tableName = $connectionObject->getTableName(self::PIM_CATEGORIES_TABLE);
+            $where = ['Id = ?' => $row['Id']];
+            $data = [
+                self::PIM_MAGENTO_SYNC_STATUS => '1',
+                self::PIM_MAGENTO_CATEGORY_ID => $objAttribute->getId(),
+                self::PIM_MAGENTO_PARENT_CATEGORY_ID => $objAttribute->getParentId()
+            ];
+
+            $connectionObject->update($tableName, $data, $where);
+        }
+        echo  'Pim Attribute Id '.$row['Id'].' Created/Updated =>>>>> ' . $name . PHP_EOL;
+    }
+
+    public function getCategoriesExistsOrNot($attribute, $name)
+    {
+        return $attribute->getCollection()->addAttributeToFilter('name', $name)->getFirstItem();
+    }
+
+    public function deleteAllCategories()
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $attributeFactory = $objectManager->get('Magento\Catalog\Model\AttributeFactory');
+        $newAttribute = $attributeFactory->create();
+        $collection = $newAttribute->getCollection();
+        $objectManager->get('Magento\Framework\Registry')->register('isSecureArea', true);
+
+        foreach ($collection as $attribute) {
+
+            $attribute_id = $attribute->getId();
+
+            if ($attribute_id <= 2) continue;
+
+            try {
+                $attribute->delete();
+                echo 'Attribute Removed ' . $attribute_id . PHP_EOL;
+            } catch (Exception $e) {
+                echo 'Failed to remove attribute ' . $attribute_id . PHP_EOL;
+                echo $e->getMessage() . "\n" . PHP_EOL;
+            }
+        }
+    }
+
+    public function getPimConnection()
+    {
+
+
+        return $this->resourceConnection->getConnection('pim');
+    }
+
+    public function pimAttributeCollection()
+    {
+
+        $connection = $this->getPimConnection();
+        $tableName = $connection->getTableName('categories');
+        $query = $connection->select()->from($tableName, ['*'])
+            ->where('magento_sync_status =?', 0);
+        $fetchData = $connection->fetchAll($query);
+        return  $fetchData;
+    }
+}

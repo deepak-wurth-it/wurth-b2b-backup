@@ -2,7 +2,7 @@
 <!-- 
 /**
  *
- * @category  Embitel
+ * @attribute  Embitel
  * @package   Embitel_Adds
  * @author    Deepak Kumar <deepak.kumar@embitel.com>
  * @copyright 2019 Embitel technologies (I) Pvt. Ltd
@@ -12,20 +12,20 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">category_listing.category_listing_data_source</item>
+            <item name="provider" xsi:type="string">attribute_listing.attribute_listing_data_source</item>
         </item>
     </argument>
     <settings>
-        <spinner>category_columns</spinner>
+        <spinner>attribute_columns</spinner>
         <deps>
-            <dep>category_listing.category_listing_data_source</dep>
+            <dep>attribute_listing.attribute_listing_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="category_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="attribute_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="category_listing_data_source">
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="attribute_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>main_table.Id</primaryFieldName>
@@ -58,11 +58,11 @@
         </filters>
     <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="category_columns">
+    <columns name="attribute_columns">
         <settings>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">category_listing.category_listing.category_columns.actions</item>
+                    <item name="provider" xsi:type="string">attribute_listing.attribute_listing.attribute_columns.actions</item>
                     <item name="target" xsi:type="string">applyAction</item>
                     <item name="params" xsi:type="array">
                         <item name="0" xsi:type="string">edit</item>
@@ -71,29 +71,20 @@
                 </param>
             </childDefaults>
         </settings>
-        <!-- <selectionsColumn name="ids">
-            <settings>
-                <indexField>Id</indexField>
-            </settings>
-        </selectionsColumn> -->
+
         <column name="Id">
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">ID</label>
             </settings>
         </column>
-        <column name="Code">
+        <column name="Name">
             <settings>
                 <filter>textRange</filter>
-                <label translate="true">Code</label>
+                <label translate="true">Name</label>
             </settings>
         </column>
-        <column name="ParentId">
-            <settings>
-                <filter>text</filter>
-                <label>Parent Id (PIM)</label>
-            </settings>
-        </column>
+ 
          <column name="Active">
             <settings>
                 <filter>text</filter>
@@ -106,19 +97,13 @@
                 <label>External ID</label>
             </settings>
         </column>
-        <column name="ChannelId">
-            <settings>
-                <filter>text</filter>
-                <label>Channel Id</label>
-            </settings>
-        </column>
+
         <column name="UpdateRequired">
 			<settings>
 				<filter>textRange</filter>
 				<label translate="true">Update Required</label>
 			</settings>
 		</column>
-
         <column name="CreatedDate">
             <settings>
                 <filter>text</filter>

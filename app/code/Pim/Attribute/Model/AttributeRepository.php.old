@@ -1,0 +1,44 @@
+<?php
+/**
+ *
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+namespace Pim\Attribute\Model;
+
+use Magento\Catalog\Model\AttributeRepository as MagentoAttributeRepository;
+
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
+class AttributeRepository extends MagentoAttributeRepository
+{
+
+    public function getByPimParentId($pimParentId, $storeId = null)
+    {
+        $cacheKey = $storeId ?? 'all';
+        if (!isset($this->instances[$pimParentId][$cacheKey])) {
+            /** @var Attribute $attribute */
+            $attribute = $this->attributeFactory->create();
+            
+            if (null !== $storeId) {
+                $attribute->setStoreId($storeId);
+            }
+           
+            $attribute = $attribute->getCollection()->addAttributeToFilter('pim_attribute_id', ['in' => $pimParentId]);
+        
+            if (!$attribute->getSize()) {
+                return null;
+            }
+            
+        }
+        return $attribute->getFirstItem()->getId();
+       
+
+
+    }
+
+
+}
+

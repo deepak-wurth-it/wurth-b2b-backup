@@ -9,20 +9,11 @@
         </arguments>
     </type>    
 
-
-    <type name="Pim\Category\Model\ResourceModel\Category">
-        <arguments>
-            <argument name="connectionName" xsi:type="string">pim_online</argument>
-        </arguments>
-    </type>
-    
     
     <preference for="Magento\Catalog\Api\Data\CategoryInterface" type="Pim\Category\Api\Data\CategoryInterface" />
     <preference for="Magento\Category\Api\CategoryRepositoryInterface" type="Pim\Category\Api\CategoryRepositoryInterface" /> 
     <preference for="Magento\Catalog\Model\CategoryRepository" type="Pim\Category\Model\CategoryRepository" />
     <preference for="Magento\Catalog\Model\Category" type="Pim\Category\Model\Category" />
-
-
 
 
      <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
