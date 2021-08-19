@@ -2,6 +2,16 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
+
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="updateAttributeType" xsi:type="object">Pim\Attribute\Console\Command\UpdateAttributeTypeCommand</item>
+               <item name="createAttribute" xsi:type="object">Pim\Attribute\Console\Command\CreateAttributeCommand</item>
+            </argument>
+        </arguments>
+    </type>    
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
