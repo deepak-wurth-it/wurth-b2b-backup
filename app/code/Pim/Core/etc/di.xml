@@ -5,7 +5,7 @@
 
     <type name="Pim\Core\Model\ResourceModel\Core">
         <arguments>
-            <argument name="connectionName" xsi:type="string">pim_online</argument>
+            <argument name="connectionName" xsi:type="string">pim</argument>
         </arguments>
     </type>
     

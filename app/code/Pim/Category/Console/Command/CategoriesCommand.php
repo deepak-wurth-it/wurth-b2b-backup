@@ -29,7 +29,7 @@ class CategoriesCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('import:categories')
+        $this->setName('pim:import:categories')
             ->setDescription('Run category importer script');
 
         parent::configure();
