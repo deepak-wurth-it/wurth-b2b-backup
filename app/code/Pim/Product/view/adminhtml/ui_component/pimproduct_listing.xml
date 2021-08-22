@@ -71,12 +71,23 @@
 				</param>
 			</childDefaults>
 		</settings>
-		<column name="Id">
+       <column name="Id" component="Magento_Ui/js/grid/columns/link" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="link" xsi:type="string">View Attributes</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">View Attributes</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+		<!-- <column name="Id">
 			<settings>
 				<filter>textRange</filter>
 				<label translate="true">ID</label>
 			</settings>
-		</column>
+		</column> -->
 		<column name="Name">
 			<settings>
 				<filter>textRange</filter>
@@ -197,7 +208,7 @@
 		</column>
 
 
-         <column name="ShortDescription">
+         <!-- <column name="ShortDescription">
 			<settings>
 				<filter>text</filter>
 				<label>Short Description</label>
@@ -270,6 +281,6 @@
 				<filter>text</filter>
 				<label>Modified Date</label>
 			</settings>
-		</column>
+		</column> -->
 	</columns>
 </listing>
