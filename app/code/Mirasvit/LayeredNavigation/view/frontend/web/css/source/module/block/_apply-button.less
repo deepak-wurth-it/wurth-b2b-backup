@@ -1,0 +1,98 @@
+& when (@media-common = true) {
+    .mst-nav__apply-button-wrapper {
+        @shadow:     0 8px 50px 0 rgba(0, 0, 0, .1), 0 6px 15px 0 rgba(0, 0, 0, .15);
+        @spacer:     10px;
+        @min-width:  80px;
+        display:     none;
+        position:    absolute;
+        align-items: center;
+        z-index:     10;
+        transition:  all 300ms ease-out;
+        box-shadow:  @shadow;
+        margin-left: 20px;
+
+        &:before {
+            content:    "";
+            width:      16px;
+            height:     16px;
+            background: #ffffff;
+            transform:  translateY(-50%) rotate(45deg);
+            position:   absolute;
+            box-shadow: @shadow;
+            top:        50%;
+            left:       -8px;
+        }
+
+        .mst-nav__apply-button {
+            display:          flex;
+            padding:          @spacer;
+            align-items:      center;
+            background-color: #ffffff;
+            position:         relative;
+
+            .items {
+                display:         flex;
+                justify-content: center;
+                min-width:       @min-width;
+                align-items:     center;
+
+                strong {
+                    font-size:    16px;
+                    font-weight:  bold;
+                    display:      block;
+                    margin-right: 5px;
+                }
+
+                [data-items-label], [data-one-item-label] {
+                    display: none;
+                }
+            }
+
+            .loader {
+                display:         none;
+                min-width:       @min-width;
+                justify-content: center;
+            }
+
+            button {
+                border-radius: 0;
+                margin-left:   @spacer;
+                transition:    all 100ms;
+            }
+        }
+
+        &._loading {
+            .mst-nav__apply-button {
+                .loader {
+                    display: flex;
+                }
+
+                .items {
+                    display: none;
+                }
+
+                button {
+                    opacity: .5;
+                }
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = "max") and (@break = @screen__s) {
+    .mst-nav__apply-button-wrapper {
+        position: fixed;
+        left:     0 !important;
+        bottom:   0 !important;
+        top:      auto !important;
+        z-index:  1000000;
+        margin:   0;
+        width:    100%;
+
+        .mst-nav__apply-button {
+            .items, .loader {
+                flex-grow: 1;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<?php
+    /* @var $block \Mirasvit\Brand\Block\Brand\Description */
+?>
+<?php
+    $brandPage = $block->getBrandPage();
+?>
+
+<?php if ($brandPage): ?>
+    <div class="m-brand-additional-info">
+        <?php if (!empty($brandPage->getLogo()) && $block->isShowBrandLogo()): ?>
+            <div class="m-brand-logo">
+                <img src="<?php echo $block->escapeUrl($block->getBrandLogoUrl()) ?>"
+                     alt="<?php /* @noEscape */ echo $block->stripTags($brandPage->getTitle(), null, true) ?>" />
+            </div>
+        <?php endif; ?>
+        <?php if ($block->isShowBrandDescription()): ?>
+            <div class="m-brand-description">
+                <?php /* @noEscape */ echo $brandPage->getBrandDescription() ?>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

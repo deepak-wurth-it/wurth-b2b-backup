@@ -1,0 +1,115 @@
+& when (@media-common = true) {
+    .mst-nav__label {
+        .mst-nav__label-item {
+            margin:   .3rem 0 !important;
+            position: relative;
+
+            a {
+                display:     flex;
+                align-items: center;
+                padding:     .5rem;
+                transition:  background-color 100ms ease-out;
+
+                label, input {
+                    cursor: pointer;
+                }
+
+                label {
+                    white-space:   nowrap;
+                    overflow:      hidden;
+                    text-overflow: ellipsis;
+                }
+
+                input[type="checkbox"] {
+                    margin: 0 1rem 0 0;
+                    top:    0;
+                }
+            }
+
+            &._mode-link {
+                input[type="checkbox"] {
+                    display: none;
+                }
+            }
+
+            &._mode-simple_checkbox {
+
+            }
+
+            &._mode-checkbox {
+                input[type="checkbox"] {
+                    .checkbox(.2rem);
+                }
+            }
+
+            &._mode-circle {
+                input[type="checkbox"] {
+                    .checkbox(1rem);
+                }
+            }
+
+            &._highlight {
+                a {
+                    color: #ff5501;
+                }
+            }
+
+            &._image {
+                .swatch-option {
+                    background-color: #ffffff !important;
+                    margin-bottom:    0;
+                }
+
+                input[type="checkbox"] {
+                    display: none;
+                }
+
+                &._checked, &:hover {
+                    .swatch-option {
+                        transition: outline-color 50ms ease-out;
+                        outline:      2px solid #ff5501;
+                        border-color: #ffffff;
+                    }
+                }
+
+                &._full-width {
+                    label {
+                        display: none;
+                    }
+
+                    .swatch-option {
+                        min-width: 98%;
+                    }
+                }
+            }
+        }
+    }
+
+    .checkbox(@border-radius: .2rem) {
+        position:           relative;
+        -webkit-appearance: none;
+        -moz-appearance:    none;
+        background:         #ffffff;
+        width:              1.7rem;
+        height:             1.7rem;
+        min-width:          1.7rem;
+        min-height:         1.7rem;
+        display:            inline-block;
+        border:             .1rem solid #cacaca;
+        border-radius:      @border-radius;
+        cursor:             pointer;
+
+        &:checked {
+            &:before {
+                content:       "";
+                position:      absolute;
+                display:       inline-block;
+                width:         .9rem;
+                height:        .9rem;
+                margin:        .3rem;
+                border-radius: @border-radius;
+                background:    #ff915b;
+            }
+        }
+    }
+}

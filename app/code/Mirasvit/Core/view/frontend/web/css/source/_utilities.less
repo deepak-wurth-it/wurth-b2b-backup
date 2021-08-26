@@ -1,0 +1,613 @@
+@baseDir: '../';
+
+@screen__xxs: 320px;
+@screen__xs: 480px;
+@screen__s: 640px;
+@screen__m: 768px;
+@screen__l: 1024px;
+@screen__xl: 1440px;
+@media-common: true;
+@text__color__muted: #7d7d7d;
+
+//  Weights
+@font-weight__light: 300;
+@font-weight__regular: 400;
+@font-weight__heavier: 500;
+@font-weight__semibold: 600;
+@font-weight__bold: 700;
+
+@button__disabled__opacity: .5;
+
+@icon__position: before;
+@icon__text-hide: false;
+@icon__height: 26px;
+@icon__width: 26px;
+@icon__margin: '';
+@icon__vertical-align: middle;
+@icons__font-name: 'icons-blank-theme';
+@icon-font: @icons__font-name;
+@icon-font__position: @icon__position;
+@icon-font__text-hide: @icon__text-hide;
+@icon-font__margin: @icon__margin;
+@icon-font__size: inherit;
+@icon-font__line-height: @icon-font__size;
+@icon-font__color: inherit;
+@icon-font__color-hover: false;
+@icon-font__color-active: false;
+@icon-font__vertical-align: @icon__vertical-align;
+@icon-font__display: inline-block;
+
+//  Button with icon
+@button-icon__use: false;
+@button-icon__content: @icon-settings;
+@button-icon__font: @icon-font;
+@button-icon__font-size: 22px;
+@button-icon__line-height: @button-icon__font-size;
+@button-icon__color: inherit;
+@button-icon__margin: 0;
+@button-icon__vertical-align: top;
+@button-icon__position: @icon__position;
+@button-icon__text-hide: false;
+
+@icon-settings: '\e606';
+@icon-remove: '\e616';
+
+@button-icon__hover__font-color: inherit;
+@button-icon__active__font-color: inherit;
+
+@color-white: #fff;
+@color-black: #000;
+
+@color-gray19: #303030;
+@color-gray20: #333;
+@color-gray34: #575757;
+@color-gray37: #5e5e5e;
+@color-gray40: #666;
+@color-gray43: #6d6d6d;
+@color-gray46: #757575;
+@color-gray52: #858585;
+@color-gray55: #8c8c8c;
+@color-gray56: #8f8f8f;
+@color-gray60: #999;
+@color-gray62: #9e9e9e;
+@color-gray64: #a3a3a3;
+@color-gray68: #adadad;
+@color-gray76: #c2c2c2;
+@color-gray78: #c7c7c7;
+@color-gray79: #c9c9c9;
+@color-gray80: #ccc;
+@color-gray82: #d1d1d1;
+@color-gray89: #e3e3e3;
+@color-gray90: #e5e5e5;
+@color-gray91: #e8e8e8;
+@color-gray92: #ebebeb;
+@color-gray94: #f0f0f0;
+@color-gray95: #f2f2f2;
+@color-white-smoke: #f5f5f5;
+@color-white-dark-smoke: #efefef;
+@color-white-fog: #f8f8f8;
+
+@color-gray-light0: #f6f6f6;
+@color-gray-light01: #f4f4f4;
+@color-gray-light1: #e5efe5;
+@color-gray-light2: #bbb;
+@color-gray-light3: #aeaeae;
+@color-gray-light4: #cecece;
+@color-gray-light5: #c1c1c1;
+@color-gray-light6: #c5c5c5;
+
+@color-gray-middle1: #e4e4e4;
+@color-gray-middle2: #c6c6c6;
+@color-gray-middle3: #7e807e;
+@color-gray-middle4: #6e716e;
+@color-gray-middle5: #707070;
+
+@color-gray-darken0: #eee;
+@color-gray-darken1: #e2e2e2;
+@color-gray-darken2: #cdcdcd;
+@color-gray-darken3: #555;
+@color-gray-darken4: #494949;
+
+@color-red9: #ff0101;
+@color-red10: #e02b27;
+@color-red11: #b30000;
+@color-red12: #d10029;
+
+@color-orange-red1: #ff5501;
+@color-orange-red2: #ff5601; // Legacy orange
+@color-orange-red3: #ff5700; // Legacy orange
+@color-orange-red4: #fc5e10; // Legacy orange
+
+@color-dark-green1: #006400;
+
+@color-blue1: #1979c3;
+@color-blue2: #006bb4;
+@color-blue3: #00699D;
+@color-sky-blue1: #68a8e0;
+
+@color-pink1: #fae5e5;
+@color-dark-pink1: #800080;
+
+@color-brownie1: #6f4400;
+@color-brownie-light1: #c07600;
+
+@color-yellow-light1: #fdf0d5;
+@color-yellow-light2: #ffee9c;
+@color-yellow-light3: #d6ca8e;
+@color-yellow1: #ff0;
+
+//
+//  Color nesting
+//  ---------------------------------------------
+
+@primary__color: @color-gray20;
+@primary__color__dark: darken(@primary__color, 35%); // #000
+@primary__color__darker: darken(@primary__color, 13.5%); // #111
+@primary__color__lighter: lighten(@primary__color, 29%); // #7d7d7d
+@primary__color__light: lighten(@primary__color, 45%); // #a6a6a6
+
+@secondary__color: @color-gray91;
+@secondary__color__light: lighten(@secondary__color, 5%);
+
+@page__background-color: @color-white;
+@panel__background-color: darken(@page__background-color, 6%);
+
+@active__color: @color-orange-red1;
+@error__color: @color-red10;
+
+//  Indents
+@indent__base: 2rem;
+@indent__xl: @indent__base * 2; // 40px
+@indent__l: @indent__base * 1.5; // 30px
+@indent__m: @indent__base * 1.25; // 25px
+@indent__s: @indent__base / 2; // 10px
+@indent__xs: @indent__base / 4; // 5px
+//  Font
+@font-size__base: 1.4rem;
+@line-height__base: 1.36;
+//  Line heights
+@line-height__base: 1.428571429;
+@line-height__computed: floor(@font-size__base * @line-height__base);
+@line-height__xl: 1.7;
+@line-height__l: 1.5;
+@line-height__s: 1.33;
+//  Sizes
+@root__font-size: 62.5%; // Defines ratio between root font size and base font size, 1rem = 10px
+@font-size-ratio__base: 1.4; // Defines ratio of the root font-size to the base font-size
+
+@font-size-unit: rem; // The unit to which most typography values will be converted by default
+@font-size-unit-ratio: unit(@root__font-size * 16/100); // Ratio of the root font-size to the font-size unit
+@font-size-unit-convert: true; // Controls whether font-size values are converted to the specified font-size unit
+
+@font-size__base: unit(@font-size-unit-ratio * @font-size-ratio__base, px); // Base font size value in <b>px</b>
+@font-size__xl: ceil(1.5 * @font-size__base); // 21px
+@font-size__l: ceil(1.25 * @font-size__base); // 18px
+@font-size__s: ceil(.85 * @font-size__base); // 12px
+@font-size__xs: floor(.75 * @font-size__base); // 11px
+
+@icon-down: '\e622';
+@icon-up: '\e621';
+@color-white: #fff;
+@color-gray20: #333;
+@page__background-color: @color-white;
+@border-color__base: darken(@page__background-color, 18%);
+@border-width__base: 1px;
+@panel__background-color: darken(@page__background-color, 6%);
+@primary__color: @color-gray20;
+@text__color: @primary__color;
+
+//  Tabs
+@tab-control__color: @color-gray43;
+@tab-control__font-weight: @font-weight__regular;
+@tab-control__height: @indent__base*2;
+@tab-control__margin-right: -1px;
+@tab-control__padding-top: 1px;
+@tab-control__padding-right: 35px;
+//  Tabs controls
+@tab-control__font-size: @font-size__base;
+@tab-control__font-family: false;
+@tab-control__font-weight: @font-weight__semibold;
+@tab-control__font-style: false;
+@tab-control__line-height: @tab-control__height;
+@tab-control__height__base: @line-height__computed;
+@tab-control__height: @indent__base;
+@tab-control__margin-right: @indent__xs;
+@tab-control__padding-top: @indent__xs;
+@tab-control__padding-right: @indent__base;
+@tab-control__padding-bottom: @tab-control__padding-top;
+@tab-control__padding-left: @tab-control__padding-right;
+@tab-control__border-color: @border-color__base;
+@tab-control__border-width: @border-width__base;
+
+//  Current tab
+@tab-control__background-color: @panel__background-color;
+@tab-control__color: @text__color__muted;
+@tab-control__text-decoration: none;
+
+@tab-control__hover__background-color: lighten(@tab-control__background-color, 5%);
+@tab-control__hover__color: @tab-control__color;
+@tab-control__hover__text-decoration: @tab-control__text-decoration;
+
+@tab-control__active__background-color: lighten(@tab-control__background-color, 15%);
+@tab-control__active__color: @text__color;
+@tab-control__active__text-decoration: @tab-control__text-decoration;
+
+@tab-content__background-color: @tab-control__active__background-color;
+@tab-content__border-top-status: false;
+@tab-content__border: @tab-control__border-width solid @tab-control__border-color;
+@tab-content__margin-top: @tab-control__height + @tab-control__border-width + @tab-control__padding-top + @tab-control__padding-bottom;
+@tab-content__padding-top: @indent__base;
+@tab-content__padding-right: @indent__base;
+@tab-content__padding-bottom: @tab-content__padding-top;
+@tab-content__padding-left: @tab-content__padding-right;
+
+//  Tabs content
+@tab-content__padding-top: 35px;
+@tab-content__padding-right: @tab-control__padding-right;
+
+.lib-clearfix() {
+    &:before,
+    &:after {
+        content: '';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+.lib-css(
+    @_property,
+    @_value,
+    @_prefix: 0
+) when (@_prefix = 1)
+  and not (@_value = '')
+  and not (@_value = false)
+  and not (extract(@_value, 1) = false)
+  and not (extract(@_value, 2) = false)
+  and not (extract(@_value, 3) = false)
+  and not (extract(@_value, 4) = false)
+  and not (extract(@_value, 5) = false) {
+    -webkit-@{_property}: @_value;
+    -moz-@{_property}: @_value;
+    -ms-@{_property}: @_value;
+}
+
+.lib-css(
+    @_property,
+    @_value,
+    @_prefix: 0
+) when not (@_value = '')
+  and not (@_value = false)
+  and not (extract(@_value, 1) = false)
+  and not (extract(@_value, 2) = false)
+  and not (extract(@_value, 3) = false)
+  and not (extract(@_value, 4) = false)
+  and not (extract(@_value, 5) = false) {
+        @{_property}: @_value;
+}
+
+//
+//  Button reset
+//  ---------------------------------------------
+
+.lib-button-reset() {
+    background-image: none; // Reset unusual Firefox-on-Android default style
+    background: none;
+    -moz-box-sizing: content-box; // Hack: fix Firefox button line-height problem
+    border: 0;
+    box-shadow: none;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    text-shadow: none;
+    .lib-css(font-weight, @font-weight__regular);
+
+    &:focus,
+    &:active {
+        background: none;
+        border: none;
+    }
+
+    &:hover {
+        background: none;
+        border: none;
+    }
+
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        cursor: not-allowed;
+        pointer-events: none; // Disabling of clicks
+        .lib-css(opacity, @button__disabled__opacity);
+    }
+}
+
+.lib-button-icon (
+    @_icon-font-content,
+    @_icon-font: @button-icon__font,
+    @_icon-font-size: @button-icon__font-size,
+    @_icon-font-line-height: @button-icon__line-height,
+    @_icon-font-color: @button-icon__color,
+    @_icon-font-color-hover: @button-icon__hover__font-color,
+    @_icon-font-color-active: @button-icon__active__font-color,
+    @_icon-font-margin: @button-icon__margin,
+    @_icon-font-vertical-align: @button-icon__vertical-align,
+    @_icon-font-position: @button-icon__position,
+    @_icon-font-text-hide: @button-icon__text-hide
+) {
+    .lib-icon-font(
+        @_icon-font-content: @_icon-font-content,
+        @_icon-font: @_icon-font,
+        @_icon-font-size: @_icon-font-size,
+        @_icon-font-line-height: @_icon-font-line-height,
+        @_icon-font-color: @_icon-font-color,
+        @_icon-font-color-hover: @_icon-font-color-hover,
+        @_icon-font-color-active: @_icon-font-color-active,
+        @_icon-font-margin: @_icon-font-margin,
+        @_icon-font-vertical-align: @_icon-font-vertical-align,
+        @_icon-font-position: @_icon-font-position,
+        @_icon-font-text-hide: @_icon-font-text-hide
+    );
+}
+
+.lib-visually-hidden() {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.lib-icon-text-hide() {
+    > span {
+        .lib-visually-hidden();
+    }
+}
+
+._lib-icon-text-hide(@_icon-text-hide) when (@_icon-text-hide = true) {
+    .lib-icon-text-hide();
+}
+
+._lib-icon-font(
+    @_icon-font-content,
+    @_icon-font,
+    @_icon-font-size,
+    @_icon-font-line-height,
+    @_icon-font-color,
+    @_icon-font-margin,
+    @_icon-font-vertical-align
+) {
+    -webkit-font-smoothing: antialiased;
+    ._lib-icon-font-size(@_icon-font-size, @_icon-font-line-height);
+    .lib-css(color, @_icon-font-color);
+    .lib-css(content, @_icon-font-content);
+    .lib-css(font-family, @_icon-font);
+    .lib-css(margin, @_icon-font-margin);
+    .lib-css(vertical-align, @_icon-font-vertical-align);
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+
+._lib-icon-font-size(@_icon-font-size, @_icon-font-line-height) {
+    .lib-css(font-size, @_icon-font-size);
+    .lib-css(line-height, @_icon-font-line-height);
+}
+
+.lib-icon-font(
+    @_icon-font-content,
+    @_icon-font: @icon-font,
+    @_icon-font-size: @icon-font__size,
+    @_icon-font-line-height: @icon-font__line-height,
+    @_icon-font-color: @icon-font__color,
+    @_icon-font-color-hover: @icon-font__color-hover,
+    @_icon-font-color-active: @icon-font__color-active,
+    @_icon-font-margin: @icon-font__margin,
+    @_icon-font-vertical-align: @icon-font__vertical-align,
+    @_icon-font-position: @icon-font__position,
+    @_icon-font-text-hide: @icon-font__text-hide,
+    @_icon-font-display: @icon-font__display
+) when (@_icon-font-position = before) {
+    ._lib-icon-text-hide(@_icon-font-text-hide);
+    .lib-css(display, @_icon-font-display);
+    text-decoration: none;
+
+    &:before {
+        ._lib-icon-font(
+                @_icon-font-content,
+                @_icon-font,
+                @_icon-font-size,
+                @_icon-font-line-height,
+                @_icon-font-color,
+                @_icon-font-margin,
+                @_icon-font-vertical-align
+        );
+    }
+
+    &:hover {
+        &:before {
+            .lib-css(color, @_icon-font-color-hover);
+        }
+    }
+
+    &:active {
+        &:before {
+            .lib-css(color, @_icon-font-color-active);
+        }
+    }
+}
+
+.lib-icon-font(
+    @_icon-font-content,
+    @_icon-font: @icon-font,
+    @_icon-font-size: @icon-font__size,
+    @_icon-font-line-height: @icon-font__line-height,
+    @_icon-font-color: @icon-font__color,
+    @_icon-font-color-hover: @icon-font__color-hover,
+    @_icon-font-color-active: @icon-font__color-active,
+    @_icon-font-margin: @icon-font__margin,
+    @_icon-font-vertical-align: @icon-font__vertical-align,
+    @_icon-font-position: @icon-font__position,
+    @_icon-font-text-hide: @icon-font__text-hide,
+    @_icon-font-display: @icon-font__display
+) when (@_icon-font-position = after) {
+    ._lib-icon-text-hide(@_icon-font-text-hide);
+    .lib-css(display, @_icon-font-display);
+    text-decoration: none;
+
+    &:after {
+        ._lib-icon-font(
+                @_icon-font-content,
+                @_icon-font,
+                @_icon-font-size,
+                @_icon-font-line-height,
+                @_icon-font-color,
+                @_icon-font-margin,
+                @_icon-font-vertical-align
+        );
+    }
+
+    &:hover {
+        &:after {
+            .lib-css(color, @_icon-font-color-hover);
+        }
+    }
+
+    &:active {
+        &:after {
+            .lib-css(color, @_icon-font-color-active);
+        }
+    }
+}
+
+.lib-rotate(@_rotation) {
+    -webkit-transform: rotate(@_rotation); //  Use in 8 Safari
+    -ms-transform: rotate(@_rotation); //  Use in 9 IE
+    transform: rotate(@_rotation);
+}
+
+@media only screen and (max-width: (@screen__xxs - 1)) {
+    .media-width('max', @screen__xxs);
+}
+
+@media only screen and (max-width: (@screen__xs - 1)) {
+    .media-width('max', @screen__xs);
+}
+
+@media only screen and (max-width: (@screen__s - 1)) {
+    .media-width('max', @screen__s);
+}
+
+@media only screen and (max-width: (@screen__m - 1)) {
+    .media-width('max', @screen__m);
+}
+
+@media only screen and (max-width: @screen__m) {
+    .media-width('max', (@screen__m + 1));
+}
+
+@media only screen and (min-width: @screen__m) {
+    .media-width('min', @screen__m);
+}
+
+@media all and (min-width: @screen__s) {
+    .media-width('min', @screen__s);
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') {
+
+}
+
+// /**
+//  * Copyright © 2016 Magento. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Icons variables
+//  _____________________________________________
+
+@icon__position: before;
+@icon__text-hide: false;
+@icon__height: 26px;
+@icon__width: 26px;
+@icon__margin: '';
+@icon__vertical-align: middle;
+
+@icon-image__position-x: 0;
+@icon-image__position-y: 0;
+
+@icon-sprite__position-x: 0;
+@icon-sprite__position-y: 0;
+@icon-sprite__grid: 26px;
+
+@icon-font: @icons__font-name;
+@icon-font__position: @icon__position;
+@icon-font__text-hide: @icon__text-hide;
+@icon-font__margin: @icon__margin;
+@icon-font__size: inherit;
+@icon-font__line-height: @icon-font__size;
+@icon-font__color: inherit;
+@icon-font__color-hover: false;
+@icon-font__color-active: false;
+@icon-font__vertical-align: @icon__vertical-align;
+@icon-font__display: inline-block;
+
+@icon-calendar__font-size: 40px;
+
+//
+//  Variables for icons-blank-theme
+//  ---------------------------------------------
+
+// ToDo UI: move it to blank theme variables
+@icon-wishlist-full: '\e600';
+@icon-wishlist-empty: '\e601';
+@icon-warning: '\e602';
+@icon-update: '\e603';
+@icon-trash: '\e604';
+@icon-star: '\e605';
+@icon-settings: '\e606';
+@icon-pointer-down: '\e607';
+@icon-next: '\e608';
+@icon-menu: '\e609';
+@icon-location: '\e60a';
+@icon-list: '\e60b';
+@icon-info: '\e60c';
+@icon-grid: '\e60d';
+@icon-comment-reflected: '\e60e';
+@icon-collapse: '\e60f';
+@icon-checkmark: '\e610';
+@icon-cart: '\e611';
+@icon-calendar: '\e612';
+@icon-arrow-up: '\e613';
+@icon-arrow-down: '\e614';
+@icon-search: '\e615';
+@icon-remove: '\e616';
+@icon-prev: '\e617';
+@icon-pointer-up: '\e618';
+@icon-pointer-right: '\e619';
+@icon-pointer-left: '\e61a';
+@icon-flag: '\e61b';
+@icon-expand: '\e61c';
+@icon-envelope: '\e61d';
+@icon-compare-full: '\e61e';
+@icon-compare-empty: '\e61f';
+@icon-comment: '\e620';
+@icon-up: '\e621';
+@icon-down: '\e622';
+@icon-help: '\e623';
+@icon-arrow-right-thin: '\e624';
+@icon-arrow-left-thin: '\e625';
+@icon-arrow-down-thin: '\e626';
+@icon-account: '\e627';
+@icon-gift-registry: '\e628';
+@icon-present: '\e629';
+@icon-arrow-up-thin: '\e633';

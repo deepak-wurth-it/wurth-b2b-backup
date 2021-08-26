@@ -1,0 +1,8 @@
+<?php
+/**
+ * @var $block \Mirasvit\AllProducts\Block\SwatchesCss
+ */
+?>
+<?php if ($block->isAllowed()): ?>
+    <link  rel="stylesheet" type="text/css"  media="all" href="<?= $block->getSwatchesCssUrl() ?>" />
+<?php endif; ?>

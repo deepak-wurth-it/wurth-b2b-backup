@@ -1,0 +1,24 @@
+{
+    "name": "mirasvit/module-core",
+    "description": "Mirasvit Core",
+    "require": {
+        "magento/framework": "100.0.*|100.1.*|100.2.*|101.0.*|102.0.*|103.0.*"
+    },
+    "conflict": {
+        "mirasvit/module-rma": "<2.0.39",
+        "mirasvit/module-helpdesk": "<1.1.83"
+    },
+    "type": "magento2-module",
+    "version": "1.2.122",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "src/Core/registration.php"
+        ],
+        "psr-4": {
+            "Mirasvit\\Core\\": "src/Core"
+        }
+    }
+}

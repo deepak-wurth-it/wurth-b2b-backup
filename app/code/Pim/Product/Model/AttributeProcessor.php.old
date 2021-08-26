@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+namespace Pim\Product\Model;
+
+use Magento\Framework\ObjectManagerInterface;
+
+class ProductProcessor
+{
+    const PIM_CATEGORIES_TABLE = 'categories';
+    const PIM_MAGENTO_SYNC_STATUS = 'magento_sync_status';
+    const PIM_MAGENTO_CATEGORY_ID = 'magento_product_id';
+    const PIM_MAGENTO_PARENT_CATEGORY_ID = 'magento_parent_product_id';
+
+    /**
+     * 
+     */
+    public function __construct(
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepositoryInterface,
+        \Magento\Framework\App\ResourceConnection $resourceConnection,
+        \Magento\Catalog\Model\ProductFactory $productFactory,
+        ObjectManagerInterface $objectManager,
+        \Magento\Framework\File\Csv $fileCsv,
+        \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
+
+    ) {
+        $this->productFactory = $productFactory;
+        $this->resourceConnection = $resourceConnection;
+        $this->productRepositoryInterface = $productRepositoryInterface;
+        $this->objectManager = $objectManager;
+        $this->fileCsv = $fileCsv;
+        $this->directoryList = $directoryList;
+        $this->storeManager = $storeManager;
+    }
+
+
+    public function initExecution()
+    {
+
+        try {
+            $collection = $this->pimProductCollection();
+            echo "<pre>";print_r(get_class_methods($collection));exit;
+            foreach ($collection as $data) {
+                try {
+                    $this->creatingProduct($data);
+                } catch (\Exception $e) {
+                    echo 'Failed to create product Pim Id  ' . $data['Id'] . PHP_EOL;
+                    echo $e->getMessage() . "\n" . PHP_EOL;
+                }
+            }
+            echo 'Product Sync/Build Has been done' . PHP_EOL;
+        } catch (\Exception $e) {
+            echo 'Something went wrong in pim collection  '. PHP_EOL;
+            echo $e->getMessage() . "\n" . PHP_EOL;
+        }
+    }
+
+    public function creatingProduct($row)
+    {
+
+
+        $name = $row['Name'] ? $row['Name'] : '';
+        $active = $row['Active'] ? $row['Active'] : '0';
+        $magentoProductId = $row['magento_product_id'];
+        $magentoParentProductId = $row['magento_parent_product_id'];
+        $parentId = $row['ParentId'];
+
+        if ($parentId && empty($magentoParentProductId) && empty($magentoProductId)) {
+            $parentId = $this->productRepositoryInterface->getByPimParentId($parentId);
+        } elseif (!empty($magentoParentProductId) && !empty($magentoProductId)) {
+            $parentId =  $magentoParentProductId;
+        } else {
+            $parentId =  2;
+        }
+
+        $product = $this->productFactory->create();
+
+        $product->setName($name);
+        $product->setParentId($parentId);
+        $product->setIsActive($active);
+        $product->setCustomProducts([
+            'description' => 'product example',
+            'meta_title' => 'product example',
+            'meta_keywords' => '',
+            'meta_description' => '',
+            'pim_product_id' => $row['Id'],
+            'pim_product_active_status' => $row['Active'],
+            'pim_product_channel_id' => $row['ChannelId'],
+            'pim_product_code' => $row['Code'],
+            'pim_product_external_id' => $row['ExternalId'],
+            'pim_product_parent_id' => $row['ParentId']
+
+        ]);
+
+        if ($magentoProductId) {
+            
+            $product->setId($magentoProductId);
+        }
+
+        $objProduct = $this->productRepositoryInterface->save($product);
+
+        if ($objProduct) {
+
+            $connectionObject = $this->getPimConnection();
+            $tableName = $connectionObject->getTableName(self::PIM_CATEGORIES_TABLE);
+            $where = ['Id = ?' => $row['Id']];
+            $data = [
+                self::PIM_MAGENTO_SYNC_STATUS => '1',
+                self::PIM_MAGENTO_CATEGORY_ID => $objProduct->getId(),
+                self::PIM_MAGENTO_PARENT_CATEGORY_ID => $objProduct->getParentId()
+            ];
+
+            $connectionObject->update($tableName, $data, $where);
+        }
+        echo  'Pim Product Id '.$row['Id'].' Created/Updated =>>>>> ' . $name . PHP_EOL;
+    }
+
+    public function getCategoriesExistsOrNot($product, $name)
+    {
+        return $product->getCollection()->addProductToFilter('name', $name)->getFirstItem();
+    }
+
+    public function deleteAllCategories()
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $productFactory = $objectManager->get('Magento\Catalog\Model\ProductFactory');
+        $newProduct = $productFactory->create();
+        $collection = $newProduct->getCollection();
+        $objectManager->get('Magento\Framework\Registry')->register('isSecureArea', true);
+
+        foreach ($collection as $product) {
+
+            $product_id = $product->getId();
+
+            if ($product_id <= 2) continue;
+
+            try {
+                $product->delete();
+                echo 'Product Removed ' . $product_id . PHP_EOL;
+            } catch (Exception $e) {
+                echo 'Failed to remove product ' . $product_id . PHP_EOL;
+                echo $e->getMessage() . "\n" . PHP_EOL;
+            }
+        }
+    }
+
+    public function getPimConnection()
+    {
+
+
+        return $this->resourceConnection->getConnection('pim');
+    }
+
+    public function pimProductCollection()
+    {
+
+        $connection = $this->getPimConnection();
+        $tableName = $connection->getTableName('categories');
+        $query = $connection->select()->from($tableName, ['*'])
+            ->where('magento_sync_status =?', 0);
+        $fetchData = $connection->fetchAll($query);
+        return  $fetchData;
+    }
+}

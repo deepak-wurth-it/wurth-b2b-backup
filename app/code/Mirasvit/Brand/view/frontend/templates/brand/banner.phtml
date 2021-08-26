@@ -1,0 +1,15 @@
+<?php
+    /* @var $block \Mirasvit\Brand\Block\Brand\Banner */
+?>
+<?php
+    $brandPage = $block->getBrandPage();
+?>
+
+<?php if ($brandPage && $block->isCorrectBannerPosition() && $brandPage->getBanner()): ?>
+    <div class="m-brand-banner">
+        <img src="<?php echo $block->escapeUrl($block->getBannerUrl()) ?>"
+             alt="<?php /* @noEscape */ echo $block->stripTags($block->getBannerAlt(), null, true) ?>"
+             title="<?php /* @noEscape */ echo $block->stripTags($block->getBannerTitle(), null, true) ?>"
+        />
+    </div>
+<?php endif; ?>

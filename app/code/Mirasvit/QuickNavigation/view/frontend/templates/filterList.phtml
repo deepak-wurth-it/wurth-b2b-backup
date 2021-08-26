@@ -1,0 +1,52 @@
+<?php
+/** @var \Mirasvit\QuickNavigation\Block\FilterList $block */
+$list = $block->getFilterItems();
+if (count($list) === 0) {
+    return;
+}
+?>
+
+<div class="mst-quick-nav__filterList" data-element="quick-navigation">
+    <a data-element="prev" class="mst-quick-nav__filterList-prev">
+        <span><?= __('Previous') ?></span>
+    </a>
+
+    <div class="mst-quick-nav__filterList-container" data-element="container">
+        <?php $lastName = ''; ?>
+        <?php foreach ($list as $filterItem):
+            $isSelected = $block->isSelected($filterItem);
+
+            if ($filterItem->getData('count') == 0 && !$isSelected) {
+                continue;
+            }
+
+            $name = $filterItem->getFilter()->getName();
+            ?>
+            <?php if ($isSelected): ?>
+            <a href="<?= $filterItem->getRemoveUrl() ?>" class="mst-quick-nav__item _checked" data-element="filter" data-mode="instant">
+                <label><?= $filterItem->getData('label') ?></label>
+            </a>
+        <?php else: ?>
+            <a href="<?= $filterItem->getUrl() ?>" class="mst-quick-nav__item" data-element="filter" data-mode="instant">
+                <?php if ($lastName != $name): ?>
+                    <strong><?= $name ?></strong>
+                <?php endif ?>
+
+                <label><?= $filterItem->getData('label') ?></label> <span class="count">(<?= $filterItem->getData('count') ?>)</span>
+            </a>
+
+            <?php $lastName = $name ?>
+        <?php endif ?>
+        <?php endforeach ?>
+    </div>
+
+    <a data-element="next" class="mst-quick-nav__filterList-next">
+        <span><?= __('Next') ?></span>
+    </a>
+</div>
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '[data-element = quick-navigation]' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+            'Mirasvit_QuickNavigation/js/filter-list'               => [],
+        ],
+    ]) ?></script>

@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--change attribute urls (multi-select)-->
+    <type name="Magento\Catalog\Model\Layer\Filter\Item">
+        <plugin name="Mirasvit_LayeredNavigation::updateFilterItemUrl" type="Mirasvit\LayeredNavigation\Plugin\Frontend\UpdateFilterItemUrlPlugin" sortOrder="990"/>
+    </type>
+
+    <!--render default filters-->
+    <preference for="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" type="Mirasvit\LayeredNavigation\Block\Renderer\FilterRenderer"/>
+
+    <!--render swatch (color, size) filters-->
+    <preference for="Magento\Swatches\Block\LayeredNavigation\RenderLayered" type="Mirasvit\LayeredNavigation\Block\Renderer\SwatchRenderer"/>
+
+    <!--render state filters-->
+    <preference for="Magento\LayeredNavigation\Block\Navigation\State" type="Mirasvit\LayeredNavigation\Block\Navigation\State"/>
+
+    <!-- form ajax response when layered navigation actions triggered (filters, toolbar, pagination) -->
+    <type name="Magento\Catalog\Controller\Category\View">
+        <plugin name="m-layerednavigation-ajax-category-response"
+                type="Mirasvit\LayeredNavigation\Plugin\Frontend\Catalog\Controller\Category\View\AjaxCategoryPlugin"/>
+    </type>
+    <type name="Magento\CatalogSearch\Controller\Result\Index">
+        <plugin name="m-layerednavigation-ajax-search-response"
+                type="Mirasvit\LayeredNavigation\Plugin\Frontend\CatalogSearch\Controller\Result\Index\AjaxSearchPlugin"/>
+    </type>
+    <type name="Mirasvit\Brand\Controller\Brand\View">
+        <plugin name="m-layerednavigation-ajax-brand"
+                type="Mirasvit\LayeredNavigation\Plugin\Frontend\Catalog\Controller\Category\View\AjaxCategoryPlugin"/>
+    </type>
+    <type name="Mirasvit\AllProducts\Controller\Index\Index">
+        <plugin name="m-layerednavigation-ajax-all-products"
+                type="Mirasvit\LayeredNavigation\Plugin\Frontend\Catalog\Controller\Category\View\AjaxCategoryPlugin"/>
+    </type>
+
+    <!-- wrap product list with layered navigation div -->
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="m-layerednavigation-ajax-listproduct-wrapper"
+                type="Mirasvit\LayeredNavigation\Plugin\Frontend\Catalog\Block\Product\ListProduct\AjaxCategoryWrapper"/>
+    </type>
+    <type name="Magento\CatalogSearch\Block\Result">
+        <plugin name="m-layerednavigation-ajax-search-wrapper"
+                type="Mirasvit\LayeredNavigation\Plugin\Frontend\CatalogSearch\Block\Result\AjaxSearchWrapper"/>
+    </type>
+
+
+    <!-- correct redirect url -->
+    <type name="Magento\Store\App\Response\Redirect">
+        <plugin name="m-layerednavigation-redirect-url" type="Mirasvit\LayeredNavigation\Plugin\ResponseRedirectUrlPlugin" sortOrder="1001"/>
+
+        <plugin name="deleteIsAjaxParameterFromReferer"
+                type="Mirasvit\LayeredNavigation\Plugin\Frontend\DeleteIsAjaxParameterFromRefererPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Search\Dynamic\Algorithm\Repository">
+        <plugin name="Mirasvit_LayeredNavigation::resetPriceAlgorithmCache" type="Mirasvit\LayeredNavigation\Plugin\Frontend\ResetPriceAlgorithmCachePlugin"/>
+    </type>
+
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Mirasvit\LayeredNavigation\Model\ResourceModel\Fulltext\Collection</argument>
+        </arguments>
+    </virtualType>
+
+
+    <virtualType name="elasticsearchCategoryCollection" type="Mirasvit\LayeredNavigation\Model\ResourceModel\Fulltext\Collection"/>
+    <virtualType name="elasticsearchFulltextSearchCollection" type="Mirasvit\LayeredNavigation\Model\ResourceModel\Fulltext\Collection"/>
+
+
+    <!-- Set additional filters -->
+    <type name="Mirasvit\LayeredNavigation\Model\Layer\FilterList">
+        <arguments>
+            <argument name="additionalFilters" xsi:type="array">
+                <item name="new" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\NewFilter</item>
+                <item name="on_sale" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\OnSaleFilter</item>
+                <item name="stock" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\StockFilter</item>
+                <item name="rating" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\RatingFilter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--  Configure Filters for Layered Navigation Block  -->
+
+    <!-- category filters -->
+    <virtualType name="categoryFilterList" type="Mirasvit\LayeredNavigation\Model\Layer\FilterList">
+        <arguments>
+            <!-- we can ignore passing this filters -->
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\AttributeFilter</item>
+                <item name="category" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\CategoryFilter</item>
+                <item name="price" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+                <item name="decimal" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+            </argument>
+            <argument name="isHorizontal" xsi:type="boolean">false</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- search filters -->
+    <virtualType name="searchFilterList" type="Mirasvit\LayeredNavigation\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\AttributeFilter</item>
+                <item name="category" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\CategoryFilter</item>
+                <item name="price" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+                <item name="decimal" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+            </argument>
+            <argument name="isHorizontal" xsi:type="boolean">false</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- horizontal navigation category -->
+    <virtualType name="Mirasvit\LayeredNavigation\Block\NavigationHorizontal\Category" type="Magento\LayeredNavigation\Block\Navigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">categoryFilterListHorizontal</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="categoryFilterListHorizontal" type="Mirasvit\LayeredNavigation\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filterableAttributes" xsi:type="object">Magento\Catalog\Model\Layer\Category\FilterableAttributeList</argument>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\AttributeFilter</item>
+                <item name="category" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\CategoryFilter</item>
+                <item name="price" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+                <item name="decimal" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+            </argument>
+            <argument name="isHorizontal" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- horizontal navigation search -->
+    <virtualType name="Mirasvit\LayeredNavigation\Block\NavigationHorizontal\Search" type="Mirasvit\LayeredNavigation\Block\Navigation\HorizontalNavigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">searchFilterListHorizontal</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="searchFilterListHorizontal" type="Mirasvit\LayeredNavigation\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filterableAttributes" xsi:type="object">Magento\Catalog\Model\Layer\Search\FilterableAttributeList</argument>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\AttributeFilter</item>
+                <item name="category" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\CategoryFilter</item>
+                <item name="price" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+                <item name="decimal" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\DecimalFilter</item>
+            </argument>
+            <argument name="isHorizontal" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+
+    <!--    filter expander-->
+    <virtualType name="Mirasvit\LayeredNavigation\Block\Navigation\FilterExpander\Category" type="Mirasvit\LayeredNavigation\Block\Navigation\FilterExpander">
+        <arguments>
+            <argument name="filterList" xsi:type="object">categoryFilterList</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mirasvit\LayeredNavigation\Block\Navigation\FilterExpander\Search" type="Mirasvit\LayeredNavigation\Block\Navigation\FilterExpander">
+        <arguments>
+            <argument name="filterList" xsi:type="object">searchFilterList</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- SEO Navigation -->
+    <type name="Mirasvit\SeoNavigation\Service\MetaService">
+        <arguments>
+            <argument name="metaStrategies" xsi:type="array">
+                <item name="layerednavigation" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">1</item>
+                    <item name="provider" xsi:type="object">Mirasvit\LayeredNavigation\Service\Seo\MetaProvider</item>
+                    <item name="validator" xsi:type="object">Mirasvit\LayeredNavigation\Service\Seo\IsNavigationPageValidator</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mirasvit\SeoNavigation\Service\CanonicalService">
+        <arguments>
+            <argument name="canonicalStrategies" xsi:type="array">
+                <item name="layerednavigation" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">1</item>
+                    <item name="provider" xsi:type="object">Mirasvit\LayeredNavigation\Service\Seo\CanonicalProvider</item>
+                    <item name="validator" xsi:type="object">Mirasvit\LayeredNavigation\Service\Seo\IsNavigationPageValidator</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Result\Page">
+        <plugin name="Mirasvit_LayeredNavigation::addThemeClassToBody" type="Mirasvit\LayeredNavigation\Plugin\Frontend\AddThemeClassToBodyPlugin"/>
+    </type>
+</config>

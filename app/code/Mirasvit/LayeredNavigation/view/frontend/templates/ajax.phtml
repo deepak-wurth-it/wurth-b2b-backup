@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Ajax
+ */
+?>
+<?php if ($block->isAjaxEnabled()): ?>
+    <script type="text/x-magento-init"><?= \Zend_Json::encode($block->getJsonConfig()) ?></script>
+<?php endif ?>
+<script>
+    window.mstNavAjax = <?=$block->isAjaxEnabled() ? 'true' : 'false'?>;
+
+    window.mstInstantlyMode = <?=$block->isInstantMode() ? 'true' : 'false'?>;
+    window.mstNavConfirmationMode = <?=$block->isConfirmationMode() ? 'true' : 'false'?>;
+    window.mstSeoFilterEnabled = <?=$block->isSeoFilterEnabled() ? 'true' : 'false'?>;
+    window.mstHighlightEnabled = <?=$block->isHighlightEnabled() ? 'true' : 'false'?>;
+    window.mstFriendlyClearUrl = '<?=$block->getFriendlyClearUrl()?>';
+</script>
+
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '*' => [
+            'Mirasvit_LayeredNavigation/js/theme-compatibility' => [],
+        ],
+    ]) ?></script>

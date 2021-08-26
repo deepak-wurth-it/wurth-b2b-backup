@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--DATA-->
+    <preference for="Mirasvit\SeoFilter\Api\Data\RewriteInterface" type="Mirasvit\SeoFilter\Model\Rewrite"/>
+
+    <!--Entity Manager-->
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mirasvit\SeoFilter\Api\Data\RewriteInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\SeoFilter\Api\Data\RewriteInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\SeoFilter\Api\Data\RewriteInterface::ID</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Mirasvit\SeoFilter\Api\Data\RewriteInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

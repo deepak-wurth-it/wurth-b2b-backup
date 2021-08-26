@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="columns">
+            <container name="columns.left.breadcrumbs" htmlTag="div" htmlClass="column left-breadcrumbs" before="-" />
+        </referenceContainer>
+         <referenceContainer name="columns.left.breadcrumbs">
+            <block class="Wcb\NewFeature\Block\CatalogBreadcrumbs" name="sidebar.breadcrumbs" as="sidebar.breadcrumbs" before="-" template="Wcb_NewFeature::breadcrumbs.phtml" />         
+          </referenceContainer>
+          <move element="columns.left.breadcrumbs" destination="sidebar.main" before="-"/>
+    </body>
+</page>

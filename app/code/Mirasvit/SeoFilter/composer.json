@@ -1,0 +1,21 @@
+{
+    "name": "mirasvit/module-seo-filter",
+    "description": "SEO friendly Layered Navigation URLs",
+    "require": {
+        "magento/framework": "102.0.*|103.0.*",
+        "mirasvit/module-core": "dev-master|^1.2"
+    },
+    "type": "magento2-module",
+    "version": "1.1.5",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "src/SeoFilter/registration.php"
+        ],
+        "psr-4": {
+            "Mirasvit\\SeoFilter\\": "src/SeoFilter"
+        }
+    }
+}

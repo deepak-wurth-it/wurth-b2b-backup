@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ *
+ * @product  Embitel
+ * @package   Embitel_DeviceTokenMaster
+ * @author    Deepak Kumar <deepak.kumar@embitel.com>
+ * @copyright 2019 Embitel technologies (I) Pvt. Ltd
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+      <head>
+		<title>Pim Middleware - Product Listing Create/Update Status</title>
+	    </head>
+    <body>
+	  
+        <referenceContainer name="content">
+            <uiComponent name="pimproduct_listing"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,26 @@
+{
+    "name": "pim/module-attribute",
+    "description": "PIM Sync Attribute Module",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        },
+        {
+            "name": "kk bk",
+            "email": "deepakworld86@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Pim\\Attribute\\": ""
+        }
+    }
+}
