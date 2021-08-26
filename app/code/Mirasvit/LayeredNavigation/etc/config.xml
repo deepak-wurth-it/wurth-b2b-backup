@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mst_nav>
+            <general>
+                <is_ajax_enabled>0</is_ajax_enabled>
+                <is_show_nested_categories>0</is_show_nested_categories>
+                <is_multiselect_enabled>0</is_multiselect_enabled>
+                <filter_item_display_mode>checkbox</filter_item_display_mode>
+                <is_open_filter>0</is_open_filter>
+            </general>
+
+            <size_limiter>
+                <display_mode/>
+                <link_limit>10</link_limit>
+                <text_less>less...</text_less>
+                <text_more>more...</text_more>
+            </size_limiter>
+
+            <highlight>
+                <is_enabled>0</is_enabled>
+                <color>#ff5501</color>
+            </highlight>
+
+            <extra_filter>
+                <new>
+                    <is_enabled>0</is_enabled>
+                    <label>New</label>
+                    <position>100</position>
+                </new>
+                <sale>
+                    <is_enabled>0</is_enabled>
+                    <label>Sale</label>
+                    <position>100</position>
+                </sale>
+                <stock>
+                    <is_enabled>0</is_enabled>
+                    <label>Stock</label>
+                    <label_in>In Stock</label_in>
+                    <label_out>Out of Stock</label_out>
+                    <position>100</position>
+                </stock>
+                <rating>
+                    <is_enabled>0</is_enabled>
+                    <label>Rating</label>
+                    <position>100</position>
+                </rating>
+            </extra_filter>
+
+            <state_bar>
+                <group_mode>separate</group_mode>
+            </state_bar>
+
+            <seo>
+                <rel>follow</rel>
+            </seo>
+        </mst_nav>
+    </default>
+</config>

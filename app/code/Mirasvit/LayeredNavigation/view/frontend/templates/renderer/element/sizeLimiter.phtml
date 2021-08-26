@@ -1,0 +1,42 @@
+<?php
+/** @var \Mirasvit\LayeredNavigation\Block\Renderer\Element\SizeLimiterElement $block */
+
+$attributeCode = $block->getAttributeCode();
+?>
+<?php if ($block->isShowHideMode()): ?>
+    <style>
+        [data-mst-nav-filter=<?=$attributeCode ?>] [data-element=filter] {
+            display: none;
+        }
+
+        <?php for ($i = 1; $i <= $block->getLinkLimit(); $i++): ?>
+            [data-mst-nav-filter=<?=$attributeCode ?>] > [data-element=filter]:nth-child(<?=$i?>),
+            [data-mst-nav-filter=<?=$attributeCode ?>] > .items >[data-element=filter]:nth-child(<?=$i?>) {
+                display: block;
+            }
+        <?php endfor ?>
+    </style>
+
+    <span class="mst-nav__sizeLimiter" data-element="sizeToggle"><?= __($block->getTextMore()) ?></span>
+
+    <script type="text/x-magento-init"><?= \Zend_Json::encode([
+            '[data-mst-nav-filter=' . $attributeCode . ']' => [
+                'Mirasvit_LayeredNavigation/js/renderer/element/size-limiter' => [
+                    'limit'    => $block->getLinkLimit(),
+                    'textLess' => $block->getTextLess(),
+                    'textMore' => $block->getTextMore(),
+                ],
+            ],
+        ]) ?></script>
+
+<?php endif ?>
+
+<?php if ($block->isScrollMode()): ?>
+    <style>
+        [data-mst-nav-filter=<?=$attributeCode ?>] {
+            max-height: <?=$block->getScrollHeight() ?>px;
+            overflow-x: hidden;
+        }
+    </style>
+<?php endif ?>
+

@@ -1,0 +1,24 @@
+<?php
+/** @var \Mirasvit\Core\Block\Adminhtml\Config\UpdateNotifier $block */
+$out   = $block->getNumberOfOutDates();
+$total = $block->getNumberOfTotal();
+$n     = $out > 0 ? $out : $total;
+?>
+<style>
+    .mirasvit-tab .admin__page-nav-title strong:after {
+        content: "<?=$n ?>";
+    }
+
+    .mirasvit-tab .admin__page-nav-item:last-child span:after {
+        content: "<?=$n ?>";
+    }
+
+    <?php if ($out === 0): ?>
+    .mirasvit-tab .admin__page-nav-title strong:after,
+    .mirasvit-tab .admin__page-nav-item:last-child span:after {
+        background-color: #2ebb5e !important;
+        outline-color: rgba(46, 188, 94, 0.2) !important;
+    }
+
+    <?php endif ?>
+</style>

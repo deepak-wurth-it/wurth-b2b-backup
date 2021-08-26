@@ -1,0 +1,18 @@
+<div class="input-group">
+    <span class="input-group__addon">
+        <button click="decreaseQty" class="input-group__button input-group__button--decrease wc-decrease">
+            <span class="input-group__icon input-group__icon--decrease "></span>
+        </button>
+    </span>
+    <input data-bind="value: qty(), attr: {'data-validate': getDataValidator(), 'title': $t('Qty')}"
+           type="number"
+           name="qty"
+           id="qty"
+           maxlength="12"
+           class="input-group__input" />
+    <span class="input-group__addon">
+        <button click="increaseQty" class="input-group__button input-group__button--increase wc-increase">
+            <span class="input-group__icon input-group__icon--increase"></span>
+        </button>
+    </span>
+</div>

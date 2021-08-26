@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var $block \Mirasvit\Brand\Block\BrandList
+ */
+?>
+<?php
+$collection = $block->getBrandsByLetters();
+?>
+<div class="mst-brand__brand-list">
+
+    <div class="toolbar">
+        <a href="#" class="js-brand-letter _active" data-letter=""><?= __('All brands') ?></a>
+
+        <div class="letters">
+            <?php foreach ($collection as $letter => $brands): ?>
+                <a href="#" class="js-brand-letter" data-letter="<?= $letter ?>">
+                    <?= $letter ?>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <?php foreach ($collection as $letter => $brands): ?>
+        <div class="letter-row js-brand-row" data-letter="<?= $letter ?>">
+            <div class="letter"><?= $letter ?></div>
+            <ul>
+                <?php /** @var \Mirasvit\Brand\Api\Data\BrandInterface $brand */ ?>
+                <?php foreach ($brands as $brand): ?>
+                    <li>
+                        <a href="<?= $brand->getUrl() ?>">
+                            <?php if ($block->canShowImage($brand)): ?>
+                                <div class="logo-wrapper">
+                                    <img alt="<?=$brand->getLabel() ?>" src="<?= $brand->getImage() ?>">
+                                </div>
+                            <?php endif; ?>
+
+                            <div class="m__all_brand_label"><?= $brand->getLabel() ?></div>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</div>
+<script type="text/x-magento-init">
+{
+    ".js-brand-letter": {
+        "Mirasvit_Brand/js/brand-list": {}
+    }
+}
+</script>

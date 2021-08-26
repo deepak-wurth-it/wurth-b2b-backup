@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg width="893px" height="893px" viewBox="0 0 893 893" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <desc></desc>
+    <defs></defs>
+    <g id="Group-5">
+        <g transform="translate(445.477272, 445.477272) rotate(-45.000000) translate(-445.477272, -445.477272) translate(130.477272, 130.477272)">
+            <g id="Group-3" transform="translate(330.000000, 330.000000)" fill="#A79D94">
+                <rect id="Rectangle" x="0" y="0" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="110" y="0" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="220" y="0" width="80" height="300" rx="40"></rect>
+            </g>
+            <g id="Group" transform="translate(480.000000, 150.000000) rotate(90.000000) translate(-480.000000, -150.000000) translate(330.000000, -0.000000)" fill="#D2CFCD">
+                <rect id="Rectangle" x="-1.13686838e-13" y="1.13686838e-13" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="110" y="1.13686838e-13" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="220" y="1.13686838e-13" width="80" height="300" rx="40"></rect>
+            </g>
+            <g id="Group-2" transform="translate(150.000000, 480.000000) rotate(90.000000) translate(-150.000000, -480.000000) translate(0.000000, 330.000000)" fill="#D2CFCD">
+                <rect id="Rectangle" x="1.70530257e-13" y="-1.13686838e-13" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="110" y="5.68434189e-13" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="220" y="8.52651283e-13" width="80" height="300" rx="40"></rect>
+            </g>
+            <g id="Group-4" fill="#A79D94">
+                <rect id="Rectangle" x="0" y="0" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="110" y="-2.27373675e-13" width="80" height="300" rx="40"></rect>
+                <rect id="Rectangle" x="220" y="-1.13686838e-13" width="80" height="300" rx="40"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

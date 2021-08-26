@@ -1,0 +1,206 @@
+.mst-package-list {
+    display:               grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap:          5px;
+    grid-column-gap:       5px;
+    margin-bottom:         15px;
+
+    .mst-package {
+        display:        flex;
+        flex-direction: column;
+        align-items:    center;
+        padding:        20px 12px;
+        background:     #ffffff;
+        box-shadow:     0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+        border-radius:  1px;
+
+        &:hover {
+            background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        }
+
+        .package-info {
+            width: 100%;
+
+            .package-info-primary {
+                display:       flex;
+                align-items:   center;
+                margin-bottom: 10px;
+
+                .package-status {
+                    padding:       5px;
+                    border-radius: 50%;
+                    background:    rgba(46, 188, 94, 0.2);
+                    margin-right:  15px;
+
+                    &:before {
+                        display:       block;
+                        content:       "";
+                        background:    rgb(46, 188, 94);
+                        width:         7px;
+                        height:        7px;
+                        border-radius: 7px;
+                    }
+
+                    &._outdated {
+                        background: rgba(235, 82, 2, 0.2);
+
+                        &:before {
+                            background: rgb(235, 82, 2);
+                        }
+                    }
+                }
+
+                .package-label {
+                    font-weight:   600;
+                    flex-grow:     1;
+                    white-space:   nowrap;
+                    overflow:      hidden;
+                    text-overflow: ellipsis;
+
+                    a {
+                        text-decoration: underline;
+                        color:           #41362f;
+
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+                }
+
+                .version {
+                    font-weight: 600;
+                    text-align:  right;
+                    white-space: nowrap;
+                }
+            }
+
+            .package-info-secondary {
+                display:        flex;
+                flex-direction: row;
+
+                .new-version {
+                    flex-grow:  1;
+                    text-align: right;
+                    font-size:  12px;
+
+                    strong {
+                        color: #eb5202;
+                    }
+                }
+
+                .internal {
+                    display:   none;
+                    padding:   15px;
+                    font-size: 12px;
+                }
+
+                .changes {
+                    text-decoration: underline;
+                    font-weight:     600;
+                    margin-left:     15px;
+                    font-size:       12px;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+
+                }
+            }
+        }
+
+        .package-requires {
+            width:      100%;
+            margin-top: 10px;
+
+            .package-require {
+                font-size: 12px;
+                display:   flex;
+
+                .package-require-label {
+                    width:         40%;
+                    overflow:      hidden;
+                    flex-shrink:   0;
+                    white-space:   nowrap;
+                    text-overflow: ellipsis;
+                }
+
+                .package-require-version {
+                    width:        100px;
+                    text-align:   right;
+                    margin-right: 5px;
+                    flex-shrink:  0;
+                }
+
+                .package-require-latest-version {
+                    width:       100px;
+                    flex-shrink: 0;
+
+                    span {
+                        color: #eb5202;
+                    }
+                }
+            }
+        }
+
+        .package-modules {
+            width:                 100%;
+            display:               grid;
+            grid-template-columns: 1fr 1fr;
+            grid-row-gap:          5px;
+            grid-column-gap:       15px;
+            margin-top:            15px;
+
+            .package-module {
+                font-size: 12px;
+                display:   flex;
+
+                .status-on, .status-off {
+                    margin-left: auto;
+                }
+
+                .status-on {
+                    color: rgb(46, 188, 94);
+                }
+
+                .status-off {
+                    color: #eb5202;
+                }
+            }
+        }
+    }
+}
+
+.admin__page-nav.mirasvit-tab {
+    .admin__page-nav-title {
+        strong {
+            position: relative;
+            display:  block;
+            width:    100%;
+
+            &:after {
+                background:    #ec5302;
+                color:         #ffffff;
+                outline:       4px solid rgba(235, 82, 2, 0.2);
+                padding:       1px 10px;
+                position:      absolute;
+                right:         10px;
+                border-radius: 1px;
+                font-size:     12px;
+            }
+        }
+    }
+
+    .admin__page-nav-item:last-child {
+        span {
+            &:after {
+                background:    #ec5302;
+                color:         #ffffff;
+                padding:       1px 10px;
+                position:      absolute;
+                right:         10px;
+                border-radius: 1px;
+                font-size:     12px;
+            }
+        }
+    }
+}

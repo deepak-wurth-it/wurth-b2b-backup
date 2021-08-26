@@ -1,0 +1,19 @@
+<div id="<?= $htmlId ?>-container" class="images mst-nav__image-field" data-max-file-size="<?= $fileMaxSize ?>">
+    <div class="image image-placeholder">
+        <input type="file" name="image" data-url="<?= $uploadUrl ?>" multiple="multiple"/>
+        <img class="spacer" src="<?= $spacerImage ?>"/>
+        <p class="image-placeholder-text"><?= $imagePlaceholderText ?></p>
+    </div>
+    <script id="<?= $htmlId ?>-template" data-template="image" type="text/x-magento-template">
+        <div class="image">
+            <img class="spacer" src="<?= $spacerImage ?>"/>
+            <img class="product-image" src="<%- data.url %>" data-position="<%- data.position %>" alt="<%- data.label %>"/>
+            <div class="actions">
+                <button type="button" class="action-delete" data-role="delete-button" title="<?= $deleteImageText ?>">
+                    <span><?= $deleteImageText ?></span>
+                </button>
+            </div>
+            <div class="image-fade"><span><?= $hiddenText ?></span></div>
+        </div>
+    </script>
+</div>

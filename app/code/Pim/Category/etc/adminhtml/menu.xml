@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    <add id="Pim_Category::index_index" title="Categories" module="Pim_Category" sortOrder="9999" 
+           resource="Pim_Category::index_index" parent="Pim::top_level" action="category/index/index"/>
+    </menu>
+</config>

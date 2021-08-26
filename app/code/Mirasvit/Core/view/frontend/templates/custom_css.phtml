@@ -1,0 +1,8 @@
+<?php
+/* @var $block \Mirasvit\Core\Block\CustomCss*/
+
+$css = $block->getCustomCss();
+?>
+<?php if ($css): ?>
+    <style><?= strip_tags($css); ?></style>
+<?php endif; ?>

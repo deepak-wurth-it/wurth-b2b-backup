@@ -1,0 +1,94 @@
+Image,Image
+"Click here or drag and drop to add image","Click here or drag and drop to add image"
+"Delete image","Delete image"
+Hidden,Hidden
+Images,Images
+"Add New Row","Add New Row"
+"All Files","All Files"
+Title,Title
+Appearance,Appearance
+"Display Mode","Display Mode"
+"Value Template","Value Template"
+"Show Search Box","Show Search Box"
+Search,Search
+No,No
+Yes,Yes
+Misc,Misc
+"Sort Options by","Sort Options by"
+Visibility,Visibility
+"Categories Visibility Mode","Categories Visibility Mode"
+Categories,Categories
+"Layered Navigation","Layered Navigation"
+"Layered Navigation configuration will be available after attribute creation","Layered Navigation configuration will be available after attribute creation"
+"Select Filtered Attributes","Select Filtered Attributes"
+"Select Filters for Slider","Select Filters for Slider"
+"Filter type ""%1"" does not exist","Filter type ""%1"" does not exist"
+Default,Default
+Dropdown,Dropdown
+Slider,Slider
+From-To,From-To
+"Slider & From-To","Slider & From-To"
+Ranges,Ranges
+"Position (default)","Position (default)"
+"Label (alphabetically)","Label (alphabetically)"
+"Default (link)","Default (link)"
+"Simple Checkbox","Simple Checkbox"
+Checkbox,Checkbox
+Circle,Circle
+"All filtered attributes","All filtered attributes"
+Disabled,Disabled
+"Disabled (no limits)","Disabled (no limits)"
+"Scroll box","Scroll box"
+"Show/hide link","Show/hide link"
+"[x]Climate: Cold, Rain","[x]Climate: Cold, Rain"
+"[x]Climate: Cold [x]Climate: Rain","[x]Climate: Cold [x]Climate: Rain"
+Horizontal,Horizontal
+All,All
+"Display only in Selected Categories","Display only in Selected Categories"
+"Hide only in Selected Categories","Hide only in Selected Categories"
+Category,Category
+"%1 and above","%1 and above"
+"%1 - %2","%1 - %2"
+"%1 & Up","%1 & Up"
+Option,Option
+"Change original menu text","Change original menu text"
+"Whole width image","Whole width image"
+"Now Shopping by","Now Shopping by"
+"Clear All","Clear All"
+Previous,Previous
+"Remove This Item","Remove This Item"
+"Remove %1","Remove %1"
+"item' 'items","item' 'items"
+" & Up"," & Up"
+from,from
+to,to
+OK,OK
+"We don't recognize or support this file extension type.","We don't recognize or support this file extension type."
+"Dismiss Filter","Dismiss Filter"
+Filter,Filter
+"Enabled Ajax","Enabled Ajax"
+"Show Nested Categories","Show Nested Categories"
+"Enabled Multiselect","Enabled Multiselect"
+"Filter item Display Mode","Filter item Display Mode"
+"Checkbox or circle background color","Checkbox or circle background color"
+"Checkbox or circle border color","Checkbox or circle border color"
+"Checkbox or circle checked label color","Checkbox or circle checked label color"
+"Show Opened Filters","Show Opened Filters"
+"Add stock data to catalogsearch_fulltext reindex","Add stock data to catalogsearch_fulltext reindex"
+"Enabled highlight for links","Enabled highlight for links"
+"Highlight color","Highlight color"
+"Scroll height (px)","Scroll height (px)"
+"Links limit","Links limit"
+"Less text","Less text"
+"More text","More text"
+Enabled,Enabled
+Label,Label
+Position,Position
+"In Stock Filter Label","In Stock Filter Label"
+"Out of Stock Filter Label","Out of Stock Filter Label"
+"Select filters to show in horizontal navigation","Select filters to show in horizontal navigation"
+"Hide horizontal filters if screen size is less than (px)","Hide horizontal filters if screen size is less than (px)"
+"Filter clear block position","Filter clear block position"
+"Group options by attribute","Group options by attribute"
+"Robots meta header for pages with applied filters","Robots meta header for pages with applied filters"
+"Canonical link for pages with applied filters","Canonical link for pages with applied filters"

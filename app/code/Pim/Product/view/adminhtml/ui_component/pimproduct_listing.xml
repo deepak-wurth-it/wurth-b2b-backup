@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ *
+ * @product  Embitel
+ * @package   Embitel_Adds
+ * @author    Deepak Kumar <deepak.kumar@embitel.com>
+ * @copyright 2019 Embitel technologies (I) Pvt. Ltd
+ */
+-->
+<listing
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">pimproduct_listing.pimproduct_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>product_columns</spinner>
+		<deps>
+			<dep>pimproduct_listing.pimproduct_listing_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="pimproduct_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="pimproduct_listing_data_source">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>main_table.Id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<!-- <filterSearch name="fulltext"/> -->
+		<filters name="listing_filters">
+			<argument name="data" xsi:type="array">
+				<item name="observers" xsi:type="array">
+					<item name="column" xsi:type="string">column</item>
+				</item>
+			</argument>
+			<settings>
+				<templates>
+					<filters>
+						<select>
+							<param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+							<param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+						</select>
+					</filters>
+				</templates>
+			</settings>
+		</filters>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="product_columns">
+		<settings>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">pimproduct_listing.pimproduct_listing.product_columns.actions</item>
+					<item name="target" xsi:type="string">applyAction</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">edit</item>
+						<item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+       <column name="Id" component="Magento_Ui/js/grid/columns/link" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="link" xsi:type="string">View Attributes</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">View Attributes</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+		<!-- <column name="Id">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">ID</label>
+			</settings>
+		</column> -->
+		<column name="Name">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Name</label>
+			</settings>
+		</column> 
+        <column name="ShortName">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Short Name</label>
+			</settings>
+		</column>
+
+       
+		<column name="Code">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Code</label>
+			</settings>
+		</column>
+		<column name="LongDescription">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Long Description</label>
+			</settings>
+		</column>
+		<column name="Usage">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Usage</label>
+			</settings>
+		</column>
+		<column name="Instructions">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Instrustions</label>
+			</settings>
+		</column>
+		<column name="BaseUnitOfMeasureId">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Base Unit Of Measure Id</label>
+			</settings>
+		</column>
+		<column name="VendorId">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Vendor Id</label>
+			</settings>
+		</column>
+
+        <column name="VendorItemNo">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Vendor Item No</label>
+			</settings>
+		</column>
+
+		<column name="GrossWeight">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Gross Weight</label>
+			</settings>
+		</column>
+		<column name="NetWeight">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Net Weight</label>
+			</settings>
+		</column>
+		
+		<column name="SalesUnitOfMeasureId">
+			<settings>
+				<filter>text</filter>
+				<label>Sales Unit Of MeasureId</label>
+			</settings>
+		</column>
+		<column name="AbcGroupCode">
+			<settings>
+				<filter>text</filter>
+				<label>Abc Group Code</label>
+			</settings>
+		</column>
+        <column name="InventoryItemCategoryCode">
+			<settings>
+				<filter>text</filter>
+				<label>Inventory Item Category Code</label>
+			</settings>
+		</column>
+
+         <column name="MinimumSalesUnitQuantity">
+			<settings>
+				<filter>text</filter>
+				<label>Minimum Sales Unit Quantity</label>
+			</settings>
+		</column>
+
+        <column name="SuccessorProductCode">
+			<settings>
+				<filter>text</filter>
+				<label>Successor Product Code</label>
+			</settings>
+		</column>
+
+
+        <column name="PaletteQuantity">
+			<settings>
+				<filter>text</filter>
+				<label>Palette Quantity</label>
+			</settings>
+		</column>
+
+         <column name="PackageBox">
+			<settings>
+				<filter>text</filter>
+				<label>Package Box</label>
+			</settings>
+		</column>
+
+
+         <!-- <column name="ShortDescription">
+			<settings>
+				<filter>text</filter>
+				<label>Short Description</label>
+			</settings>
+		</column>
+
+         <column name="ShortDescription">
+			<settings>
+				<filter>text</filter>
+				<label>Short Description</label>
+			</settings>
+		</column>
+        <column name="ExternalId">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">External Id</label>
+			</settings>
+		</column>
+
+       <column name="Vendor Item No">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Vendor Item No</label>
+			</settings>
+		</column>
+
+        <column name="Blocked">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Blocked</label>
+			</settings>
+		</column>
+
+        <column name="Synonyms">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Synonyms</label>
+			</settings>
+		</column>
+
+         <column name="Status">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Status</label>
+			</settings>
+		</column>
+
+         <column name="UpdateRequired">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Update Required</label>
+			</settings>
+		</column>
+
+		<column name="Active">
+			<settings>
+				<filter>text</filter>
+				<label>Active Status</label>
+			</settings>
+		</column>
+		
+		<column name="CreatedDate">
+			<settings>
+				<filter>text</filter>
+				<label>Created Date</label>
+			</settings>
+		</column>
+		<column name="ModifiedDate">
+			<settings>
+				<filter>text</filter>
+				<label>Modified Date</label>
+			</settings>
+		</column> -->
+	</columns>
+</listing>

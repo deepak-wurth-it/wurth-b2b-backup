@@ -1,0 +1,32 @@
+{
+    "name": "mirasvit/module-navigation",
+    "description": "Layered Navigation",
+    "require": {
+        "magento/framework": "103.0.*",
+        "mirasvit/module-core": "^1.2|dev-master",
+        "mirasvit/module-seo-filter": ">=1.1.4|dev-master"
+    },
+    "type": "magento2-module",
+    "version": "2.0.12",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "src/LayeredNavigation/registration.php",
+            "src/Brand/registration.php",
+            "src/AllProducts/registration.php",
+            "src/SeoNavigation/registration.php",
+            "src/QuickNavigation/registration.php",
+            "src/Scroll/registration.php"
+        ],
+        "psr-4": {
+            "Mirasvit\\LayeredNavigation\\": "src/LayeredNavigation",
+            "Mirasvit\\Brand\\": "src/Brand",
+            "Mirasvit\\AllProducts\\": "src/AllProducts",
+            "Mirasvit\\SeoNavigation\\": "src/SeoNavigation",
+            "Mirasvit\\QuickNavigation\\": "src/QuickNavigation",
+            "Mirasvit\\Scroll\\": "src/Scroll"
+        }
+    }
+}

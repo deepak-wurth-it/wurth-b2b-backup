@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mst_core>
+            <css>
+                <include_font_awesome>1</include_font_awesome>
+            </css>
+            <menu>
+                <is_enabled>1</is_enabled>
+            </menu>
+        </mst_core>
+    </default>
+</config>

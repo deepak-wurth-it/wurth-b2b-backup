@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="mirasvit_brand_slider" class="Mirasvit\Brand\Block\Widget\BrandSlider" is_email_compatible="false"
+            placeholder_image="Magento_Cms::images/widget_block.png" ttl="86400">
+        <label>Brand Slider by Mirasvit</label>
+        <description>Brand Slider by Mirasvit</description>
+        <parameters>
+            <parameter name="ItemsLimit" xsi:type="text" visible="true">
+                <label>Items Limit</label>
+                <description>If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="Order" xsi:type="select" visible="true" source_model="Mirasvit\Brand\Model\Config\Source\BrandSliderOrder">
+                <label>Sort By</label>
+            </parameter>
+            <parameter name="isShowTitle" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Show Title</label>
+            </parameter>
+            <parameter name="TitleText" xsi:type="text" visible="true">
+                <label>Title Text</label>
+                <description>If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="TitleTextColor" xsi:type="text" visible="true">
+                <label>Title Text Color</label>
+                <description>Hex Color Code. If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="TitleBackgroundColor" xsi:type="text" visible="true">
+                <label>Title Background Color</label>
+                <description>Hex Color Code. If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="isShowBrandLabel" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Show Brand Label</label>
+            </parameter>
+            <parameter name="BrandLabelColor" xsi:type="text" visible="true">
+                <label>Brand Label Color</label>
+                <description>Hex Color Code. If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="isShowButton" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Show Navigation Buttons</label>
+            </parameter>
+            <parameter name="isShowPagination" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Show Pagination</label>
+            </parameter>
+            <parameter name="isAutoPlay" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Auto Play</label>
+            </parameter>
+            <parameter name="isAutoPlayLoop" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Auto Play Loop</label>
+            </parameter>
+            <parameter name="AutoPlayInterval" xsi:type="text" visible="true">
+                <label>Auto Play Interval</label>
+                <description>If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="PauseOnHover" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Pause on Hover</label>
+            </parameter>
+            <parameter name="SliderWidth" xsi:type="text" visible="true">
+                <label>Slider Width</label>
+                <description>If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="SliderImageWidth" xsi:type="text" visible="true">
+                <label>Slider Image Width</label>
+                <description>If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="SpacingBetweenImages" xsi:type="text" visible="true">
+                <label>Spacing Between Images</label>
+                <description>If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="InactivePagingColor" xsi:type="text" visible="true">
+                <label>Inactive Paging Color</label>
+                <description>Hex Color Code. If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="ActivePagingColor" xsi:type="text" visible="true">
+                <label>Active Paging Color</label>
+                <description>Hex Color Code. If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="HoverPagingColor" xsi:type="text" visible="true">
+                <label>Hover Paging Color</label>
+                <description>Hex Color Code. If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+            <parameter name="NavigationButtonsColor" xsi:type="text" visible="true">
+                <label>Navigation Buttons Color</label>
+                <description>Hex Color Code. If the field is empty, it will be used from the configuration.</description>
+            </parameter>
+
+            <parameter name="template" xsi:type="select" visible="true">
+                <label>Template</label>
+                <options>
+                    <option name="default" value="widget/brand_slider.phtml" selected="true">
+                        <label>Brand Slider</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

@@ -1,0 +1,99 @@
+& when (@media-common = true) {
+    .mst-brand__brand-list {
+        .toolbar {
+            display: flex;
+
+            a {
+                display: block;
+                padding: .3rem 1rem;
+                text-align: center;
+                color: #949494;
+                font-size: 12px;
+                line-height: 20px;
+                font-weight: 700;
+                text-decoration: none;
+                cursor: pointer;
+                border: 1px solid #dadada;
+                background: #f0f0f0;
+                text-transform: uppercase;
+
+                &:hover {
+                    border-color: #fff;
+                    z-index: 1005;
+                    color: #333;
+                    outline: 1px solid #999;
+                }
+
+                &._active {
+                    background: #fff;
+                    outline: 2px solid #ff5501;
+                    border-color: #fff;
+                    color: #333;
+                    z-index: 1000;
+                }
+            }
+
+            .letters {
+                margin-left: 5rem;
+                display: flex;
+
+                a {
+                    margin-left: -1px;
+                }
+            }
+        }
+
+        .letter-row {
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            padding-top: 10px;
+
+            .letter {
+                top: 0;
+                left: 0;
+                font-size: 40px;
+                line-height: 60px;
+                clear: left;
+            }
+
+            ul {
+                list-style: none;
+                margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+
+                li {
+                    text-align: center;
+
+                    a {
+                        color: #333;
+                        text-decoration: none;
+                        display: block;
+                        padding: 1rem;
+
+                        .logo-wrapper {
+                            height: 10rem;
+                            vertical-align: middle;
+                            display: table-cell;
+                            opacity: 0.8;
+
+                            img {
+                                max-height: 10rem;
+                                max-width: 15rem;
+                            }
+                        }
+
+                        &:hover {
+                            text-decoration: underline;
+                            outline: 2px solid #ff5501;
+
+                            .logo-wrapper {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
