@@ -88,28 +88,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 						<?php endif; ?>
 
                     </div>
-                    <div class="field qty">
-         <div id="custom-qty" class="control" data-bind="scope: 'qty-counter'">
-                <!-- ko template: getTemplate() --><!-- /ko -->
-                <script type="text/x-magento-init">
-                    {
-                        "#custom-qty": {
-                            "Magento_Ui/js/core/app": {
-                                "components": {
-                                    "qty-counter": {
-                                        "component": "qty-counter",
-                                        "config": {
-                                            "qty": <?php echo $block->getProductDefaultQty() * 1 ?>,
-                                            "dataValidate": <?php echo json_encode($block->getQuantityValidators()) ?>
-                                        }
-                                    }
-                                 }
-                            }
-                        }
-                    }
-                </script>
-            </div>
-        </div>
+        
                     
                     <div class="product-item-actions"<?php echo strpos($pos, $viewMode . '-actions') ? $position : ''; ?>>
 							<div class="add-to-cart-primary addToCartButton"<?php echo strpos($pos, $viewMode . '-primary') ? $position : ''; ?>>
