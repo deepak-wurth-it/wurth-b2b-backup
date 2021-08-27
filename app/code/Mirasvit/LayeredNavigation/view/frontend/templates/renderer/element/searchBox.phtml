@@ -1,0 +1,15 @@
+<?php
+/** @var \Mirasvit\LayeredNavigation\Block\Renderer\Element\SearchBoxElement $block */
+if (!$block->isShowSearchBox()) {
+    return;
+}
+$attributeCode = $block->getFilter()->getRequestVar();
+
+?>
+<input type="text" placeholder="<?= __('Search')?>" data-element="search">
+
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/element/search-box' => [],
+        ],
+    ]) ?></script>

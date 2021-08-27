@@ -1,0 +1,11 @@
+<?php
+/** @var \Mirasvit\LayeredNavigation\Block\Navigation\FilterExpander $block */
+?>
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '.sidebar #narrow-by-list' => [
+            'accordion' => [
+                'multipleCollapsible' => true,
+                'active'              => $block->getOpenedFilterIndexes(),
+            ],
+        ],
+    ]) ?></script>

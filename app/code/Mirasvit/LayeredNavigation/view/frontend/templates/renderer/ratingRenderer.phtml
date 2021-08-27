@@ -1,0 +1,45 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\RatingRenderer
+ * @var $escaper \Magento\Framework\Escaper
+ */
+$attributeCode = $block->getAttributeCode();
+?>
+<div class="mst-nav__label mst-nav__rating" data-mst-nav-filter="<?= $attributeCode ?>">
+    <ol class="items">
+        <?php foreach ($block->getFilterItems() as $filterItem): ?>
+            <?php
+            $itemRating      = $filterItem->getValueString();
+            $numberOfResults = $filterItem->getData('count');
+            $isItemChecked   = $block->isFilterItemChecked($filterItem);
+            $url             = $isItemChecked ? $filterItem->getRemoveUrl() : $filterItem->getUrl();
+
+            $cssClass = [
+                'item',
+                'mst-nav__label-item',
+                $isItemChecked ? '_checked' : '',
+                $isItemChecked && $block->isHighlightEnabled() ? '_highlight' : '',
+            ];
+            ?>
+
+            <li class="<?= implode(' ', $cssClass) ?>" data-element="filter" data-value="<?= $filterItem->getValueString() ?>">
+                <a href="<?= $escaper->escapeUrl($url) ?>" rel="<?= $block->getRelAttributeValue() ?>">
+                    <div class="rating-summary">
+                        <div class="rating-result" title="<?= $itemRating * 20 ?>%">
+                            <span style="width:<?= $itemRating * 20 ?>%"><span><?= $itemRating ?></span></span>
+                        </div>
+
+                        <span><?= __(' & Up') ?></span>
+
+                        <?= $block->getCountElement($filterItem) ?>
+                    </div>
+                </a>
+            </li>
+        <?php endforeach ?>
+    </ol>
+</div>
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+        ],
+    ]) ?></script>

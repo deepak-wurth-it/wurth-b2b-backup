@@ -1,0 +1,7 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+$count = $block->getData('count');
+?>
+<?php if ($this->helper(\Magento\Catalog\Helper\Data::class)->shouldDisplayProductCountOnLayer() && $count > 0): ?>
+    <span class="count"><?= $count ?><span class="filter-count-label"><?= __($count === 1 ? 'item' : 'items') ?></span></span>
+<?php endif ?>

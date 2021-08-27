@@ -1,0 +1,210 @@
+.mst-core-menu {
+    background:    #f8f8f8;
+    border:        1px #e3e3e3 solid;
+    margin-left:   0;
+    margin-bottom: -1rem;
+    margin-top:    -6px;
+
+    .admin__action-dropdown {
+        background:     transparent;
+        color:          #41362f;
+        font-size:      2.8rem;
+        font-weight:    400;
+        line-height:    1.2;
+        letter-spacing: 0;
+        text-align:     left;
+
+        .fa {
+            color:        #8f8f8f;
+            font-size:    26px;
+            margin-right: 0.4rem;
+        }
+    }
+
+    &.active {
+        z-index: 1000;
+
+        .admin__action-dropdown {
+            border-color: @color-gray68;
+            background:   #ffffff;
+
+            .admin__action-dropdown-text:after {
+                left:  0;
+                right: -6px;
+            }
+        }
+
+        .admin__action-dropdown-menu {
+            border-color: @color-gray68;
+            font-size:    1.3rem;
+            left:         0;
+            padding:      0.6rem;
+            right:        auto;
+            width:        500px;
+
+            > li {
+                width: 50%;
+                float: left;
+
+                a {
+                    padding:         1.2rem 1rem;
+                    color:           #41362f;
+                    display:         block;
+                    text-decoration: none;
+
+                    &:hover {
+                        background: @color-gray89;
+                    }
+                }
+
+                &.separator {
+                    border-top: 1px solid @color-gray89;
+                    width:      100%;
+                    margin:     10px 0px;
+                }
+
+                ul {
+                    list-style:   none;
+                    padding-left: 3rem;
+
+                    a {
+                        padding: 0.8rem 1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &:hover {
+        .admin__action-dropdown {
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+.mirasvit-tab .admin__page-nav-title strong:before {
+    content:           "";
+    background-image:  url("Mirasvit_Core::images/mirasvit-logo.svg");
+    background-size:   auto 20px;
+    background-repeat: no-repeat;
+    padding-left:      25px;
+}
+
+li[data-ui-id*="menu-mirasvit-"] {
+    &.level-1, &.level-2, &.level-3 {
+        a > span, strong > span {
+            &:after {
+                content:           " ";
+                background-image:  url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='893px' height='893px' viewBox='0 0 893 893' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdesc%3E%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Group-5'%3E%3Cg transform='translate(445.477272, 445.477272) rotate(-45.000000) translate(-445.477272, -445.477272) translate(130.477272, 130.477272)'%3E%3Cg id='Group-3' transform='translate(330.000000, 330.000000)' fill='%23A79D94'%3E%3Crect id='Rectangle' x='0' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg id='Group' transform='translate(480.000000, 150.000000) rotate(90.000000) translate(-480.000000, -150.000000) translate(330.000000, -0.000000)' fill='%23D2CFCD'%3E%3Crect id='Rectangle' x='-1.13686838e-13' y='1.13686838e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='1.13686838e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='1.13686838e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg id='Group-2' transform='translate(150.000000, 480.000000) rotate(90.000000) translate(-150.000000, -480.000000) translate(0.000000, 330.000000)' fill='%23D2CFCD'%3E%3Crect id='Rectangle' x='1.70530257e-13' y='-1.13686838e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='5.68434189e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='8.52651283e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg id='Group-4' fill='%23A79D94'%3E%3Crect id='Rectangle' x='0' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='-2.27373675e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='-1.13686838e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                background-size:   20px 20px;
+                background-repeat: no-repeat;
+                display:           inline-block;
+                width:             20px;
+                height:            20px;
+                float:             right;
+                margin-right:      -10px;
+                opacity:           0.5;
+            }
+        }
+
+        .submenu {
+            a > span, strong > span {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &:hover {
+        &.level-1, &.level-2, &.level-3 {
+            a > span, strong > span {
+                &:after {
+                    opacity: 1 !important;
+                }
+
+            }
+        }
+    }
+}
+
+#menu-mirasvit-core-menu {
+    > a {
+        &:before {
+            content:             "";
+            background-size:     contain;
+            background-image:    url("data:image/svg+xml,%0A%3Csvg width='859px' height='859px' viewBox='0 0 859 859' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch --%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='mirasvit-logo-grayscale' transform='translate(-16.000000, -16.000000)' fill-rule='nonzero' fill='%23AAA6A0'%3E%3Cg id='Group' transform='translate(445.477272, 445.477272) rotate(-45.000000) translate(-445.477272, -445.477272) translate(130.477272, 130.477272)'%3E%3Cg id='Group-3' transform='translate(330.000000, 330.000000)'%3E%3Crect id='Rectangle' x='0' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg transform='translate(480.000000, 150.000000) rotate(90.000000) translate(-480.000000, -150.000000) translate(330.000000, 0.000000)' id='Rectangle'%3E%3Crect x='-2.27373676e-13' y='2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect x='110' y='2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect x='220' y='2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg id='Group-2' transform='translate(150.000000, 480.000000) rotate(90.000000) translate(-150.000000, -480.000000) translate(0.000000, 330.000000)'%3E%3Crect id='Rectangle' x='3.41060514e-13' y='-2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='1.13686838e-12' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='1.70530257e-12' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg id='Group-4'%3E%3Crect id='Rectangle' x='0' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='-4.5474735e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='-2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-repeat:   no-repeat;
+            background-position: center;
+        }
+    }
+
+    &:hover, &._show {
+        > a {
+            &:before {
+                background-image: url("data:image/svg+xml,%0A%3Csvg width='859px' height='859px' viewBox='0 0 859 859' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch --%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='mirasvit-logo-grayscale' transform='translate(-16.000000, -16.000000)' fill-rule='nonzero' fill='%23FFFFFF'%3E%3Cg id='Group' transform='translate(445.477272, 445.477272) rotate(-45.000000) translate(-445.477272, -445.477272) translate(130.477272, 130.477272)'%3E%3Cg id='Group-3' transform='translate(330.000000, 330.000000)'%3E%3Crect id='Rectangle' x='0' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg transform='translate(480.000000, 150.000000) rotate(90.000000) translate(-480.000000, -150.000000) translate(330.000000, 0.000000)' id='Rectangle'%3E%3Crect x='-2.27373676e-13' y='2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect x='110' y='2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect x='220' y='2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg id='Group-2' transform='translate(150.000000, 480.000000) rotate(90.000000) translate(-150.000000, -480.000000) translate(0.000000, 330.000000)'%3E%3Crect id='Rectangle' x='3.41060514e-13' y='-2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='1.13686838e-12' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='1.70530257e-12' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3Cg id='Group-4'%3E%3Crect id='Rectangle' x='0' y='0' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='110' y='-4.5474735e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3Crect id='Rectangle' x='220' y='-2.27373676e-13' width='80' height='300' rx='40'%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+        }
+    }
+
+    .submenu {
+        .level-0 {
+            margin-bottom: .3rem;
+            margin-left:   1.5rem;
+
+            > a {
+                display:        block;
+                padding:        1.25rem 1.5rem;
+                color:          #fcfcfc;
+                min-height:     auto;
+                font-size:      1.4rem;
+                text-transform: none;
+                text-align:     left;
+
+                &:before {
+                    content: "";
+                    display: none !important;
+                }
+            }
+
+            .submenu {
+                width:               auto;
+                transform:           none;
+                transition-duration: 0s;
+                z-index:             700;
+
+                .submenu-title {
+                    height: auto;
+                }
+            }
+        }
+
+        a {
+            span {
+                &:after {
+                    display: none !important;
+                }
+            }
+        }
+
+        .level-0 {
+            a {
+                &:hover {
+                    background-color: #524d49;
+                }
+            }
+        }
+
+        .level-0:first-child {
+            a {
+                &:after {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
+    #menu-mirasvit-core-extensions {
+        margin-top: 2rem;
+    }
+}

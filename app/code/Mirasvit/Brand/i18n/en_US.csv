@@ -1,0 +1,122 @@
+"Use Category URL Suffix","Use Category URL Suffix"
+"Select Tooltip content","Select Tooltip content"
+"Brand Pages","Brand Pages"
+"Brand Attribute","Brand Attribute"
+Configuration,Configuration
+"Get Support","Get Support"
+"Please add ""Brand Attribute"" in System->Configuration->MIRASVIT EXTENSION->Brand","Please add ""Brand Attribute"" in System->Configuration->MIRASVIT EXTENSION->Brand"
+"New Brand","New Brand"
+"%1 item(s) have changed brand sliderstatus","%1 item(s) have changed brand sliderstatus"
+"Please select item(s)","Please select item(s)"
+"Brand page was successfully deleted","Brand page was successfully deleted"
+"This brand page no longer exists.","This brand page no longer exists."
+"Brand page was saved.","Brand page was saved."
+Title,Title
+Position,Position
+Disabled,Disabled
+"Top menu ( first )","Top menu ( first )"
+"Top menu ( last )","Top menu ( last )"
+"Short Description","Short Description"
+Description,Description
+"Long url","Long url"
+"Short url","Short url"
+"Unknown image type %1","Unknown image type %1"
+Brands,Brands
+label,label
+Back,Back
+Delete,Delete
+"Are you sure you want to do this?","Are you sure you want to do this?"
+Reset,Reset
+"Save and Continue Edit","Save and Continue Edit"
+Save,Save
+Edit,Edit
+"All brands","All brands"
+"Add to Cart","Add to Cart"
+"In stock","In stock"
+"Out of stock","Out of stock"
+"All Brands URL","All Brands URL"
+"Brand page URL","Brand page URL"
+"Brand URL Suffix","Brand URL Suffix"
+"Brands Link Position","Brands Link Position"
+"Brand link label","Brand link label"
+"Show Not Configured Brands","Show Not Configured Brands"
+"Show all categories in filter","Show all categories in filter"
+"Show Brand Logo","Show Brand Logo"
+"Show Brand Description","Show Brand Description"
+"Meta Title","Meta Title"
+"Meta Keyword","Meta Keyword"
+"Meta Description","Meta Description"
+<strong><u>WidgetCode:</u></strong>,<strong><u>WidgetCode:</u></strong>
+"Items Limit","Items Limit"
+Order,Order
+"Show Title","Show Title"
+"Title Text","Title Text"
+"Title Text Color","Title Text Color"
+"Title Background Color","Title Background Color"
+"Show Brand Label","Show Brand Label"
+"Brand Label Color","Brand Label Color"
+"Show Navigation Buttons","Show Navigation Buttons"
+"Show Pagination","Show Pagination"
+"Auto Play","Auto Play"
+"Auto Play Loop","Auto Play Loop"
+"Auto Play Interval","Auto Play Interval"
+"Pause on Hover","Pause on Hover"
+"Slider Width","Slider Width"
+"Slider Image Width","Slider Image Width"
+"Spacing Between Images","Spacing Between Images"
+"Inactive Paging Color","Inactive Paging Color"
+"Active Paging Color","Active Paging Color"
+"Hover Paging Color","Hover Paging Color"
+"Navigation Buttons Color","Navigation Buttons Color"
+Enabled,Enabled
+"Products Limit","Products Limit"
+"<strong><u>Product List:</u></strong>","<strong><u>Product List:</u></strong>"
+"Display Brand Logo on Product List","Display Brand Logo on Product List"
+"Product List Brand Logo Image Width","Product List Brand Logo Image Width"
+"Product List Brand Logo Tooltip","Product List Brand Logo Tooltip"
+"<strong><u>Product Page:</u></strong>","<strong><u>Product Page:</u></strong>"
+"Display Brand Logo on Product Page","Display Brand Logo on Product Page"
+"Display Description on Product Page","Display Description on Product Page"
+"Product Page Brand Logo Image Width","Product Page Brand Logo Image Width"
+"Product Page Brand Logo Tooltip","Product Page Brand Logo Tooltip"
+"<strong><u>Product List & Product Page Configuration:</u></strong>","<strong><u>Product List & Product Page Configuration:</u></strong>"
+"Tooltip Max Image Width","Tooltip Max Image Width"
+"Robots meta header for brand pages","Robots meta header for brand pages"
+"Brand Slider by Mirasvit","Brand Slider by Mirasvit"
+"If the field is empty, it will be used from the configuration.","If the field is empty, it will be used from the configuration."
+"Hex Color Code. If the field is empty, it will be used from the configuration.","Hex Color Code. If the field is empty, it will be used from the configuration."
+Template,Template
+"Brand Slider","Brand Slider"
+"General Information","General Information"
+Brand,Brand
+"Is Active","Is Active"
+"URL key","URL key"
+"If the field is empty, URL Key will be created automatically","If the field is empty, URL Key will be created automatically"
+Logo,Logo
+"Allowed file types: png, gif, jpg, jpeg, svg.","Allowed file types: png, gif, jpg, jpeg, svg."
+"If the field is empty, title will be created automatically from Brand field","If the field is empty, title will be created automatically from Brand field"
+"Visible in Store View","Visible in Store View"
+"All Store Views","All Store Views"
+"Meta title","Meta title"
+"Meta keywords","Meta keywords"
+"Meta description","Meta description"
+"Banner Alt","Banner Alt"
+"If the field is empty, alt will be created automatically from Brand field","If the field is empty, alt will be created automatically from Brand field"
+"Banner Title","Banner Title"
+"Banner Image","Banner Image"
+"Allowed file types: png, gif, jpg, jpeg.","Allowed file types: png, gif, jpg, jpeg."
+"Banner position","Banner position"
+"Show in Brand Slider","Show in Brand Slider"
+"Slider Position","Slider Position"
+Robots,Robots
+"Canonical url","Canonical url"
+"
+                        Can be used in tooltip (STORES > Configuration > Brand > Brand Logo and Tooltip > Product List Brand Logo Tooltip)
+                    ","
+                        Can be used in tooltip (STORES > Configuration > Brand > Brand Logo and Tooltip > Product List Brand Logo Tooltip)
+                    "
+"Add Brand","Add Brand"
+ID,ID
+"Url key","Url key"
+"Store View","Store View"
+Status,Status

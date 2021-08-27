@@ -1,0 +1,234 @@
+<?php
+/** @var \Mirasvit\Core\Block\Adminhtml\Config\PackageListField $block */
+if ($block->isMarketplace()) {
+    return;
+}
+$packages           = $block->getPackageList();
+$displayedPool      = [];
+$inRequirementsPool = [];
+
+foreach ($packages as $package) {
+    if (strpos($package->getPackage(), 'sample-data') !== false) {
+        continue;
+    }
+
+    foreach ($package->getRequire() as $requireName) {
+        $inRequirementsPool[$requireName] = true;
+    }
+}
+?>
+<div class="section-config active" style="padding-top: 2rem;">
+    <div class="entry-edit-head admin__collapsible-block">
+        <span id="packages-link" class="entry-edit-head-link"></span>
+
+        <a id="packages-head" href="#packages-link" onclick="Fieldset.toggleCollapse('packages'); return false;" class="open">
+            <?= __('Installed Extensions') ?>
+        </a>
+    </div>
+
+    <input id="packages-state" name="config_state[packages]" type="hidden" value="1">
+
+    <fieldset class="admin__collapsible-block" id="packages" data-bind="scope: 'mstValidator'">
+        <div class="mst-package-list">
+            <?php foreach ($packages as $package): ?>
+                <?php
+                if (!$package->getUrl()) {
+                    continue;
+                }
+                if (isset($inRequirementsPool[$package->getPackage()])) {
+                    continue;
+                }
+                $isOutdated = $package->isOutdated();
+                ?>
+                <div class="mst-package">
+                    <div class="package-info">
+                        <div class="package-info-primary">
+                            <div class="package-status <?= $isOutdated ? '_outdated' : '_latest' ?>"></div>
+
+                            <div class="package-label">
+                                <?php if ($package->getUrl()): ?>
+                                    <a href="<?= $package->getUrl() ?>" target="_blank"><?= $package->getLabel() ?></a>
+                                <?php else: ?>
+                                    <?= $package->getLabel() ?>
+                                <?php endif ?>
+                            </div>
+
+                            <div class="version">
+                                v. <?= $package->getVersion() ?>
+                            </div>
+                        </div>
+
+                        <div class="package-info-secondary">
+                            <div class="new-version">
+                                <?php if ($isOutdated): ?>
+                                    New version <strong><?= $package->getLatestVersion() ?></strong> is available
+                                <?php else: ?>
+                                    You have the latest version
+                                <?php endif ?>
+                            </div>
+
+                            <?php if ($package->getUrl() && $isOutdated): ?>
+                                <a href="<?= $block->getChangelogUrl($package) ?>" class="changes" target="_blank"><?= __('Check changes') ?></a>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                    <div class="package-requires">
+                        <?php foreach ($package->getRequire() as $requireName): ?>
+                            <?php foreach ($packages as $requirePackage): ?>
+                                <?php
+                                if ($requireName !== $requirePackage->getPackage()) {
+                                    continue;
+                                }
+                                if (isset($displayedPool[$requirePackage->getPackage()])) {
+                                    continue;
+                                }
+
+                                $displayedPool[$requirePackage->getPackage()] = true;
+                                ?>
+                                <div class="package-require">
+                                    <div class="package-require-label"><?= $requirePackage->getPackage() ?></div>
+                                    <div class="package-require-version">
+                                        <?= $requirePackage->getVersion() ?>
+                                    </div>
+                                    <div class="package-require-latest-version">
+                                        <?php if ($requirePackage->isOutdated()): ?>
+                                            → <span><?= $requirePackage->getLatestVersion() ?></span>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+                            <?php endforeach ?>
+                        <?php endforeach ?>
+                    </div>
+                    <div class="package-modules">
+                        <?php foreach ($package->getModuleList() as $moduleName): ?>
+                            <div class="package-module"><?= $moduleName ?>&nbsp;<span class="status-<?= $block->isModuleEnabled($moduleName) ? 'on' : 'off' ?>"><?= $block->isModuleEnabled($moduleName) ? 'ON' : 'OFF' ?></span></div>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+
+        <div style="text-align: center">
+            <button type="button" class="action-default" data-bind="click: validate.bind($data, '')">
+                Validate All Extensions
+            </button>
+        </div>
+    </fieldset>
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+        require(['prototype'], function () {
+            Fieldset.applyCollapse('packages');
+        });
+        //]]>
+    </script>
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "mstValidator": {
+                    "component": "Mirasvit_Core/js/validator",
+                    "config": {
+                        "url": "<?= $block->getValidationUrl() ?>"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="mirasvit_brand_api_data_brandpageinterface_save_after">
+        <observer name="mirasvit_brand_page_after_save" instance="Magento\Framework\EntityManager\Observer\AfterEntitySave" />
+    </event>
+</config>

@@ -1,0 +1,37 @@
+.mst-core__manual {
+  display: inline-block;
+
+  a > {
+    display: block;
+    margin: 0;
+    border-radius: 5rem;
+    padding: 1rem 2rem 1rem 1rem;
+    border: .2rem solid #e3e3e3;
+    color: #514943;
+    font-weight: 600;
+
+    &:before {
+      font-size: 2rem;
+      margin-right: .5rem;
+      line-height: 1;
+      content: '\e633';
+      font-family: 'Admin Icons';
+      vertical-align: middle;
+      display: inline-block;
+      font-weight: normal;
+      overflow: hidden;
+      speak: none;
+      text-align: center;
+    }
+
+    &:hover {
+      color: #eb5202;
+    }
+  }
+}
+
+.adminhtml-system-config-edit {
+  .mst-core__manual {
+    margin-left: 10rem;
+  }
+}

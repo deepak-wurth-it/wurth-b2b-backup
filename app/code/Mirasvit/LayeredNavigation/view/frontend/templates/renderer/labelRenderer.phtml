@@ -1,0 +1,67 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\LabelRenderer
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+$attributeCode = $block->getAttributeCode();
+?>
+<div data-mst-nav-filter="<?= $attributeCode ?>" class="mst-nav__label">
+    <?= $block->getSearchBoxElement() ?>
+
+    <ol class="items">
+        <?php foreach ($block->getFilterItems() as $key => $filterItem):
+            $label = $filterItem->getData('label');
+            $numberOfResults = $filterItem->getData('count');
+
+            $isItemChecked = $block->isFilterItemChecked($filterItem, true);
+
+            $imageUrl         = $block->getImageUrl($filterItem);
+            $isFullWidthImage = $block->isFullWidthImage($filterItem);
+
+            $cssClass = [
+                'item',
+                'mst-nav__label-item',
+                '_mode-' . $block->getFilterItemDisplayMode(),
+                $isItemChecked ? '_checked' : '',
+                $isItemChecked && $block->isHighlightEnabled() ? '_highlight' : '',
+                $imageUrl ? '_image' : '',
+                $imageUrl && $isFullWidthImage ? '_full-width' : '',
+            ];
+            ?>
+
+            <li data-element="filter" class="<?= implode(' ', $cssClass) ?>" data-value="<?= $filterItem->getValueString() ?>">
+                <?php if ($numberOfResults >= 0): ?>
+                    <?php
+                    $url = $isItemChecked ? $filterItem->getRemoveUrl() : $filterItem->getUrl();
+                    $id  = $block->getItemId($filterItem);
+                    ?>
+                    <a href="<?= $escaper->escapeUrl($url) ?>" rel="<?= $block->getRelAttributeValue() ?>">
+                        <?php if ($imageUrl): ?>
+                            <div class="swatch-option image" style="background: url(<?= $imageUrl ?>) no-repeat center;  background-size: auto 100%;"></div>
+                        <?php endif ?>
+
+                        <input id="<?= $id ?>" type="checkbox" <?= $isItemChecked ? 'checked' : '' ?> />
+
+                        <label for="<?= $id ?>">
+                            <?= $label ?>
+                            <?= $block->getCountElement($filterItem) ?>
+                        </label>
+                    </a>
+                <?php else: ?>
+                    <?= $label ?>
+                    <?= $block->getCountElement($filterItem) ?>
+                <?php endif ?>
+            </li>
+        <?php endforeach ?>
+
+        <?= $block->getSizeLimiterElement() ?>
+    </ol>
+</div>
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+        ],
+    ]) ?></script>
+
+

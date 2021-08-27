@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mst_quick_navigation" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="446">
+            <label>Quick Navigation</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_QuickNavigation::system</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000">
+                <label>General</label>
+
+                <field id="is_enabled" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="total_threshold" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Total Threshold</label>
+                    <comment><![CDATA[The maximum number of filters in the quick navigation bar]]></comment>
+                </field>
+
+                <field id="attribute_threshold" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Threshold Per Attribute</label>
+                    <comment><![CDATA[The maximum number of options per attribute]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

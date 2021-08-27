@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="mst_brand" xsi:type="array">
+                    <item name="class" xsi:type="string">Mirasvit\Brand\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">70</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--    <virtualType name="Magento\LayeredNavigation\Block\Navigation\Brand" type="Magento\LayeredNavigation\Block\Navigation">-->
+    <!--        <arguments>-->
+    <!--            <argument name="filterList" xsi:type="object">brandFilterList</argument>-->
+    <!--        </arguments>-->
+    <!--    </virtualType>-->
+
+    <!-- filter collection by brand -->
+    <type name="Magento\Catalog\Model\Layer\CollectionFilterInterface">
+        <plugin name="Mirasvit_Brand::filterByBrand" sortOrder="1000" type="Mirasvit\Brand\Plugin\Frontend\FilterCollectionByBrandPlugin"/>
+    </type>
+
+    <!-- exclude current brand from attribute collection -->
+    <type name="Magento\Catalog\Model\Layer\Category\FilterableAttributeList">
+        <plugin name="m-brand-delete-current-brand-from-filter-collection" sortOrder="1000"
+                type="Mirasvit\Brand\Plugin\Frontend\Magento\Catalog\Model\Layer\Category\FilterableAttributeList\ExcludeCurrentBrandAttributePlugin"/>
+    </type>
+
+    <!-- SEO compatibility -->
+    <type name="Mirasvit\Seo\Helper\Data">
+        <plugin name="m-brand-seo-compatibility" sortOrder="1000"
+                type="Mirasvit\Brand\Plugin\Frontend\Mirasvit\Seo\Helper\Data\IgnoreBrandActionPlugin"/>
+    </type>
+
+    <!-- Brands Link Position -->
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="m-brand-link-topmenu-first" sortOrder="-1"
+                type="Mirasvit\Brand\Plugin\Frontend\Magento\Theme\Block\Html\Topmenu\FirstBrandLinkPlugin"/>
+
+        <plugin name="m-brand-link-topmenu-last" sortOrder="1000"
+                type="Mirasvit\Brand\Plugin\Frontend\Magento\Theme\Block\Html\Topmenu\LastBrandLinkPlugin"/>
+    </type>
+
+    <!-- Product List Brand Logo  -->
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="m-brand-product-list-brand-logo" sortOrder="1000"
+                type="Mirasvit\Brand\Plugin\Frontend\Magento\Catalog\Block\Product\ListProduct\AddBrandLogoPlugin"/>
+    </type>
+
+    <!-- SEO Navigation -->
+    <type name="Mirasvit\SeoNavigation\Service\MetaService">
+        <arguments>
+            <argument name="metaStrategies" xsi:type="array">
+                <item name="lrn_brands" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">2</item>
+                    <item name="provider" xsi:type="object">Mirasvit\Brand\Service\Seo\MetaProvider</item>
+                    <item name="validator" xsi:type="object">Mirasvit\Brand\Service\Seo\MetaValidator</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,17 @@
+<?php
+/** @var \Mirasvit\Core\Block\Adminhtml\Manual $block */
+?>
+<div class="mst-core__manual">
+    <a href="<?= $block->getManualUrl() ?>" id="m__manual_link" title="<?= $block->getTitle() ?>"
+       onclick="this.target='_blank'"><?= $block->getTitle() ?>
+    </a>
+</div>
+<?php if ($block->getPosition() == 'bottom'): ?>
+    <script type="text/javascript">
+        var helpLink = document.getElementById("m__manual_link");
+        var width = helpLink.clientWidth;
+        var margin = -width / 2;
+        helpLink.style.marginLeft = margin + "px";
+    </script>
+<?php endif; ?>
+

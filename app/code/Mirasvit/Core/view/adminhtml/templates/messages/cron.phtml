@@ -1,0 +1,8 @@
+<div class="mst-cron__message">
+    <div>
+        <?= $block->escapeHtml(  $block->getData('message')  ) ?>
+    </div>
+    <div>
+        <a class="action-primary" href="<?= $block->escapeUrl($block->getData('url')) ?>"><?=__('More Details')?></a>
+    </div>
+</div>

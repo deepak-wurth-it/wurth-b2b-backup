@@ -1,0 +1,43 @@
+<?php
+declare(strict_types=1);
+?>
+<script type="text/javascript">
+    function func_<?= $this->getHtmlId() ?>() {
+        let params = {};
+
+        new Ajax.Request('<?= $this->getAjaxUrl() ?>', {
+            parameters: params,
+            onSuccess:  function (transport) {
+                var result = transport.responseText.evalJSON();
+
+                $('result_<?= $this->getHtmlId() ?>')
+                    .update('<strong>' + result.message + '</strong>')
+                    .show();
+
+                if (result.success === true) {
+                    $('result_<?= $this->getHtmlId() ?>').removeClassName('message-error');
+                    $('result_<?= $this->getHtmlId() ?>').addClassName('message-success');
+                } else {
+                    $('result_<?= $this->getHtmlId() ?>').removeClassName('message-success');
+                    $('result_<?= $this->getHtmlId() ?>').addClassName('message-error');
+                }
+            },
+            onComplete: function (response) {
+                if (403 === response.status) {
+                    $('result_<?= $this->getHtmlId() ?>')
+                        .update('Access denied')
+                        .show();
+                    $('result_<?= $this->getHtmlId() ?>').removeClassName('message-success');
+                    $('result_<?= $this->getHtmlId() ?>').addClassName('message-error');
+                }
+            }
+
+        });
+    }
+
+</script>
+<button onclick="func_<?= $this->getHtmlId() ?>(); return false;" class="scalable" type="button" id="<?= $this->getHtmlId() ?>">
+    <span><?= $this->escapeHtml($this->getButtonLabel()) ?></span>
+</button>
+
+<ul id="result_<?= $this->getHtmlId() ?>" style="display:none; max-width: 400px; max-height: 400px;overflow: scroll;" class="message"></ul>

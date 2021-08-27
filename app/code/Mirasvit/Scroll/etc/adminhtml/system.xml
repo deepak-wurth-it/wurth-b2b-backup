@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mst_scroll" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="440">
+            <label>Ajax Pagination</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_Scroll::mst_scroll</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                <label>General</label>
+                <field id="mode" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" canRestore="1">
+                    <label>Pagination Mode</label>
+                    <source_model>Mirasvit\Scroll\Model\Config\Source\Mode</source_model>
+                </field>
+
+                <field id="prev_text" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" canRestore="1">
+                    <label>Load Previous Page Button Label</label>
+                    <depends>
+                        <field id="mode">button</field>
+                    </depends>
+                </field>
+
+                <field id="next_text" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30" canRestore="1">
+                    <label>Load Next Page Button Label</label>
+                    <depends>
+                        <field id="mode">button</field>
+                    </depends>
+                </field>
+
+                <field id="product_list_selector" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40" canRestore="1">
+                    <label>Product List Selector</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

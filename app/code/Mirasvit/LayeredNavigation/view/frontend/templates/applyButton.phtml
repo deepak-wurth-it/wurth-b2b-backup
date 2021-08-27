@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\ApplyButton
+ */
+?>
+<?php if ($block->isApplyingMode()): ?>
+    <div class="mst-nav__apply-button-wrapper" data-element="mst-nav__applyButton">
+        <div class="mst-nav__apply-button">
+            <div class="loader">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+
+            <div class="items">
+                <strong data-count></strong>
+                <span data-label-1><?= __('items') ?></span>
+                <span data-label-n><?= __('item') ?></span>
+            </div>
+
+            <button class="button action primary" data-apply><?= __('Show') ?></button>
+        </div>
+    </div>
+<?php endif ?>

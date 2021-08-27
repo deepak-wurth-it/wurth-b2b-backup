@@ -1,0 +1,90 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\SwatchRenderer
+ */
+
+$swatchData    = $block->getSwatchData();
+$attributeCode = $swatchData['attribute_code'];
+$attributeId   = $swatchData['attribute_id'];
+?>
+
+<div class="swatch-attribute swatch-layered <?= $attributeCode ?> mst-nav__swatch" attribute-code="<?= $attributeCode ?>" attribute-id="<?= $attributeId ?>">
+    <div class="swatch-attribute-options clearfix" data-mst-nav-filter="<?= $attributeCode ?>">
+        <?php foreach ($swatchData['options'] as $optionId => $label): ?>
+            <?php
+            $isItemChecked = $block->isItemChecked($optionId);
+            $url           = $isItemChecked ? $block->getRemoveUrl($attributeCode, $optionId) : $block->getSwatchOptionLink($attributeCode, $optionId);
+            $cssClass      = [
+                'swatch-option-link-layered',
+                $isItemChecked ? '_checked' : '',
+            ];
+            $customStyle   = isset($label['custom_style']) ? $block->escapeHtmlAttr($label['custom_style']) : '';
+            ?>
+            <a href="<?= $url ?>" class="<?= implode(' ', $cssClass) ?>" data-element="filter" data-value="<?= $block->escapeHtmlAttr($optionId) ?>">
+                <?php if (isset($swatchData['swatches'][$optionId]['type'])) : ?>
+                    <?php switch ($swatchData['swatches'][$optionId]['type']) {
+                        case '3':
+                            ?>
+                            <div class="swatch-option <?= $customStyle ?>"
+                                 tabindex="-1"
+                                 option-type="3"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-tooltip-thumb=""
+                                 option-tooltip-value=""
+                            ></div>
+                            <?php break;
+                        case '2':
+                            ?>
+                            <?php $swatchThumbPath = $block->getSwatchPath('swatch_thumb', $swatchData['swatches'][$optionId]['value']); ?>
+                            <?php $swatchImagePath = $block->getSwatchPath('swatch_image', $swatchData['swatches'][$optionId]['value']); ?>
+                            <div class="swatch-option image <?= $customStyle ?>"
+                                 tabindex="-1"
+                                 option-type="2"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-tooltip-thumb="<?= $block->escapeUrl($swatchThumbPath) ?>"
+                                 option-tooltip-value=""
+                                 style="background: url(<?= $block->escapeUrl($swatchImagePath) ?>) no-repeat center; background-size: initial;"></div>
+                            <?php break;
+                        case '1':
+                            ?>
+                            <div class="swatch-option color <?= $customStyle ?>"
+                                 tabindex="-1"
+                                 option-type="1"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-tooltip-thumb=""
+                                 option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$optionId]['value']) ?>"
+                                 style="background: <?= $block->escapeHtmlAttr($swatchData['swatches'][$optionId]['value']) ?> no-repeat center; background-size: initial;"></div>
+                            <?php break;
+                        case '0':
+                        default:
+                            ?>
+                            <div class="swatch-option text <?= $customStyle ?>"
+                                 tabindex="-1"
+                                 option-type="0"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-tooltip-thumb=""
+                                 option-tooltip-value=""
+                            ><?= $block->escapeHtml($swatchData['swatches'][$optionId]['value']) ?></div>
+                            <?php break;
+                    } ?>
+                <?php endif; ?>
+            </a>
+        <?php endforeach ?>
+    </div>
+</div>
+<script>
+    require(['jquery', 'Magento_Swatches/js/swatch-renderer'], function ($) {
+        $('.swatch-layered.<?=$attributeCode ?>')
+            .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
+            .SwatchRendererTooltip();
+    });
+</script>
+<script type="text/x-magento-init"><?= \Zend_Json::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+        ],
+    ]) ?></script>

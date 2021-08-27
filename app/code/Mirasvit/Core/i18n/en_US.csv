@@ -1,0 +1,17 @@
+"Disallowed file type.","Disallowed file type."
+"Cron for Magento is not running. To setup a cron job, follow the link %1","Cron for Magento is not running. To setup a cron job, follow the link %1"
+"Cron jobs [' . . '] are not running. Please check the table ' . . ' for frozen jobs and remove them.","Cron jobs [' . . '] are not running. Please check the table ' . . ' for frozen jobs and remove them."
+"Validate Installation","Validate Installation"
+Module,Module
+"Installed Version","Installed Version"
+"Latest Version","Latest Version"
+"All tests have been passed","All tests have been passed"
+Status,Status
+Test,Test
+"How to fix","How to fix"
+"Mirasvit Extensions","Mirasvit Extensions"
+Developer,Developer
+"Enable Mirasvit Menu","Enable Mirasvit Menu"
+"Include Font Awesome","Include Font Awesome"
+"Additional CSS Styles","Additional CSS Styles"
+"Enable preprocessed CSS","Enable preprocessed CSS"
