@@ -153,7 +153,7 @@ class CategoryProcessor
     {
 
 
-        return $this->resourceConnection->getConnection('pim_online');
+        return $this->resourceConnection->getConnection('pim');
     }
 
     public function pimCategoryCollection()
