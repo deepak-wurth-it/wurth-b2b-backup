@@ -44,7 +44,7 @@ class CategoryProcessor
 
         try {
             $collection = $this->pimCategoryCollection();
-            echo "<pre>";print_r(get_class_methods($collection));exit;
+            //zecho "<pre>";print_r(get_class_methods($collection));exit;
             foreach ($collection as $data) {
                 try {
                     $this->creatingCategory($data);
@@ -153,7 +153,7 @@ class CategoryProcessor
     {
 
 
-        return $this->resourceConnection->getConnection('pim');
+        return $this->resourceConnection->getConnection('pim_online');
     }
 
     public function pimCategoryCollection()
@@ -162,7 +162,9 @@ class CategoryProcessor
         $connection = $this->getPimConnection();
         $tableName = $connection->getTableName('categories');
         $query = $connection->select()->from($tableName, ['*'])
-            ->where('magento_sync_status =?', 0);
+            ->where('Active =?', 1)
+            ->where('magento_sync_status =?', 0)
+            ->where('ChannelId =?', 2);
         $fetchData = $connection->fetchAll($query);
         return  $fetchData;
     }
