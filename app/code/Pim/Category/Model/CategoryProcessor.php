@@ -26,7 +26,8 @@ class CategoryProcessor
         ObjectManagerInterface $objectManager,
         \Magento\Framework\File\Csv $fileCsv,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Pim\Category\Model\PimCategoryFactory $pimCategoryFactory
 
     ) {
         $this->categoryFactory = $categoryFactory;
@@ -36,6 +37,7 @@ class CategoryProcessor
         $this->fileCsv = $fileCsv;
         $this->directoryList = $directoryList;
         $this->storeManager = $storeManager;
+        $this->pimCategoryFactory = $pimCategoryFactory;
     }
 
 
@@ -44,7 +46,7 @@ class CategoryProcessor
 
         try {
             $collection = $this->pimCategoryCollection();
-            echo "<pre>";print_r(get_class_methods($collection));exit;
+            //zecho "<pre>";print_r(get_class_methods($collection));exit;
             foreach ($collection as $data) {
                 try {
                     $this->creatingCategory($data);
@@ -63,7 +65,7 @@ class CategoryProcessor
     public function creatingCategory($row)
     {
 
-
+       
         $name = $row['Name'] ? $row['Name'] : '';
         $active = $row['Active'] ? $row['Active'] : '0';
         $magentoCategoryId = $row['magento_category_id'];
@@ -105,17 +107,21 @@ class CategoryProcessor
         $objCategory = $this->categoryRepositoryInterface->save($category);
 
         if ($objCategory) {
+            $collection = $this->pimCategoryFactory->create()->load($row['Id']);
+            $collection->setData(self::PIM_MAGENTO_SYNC_STATUS,'1');
+            $collection->setData(self::PIM_MAGENTO_CATEGORY_ID,$objCategory->getId());
+            $collection->setData(self::PIM_MAGENTO_PARENT_CATEGORY_ID,$objCategory->getParentId());
+            $collection->save();
+            // $connectionObject = $this->getPimConnection();
+            // $tableName = $connectionObject->getTableName(self::PIM_CATEGORIES_TABLE);
+            // $where = ['Id = ?' => $row['Id']];
+            // $data = [
+            //     self::PIM_MAGENTO_SYNC_STATUS => '1',
+            //     self::PIM_MAGENTO_CATEGORY_ID => $objCategory->getId(),
+            //     self::PIM_MAGENTO_PARENT_CATEGORY_ID => $objCategory->getParentId()
+            // ];
 
-            $connectionObject = $this->getPimConnection();
-            $tableName = $connectionObject->getTableName(self::PIM_CATEGORIES_TABLE);
-            $where = ['Id = ?' => $row['Id']];
-            $data = [
-                self::PIM_MAGENTO_SYNC_STATUS => '1',
-                self::PIM_MAGENTO_CATEGORY_ID => $objCategory->getId(),
-                self::PIM_MAGENTO_PARENT_CATEGORY_ID => $objCategory->getParentId()
-            ];
-
-            $connectionObject->update($tableName, $data, $where);
+            // $connectionObject->update($tableName, $data, $where);
         }
         echo  'Pim Category Id '.$row['Id'].' Created/Updated =>>>>> ' . $name . PHP_EOL;
     }
@@ -158,12 +164,20 @@ class CategoryProcessor
 
     public function pimCategoryCollection()
     {
+        $collection = $this->pimCategoryFactory->create()->getCollection();
 
-        $connection = $this->getPimConnection();
-        $tableName = $connection->getTableName('categories');
-        $query = $connection->select()->from($tableName, ['*'])
-            ->where('magento_sync_status =?', 0);
-        $fetchData = $connection->fetchAll($query);
-        return  $fetchData;
+        $collection =  $collection->addFieldToFilter('magento_sync_status', ['null' => true])
+        ->addFieldToFilter('ChannelId', ['eq' => '2'])
+        ->addFieldToFilter('Active', ['eq' => '1']);
+        return  $collection;
+      
+        // $connection = $this->getPimConnection();
+        // $tableName = $connection->getTableName('categories');
+        // $query = $connection->select()->from($tableName, ['*'])
+        //     ->where('Active =?', 1)
+        //     ->where('magento_sync_status =?', 0)
+        //     ->where('ChannelId =?', 2);
+        // $fetchData = $connection->fetchAll($query);
+        // return  $fetchData;
     }
 }
