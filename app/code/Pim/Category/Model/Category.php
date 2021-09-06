@@ -37,10 +37,10 @@ class Category extends MagentoCategory implements CategoryInterface{
     /**
      * Initialize resource model.
      */
-    protected function _construct()
-    {
-        $this->_init(\Pim\Category\Model\ResourceModel\Category::class);
-    }
+    // protected function _construct()
+    // {
+    //     $this->_init(\Pim\Category\Model\ResourceModel\Category::class);
+    // }
 
    /**
      * Get pim parent category identifier

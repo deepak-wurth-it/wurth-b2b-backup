@@ -19,17 +19,17 @@
      <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="category_listing_data_source" xsi:type="string">Pim\Category\Model\ResourceModel\Category\Grid\Collection</item>
+                <item name="category_listing_data_source" xsi:type="string">Pim\Category\Model\ResourceModel\PimCategory\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Pim\Category\Model\ResourceModel\Category\Grid\Collection">
+    <type name="Pim\Category\Model\ResourceModel\PimCategory\Grid\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">categories</argument>
             <argument name="eventPrefix" xsi:type="string">categories_grid_collection</argument>
             <argument name="eventObject" xsi:type="string">categories_grid_collection</argument>
-            <argument name="resourceModel" xsi:type="string">>Pim\Category\Model\ResourceModel\Category</argument>
+            <argument name="resourceModel" xsi:type="string">>Pim\Category\Model\ResourceModel\PimCategory</argument>
         </arguments>
     </type>
 
@@ -45,7 +45,7 @@
 
     <virtualType name="CategoryGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
         <arguments>
-            <argument name="collection" xsi:type="object" shared="false">"Pim\Category\Model\ResourceModel\Category\Collection</argument>
+            <argument name="collection" xsi:type="object" shared="false">"Pim\Category\Model\ResourceModel\PimCategory\Collection</argument>
             <argument name="filterPool" xsi:type="object" shared="false">CategoryGridFilterPool</argument>
         </arguments>
     </virtualType>

@@ -7,7 +7,7 @@
  * @copyright 2019 Embitel technologies (I) Pvt. Ltd
  */
 
-namespace Pim\Category\Model\ResourceModel\Category\Grid;
+namespace Pim\Category\Model\ResourceModel\PimCategory\Grid;
 
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Api\Search\AggregationInterface;
@@ -18,7 +18,7 @@ use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Psr\Log\LoggerInterface;
 
-use Pim\Category\Model\ResourceModel\Category\Collection as CategoryCollection;
+use Pim\Category\Model\ResourceModel\PimCategory\Collection as CategoryCollection;
 
 /**
  * Class Collection
