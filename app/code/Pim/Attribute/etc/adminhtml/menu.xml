@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-    <add id="Pim_Attribute::index_index" title="Attributes" module="Pim_Attribute" sortOrder="9998" 
+    <add id="Pim_Attribute::index_index" title="Attributes Import Status" module="Pim_Attribute" sortOrder="9998"
            resource="Pim_Attribute::index_index" parent="Pim::top_level" action="attribute/index/index"/>
     </menu>
 </config>
