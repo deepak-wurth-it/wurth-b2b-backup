@@ -16,6 +16,12 @@ class CategoryProcessor
     const PIM_MAGENTO_CATEGORY_ID = 'magento_category_id';
     const PIM_MAGENTO_PARENT_CATEGORY_ID = 'magento_parent_category_id';
     const MAGENTO_ROOT_CATEGORY_ID = '2';
+    const FAILED_MESSAGE = 'Failed to create category Pim Id';
+    const SUCCESS_MESSAGE = 'Category Sync/Build Has been done';
+    const WRONG_PIM_COLLECTION_MESSAGE = 'Something went wrong in pim collection ';
+    const START_MESSAGE = 'Start Import For Pim Category Id  ->>';
+    const SAVE_FAILED = 'Could Not Save';
+    protected $category;
 
     /**
      *
@@ -55,7 +61,7 @@ class CategoryProcessor
             $dataArray = $this->buildCategoryTree($dataArray);
             $this->executeTree($dataArray);
         } catch (\Exception $e) {
-            echo 'Something went wrong in pim collection  ' . PHP_EOL;
+            echo self::WRONG_PIM_COLLECTION_MESSAGE . PHP_EOL;
             echo $e->getMessage() . "\n" . PHP_EOL;
         }
     }
@@ -70,67 +76,31 @@ class CategoryProcessor
                     $this->executeTree($data['children']);
                 }
             } catch (\Exception $e) {
-                echo 'Failed to create category Pim Id  ' . $data['Id'] . PHP_EOL;
+                echo self::FAILED_MESSAGE . $data['Id'] . PHP_EOL;
                 echo $e->getMessage() . "\n" . PHP_EOL;
             }
         }
-        echo 'Category Sync/Build Has been done' . PHP_EOL;
+        echo self::SUCCESS_MESSAGE . PHP_EOL;
     }
 
     public function creatingCategory($row)
-    {
-        $name = $row['Name'] ?? '';
-        $active = $row['Active'] ?? '0';
-        $magentoCategoryId = $row['magento_category_id'] ?? '';
-        $magentoParentCategoryId = $row['magento_parent_category_id'] ?? '';
-        $parentId = $row['ParentId'] ?? '';
-
-        if ($parentId && empty($magentoParentCategoryId) && empty($magentoCategoryId)) {
-            $parentId = $this->categoryRepositoryInterface->getByPimParentId($parentId);
-        } elseif (!empty($magentoParentCategoryId) && !empty($magentoCategoryId)) {
-            $parentId = $magentoParentCategoryId;
-        } else {
-            $parentId = self::MAGENTO_ROOT_CATEGORY_ID;
+    {   echo 'start'.$row['Id'].PHP_EOL;
+        $this->startImport($row);
+        $this->category = $this->categoryFactory->create();
+        $this->setCategoryName($row);
+        $this->setCategoryParentId($row);
+        $this->setCategoryActiveStatus($row);
+        $this->setCategoryCustomData($row);
+        $this->setUpdateOrSave($row);
+        try {
+            $objCategory = $this->categoryRepositoryInterface->save($this->category);
+            $objCategory = $this->updatePimData($objCategory, $row);
+            $this->doneImport($row);
+            echo 'End'.$row['Id'].PHP_EOL;
+        } catch (\Exception $e) {
+            $this->showExceptionMessage($e, $row,self::SAVE_FAILED);
         }
-        echo  'Done For Pim Category Id  ->>' . $parentId. PHP_EOL;
-        $category = $this->categoryFactory->create();
-        $category->setName($name);
-        $category->setParentId($parentId);
-        $category->setIsActive($active);
-        $category->setCustomAttributes([
-            'description' => 'category example',
-            'meta_title' => 'category example',
-            'meta_keywords' => '',
-            'meta_description' => '',
-            'pim_category_id' => $row['Id'],
-            'pim_category_active_status' => $row['Active'],
-            'pim_category_channel_id' => $row['ChannelId'],
-            'pim_category_code' => $row['Code'],
-            'pim_category_external_id' => $row['ExternalId'],
-            'pim_category_parent_id' => $row['ParentId']
-
-        ]);
-
-
-
-        if ($magentoCategoryId) {
-            $category->setId($magentoCategoryId);
-        }
-
-        $objCategory = $this->categoryRepositoryInterface->save($category);
-
-        if ($objCategory) {
-            $collection = $this->pimCategoryFactory->create()->load($row['Id']);
-            $collection->setData(self::PIM_MAGENTO_SYNC_STATUS, '1');
-            $collection->setData(self::PIM_MAGENTO_CATEGORY_ID, $objCategory->getId());
-            $collection->setData(self::PIM_MAGENTO_PARENT_CATEGORY_ID, $objCategory->getParentId());
-            $collection->save();
-
-        }
-        echo 'Pim Category Id ' . $row['Id'] . ' Created/Updated =>>>>> ' . $name . PHP_EOL;
-        return $objCategory->getId();
     }
-
 
 
     public function getCategoriesExistsOrNot($category, $name)
@@ -172,5 +142,104 @@ class CategoryProcessor
             }
         }
         return $branch;
+    }
+
+    public function setCategoryCustomData($row)
+    {
+        if ($this->category && $row) {
+            $this->category->setCustomAttributes([
+                'description' => 'category example',
+                'meta_title' => 'category example',
+                'meta_keywords' => '',
+                'is_new' => '0',
+                'is_sale' => '0',
+                'meta_description' => '',
+                'pim_category_id' => $row['Id'],
+                'pim_category_active_status' => $row['Active'],
+                'pim_category_channel_id' => $row['ChannelId'],
+                'pim_category_code' => $row['Code'],
+                'pim_category_external_id' => $row['ExternalId'],
+                'pim_category_parent_id' => $row['ParentId']
+
+            ]);
+        }
+
+    }
+
+    public function updatePimData($objCategory, $row)
+    {
+        if ($objCategory && $row) {
+            $collection = $this->pimCategoryFactory->create()->load($row['Id']);
+            $collection->setData(self::PIM_MAGENTO_SYNC_STATUS, '1');
+            $collection->setData(self::PIM_MAGENTO_CATEGORY_ID, $objCategory->getId());
+            $collection->setData(self::PIM_MAGENTO_PARENT_CATEGORY_ID, $objCategory->getParentId());
+            $collection->save();
+
+        }
+    }
+
+    public function setCategoryName($row)
+    {
+        if ($this->category && $row) {
+            $name = $row['Name'] ?? '';
+            $this->category->setName($name);
+        }
+    }
+
+    public function setCategoryParentId($row)
+    {
+        if ($this->category && $row) {
+            $magentoCategoryId = $row['magento_category_id'] ?? '';
+            $magentoParentCategoryId = $row['magento_parent_category_id'] ?? '';
+            $parentId = $row['ParentId'] ?? '';
+
+            if ($parentId && empty($magentoParentCategoryId) && empty($magentoCategoryId)) {
+                $parentId = $this->categoryRepositoryInterface->getByPimParentId($parentId);
+            } elseif (!empty($magentoParentCategoryId) && !empty($magentoCategoryId)) {
+                $parentId = $magentoParentCategoryId;
+            } else {
+                $parentId = self::MAGENTO_ROOT_CATEGORY_ID;
+            }
+
+            $this->category->setParentId($parentId);
+        }
+    }
+
+    public function setCategoryActiveStatus($row)
+    {
+        if ($this->category && $row) {
+            $active = $row['Active'] ?? '0';
+            $this->category->setIsActive($active);
+        }
+    }
+
+
+    public function startImport($row)
+    {
+        $id = $row['Id'] ?? '';
+        echo self::START_MESSAGE . $id . PHP_EOL;
+    }
+
+    public function doneImport($row)
+    {
+
+        echo 'Pim Category Id ' . $row['Id'] . ' Created/Updated =>>>>> ' . $row['Name'] . PHP_EOL;
+
+    }
+
+    public function setUpdateOrSave($row)
+    {
+        $magentoCategoryId = $row['magento_category_id'] ?? '';
+        if ($magentoCategoryId) {
+            $this->category->setId($magentoCategoryId);
+        }
+    }
+
+    public function showExceptionMessage($e, $row=null,$customMessage = null)
+    {
+        if($row) {
+            echo $customMessage . $row['Id'] . PHP_EOL;
+        }
+        echo $e->getMessage() . "\n" . PHP_EOL;
     }
 }

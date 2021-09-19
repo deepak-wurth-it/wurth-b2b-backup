@@ -6,6 +6,14 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
+                <item name="importProductAttributesValue" xsi:type="object">Pim\Product\Console\Command\UpdateProductAttributesValue</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
                 <item name="createProduct" xsi:type="object">Pim\Product\Console\Command\CreateProductCommand</item>
             </argument>
         </arguments>
