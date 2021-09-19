@@ -61,9 +61,13 @@ class ProductProcessor
                     $name = $this->setPimProductName($item);
                     $pimProductId = $this->getPimProductId($item);
                     $magentoCategoryId = $this->setMagentoCategoryIds($item);
-                    $isProductExist =  $this->product->getIdBySku($pimProductId);
+                    $isProductExist = $this->product->load($this->product->getIdBySku($pimProductId));
+
                     if ($isProductExist && is_object($isProductExist)) {
                         $this->product = $isProductExist;
+                        echo 'Product Updated =>>'.$isProductExist->getId().PHP_EOL;
+                    }else{
+                        echo 'Product Created =>>'.PHP_EOL;
                     }
                     echo 'Start Product Id '.$pimProductId.PHP_EOL;
                     if ($pimProductId && $name) {
@@ -86,11 +90,12 @@ class ProductProcessor
                         $this->setProductImages();
                         $this->setProductCustomUrl();
                         $this->setManufacturerCountryName();
-                        $this->setCategoryId($magentoCategoryId);
+                        //$this->setCategoryId($magentoCategoryId);
                         $this->setPimProductSource();
                         $this->setProductStatus($item);
                         $this->setPimStockData($item);
                         try {
+                            //print_r($this->product->getData());exit;
                             $this->product->save();
                             echo 'End Product Id '.$pimProductId.PHP_EOL;
                         } catch (\Exception $e) {
@@ -99,7 +104,7 @@ class ProductProcessor
                             continue;
                         }
 
-                        if ( $this->product->getId()) {
+                        if ($this->product->getId()) {
                             echo 'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
                         }
 
@@ -108,8 +113,8 @@ class ProductProcessor
                     echo $e->getMessage();
                 }
                 $x++;
-                if ($x == 100) {
-                    //break;
+                if ($x == 10) {
+                   // break;
                 }
             }
 

@@ -119,13 +119,13 @@ class AttributeProcessor
     {
 
         $objAttributes = $this->attributeFactory->create();
-        $collection = $objAttributes->getCollection()
-            ->addFieldToFilter('Active', ['eq' => '1']);;
+        $collection = $objAttributes->getCollection();
+            //->addFieldToFilter('Active', ['eq' => '1']);;
         if ($collection->getSize() && $collection->count()) {
 
             $attributeCount = 0;
             foreach ($collection as $item) {
-
+                echo 'Attribute Create Start =>>'.$item->getData('Id').PHP_EOL;;
                 $data['frontend_label'] = $item->getData('Name');
                 $data['frontend_input'] = 'multiselect';
                 $data['is_required'] = '0';
@@ -175,7 +175,12 @@ class AttributeProcessor
                 $attribute->addData($data);
                 $attribute->setIsUserDefined(1);
                 $attribute->setEntityTypeId($this->getEntityTypeId());
-                $attribute->save();
+
+                try {
+                    $attribute->save();
+                } catch (\Exception $e) {
+                    echo $e->getMessage().PHP_EOL;
+                }
                 $attributeId = $attribute->getId();
 
                 // get default attribute set id
@@ -189,9 +194,17 @@ class AttributeProcessor
                 $this->assignAttributeToGroup($eavSetup,$attributeSetId,$attributeId,$attributeGroupName,$attributeSortOrder);
                 $item->setData('magento_attribute_code_b2b',$attribute->getAttributeCode());
                 $item->setData('magento_attribute_id_b2b',$attribute->getId());
-                $item->save();
+
+                try {
+                    $item->save();
+                } catch (\Exception $e) {
+                    echo $e->getMessage().PHP_EOL;
+                }
+                echo 'Finished Attribute Create For =>>'.$item->getData('Id').PHP_EOL;
 
             }
+
+
         }
 
         $this->eavConfig->clear();
@@ -274,11 +287,19 @@ class AttributeProcessor
             $attributeSet = $this->attributeSetFactory->create();
             $attributeSet->setEntityTypeId($this->getEntityTypeId());
             $attributeSet->setAttributeSetName($setName);
-            $attributeSet->save();
-            $defaultSetId = $this->eavConfig->getEntityType(\Magento\Catalog\Model\Product::ENTITY)
+
+            try {
+                $attributeSet->save();
+            } catch (\Exception $e) {
+                echo $e->getMessage().PHP_EOL;
+            }            $defaultSetId = $this->eavConfig->getEntityType(\Magento\Catalog\Model\Product::ENTITY)
                 ->getDefaultAttributeSetId();
             $attributeSet->initFromSkeleton($defaultSetId);
-            $attributeSet->save();
+            try {
+                $attributeSet->save();
+            } catch (\Exception $e) {
+                echo $e->getMessage().PHP_EOL;
+            }
         }
         return $attributeSet;
     }

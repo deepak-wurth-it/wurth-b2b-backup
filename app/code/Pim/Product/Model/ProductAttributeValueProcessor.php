@@ -71,6 +71,7 @@ class ProductAttributeValueProcessor
                //print_r($collectionB->getData());exit;
                 if ($collectionB->getSize() && $collectionB->count()) {
                     foreach ($collectionB as $item) {
+                        echo 'START Update Binding Product Attribute with sku =>' .$sku.PHP_EOL;
                        $AttributeId =  $item->getData('AttributeId');
                        $Value =  $item->getData('Value');
                        $product = $this->productRepository->get($sku);
@@ -83,9 +84,15 @@ class ProductAttributeValueProcessor
                         if($AttributeId && $Value && $option_id) {
 
                             $product->setCustomAttribute($attribute_id, $option_id);
-                            $product->save($product);
+                            try {
+                                $product->save($product);
+                            } catch (\Exception $e) {
+                                echo $e->getMessage().PHP_EOL;
+                            }
+
 
                         }
+                        echo 'END Update Binding Product Attribute with sku =>' .$sku.PHP_EOL;
                     }
                 }
                 //die($attribute_id.'----'.$Value);
