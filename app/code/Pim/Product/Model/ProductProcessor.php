@@ -119,7 +119,7 @@ class ProductProcessor
                 }
                 $x++;
                 if ($x == 100) {
-                    break;
+                    //break;
                 }
             }
 
