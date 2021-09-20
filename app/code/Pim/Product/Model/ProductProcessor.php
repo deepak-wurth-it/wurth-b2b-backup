@@ -90,7 +90,7 @@ class ProductProcessor
                         $this->setProductImages();
                         $this->setProductCustomUrl();
                         $this->setManufacturerCountryName();
-                        //$this->setCategoryId($magentoCategoryId);
+                        $this->setCategoryId($magentoCategoryId);
                         $this->setPimProductSource();
                         $this->setProductStatus($item);
                         $this->setPimStockData($item);
@@ -113,7 +113,7 @@ class ProductProcessor
                     echo $e->getMessage();
                 }
                 $x++;
-                if ($x == 10) {
+                if ($x == 100) {
                    // break;
                 }
             }
