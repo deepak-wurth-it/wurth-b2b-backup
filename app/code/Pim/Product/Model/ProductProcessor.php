@@ -49,7 +49,8 @@ class ProductProcessor
         $this->product = '';
         $objPimProduct = $this->pimProductFactory->create();
         $collection = $objPimProduct->getCollection()
-            ->addFieldToFilter('Status', ['eq' => '1']);
+            ->addFieldToFilter('Status', ['eq' => '1'])
+            ->addFieldToFilter('magento_sync_status', [['eq' => '0'],['null' => true]]);
 
         $x = 0;
         if ($collection->getSize() && $collection->count()) {
@@ -108,6 +109,7 @@ class ProductProcessor
                         }
 
                         if ($this->product->getId()) {
+                            $this->updatePimProductRow($item);
                             echo 'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
                         }
 
@@ -360,6 +362,14 @@ class ProductProcessor
         }
         return $pimProductId;
 
+    }
+
+    public function updatePimProductRow($item){
+        if($this->product && $item){
+            $item->setData('magento_sync_status','1');
+            $item->setData('magento_product_id',$this->product->getId());
+            $item->save();
+        }
     }
 }
 
