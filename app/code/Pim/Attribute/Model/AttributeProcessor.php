@@ -9,7 +9,7 @@ namespace Pim\Attribute\Model;
 
 use Magento\Framework\Setup\SampleData\Context as SampleDataContext;
 use Magento\Store\Model\StoreManagerInterface;
-
+use Psr\Log\LoggerInterface;
 /**
  * Setup sample attributes
  *
@@ -86,7 +86,9 @@ class AttributeProcessor
         \Magento\Eav\Setup\EavSetup $eavSetup,
         \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
         \Magento\Catalog\Model\Product $product,
-        \Magento\Catalog\Api\AttributeSetManagementInterface $attributeSetManagement
+        \Magento\Catalog\Api\AttributeSetManagementInterface $attributeSetManagement,
+        LoggerInterface $logger
+
 
 
 
@@ -105,6 +107,7 @@ class AttributeProcessor
         $this->eavSetup = $eavSetup;
         $this->eavSetupFactory = $eavSetupFactory;
         $this->product = $product;
+        $this->logger = $logger;
         $this->attributeSetManagement = $attributeSetManagement;
 
 
@@ -179,6 +182,7 @@ class AttributeProcessor
                 try {
                     $attribute->save();
                 } catch (\Exception $e) {
+                    $this->logger->info($e->getMessage());
                     echo $e->getMessage().PHP_EOL;
                 }
                 $attributeId = $attribute->getId();
@@ -198,6 +202,8 @@ class AttributeProcessor
                 try {
                     $item->save();
                 } catch (\Exception $e) {
+                    $this->logger->info($e->getMessage());
+
                     echo $e->getMessage().PHP_EOL;
                 }
                 echo 'Finished Attribute Create For =>>'.$item->getData('Id').PHP_EOL;
@@ -291,6 +297,8 @@ class AttributeProcessor
             try {
                 $attributeSet->save();
             } catch (\Exception $e) {
+                $this->logger->info($e->getMessage());
+
                 echo $e->getMessage().PHP_EOL;
             }            $defaultSetId = $this->eavConfig->getEntityType(\Magento\Catalog\Model\Product::ENTITY)
                 ->getDefaultAttributeSetId();
@@ -298,6 +306,8 @@ class AttributeProcessor
             try {
                 $attributeSet->save();
             } catch (\Exception $e) {
+                $this->logger->info($e->getMessage());
+
                 echo $e->getMessage().PHP_EOL;
             }
         }

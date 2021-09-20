@@ -8,7 +8,7 @@
 namespace Pim\Category\Model;
 
 use Magento\Framework\ObjectManagerInterface;
-
+use Psr\Log\LoggerInterface;
 class CategoryProcessor
 {
     const PIM_CATEGORIES_TABLE = 'categories';
@@ -20,7 +20,7 @@ class CategoryProcessor
     const SUCCESS_MESSAGE = 'Category Sync/Build Has been done';
     const WRONG_PIM_COLLECTION_MESSAGE = 'Something went wrong in pim collection ';
     const START_MESSAGE = 'Start Import For Pim Category Id  ->>';
-    const SAVE_FAILED = 'Could Not Save';
+    const SAVE_FAILED = 'Could Not Save ';
     protected $category;
 
     /**
@@ -35,7 +35,8 @@ class CategoryProcessor
         \Magento\Framework\App\Filesystem\DirectoryList  $directoryList,
         \Magento\Store\Model\StoreManagerInterface       $storeManager,
         \Pim\Category\Model\PimCategoryFactory           $pimCategoryFactory,
-        \Magento\Catalog\Model\CategoryRepository        $categoryRepository
+        \Magento\Catalog\Model\CategoryRepository        $categoryRepository,
+        LoggerInterface $logger
 
 
     )
@@ -49,6 +50,7 @@ class CategoryProcessor
         $this->storeManager = $storeManager;
         $this->pimCategoryFactory = $pimCategoryFactory;
         $this->categoryRepository = $categoryRepository;
+        $this->logger = $logger;
     }
 
 
@@ -96,8 +98,11 @@ class CategoryProcessor
             $objCategory = $this->categoryRepositoryInterface->save($this->category);
             $objCategory = $this->updatePimData($objCategory, $row);
             $this->doneImport($row);
+
+
             echo 'End'.$row['Id'].PHP_EOL;
         } catch (\Exception $e) {
+            $this->logger->info(self::SAVE_FAILED. $row['Id'] . PHP_EOL . '. ' . $e->getMessage());
             $this->showExceptionMessage($e, $row,self::SAVE_FAILED);
         }
     }

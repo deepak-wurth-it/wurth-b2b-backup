@@ -6,6 +6,7 @@
  */
 
 namespace Pim\Product\Model;
+use Psr\Log\LoggerInterface;
 
 
 /**
@@ -19,12 +20,12 @@ class ProductProcessor
     protected $product;
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface           $storeManager,
-        //\Magento\Catalog\Api\Data\ProductInterfaceFactory $productFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface      $productRepository,
         \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
         \Pim\Product\Model\ProductFactory                    $pimProductFactory,
         \Magento\Catalog\Model\ProductFactory                $productFactory,
-        \Pim\Category\Model\PimProductsCategoriesFactory     $pimProductsCategoriesFactory
+        \Pim\Category\Model\PimProductsCategoriesFactory     $pimProductsCategoriesFactory,
+        LoggerInterface $logger
 
 
     )
@@ -36,6 +37,7 @@ class ProductProcessor
         $this->productRepository = $productRepository;
         $this->stockRegistry = $stockRegistry;
         $this->pimProductsCategoriesFactory = $pimProductsCategoriesFactory;
+        $this->logger = $logger;
     }
 
     /**
@@ -95,12 +97,13 @@ class ProductProcessor
                         $this->setProductStatus($item);
                         $this->setPimStockData($item);
                         try {
-                            //print_r($this->product->getData());exit;
                             $this->product->save();
                             echo 'End Product Id '.$pimProductId.PHP_EOL;
+
+
                         } catch (\Exception $e) {
                             echo $e->getMessage().PHP_EOL;
-                            //$logger->info('Error importing product sku: ' . $pimProductId . '. ' . $e->getMessage());
+                            $this->logger->info('Error importing product sku: ' . $pimProductId . '. ' . $e->getMessage());
                             continue;
                         }
 
@@ -114,7 +117,7 @@ class ProductProcessor
                 }
                 $x++;
                 if ($x == 100) {
-                   // break;
+                    break;
                 }
             }
 

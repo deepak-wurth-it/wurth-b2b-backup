@@ -6,6 +6,7 @@
  */
 
 namespace Pim\Product\Model;
+use Psr\Log\LoggerInterface;
 
 
 /**
@@ -23,7 +24,8 @@ class ProductAttributeValueProcessor
         \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
         \Pim\Product\Model\ProductFactory                    $pimProductFactory,
         \Magento\Catalog\Model\ProductFactory                $productFactory,
-        \Pim\Product\Model\ProductsAttributeValuesFactory    $productAttributeValuesFactory
+        \Pim\Product\Model\ProductsAttributeValuesFactory    $productAttributeValuesFactory,
+        LoggerInterface $logger
 
 
     )
@@ -35,6 +37,7 @@ class ProductAttributeValueProcessor
         $this->productFactory = $productFactory;
         $this->productRepository = $productRepository;
         $this->stockRegistry = $stockRegistry;
+        $this->logger = $logger;
     }
 
     /**
@@ -86,7 +89,10 @@ class ProductAttributeValueProcessor
                             $product->setCustomAttribute($attribute_id, $option_id);
                             try {
                                 $product->save($product);
+                                $this->logger->info('Attribute values imported for attribute id =>' . $attribute_id . 'Attribute Value id =>'.$option_id);
+
                             } catch (\Exception $e) {
+                                $this->logger->info('Attribute values imported for attribute id =>' . $attribute_id . 'Attribute Value id =>'.$option_id.' '. $e->getMessage());
                                 echo $e->getMessage().PHP_EOL;
                             }
 
