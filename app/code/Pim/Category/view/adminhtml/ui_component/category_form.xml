@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<fieldset name="general">
+		<field name="pim_category_parent_id">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="sortOrder" xsi:type="number">333</item>
+					<item name="dataType" xsi:type="string">string</item>
+					<item name="formElement" xsi:type="string">input</item>
+					<item name="label" xsi:type="string" translate="true">Pim Parent Category ID</item>
+				</item>
+			</argument>
+		</field>
+		<field name="pim_category_active_status">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="sortOrder" xsi:type="number">333</item>
+					<item name="dataType" xsi:type="string">string</item>
+					<item name="formElement" xsi:type="string">input</item>
+					<item name="label" xsi:type="string" translate="true">Pim Category Active Status</item>
+				</item>
+			</argument>
+		</field>
+		<field name="pim_category_channel_id">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="sortOrder" xsi:type="number">333</item>
+					<item name="dataType" xsi:type="string">string</item>
+					<item name="formElement" xsi:type="string">input</item>
+					<item name="label" xsi:type="string" translate="true">Pim Category Code</item>
+				</item>
+			</argument>
+		</field>
+		<field name="pim_category_code">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="sortOrder" xsi:type="number">333</item>
+					<item name="dataType" xsi:type="string">string</item>
+					<item name="formElement" xsi:type="string">input</item>
+					<item name="label" xsi:type="string" translate="true">Pim Parent Category ID</item>
+				</item>
+			</argument>
+		</field>
+		<field name="pim_category_external_id">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="sortOrder" xsi:type="number">333</item>
+					<item name="dataType" xsi:type="string">string</item>
+					<item name="formElement" xsi:type="string">input</item>
+					<item name="label" xsi:type="string" translate="true">Pim Category External Id</item>
+				</item>
+			</argument>
+		</field>
+		<field name="pim_category_id">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="sortOrder" xsi:type="number">333</item>
+					<item name="dataType" xsi:type="string">string</item>
+					<item name="formElement" xsi:type="string">input</item>
+					<item name="label" xsi:type="string" translate="true">Pim Category Id</item>
+				</item>
+			</argument>
+		</field>
+	</fieldset>
+</form>
