@@ -11,13 +11,14 @@
 <?php if ($crumbs && is_array($crumbs)) : ?>
     <div class="category-list-sidebar">
         <ul class="paddingl0">
-        <?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
+            <li><strong><?php echo __('Product categories') ?></strong></li>
+
+            <?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
 
             <?php
                 $label = $block->escapeHtml($crumbInfo['label']);
                 $link = $block->escapeUrl($crumbInfo['link']);
             ?>
-
             <li class=" <?php /* @escapeNotVerified */ echo $block->escapeHtml($crumbName) ?>">
             <?php if ($link) : ?>
                     <a href="<?php /* @escapeNotVerified */ echo $link ?>"

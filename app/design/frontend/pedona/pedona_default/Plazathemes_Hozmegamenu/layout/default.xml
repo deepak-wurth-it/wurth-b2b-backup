@@ -12,6 +12,6 @@
         </referenceContainer>
 	    <referenceContainer name="sidebar.main">
             <block class="Plazathemes\Hozmegamenu\Block\Menu"  name="verticalmegamenu" template="verticalmegamenu.phtml" />
-        </referenceContainer> 
+        </referenceContainer>
     </body>
 </page>
