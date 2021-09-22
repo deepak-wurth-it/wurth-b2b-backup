@@ -97,6 +97,8 @@ class ProductProcessor
                         $this->setPimProductSource();
                         $this->setProductStatus($item);
                         $this->setPimStockData($item);
+                        $this->setQuantityAndStockStatus($item);
+                        //print_r(get_class_methods($this->product));exit;
                         try {
                             $this->product->save();
                             echo 'End Product Id '.$pimProductId.PHP_EOL;
@@ -107,7 +109,7 @@ class ProductProcessor
                             $this->logger->info('Error importing product sku: ' . $pimProductId . '. ' . $e->getMessage());
                             continue;
                         }
-
+                        echo $this->product->getId();exit;
                         if ($this->product->getId()) {
                             $this->updatePimProductRow($item);
                             echo 'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
@@ -118,8 +120,8 @@ class ProductProcessor
                     echo $e->getMessage();
                 }
                 $x++;
-                if ($x == 100) {
-                    //break;
+                if ($x == 10) {
+                    break;
                 }
             }
 
@@ -236,17 +238,33 @@ class ProductProcessor
     public function setPimStockData($item)
     {
         if ($this->product) {
+            $saleQuantity = (round($this->setPimSaleQuantity($item)) > 1) ?? '1';
             $this->product->setStockData(
                 [
                     'use_config_manage_stock' => 0,
                     'manage_stock' => 1,
-                    'min_sale_qty' => $this->setPimSaleQuantity($item),
+                    'min_sale_qty' => $saleQuantity,
                     //'max_sale_qty' => 2,
+                    'is_in_stock' => true,
+                    'qty' => 100
+                ]
+            );
+        }
+
+
+    }
+
+    public function setQuantityAndStockStatus($item)
+    {
+        if ($this->product) {
+            $this->product->setQuantityAndStockStatus(
+                [
                     'is_in_stock' => 1,
                     'qty' => 100
                 ]
             );
         }
+
 
     }
 
