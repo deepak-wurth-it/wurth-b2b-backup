@@ -4,7 +4,7 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 class DbStorage extends \Magento\UrlRewrite\Model\Storage\DbStorage {
 
-    protected function doReplace($urls) {
+    protected function doReplace(array $urls): array {
 
         foreach ($this->createFilterDataBasedOnUrls($urls) as $type => $urlData) {
             $urlData[UrlRewrite::ENTITY_TYPE] = $type;
