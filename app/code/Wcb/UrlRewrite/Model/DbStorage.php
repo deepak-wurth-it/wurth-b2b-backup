@@ -1,5 +1,6 @@
 <?php
 namespace Wcb\UrlRewrite\Model;
+use Magento\Framework\DB\Select;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 class DbStorage extends \Magento\UrlRewrite\Model\Storage\DbStorage {
@@ -56,6 +57,74 @@ class DbStorage extends \Magento\UrlRewrite\Model\Storage\DbStorage {
         }
 
         return $urls;
+    }
+
+    /**
+     * Delete old URLs from DB.
+     *
+     * @param  UrlRewrite[] $urls
+     * @return void
+     */
+    private function deleteOldUrls(array $urls): void
+    {
+        $oldUrlsSelect = $this->connection->select();
+        $oldUrlsSelect->from(
+            $this->resource->getTableName(self::TABLE_NAME)
+        );
+
+        $uniqueEntities = $this->prepareUniqueEntities($urls);
+        foreach ($uniqueEntities as $storeId => $entityTypes) {
+            foreach ($entityTypes as $entityType => $entities) {
+                $oldUrlsSelect->orWhere(
+                    $this->connection->quoteIdentifier(
+                        UrlRewrite::STORE_ID
+                    ) . ' = ' . $this->connection->quote($storeId, 'INTEGER') .
+                    ' AND ' . $this->connection->quoteIdentifier(
+                        UrlRewrite::ENTITY_ID
+                    ) . ' IN (' . $this->connection->quote($entities, 'INTEGER') . ')' .
+                    ' AND ' . $this->connection->quoteIdentifier(
+                        UrlRewrite::ENTITY_TYPE
+                    ) . ' = ' . $this->connection->quote($entityType)
+                );
+            }
+        }
+
+        // prevent query locking in a case when nothing to delete
+        $checkOldUrlsSelect = clone $oldUrlsSelect;
+        $checkOldUrlsSelect->reset(Select::COLUMNS);
+        $checkOldUrlsSelect->columns('count(*)');
+        $hasOldUrls = (bool)$this->connection->fetchOne($checkOldUrlsSelect);
+
+        if ($hasOldUrls) {
+            $this->connection->query(
+                $oldUrlsSelect->deleteFromSelect(
+                    $this->resource->getTableName(self::TABLE_NAME)
+                )
+            );
+        }
+    }
+
+    /**
+     * Prepare array with unique entities
+     *
+     * @param  UrlRewrite[] $urls
+     * @return array
+     */
+    private function prepareUniqueEntities(array $urls): array
+    {
+        $uniqueEntities = [];
+        /** @var UrlRewrite $url */
+        foreach ($urls as $url) {
+            $entityIds = (!empty($uniqueEntities[$url->getStoreId()][$url->getEntityType()])) ?
+                $uniqueEntities[$url->getStoreId()][$url->getEntityType()] : [];
+
+            if (!\in_array($url->getEntityId(), $entityIds)) {
+                $entityIds[] = $url->getEntityId();
+            }
+            $uniqueEntities[$url->getStoreId()][$url->getEntityType()] = $entityIds;
+        }
+
+        return $uniqueEntities;
     }
 
 }

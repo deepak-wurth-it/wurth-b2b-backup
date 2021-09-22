@@ -17,7 +17,30 @@ use Psr\Log\LoggerInterface;
  */
 class ProductProcessor
 {
+    CONST PRICE_INDEXER_ID = 'catalog_product_price';
+    /**
+     * @var \Magento\Indexer\Model\IndexerFactory
+     */
+    protected $indexerFactory;
+
+    /**
+     * @var \Magento\Framework\Indexer\ConfigInterface
+     */
+    protected $config;
+
     protected $product;
+
+    /**
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+     * @param \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry
+     * @param ProductFactory $pimProductFactory
+     * @param \Magento\Catalog\Model\ProductFactory $productFactory
+     * @param \Pim\Category\Model\PimProductsCategoriesFactory $pimProductsCategoriesFactory
+     * @param LoggerInterface $logger
+     * @param \Magento\Indexer\Model\IndexerFactory $indexerFactory
+     * @param \Magento\Framework\Indexer\ConfigInterface $config
+     */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface           $storeManager,
         \Magento\Catalog\Api\ProductRepositoryInterface      $productRepository,
@@ -25,7 +48,9 @@ class ProductProcessor
         \Pim\Product\Model\ProductFactory                    $pimProductFactory,
         \Magento\Catalog\Model\ProductFactory                $productFactory,
         \Pim\Category\Model\PimProductsCategoriesFactory     $pimProductsCategoriesFactory,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        \Magento\Indexer\Model\IndexerFactory $indexerFactory,
+        \Magento\Framework\Indexer\ConfigInterface $config
 
 
     )
@@ -38,6 +63,8 @@ class ProductProcessor
         $this->stockRegistry = $stockRegistry;
         $this->pimProductsCategoriesFactory = $pimProductsCategoriesFactory;
         $this->logger = $logger;
+        $this->indexerFactory = $indexerFactory;
+        $this->config = $config;
     }
 
     /**
@@ -118,8 +145,11 @@ class ProductProcessor
                     echo $e->getMessage();
                 }
                 $x++;
-                if ($x == 10) {
-                    break;
+                if ($x == 500) {
+
+                    $x=0;
+                    $this->reindexAll();
+                    //break;
                 }
             }
 
@@ -387,5 +417,31 @@ class ProductProcessor
             $item->save();
         }
     }
+
+    /**
+     * Regenerate single index
+     *
+     * @return void
+     * @throws \Exception
+     */
+    private function reindexOne($indexId){
+        $indexer = $this->indexerFactory->create()->load($indexId);
+        $indexer->reindexAll();
+    }
+    /**
+     * Regenerate all index
+     *
+     * @return void
+     * @throws \Exception
+     */
+    private function reindexAll(){
+        echo 'Full Reindex started .....'.PHP_EOL;
+        foreach (array_keys($this->config->getIndexers()) as $indexerId) {
+            $indexer = $this->indexerFactory->create()->load($indexerId);
+            $indexer->reindexAll();
+        }
+        echo 'Full Reindex Done.'.PHP_EOL;;
+    }
+
 }
 
