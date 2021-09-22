@@ -98,7 +98,6 @@ class ProductProcessor
                         $this->setProductStatus($item);
                         $this->setPimStockData($item);
                         $this->setQuantityAndStockStatus($item);
-                        //print_r(get_class_methods($this->product));exit;
                         try {
                             $this->product->save();
                             echo 'End Product Id '.$pimProductId.PHP_EOL;
@@ -109,7 +108,6 @@ class ProductProcessor
                             $this->logger->info('Error importing product sku: ' . $pimProductId . '. ' . $e->getMessage());
                             continue;
                         }
-                        echo $this->product->getId();exit;
                         if ($this->product->getId()) {
                             $this->updatePimProductRow($item);
                             echo 'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
