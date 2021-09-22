@@ -83,8 +83,10 @@ require(["jquery"], function($){
 	$(window).scroll(function () {
 	   if ($(this).scrollTop() > 150) {
 		 $('.nav-menu').addClass("fix-nav-menu");
+		 $('.header').addClass("fix-nav-menu-top");		 
 	   } else {
 		$('.nav-menu').removeClass("fix-nav-menu");
+		$('.header').removeClass("fix-nav-menu-top");		 
 	   }
 	});
 });
