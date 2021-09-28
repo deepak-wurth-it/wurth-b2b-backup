@@ -2,6 +2,8 @@
 namespace Wcb\UrlRewrite\Model;
 use Magento\Framework\DB\Select;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
+use Magento\UrlRewrite\Service\V1\Data\UrlRewrite as UrlRewriteData;
+
 
 class DbStorage extends \Magento\UrlRewrite\Model\Storage\DbStorage {
 
