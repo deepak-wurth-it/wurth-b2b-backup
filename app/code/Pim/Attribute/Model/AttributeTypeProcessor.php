@@ -6,25 +6,27 @@
  */
 
 namespace Pim\Attribute\Model;
-
+use Psr\Log\LoggerInterface;
 
 class AttributeTypeProcessor
 {
 
 
     /**
-     * 
+     *
      */
     public function __construct(
 
         \Pim\Attribute\Model\AttributeValuesFactory $AttributeValuesFactory,
-        \Pim\Attribute\Model\AttributeFactory $AttributeFactory
+        \Pim\Attribute\Model\AttributeFactory $AttributeFactory,
+        LoggerInterface $logger
 
 
     ) {
 
         $this->attributeValuesFactory = $AttributeValuesFactory;
         $this->attributeFactory = $AttributeFactory;
+        $this->logger = $logger;
     }
 
 
@@ -49,12 +51,15 @@ class AttributeTypeProcessor
                             echo 'Attribute Type Updated For Id ' . $key . PHP_EOL;
                         }
                     } catch (\Exception $e) {
+                        $this->logger->info('Failed to update attribute type Id ' . $key . PHP_EOL);
                         echo 'Failed to update attribute type Id ' . $key . PHP_EOL;
                         echo $e->getMessage() . "\n" . PHP_EOL;
                     }
                 }
             }
         } catch (\Exception $e) {
+            $this->logger->info('Something went wrong in pim collection  ' . PHP_EOL);
+
             echo 'Something went wrong in pim collection  ' . PHP_EOL;
             echo $e->getMessage() . "\n" . PHP_EOL;
         }

@@ -9,7 +9,7 @@ namespace Pim\Attribute\Model;
 
 use Magento\Framework\Setup\SampleData\Context as SampleDataContext;
 use Magento\Store\Model\StoreManagerInterface;
-
+use Psr\Log\LoggerInterface;
 /**
  * Setup sample attributes
  *
@@ -81,7 +81,17 @@ class AttributeProcessor
         \Magento\Eav\Model\Config $eavConfig,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Pim\Attribute\Model\AttributeFactory $AttributeFactory,
-        \Pim\Attribute\Model\AttributeValuesFactory $AttributeValuesFactory
+        \Pim\Attribute\Model\AttributeValuesFactory $AttributeValuesFactory,
+        \Magento\Eav\Api\AttributeManagementInterface $attributeManagement,
+        \Magento\Eav\Setup\EavSetup $eavSetup,
+        \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
+        \Magento\Catalog\Model\Product $product,
+        \Magento\Catalog\Api\AttributeSetManagementInterface $attributeSetManagement,
+        LoggerInterface $logger
+
+
+
+
     ) {
         $this->fixtureManager = $sampleDataContext->getFixtureManager();
         $this->csvReader = $sampleDataContext->getCsvReader();
@@ -91,38 +101,40 @@ class AttributeProcessor
         $this->productHelper = $productHelper;
         $this->eavConfig = $eavConfig;
         $this->storeManager = $storeManager;
-        $this->attributeFactory = $AttributeFactory; 
+        $this->attributeFactory = $AttributeFactory;
         $this->attributeValuesFactory = $AttributeValuesFactory;
+        $this->attributeManagement = $attributeManagement;
+        $this->eavSetup = $eavSetup;
+        $this->eavSetupFactory = $eavSetupFactory;
+        $this->product = $product;
+        $this->logger = $logger;
+        $this->attributeSetManagement = $attributeSetManagement;
+
+
+
 
     }
 
     /**
-     * @param array $fixtures
-     * @throws \Exception
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function install()
     {
 
         $objAttributes = $this->attributeFactory->create();
-        $collection = $objAttributes->getCollection()
-            ->addFieldToFilter('magento_attribute_type', ['neq' => 'NULL']);
+        $collection = $objAttributes->getCollection();
             //->addFieldToFilter('Active', ['eq' => '1']);;
-           // echo $collection->getSize();exit;
         if ($collection->getSize() && $collection->count()) {
 
-            
+            $attributeCount = 0;
             foreach ($collection as $item) {
-
+                echo 'Attribute Create Start =>>'.$item->getData('Id').PHP_EOL;;
                 $data['frontend_label'] = $item->getData('Name');
-                $translatedStringAttributeCode = transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove', $data['frontend_label']);//replacing special characters like à->a, è->e
-                $data['frontend_input'] = strtolower($item->getData('magento_attribute_type'));
+                $data['frontend_input'] = 'multiselect';
                 $data['is_required'] = '0';
                 $data['default'] = '';
-                $attributeCode = $translatedStringAttributeCode;
-                $attributeCode = strtolower($attributeCode);
-                $attributeCode = preg_replace("/[^ \w]+/", "", $attributeCode); // Replace all characters except letters, numbers, spaces and underscores
-                $attributeCode = str_replace(' ', '_', $attributeCode);               
-                $data['attribute_code'] =  $attributeCode;
+                $attributeCode = $item->getData('ExternalId');
+                $data['attribute_code'] =  'attr_'.$attributeCode;
                 $data['is_global'] = '1';
                 $data['default_value_text'] = '';
                 $data['default_value_yesno'] = '0';
@@ -141,11 +153,11 @@ class AttributeProcessor
                 $data['used_in_product_listing'] = '0';
                 $data['used_for_sort_by'] = '0';
                 $data['attribute_set'] = 'Default';
+                $data['group'] = 'Product Details';
 
-            
-             
                 /** @var \Magento\Catalog\Model\ResourceModel\Eav\Attribute $attribute */
-                $attribute = $this->eavConfig->getAttribute('catalog_product', $attributeCode);
+                $attribute = $this->eavConfig->getAttribute('catalog_product', $data['attribute_code']);
+
                 if (!$attribute) {
                     $attribute = $this->attributeFactory->create();
                 }
@@ -160,55 +172,64 @@ class AttributeProcessor
                 $data['backend_model'] = $this->productHelper->getAttributeBackendModelByInputType(
                     $data['frontend_input']
                 );
-              
+
                 $data['backend_type'] = $attribute->getBackendTypeByInput($data['frontend_input']);
 
                 $attribute->addData($data);
                 $attribute->setIsUserDefined(1);
-
                 $attribute->setEntityTypeId($this->getEntityTypeId());
-                $attribute->save();
+
+                try {
+                    $attribute->save();
+                } catch (\Exception $e) {
+                    $this->logger->info($e->getMessage());
+                    echo $e->getMessage().PHP_EOL;
+                }
                 $attributeId = $attribute->getId();
 
-                if (is_array($data['attribute_set'])) {
-                    foreach ($data['attribute_set'] as $setName) {
-                        $setName = trim($setName);
-                        $attributeSet = $this->processAttributeSet($setName);
-                        $attributeGroupId = $attributeSet->getDefaultGroupId();
+                // get default attribute set id
+                $eavSetup = $this->eavSetupFactory->create();
 
-                        $attribute = $this->attributeFactory->create()->load($attributeId);
-                        $attribute
-                            ->setAttributeGroupId($attributeGroupId)
-                            ->setAttributeSetId($attributeSet->getId())
-                            ->setEntityTypeId($this->getEntityTypeId())
-                            //->setSortOrder($attributeCount + 999)
-                            ->save();
-                    }
-                }
+                $attributeSetId = $defaultSetId = $this->eavConfig->getEntityType(\Magento\Catalog\Model\Product::ENTITY)
+                    ->getDefaultAttributeSetId();
+                $attributeGroupName = $data['group'];
+                $attributeCount++;
+                $attributeSortOrder = $attributeCount + 999;
+                $this->assignAttributeToGroup($eavSetup,$attributeSetId,$attributeId,$attributeGroupName,$attributeSortOrder);
                 $item->setData('magento_attribute_code_b2b',$attribute->getAttributeCode());
                 $item->setData('magento_attribute_id_b2b',$attribute->getId());
-                $item->save();
+
+                try {
+                    $item->save();
+                } catch (\Exception $e) {
+                    $this->logger->info($e->getMessage());
+
+                    echo $e->getMessage().PHP_EOL;
+                }
+                echo 'Finished Attribute Create For =>>'.$item->getData('Id').PHP_EOL;
 
             }
+
+
         }
 
         $this->eavConfig->clear();
     }
 
     /**
-     * @param \Magento\Catalog\Model\ResourceModel\Eav\Attribute $attribute
-     * @param array $data
-     * @return array
+     * @param $attribute
+     * @param $data
+     * @return array|array[]|null
      */
     protected function getOption($attribute, $data)
-    {  
+    {
         $objCollection = $this->attributeValuesFactory->create();
         $collection = $objCollection->getCollection()
             ->addFieldToFilter('AttributeId', ['eq' => $data['Id']])
             ->addFieldToFilter('Active', ['eq' => '1']);
         $optionsValue = $collection->getColumnValues('Value');
-    
-       
+
+
         $result = [];
         $data['option'] = $optionsValue;
         /** @var \Magento\Eav\Model\ResourceModel\Entity\Attribute\Option\Collection $options */
@@ -225,12 +246,9 @@ class AttributeProcessor
     }
 
 
-
     /**
-     * Converting attribute options from csv to correct sql values
-     *
-     * @param array $values
-     * @return array
+     * @param $values
+     * @return array|array[]
      */
     protected function convertOption($values)
     {
@@ -245,8 +263,8 @@ class AttributeProcessor
     }
 
     /**
-     * @return int
-     * @throws \Magento\Framework\Model\Exception
+     * @return int|mixed
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function getEntityTypeId()
     {
@@ -257,13 +275,9 @@ class AttributeProcessor
     }
 
     /**
-     * Loads attribute set by name if attribute with such name exists
-     * Otherwise creates the attribute set with $setName name and return it
-     *
-     * @param string $setName
-     * @return \Magento\Eav\Model\Entity\Attribute\Set
-     * @throws \Exception
-     * @throws \Magento\Framework\Model\Exception
+     * @param $setName
+     * @return bool|\Magento\Eav\Model\Entity\Attribute\Set|\Magento\Framework\Model\AbstractModel
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function processAttributeSet($setName)
     {
@@ -279,12 +293,45 @@ class AttributeProcessor
             $attributeSet = $this->attributeSetFactory->create();
             $attributeSet->setEntityTypeId($this->getEntityTypeId());
             $attributeSet->setAttributeSetName($setName);
-            $attributeSet->save();
-            $defaultSetId = $this->eavConfig->getEntityType(\Magento\Catalog\Model\Product::ENTITY)
+
+            try {
+                $attributeSet->save();
+            } catch (\Exception $e) {
+                $this->logger->info($e->getMessage());
+
+                echo $e->getMessage().PHP_EOL;
+            }            $defaultSetId = $this->eavConfig->getEntityType(\Magento\Catalog\Model\Product::ENTITY)
                 ->getDefaultAttributeSetId();
             $attributeSet->initFromSkeleton($defaultSetId);
-            $attributeSet->save();
+            try {
+                $attributeSet->save();
+            } catch (\Exception $e) {
+                $this->logger->info($e->getMessage());
+
+                echo $e->getMessage().PHP_EOL;
+            }
         }
         return $attributeSet;
     }
+
+
+    public function assignAttributeToGroup($eavSetup,$attributeSetId,$attributeId,$attributeGroupName,$attributeSortOrder){
+        $eavSetup->addAttributeGroup(
+            \Magento\Catalog\Model\Product::ENTITY,
+            $attributeSetId,
+            $attributeGroupName, // attribute group name
+            null // sort order
+        );
+
+        // add attribute to group
+        $eavSetup->addAttributeToGroup(
+            \Magento\Catalog\Model\Product::ENTITY,
+            $attributeSetId,
+            $attributeGroupName, // attribute group
+            $attributeId, // attribute code
+            $attributeSortOrder// sort order
+        );
+    }
+
+
 }
