@@ -7,11 +7,11 @@
                 <item name="ImportCategoriesCommand" xsi:type="object">Pim\Category\Console\Command\CategoriesCommand</item>
             </argument>
         </arguments>
-    </type>    
+    </type>
 
-    
+
     <preference for="Magento\Catalog\Api\Data\CategoryInterface" type="Pim\Category\Api\Data\CategoryInterface" />
-    <preference for="Magento\Category\Api\CategoryRepositoryInterface" type="Pim\Category\Api\CategoryRepositoryInterface" /> 
+    <preference for="Magento\Category\Api\CategoryRepositoryInterface" type="Pim\Category\Api\CategoryRepositoryInterface" />
     <preference for="Magento\Catalog\Model\CategoryRepository" type="Pim\Category\Model\CategoryRepository" />
     <preference for="Magento\Catalog\Model\Category" type="Pim\Category\Model\Category" />
 
@@ -49,4 +49,28 @@
             <argument name="filterPool" xsi:type="object" shared="false">CategoryGridFilterPool</argument>
         </arguments>
     </virtualType>
+
+    <!-- Custom Logger-->
+
+    <virtualType name="Pim\Category\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+            <argument name="fileName" xsi:type="string">/var/log/pim_category_import.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Pim\Category\Logger\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">Pim Category Logger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Pim\Category\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Pim\Category\Model\CategoryProcessor">
+        <arguments>
+            <argument name="logger" xsi:type="object">Pim\Category\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <!--/Custom Logger-->
 </config>
