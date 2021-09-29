@@ -3,6 +3,7 @@ namespace Plazathemes\Hozmegamenu\Block;
 
 use Magento\Catalog\Model\Category;
 use Magento\Customer\Model\Context;
+use\Magento\Framework\Api\FilterBuilder;
 class Menu	 extends \Magento\Framework\View\Element\Template 
 {
     /**
@@ -66,6 +67,9 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 	protected $_blockFactory;
 	protected $_pageFactory;
 	protected $_menuFactory;
+	protected $pageRepository;
+	protected $searchCriteriaBuilder;
+	protected $filterBuilder;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -90,6 +94,9 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 		\Magento\Cms\Model\BlockFactory $blockFactory,
 		\Magento\Cms\Model\PageFactory $pageFactory,
 		\Plazathemes\Hozmegamenu\Model\HozmegamenuFactory $menuFactory,
+        \Magento\Cms\Api\PageRepositoryInterface $pageRepository,
+        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
+        \Magento\Framework\Api\FilterBuilder $filterBuilder,
         array $data = []
     ) {
         $this->_productCollectionFactory = $productCollectionFactory;
@@ -103,6 +110,9 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 		$this->_blockFactory = $blockFactory->create();
 		$this->_pageFactory = $pageFactory -> create();
 		$this->_menuFactory = $menuFactory;
+        $this->_cmsPage = $pageRepository;
+        $this->_search = $searchCriteriaBuilder;
+        $this->_filterBuilder = $filterBuilder;
         parent::__construct($context, $data);
 		
     }
@@ -121,13 +131,18 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 			$storeId = $this->_storeManager->getStore()->getId();
 			$blockData = $this->_pageFactory->setStoreId($storeId)->load($id);
 			$link = $this->_storeManager->getStore()->getBaseUrl().$blockData->getIdentifier();
+            $currentUrl =  $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+            $active = '';
+            if ($currentUrl == $link) {
+                $active = ' act';
+            }
 			$html = "";
 
 			if($is_device == 'mobile') {
 				$html ='<li><a href="'.$link.'"><span class="name">'.$blockData->getTitle().'</span></a></li>';
 				
 			} else {
-				$html ='<div class="pt_menu nav-1" id="pt_cms">
+				$html ='<div class="pt_menu nav-1 '.$active.'" id="pt_cms">
 					<div class="parentMenu"><a href="'.$link.'"><span>'.$blockData->getTitle().'</span></a></div>
 				</div>';
 			}
@@ -165,7 +180,7 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 	}
 	
 	public function getItemsActive() {
-		return $this->getConfig('items'); 
+        return $this->toOptionArray(); 
 	}
 	
 	public function renderMenu() {
@@ -180,12 +195,13 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 		
 	}
 	
-	public function getCategoryLevel2() {
+	public function getCategoryLevel2($level = 2) {
 	
 		    $collection = $this->_categoryInstance->getCollection()
 							   ->addAttributeToSelect('*')
-							   -> addAttributeToFilter('level',2)
-							   -> addAttributeToFilter('is_active',1);
+							   -> addAttributeToFilter('level', $level)
+							   -> addAttributeToFilter('is_active',1)
+							   -> addAttributeToFilter('include_in_menu',1);
 			return $collection ; 
 	}
 	
@@ -222,18 +238,19 @@ class Menu	 extends \Magento\Framework\View\Element\Template
         $activeChildren = array();
         // --- check level ---
         $maxLevel = $this->getConfig('is_level');
-		if(!$maxLevel) $maxLevel = 3;
+		if(!$maxLevel) $maxLevel = 2;
         if ($maxLevel > 0)
         {
             if ($level >= ($maxLevel - 1)) return $activeChildren;
         }
         $childs = $parent->getChildrenCategories(); 
+        
         if (count($childs))
         {
             foreach ($childs as $child)	
             {
-				
-                if ($child->getIsActive())
+                $childCateg = $this->_categoryInstance1->create() ->load($child->getId());
+                if ($child->getIsActive() && $childCateg->getIncludeInMenu())
                 {
                     array_push($activeChildren, $child);
                 }
@@ -423,7 +440,7 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 		$html[]= $is_sale; 
 		$html[]= $is_new;
 		if(file_exists($thumb_nail)) {
-			$html[]= '<img width="50" height="50" src="'.$thumb_nail.'" alt="Thumbnail" />';
+			$html[]= '<img width="24" height="24" src="'.$thumb_nail.'" alt="Thumbnail" />';
 		}
         $html[] = '</a>';
         $html[] = '</div>';
@@ -433,7 +450,7 @@ class Menu	 extends \Magento\Framework\View\Element\Template
         if ($drawPopup==100)
         {
             // --- Popup function for hide ---
-            $html[] = '<div id="popup' . $id . '"  class="popup" style="display: none; width: 1228px;">';
+            $html[] = '<div id="popup' . $id . '"  class="popup" style="display: none; width: 100%;">';
             // --- draw Sub Categories ---
             if (count($activeChildren))
             {
@@ -442,7 +459,7 @@ class Menu	 extends \Magento\Framework\View\Element\Template
                     $bId = floor($x/6 +1);
                     
 
-                $html[] = '<div class="block'.$bId.'" id="block'.$bId.'' . $id . '">';
+                $html[] = '<div class="col-md-4 block'.$bId.'" id="block'.$bId.'' . $id . '">';
                 $html[] = $this->drawColumns($activeChildren, $id);
                 if ($blockHtml && $blockHtmlRight)
                 {
@@ -553,7 +570,7 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 				}	
 				$sub_link =  $this->_catalogCategory->getCategoryUrl($child);
 
-				$html.= '<div class="category-img" style="float: left;"><img src="'.$imageUrl.'" alt="Category"  width="70px" height="70px"> </div>';
+				$html.= '<div class="category-img" style="float: left;"><img src="'.$imageUrl.'" alt="Category"  width="24px" height="24px"> </div>';
                     
                 if( in_array($child->getId(),$arr_catsid) ){
                     $html.= '<h4 class="itemMenuName level' . $level . $active . $ClassNoChildren . '"><span>' . $name . '</span>' . $is_sale.$is_new . '</h4>';
@@ -638,13 +655,44 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 		return $html; 									
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	/**
+     * Function toOptionArray()
+     * 
+     * Used to get the list of enabled and addinmenu attribute set filter
+     * 
+     * @return Array
+     */
+	public function toOptionArray()
+    {
+        $ds = $this->getRootCategory()->getData();
+        $pages = preg_filter("/^/", 'category_', array_column($ds, 'entity_id'));
+        foreach($this->_cmsPage->getList($this->_getSearchCriteria())->getItems() as $page) {
+            $pages[] = 'cms_'.$page->getId();
+        }
+        return json_encode($pages);
+    }
 
-   
+    /**
+     * Function _getSearchCriteria()
+     * 
+     * Used to filter cms page collection
+     * 
+     * @return Array
+     */
+    protected function _getSearchCriteria()
+    {
+        return $this->_search->addFilter('is_active', '1')->addFilter('addintomenu', '1')->create();
+    }
+
+    /**
+     * Function getRootCategory()
+     * 
+     * Used to get level 2 category collection
+     * 
+     * @return Array
+     */
+    public function getRootCategory()
+    {
+        return $this->getCategoryLevel2(1);
+    }
 }
