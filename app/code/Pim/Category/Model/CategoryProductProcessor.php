@@ -67,10 +67,6 @@ class CategoryProductProcessor
     {
 
         try {
-            //$collection = $this->pimProductCategoryCollection();
-            //$dataArray = $collection->getData();
-            //$dataArray = $this->buildCategoryTree($dataArray);
-            //$this->executeTree($dataArray);
             $this->updateProductCategoryData();
         } catch (\Exception $e) {
             echo self::WRONG_PIM_COLLECTION_MESSAGE . PHP_EOL;
@@ -124,7 +120,9 @@ class CategoryProductProcessor
 
 
             } catch (\Exception $e) {
-                echo $e->getMessage() . PHP_EOL;
+
+                $this->logger->info(self::SAVE_FAILED. $data['Id'] . PHP_EOL . '. ' . $e->getMessage());
+                $this->showExceptionMessage($e, $data,self::SAVE_FAILED);
                 $this->logger->info('Product not assigned to category : '. $e->getMessage());
                 continue;
             }
