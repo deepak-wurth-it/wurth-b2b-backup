@@ -64,14 +64,14 @@
 
 		<div class="nav-menu">
 			<div class="container-inner">
-				<?php echo $this->getChildHtml("hozmegamenu_top"); ?>
+				<?php echo $this->getChildHtml("wcbmegamenu_top"); ?>
 			</div>
 		</div>		
 </header>
 <script type="text/javascript">
 require(["jquery"], function($){
 	$(document).ready(function(){
-		<!-- show, hide mobile bar content -->
+		//$(".nav-container").insertAfter(".header");
 		$(".mobile-bar-icon").click(function(){
 			$(".mobile-bar-content").addClass("open");
 		});

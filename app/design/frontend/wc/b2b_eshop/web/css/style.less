@@ -657,7 +657,7 @@ form#search_mini_form{
 		.row{
 			display: table;
 			width: 100%;
-			height:105px;
+			padding:20px 0;
 			margin: 0;
 			> div{
 				display: table-cell;
@@ -1356,10 +1356,15 @@ label.sorter-label{
 		list-style: none;
 		background: none;
 	}
+	.icon:before{
+		content:"\ea88";
+		font-size:20px;
+ 		padding-right:20px;
+ 		font-family:'Wuerthicons';
+	}
 	.icon{
 		width: 25px;
 		height: 25px;
-		background: url(../images/setting.png) no-repeat 50% 50%;
 		cursor:pointer;
 		margin: 0;
 	}
@@ -1415,7 +1420,7 @@ label.sorter-label{
 }
 .absolute{
 	position: absolute;
-	right: 0;
+	right: 28px;
 	top: 50%;
 	margin-top: -15px;
 }
@@ -3023,7 +3028,12 @@ body{
 		line-height:25px;
 		text-align: center;
 		position: relative;
-		background: url(../images/icon-card.png)  no-repeat;
+		&:after{
+			content:"\e8c8";
+ 			padding-right:20px;
+ 			font-size:24px;
+ 			font-family:'Wuerthicons';
+		}	
 		&:before{
 			display: none;
 		}
@@ -3057,15 +3067,15 @@ body{
     		background:@general_link_hover_color;
 			color: #fff;
 			display: block;
-			font-size: 10px;
-			height: 21px;
+			font-size: 14px;
+			height: 24px;
 			line-height: 21px;
 			position: absolute;
-			right: -10px;
+			right: -30px;
 			text-align: center;
-			top: -7px;
-			width: 21px;
-			border-radius: 100%;
+			top: 2px;
+			width: 24px;
+			border-radius: 4px;
 			margin: 0;
     		&.empty{
     			display: block;
@@ -3123,8 +3133,12 @@ body{
 /*===custommenu==============*/
 .nav-container {
 	position: relative;
-	text-align: center;
+	//text-align: center;
     border-top: 1px solid #ededed;
+	margin-left:-15px;
+}
+.nav-menu{
+	background:#dedede;
 }
 .nav-ozmegamenu{
 	position: relative;
@@ -3158,12 +3172,16 @@ body{
 		&#pt_menu_home {
 			a {
 				position: relative;
+
 				span {
 					display: inline-block;
+					position: relative;
+
 				}
 				&:after{
 					display: none;
 				}
+
 
 			} 
 		}
@@ -3176,12 +3194,20 @@ body{
 				}
 			}
 		}
+		&#pt_cms{
+			.parentMenu {
+				a, span.block-title {
+					&:after{
+						display: none;
+					}
+				}
+			}
+		}
 		.parentMenu {
 			a, span.block-title {
-				padding:12px 15px;
+				padding:20px 10px;
 				display:inline-block;
-				text-transform:uppercase;
-				font-size: 1.2rem;
+				font-size: 1.6rem;
 				position: relative;
 			    font-weight: 500;
 			    font-family: @headingfont;
@@ -3194,7 +3220,7 @@ body{
 						color: @general_link_hover_color;
 					}	
 				}
-				&:after{
+				 &:after{
 					display: inline-block;
 					font-family: FontAwesome;
 					font-style: normal;
@@ -3203,8 +3229,7 @@ body{
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
 					content: "\f107";
-					font-size: 12px;
-					margin-left: 5px;
+					font-size: 14px;
 				}
 			}
 			p {
@@ -3213,11 +3238,17 @@ body{
 			}
 		}
 	}
+	.parentMenu a:first-child{
+		padding-left:0;
+	}
 	div.popup {
 		position:absolute;
 		z-index:3000;
+		left:0 !important;
 		text-align:left; 	
 		padding: 0;
+		top:100% !important;
+		width:100% !important;
 		margin: 0;
 		background: #fff;
 		box-shadow: 0 3px 5px #bababa;
@@ -3236,21 +3267,21 @@ body{
 		.itemMenu {
 			a, h4 {
 				&.level1 {
-					font-weight: 500;
-					text-transform: uppercase;
-					line-height: 20px;
-					margin-bottom: 10px;
-					padding-bottom:5px;
+					font-weight: 400;
+					line-height: 1.6;
+					padding-bottom: 20px;
+					font-size:1.6rem;
+					display:flex;
+					padding-left:20px;
 					white-space: normal;
 					word-wrap: break-word;
 					word-break: normal;
-					font-family: @headingfont;
+					font-family: @bodyfont;
 					&:hover,&.act {
 						color: @general_link_hover_color;
 					}
 					span {
 						display: inline-block;
-						padding-right: 20px;
 					}
 				}
 				&.level2, &.level3 {
@@ -3270,7 +3301,8 @@ body{
 		.block1 { 
 			overflow: hidden;
 			float: left;
-			padding:30px 30px 40px 30px;
+			padding-top:20px;
+			width:25% !important;
 		}
 		.block2 {
 			margin-top: 10px;
@@ -3282,9 +3314,17 @@ body{
 			}
     	}
 	}
+	.category-img{
+		width:30px;
+		height:30px;
+		text-align:center;
+	}
+
+	.category-img img{
+		vertical-align:text-top;
+	}
 	div.column {
-		float:left;
-	    width:220px;  
+		float:left;  
 	    margin-right:35px;
 	    border-right: 1px solid #eee;
 	    &.last {
@@ -3292,7 +3332,7 @@ body{
 			margin-right: 0;
 			padding-right: 0;
 	    }
-	}  
+	}   
 	#pt_menu_link {
 		padding: 0;
 		.parentMenu {
@@ -3341,7 +3381,20 @@ body{
 		}
 	}
 }
- 
+
+.country-img{
+	padding-top:20px;
+}
+
+.country-img img{
+	vertical-align:middle;
+	padding-right:10px;
+
+}
+
+nav.pt_custommenu div.pt_menu#pt_menu_home >a:first-child{
+		padding-left:0;
+	}
 
 /* =============================================Mobile Menu ========================================== */
 
@@ -4500,7 +4553,7 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	    position: fixed !important;
 	    left: 0;
 	    right: 0;
-	    top: 60px;
+	    top: 100px;
 	    margin:auto;
 	    background: rgba(255, 255, 255, 0.83) !important;
 	    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
