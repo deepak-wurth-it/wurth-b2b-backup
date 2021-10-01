@@ -13,17 +13,16 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class CategoriesCommand extends Command
+class ProductCategoriesCommand extends Command
 {
 
 
     public function __construct(
-        \Pim\Category\Model\CategoryProcessor $categoryProcessor,
+        \Pim\Category\Model\CategoryProductProcessor $categoryProductProcessor,
         \Magento\Framework\App\State $state
-
     ) {
         parent::__construct();
-        $this->categoryProcessor = $categoryProcessor;
+        $this->categoryProductProcessor = $categoryProductProcessor;
         $this->state = $state;
     }
 
@@ -32,8 +31,8 @@ class CategoriesCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('pim:import:categories')
-            ->setDescription('Run category importer script');
+        $this->setName('pim:integrate:categories:with:product')
+            ->setDescription('Integrate categories with product');
 
         parent::configure();
     }
@@ -48,7 +47,7 @@ class CategoriesCommand extends Command
     {
         try {
             $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_FRONTEND);
-            $this->categoryProcessor->initExecution();
+            $this->categoryProductProcessor->initExecution();
         } catch (\Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
