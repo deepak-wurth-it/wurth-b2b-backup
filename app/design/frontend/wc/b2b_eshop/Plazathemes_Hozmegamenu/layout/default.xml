@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+		   <!-- <css src="Plazathemes_Hozmegamenu::css/hozmegamenu.css"/> -->
+		  <!--  <css src="Plazathemes_Hozmegamenu::css/verticalmegamenu.css"/>	 -->	   
+		   <!-- <script src="Plazathemes_Hozmegamenu::js/hozmegamenu.js"/> -->
+		  <!--  <script src="Plazathemes_Hozmegamenu::js/verticalmegamenu.js"/> -->
+	</head>
+    <body>
+        <referenceContainer name="page.top">
+            
+        </referenceContainer>
+	    <referenceContainer name="sidebar.main">
+            <block class="Plazathemes\Hozmegamenu\Block\Menu"  name="verticalmegamenu" template="verticalmegamenu.phtml" />
+        </referenceContainer> 
+		<referenceBlock name="header.links">
+                <block class="Magento\Framework\View\Element\Html\Link" name="custom-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Register</argument>
+                    <argument name="path" xsi:type="string" translate="true">customer/account/create</argument>
+                </arguments>
+                </block>
+            </referenceBlock>
+		<referenceBlock name="top.links">
+			<referenceBlock name="my-account-link" remove="true" />         <!--for My Account Link-->
+			<referenceBlock name="wish-list-link" remove="true" />          <!--for WishList Link-->
+		</referenceBlock>
+    </body>
+</page>
