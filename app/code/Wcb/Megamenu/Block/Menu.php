@@ -21,7 +21,6 @@ class Menu extends \Magento\Framework\View\Element\Template
         \Magento\Catalog\Model\Indexer\Category\Flat\State $flatState,
 		\Magento\Cms\Model\BlockFactory $blockFactory,
 		\Magento\Cms\Model\PageFactory $pageFactory,
-		\Plazathemes\Hozmegamenu\Model\HozmegamenuFactory $menuFactory,
         \Magento\Cms\Api\PageRepositoryInterface $pageRepository,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Framework\Api\FilterBuilder $filterBuilder,
@@ -37,7 +36,6 @@ class Menu extends \Magento\Framework\View\Element\Template
 		$this->_categoryInstance1 = $categoryFactory;
 		$this->_blockFactory = $blockFactory->create();
 		$this->_pageFactory = $pageFactory -> create();
-		$this->_menuFactory = $menuFactory;
         $this->_cmsPage = $pageRepository;
         $this->_search = $searchCriteriaBuilder;
         $this->_filterBuilder = $filterBuilder;
