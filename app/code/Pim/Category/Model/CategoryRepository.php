@@ -40,7 +40,7 @@ class CategoryRepository extends MagentoCategoryRepository
     }
 
     public function getByPimCategoryId($pimCategoryId, $storeId = null)
-    {
+    {   $category = '';
         $cacheKey = $storeId ?? 'all';
         if (!isset($this->instances[$pimCategoryId][$cacheKey])) {
             /** @var Category $category */
