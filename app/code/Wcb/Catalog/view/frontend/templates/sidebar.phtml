@@ -1,0 +1,22 @@
+<?php
+$category = $block->getEnableCategory();
+?>
+<h2 align="center">Category list</h2>
+<?php foreach ($category as $categorydata) : ?>
+    <?php
+    $categoryid = $categorydata->getEntityId();
+    $categoryFactory = $block->getCategoryName($categoryid);
+    $categoryNameshow = $categoryFactory->getName();
+    $categoryUrlShow = $categoryFactory->getUrl();
+    ?>
+    <div>
+        <a class="category-link-show" href="<?php echo $categoryUrlShow; ?>" alt="<?php echo $categoryNameshow; ?>"
+           title="<?php echo $categoryNameshow; ?>">
+            <div class="category-show-cmspage">
+                <div class="category-slide">
+                    <div class="category-name-show"><?php echo $categoryNameshow; ?></div>
+                </div>
+            </div>
+        </a>
+    </div>
+<?php endforeach; ?>
