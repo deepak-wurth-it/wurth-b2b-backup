@@ -1,0 +1,18 @@
+<?php
+	$data = $block->getConfig('status');
+	if(!$block->getConfig('status')) return ; 
+	$items = $block->getItemsActive();
+	$itemsActive = json_decode($items); 
+	$htmlLink = array();
+?>
+
+
+
+<?php if(count($itemsActive)): ?>
+		<nav class="ma-nav-mobile-container" >
+			<ul id="ma-mobilemenu" class="mobilemenu">
+				<?php echo $block->generateHtmlMobileMenu();  ?>
+			</ul>
+		</nav>
+<?php endif ?>
+
