@@ -431,7 +431,7 @@ class Menu	 extends \Magento\Framework\View\Element\Template
 
         $html[] = '<div class="parentMenu" style="">';
 		if(in_array($id,$arr_catsid)) {
-			$html[] = '<a href="'.$this->getBaseUrl().'" class="pt_cate '.$is_active.'">';
+			$html[] = '<a href="#" class="pt_cate '.$is_active.'">';
 		} else {
 			$html[] = '<a href="'.$link.'" class="pt_cate '.$is_active.'">';
 		}
@@ -453,6 +453,8 @@ class Menu	 extends \Magento\Framework\View\Element\Template
             $html[] = '<div id="popup' . $id . '"  class="popup" style="display: none; width: 100%;">';
             // --- draw Sub Categories ---
             if (count($activeChildren))
+            { 
+                $html[] = '<div class="block1" id="block1' . $id . '">';
             {
                 for ($x = 0; $x <= 36; $x++) {
 
@@ -470,7 +472,6 @@ class Menu	 extends \Magento\Framework\View\Element\Template
                 $html[] = '<div class="clearBoth"></div>';
                 $html[] = '</div>';
             }
-            }
             // --- draw Custom User Block ---
             if ($blockHtml && !$blockHtmlRight)
             {
@@ -481,8 +482,8 @@ class Menu	 extends \Magento\Framework\View\Element\Template
             $html[] = '</div>';
         }
         $html[] = '</div>';
-        $html[] = '<div class="country-img" style="float: right;"><img src="'.$this->getViewFileUrl('images/flag-icon.png').'" alt="Demo">'.  __('Croatia').' </div>';
         $html = implode("\n", $html);
+
         return $html;
     }
 	
@@ -559,7 +560,6 @@ class Menu	 extends \Magento\Framework\View\Element\Template
                 // --- format category name ---
                 $name = $child->getName();
 				$child1 = $this->_categoryInstance1->create() ->load($child->getId());
-                $imageUrl = $child1->getThumbNail();
 				$is_sale = null; 
 				$is_new = null; 
 				if($child1->getIsSale()==1) {
