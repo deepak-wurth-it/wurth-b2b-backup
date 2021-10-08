@@ -123,7 +123,10 @@ class Menu extends \Magento\Framework\View\Element\Template
             if (count($activeChildren))
             {
                 for ($x = 0; $x <= 36; $x++) {
+
                     $bId = floor($x/6 +1);
+                    
+
                 $html[] = '<div class="col-md-4 block'.$bId.'" id="block'.$bId.'' . $id . '">';
                 $html[] = $this->drawColumns($activeChildren, $id);
                 if ($blockHtml && $blockHtmlRight)
@@ -259,32 +262,29 @@ class Menu extends \Magento\Framework\View\Element\Template
                 $name = $child->getName();
 				$child1 = $this->_categoryInstance1->create() ->load($child->getId());
                 $imageUrl = $child1->getThumbNail();
-                $productCount = $child1->getProductCount();
 				$is_sale = null; 
-				$is_new = null;
-                if($productCount > 0){
-                    if($child1->getIsSale()==1) {
-                        $is_sale = '<span class="is_sale">'.$this->getConfig('is_sale').'</span>';
-                    }
-                    if($child1->getIsNew()==1) {
-                        $is_new = '<span class="is_new">'.$this->getConfig('is_new').'</span>';
-                    }	
-                    $sub_link =  $this->_catalogCategory->getCategoryUrl($child);
+				$is_new = null; 
+				if($child1->getIsSale()==1) {
+					$is_sale = '<span class="is_sale">'.$this->getConfig('is_sale').'</span>';
+				}
+				if($child1->getIsNew()==1) {
+					$is_new = '<span class="is_new">'.$this->getConfig('is_new').'</span>';
+				}	
+				$sub_link =  $this->_catalogCategory->getCategoryUrl($child);
 
-                    $html.= '<div class="category-img" style="float: left;"><img src="'.$imageUrl.'" alt="Category"  width="24px" height="24px"> </div>';
-                        
-                    if( in_array($child->getId(),$arr_catsid) ){
-                        $html.= '<h4 class="itemMenuName level' . $level . $active . $ClassNoChildren . '"><span>' . $name . '</span>' . $is_sale.$is_new . '</h4>';
-                    }else{
-                        $html.= '<a class="itemMenuName level' . $level . $active . $ClassNoChildren . '" href="'.$sub_link.'"><span>' . $name . '</span>' . $is_sale.$is_new . '</a>';
-                    }
-                    $activeChildren = $this->getActiveChildren($child, $level);
-                    if (count($activeChildren) > 0)
-                    { 
-                        $html.= '<div class="itemSubMenu level' . $level . '">';
-                        $html.= $this->drawMenuItem($activeChildren, $level + 1,$columChunk);
-                        $html.= '</div>';
-                    }
+				$html.= '<div class="category-img" style="float: left;"><img src="'.$imageUrl.'" alt="Category"  width="24px" height="24px"> </div>';
+                    
+                if( in_array($child->getId(),$arr_catsid) ){
+                    $html.= '<h4 class="itemMenuName level' . $level . $active . $ClassNoChildren . '"><span>' . $name . '</span>' . $is_sale.$is_new . '</h4>';
+                }else{
+                    $html.= '<a class="itemMenuName level' . $level . $active . $ClassNoChildren . '" href="'.$sub_link.'"><span>' . $name . '</span>' . $is_sale.$is_new . '</a>';
+                }
+                $activeChildren = $this->getActiveChildren($child, $level);
+                if (count($activeChildren) > 0)
+                { 
+                    $html.= '<div class="itemSubMenu level' . $level . '">';
+                    $html.= $this->drawMenuItem($activeChildren, $level + 1,$columChunk);
+                    $html.= '</div>';
                 }
             }
         }
