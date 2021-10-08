@@ -7,7 +7,7 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
  
 class InstallSchema implements InstallSchemaInterface
-{
+{ 
  /**
  * Add Secondary Custom Content
  */
