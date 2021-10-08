@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+		<referenceContainer name="page.top">
+            <block class="Wcb\Megamenu\Block\Menu" name="custom_header" template="header.phtml" before="-">
+				<block class="Wcb\Megamenu\Block\Menu" name="wcbhozmegamenu" template="wcbmegamenu.phtml"  as='wcbmegamenu_top' />
+            </block>
+
+        </referenceContainer>
+    </body>
+</page>
+

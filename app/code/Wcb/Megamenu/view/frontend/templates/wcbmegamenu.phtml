@@ -1,15 +1,14 @@
 <?php
-	$data = $block->getConfig('status');
-	if(!$block->getConfig('status')) return ; 
 	$items = $block->getItemsActive();
 	$itemsActive = json_decode($items); 
 	$htmlLink = array();
-?>
-	<?php  
-					$type_menu = $block->getConfig('type_menu');
-						if($type_menu==1) {
-				?>
+ if(count($itemsActive)):
+ ?>
 		<nav class="nav-container visible-lg visible-md">
+			
+				<div class="container-inner">
+			
+				
 						<div id="pt_custommenu" class="pt_custommenu">
 						<?php
 						
@@ -36,7 +35,7 @@
 							$html = implode("\n", $html);
 							echo $html;
 						}
-						if(count($itemsActive)): 
+			
 							$item = 0;
 				
 							$id = null; 
@@ -68,14 +67,14 @@
 							}
 								?>						
 						<div class="clearBoth"></div>
-						<?php endif ?>
 					</div>
 					
+					
+						
+					
+				</div>
 				
 		</nav>
-		
-		<?php } ?>
-
 		<script type="text/javascript">
 			require(["jquery"], function(jQuery){
 				
@@ -240,9 +239,9 @@
 
 		<script type="text/javascript">
 		//<![CDATA[
-			var CUSTOMMENU_POPUP_EFFECT = <?php echo $block->getConfig('effect');?>;
-			var CUSTOMMENU_POPUP_TOP_OFFSET = 50;
+			var CUSTOMMENU_POPUP_EFFECT = 0;
+			var CUSTOMMENU_POPUP_TOP_OFFSET = 64;
 		//]]>
 		</script>
-
+<?php endif ?>
 
