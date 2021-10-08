@@ -22,4 +22,9 @@
             <argument name="batchSizeManagement" xsi:type="object">Magento\Catalog\Model\Indexer\CategoryProductBatchSize</argument>
         </arguments>
     </type>
+    <type name="Magento\Catalog\Controller\Category\View">
+        <plugin name="plugin_category" type="Wcb\Catalog\Plugin\Catalog\Controller\Category\View"/>
+    </type>
+    <preference for="Magento\Catalog\Block\Category\View" type="Wcb\Catalog\Block\Category\View"/>
+
 </config>
