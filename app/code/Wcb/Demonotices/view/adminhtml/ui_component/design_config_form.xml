@@ -19,7 +19,7 @@
             <field name="head_demonotice" formElement="select">
                 <settings>
                     <dataType>text</dataType>
-                    <label translate="true">Display Demo Store Notice From DS</label>
+                    <label translate="true">Display Demo Store Notice</label>
                     <dataScope>head_demonotice</dataScope>
                 </settings>
                 <formElements>
@@ -30,7 +30,7 @@
                     </select>
                 </formElements>
             </field>
-            <field name="wcdemomsg" sortOrder="10" formElement="wysiwyg" template="ui/form/field">
+            <field name="head_wcdemomsg" sortOrder="10" formElement="wysiwyg" template="ui/form/field">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">page</item>
@@ -47,7 +47,7 @@
             </argument>
             <settings>
                 <label translate="true">Custom Content for Demo store message</label>
-                <dataScope>wcdemomsg</dataScope>
+                <dataScope>head_wcdemomsg</dataScope>
             </settings>
             <formElements>
                 <wysiwyg>
