@@ -1,6 +1,8 @@
 <?php
+	$data = $block->getConfig('status');
+	if(!$block->getConfig('status')) return ; 
 	$items = $block->getItemsActive();
-	$itemsActive = json_decode($items);
+	$itemsActive = json_decode($items); 
 	$htmlLink = array();
 ?>
 	<?php  
@@ -11,9 +13,10 @@
 						<div id="pt_custommenu" class="pt_custommenu">
 						<?php
 						
-						$showhome = 0;//$block->getConfig('is_home');	
+						$showhome = $block->getConfig('is_home');	
 						$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 						$request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+						//var_dump($request); die('111');
 						$active = '';
 						if ($request->getFullActionName() == 'cms_index_index') {
 							$active = ' act';

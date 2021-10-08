@@ -1,23 +1,12 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
-	<head>
-		   <!-- <css src="Plazathemes_Hozmegamenu::css/hozmegamenu.css"/> -->
-		   <!-- <css src="Plazathemes_Hozmegamenu::css/verticalmegamenu.css"/>	 -->	   
-		   <!-- <script src="Plazathemes_Hozmegamenu::js/hozmegamenu.js"/> -->
-		   <!-- <script src="Plazathemes_Hozmegamenu::js/verticalmegamenu.js"/> -->
-	</head>
     <body>
 		<referenceContainer name="page.top">
-            
+            <block class="Wcb\Megamenu\Block\Menu" name="custom_header" template="header.phtml" before="-">
 				<block class="Wcb\Megamenu\Block\Menu" name="wcbhozmegamenu" template="wcbmegamenu.phtml"  as='wcbmegamenu_top' />
-				<!--block class="Plazathemes\Hozmegamenu\Block\Menu" name="mobilemenu" template="mobilemenu.phtml"  as='mobilemenu' />
-                <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml" />
-				<block class="Magento\Store\Block\Switcher" name="store_language_mobile" as="store_language_mobile" template="switch/languages_mobile.phtml"/>
-				<block class="Magento\Directory\Block\Currency" name="currency_mobile" as="currency_mobile" template="currency_mobile.phtml" /-->
+            </block>
+
         </referenceContainer>
-	    <referenceContainer name="sidebar.main">
-            <!-- <block class="Plazathemes\Hozmegamenu\Block\Menu"  name="verticalmegamenu" template="verticalmegamenu.phtml" /> -->
-        </referenceContainer>
-				
     </body>
 </page>
+
