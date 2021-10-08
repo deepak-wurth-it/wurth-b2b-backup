@@ -259,9 +259,9 @@ class Menu extends \Magento\Framework\View\Element\Template
                 $name = $child->getName();
 				$child1 = $this->_categoryInstance1->create() ->load($child->getId());
                 $imageUrl = $child1->getThumbNail();
-                if($imageUrl){
+                if(!$imageUrl){
                     $mediaUrl = $this ->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA );
-
+                    $imageUrl = $mediaUrl. 'catalog/placeholder/placeholder.png';
                 }
                 $productCount = $child1->getProductCount();
 				$is_sale = null; 
@@ -275,7 +275,7 @@ class Menu extends \Magento\Framework\View\Element\Template
                     }	
                     $sub_link =  $this->_catalogCategory->getCategoryUrl($child);
 
-                    $html.= '<div class="category-img" style="float: left;"><img src="'.$mediaUrl.'" alt="Category"  width="24px" height="24px"> </div>';
+                    $html.= '<div class="category-img" style="float: left;"><img src="'.$imageUrl.'" alt="Category"  width="24px" height="24px"> </div>';
                         
                     if( in_array($child->getId(),$arr_catsid) ){
                         $html.= '<h4 class="itemMenuName level' . $level . $active . $ClassNoChildren . '"><span>' . $name . '</span>' . $is_sale.$is_new . '</h4>';
