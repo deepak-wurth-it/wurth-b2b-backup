@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="other_settings" sortOrder="30">
+        <settings>
+            <label translate="true">Other Settings</label>
+        </settings>
+        <fieldset name="head">
+            <settings>
+                <level>1</level>
+                <collapsible>true</collapsible>
+                <label translate="true">HTML Head</label>
+            </settings>
+            <field name="head_demonotice" formElement="select">
+                <settings>
+                    <dataType>text</dataType>
+                    <label translate="true">Display Demo Store Notice</label>
+                    <dataScope>head_demonotice</dataScope>
+                </settings>
+                <formElements>
+                    <select>
+                        <settings>
+                            <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                        </settings>
+                    </select>
+                </formElements>
+            </field>
+            <field name="head_wcdemomsg" sortOrder="10" formElement="wysiwyg" template="ui/form/field">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">true</item>
+                        <item name="height" xsi:type="string">200px</item>
+                        <item name="add_variables" xsi:type="boolean">true</item>
+                        <item name="add_widgets" xsi:type="boolean">true</item>
+                        <item name="add_images" xsi:type="boolean">true</item>
+                        <item name="add_directives" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Custom Content for Demo store message</label>
+                <dataScope>head_wcdemomsg</dataScope>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <rows>5</rows>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+        </fieldset>
+    </fieldset>
+</form>
