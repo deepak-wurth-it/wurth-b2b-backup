@@ -259,6 +259,10 @@ class Menu extends \Magento\Framework\View\Element\Template
                 $name = $child->getName();
 				$child1 = $this->_categoryInstance1->create() ->load($child->getId());
                 $imageUrl = $child1->getThumbNail();
+                if(!$imageUrl){
+                    $mediaUrl = $this ->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA );
+                    $imageUrl = $mediaUrl. 'catalog/placeholder/placeholder.png';
+                }
                 $productCount = $child1->getProductCount();
 				$is_sale = null; 
 				$is_new = null;
