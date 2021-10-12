@@ -22,6 +22,7 @@
     <div class="products wrapper grid products-grid">
         <ol class="products list items product-items">
             <?php foreach($subcategories as $subcategory): ?>
+                <?php  $productCount = $subcategory->getProductCollection()->Count(); ?>
                 <?php $subcategory = $block->getCategoryData($subcategory->getId()); ?>
                 <?php if($subcategory): ?>
                 <li class="item product product-item">
@@ -38,8 +39,8 @@
                             <strong class="product name product-item-name">
                                 <a class="product-item-link" href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
                             </strong>
-                            <?php if($level > 3 && $ProductCount > 1) { ?>
-                            <span><label><?php echo $ProductCount ; ?> variations</label></span>
+                            <?php if($level > 3 && $productCount > 1) { ?>
+                            <span><label><?php echo $productCount ; ?> variations</label></span>
                             <?php }  ?>
 
                         </div>
