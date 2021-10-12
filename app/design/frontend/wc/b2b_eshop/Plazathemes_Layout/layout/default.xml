@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
 
     <body>
-		<referenceContainer name="page.wrapper">
+        <referenceContainer name="page.wrapper">
             <block class="Plazathemes\Layout\Block\Layout" name="custom_header" template="html/header.phtml" before="-">
 				
                 <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
@@ -10,7 +10,7 @@
                         <argument name="css_class" xsi:type="string">header links</argument>
                     </arguments>
                 </block>
-				<block class="Plazathemes\Hozmegamenu\Block\Menu" name="hozmegamenu" template="hozmegamenu.phtml"  as='hozmegamenu_top' />
+				<block class="Wcb\Megamenu\Block\Menu" name="wcbhozmegamenu" template="wcbmegamenu.phtml"  as='wcbmegamenu_top' />
 				<block class="Plazathemes\Hozmegamenu\Block\Menu" name="mobilemenu" template="mobilemenu.phtml"  as='mobilemenu' />
                 <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml" />
 				<block class="Magento\Store\Block\Switcher" name="store_language_mobile" as="store_language_mobile" template="switch/languages_mobile.phtml"/>
