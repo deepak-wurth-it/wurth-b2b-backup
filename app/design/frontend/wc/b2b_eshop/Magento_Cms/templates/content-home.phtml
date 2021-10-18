@@ -1,0 +1,19 @@
+<div class="main-container">
+	<?php echo $block->getLayout()->createBlock('Wcb\Bannerslider\Block\Bannerslider')->setTemplate('Wcb_Bannerslider::bannerslider.phtml')->toHtml();?>
+	<div class="container-inner">
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('corporate_about')->toHtml(); ?>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('banner_home1')->toHtml(); ?>
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Newproductslider\Block\Newproductslider')->setTemplate('Plazathemes_Newproductslider::newproductslider.phtml')->toHtml();?>
+	</div>
+	<div class="banner-text-1">
+		<div class="container-inner">
+			<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('banner_text_1')->toHtml(); ?>
+		</div>
+	</div>
+	<div class="container-inner">
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('content_home1')->toHtml(); ?>
+		<?php //echo $block->getLayout()->createBlock('Plazathemes\InstagramGallery\Block\InstagramGallery')->setTemplate('Plazathemes_InstagramGallery::plazathemes/instagramgallery/default.phtml')->toHtml();?>
+	</div>
+</div>
+
+
