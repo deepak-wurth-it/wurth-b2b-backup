@@ -343,12 +343,10 @@ class Menu extends \Magento\Framework\View\Element\Template {
         // --- Add Popup block (hidden) ---
         if ($drawPopup == 100) {
             // --- Popup function for hide ---
-            $html[] = '<div id="popup' . $id . '"  class="popup" style="display: none; width: 1228px;">';
+            $html[] = '<div id="popup' . $id . '"  class="popup" style="display: none;">';
             // --- draw Sub Categories ---
             if (count($activeChildren)) {
-                for ($x = 0; $x <= 36; $x++) {
-                    $bId = floor($x/6 +1);
-                    $html[] = '<div class="col-md-4 block'.$bId.'" id="block'.$bId.'' . $id . '">';
+                    $html[] = '<div class="col-md-4 block1 row" id="block1' . $id . '">';
                     $html[] = $this->drawColumns($activeChildren, $id);
                         if ($blockHtml && $blockHtmlRight) {
                             $html[] = '<div class="column blockright last">';
@@ -357,7 +355,6 @@ class Menu extends \Magento\Framework\View\Element\Template {
                         }
                     $html[] = '<div class="clearBoth"></div>';
                     $html[] = '</div>';
-                }
             }
             // --- draw Custom User Block ---
             if ($blockHtml && !$blockHtmlRight) {
@@ -374,8 +371,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
     public function drawColumns($children, $id) {
         $html = '';
         // --- explode by columns ---
-        $columns = $this->getConfig('is_column');
-        if ($columns < 1) $columns = 1;
+        //$columns = $this->getConfig('is_column');
+        $columns = 4;
         $chunks = $this->explodeByColumns($children, $columns);
         $columChunk = count($chunks);
         // --- draw columns ---
@@ -400,7 +397,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             } else {
                 $classSpecial = '';
             }
-            $html.= '<div class="column' . $classSpecial . ' col' . ($key + 1) . '">';
+            $html.= '<div class="column' . $classSpecial . ' col' . ($key + 1) . ' col-md-3">';
             $html.= $this->drawMenuItem($value, 1, $columChunk);
             $html.= '</div>';
         }

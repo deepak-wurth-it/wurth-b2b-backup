@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="columns" htmlClass ="columns row" />
+        <referenceContainer name="sidebar" htmlClass="sidebar sidebar-main col-md-3" />
+        <referenceContainer name="columns.main" htmlClass="column main col-md-9" />
+        <referenceContainer name="columns">
+            <container name="columns.main" htmlTag="div" htmlClass="column main" before="-" />
+        </referenceContainer>
+        <referenceContainer name="main" htmlClass="row" />
+        <move element="main" destination="columns.main" />
+    </body>
+</page>
