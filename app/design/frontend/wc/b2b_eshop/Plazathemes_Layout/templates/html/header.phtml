@@ -18,6 +18,7 @@
 				</div>
 			</div>
 		</div> -->
+		<div class="header-wrapper">
 		<div class="header">
 			<div class="container-inner">
 				<div class="row">
@@ -66,7 +67,8 @@
 			<div class="container-inner">
 				<?php echo $this->getChildHtml("wcbmegamenu_top"); ?>
 			</div>
-		</div>		
+		</div>	
+		</div>	
 </header>
 <script type="text/javascript">
 require(["jquery"], function($){
@@ -82,11 +84,10 @@ require(["jquery"], function($){
 	});
 	$(window).scroll(function () {
 	   if ($(this).scrollTop() > 150) {
-		 $('.nav-menu').addClass("fix-nav-menu");
-		 $('.header').addClass("fix-nav-menu-top");		 
+		 $('.header-wrapper').addClass("fix-nav-menu");	 
 	   } else {
-		$('.nav-menu').removeClass("fix-nav-menu");
-		$('.header').removeClass("fix-nav-menu-top");		 
+		$('.header-wrapper').removeClass("fix-nav-menu");
+	 
 	   }
 	});
 });
