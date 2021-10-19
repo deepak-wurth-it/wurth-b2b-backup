@@ -14,7 +14,9 @@
 <?php $level = $this->getCurrentCategory()->getLevel(); ?>
 <?php $ProductCount = $this->getCurrentCategory()->getProductCollection()->Count(); ?>
 <?php $catId = $this->getCurrentCategory()->getId(); ?>
+
 <?php $subcategories = [] ;?>
+
 <?php $subcategories = $block->getCategoryChildrenData($catId); ?>
 <?php if(count($subcategories) > 0): ?>
     <div class="products wrapper grid products-grid">
