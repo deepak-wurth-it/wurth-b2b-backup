@@ -1,5 +1,5 @@
 {
-    "name": "wcb/module-catalog",
+    "name": "wcb/module-bannerslider",
     "description": "N/A",
     "type": "magento2-module",
     "license": [
@@ -15,7 +15,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Wcb\\Catalog\\": ""
+            "Wcb\\Bannerslider\\": ""
         }
     }
 }
