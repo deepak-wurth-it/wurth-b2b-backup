@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+		<!-- <referenceContainer name="content">
+			<container name="block.container" htmlTag="div" htmlId="regblock" htmlClass="block-home-container" before="-">
+				<block class="Wcb\Registrationblock\Block\Registrationblock" name="block.regblock" as="block.regblock.cms" template="regblock.phtml" after="content.home" />
+			</container>
+		</referenceContainer> -->
+		<!-- <referenceContainer name="content">
+            <block class="Wcb\Registrationblock\Block\Registrationblock" template="regblock.phtml"/>
+        </referenceContainer> -->
+		<!-- <move element="content.home" destination="page.wrapper" after="content.home"/> -->
+		
+		<!-- <referenceContainer name="content">Wcb\Registrationblock\Block;
+
+class Registrationblock
+			<block type="core/template" name="regblocks" as="regblock" template="regblock.phtml" />
+		</referenceContainer> -->
+	</body>
+</page>
