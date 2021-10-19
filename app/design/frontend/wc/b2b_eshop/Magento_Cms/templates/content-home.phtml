@@ -14,6 +14,11 @@
 		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('content_home1')->toHtml(); ?>
 		<?php //echo $block->getLayout()->createBlock('Plazathemes\InstagramGallery\Block\InstagramGallery')->setTemplate('Plazathemes_InstagramGallery::plazathemes/instagramgallery/default.phtml')->toHtml();?>
 	</div>
+	<div class="container-after">
+		<?php echo $block->getLayout()->createBlock('Wcb\Registrationblock\Block\Registrationblock')->setTemplate('Wcb_Registrationblock::regblock.phtml')->toHtml();?>
+
+		<?php //echo $block->getLayout()->createBlock('Plazathemes\InstagramGallery\Block\InstagramGallery')->setTemplate('Plazathemes_InstagramGallery::plazathemes/instagramgallery/default.phtml')->toHtml();?>
+	</div>
 </div>
 
 
