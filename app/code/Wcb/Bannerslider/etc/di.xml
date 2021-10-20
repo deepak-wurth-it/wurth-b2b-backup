@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+   <preference for="Plazathemes\Bannerslider\Block\Adminhtml\Banner\Edit\Tab\Banner" type="Wcb\Bannerslider\Block\Adminhtml\Banner\Edit\Tab\Banner"/>
+	  <preference for="Plazathemes\Bannerslider\Controller\Adminhtml\Banner\Save" type="Wcb\Bannerslider\Controller\Adminhtml\Banner\Save"/>
+	  <preference for="Plazathemes\Bannerslider\Block\Bannerslider" type="Wcb\Bannerslider\Block\Bannerslider"/>
+</config>

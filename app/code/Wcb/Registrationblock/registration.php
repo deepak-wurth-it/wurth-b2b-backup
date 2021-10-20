@@ -6,4 +6,4 @@
 
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Wcb_Catalog', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Wcb_Registrationblock', __DIR__);
