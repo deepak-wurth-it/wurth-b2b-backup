@@ -1,0 +1,26 @@
+<?php
+if($this->getEnable()){
+$sliders = $block->getCatalogsliders();
+$customerLoggedIn = $this->checkCustomerLoggedIn();
+$currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others';
+?>
+<div class="carousel-wrap">
+	<div class="owl-carousel">
+		<?php foreach ($sliders as $slider):
+		$customer_group = explode(",",$slider['customer_group']);
+		if(in_array($currentCustomerGroup, $customer_group)): 
+			$url_image = $this->getMediaFolder().$slider['image'];?>
+			<div class="item">
+			<?php
+			if($slider['url']): ?>
+					<a href="<?php echo $slider['url'] ?>" class="pt-url">
+				<?php endif; ?>
+						<img alt="<?php echo $slider['title']; ?>" src="<?php echo $url_image; ?>"/>
+				<?php if($slider['url']): ?>
+					</a>
+				<?php endif; ?>      
+		</div>
+    	<?php endif; endforeach; ?> 
+	</div>
+</div>
+<?php } ?>            
