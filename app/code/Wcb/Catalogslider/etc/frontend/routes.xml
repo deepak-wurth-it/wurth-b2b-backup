@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Created By : Rohan Hapani
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="owlslider" frontName="owlslider">
+            <module name="Wcb_Catalogslider"/>
+        </route>
+    </router>
+</config>

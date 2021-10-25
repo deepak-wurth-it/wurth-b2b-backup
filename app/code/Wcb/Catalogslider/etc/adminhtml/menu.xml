@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Wcb_Catalogslider::parent" title="Catalogslider" module="Wcb_Catalogslider" sortOrder="100" resource="Wcb_Catalogslider::parent"/>
+        <add id="Wcb_Catalogslider::index" title="Catalogslider Settings" module="Wcb_Catalogslider" sortOrder="10" action="admin/system_config/edit/section/wcbcatalog" resource="Wcb_Catalogslider::index" parent="Wcb_Catalogslider::parent"/>
+		<add id="Wcb_Catalogslider::catalogslider" title="Catalogslider Catalogslider" module="Wcb_Catalogslider" sortOrder="20" parent="Wcb_Catalogslider::parent" action="catalogslider/catalogslider" resource="Wcb_Catalogslider::catalogslider"/>
+    </menu>
+</config>
