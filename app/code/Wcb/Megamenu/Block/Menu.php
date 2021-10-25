@@ -191,7 +191,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         if ($maxLevel > 0) {
             if ($level >= ($maxLevel - 1)) return $activeChildren;
         }
-        $childs = $parent->getChildrenCategories();
+        $childs = $parent->getChildrenCategories()->addAttributeToSelect('name')->addAttributeToSort('name', 'ASC');
         if (count($childs)) {
             foreach ($childs as $child) {
                 if ($child->getIsActive()) {

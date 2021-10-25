@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Backend Page Title</title>
+        <!--
+		demo
+		<css src="Wcb_Catalogslider::css/css.css"/>
+		<script src="Wcb_Catalogslider::js/js.js"/>
+		<css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+		<script src="path/file.js" defer="defer"/>
+		<link src="http://url.com" src_type="url"/>
+		<remove src="path/remove/file.css"/>
+		-->
+    </head>
+	<body>
+        <referenceContainer name="content">
+            <block class="Wcb\Catalogslider\Block\Adminhtml\Index\Index" name="catalogslider_block_adminhtml_index_index"  template="Wcb_Catalogslider::catalogslider_index_index.phtml" />
+        </referenceContainer>
+    </body>
+</page>
