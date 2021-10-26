@@ -11,7 +11,8 @@
                     </arguments>
                 </block>
 				<block class="Wcb\Megamenu\Block\Menu" name="wcbhozmegamenu" template="wcbmegamenu.phtml"  as='wcbmegamenu_top' />
-				<block class="Plazathemes\Hozmegamenu\Block\Menu" name="mobilemenu" template="mobilemenu.phtml"  as='mobilemenu' />
+				<!--<block class="Plazathemes\Hozmegamenu\Block\Menu" name="mobilemenu" template="mobilemenu.phtml"  as='mobilemenu' />-->
+				<block class="Wcb\Megamenu\Block\Menu" name="mobilemenus" template="mobilemenu.phtml"  as='mobilemenus' /> <!-- Add by amit-->
                 <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml" />
 				<block class="Magento\Store\Block\Switcher" name="store_language_mobile" as="store_language_mobile" template="switch/languages_mobile.phtml"/>
 				<block class="Magento\Directory\Block\Currency" name="currency_mobile" as="currency_mobile" template="currency_mobile.phtml" />
@@ -22,16 +23,16 @@
 		  <move element="logo" destination="custom_header"/>
 	      <move element="top.search" destination="custom_header"/>
 		  <move element="store_language" destination="custom_header"/>
-		  <move element="top.links" destination="custom_header"/>
+		 <!--  <move element="top.links" destination="custom_header"/> -->
 		  <move element="currency" destination="custom_header"/>
 		  <move element="skip_to_content" destination="custom_header"/>
 		  <move element="minicart" destination="custom_header"/>
 			
 
 		
-		<referenceContainer name="header.container" remove="1"/>
+		<!--<referenceContainer name="header.container" remove="1"/> 
 		<referenceContainer name="header.panel" remove="1"/>
-		<referenceContainer name="header-wrapper" remove="1"/>
+		<referenceContainer name="header-wrapper" remove="1"/>-->
 
 		<referenceContainer name="footer-container">
             <block class="Plazathemes\Layout\Block\Layout" name="custom_footer" template="html/footer.phtml">
