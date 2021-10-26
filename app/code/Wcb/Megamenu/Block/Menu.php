@@ -346,7 +346,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             $html[] = '<div id="popup' . $id . '"  class="popup" style="display: none;">';
             // --- draw Sub Categories ---
             if (count($activeChildren)) {
-                    $html[] = '<div class=" block1 row" id="block1' . $id . '">';
+                    $html[] = '<div class="block1 row" id="block1' . $id . '">';
                     $html[] = $this->drawColumns($activeChildren, $id);
                         if ($blockHtml && $blockHtmlRight) {
                             $html[] = '<div class="column blockright last">';
