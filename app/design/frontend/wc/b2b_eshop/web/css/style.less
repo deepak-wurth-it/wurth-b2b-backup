@@ -59,18 +59,6 @@ a{
 	}
  }
 
- .primary-button{
- 	background-color:#cc0000;
- 	border-radius:30px;
- 	padding:6px 20px;
- 	font-family:'wuerthbold';
- 	text-align:center;
- 	color:#ffffff;
- 	font-size:1.6rem;
- 	display:inline-block;
- 	min-height:40px;
- }
-
  .paddingtop30{
  	padding-top:30px;
  }
@@ -685,36 +673,6 @@ form#search_mini_form{
 
 }
 
-//registration banner for non logedin user
-.registration-bg{
-	background:linear-gradient(to bottom, #ececec 80%, white 20%);
-	padding:10px 0;
-}
-.registration-bg h2{
-	margin-bottom:10px;
-	margin-top:12%;
-}
-.registration-bg .primary-button{
-	margin-top:4%;
-}
-.registration-bg img{
-	padding-left:30%;
-}
-//information bar icon
-
-.demo img{
-	vertical-align:middle;
-	margin-right:10px;
-}
-
-.message.global.demo{
-	background:#0093DD;
-	line-height:1.6;
-	font-family:wuerthbold;
-	font-size:1.4rem;
-	padding:5px 16px;
-}
-
 @media (min-width: 767px){
 	.header{
 		.row{
@@ -738,7 +696,7 @@ form#search_mini_form{
 }
 
 
-@media all and  (max-width: 767px){
+@media (max-width: 767px){
 	.navigation,
 	.page-header .header.panel,
 	.header.content,
@@ -980,6 +938,9 @@ form#search_mini_form{
 	.product-item-info .product-item-images .product-item-actions .add-to-links-secondary a.action{
 		width:34px;
 	}
+
+	
+
 }
 
 
@@ -1321,39 +1282,35 @@ label.sorter-label{
 	 	margin: 0;
 	 	.owl-buttons{
 	 		> div{
-				width: 26px;
-				height: 26px;
-				background: url(../images/next.png) no-repeat 8px 50%;
-				background-color:#cc0000;
-				border-radius:50%;
+				width: 18px;
+				height: 32px;
+				background: url(../images/next.png) no-repeat 0 0;
 				position: absolute;
 				font-size: 0;
 				border: 0;
 				top: 50%;
 				left: -40px;
 				z-index: 99;
+				transition: all .4s ease;
 				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				transform: translateY(-50%);
 				opacity: 0;
 				&:hover{
-				    box-shadow:0px 0px 10px 2px #ccc;
-					    
+				    background-position: 0 100%;
 				}
 				&.owl-next{
 					left: auto;
 					right: -40px;
-
-					background-position: -10px 50%;
+					background-position: 100% 0;
 					&:hover{
-					box-shadow:0px 0px 10px 2px #ccc;
-					    
+					    background-position: 100% 100%;
 					}
 				}
 	 		}
 	 	}
 	 }
 }
-
-.owl-prev:hover, .owl-prev:hover 
 .banner-box{
 	overflow: hidden;
     position: relative;
@@ -1663,8 +1620,8 @@ body .owl-theme{
 			margin: auto;
 			.owl-page{
 				span{
-					width: 10px;
-					height: 10px;
+					width: 7px;
+					height: 7px;
 					border-radius: 100%;
 					background: #e1e1e1;
 					opacity: 1;
@@ -1684,9 +1641,9 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	bottom:40px;
 	.owl-page{
 		span{
-			width: 10px;
-			height: 10px;
-			background: #ffffff;
+			width: 7px;
+			height: 7px;
+			background: #b89c80;
 			border-radius: 0;
 			border-radius: 100%;
 		}
@@ -1694,8 +1651,6 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 			span{
 				background: @general_link_hover_color;
 				transform: scale(1.2);
-				width:10px;
-				height:10px;
 			}
 		}
 	}
@@ -1709,6 +1664,7 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 .product-item-info{
 	width: auto;
 }
+
 
 @media (min-width: 1024px), print{
 	.page-products .products-grid .product-item {
@@ -1738,7 +1694,6 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	    width:100%;
 	    margin-top:20px;
 	}
-
 }
 
 
@@ -2542,11 +2497,11 @@ body{
 		}
 	}
 	.owl-theme .owl-controls .owl-buttons > div{
-	    left: 60px;
+	    left: 30px;
 	}
 	.owl-theme .owl-controls .owl-buttons > div.owl-next{
 	    left: auto;
-		right:60px;
+		right:30px;
 	}
 }
 
@@ -4313,61 +4268,12 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
     }
 }
 
-
+//--------------------- Part -9 Erro come black-----------------
 // Fix mobile
 
 @media all and (max-width: 768px), print {
 	.page-main, .container-inner, .footer.content{
 		padding: 30px 30px 0 30px;
-.page-products .products-grid .product-item{
-	width:calc((100% - 2%)/ 2);	
-}
-.page-products .products-grid .product-item:nth-child(2n + 1){
-	margin-left:0;
-}
-.page-products .products-grid .product-item:nth-child(2n + 0){
-	margin-left:2%;
-}
-.page-layout-2columns-left .sidebar-main{
-		width: 30%;
-		}
-.page-layout-2columns-left .column.main{
-	width:70%;
-}
-.button-cyan{
-	min-width:inherit;
-}
-
-.registration-bg img{
-		padding-left:0;
-}
-.textCenterInMobile{
-		text-align:center;
-}
-
-.registration-bg{
-		padding-bottom:30px;
-}
-.registration-bg{
-	background:linear-gradient(to bottom, #ececec 90%, white 10%);
-}
-
-}
-
-@media only screen and (max-width:1400px){
-	body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
-		bottom: 10%;
-	}
-	.pt-banner-container .pt-banner-caption .pt-url{
-		margin-top: 50px;
-	}
-}
-@media only screen and (max-width: 1199px){
-	.owl-theme .owl-controls .owl-buttons > div{
-		left: 0;
-	}
-	.owl-theme .owl-controls .owl-buttons>div.owl-next{
-		right: 0;
 	}
 	.page-products .products-grid .product-item{
 		width:calc((100% - 2%)/ 2);	
@@ -4436,7 +4342,9 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 			visibility: visible;
 			display: block;
 		 }
-		
+		 .nav-menu {
+			display: none;
+		      }
 		.fix-header-container{
 			display: none;
 		}
@@ -4581,6 +4489,7 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 			margin-top: 20px;
 		}
 	}
+//----------------------- Part -10 -----------------	
 @media only screen and (max-width: 640px){
 
 	.page-layout-2columns-left .column.main, .page-layout-2columns-left .sidebar-main{
@@ -4680,10 +4589,6 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 @media (max-width: 480px) and (min-width: 0px){
 .category-products .products-grid ul > li:nth-of-type(1n+1) {clear: left;}
    .category-products .products-grid ul > li{width: 100%;}  
-
-   h2, .registration-bg h2{
-   	font-size:18px;
-   }
 }
 @media (min-width: 992px){
 	.header-container > .fix-nav-menu{
@@ -4767,5 +4672,9 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	
 }
 .nav-toggle{display:none;}
+.navigation {display:none};
+div#store\.menu {
+    display: none;
+}
 //------------------------
 
