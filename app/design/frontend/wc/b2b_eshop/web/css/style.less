@@ -325,7 +325,7 @@ a.product-item-link, a:active.product-item-link{
 footer h3{
 	margin-top:0;
 	margin-bottom:30px;
-	width:100%
+	width:100%;
 	display:block;
 }
 .footer-text{
@@ -458,6 +458,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 	color: @general_title_color;
 	font-family:wuerthbold;
 	font-weight: 700;
+	margin-bottom:0;
 }
 
 * {
@@ -712,6 +713,7 @@ form#search_mini_form{
 	font-size:1.4rem;
 	padding:5px 16px;
 }
+
 
 @media (min-width: 767px){
 	.header{
@@ -1652,8 +1654,8 @@ body .owl-theme{
 			margin: auto;
 			.owl-page{
 				span{
-					width: 10px;
-					height: 10px;
+					width: 16px;
+					height: 16px;
 					border-radius: 100%;
 					background: #e1e1e1;
 					opacity: 1;
@@ -1673,18 +1675,19 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	bottom:40px;
 	.owl-page{
 		span{
-			width: 10px;
-			height: 10px;
+			width: 16px;
+			height: 16px;
 			background: #ffffff;
 			border-radius: 0;
 			border-radius: 100%;
+			margin:5px;
 		}
 		&.active{
 			span{
 				background: @general_link_hover_color;
-				transform: scale(1.2);
-				width:10px;
-				height:10px;
+				width:16px;
+				height:16px;
+				margin:5px;
 			}
 		}
 	}
@@ -1706,8 +1709,6 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	    padding: 0 15px;
 	}
 
-
-
 	.page-products .products-grid .product-item:nth-child(3n + 1){
 		clear: left;
 	}
@@ -1717,8 +1718,13 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 		display: block;
 	}
 
-
-
+	.registration-bg h2{
+		margin-bottom:10px;
+		margin-top:30px;
+	}
+	.registration-bg .primary-button{
+		margin-top:50px;
+	}
 }
 @media (min-width: 640px){
 	.products-grid .product-item-actions {
@@ -4644,7 +4650,7 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	    right: 0;
 	    top: 0;
 	    margin:auto;
-	    background: rgba(255, 255, 255, 0.83) !important;
+	    background: rgb(255, 255, 255) !important;
 	    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 	    border: none;
 	    -webkit-animation-name: fadeInDown;

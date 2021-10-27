@@ -5,11 +5,11 @@ require(['jquery', 'owlcarousel'], function($) {
     $(document).ready(function() {
         $('.owl-carousel').owlCarousel({
 	        loop: true,
-	        margin: 10,
+	        margin: 30,
 	        nav: true,
 	        navText: [
-		        "<i class='fa fa-caret-left'></i>",
-		        "<i class='fa fa-caret-right'></i>"
+		        "<span class='icon-interface-left'></span>",
+		        "<span class='icon-interface-right'></span>"
 	        ],
 	        autoplay: true,
 	        autoplayHoverPause: true,
