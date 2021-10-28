@@ -14,7 +14,7 @@
  ?>
 		<nav id="menu-tab" class="nav-container visible-lg visible-md tabcontent">
 			
-				<div class="">
+				<div class="mobile-menu">
 			
 				
 						<div id="pt_custommenu" class="pt_custommenu">
@@ -61,7 +61,7 @@
 												echo $block->CustomLink($id,'desktop');
 											break;
 										case "category":									
-												echo $block->drawCustomMenuItem($id,0,false,$item);											
+												echo $block->drawCustomMenuItemMob($id,0,false,$item);											
 											break;
 										}
 							
@@ -88,11 +88,20 @@
 		<div id="accounts" class="tabcontent">
   <ul>
 	  <li>Welcome !</li>
-	  <li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></li> 
+	  <?php
+	  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	  $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+	  if($customerSession->isLoggedIn()) {
+	  ?>	  
+	  <li> <a href="<?php echo $block->getUrl("customer/account"); ?>">My Acoount</a>/ <a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Logout</a></li> 
+	  <?php } else { ?>
+		<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></li> 
+		<?php } ?>
 </ul>
 </div>
 
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
+		
 			require(["jquery"], function(jQuery){
 				
 				(function(jQuery){
@@ -252,7 +261,7 @@
 					
 					
 				});
-		</script>
+		</script> -->
 
 		<script type="text/javascript">
 		//<![CDATA[
