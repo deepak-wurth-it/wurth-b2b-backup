@@ -472,7 +472,7 @@ dd {
     cursor: pointer;
     font-size: 0;
     line-height: 35px;
-    text-align: right;
+    //text-align: right;
     background: transparent;
     visibility: hidden;
     display: none;
@@ -739,6 +739,7 @@ form#search_mini_form{
 		background: none !important;
 		content: none !important;
 	}
+	.link-hover {display:none !important; } // to hide account icon
 	//--------------------end ------------
 
 }
@@ -4676,5 +4677,27 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 div#store\.menu {
     display: none;
 }
+
+.mob-popup {
+	-webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    -ms-transition: left 0.3s;
+    transition: left 0.3s;
+    height: 100%;
+    left: -100%;
+    position:absolute;
+    top: 0;
+    width: calc(100% ~"-" 45px);
+    max-width: 500px;
+    background: #333;    
+    z-index: 9999;
+    
+    }
+	.mob-popup.onn {
+		left: 0;
+	}
+	.mob-popup.off {
+		left: -100;
+	}
 //------------------------
 
