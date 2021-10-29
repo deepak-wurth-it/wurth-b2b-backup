@@ -4,7 +4,8 @@ $sliders = $block->getCatalogsliders();
 $customerLoggedIn = $this->checkCustomerLoggedIn();
 $currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others';
 ?>
-<div class="carousel-wrap">
+<div class="carousel-wrap container-inner">
+	<h2>Catalogue</h2>
 	<div class="owl-carousel">
 		<?php foreach ($sliders as $slider):
 		$customer_group = explode(",",$slider['customer_group']);
@@ -15,7 +16,7 @@ $currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others'
 			if($slider['url']): ?>
 					<a href="<?php echo $slider['url'] ?>" class="pt-url">
 				<?php endif; ?>
-						<img alt="<?php echo $slider['title']; ?>" src="<?php echo $url_image; ?>"/>
+						<img src="<?php echo $block->getViewFileUrl('Wcb_Catalogslider::images/image1.jpeg'); ?>" alt="test"  src="<?php echo $url_image; ?>"/>
 				<?php if($slider['url']): ?>
 					</a>
 				<?php endif; ?>      
