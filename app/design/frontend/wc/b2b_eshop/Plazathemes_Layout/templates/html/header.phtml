@@ -21,6 +21,21 @@
 		<div class="header-wrapper">
 		<div class="header">
 			<div class="container-inner">
+			<div class="nav-ozmegamenu-inner">
+				<div class="mobile-bar-icon"><span><?php /* @escapeNotVerified */ echo __('mobile icon'); ?></span></div>
+			</div>
+			<div class="mobile-bar-content">
+				<div class ="mobile-bar-close"><?php /* @escapeNotVerified */ echo __('Close'); ?></div>
+				<ul class = "tabs-mobile">
+					<!--<li class="item item-menu"><?php /* @escapeNotVerified */ echo __('Menu-1'); ?></li>-->
+				</ul>
+				<div class="tabs-content-mobile tabs-menu">
+					<?php echo $this->getChildHtml("mobilemenus");  ?>
+					<?php //echo $this->getChildHtml("wcbmegamenu_top"); ?>
+				
+				 </div>
+			</div>
+
 				<div class="row">
 					<div class="col-md-3">
 						<?php echo $this->getChildHtml("logo"); ?>
@@ -33,12 +48,17 @@
 					<div class="col-md-3">
 						<div class="absolute">
 							<!--<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p> -->
+							<?php
+							 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+							 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+							 ?>
 							<div class="link-hover">
-								<p class="icon"></p>
+								<p class="icon"></p> <span><?php if($customerSession->isLoggedIn()) { ?> Amit <?php } else { ?><span> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></span> <?php } ?></span>
+		
 								<div>
 									<div class="my-acount">
 										<strong class="label"><span><?php /* @escapeNotVerified */ echo __('My Account') ?></span></strong>
-										<?php echo $this->getChildHtml("top.links"); ?>
+										<?php //echo $this->getChildHtml("top.links"); ?>
 									</div>
 									
 								</div>
@@ -49,18 +69,7 @@
 					
 				</div>
 			</div>
-			<div class="nav-ozmegamenu-inner">
-				<div class="mobile-bar-icon"><span><?php /* @escapeNotVerified */ echo __('mobile icon'); ?></span></div>
-			</div>
-			<div class="mobile-bar-content">
-				<div class ="mobile-bar-close"><?php /* @escapeNotVerified */ echo __('Close'); ?></div>
-				<ul class = "tabs-mobile">
-					<li class="item item-menu"><?php /* @escapeNotVerified */ echo __('Menu'); ?></li>
-				</ul>
-				<div class="tabs-content-mobile tabs-menu">
-					<?php echo $this->getChildHtml("mobilemenu"); ?>
-				</div>
-			</div>
+			
 		</div>
 
 		<div class="nav-menu">

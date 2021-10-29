@@ -346,7 +346,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             $html[] = '<div id="popup' . $id . '"  class="popup" style="display: none;">';
             // --- draw Sub Categories ---
             if (count($activeChildren)) {
-                    $html[] = '<div class=" block1 row" id="block1' . $id . '">';
+                    $html[] = '<div class="block1 row" id="block1' . $id . '">';
                     $html[] = $this->drawColumns($activeChildren, $id);
                         if ($blockHtml && $blockHtmlRight) {
                             $html[] = '<div class="column blockright last">';
@@ -368,6 +368,97 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $html = implode("\n", $html);
         return $html;
     }
+
+    public function drawCustomMenuItemMob($category = null, $level = 0, $last = false, $item = null) {
+        if (!$category) return '';
+        $category = $this->_categoryInstance->create()->load($category);
+        $html = array();
+        $blockHtml = '';
+        $id = $category->getId();
+        // --- Static Block ---
+        $blockId = sprintf('pt_menu_idcat_%d', $id); // --- static block key
+        $blockHtml = $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($blockId)->toHtml();;
+        /*check block right*/
+        $blockIdRight = sprintf('pt_menu_idcat_%d_right', $id); // --- static block key
+        $blockHtmlRight = $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($blockIdRight)->toHtml();
+        if ($blockHtmlRight) $blockHtml = $blockHtmlRight;
+        // --- Sub Categories ---
+        $activeChildren = $this->getActiveChildren($category, $level);
+        // --- class for active category ---
+        $active = ''; //if ($this->isCategoryActive($category)) $active = ' act';
+        // --- Popup functions for show ---
+        $drawPopup = ($blockHtml || count($activeChildren));
+        if ($drawPopup) {
+            $html[] = '<div id="pt_menu' . $id . '" class="pt_menu' . $active . ' nav-' . $item . '">';
+        } else {
+            $html[] = '<div id="pt_menu' . $id . '" class="pt_menu' . $active . ' nav-' . $item . ' pt_menu_no_child">';
+        }
+        $is_sale = null;
+        $is_new = null;
+        if ($category->getIsSale() == 1) {
+            $is_sale = '<span class="is_sale">' . $this->getConfig('is_sale') . '</span>';
+        }
+        if ($category->getIsNew() == 1) {
+            $is_new = '<span class="is_new">' . $this->getConfig('is_new') . '</span>';
+        }
+        $thumb_nail = $this->getThumbUrl($category->getThumbNail());
+        $bg_img = $this->getConfig('image');
+        $bg_category = json_decode($bg_img);
+        // --- Top Menu Item ---
+        $link = $this->_catalogCategory->getCategoryUrl($category);
+        $is_active = $this->_catalogLayer->get()->getCurrentCategory()->getId();
+        if ($is_active == $id) {
+            $is_active = 'act';
+        } else {
+            $is_active = null;
+        }
+        $arr_catsid = array();
+        $is_link = $this->getConfig('is_link');
+        $arr_catsid = ['']; //json_decode($is_link);
+        $html[] = '<div class="parentMenu" style="">';
+        if (in_array($id, $arr_catsid)) {
+            $html[] = '<a href="'.$link.'" class="pt_cate nochilds ' . $is_active . '">';
+        } else {
+            $html[] = '<a href="#" class="pt_cate withchilds popup'.$id.' ' . $is_active . '">';
+        }
+        $name = $category->getName();
+        $html[] = '<span>' . $name . '</span>';
+        $html[] = $is_sale;
+        $html[] = $is_new;
+        if (file_exists($thumb_nail)) {
+            $html[] = '<img width="50" height="50" src="' . $thumb_nail . '" alt="Thumbnail" />';
+        }
+        $html[] = '</a>';
+        $html[] = '</div>';
+        // --- Add Popup block (hidden) ---
+        if ($drawPopup == 100) {
+            // --- Popup function for hide ---
+            $html[] = '<div id="popup' . $id . '"  class="mob-popup">';
+            // --- draw Sub Categories ---
+            if (count($activeChildren)) { 
+                    $html[] = '<div class="block1 row" id="block1' . $id . '">';
+                    $html[] = $this->drawColumns($activeChildren, $id);
+                        if ($blockHtml && $blockHtmlRight) {
+                            $html[] = '<div class="column blockright last">';
+                            $html[] = $blockHtml;
+                            $html[] = '</div>';
+                        }
+                    $html[] = '<div class="clearBoth"></div>';
+                    $html[] = '</div>';
+            }
+            // --- draw Custom User Block ---
+            if ($blockHtml && !$blockHtmlRight) {
+                $html[] = '<div class="block2" id="block2' . $id . '">';
+                $html[] = $blockHtml;
+                $html[] = '</div>';
+            }
+            $html[] = '</div>';
+        }
+        $html[] = '</div>';
+        $html = implode("\n", $html);
+        return $html;
+    }
+
     public function drawColumns($children, $id) {
         $html = '';
         // --- explode by columns ---
