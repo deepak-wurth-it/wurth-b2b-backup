@@ -1,11 +1,18 @@
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'menu-tab')" id="defaultOpen">Menu</button>
+  <button class="tablinks" onclick="openCity(event, 'accounts')">Account</button>
+  
+</div>
+
+
 <?php
-$items = $block->getItemsActive();
+	$items = $block->getItemsActive();
 	$itemsActive = json_decode($items); 
 	$htmlLink = array();
 	
  if(count($itemsActive)):
  ?>
-		<nav class="nav-container visible-lg visible-md">
+		<nav id="menu-tab" class="nav-container visible-lg visible-md tabcontent">
 			
 				<div class="">
 			
@@ -77,6 +84,14 @@ $items = $block->getItemsActive();
 				</div>
 				
 		</nav>
+
+		<div id="accounts" class="tabcontent">
+  <ul>
+	  <li>Welcome !</li>
+	  <li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></li> 
+</ul>
+</div>
+
 		<script type="text/javascript">
 			require(["jquery"], function(jQuery){
 				
@@ -245,5 +260,26 @@ $items = $block->getItemsActive();
 			var CUSTOMMENU_POPUP_TOP_OFFSET = 64;
 		//]]>
 		</script>
+		
+
+		<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
 <?php endif ?>
 

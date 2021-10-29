@@ -312,7 +312,7 @@ a.product-item-link, a:active.product-item-link{
 footer h3{
 	margin-top:0;
 	margin-bottom:30px;
-	width:100%
+	width:100%;
 	display:block;
 }
 .footer-text{
@@ -445,6 +445,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 	color: @general_title_color;
 	font-family:wuerthbold;
 	font-weight: 700;
+	margin-bottom:0;
 }
 
 * {
@@ -472,7 +473,7 @@ dd {
     cursor: pointer;
     font-size: 0;
     line-height: 35px;
-    text-align: right;
+    //text-align: right;
     background: transparent;
     visibility: hidden;
     display: none;
@@ -673,6 +674,36 @@ form#search_mini_form{
 
 }
 
+//registration banner for non logedin user
+.registration-bg{
+	background:linear-gradient(to bottom, #ececec 80%, white 20%);
+	padding:10px 0;
+}
+.registration-bg h2{
+	margin-bottom:10px;
+	margin-top:12%;
+}
+.registration-bg .primary-button{
+	margin-top:4%;
+}
+.registration-bg img{
+	padding-left:30%;
+}
+//information bar icon
+
+.demo img{
+	vertical-align:middle;
+	margin-right:10px;
+}
+
+.message.global.demo{
+	background:#0093DD;
+	line-height:1.6;
+	font-family:wuerthbold;
+	font-size:1.4rem;
+	padding:5px 16px;
+}
+
 @media (min-width: 767px){
 	.header{
 		.row{
@@ -739,6 +770,7 @@ form#search_mini_form{
 		background: none !important;
 		content: none !important;
 	}
+	.link-hover {display:none !important; } // to hide account icon
 	//--------------------end ------------
 
 }
@@ -1620,8 +1652,8 @@ body .owl-theme{
 			margin: auto;
 			.owl-page{
 				span{
-					width: 7px;
-					height: 7px;
+					width: 16px;
+					height: 16px;
 					border-radius: 100%;
 					background: #e1e1e1;
 					opacity: 1;
@@ -1641,15 +1673,20 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	bottom:40px;
 	.owl-page{
 		span{
-			width: 7px;
-			height: 7px;
-			background: #b89c80;
+			width: 16px;
+			height: 16px;
+			background: #ffffff;
+
 			border-radius: 0;
 			border-radius: 100%;
+			margin:5px;
 		}
 		&.active{
 			span{
 				background: @general_link_hover_color;
+				width:16px;
+				height:16px;
+				margin:5px;
 				transform: scale(1.2);
 			}
 		}
@@ -1673,8 +1710,6 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 	    padding: 0 15px;
 	}
 
-
-
 	.page-products .products-grid .product-item:nth-child(3n + 1){
 		clear: left;
 	}
@@ -1682,6 +1717,14 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 		width: auto;
 		padding: 0;
 		display: block;
+	}
+
+	.registration-bg h2{
+		margin-bottom:10px;
+		margin-top:30px;
+	}
+	.registration-bg .primary-button{
+		margin-top:50px;
 	}
 
 }
@@ -4598,7 +4641,7 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	    right: 0;
 	    top: 0;
 	    margin:auto;
-	    background: rgba(255, 255, 255, 0.83) !important;
+	    background: rgb(255, 255, 255) !important;
 	    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 	    border: none;
 	    -webkit-animation-name: fadeInDown;
@@ -4676,5 +4719,27 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 div#store\.menu {
     display: none;
 }
+
+.mob-popup {
+	-webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    -ms-transition: left 0.3s;
+    transition: left 0.3s;
+    height: 100%;
+    left: -100%;
+    position:absolute;
+    top: 0;
+    width: calc(100% ~"-" 45px);
+    max-width: 500px;
+    background: #333;    
+    z-index: 9999;
+    
+    }
+	.mob-popup.onn {
+		left: 0;
+	}
+	.mob-popup.off {
+		left: -100;
+	}
 //------------------------
 
