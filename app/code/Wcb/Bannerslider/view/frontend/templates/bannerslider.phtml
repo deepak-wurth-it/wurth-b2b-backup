@@ -12,9 +12,8 @@ $pagination = $this->getConfig('pagination');
 $show_caption = $this->getConfig('show_caption');
 $next_back = $this->getConfig('next_back');
 $nav_ctrl = $this->getConfig('nav_ctrl');
-$currentCustomerGroup = $this->getCustomerGroup();exit;
+$currentCustomerGroup = $this->getCustomerGroup();
 ?>
-
 <div class="pt-banner-container">
    <ul class="ptowl"> 
    <?php $i = 1; ?>
@@ -23,8 +22,6 @@ $currentCustomerGroup = $this->getCustomerGroup();exit;
 		?>
 	<?php 
 		$visible_to = explode(",",$banner['visible_to']);
-		print_r($visible_to);
-		exit;
 		//if(in_array($currentCustomerGroup, $visible_to)): 
 		
 		$store_ids = explode(",",$banner['store_id']);
