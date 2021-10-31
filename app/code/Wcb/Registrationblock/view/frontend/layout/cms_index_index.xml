@@ -7,20 +7,11 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-		<!-- <referenceContainer name="content">
-			<container name="block.container" htmlTag="div" htmlId="regblock" htmlClass="block-home-container" before="-">
-				<block class="Wcb\Registrationblock\Block\Registrationblock" name="block.regblock" as="block.regblock.cms" template="regblock.phtml" after="content.home" />
+		<referenceContainer name="page.wrapper">
+			<container name="content.regblock" label="content banner homes" htmlTag="div" htmlClass="home-reg">	
+				<block class="Wcb\Registrationblock\Block\Registrationblock" name="registrationblock" template="Wcb_Registrationblock::registrationblock.phtml" />
 			</container>
-		</referenceContainer> -->
-		<!-- <referenceContainer name="content">
-            <block class="Wcb\Registrationblock\Block\Registrationblock" template="regblock.phtml"/>
-        </referenceContainer> -->
-		<!-- <move element="content.home" destination="page.wrapper" after="content.home"/> -->
-		
-		<!-- <referenceContainer name="content">Wcb\Registrationblock\Block;
-
-class Registrationblock
-			<block type="core/template" name="regblocks" as="regblock" template="regblock.phtml" />
-		</referenceContainer> -->
-	</body>
+		 </referenceContainer>		
+		<move element="registrationblock" destination="page.wrapper" after="main.content"/>
+    </body>
 </page>

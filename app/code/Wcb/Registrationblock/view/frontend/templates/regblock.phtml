@@ -1,8 +1,0 @@
-<?php 
-$is_enabled = $this->isEnabled();
-$block_id = $this->getBlockId();
-
-if($is_enabled && $block_id){
-	echo $this->getLayout()->createBlock('Wcb\Registrationblock\Block\Registrationblock')->setBlockId($block_id)->toHtml();
-}
-?>

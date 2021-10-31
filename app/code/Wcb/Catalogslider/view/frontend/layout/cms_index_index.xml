@@ -7,7 +7,7 @@
 	</head>
     <body>
 		<referenceContainer name="page.wrapper">
-			<container name="content.homes" label="content top homes" htmlTag="div" htmlClass="content-homes">	
+			<container name="content.catslider" label="content top homes" htmlTag="div" htmlClass="content-homes">	
 				<block class="Wcb\Catalogslider\Block\Catalogslider" name="prosliderss" template="Wcb_Catalogslider::slider.phtml" />
 			</container>
 		 </referenceContainer>		

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Wcb\PromotionBannerApi\Data\PromotionBannerInterface" type="Wcb\PromotionBanner\Model\PromotionBanner" />
+
+    <virtualType name="Wcb\PromotionBanner\Model\ResourceModel\PromotionBanner\PromotionBanner\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wurth_promotionbanners</argument>
+            <argument name="resourceModel" xsi:type="string">Wcb\PromotionBanner\Model\ResourceModel\PromotionBanner</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="grid_record_grid_list_data_source" xsi:type="string">Wcb\PromotionBanner\Model\ResourceModel\PromotionBanner\PromotionBanner\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- <type name="Wcb\PromotionBannerLogger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Wcb\PromotionBannerLogger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">customLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Wcb\PromotionBannerLogger\Handler</item>
+            </argument>
+        </arguments>
+    </type> -->
+</config>

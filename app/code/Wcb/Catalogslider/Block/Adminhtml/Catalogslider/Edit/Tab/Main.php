@@ -94,6 +94,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             [
                 'name' => 'url',
                 "required" => true,
+                'class' => 'validate-clean-url',
                 'validation' => 'validate-url',
                 'label' => __('URL Link to Navigate'),
                 'title' => __('URL Link to Navigate'),
@@ -110,8 +111,8 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'label' => __('Banner Url Target'),
                 'title' => __('Banner Url Target'),
 				"values"    => [
-                    ["value" => '1',"label" => __("Same Page")],
-                    ["value" => '0',"label" => __("New Tab")],
+                    ["value" => '_self',"label" => __("Same Page")],
+                    ["value" => '_blank',"label" => __("New Tab")],
                 ],
                 'disabled' => $isElementDisabled
             ]

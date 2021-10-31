@@ -10,5 +10,6 @@
         <referenceContainer name="after.body.start">
             <block class="Wcb\Demonotices\Block\Demonotice" name="global_notices" template="Wcb_Demonotices::html/notices.phtml"/>
         </referenceContainer>
+		<move element="global_notices" destination="page.top" after="header.links"/>
     </body>
 </page>
