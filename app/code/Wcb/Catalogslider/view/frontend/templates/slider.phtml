@@ -14,14 +14,14 @@ $currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others'
 			<div class="item">
 			<?php
 			if($slider['url']): ?>
-					<a href="<?php echo $slider['url'] ?>" class="pt-url">
+					<a href="<?php echo $slider['url'] ?>" target="<?php echo $slider['target']; ?>" class="pt-url">
 				<?php endif; ?>
-						<img src="<?php echo $block->getViewFileUrl('Wcb_Catalogslider::images/image1.jpeg'); ?>" alt="test"  src="<?php echo $url_image; ?>"/>
+						<img src="<?php echo $url_image; ?>" alt="<?php echo $slider['title'] ?>"  src="<?php echo $url_image; ?>"/>
 				<?php if($slider['url']): ?>
 					</a>
 				<?php endif; ?>      
 		</div>
-    	<?php endif; endforeach; ?> 
+    	<?php endif;endforeach; ?> 
 	</div>
 </div>
 <?php } ?>            

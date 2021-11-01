@@ -23,6 +23,8 @@
         </arguments>
     </type>
     
-    <preference for="Magento\Catalog\Block\Category\View" type="Wcb\Catalog\Block\Category\View"/>
+    <!-- <preference for="Magento\Catalog\Block\Category\View" type="Wcb\Catalog\Block\Category\View"/> Not Using As Of Now Deepak-->
+    <preference for="Magento\Catalog\Block\Product\ProductList\Toolbar" type="Wcb\Catalog\Block\Product\ProductList\Toolbar"/>
+    <preference for="Magento\Catalog\Block\Product\ListProduct" type="Wcb\Catalog\Block\Product\ListProduct" />   
 
 </config>

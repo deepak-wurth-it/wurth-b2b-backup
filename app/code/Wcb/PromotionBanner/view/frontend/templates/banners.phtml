@@ -1,0 +1,27 @@
+<?php
+if($this->getEnable()){
+$banners = $block->getPromotionBanners();
+$customerLoggedIn = $this->checkCustomerLoggedIn();
+$currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others';
+?>
+<div class="promotion-banners">
+	<div class="">
+		<?php
+		foreach ($banners as $banner):
+		$customer_group = explode(",",$banner['customer_group']);
+		if(in_array($currentCustomerGroup, $customer_group)): 
+			$url_image = $this->getMediaFolder().$banner['image'];?>
+			<div class="banner-item-<?php echo $banner['position'];?>">
+			<?php
+			if($banner['url']): ?>
+					<a href="<?php echo $banner['url'] ?>" target="<?php echo $banner['url'];?>" class="pt-url">
+				<?php endif; ?>
+						<img src="<?php echo $url_image; ?>" alt="<?php echo $banner['title']; ?>"  src="<?php echo $url_image; ?>"/>
+				<?php if($banner['url']): ?>
+					</a>
+				<?php endif; ?>      
+		</div>
+    	<?php endif; endforeach; ?> 
+	</div>
+</div>
+<?php } ?>            
