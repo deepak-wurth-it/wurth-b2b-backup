@@ -15,12 +15,16 @@ use Magento\Framework\App\Action\Action;
  * @var $block \Magento\Catalog\Block\Product\ListProduct
  */
 ?>
-
+<?php
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_outputHelper = $block->getData('outputHelper');
+?>
 <?php $level = $block->getLayer()->getCurrentCategory()->getLevel(); ?>
 <?php $ProductCount = $block->getLayer()->getCurrentCategory()->getProductCollection()->Count(); ?>
 <?php $catId = $block->getLayer()->getCurrentCategory()->getId(); ?>
 <?php $subcategories = [] ;?>
 <?php $subcategories = $block->getCategoryChildrenData($catId); ?>
+
 <?= $block->getToolbarHtml() ?>
 <?= $block->getAdditionalHtml() ?>
 <div class="products wrapper grid products-grid">
@@ -35,7 +39,7 @@ use Magento\Framework\App\Action\Action;
                             <a href="<?= $subcategory->getUrl() ?>" class="product photo product-item-photo">
                                 <span class="product-image-container">
                                     <?php $_imgHtml = '<img src="' . $_imgUrl . '" />'; ?>
-                                    <?php echo $_imgHtml = $this->outPutHelper->categoryAttribute($subcategory, $_imgHtml, 'image'); ?>
+                                    <?php echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image'); ?>
                                 </span>
                             </a>
                         <?php endif; ?>
@@ -54,7 +58,7 @@ use Magento\Framework\App\Action\Action;
             <?php endforeach; ?>
         </ol>
     </div>
-  
+
 <?= $block->getToolbarHtml() ?>
 
 <?php //endif ?>
