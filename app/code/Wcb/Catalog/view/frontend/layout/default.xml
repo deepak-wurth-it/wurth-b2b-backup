@@ -8,7 +8,7 @@
         <referenceContainer name="columns">
             <container name="columns.main" htmlTag="div" htmlClass="column main" before="-" />
         </referenceContainer>
-        <referenceContainer name="main" htmlClass="row" />
+        <referenceContainer name="main" htmlClass="row1" />
         <move element="main" destination="columns.main" />
     </body>
 </page>
