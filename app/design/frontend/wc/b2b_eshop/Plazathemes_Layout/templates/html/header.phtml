@@ -21,10 +21,17 @@
 		<div class="header-wrapper">
 		<div class="header">
 			<div class="container-inner">
-			<div class="nav-ozmegamenu-inner">
+				<div class="header-inner">
+					<div class="logo-wrap">
+						<div class="nav-ozmegamenu-inner">
 				<div class="mobile-bar-icon"><span><?php /* @escapeNotVerified */ echo __('mobile icon'); ?></span></div>
 			</div>
 			<div class="mobile-bar-content">
+				<div class="Cflag-wrap">	
+									<span class="Cflag"><img src="images/flag.png" /></span>
+									<span>Croatia</span>
+
+								</div>	
 				<div class ="mobile-bar-close"><?php /* @escapeNotVerified */ echo __('Close'); ?></div>
 				<ul class = "tabs-mobile">
 					<!--<li class="item item-menu"><?php /* @escapeNotVerified */ echo __('Menu-1'); ?></li>-->
@@ -35,17 +42,10 @@
 				
 				 </div>
 			</div>
-
-				<div class="row">
-					<div class="col-md-3">
 						<?php echo $this->getChildHtml("logo"); ?>
 					</div>
-						<div class="col-md-6">
-						
-						<?php echo $this->getChildHtml("top.search"); ?>	
-					</div>
-
-					<div class="col-md-3">
+					
+					<div class="minicart-wrap">
 						<div class="absolute">
 							<!--<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p> -->
 							<?php
@@ -57,7 +57,7 @@
 		
 								<div>
 									<div class="my-acount">
-										<strong class="label"><span><?php /* @escapeNotVerified */ echo __('My Account') ?></span></strong>
+										<div class="label"><span><?php /* @escapeNotVerified */ echo __('My Account') ?></span></div>
 										<?php //echo $this->getChildHtml("top.links"); ?>
 									</div>
 									
@@ -66,10 +66,14 @@
 							<?php echo $this->getChildHtml("minicart");?>
 						</div>
 					</div>
-					
-				</div>
+
+						<div class="search-wrap">
+						
+						<?php echo $this->getChildHtml("top.search"); ?>	
+					</div>
+
 			</div>
-			
+			</div>
 		</div>
 
 		<div class="nav-menu">

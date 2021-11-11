@@ -436,7 +436,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             $html[] = '<div id="popup' . $id . '"  class="mob-popup">';
             // --- draw Sub Categories ---
             if (count($activeChildren)) { 
-                    $html[] = '<div class="block1 row" id="block1' . $id . '">';
+                    $html[] = '<div class="block1" id="block1' . $id . '">';
                     $html[] = $this->drawColumns($activeChildren, $id);
                         if ($blockHtml && $blockHtmlRight) {
                             $html[] = '<div class="column blockright last">';
@@ -488,7 +488,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             } else {
                 $classSpecial = '';
             }
-            $html.= '<div class="column' . $classSpecial . ' col' . ($key + 1) . ' col-md-3">';
+            $html.= '<div class="column' . $classSpecial . ' col' . ($key + 1) . '">';
             $html.= $this->drawMenuItem($value, 1, $columChunk);
             $html.= '</div>';
         }
@@ -534,11 +534,11 @@ class Menu extends \Magento\Framework\View\Element\Template {
                     $is_new = '<span class="is_new">' . $this->getConfig('is_new') . '</span>';
                 }
                 $sub_link = $this->_catalogCategory->getCategoryUrl($child);
-                $html.= '<div class="category-img" style="float: left;"><img src="' . $imageUrl . '" alt="Category"  width="24px" height="24px"> </div>';
+                $html.= '<div class="dropdownMenu"><div class="category-img" style="float: left;"><img src="' . $imageUrl . '" alt="Category"  width="24px" height="24px"> </div>';
                 if (in_array($child->getId(), $arr_catsid)) {
                     $html.= '<h4 class="itemMenuName level' . $level . $active . $ClassNoChildren . '"><span>' . $name . '</span>' . $is_sale . $is_new . '</h4>';
                 } else {
-                    $html.= '<a class="itemMenuName level' . $level . $active . $ClassNoChildren . '" href="' . $sub_link . '"><span>' . $name . '</span>' . $is_sale . $is_new . '</a>';
+                    $html.= '<a class="itemMenuName level' . $level . $active . $ClassNoChildren . '" href="' . $sub_link . '"><span>' . $name . '</span>' . $is_sale . $is_new . '</a></div>';
                 }
                 $activeChildren = $this->getActiveChildren($child, $level);
                 if (count($activeChildren) > 0) {

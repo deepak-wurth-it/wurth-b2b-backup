@@ -16,147 +16,60 @@ use Magento\Framework\App\Action\Action;
  */
 ?>
 <?php
-$_productCollection = $block->getLoadedProductCollection();
-$_helper = $this->helper('Magento\Catalog\Helper\Output');
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_outputHelper = $block->getData('outputHelper');
 ?>
-<?php if (!$_productCollection->count()): ?>
-    <div class="message info empty"><div><?php /* @escapeNotVerified */ echo __('We can\'t find products matching the selection.') ?></div></div>
-<?php else: ?>
-    <?php echo $block->getToolbarHtml() ?>
-    <?php echo $block->getAdditionalHtml() ?>
-    <?php
-    if ($block->getMode() == 'grid') {
-        $viewMode = 'grid';
-        $image = 'category_page_grid';
-        $showDescription = false;
-        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
-    } else {
-        $viewMode = 'list';
-        $image = 'category_page_list';
-        $showDescription = true;
-        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
-    }
-    /**
-     * Position for actions regarding image size changing in vde if needed
-     */
-    $pos = $block->getPositioned();
-    ?>
-    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
-        <?php $iterator = 1; ?>
+<?php $level = $block->getLayer()->getCurrentCategory()->getLevel(); ?>
+<?php $ProductCount = $block->getLayer()->getCurrentCategory()->getProductCollection()->Count(); ?>
+<?php $catId = $block->getLayer()->getCurrentCategory()->getId(); ?>
+<?php $subcategories = [] ;?>
+<?php $subcategories = $block->getCategoryChildrenData($catId); ?>
+
+<?= $block->getToolbarHtml() ?>
+<?= $block->getAdditionalHtml() ?>
+<div class="products wrapper grid products-grid">
         <ol class="products list items product-items">
-            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
-            <?php foreach ($_productCollection as $_product): ?>
-                <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
-                <div class="product-item-info" data-container="product-grid">
-					<div class=" product-item-images">
-
-						<?php
-						$productImage = $block->getImage($_product, $image);
-						if ($pos != null) {
-							$position = ' style="left:' . $productImage->getWidth() . 'px;'
-								. 'top:' . $productImage->getHeight() . 'px;"';
-						}
-						?>
-						<?php // Product Image ?>
-						<a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
-							<?php echo $productImage->toHtml(); ?>
-						</a>
-						
-					</div>
-                    <div class="product-item-details">
-						 <?php /*echo $block-> getReviewsSummaryHtml($_product, $templateType); */?> 
-
-                        <?php 
-                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
-                        ?>
-                        <strong class="product name product-item-name">
-                            <a class="product-item-link"
-                               href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>">
-                                <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?> 
+            <?php foreach($subcategories as $subcategory): ?>
+                <?php  $productCount = $subcategory->getProductCollection()->Count(); ?>
+                <?php $subcategory = $block->getCategoryData($subcategory->getId()); ?>
+                <?php if($subcategory): ?>
+                <li class="item product product-item">
+                    <div class="product-item-info">
+                        <?php if ($_imgUrl = $subcategory->getImageUrl()): ?>
+                            <a href="<?= $subcategory->getUrl() ?>" class="product photo product-item-photo">
+                                <span class="product-image-container">
+                                    <?php $_imgHtml = '<img src="' . $_imgUrl . '" />'; ?>
+                                    <?php echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image'); ?>
+                                </span>
                             </a>
-                        </strong>
-                      
-                        <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
-                        <?php /*echo $block->getProductDetailsHtml($_product); */ ?>
+                        <?php endif; ?>
+                        <div class="product details product-item-details">
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link" href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
+                            </strong>
+                            <?php if($level > 3 && $productCount > 1) { ?>
+                                <p class="price-box"><label>Start From </span><span class="price">1,816.17 HRK</span></p>
+                             <p class="view-stock"><a href="#" class="view-stock">Please select single product to view stock</a></p>
+                            <p class ="variation-box"><label ><?php echo $productCount ; ?> variations</label></p>
+                            <p class ="variation-buttom"><label > Show variations</label></p>
+                            <?php }  ?>
+                            <?php if($level > 3 && $productCount <= 1) { ?>
+                                <p class="quantity-available">Quantity available immediately: 90</p>
+                            <p class="price-box"><span class="price">1,816.17 HRK</span></p>
+                            <p class ="variation-box"><label > -120 + 100 pc</label> </p>
+                            <p class ="variation-buttom"><label > Dodaju Kosaricu</label></p>
+                            <?php }  ?>
 
-						 <?php if ($showDescription):?>
-							<div class="product description product-item-description">
-								<?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-								<a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" title="<?php /* @escapeNotVerified */ echo $_productNameStripped ?>"
-								   class="action more"><?php /* @escapeNotVerified */ echo __('Learn More') ?></a>
-							</div>
-						<?php endif; ?>
-
+                        </div>
                     </div>
-        
-                    
-                    <div class="product-item-actions"<?php echo strpos($pos, $viewMode . '-actions') ? $position : ''; ?>>
-							<div class="add-to-cart-primary addToCartButton"<?php echo strpos($pos, $viewMode . '-primary') ? $position : ''; ?>>
-								<?php if ($_product->isSaleable()): ?>
-									<?php $postParams = $block->getAddToCartPostParams($_product); ?>
-									<form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
-										<input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
-						<input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
-
-
-										<?php echo $block->getBlockHtml('formkey')?>
-						
-
-										<button type="submit"
-												title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
-												class="tocart, button-cyan">
-											<span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
-										</button>
-									</form>
-								<?php else: ?>
-									<?php if ($_product->getIsSalable()): ?>
-										<div class="stock available"><span><?php /* @escapeNotVerified */ echo __('In stock') ?></span></div>
-									<?php else: ?>
-										<div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
-									<?php endif; ?>
-								<?php endif; ?>
-							</div>
-							<div data-role="add-to-links" class="add-to-links-secondary iconWrapper"<?php echo strpos($pos, $viewMode . '-secondary') ? $position : ''; ?>>
-								
-								<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
-								<a href="#"
-								   class="action wishlist wc-wishlist"
-								   title="<?php echo $block->escapeHtml(__('Add to WishList')); ?>"
-								   aria-label="<?php echo $block->escapeHtml(__('Add to WishList')); ?>"
-								   data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_product); ?>'
-								   data-action="add-to-wishlist"
-								   role="button">
-									<span class="wishlist-text"><?php /* @escapeNotVerified */ echo __('Add to WishList') ?></span>
-								</a>
-								<?php endif; ?>
-
-								<?php
-								$compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
-								?>
-								<a href="#"
-								   class="action compare"
-								   title="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
-								   aria-label="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
-								   data-post='<?php /* @escapeNotVerified */ echo $compareHelper->getPostDataParams($_product); ?>'
-								   role="button">
-									<span class="compare-text"><?php /* @escapeNotVerified */ echo __('Add to Compare') ?></span>
-								</a>
-							</div>
-						</div>
-
-                </div>
-                <?php echo($iterator == count($_productCollection)+1) ? '</li>' : '' ?>
+                </li>
+                <?php endif; ?>
             <?php endforeach; ?>
         </ol>
     </div>
-    <?php echo $block->getToolbarHtml() ?>
-    <?php if (!$block->isRedirectToCartEnabled()) : ?>
-        <script type="text/x-magento-init">
-        {
-            "[data-role=tocart-form], .form.map.checkout": {
-                "catalogAddToCart": {}
-            }
-        }
-        </script>
-    <?php endif; ?>
-<?php endif; ?>
+
+<?= $block->getToolbarHtml() ?>
+
+<?php //endif ?>
+
+

@@ -75,9 +75,6 @@ class Bannerslider extends \Magento\Framework\View\Element\Template {
 	public function getCustomerGroup()
 	{
 		$groupId = $this->_customer->getCustomer()->getGroupId(); //Get customer group Id , you have already this so directly get name
-		// echo '<pre>';
-		// print_r($groupId);
-
 		return $this->getGroupCode($groupId);
 	}
 

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	layout="1column"
+	xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="page.wrapper">
+			<container name="content.promo" label="content banner homes" htmlTag="div" htmlClass="promo-banner">	
+				<block class="Wcb\PromotionBanner\Block\PromotionBanner" name="promobanners" template="Wcb_PromotionBanner::banners.phtml" />
+			</container>
+		 </referenceContainer>		
+		<move element="promobanners" destination="page.wrapper" after="content.catslider"/>
+    </body>
+</page>
