@@ -48,7 +48,16 @@ $_outputHelper = $block->getData('outputHelper');
                                 <a class="product-item-link" href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
                             </strong>
                             <?php if($level > 3 && $productCount > 1) { ?>
-                            <span><label><?php echo $productCount ; ?> variations</label></span>
+                                <p class="price-box"><label>Start From </span><span class="price">1,816.17 HRK</span></p>
+                             <p class="view-stock"><a href="#" class="view-stock">Please select single product to view stock</a></p>
+                            <p class ="variation-box"><label ><?php echo $productCount ; ?> variations</label></p>
+                            <p class ="variation-buttom"><label > Show variations</label></p>
+                            <?php }  ?>
+                            <?php if($level > 3 && $productCount <= 1) { ?>
+                                <p class="quantity-available">Quantity available immediately: 90</p>
+                            <p class="price-box"><span class="price">1,816.17 HRK</span></p>
+                            <p class ="variation-box"><label > -120 + 100 pc</label> </p>
+                            <p class ="variation-buttom"><label > Dodaju Kosaricu</label></p>
                             <?php }  ?>
 
                         </div>
@@ -62,3 +71,5 @@ $_outputHelper = $block->getData('outputHelper');
 <?= $block->getToolbarHtml() ?>
 
 <?php //endif ?>
+
+
