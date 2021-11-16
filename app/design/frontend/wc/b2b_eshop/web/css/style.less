@@ -281,8 +281,8 @@ a.product-item-link, a:active.product-item-link{
 
  .footer.content{
  	margin:0;
- 	padding-top:30px;
  	padding-bottom:0;
+ 	padding-top:0;
  	border:inherit;
 }
 
@@ -294,6 +294,10 @@ a.product-item-link, a:active.product-item-link{
 .footer.content .block{
 	float:inherit;
 	margin:0;
+}
+
+.footer-block{
+	padding-top:30px;
 }
 
 .footer-social-media span{ 
@@ -523,7 +527,7 @@ dd {
     left: -100%;
     position: fixed;
     top: 0;
-    width: calc(100% ~"-" 45px);
+    width:100%;
     max-width: 500px;
     overflow-y:auto;
     background:#ffffff;
@@ -696,19 +700,17 @@ form#search_mini_form{
 
 //registration banner for non logedin user
 .registration-bg{
-	background:linear-gradient(to bottom, #ececec 80%, white 20%);
+	background:linear-gradient(to bottom, #ececec 75%, white 25%);
 	padding:10px 0;
 }
 .registration-bg h2{
 	margin-bottom:10px;
-	margin-top:50px;
-}
-.registration-bg .primary-button{
 	margin-top:30px;
 }
-.registration-bg img{
-	padding-left:30%;
+.registration-bg .primary-button{
+	margin-top:20px;
 }
+
 //information bar icon
 
 .demo img{
@@ -751,7 +753,6 @@ form#search_mini_form{
 	.navigation,
 	.page-header .header.panel,
 	.header.content,
-	.footer.content,
 	.page-wrapper > .widget, 
 	.page-wrapper > .page-bottom,
 	.block.category.event,
@@ -1414,7 +1415,7 @@ label.sorter-label{
     }
 }
 
-// link-hover
+// link-hover, My account dropdown
 .link-hover{
 	position: relative;
 	display: inline-block;
@@ -1459,8 +1460,8 @@ label.sorter-label{
 	> div{
 		background:#fff;
 		z-index: 111;
-		padding: 20px;
-		min-width: 100%;
+		padding: 10px 20px;
+		min-width: 200px;
 		color: rgba(0, 0, 0, 87%);
 		box-shadow: 0 2px 3px rgba(0,0,0,0.3);
 		position: absolute;
@@ -1478,6 +1479,13 @@ label.sorter-label{
 			text-align: left;
 			display: block;
 			font-family:wuerthbook;
+			margin:10px 0;
+		}
+		.welcome{
+			line-height:1.2;
+			padding-bottom:10px;
+			font-family:wuerthbold;
+			border-bottom:solid 1px rgba(0, 0, 0, 8%);
 		}
 		.action{
 			line-height: 30px;
@@ -1505,6 +1513,12 @@ label.sorter-label{
 
 	}
 }
+
+.account-wraper.log-out {
+    display: none;
+}
+
+
 // hedaer layout UI- 
 
 .nav-ozmegamenu{
@@ -1529,6 +1543,7 @@ label.sorter-label{
 }
 .minicart-wrap{
 	float:right;
+	margin-left:30px;
 }
 .absolute{
 	float:right;
@@ -3377,12 +3392,9 @@ body{
 		left:0 !important;
 		text-align:left; 	
 		padding: 0;
-		top:100% !important;
+		top:35%;
 		width:100% !important;
 		margin: 0;
-		background: #fff;
-		box-shadow: 0 3px 5px #bababa;
-    	box-shadow: 0 3px 5px rgba(0,0,0,0.3);
 		a {
 			text-decoration: none;
 			display:block;
@@ -3439,6 +3451,10 @@ body{
 			padding-top:20px;
 			width:100% !important;
 			margin:0;
+			background: #fff;
+			box-shadow: 0 3px 5px #bababa;
+    		box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+    		margin-top:43px;
 		}
 		.block2 {
 			margin-top: 10px;
@@ -3916,6 +3932,39 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 }
 
 // Footer
+
+.footer-logo{
+ 	display:inline-flex;
+ 	width:166px;
+ 	padding-right:20px;
+ 	vertical-align:middle;
+ }	
+
+ .footer-copyright{
+ 	display:inline-block;
+ 	padding:10px 0 10px 0;
+ }
+
+
+ .wc-copyright{
+ 	display:inline-block;
+ 	padding-right:20px;
+ 	vertical-align:middle;
+ }
+ ul.footer-bottom-menu{
+ 	margin:0;
+ 	padding:10px 0 10px 0;
+ 	float:right;
+ }
+ ul.footer-bottom-menu li{
+ 	padding:0;
+ }
+ ul.footer-bottom-menu li{
+ 	display:inline-block;
+ 	padding:0 10px;
+ 	margin:0;
+ }
+
 .page-footer{
 	margin-top: 50px;
 	background-color:#ececec;
@@ -4002,30 +4051,6 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 		padding: 10px 0;
 	}
 
- .footer-logo{
- 	display:inline-flex;
- 	width:166px;
- 	padding-right:20px;
- 	vertical-align:middle;
- }	
-
- .wc-copyright{
- 	display:inline-block;
- 	padding-right:20px;
- 	vertical-align:middle;
- }
- ul.footer-bottom-menu{
- 	margin:0;
- 	float:right;
- }
- ul.footer-bottom-menu li{
- 	padding:0;
- }
- ul.footer-bottom-menu li{
- 	display:inline-block;
- 	padding:0 10px;
- 	margin:0;
- }
 
 .link-payment{
 		text-align: right;
@@ -4432,9 +4457,6 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 // Fix mobile
 
 @media all and (max-width: 768px), print {
-	.page-main, .container-inner, .footer.content{
-		padding: 0 30px;
-	}
 	.page-products .products-grid .product-item{
 		width:calc((100% - 2%)/ 2);	
 	}
@@ -4456,18 +4478,29 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 		min-width:inherit;
 	}
 
-	.registration-bg img{
-		padding-left:0;
-	}
 	.textCenterInMobile{
 		text-align:center;
 	}
 
 	.registration-bg{
-		padding-bottom:30px;
+	background:linear-gradient(to bottom, #ececec 95%, white 10%);
 	}
-	.registration-bg{
-	background:linear-gradient(to bottom, #ececec 90%, white 10%);
+
+	.footer-block .row, footer-menu .row{
+		margin:0;
+	}
+	.footer.content{
+		padding-left:0;
+	}
+	p.footer-text{
+		padding-left:16px;
+	}
+	ul.footer-bottom-menu{
+		float:inherit;
+		text-align:center;
+	}
+	.footer-copyright, .copyRight-section{
+		text-align:center;
 	}
 	
 	}
@@ -4808,7 +4841,7 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 	    background: rgb(255, 255, 255) !important;
 	    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 	    border: none;
-	    -webkit-animation-name: fadeInDown;
+	     -webkit-animation-name: sliding-vertically;
 	    -webkit-animation-duration: 5.0s;
 	    -webkit-animation-timing-function: linear;
 	    -webkit-animation-iteration-count: infinite;
