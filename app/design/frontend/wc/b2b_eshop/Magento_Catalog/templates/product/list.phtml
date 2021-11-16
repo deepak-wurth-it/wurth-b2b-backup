@@ -36,6 +36,7 @@ $_helper = $_outputHelper = $block->getData('outputHelper');
     $showDescription = false;
     $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
     $pos = $block->getPositioned();
+    $product=false;
 ?>
 <!-- End For Product -->
 
@@ -76,7 +77,7 @@ $_helper = $_outputHelper = $block->getData('outputHelper');
                                 </p>
                                 <p class="variation-buttom"><label> Show variations</label></p>
                             <?php } ?>
-                            
+
                             <?php if ($level > 3 && $productCount == 1) { ?>
                                 <p class="quantity-available">Quantity available immediately: 90</p>
                                 <p class="price-box"><span class="price">1,816.17 HRK</span></p>
@@ -92,6 +93,7 @@ $_helper = $_outputHelper = $block->getData('outputHelper');
 
             <?php if (!$subcategory->hasChildren() &&  $productCount == 1): ?>
                <?php foreach ($subcategory->getProductCollection() as $_product): ?>
+                <?php $product = true; ?>
                 <li class="item product product-item">
                     <div class="product-item-info"
                          id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
@@ -188,7 +190,7 @@ $_helper = $_outputHelper = $block->getData('outputHelper');
 
 <?= $block->getToolbarHtml() ?>
 
-<?php if (!$block->isRedirectToCartEnabled()): ?>
+<?php if (!$block->isRedirectToCartEnabled() && $product): ?>
     <script type="text/x-magento-init">
         {
             "[data-role=tocart-form], .form.map.checkout": {
