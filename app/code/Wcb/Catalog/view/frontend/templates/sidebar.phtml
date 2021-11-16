@@ -1,8 +1,12 @@
 <?php
 $category = $block->getEnableCategory();
 ?>
-<h2 align="center"><?php echo __("Product Categories")?></h2>
-<?php foreach ($category as $categorydata) : ?>
+
+      <div class="column left-breadcrumbs">
+         <div class="category-list-sidebar cat-arrow">        
+            <ul class="paddingl0">  
+            <li><?php echo __("Product Categories")?></li>
+            <?php foreach ($category as $categorydata) : ?>
     <?php
     $categoryid = $categorydata->getEntityId();
     $categoryFactory = $block->getCategoryName($categoryid);
@@ -10,10 +14,15 @@ $category = $block->getEnableCategory();
     $categoryUrl = $categoryFactory->getUrl();
     $productCount = $categoryFactory->getProductCount();
     if($productCount > 0){
-    ?>
-    <div>
-        <a class="category-link-show" href="<?php echo $categoryUrl; ?>" alt="<?php echo $categoryName; ?>"
-           title="<?php echo $categoryName; ?>"><?php echo $categoryName; ?>
+    ?>             
+               <li class="category">
+               <a class="category-link-show" href="<?php echo $categoryUrl; ?>" alt="<?php echo $categoryName; ?>"
+           title="<?php echo $categoryName; ?>"><span> <img src="/media/catalog/category/p4_1.png" class="sidebar-cat-image">  </span><?php echo $categoryName; ?>
         </a>
-    </div>
-<?php }endforeach; ?>
+               </li>
+               <?php }endforeach; ?>
+              
+            </ul>
+         </div>
+      </div>
+  
