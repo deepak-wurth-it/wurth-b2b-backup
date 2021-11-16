@@ -1,3 +1,7 @@
+<?php
+	   $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	   $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+?>
 <div class="tab">
   <button class="tablinks" onclick="openCity(event, 'menu-tab')" id="defaultOpen">Menu</button>
   <button class="tablinks" onclick="openCity(event, 'accounts')">Account</button>
@@ -87,13 +91,13 @@
 
 		<div id="accounts" class="tabcontent">
   <ul>
-	  <li>Welcome !</li>
-	  <?php
-	  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-	  $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+	 
+	  <li>Welcome <?php if($customerSession->isLoggedIn()) { ?><?php echo $customerSession->getCustomer()->getName(); ?><?php } ?>!</li>
+	  <?php	 
 	  if($customerSession->isLoggedIn()) {
 	  ?>	  
-	  <li> <a href="<?php echo $block->getUrl("customer/account"); ?>">My Acoount</a>/ <a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Logout</a></li> 
+	  <li> <a href="<?php echo $block->getUrl("customer/account"); ?>">My Acoount</a></li> 
+	  <li><a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Logout</a></li> 
 	  <?php } else { ?>
 		<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></li> 
 		<?php } ?>
