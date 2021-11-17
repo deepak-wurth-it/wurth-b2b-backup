@@ -3462,7 +3462,7 @@ body{
 			background: #fff;
 			box-shadow: 0 3px 5px #bababa;
     		box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-    		margin-top:43px;
+    		margin-top:24px;
 		}
 		.block2 {
 			margin-top: 10px;
@@ -3479,6 +3479,18 @@ body{
 		height:30px;
 		text-align:center;
 		margin-left:15px;
+	}
+
+	a.act{
+		position: relative;
+	}
+	a.act:before{
+		border-bottom:solid 2px #cc0000;
+		postion: absolute;
+		width:94%;
+		bottom:10px;
+		content:"";
+
 	}
 
 	.category-img img{
@@ -3959,7 +3971,10 @@ li.item.product.product-item.cat-item{
 }
 // promotion banner
 .banner-item-banner1,.banner-item-banner2,.banner-item-banner3{
-	margin-bottom:27px;
+	margin-bottom:30px;
+}
+a.pt-url{
+	display:flex;
 }
 // Footer
 
@@ -4532,6 +4547,9 @@ li.item.product.product-item.cat-item{
 	.footer-copyright, .copyRight-section{
 		text-align:center;
 	}
+	.banner-item-banner1,.banner-item-banner2,.banner-item-banner3{
+		margin-bottom:22px;
+	}	
 	
 	}
 	@media only screen and (max-width:1400px){
