@@ -1,4 +1,9 @@
 <?php $block->renderFileLessToCss(); ?>
+<?php
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+	
+?>
 <header class="header-container">
 		<!-- <div class="top-bar">
 			<div class="container-inner">
@@ -28,7 +33,7 @@
 			</div>
 			<div class="mobile-bar-content">
 				<div class="Cflag-wrap">	
-									<span class="Cflag"><img src="images/flag.png" /></span>
+									<span class="Cflag"><img src="<?php echo $block->getViewFileUrl('Wcb_Megamenu::images/flag.png'); ?>" /></span>
 									<span>Croatia</span>
 
 								</div>	
@@ -48,18 +53,20 @@
 					<div class="minicart-wrap">
 						<div class="absolute">
 							<!--<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p> -->
-							<?php
-							 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-							 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-							 ?>
-							<div class="link-hover">
-								<p class="icon"></p> <span><?php if($customerSession->isLoggedIn()) { ?> Amit <?php } else { ?><span> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></span> <?php } ?></span>
+							
+							<div class="link-hover ">
+								<p class="icon"></p> <span><?php if($customerSession->isLoggedIn()) { ?>Moj Wurth<?php } else { ?><span> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></span> <?php } ?></span>
 		
-								<div>
-									<div class="my-acount">
-										<div class="label"><span><?php /* @escapeNotVerified */ echo __('My Account') ?></span></div>
+								<div class="account-wraper <?= (($customerSession->isLoggedIn())?'log-in':'log-out') ?>"> 
+								<?php if($customerSession->isLoggedIn()) { ?> 
+									<div class="my-acount">	
+										<div class="label welcome"> <strong>Welcome, <?php echo $customerSession->getCustomer()->getName(); ?> </strong></div>									
+									<div class="label"> <span><a href="<?php echo $block->getUrl("customer/account"); ?>">My acoount</a></span></div>
+									<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Sign out</a></span></div>
 										<?php //echo $this->getChildHtml("top.links"); ?>
+										
 									</div>
+									<?php } ?>
 									
 								</div>
 							</div>
