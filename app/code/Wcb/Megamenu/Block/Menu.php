@@ -43,6 +43,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
      */
     protected $_blockFactory;
     protected $_pageFactory;
+    protected $_page;
+
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Catalog\Model\CategoryFactory $categoryFactory
@@ -56,6 +58,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
      * @param \Magento\Framework\Api\FilterBuilder $filterBuilder
      * @param \Magento\Framework\View\Asset\Repository $assetRepos
      * @param \Magento\Catalog\Helper\ImageFactory $helperImageFactory
+     * @param  \Magento\Cms\Model\Page $page
      * @param array $data
      */
     public function __construct(
@@ -70,6 +73,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         \Magento\Framework\Api\FilterBuilder $filterBuilder,
         \Magento\Framework\View\Asset\Repository $assetRepos,
         \Magento\Catalog\Helper\ImageFactory $helperImageFactory,
+        \Magento\Cms\Model\Page $page,
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
@@ -84,6 +88,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $this->_filterBuilder = $filterBuilder;
         $this->assetRepos = $assetRepos;
         $this->helperImageFactory = $helperImageFactory;
+        $this->_page = $page;
         parent::__construct($context, $data);
     }
     public function _prepareLayout() {
@@ -96,12 +101,21 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $storeId = $this->_storeManager->getStore()->getId();
         $blockData = $this->_pageFactory->create()->setStoreId($storeId)->load($id);
         $link = $this->_storeManager->getStore()->getBaseUrl() . $blockData->getIdentifier();
+        $this->_storeManager->getStore()->getCurrentUrl();
+        $active = '';
+        if ($this->_page->getId()) {
+            $pageId = $this->_page->getId();
+            $currentPageId = $blockData->getId();
+            if($pageId == $currentPageId){
+                $active = 'act';
+            }
+        }
         $html = "";
         if ($is_device == 'mobile') {
-            $html = '<li><a href="' . $link . '"><span class="name">' . $blockData->getTitle() . '</span></a></li>';
+            $html = '<li><a href="' . $link . '" class="' . $active . '"><span class="name">' . $blockData->getTitle() . '</span></a></li>';
         } else {
             $html = '<div class="pt_menu nav-1" id="pt_cms">
-					<div class="parentMenu"><a href="' . $link . '"><span>' . $blockData->getTitle() . '</span></a></div>
+					<div class="parentMenu"><a href="' . $link . '" class="' . $active . '"><span>' . $blockData->getTitle() . '</span></a></div>
 				</div>';
         }
         return $html;
@@ -317,10 +331,9 @@ class Menu extends \Magento\Framework\View\Element\Template {
         // --- Top Menu Item ---
         $link = $this->_catalogCategory->getCategoryUrl($category);
         $is_active = $this->_catalogLayer->get()->getCurrentCategory()->getId();
+        $is_active = null;
         if ($is_active == $id) {
             $is_active = 'act';
-        } else {
-            $is_active = null;
         }
         $arr_catsid = array();
         $is_link = $this->getConfig('is_link');
