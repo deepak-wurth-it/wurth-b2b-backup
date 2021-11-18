@@ -84,19 +84,19 @@
         </column>
 		<!-- <column name="Id">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">ID</label>
 			</settings>
 		</column> -->
 		<column name="Name">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Name</label>
 			</settings>
 		</column> 
         <column name="ShortName">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Short Name</label>
 			</settings>
 		</column>
@@ -104,57 +104,57 @@
        
 		<column name="Code">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Code</label>
 			</settings>
 		</column>
 		<column name="LongDescription">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Long Description</label>
 			</settings>
 		</column>
 		<column name="Usage">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Usage</label>
 			</settings>
 		</column>
 		<column name="Instructions">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Instrustions</label>
 			</settings>
 		</column>
 		<column name="BaseUnitOfMeasureId">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Base Unit Of Measure Id</label>
 			</settings>
 		</column>
 		<column name="VendorId">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Vendor Id</label>
 			</settings>
 		</column>
 
         <column name="VendorItemNo">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Vendor Item No</label>
 			</settings>
 		</column>
 
 		<column name="GrossWeight">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Gross Weight</label>
 			</settings>
 		</column>
 		<column name="NetWeight">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Net Weight</label>
 			</settings>
 		</column>
@@ -208,7 +208,7 @@
 		</column>
 
 
-         <!-- <column name="ShortDescription">
+         <!--<column name="ShortDescription">
 			<settings>
 				<filter>text</filter>
 				<label>Short Description</label>
@@ -258,7 +258,7 @@
 
          <column name="UpdateRequired">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Update Required</label>
 			</settings>
 		</column>
@@ -281,6 +281,6 @@
 				<filter>text</filter>
 				<label>Modified Date</label>
 			</settings>
-		</column> -->
+		</column>-->
 	</columns>
 </listing>
