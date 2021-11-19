@@ -46,6 +46,7 @@ html,body {
   	font-display: block;
 }
 
+
 a:visited, .alink:visited{
  	color: @general_link_color;
  }
@@ -125,27 +126,43 @@ a{
  	margin:0;
   }
 
-  .category-list-sidebar ul li a{
-   	font-weight:bold;
+  .category-list-sidebar{
+  		ul li {
+
+  		&:last-child::before{
+ 			content:"";
+ 			padding-right:40px;
+  		}
+  		&:last-child{
+ 			border:none;
+  		}
+
+  		&:first-child{
+ 			background-color:rgba(0, 0, 0, 8%);
+  		}
+  		&:before{
+  			content:"\eb47";
+ 			font-weight:bold;
+ 			padding-right:20px;
+ 			font-family:'Wuerthicons';
+  		}
+  		a{
+   			font-weight:normal;
+   			display:flex;
+  		}
+  		}
+  		.sidebarCatName{
+  			margin-left:20px;
+  			}
+  		.sidebarCatImg{
+  			flex:none;
+  			width:30px;
+  			height:30px;
+  		}
   }
 
- .category-list-sidebar ul li:before{
- 	content:"\eb47";
- 	font-weight:bold;
- 	padding-right:20px;
- 	font-family:'Wuerthicons';
-  }
-
-  .category-list-sidebar ul li:first-child{
- 	background-color:rgba(0, 0, 0, 8%);
-  }
-
-  .category-list-sidebar ul li:last-child::before{
- 	content:"";
- 	padding-right:40px;
-  }
-   .category-list-sidebar ul li:last-child{
- 	border:none;
+  .cat-arrow ul li:before{
+  	display:none;
   }
 
   	.cat-list-icon{
@@ -483,6 +500,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 	font-family:wuerthbold;
 	font-weight: 700;
 	margin-bottom:0;
+	margin-top:0;
 }
 
 * {
@@ -1448,9 +1466,10 @@ label.sorter-label{
 	font-family: 'wuerthbold';
 	margin-left: 15px;
 	&:hover{
-		.icon{
+		.icon, span a{
 			color: @general_link_hover_color;
 		}
+
 		> div{
 			top: 100%;
 			opacity: 1;
@@ -1933,6 +1952,9 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 .product-item-info{
     background: #fff;
     position: relative;
+    text-align:center;
+    border:solid 1px rgba(0, 0, 0,8%);
+    padding:20px;
     &:hover{
     	 &:before{
 	 	   	opacity: 1;
@@ -2921,6 +2943,8 @@ body{
 		}	
 	}
 }
+
+
 // product-item-name
 .product-item-name,.product.name a{
 	color: @general_product_name_color;
@@ -2928,6 +2952,7 @@ body{
 	font-family:'wuerthbold';
 	&:hover{
 		color: @general_link_hover_color;
+		text-decoration:none;
 	}
 }
 
@@ -3331,21 +3356,11 @@ body{
 				a{
 					span{
 						color: @general_link_hover_color;
-						border-bottom:solid 2px;
 					}			
 				}
 			}
 		}
-		&.active{
-			.parentMenu{
-				> a, span.block-title {
-					span{
-						color: @general_link_hover_color;
-						border-bottom:solid 2px;
-					}		
-				}
-			}
-		}
+		
 		&#pt_menu_home {
 			a {
 				position: relative;
@@ -3511,11 +3526,14 @@ body{
 	}
 	a.act:before{
 		border-bottom:solid 2px #cc0000;
-		postion: absolute;
-		width:94%;
+		position: absolute;
+		width:72%;
 		bottom:10px;
 		content:"";
+	}
 
+	.popup .dropdownMenu .act:before{
+		border:none;
 	}
 
 	.category-img img{
@@ -3538,7 +3556,6 @@ body{
 		.parentMenu {
 			a:active, a:focus{
 				color:red;
-				border-bottom:solid 1px red;
 			}
 			ul {
 				li {
@@ -3982,11 +3999,35 @@ body .pt-testimonial-container .owl-theme .owl-controls .owl-pagination{
 
 // category listing page 
 
+.catName{
+	color: @general_product_name_color;
+	margin: 0 0 20px 0;
+	font-family:'wuerthbold';
+	min-height:65px;
+}
+
+ol.products.list.items.product-items{
+		margin-left:-15px;
+		margin-right:-15px;
+	}
+
+p.CatProductCount{
+	padding:0;
+	margin:0;
+}
+.catListImg{
+	width:32px;
+	height:32px;
+	display:inline-block;
+	margin-bottom:30px;
+}
+
 li.item.product.product-item.cat-item{
 	width:25%;
 	padding-left: 15px;
 	padding-right:15px;
 	margin:0;
+	margin-bottom:30px;
 }
 
 .product-grid .product-item{
@@ -4149,16 +4190,15 @@ a.pt-url{
 #back_top {
 	bottom: 35px;
 	display: none;
-	height:60px;
+	height:40px;
 	position: fixed;
-	right: 12px;
-	width:60px;
-	line-height:60px;
+	right: 10px;
+	width:40px;
+	line-height:2;
 	z-index: 9999;
 	cursor: pointer;
 	text-align: center;
 	background-color: @general_link_hover_color;
-	font-size:1.5rem;
 	color: #fff;
 	border-radius: 100%;
 	&:hover{
@@ -4169,8 +4209,10 @@ a.pt-url{
 		display: none;
 	}
 	&:before{
-	     content: "\f077";
-	  	font-family:FontAwesome;
+	    content: "\eb4f";
+	  	font-family:'wuerthicons';
+	  	font-size:22px;
+	  	font-weight:bold;
 	}
 }
 // Newsletter Popup
@@ -4845,7 +4887,7 @@ a.pt-url{
 		margin: 0 0 30px 0;
 	}
 	.products{
-		margin: 20px 0 30px 0;
+		margin: 30px 0 30px 0;
 	}
 	.products-list .product-item-photo,.products-list .product-item-details{
 		display: block;
