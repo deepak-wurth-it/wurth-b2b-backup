@@ -94,7 +94,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             [
                 'name' => 'url',
                 "required" => true,
-                'class' => 'validate-clean-url',
+                'class' => 'validate-url',
                 'validation' => 'validate-url',
                 'label' => __('URL Link to Navigate'),
                 'title' => __('URL Link to Navigate'),
