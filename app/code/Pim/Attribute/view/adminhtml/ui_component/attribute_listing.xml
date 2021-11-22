@@ -74,13 +74,13 @@
 
         <column name="Id">
             <settings>
-                <filter>textRange</filter>
+                <filter>text</filter>
                 <label translate="true">ID</label>
             </settings>
         </column>
         <column name="Name">
             <settings>
-                <filter>textRange</filter>
+                <filter>text</filter>
                 <label translate="true">Name</label>
             </settings>
         </column>
@@ -100,19 +100,21 @@
 
         <column name="UpdateRequired">
 			<settings>
-				<filter>textRange</filter>
+				<filter>text</filter>
 				<label translate="true">Update Required</label>
 			</settings>
 		</column>
         <column name="CreatedDate">
             <settings>
-                <filter>text</filter>
+               <filter>dateRange</filter>
+                <dataType>date</dataType>
                 <label>Created Date</label>
             </settings>
         </column>
         <column name="ModifiedDate">
             <settings>
-                <filter>text</filter>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
                 <label>Modified Date</label>
             </settings>
         </column>
