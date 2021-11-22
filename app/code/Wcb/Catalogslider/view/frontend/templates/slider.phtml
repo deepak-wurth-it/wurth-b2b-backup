@@ -5,7 +5,7 @@ $customerLoggedIn = $this->checkCustomerLoggedIn();
 $currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others';
 ?>
 <div class="carousel-wrap container-inner">
-	<h2>Catalogue</h2>
+	<h2><?php echo __('Catalogue')?></h2>
 	<div class="owl-carousel">
 		<?php foreach ($sliders as $slider):
 		$customer_group = explode(",",$slider['customer_group']);

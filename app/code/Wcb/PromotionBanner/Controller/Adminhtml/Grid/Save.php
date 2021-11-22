@@ -64,19 +64,19 @@ class Save extends \Magento\Backend\App\Action
         $data = $this->getRequest()->getPostValue();
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);                
         $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-        if ((empty($data)) || (empty($data['image'])) || (empty($data['title']))) {
+        /*if ((empty($data)) || (empty($data['image'])) || (empty($data['title']))) {
             $this->messageManager->addError(__("Please fill all required values."));
             return $resultRedirect;
-        }
+        }*/
         try {
             $model = $this->gridFactory->create();
             if (isset($data['entity_id'])) {
                 if($data['position']){
                     $banners_count = $model->getCollection()->addFieldToFilter('position', $data['position'])->addFieldToFilter('status', 1)->count();
-                    if($banners_count){
+                    /*if($banners_count){
                         $this->messageManager->addError(__("Banner exists in the selected position. Please choose different one"));
                         return $resultRedirect;
-                    }
+                    }*/
                 }
                 $model->setEntityId($data['entity_id']);
                 $model->setCreatedAt(date('Y-m-d H:i:s'));

@@ -55,7 +55,7 @@
 							<!--<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p> -->
 							
 							<div class="link-hover ">
-								<p class="icon"></p> <span><?php if($customerSession->isLoggedIn()) { ?>Moj Wurth<?php } else { ?><span> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login </a>/ <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a></span> <?php } ?></span>
+								<p class="icon"></p> <span><?php if($customerSession->isLoggedIn()) { ?>Moj Wurth<?php } else { ?><a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login / Registration</a><!-- <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a> --><?php } ?></span>
 		
 								<div class="account-wraper <?= (($customerSession->isLoggedIn())?'log-in':'log-out') ?>"> 
 								<?php if($customerSession->isLoggedIn()) { ?> 
