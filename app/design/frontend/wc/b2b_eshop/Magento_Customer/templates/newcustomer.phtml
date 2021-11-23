@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Form\Login\Info $block */
+?>
+<?php if ($block->getRegistration()->isAllowed()) : ?>
+<div class="block block-new-customer">
+    <div class="block-title">
+        <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Want to become an online user ?')) ?></strong>
+    </div>
+    <div class="block-content" aria-labelledby="block-new-customer-heading">
+        <p><?= $block->escapeHtml(__('Complete the registration in two steps and use our Online Shop.')) ?></p>
+        <div class="container">
+  <div class="row">
+    <div class="col-sm">
+<a href="<?= $block->escapeUrl($block->getCreateAccountUrl()) ?>" class="action create">
+     <img src="<?php echo $this->getViewFileUrl('Magento_Customer::images/user-reg.png'); ?>" class="img-rounded" alt="Registration">     
+      <p class="reg-text-blue"><?php echo __("Yes, I did (register)"); ?></p>
+</a> 
+      <p class="reg-tex">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+
+    </div>
+    <div class="col-sm">
+<a href="<?= $block->escapeUrl($block->getCreateAccountUrl()) ?>" class="create-account">
+    <img src="<?php echo $this->getViewFileUrl('Magento_Customer::images/user-not-reg.png'); ?>" class="img-rounded" alt="Registration">   
+      <p class="reg-text-red"><?php echo __("Yes, I did not (register)"); ?></p>
+</a>  
+     <p class="reg-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+
+    </div>   
+  </div>
+</div>
+
+        <div class="actions-toolbar-reg">
+            <div class="reg-box">
+                <span><?php echo __("Napomena! Registracija i kupovina je omogućena isključivo pravnim osobama"); ?></span>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
