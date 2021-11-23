@@ -99,7 +99,7 @@
 	  <li> <a href="<?php echo $block->getUrl("customer/account"); ?>">My Acoount</a></li> 
 	  <li><a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Logout</a></li> 
 	  <?php } else { ?>
-		<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login / Registration </a> <!-- <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a> --> </li> 
+		<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"><?php echo __("Login / Registration"); ?></a></li> 
 		<?php } ?>
 </ul>
 </div>
