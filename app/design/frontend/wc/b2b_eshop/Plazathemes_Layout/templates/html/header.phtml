@@ -55,7 +55,7 @@
 							<!--<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p> -->
 							
 							<div class="link-hover ">
-								<p class="icon"></p> <span><?php if($customerSession->isLoggedIn()) { ?>Moj Wurth<?php } else { ?><a href="<?php echo $block->getUrl("customer/account/login"); ?>">Login / Registration</a><!-- <a href="<?php echo $block->getUrl('customer/account/create'); ?>">Registration</a> --><?php } ?></span>
+								<p class="icon"></p> <span class="accountTitle"><?php if($customerSession->isLoggedIn()) { ?> <?php echo __("Moj Wurth"); ?><?php } else { ?><a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <?php echo __("Login / Registration"); ?></a><?php } ?></span>
 		
 								<div class="account-wraper <?= (($customerSession->isLoggedIn())?'log-in':'log-out') ?>"> 
 								<?php if($customerSession->isLoggedIn()) { ?> 
@@ -104,9 +104,9 @@ require(["jquery"], function($){
 	});
 	$(window).scroll(function () {
 	   if ($(this).scrollTop() > 150) {
-		 $('.header-wrapper').addClass("fix-nav-menu");	 
+		 $('.header').addClass("fix-nav-menu");	 
 	   } else {
-		$('.header-wrapper').removeClass("fix-nav-menu");
+		$('.header').removeClass("fix-nav-menu");
 	 
 	   }
 	});
