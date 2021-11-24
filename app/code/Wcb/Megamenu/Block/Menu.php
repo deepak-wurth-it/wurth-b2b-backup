@@ -339,10 +339,11 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $is_link = $this->getConfig('is_link');
         $arr_catsid = ['']; //json_decode($is_link);
         $html[] = '<div class="parentMenu" style="">';
+        $base_url = $this->_storeManager->getStore()->getBaseUrl();
         if (in_array($id, $arr_catsid)) {
-            $html[] = '<a href="#" class="pt_cate ' . $is_active . '">';
+            $html[] = '<a href="'.$base_url.'" class="pt_cate ' . $is_active . '">';
         } else {
-            $html[] = '<a href="' . $link . '" class="pt_cate ' . $is_active . '">';
+            $html[] = '<a href="'.$base_url.'" class="pt_cate ' . $is_active . '">';
         }
         $name = $category->getName();
         $html[] = '<span>' . $name . '</span>';

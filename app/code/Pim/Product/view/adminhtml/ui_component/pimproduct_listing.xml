@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /**
  *
  * @product  Embitel
@@ -93,7 +93,7 @@
 				<filter>text</filter>
 				<label translate="true">Name</label>
 			</settings>
-		</column> 
+		</column>
         <column name="ShortName">
 			<settings>
 				<filter>text</filter>
@@ -101,19 +101,19 @@
 			</settings>
 		</column>
 
-       
+
 		<column name="Code">
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Code</label>
 			</settings>
 		</column>
-		<column name="LongDescription">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">Long Description</label>
-			</settings>
-		</column>
+<!--		<column name="LongDescription">-->
+<!--			<settings>-->
+<!--				<filter>text</filter>-->
+<!--				<label translate="true">Long Description</label>-->
+<!--			</settings>-->
+<!--		</column>-->
 		<column name="Usage">
 			<settings>
 				<filter>text</filter>
@@ -123,7 +123,7 @@
 		<column name="Instructions">
 			<settings>
 				<filter>text</filter>
-				<label translate="true">Instrustions</label>
+				<label translate="true">Instructions</label>
 			</settings>
 		</column>
 		<column name="BaseUnitOfMeasureId">
@@ -158,7 +158,7 @@
 				<label translate="true">Net Weight</label>
 			</settings>
 		</column>
-		
+
 		<column name="SalesUnitOfMeasureId">
 			<settings>
 				<filter>text</filter>
@@ -269,7 +269,7 @@
 				<label>Active Status</label>
 			</settings>
 		</column>
-		
+
 		<column name="CreatedDate">
 			<settings>
 				<filter>text</filter>

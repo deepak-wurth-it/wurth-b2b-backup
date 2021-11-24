@@ -123,9 +123,9 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             'text',
             [
                 'name' => 'url',
-                'class' => 'validate-clean-url',
+                'class' => 'validate-url',
                 "required" => true,
-                'validation' => 'validate-clean-url',
+                'validation' => 'validate-url',
                 'label' => __('URL Link to Navigate'),
                 'title' => __('URL Link to Navigate')
             ]
@@ -200,16 +200,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                     'date_format' => $dateFormat,
                     'time_format' => $timeFormat,
                 ]
-        );
-						
-        $fieldset->addField(
-            'sort_order',
-            'text',
-            [
-                'name' => 'sort_order',
-                'label' => __('Banner Sort Order'),
-                'title' => __('Banner Sort Order')
-            ]
         );
 						
         $form->setValues($model->getData());
