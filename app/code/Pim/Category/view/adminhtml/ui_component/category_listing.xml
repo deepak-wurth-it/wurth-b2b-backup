@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /**
  *
  * @category  Embitel
@@ -82,6 +82,12 @@
                 <label translate="true">ID</label>
             </settings>
         </column>
+        <column name="Name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
         <column name="Code">
             <settings>
                 <filter>text</filter>
@@ -133,6 +139,6 @@
                 <label>Modified Date</label>
             </settings>
         </column>
-      
+
     </columns>
 </listing>
