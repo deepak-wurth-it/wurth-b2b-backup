@@ -449,6 +449,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             // --- Popup function for hide ---
             $html[] = '<div id="popup' . $id . '"  class="mob-popup">';
             // --- draw Sub Categories ---
+            $html[] = '<div class="back-arrow tablinks">All Katalog proizvoda</div>';
             if (count($activeChildren)) { 
                     $html[] = '<div class="block1" id="block1' . $id . '">';
                     $html[] = $this->drawColumns($activeChildren, $id);
