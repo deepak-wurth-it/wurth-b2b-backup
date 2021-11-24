@@ -3,6 +3,6 @@
     <menu>
         <add id="Wcb_Catalogslider::parent" title="Catalogslider" module="Wcb_Catalogslider" sortOrder="20" resource="Wcb_Catalogslider::parent"/>
         <add id="Wcb_Catalogslider::index" title="Catalogslider Settings" module="Wcb_Catalogslider" sortOrder="10" action="admin/system_config/edit/section/wcbcatalog" resource="Wcb_Catalogslider::index" parent="Wcb_Catalogslider::parent"/>
-		<add id="Wcb_Catalogslider::catalogslider" title="Catalogslider Catalogslider" module="Wcb_Catalogslider" sortOrder="20" parent="Wcb_Catalogslider::parent" action="catalogslider/catalogslider" resource="Wcb_Catalogslider::catalogslider"/>
+		<add id="Wcb_Catalogslider::catalogslider" title="Setup Catalogslider" module="Wcb_Catalogslider" sortOrder="20" parent="Wcb_Catalogslider::parent" action="catalogslider/catalogslider" resource="Wcb_Catalogslider::catalogslider"/>
     </menu>
 </config>

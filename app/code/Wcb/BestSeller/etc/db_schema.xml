@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="wcb_bestseller_slider" resource="default" comment="Wurth bestseller banners table using declarative schema">
+		<column xsi:type="int" name="slider_id" padding="10" identity="true" unsigned="true" nullable="true" comment="Entity Id"/>
+		<column xsi:type="int" name="name" padding="10" unsigned="true" nullable="true" comment="Name"/>
+		<column xsi:type="int" name="status" padding="10" unsigned="true" nullable="true" comment="Reference Id"/>
+        <column xsi:type="text" name="title" nullable="true" comment="Banner Title"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="text" name="store_ids" nullable="true" comment="Store Ids"/>
+        <column xsi:type="text" name="customer_group_ids" nullable="true" comment="Banner Customer Group to be displayed"/>
+        <column xsi:type="int" name="limit_number" nullable="true" comment="Limit the number of products"/>
+        <column xsi:type="text" name="location" nullable="true" comment="Location"/>
+        <column xsi:type="text" name="time_cache" nullable="true" comment="Cache Lifetime"/>
+        <column xsi:type="datetime" name="from_date" nullable="true" comment="Banner Valid From"/>
+        <column xsi:type="datetime" name="to_date" nullable="true" comment="Banner Valid TO"/>
+        <column xsi:type="text" name="product_type" nullable="true" comment="Product Type"/>
+        <column xsi:type="text" name="categories_ids" nullable="true" comment="Categories Ids"/>
+        <column xsi:type="text" name="product_ids" nullable="true" comment="Product Ids"/>
+        <column xsi:type="text" name="display_additional" nullable="true" comment="Display additional Information"/>
+        <column xsi:type="text" name="is_responsive" nullable="true" comment="Responsive"/>
+        <column xsi:type="text" name="responsive_items" nullable="true" comment="Max Items slider"/>
+        <column name="created_at" nullable="false" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="false"/>
+        <column name="updated_at" nullable="true" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="true"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="slider_id"/>
+		</constraint>
+       <index referenceId="INDEX_ID" indexType="btree">
+           <column name="slider_id"/>
+       </index>
+       <index referenceId="INDEX_STATUS" indexType="btree">
+           <column name="status"/>
+       </index>
+       <index referenceId="INDEX_VALID_FROM" indexType="btree">
+           <column name="from_date"/>
+       </index>
+       <index referenceId="INDEX_VALID_TO" indexType="btree">
+           <column name="to_date"/>
+       </index>
+	</table>
+</schema>

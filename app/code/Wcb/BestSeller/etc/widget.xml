@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="wcb_bestseller_slider" class="Wcb\BestSeller\Block\Widget\Slider">
+        <label translate="true">Wcb Bestseller Slider</label>
+        <description>Product Slider</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false" visible="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="description" xsi:type="text" required="false" visible="true">
+                <label translate="true">Description</label>
+            </parameter>
+            <parameter name="show_pager" xsi:type="select" visible="false"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Display Page Control</label>
+            </parameter>
+            <parameter name="products_count" xsi:type="text" required="false" visible="true">
+                <label translate="true">Limit the number of products</label>
+            </parameter>
+            <parameter name="product_type" xsi:type="select" required="true" visible="true" source_model="Wcb\BestSeller\Model\Config\Source\ProductTypeWidget">
+                <label translate="true">Select Slider</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
