@@ -158,6 +158,7 @@ a{
   		.sidebarCatImg{
   			flex:none;
   			width:30px;
+  			padding:2px;
   			height:30px;
   		}
   }
@@ -3250,7 +3251,7 @@ body{
 	.category-img{
 		width:30px;
 		height:30px;
-		text-align:center;
+		text-align:left;
 		margin-left:15px;
 	}
 
@@ -3795,9 +3796,7 @@ li.item.product.product-item.cat-item{
 .banner-item-banner1 img,.banner-item-banner2 img,.banner-item-banner3 img, .banner-item-banner4 img, .banner-item-banner5 img, .banner-item-banner6 img{
 	width:100%;
 }
-.banner-item-banner6{
-	padding-right:0;
-}
+
 a.pt-url{
 	display:flex;
 	height:100%
@@ -4784,6 +4783,12 @@ a.pt-url{
 			padding:0;
 			font-family:'wuerthbook';
 		}
+
+	.header-container{
+		box-shadow: 0px 5px 10px 0px rgba(0,0,0,8%);
+		-webkit-box-shadow: 0px 5px 10px 0px  rgba(0,0,0,8%);
+		-moz-box-shadow: 0px 5px 10px 0px  rgba(0,0,0,8%);
+	}
 	
 	}
 	@media (min-width: 768px) and (max-width: 991px){
@@ -4804,6 +4809,12 @@ a.pt-url{
 		width: auto;
 		padding: 0;
 		display: block;
+	}
+
+	.banner-item-banner3 a img{
+		position:absolute;
+		bottom:30px;
+		padding-right:30px;
 	}
 
 }
@@ -4945,7 +4956,7 @@ a.pt-url{
 	}
 	.header-container .logo{
 		max-width:120px;
-		vertical-align:bottom;
+		vertical-align:middle;
 	}
 	.mobile-bar-icon:before{
 		font-size:3.2rem;
