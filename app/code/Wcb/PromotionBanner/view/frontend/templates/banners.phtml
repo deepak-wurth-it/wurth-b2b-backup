@@ -4,7 +4,7 @@ if ($this->getEnable()) {
     $customerLoggedIn = $this->checkCustomerLoggedIn();
     $currentCustomerGroup = ($customerLoggedIn) ? ($this->getCustomerGroup()) : 'Others';
 ?>
-<div class="promotion-banners">
+<div class="promotion-banners container-inner">
 	<div class="row">
 		<?php
     foreach ($banners as $banner):

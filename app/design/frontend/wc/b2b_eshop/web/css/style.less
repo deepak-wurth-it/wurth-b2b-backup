@@ -651,10 +651,12 @@ dd {
     	a{
     		color: @general_product_name_color;
     		vertical-align:middle;
-    		margin-left:20px;
     		&:hover{
     			color: @general_link_hover_color;
     		}
+    	}
+    	.itemMenu.level1 a{
+    		margin-left:20px;
     	}
     	.header.links{
     		margin-bottom: 10px;
@@ -4695,7 +4697,6 @@ a.pt-url{
 		}
 		.pt_custommenu div.pt_menu .parentMenu a, .pt_custommenu div.pt_menu .parentMenu span.block-title{
 			color:@general_product_name_color;
-			padding:0;
 		}
 		.box-content1 .container-inner{
 			box-shadow: none;
@@ -4775,10 +4776,13 @@ a.pt-url{
 	.dropdownMenu{
 		border-bottom:solid 1px rgba(0, 0, 0, 8%);
 		padding:5px 0;
+		display:flex;
 	}
 	
 	.pt_custommenu div.pt_menu .parentMenu a, .pt_custommenu div.pt_menu .parentMenu span.block-title{
 			color:@general_product_name_color;
+			padding:0;
+			font-family:'wuerthbook';
 		}
 	
 	}
