@@ -1,7 +1,4 @@
-
 <?php
-echo $this->getLayout()
-    ->createBlock(\Magento\Cms\Block\Block::class)
-    ->setBlockId('registeration-block') //replace my_cmsblock_identifier with real CMS bock identifier
-    ->toHtml();
-    ?>
+echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('registration-block')->toHtml();
+?>
+
