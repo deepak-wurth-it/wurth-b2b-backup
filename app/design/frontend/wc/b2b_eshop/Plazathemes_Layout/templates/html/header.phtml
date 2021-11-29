@@ -34,7 +34,7 @@
 			<div class="mobile-bar-content">
 				<div class="Cflag-wrap">	
 									<span class="Cflag"><img src="<?php echo $block->getViewFileUrl('Wcb_Megamenu::images/flag.png'); ?>" /></span>
-									<span>Croatia</span>
+									<span><?php echo __("Croatia"); ?></span>
 
 								</div>	
 				<div class ="mobile-bar-close"><?php /* @escapeNotVerified */ echo __('Close'); ?></div>
@@ -60,9 +60,9 @@
 								<div class="account-wraper <?= (($customerSession->isLoggedIn())?'log-in':'log-out') ?>"> 
 								<?php if($customerSession->isLoggedIn()) { ?> 
 									<div class="my-acount">	
-										<div class="label welcome"> <strong>Welcome, <?php echo $customerSession->getCustomer()->getName(); ?> </strong></div>									
-									<div class="label"> <span><a href="<?php echo $block->getUrl("customer/account"); ?>">My acoount</a></span></div>
-									<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Sign out</a></span></div>
+										<div class="label welcome"> <strong><?php echo __("Welcome"); ?>, <?php echo $customerSession->getCustomer()->getName(); ?> </strong></div>									
+									<div class="label"> <span><a href="<?php echo $block->getUrl("customer/account"); ?>"><?php echo __("My acoount"); ?></a></span></div>
+									<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"> <?php echo __("Sign out"); ?></a></span></div>
 										<?php //echo $this->getChildHtml("top.links"); ?>
 										
 									</div>
@@ -103,13 +103,23 @@ require(["jquery"], function($){
 	
 	});
 	$(window).scroll(function () {
-	   if ($(this).scrollTop() > 150) {
+	   if ($(this).scrollTop() > 30) {
 		 $('.header').addClass("fix-nav-menu");	 
 	   } else {
 		$('.header').removeClass("fix-nav-menu");
 	 
 	   }
-	});
+	});	
+
+    jQuery(window).resize(function () {
+        var viewportWidth = jQuery(window).width();
+        if (viewportWidth < 1024) {
+			jQuery(".mobile-bar-content").removeClass("open");
+			jQuery(".mob-popup").removeClass('onn');	
+			jQuery(".mob-popup").addClass('off');		
+        }
+    });
+
 });
 </script>
 
