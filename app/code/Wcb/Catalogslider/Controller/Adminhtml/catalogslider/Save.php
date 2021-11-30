@@ -63,6 +63,10 @@ class Save extends \Magento\Backend\App\Action
                 $data['image'] = '';
             }
 
+            if(isset($data['image']['value']))
+            {
+                $data['image'] = $data['image']['value'];
+            }
             /** File Upload Starts */
       
         if ((isset($_FILES['image']['name'])) && ($_FILES['image']['name'] != '') && (!isset($data['image']['delete'])))
