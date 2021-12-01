@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /**
  *
  * @attribute  Embitel
@@ -84,11 +84,13 @@
                 <label translate="true">Name</label>
             </settings>
         </column>
- 
+
          <column name="Active">
             <settings>
-                <filter>text</filter>
-                <label>Active Status</label>
+                <options class="Pim\Attribute\Model\Options\Source\ActiveStatus"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Active Status</label>
             </settings>
         </column>
         <column name="ExternalId">
@@ -100,8 +102,10 @@
 
         <column name="UpdateRequired">
 			<settings>
-				<filter>text</filter>
-				<label translate="true">Update Required</label>
+                <options class="Pim\Attribute\Model\Options\Source\UpdateStatus"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Update Required</label>
 			</settings>
 		</column>
         <column name="CreatedDate">
@@ -118,6 +122,6 @@
                 <label>Modified Date</label>
             </settings>
         </column>
-      
+
     </columns>
 </listing>
