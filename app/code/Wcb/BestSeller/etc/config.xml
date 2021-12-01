@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <productslider>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <slider_design>
+                <responsive>0</responsive>
+                <loop>1</loop>
+                <margin>10</margin>
+                <nav>0</nav>
+                <dots>0</dots>
+                <lazyLoad>1</lazyLoad>
+                <autoplay>0</autoplay>
+                <autoplayTimeout>5000</autoplayTimeout>
+                <autoplayHoverPause>0</autoplayHoverPause>
+            </slider_design>
+        </productslider>
+    </default>
+</config>

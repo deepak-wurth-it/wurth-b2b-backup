@@ -108,12 +108,12 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'required' => true,
                 "values"    => [
                     ["value" => '',"label" => __("-- Select --")],
-                    ["value" => 'banner1',"label" => __("Banner 1 [1000 X 1022]")],
-                    ["value" => 'banner2',"label" => __("Banner 2 [1000 X 482]")],
-                    ["value" => 'banner3',"label" => __("Banner 3 [1000 X 482]")],
-                    ["value" => 'banner4',"label" => __("Banner 4 [600 X 700]")],
-                    ["value" => 'banner5',"label" => __("Banner 5 [600 X 700]")],
-                    ["value" => 'banner6',"label" => __("Banner 6 [600 X 700]")],
+                    ["value" => 'banner1',"label" => __("Banner 1 [1000 X 638]")],
+                    ["value" => 'banner2',"label" => __("Banner 2 [702 X 210]")],
+                    ["value" => 'banner3',"label" => __("Banner 3 [702 X 210]")],
+                    ["value" => 'banner4',"label" => __("Banner 4 [451 X 240]")],
+                    ["value" => 'banner5',"label" => __("Banner 5 [451 X 240]")],
+                    ["value" => 'banner6',"label" => __("Banner 6 [451 X 240]")],
                 ]
             ]
         );
@@ -123,9 +123,9 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             'text',
             [
                 'name' => 'url',
-                'class' => 'validate-clean-url',
+                'class' => 'validate-url',
                 "required" => true,
-                'validation' => 'validate-clean-url',
+                'validation' => 'validate-url',
                 'label' => __('URL Link to Navigate'),
                 'title' => __('URL Link to Navigate')
             ]
@@ -200,16 +200,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                     'date_format' => $dateFormat,
                     'time_format' => $timeFormat,
                 ]
-        );
-						
-        $fieldset->addField(
-            'sort_order',
-            'text',
-            [
-                'name' => 'sort_order',
-                'label' => __('Banner Sort Order'),
-                'title' => __('Banner Sort Order')
-            ]
         );
 						
         $form->setValues($model->getData());
