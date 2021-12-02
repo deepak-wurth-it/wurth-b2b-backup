@@ -105,7 +105,6 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
         $this->categoryModelFactory = $categoryModelFactory;
         $this->scopeConfig = $scopeConfig;
 
-
         parent::__construct(
             $context,
             $postDataHelper,

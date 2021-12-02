@@ -18,7 +18,7 @@ class View extends \Magento\Catalog\Block\Category\View
         \Magento\Catalog\Model\CategoryFactory $categoryModelFactory,
         \Magento\Catalog\Helper\Output $outPutHelper,
         array $data = []
-    ) {
+    ) { echo 'rerere';exit;
         $this->_urlInterface = $urlInterface;
         $this->_categoryHelper = $categoryHelper;
         $this->_catalogLayer = $layerResolver->get();
