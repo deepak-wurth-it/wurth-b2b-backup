@@ -7,6 +7,15 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+        <referenceContainer name="columns" htmlClass ="columns row" />
+        <referenceContainer name="sidebar" htmlClass="sidebar sidebar-main" />
+        <referenceContainer name="columns.main" htmlClass="column main" />
+        <referenceContainer name="columns">
+            <container name="columns.main" htmlTag="div" htmlClass="column main" before="-" />
+        </referenceContainer>
+        <referenceContainer name="main" htmlClass="row1" />
+        <move element="main" destination="columns.main" />
+	
 		<referenceContainer name="main.content">  
 			<block class="Magento\Cms\Block\Block" name="contact.map" after="Brand">
 				<arguments>
