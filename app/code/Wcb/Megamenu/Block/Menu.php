@@ -75,6 +75,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         \Magento\Catalog\Helper\ImageFactory $helperImageFactory,
         \Magento\Cms\Model\Page $page,
         \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Request\Http $request,
         array $data = []
     ) {
         $this->_productCollectionFactory = $productCollectionFactory;
@@ -89,6 +90,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $this->assetRepos = $assetRepos;
         $this->helperImageFactory = $helperImageFactory;
         $this->_page = $page;
+        $this->_request = $request;
         parent::__construct($context, $data);
     }
     public function _prepareLayout() {
@@ -115,7 +117,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             $html = '<li><a href="' . $link . '" class="' . $active . '"><span class="name">' . $blockData->getTitle() . '</span></a></li>';
         } else {
             $html = '<div class="pt_menu nav-1" id="pt_cms">
-					<div class="parentMenu"><a href="' . $link . '" class="' . $active . '"><span>' . $blockData->getTitle() . '</span></a></div>
+					<div class="parentMenu "><a href="' . $link . '" class="' . $active . '"><span>' . $blockData->getTitle() . '</span></a></div>
 				</div>';
         }
         return $html;
@@ -256,7 +258,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             $html[] = '<div id="pt_menu' . $id . '" class="pt_menu">';
         }
         // --- Top Menu Item ---
-        $html[] = '<div class="parentMenu">';
+        $html[] = '<div class="parentMenu ">';
         $name = $block->getTitle();
         $html[] = '<span class="block-title">' . $name . '</span>';
         $html[] = '</div>';
@@ -309,7 +311,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
         // --- Sub Categories ---
         $activeChildren = $this->getActiveChildren($category, $level);
         // --- class for active category ---
-        $active = ''; //if ($this->isCategoryActive($category)) $active = ' act';
+        $active = ''; 
+        if ($this->isCategoryActive($category)) $active = ' act';
         // --- Popup functions for show ---
         $drawPopup = ($blockHtml || count($activeChildren));
         if ($drawPopup) {
@@ -330,15 +333,21 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $bg_category = json_decode($bg_img);
         // --- Top Menu Item ---
         $link = $this->_catalogCategory->getCategoryUrl($category);
-        $is_active = $this->_catalogLayer->get()->getCurrentCategory()->getId();
+        $is_active_id = $this->_catalogLayer->get()->getCurrentCategory()->getId();
         $is_active = null;
-        if ($is_active == $id) {
+        
+        $currentFullAction = $this->_request->getFullActionName() ;
+        if (($is_active_id == $id) || ($currentFullAction == 'catalog_product_view') || ($currentFullAction == 'catalog_category_view')) {
             $is_active = 'act';
+        }
+        $cmspages = array('cms_index_index','cms_page_view');
+        if(in_array($currentFullAction, $cmspages)){
+            $is_active = '';
         }
         $arr_catsid = array();
         $is_link = $this->getConfig('is_link');
         $arr_catsid = ['']; //json_decode($is_link);
-        $html[] = '<div class="parentMenu" style="">';
+        $html[] = '<div class="parentMenu "'.$is_active.'">';
         $base_url = $this->_storeManager->getStore()->getBaseUrl();
         if (in_array($id, $arr_catsid)) {
             $html[] = '<a href="'.$base_url.'" class="pt_cate ' . $is_active . '">';

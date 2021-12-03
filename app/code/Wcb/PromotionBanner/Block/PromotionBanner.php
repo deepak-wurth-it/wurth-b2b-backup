@@ -32,6 +32,7 @@ class PromotionBanner extends \Magento\Framework\View\Element\Template {
 		\Magento\Customer\Model\Session $customer,
 		\Magento\Customer\Api\GroupRepositoryInterface $groupRepository,
         \Magento\Theme\Block\Html\Header\Logo $logo,
+        \Magento\Framework\UrlInterface $urlInterface,    
 		array $data = []
 	) {
 		parent::__construct($context, $data);
@@ -41,9 +42,23 @@ class PromotionBanner extends \Magento\Framework\View\Element\Template {
 		$this->_customer = $customer;
 		$this->groupRepository = $groupRepository;
 		$this->_logo = $logo;
+		$this->_urlInterface = $urlInterface;
 		$this->_scopeConfig = $context->getScopeConfig();
 	}
 	
+	/**
+	 * Function getAjaxUrl.
+	 * 
+	 * Used to get the URL to be used in Ajax call.
+	 * 
+	 * @return string.
+	 * URL to be used in ajax.
+	 */
+	public function getAjaxUrl()
+    {
+      return $this->_urlInterface->getUrl('grids/index/view');
+    }
+
 	/**
 	 * @return
 	 */
