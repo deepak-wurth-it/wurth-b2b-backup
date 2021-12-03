@@ -102,8 +102,10 @@
         </column>
          <column name="Active">
             <settings>
-                <filter>text</filter>
                 <label>Active Status</label>
+                <options class="Pim\Category\Model\Options\Source\ActiveStatus"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
             </settings>
         </column>
         <column name="ExternalId">
@@ -113,15 +115,19 @@
             </settings>
         </column>
         <column name="ChannelId">
-            <settings>
-                <filter>text</filter>
+           <settings>
                 <label>Channel Id</label>
+                <options class="Pim\Category\Model\Options\Source\Channel"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
             </settings>
         </column>
         <column name="UpdateRequired">
 			<settings>
-				<filter>text</filter>
-				<label translate="true">Update Required</label>
+                <label>Update Required</label>
+                <options class="Pim\Category\Model\Options\Source\UpdateStatus"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
 			</settings>
 		</column>
 

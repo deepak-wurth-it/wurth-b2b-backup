@@ -5,7 +5,7 @@
 	<body>
 		<referenceContainer name="page.wrapper">
 			<container name="content.promo" label="content banner homes" htmlTag="div" htmlClass="promo-banner">	
-				<block class="Wcb\PromotionBanner\Block\PromotionBanner" name="promobanners" template="Wcb_PromotionBanner::banners.phtml" />
+				<block class="Wcb\PromotionBanner\Block\PromotionBanner" name="promobanners" template="Wcb_PromotionBanner::index.phtml" />
 			</container>
 		 </referenceContainer>		
 		<move element="promobanners" destination="page.wrapper" after="content.catslider"/>
