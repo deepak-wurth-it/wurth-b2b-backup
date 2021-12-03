@@ -7,11 +7,11 @@
 /** @var \Magento\Customer\Block\Form\Login\Info $block */
 ?>
 <?php if ($block->getRegistration()->isAllowed()) : ?>
-<div class="block block-new-customer">
-    <div class="block-title">
+<div class="block block-new-customer col-lg-5  col-md-7 offset-lg-1 textcenter">
+    <h2 class="block-title borderNone">
         <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Want to become an online user ?')) ?></strong>
-    </div>
-    <div class="block-content" aria-labelledby="block-new-customer-heading">
+    </h2>
+    <div class="block-content infoBlock" aria-labelledby="block-new-customer-heading">
         <p><?= $block->escapeHtml(__('Complete the registration in two steps and use our Online Shop.')) ?></p>
         <div class="container">
   <div class="row">
@@ -34,11 +34,10 @@
   </div>
 </div>
 
-        <div class="actions-toolbar-reg">
-            <div class="reg-box">
-                <span><?php echo __("Napomena! Registracija i kupovina je omogućena isključivo pravnim osobama"); ?></span>
+            <div class="remarkBox">
+                <span><?php echo __("Napomena!"); ?></span>
+                 <?php echo __("Napomena! Registracija i kupovina je omogućena isključivo pravnim osobama"); ?>
             </div>
-        </div>
     </div>
 </div>
 <?php endif; ?>
