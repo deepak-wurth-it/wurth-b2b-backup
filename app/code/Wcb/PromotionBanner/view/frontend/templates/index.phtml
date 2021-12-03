@@ -1,0 +1,15 @@
+<div id="ajaxresponse"></div>
+<?php
+$currentProductId = 1;
+$ajaxurl = $block->getAjaxUrl();
+?>
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Wcb_PromotionBanner/js/custom": {
+                    "AjaxUrl": "<?php echo $ajaxurl; ?>",
+                    "CurrentProduct": "<?php echo $currentProductId; ?>"
+                }
+            }
+        }
+</script>
