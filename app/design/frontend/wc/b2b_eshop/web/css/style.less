@@ -2911,6 +2911,38 @@ body{
 		text-decoration:none;
 	}
 }
+// Best Seller Section
+.bestSellerWrap{
+	h2 {
+		margin-left: 10px;
+		margin-top:3px;
+	}
+	.product-image-wrapper{
+		border:1px solid rgba(0, 0 , 0, 8%);
+		border-radius: 5px;
+		padding-bottom: 100% !important;
+	}
+	
+	.slider-product-item-details{
+		text-align:center;
+	}
+	.product-item-name {
+		a {
+			font-family:'wuerthbook';
+			font-weight:300;
+		}
+		font-size:1.8rem;
+		font-family:'wuerthbook';
+		margin:0px;
+		text-align:center;
+	}
+	.price-off{
+		font-size:18px;
+		font-family:'wuerthbook';
+		font-weight:bold;
+		text-align:center;
+	}
+}
 
 
 .page-title{
@@ -5393,6 +5425,77 @@ a.pt-url{
 	}
 	
 	}
+
+//----------------------- Part -10 -----------------	
+@media only screen and (max-width: 640px){
+
+	.page-layout-2columns-left .column.main, .page-layout-2columns-left .sidebar-main{
+		width:inherit;
+	}
+
+	.left-breadcrumbs{
+		display:none;
+	}
+
+	h2{
+		font-size:1.8rem;
+	}
+	.header-container .logo{
+		max-width:120px;
+		vertical-align:middle;
+	}
+	.mobile-bar-icon:before{
+		font-size:3.2rem;
+	}
+
+	li.item.product.product-item.cat-item{
+		width:33.33%;
+	}
+
+	//product-listing 
+	li.item.product.product-item{
+		width:50%;
+		margin-left:0;
+		padding-left:15px;
+		padding-right:15px;
+		margin-bottom:30px;
+	}
+	
+}
+@media only screen and (max-width: 574px){
+	.banner-item-banner4, .banner-item-banner5, .banner-item-banner6{
+		margin-bottom:30px;
+	}
+
+	// Best Seller Section
+.bestSellerWrap{
+	h2 {
+		margin-left: 12px;
+		margin-top:9px;
+	}
+	.product-image-wrapper{
+		border:1px solid rgba(0, 0 , 0, 8%);
+		border-radius: 5px;
+		padding-bottom: 85% !important;
+		margin: 0 11px 0 11px;
+	}
+}
+}
+
+@media (min-width: 479px) and (max-width: 767px){
+// Best Seller Section
+.bestSellerWrap{
+	h2 {
+		margin-left: 12px;
+		margin-top:9px;
+	}
+	.product-image-wrapper{
+		border:1px solid rgba(0, 0 , 0, 8%);
+		border-radius: 5px;
+		padding-bottom: 85% !important;
+		margin: 0 11px 0 11px;
+	}
+}
 
 
 	.products-grid .product-item{
