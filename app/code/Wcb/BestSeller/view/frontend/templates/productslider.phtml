@@ -62,8 +62,9 @@ if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
         <?php echo $block->getPagerHtml() ?>
     </div>
     <script>
-        require(['jquery', 'mageplaza/core/owl.carousel'], function ($) {
+        require(['jquery', 'owlcarousel'], function ($) {
             $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
+            $(".custom-bpslider").insertBefore(".page-footer");
         });
     </script>
 <?php endif; ?>
