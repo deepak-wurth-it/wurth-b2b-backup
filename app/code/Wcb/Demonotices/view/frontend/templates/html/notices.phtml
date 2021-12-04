@@ -67,7 +67,11 @@ script;
     $actionName = $this->getRequest()->getActionName();
     $pageIdentifier = $moduleName.'_'.$controllerName .'_'.$actionName;
     
-    if($pageIdentifier == 'cms_index_index'){
+    $startdate = strtotime($block->getDemoMessageValidFrom());
+    $enddate = strtotime($block->getDemoMessageValidTo());
+    $todayDate = strtotime($block->getTodayDate());
+    
+    if($startdate <= $todayDate && $todayDate <= $enddate && $pageIdentifier == 'cms_index_index') {
     ?>
     <div class="message global demo">
         <div class="content">
