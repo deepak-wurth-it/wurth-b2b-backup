@@ -337,7 +337,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $is_active = null;
         
         $currentFullAction = $this->_request->getFullActionName() ;
-        if (($is_active_id == $id) || ($currentFullAction == 'catalog_product_view') || ($currentFullAction == 'catalog_category_view')) {
+        if (($is_active_id == $id) || ($currentFullAction == 'catalog_product_view') || ($currentFullAction == 'catalog_category_view') || ($currentFullAction == 'cms_index_index')) {
             $is_active = 'act';
         }
         $cmspages = array('cms_index_index','cms_page_view');
