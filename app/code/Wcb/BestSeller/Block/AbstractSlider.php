@@ -335,6 +335,23 @@ abstract class AbstractSlider extends AbstractProduct implements BlockInterface,
 
         return '';
     }
+        /**
+     * Get Slider Description
+     *
+     * @return mixed|string
+     */
+    public function getOffer()
+    {
+        if ($this->hasData('offer')) {
+            return $this->getData('offer');
+        }
+
+        if ($this->getSlider()) {
+            return $this->getSlider()->getOffer();
+        }
+
+        return '';
+    }
 
     /**
      * @return string
