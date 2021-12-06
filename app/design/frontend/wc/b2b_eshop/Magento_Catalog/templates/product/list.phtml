@@ -184,7 +184,19 @@ $product=false;
                                                             </div>
                                                         </div>
                                                         <!--  --------------- -->
-
+                                                        <div class="product-actions">
+                                                <button type="submit"
+                                                        title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                        class="action tocart primary variation-buttom"
+                                                        disabled>
+                                                    <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                                </button>
+                                                <div data-role="add-to-links" class="actions-secondary">
+                                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                                        <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
                                                     </form>
                                                 <?php else:?>
                                                     <?php if ($_product->isAvailable()):?>
@@ -198,19 +210,7 @@ $product=false;
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
-                                            <div class="product-actions">
-                                                <button type="submit"
-                                                        title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
-                                                        class="action tocart primary variation-buttom"
-                                                        disabled>
-                                                    <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
-                                                </button>
-                                                <div data-role="add-to-links" class="actions-secondary">
-                                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
-                                                        <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
-                                                    <?php endif; ?>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
