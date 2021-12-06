@@ -7,6 +7,7 @@ xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/et
 		<column xsi:type="int" name="status" padding="10" unsigned="true" nullable="true" comment="Reference Id"/>
         <column xsi:type="text" name="title" nullable="true" comment="Banner Title"/>
         <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="text" name="offer" nullable="true" comment="Offer"/>
         <column xsi:type="text" name="store_ids" nullable="true" comment="Store Ids"/>
         <column xsi:type="text" name="customer_group_ids" nullable="true" comment="Banner Customer Group to be displayed"/>
         <column xsi:type="int" name="limit_number" nullable="true" comment="Limit the number of products"/>
