@@ -16,6 +16,7 @@ class SingalProductPrice extends \Magento\Framework\App\Action\Action
 	{
 		$this->_pageFactory = $pageFactory;
 		$this->_soapApiClient = $soapApiClient;
+		$this->resultJsonFactory = $resultJsonFactory;
 		return parent::__construct($context);
 	}
 
@@ -25,7 +26,7 @@ class SingalProductPrice extends \Magento\Framework\App\Action\Action
 		 $result = $this->resultJsonFactory->create();
 		 $xmlPrice = $this->getSinglePrice();
 		 $data = simplexml_load_string($xmlPrice, "SimpleXMLElement", LIBXML_NOCDATA);
-		 $result->setData($data);
+		 $result->setData(array('success'=>$data));
          return $result;
 	}
 
