@@ -58,6 +58,50 @@
                 </wysiwyg>
             </formElements>
         </field>
+        <field name="message_valid_from">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Demo Message Valid From</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">date</item>
+                    <item name="sortOrder" xsi:type="number">22</item>
+                    <item name="dataScope" xsi:type="string">message_valid_from</item>
+        <item name="save_parameters_in_session" xsi:type="string">1</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="storeTimeZone" xsi:type="string">string</item>
+                </item>
+            </argument>
+        </field>
+        <field name="message_valid_to">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Demo Message Valid To</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">date</item>
+                    <item name="sortOrder" xsi:type="number">23</item>
+                    <item name="dataScope" xsi:type="string">message_valid_to</item>
+        <item name="save_parameters_in_session" xsi:type="string">1</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="storeTimeZone" xsi:type="string">string</item>
+                </item>
+            </argument>
+        </field>
         </fieldset>
     </fieldset>
 </form>

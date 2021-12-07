@@ -7,8 +7,6 @@ $customerLoggedIn = $bannerData['data']['cl'];
 $currentCustomerGroup = $bannerData['data']['ccg'];
 $banners = $bannerData['data']['banners'];
 ?>
-<div class="promotion-banners container-inner">
-	<div class="row">
 		<?php
     foreach ($banners as $banner):
         $customer_group = explode(",", $banner['customer_group']);
@@ -43,5 +41,3 @@ $banners = $bannerData['data']['banners'];
 		<?php
         }
     endforeach; ?> 
-	</div>
-</div>

@@ -10,6 +10,7 @@ $type = 'widget-product-grid';
 $title = $block->getTitle();
 $blockId = $block->getSliderId() . uniqid('-', false);
 $items = $block->getProductCollection();
+$offer = $block->getOffer();
 ?>
 <div class="bestSellerWrap">
 <h2><?php echo __("Best Sellers in Protupozarna zastita"); ?></h2>
@@ -38,7 +39,7 @@ if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
                               
                             </div>
                             
-                            <div class="price-off">30 % off</div> 
+                            <div class="price-off"> <?php echo $offer ?></div> 
                         </div>
                         <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>
                     <?php endforeach ?>
@@ -62,8 +63,9 @@ if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
         <?php echo $block->getPagerHtml() ?>
     </div>
     <script>
-        require(['jquery', 'mageplaza/core/owl.carousel'], function ($) {
+        require(['jquery', 'owlcarousel'], function ($) {
             $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
+            $(".custom-bpslider").insertBefore(".page-footer");
         });
     </script>
 <?php endif; ?>

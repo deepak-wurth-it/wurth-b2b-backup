@@ -13,6 +13,14 @@
                     <item name="path" xsi:type="string">design/head/head_wcdemomsg</item>
                     <item name="fieldset" xsi:type="string">other_settings/head</item>
                 </item>
+                <item name="message_valid_to" xsi:type="array">
+                    <item name="path" xsi:type="string">design/head/message_valid_to</item>
+                    <item name="fieldset" xsi:type="string">other_settings/head</item>
+                </item>
+                <item name="message_valid_from" xsi:type="array">
+                    <item name="path" xsi:type="string">design/head/message_valid_from</item>
+                    <item name="fieldset" xsi:type="string">other_settings/head</item>
+                </item>
             </argument>
         </arguments>
     </type>
