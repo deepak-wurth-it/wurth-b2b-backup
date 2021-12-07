@@ -112,8 +112,11 @@ a{
  .textcenter{
  text-align:center;
  }
- section, .registration-bg, .carousel-wrap,  .promotion-banners, .logBannerContainer{
+ section, .registration-bg, .carousel-wrap,  .promotion-banners, .logBannerContainer, .pt-banner-container{
  	margin-bottom:60px;
+ }
+ .registration-bg{
+ 	margin-top:60px;
  }
  .carousel-wrap{
  	margin-top:0;
@@ -612,7 +615,12 @@ dd {
 	display: inline;
 }
 .message.success{
-	margin: 10px 0;
+	margin:30px 0;
+	background:@general_message_success;
+	font-size:1.6rem;
+		a{
+			font-family:@headingfont;
+		}
 }
 // Mobile Bar
 .mobile-bar-icon {
@@ -1051,6 +1059,7 @@ label.sorter-label{
 	background: #fff;
 	margin: 0;
 	border-bottom: 1px solid #eee;
+	display:none;
 }
 .page-title-wrapper{
 	.page-title{
@@ -1436,8 +1445,8 @@ label.sorter-label{
 			padding:0;
 		}
 		border: solid 1px rgba(0, 0, 0, 12%);
-		margin-top:30px;
 		padding-top:30px;
+		margin-top:30px;
 		
 		.fieldset:after {
 			font-size:1.6rem;
@@ -1990,6 +1999,10 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
 
 // product listing 
 
+.PlpName{
+	min-height:45px;
+}
+
 .product-item-photo {
  			display: flex;
  			align-items:center;
@@ -2012,7 +2025,6 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
  }
  .productFieldset{
  	display:flex;
- 	margin-top:33px;
 
  	.control-qty-cart {
  		span{
@@ -3293,7 +3305,7 @@ body{
 			display: block;
 			font-size: 14px;
 			height: 24px;
-			line-height: 21px;
+			line-height: 26px;
 			position: absolute;
 			right: -35px;
 			text-align: center;
@@ -3325,6 +3337,7 @@ body{
 }
 .category-view{
 	//margin-bottom: 30px;
+	display:none
 }
 .catalog-category-view .page-title-wrapper{
 	position: relative;
@@ -4656,7 +4669,6 @@ ProductListingwrapper{
 					min-height:unset;
 				}
 				.product-item-inner{
-					margin:0;
 					.product-actions{
 					
 					.action.primary{
@@ -4664,7 +4676,6 @@ ProductListingwrapper{
 						float:left;
 					}
 					.actions-secondary{
-						float:right;
 						margin-top:5px;
 					}
 					}
@@ -5213,7 +5224,7 @@ div#store\.menu {
 		text-align:center;
 	}
 
-	 section, .registration-bg, .carousel-wrap,  .promotion-banners, .logBannerContainer{
+	 section, .registration-bg, .carousel-wrap,  .promotion-banners, .logBannerContainer, .pt-banner-container{
  		margin-bottom:30px;
  	}
  	.promotion-banners{
@@ -5331,6 +5342,14 @@ div#store\.menu {
 }
 
 @media only screen and (max-width: 767px){
+		
+		.catalog-category-view .page-title-wrapper, .page-title-wrapper{
+		.page-title,  {
+			font-size:1.8rem;
+			margin-top:30px;
+		}
+}
+	
 		
 		#back_top,.block-social,.b-modal,#newsletter_pop_up,.contacts-header{
 			display: none !important;
@@ -5466,7 +5485,7 @@ div#store\.menu {
 		display:none;
 	}
 
-	h2{
+	h2, .login-container .block .block-title{
 		font-size:1.8rem;
 	}
 	.header-container .logo{
@@ -5490,13 +5509,6 @@ div#store\.menu {
 		padding-right:15px;
 		margin-bottom:30px;
 	}
-	.catalog-category-view .page-title-wrapper, .page-title-wrapper{
-		.page-title,  {
-			font-size:1.8rem;
-			margin-top:30px;
-		}
-}
-	
 }
 @media only screen and (max-width: 574px){
 	.banner-item-banner4, .banner-item-banner5, .banner-item-banner6{
@@ -5633,5 +5645,24 @@ div#store\.menu {
 			padding-left:15px;
 			padding-right:15px;
 		}
+
+		.padding0-480{
+			padding-left:0;
+			padding-right:0;
+		}
+		.login-container{
+			border:0;
+			margin-top:0;
+		}
+
+		.product-item-inner{
+		 	margin:0;
+		 }
+		 .PlpName{
+			min-height:inherit;
+		}
+		.productFieldset{
+ 			}
+
 }
 
