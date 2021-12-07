@@ -10,7 +10,7 @@ class SingalProductPrice extends \Magento\Framework\App\Action\Action
 	public function __construct(
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
-		\Wcb\ApiConnect\Model\Soap\ApiClient $soapApiClient,
+		\Wcb\ApiConnect\Model\SoapClient $soapApiClient,
 		\Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
 		)
 	{
@@ -22,11 +22,11 @@ class SingalProductPrice extends \Magento\Framework\App\Action\Action
 	public function execute()
 	{
 		 /** @var \Magento\Framework\Controller\Result\Json $result */
-		 //$result = $this->resultJsonFactory->create();
-		 //$xmlPrice = $this->getSinglePrice();
-		 //$data = simplexml_load_string($xmlPrice, "SimpleXMLElement", LIBXML_NOCDATA);
-		 //$result->setData($data);
-         //return $result;
+		 $result = $this->resultJsonFactory->create();
+		 $xmlPrice = $this->getSinglePrice();
+		 $data = simplexml_load_string($xmlPrice, "SimpleXMLElement", LIBXML_NOCDATA);
+		 $result->setData($data);
+         return $result;
 	}
 
 	public function getSinglePrice($sku='001 512'){

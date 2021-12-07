@@ -1,11 +1,9 @@
 <?php
 /**
- * Copyright © 2015 Magento. All rights reserved.
+ * Copyright ©  All rights reserved.
  * See COPYING.txt for license details.
  */
+use Magento\Framework\Component\ComponentRegistrar;
 
-\Magento\Framework\Component\ComponentRegistrar::register(
-    \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Wcb_ApiConnect',
-    __DIR__
-);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Wcb_ApiConnect', __DIR__);
+

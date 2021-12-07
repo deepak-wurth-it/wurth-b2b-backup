@@ -1,26 +1,22 @@
 {
-    "name": "wcb/apiconnect",
-    "description": "Soap/Rest API client",
-    "require": {
-        "php": "~5.5.0|~5.6.0",
-        "magento/module-store": "1.0.0-beta",
-        "magento/module-catalog": "1.0.0-beta",
-        "magento/module-ui": "self.version",
-        "magento/magento-composer-installer": "*"
-    },
-    "suggest": {
-      "magento/module-webapi": "1.0.0-beta"
-    },
+    "name": "wcb/module-apiconnect",
+    "description": "API client",
     "type": "magento2-module",
-     "version": "1.0.0-beta",
-    "license": [
-        "OSL-3.0",
-        "AFL-3.0"
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        }
     ],
+    "minimum-stability": "dev",
+    "require": {},
     "autoload": {
-        "files": [ "registration.php" ],
+        "files": [
+            "registration.php"
+        ],
         "psr-4": {
             "Wcb\\ApiConnect\\": ""
         }
     }
-    }
+}
