@@ -139,6 +139,13 @@ class General extends Generic implements TabInterface
             $slider->setData('status', 1);
         }
 
+        $fieldset->addField('offer', 'text', [
+            'name' => 'offer',
+            'label' => __('Offer'),
+            'title' => __('Offer'),
+            'required' => false,
+        ]);
+
         $fieldset->addField('location', 'select', [
             'name' => 'location',
             'label' => __('Position'),
