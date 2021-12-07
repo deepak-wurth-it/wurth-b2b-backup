@@ -210,7 +210,7 @@ $product=false;
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -250,6 +250,29 @@ $product=false;
                 currentQTY = currentQTY - 1;
                 if (currentQTY > 0) {
                     $(this).parent().parent().find(".qty-default").val(currentQTY);
+                }
+            });
+            var updateUrl = "<?= $block->getUrl('wcbcatalog/ajax/singalproductprice', ['_secure' => true]) ?>";
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: updateUrl,
+                success: function(result)
+                {   console.log(result);
+                    if (result) {
+                        // $('#customer-info').html(result);
+                        // $('#customer-info').next('.authorization-link').hide();
+                        // $('.customer-menu .authorization-link').html('');
+                        // $('.customer-menu .authorization-link').append(signOutLink);
+                        // window.isLoggedIn = true;
+                    } else {
+                        // $('#customer-info').next('.authorization-link').show();
+                        // $('.authorization-link').html('');
+                        // $('.authorization-link').append(registerLink);
+                        // window.isLoggedIn = false;
+                    }
                 }
             });
         });
