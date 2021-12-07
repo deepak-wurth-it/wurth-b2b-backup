@@ -74,9 +74,9 @@ class AddBlock implements ObserverInterface
 
                     if (strpos($location, $type) !== false) {
                         if (strpos($location, 'top') !== false) {
-                            $output = "<div id=\"mageplaza-productslider-block-before-{$type}-{$slider->getId()}\">$content</div>" . $output;
+                            $output = "<div class=\"custom-bpslider\" id=\"mageplaza-productslider-block-before-{$type}-{$slider->getId()}\">$content</div>" . $output;
                         } else {
-                            $output .= "<div id=\"mageplaza-productslider-block-after-{$type}-{$slider->getId()}\">$content</div>";
+                            $output .= "<div class=\"custom-bpslider\" id=\"mageplaza-productslider-block-after-{$type}-{$slider->getId()}\">$content</div>";
                         }
                     }
                 }
