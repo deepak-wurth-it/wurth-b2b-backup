@@ -61,7 +61,18 @@ script;
     ?>
     <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
 <?php endif; ?>
-<?php if ($block->displayDemoNotice()): ?>
+<?php if ($block->displayDemoNotice()): 
+    $moduleName = $this->getRequest()->getModuleName();
+    $controllerName = $this->getRequest()->getControllerName();
+    $actionName = $this->getRequest()->getActionName();
+    $pageIdentifier = $moduleName.'_'.$controllerName .'_'.$actionName;
+    
+    $startdate = strtotime($block->getDemoMessageValidFrom());
+    $enddate = strtotime($block->getDemoMessageValidTo());
+    $todayDate = strtotime($block->getTodayDate());
+    
+    if($startdate <= $todayDate && $todayDate <= $enddate && $pageIdentifier == 'cms_index_index') {
+    ?>
     <div class="message global demo">
         <div class="content">
             <p><?php 
@@ -72,4 +83,5 @@ script;
              } ?></p>
         </div>
     </div>
-<?php endif; ?>
+<?php }
+endif; ?>

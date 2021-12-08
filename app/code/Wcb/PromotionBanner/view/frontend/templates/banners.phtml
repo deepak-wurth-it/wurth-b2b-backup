@@ -1,27 +1,46 @@
 <?php
-if($this->getEnable()){
-$banners = $block->getPromotionBanners();
-$customerLoggedIn = $this->checkCustomerLoggedIn();
-$currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others';
+if ($this->getEnable()) {
+    $banners = $block->getPromotionBanners();
+    $customerLoggedIn = $this->checkCustomerLoggedIn();
+    $currentCustomerGroup = ($customerLoggedIn) ? ($this->getCustomerGroup()) : 'Others';
 ?>
-<div class="promotion-banners">
-	<div class="">
+<div class="promotion-banners container-inner">
+	<div class="row">
 		<?php
-		foreach ($banners as $banner):
-		$customer_group = explode(",",$banner['customer_group']);
-		if(in_array($currentCustomerGroup, $customer_group)): 
-			$url_image = $this->getMediaFolder().$banner['image'];?>
-			<div class="banner-item-<?php echo $banner['position'];?>">
+    foreach ($banners as $banner):
+        $customer_group = explode(",", $banner['customer_group']);
+        if (in_array($currentCustomerGroup, $customer_group)):
+            $url_image = $this->getMediaFolder() . $banner['image'];
+            
+                $class = '';
+                if ($banner['position'] == 'banner1') {
+                $class = 'col-md-6 col-sm-6';
+            } elseif ($banner['position'] == 'banner4' || $banner['position'] == 'banner6' || $banner['position'] == 'banner5') {
+                $class = 'col-md-4 col-sm-4';
+            }
+            if ($banner['position'] == 'banner2') {?>
+				<div class="col-md-6 col-sm-6 ">
+			<?php }?>
+			<div class="banner-item-<?php echo $banner['position'] . ' ' . $class ?>">
 			<?php
-			if($banner['url']): ?>
-					<a href="<?php echo $banner['url'] ?>" target="<?php echo $banner['url'];?>" class="pt-url">
-				<?php endif; ?>
-						<img src="<?php echo $url_image; ?>" alt="<?php echo $banner['title']; ?>"  src="<?php echo $url_image; ?>"/>
-				<?php if($banner['url']): ?>
+            if ($banner['url']): ?>
+				<a href="<?php echo $banner['url'] ?>" target="<?php echo $banner['url']; ?>" class="pt-url">
+				<?php
+            endif; ?>
+				<img src="<?php echo $url_image; ?>" alt="<?php echo $banner['title']; ?>"  src="<?php echo $url_image; ?>"/>
+				<?php if ($banner['url']): ?>
 					</a>
-				<?php endif; ?>      
+				<?php
+            endif; ?>      
 		</div>
-    	<?php endif; endforeach; ?> 
+    	<?php
+        endif;
+        if ($banner['position'] == 'banner3') { ?>
+	</div>
+		<?php
+        }
+    endforeach; ?> 
 	</div>
 </div>
-<?php } ?>            
+<?php
+} ?>  

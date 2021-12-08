@@ -9,11 +9,28 @@ class Save extends \Magento\Backend\App\Action
 {
 
     /**
-     * @param Action\Context $context
+     * @var UploaderFactory
      */
-    public function __construct(Action\Context $context)
-    {
+	protected $uploaderFactory;
+		/**
+     * @var AdapterFactory
+     */
+    protected $adapterFactory;
+	
+    /**
+     * Initialize Group Controller
+     *
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\MediaStorage\Model\File\UploaderFactory $uploaderFactory
+     */
+    public function __construct(
+        \Magento\Backend\App\Action\Context $context,
+        \Magento\MediaStorage\Model\File\UploaderFactory $uploaderFactory,
+        \Magento\Framework\Image\AdapterFactory $adapterFactory
+    ) {
         parent::__construct($context);
+        $this->uploaderFactory = $uploaderFactory;
+        $this->adapterFactory = $adapterFactory;
     }
 
     /**
@@ -40,31 +57,55 @@ class Save extends \Magento\Backend\App\Action
             }else{
                 $data['customer_group'] = '';
             }
-            if(isset($data['image'])){
-                try{
-                    $uploader = $this->_objectManager->create(
-                        'Magento\MediaStorage\Model\File\Uploader',
-                        ['fileId' => 'image']
-                    );
-                    $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
-                    /** @var \Magento\Framework\Image\Adapter\AdapterInterface $imageAdapter */
-                    $imageAdapter = $this->_objectManager->get('Magento\Framework\Image\AdapterFactory')->create();
-                    $uploader->setAllowRenameFiles(true);
-                    $uploader->setFilesDispersion(true);
-                    /** @var \Magento\Framework\Filesystem\Directory\Read $mediaDirectory */
-                    $mediaDirectory = $this->_objectManager->get('Magento\Framework\Filesystem')
-                        ->getDirectoryRead(DirectoryList::MEDIA);
-                    $result = $uploader->save($mediaDirectory->getAbsolutePath('catalogslider_catalogslider'));
-                        if($result['error']==0)
-                        {
-                            $data['image'] = 'catalogslider_catalogslider' . $result['file'];
-                        }
-                    } catch (\Exception $e) {
-                        unset($data['image']);
-                    }
-                }
+
 			if(isset($data['image']['delete']) && $data['image']['delete'] == '1')
-				$data['image'] = '';
+            {
+                $data['image'] = '';
+            }
+
+            if(isset($data['image']['value']))
+            {
+                $data['image'] = $data['image']['value'];
+            }
+            /** File Upload Starts */
+      
+        if ((isset($_FILES['image']['name'])) && ($_FILES['image']['name'] != '') && (!isset($data['image']['delete'])))
+        {
+           try
+             { 
+                 $_FILES['image']['name'];
+             
+                  $uploaderFactory = $this->uploaderFactory->create(['fileId' => 'image']);
+                  $uploaderFactory->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']); 
+                  $imageAdapter = $this->adapterFactory->create();
+                  $uploaderFactory->setAllowRenameFiles(true);
+                  $uploaderFactory->setFilesDispersion(true);
+                  $mediaDirectory = $this->_objectManager->get('\Magento\Framework\Filesystem')
+                        ->getDirectoryRead(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
+                  $destinationPath = $mediaDirectory->getAbsolutePath('catalogslider');
+                  $result = $uploaderFactory->save($destinationPath);
+   
+                  if (!$result)
+                  {
+                       throw new LocalizedException
+                          (
+                          __('File cannot be saved to path: $1', $destinationPath)
+                          );
+                  }
+   
+                $imagePath = 'catalogslider' . $result['file'];
+   
+                $data['image'] = $imagePath;
+   
+            }
+            catch (\Exception $e)
+            {
+                  $this->messageManager->addError(__("Image not Upload Pleae Try Again"));
+            }
+       }
+
+       /** File Upload Ends*/
+
                
             $model->setData($data);
 

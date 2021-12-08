@@ -5,7 +5,7 @@ class Category extends \Magento\Framework\View\Element\Template
 {
     protected $_categoryFactory;
     protected $_storeManager;
- 
+
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
@@ -21,7 +21,7 @@ class Category extends \Magento\Framework\View\Element\Template
         $this->_storeManager = $storeManager;
         parent::__construct($context, $data);
     }
- 
+
     public function getEnableCategory()
     {
         $collection = $this->_categoryFactory->create()->getCollection()
@@ -29,9 +29,9 @@ class Category extends \Magento\Framework\View\Element\Template
                            -> addAttributeToFilter('level', 2)
                            -> addAttributeToFilter('is_active',1)
                            -> addAttributeToFilter('include_in_menu',1);
-        return $collection ; 
+        return $collection ;
     }
- 
+
     public function getCategoryName($categoryId)
     {
         $category = $this->_categoryFactory->create()->load($categoryId)->setStore($this->_storeManager->getStore());

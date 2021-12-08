@@ -43,6 +43,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
      */
     protected $_blockFactory;
     protected $_pageFactory;
+    protected $_page;
+
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Catalog\Model\CategoryFactory $categoryFactory
@@ -56,6 +58,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
      * @param \Magento\Framework\Api\FilterBuilder $filterBuilder
      * @param \Magento\Framework\View\Asset\Repository $assetRepos
      * @param \Magento\Catalog\Helper\ImageFactory $helperImageFactory
+     * @param  \Magento\Cms\Model\Page $page
      * @param array $data
      */
     public function __construct(
@@ -70,7 +73,9 @@ class Menu extends \Magento\Framework\View\Element\Template {
         \Magento\Framework\Api\FilterBuilder $filterBuilder,
         \Magento\Framework\View\Asset\Repository $assetRepos,
         \Magento\Catalog\Helper\ImageFactory $helperImageFactory,
+        \Magento\Cms\Model\Page $page,
         \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Request\Http $request,
         array $data = []
     ) {
         $this->_productCollectionFactory = $productCollectionFactory;
@@ -84,6 +89,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $this->_filterBuilder = $filterBuilder;
         $this->assetRepos = $assetRepos;
         $this->helperImageFactory = $helperImageFactory;
+        $this->_page = $page;
+        $this->_request = $request;
         parent::__construct($context, $data);
     }
     public function _prepareLayout() {
@@ -96,12 +103,21 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $storeId = $this->_storeManager->getStore()->getId();
         $blockData = $this->_pageFactory->create()->setStoreId($storeId)->load($id);
         $link = $this->_storeManager->getStore()->getBaseUrl() . $blockData->getIdentifier();
+        $this->_storeManager->getStore()->getCurrentUrl();
+        $active = '';
+        if ($this->_page->getId()) {
+            $pageId = $this->_page->getId();
+            $currentPageId = $blockData->getId();
+            if($pageId == $currentPageId){
+                $active = 'act';
+            }
+        }
         $html = "";
         if ($is_device == 'mobile') {
-            $html = '<li><a href="' . $link . '"><span class="name">' . $blockData->getTitle() . '</span></a></li>';
+            $html = '<li><a href="' . $link . '" class="' . $active . '"><span class="name">' . $blockData->getTitle() . '</span></a></li>';
         } else {
             $html = '<div class="pt_menu nav-1" id="pt_cms">
-					<div class="parentMenu"><a href="' . $link . '"><span>' . $blockData->getTitle() . '</span></a></div>
+					<div class="parentMenu "><a href="' . $link . '" class="' . $active . '"><span>' . $blockData->getTitle() . '</span></a></div>
 				</div>';
         }
         return $html;
@@ -242,7 +258,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             $html[] = '<div id="pt_menu' . $id . '" class="pt_menu">';
         }
         // --- Top Menu Item ---
-        $html[] = '<div class="parentMenu">';
+        $html[] = '<div class="parentMenu ">';
         $name = $block->getTitle();
         $html[] = '<span class="block-title">' . $name . '</span>';
         $html[] = '</div>';
@@ -295,7 +311,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
         // --- Sub Categories ---
         $activeChildren = $this->getActiveChildren($category, $level);
         // --- class for active category ---
-        $active = ''; //if ($this->isCategoryActive($category)) $active = ' act';
+        $active = ''; 
+        if ($this->isCategoryActive($category)) $active = ' act';
         // --- Popup functions for show ---
         $drawPopup = ($blockHtml || count($activeChildren));
         if ($drawPopup) {
@@ -316,20 +333,26 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $bg_category = json_decode($bg_img);
         // --- Top Menu Item ---
         $link = $this->_catalogCategory->getCategoryUrl($category);
-        $is_active = $this->_catalogLayer->get()->getCurrentCategory()->getId();
-        if ($is_active == $id) {
+        $is_active_id = $this->_catalogLayer->get()->getCurrentCategory()->getId();
+        $is_active = null;
+        
+        $currentFullAction = $this->_request->getFullActionName() ;
+        if (($is_active_id == $id) || ($currentFullAction == 'catalog_product_view') || ($currentFullAction == 'catalog_category_view') || ($currentFullAction == 'cms_index_index')) {
             $is_active = 'act';
-        } else {
-            $is_active = null;
+        }
+        $cmspages = array('cms_index_index','cms_page_view');
+        if(in_array($currentFullAction, $cmspages)){
+            $is_active = '';
         }
         $arr_catsid = array();
         $is_link = $this->getConfig('is_link');
         $arr_catsid = ['']; //json_decode($is_link);
-        $html[] = '<div class="parentMenu" style="">';
+        $html[] = '<div class="parentMenu "'.$is_active.'">';
+        $base_url = $this->_storeManager->getStore()->getBaseUrl();
         if (in_array($id, $arr_catsid)) {
-            $html[] = '<a href="#" class="pt_cate ' . $is_active . '">';
+            $html[] = '<a href="'.$base_url.'" class="pt_cate ' . $is_active . '">';
         } else {
-            $html[] = '<a href="' . $link . '" class="pt_cate ' . $is_active . '">';
+            $html[] = '<a href="'.$base_url.'" class="pt_cate ' . $is_active . '">';
         }
         $name = $category->getName();
         $html[] = '<span>' . $name . '</span>';
@@ -435,6 +458,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             // --- Popup function for hide ---
             $html[] = '<div id="popup' . $id . '"  class="mob-popup">';
             // --- draw Sub Categories ---
+            $html[] = '<div class="back-arrow tablinks">All Katalog proizvoda</div>';
             if (count($activeChildren)) { 
                     $html[] = '<div class="block1" id="block1' . $id . '">';
                     $html[] = $this->drawColumns($activeChildren, $id);

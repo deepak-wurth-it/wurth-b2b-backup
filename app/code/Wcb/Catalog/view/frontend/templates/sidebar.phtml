@@ -1,8 +1,12 @@
 <?php
 $category = $block->getEnableCategory();
 ?>
-<h2 align="center"><?php echo __("Product Categories")?></h2>
-<?php foreach ($category as $categorydata) : ?>
+
+      <div class="column left-breadcrumbs">
+         <div class="category-list-sidebar cat-arrow">        
+            <ul class="paddingl0">  
+            <li><?php echo __("Product Categories")?></li>
+            <?php foreach ($category as $categorydata) : ?>
     <?php
     $categoryid = $categorydata->getEntityId();
     $categoryFactory = $block->getCategoryName($categoryid);
@@ -10,10 +14,16 @@ $category = $block->getEnableCategory();
     $categoryUrl = $categoryFactory->getUrl();
     $productCount = $categoryFactory->getProductCount();
     if($productCount > 0){
-    ?>
-    <div>
-        <a class="category-link-show" href="<?php echo $categoryUrl; ?>" alt="<?php echo $categoryName; ?>"
-           title="<?php echo $categoryName; ?>"><?php echo $categoryName; ?>
+    ?>             
+               <li class="category">
+               <a class="category-link-show" href="<?php echo $categoryUrl; ?>" alt="<?php echo $categoryName; ?>"
+           title="<?php echo $categoryName; ?>"><span class="sidebarCatImg"> <img src="http://m2.wc.b2b.com/media/.thumbswysiwyg/alati.png?rand=1637223895" class="sidebar-cat-image">  </span><span class="sidebarCatName"><?php echo $categoryName; ?></span>
+
         </a>
-    </div>
-<?php }endforeach; ?>
+               </li>
+               <?php }endforeach; ?>
+              
+            </ul>
+         </div>
+      </div>
+  

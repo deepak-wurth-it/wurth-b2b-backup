@@ -2,7 +2,8 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Wcb_PromotionBanner::manager" title="PromotionBanner" module="Wcb_PromotionBanner" sortOrder="10" resource="Wcb_PromotionBanner::manager" />
-        <add id="Wcb_PromotionBanner::add_row" title="PromotionBanner Settings" module="Wcb_PromotionBanner" sortOrder="20" parent="Wcb_PromotionBanner::manager" action="grid/grid" resource="Wcb_PromotionBanner::add_row"/>
+        <add id="Wcb_PromotionBanner::manager" title="PromotionBanner" module="Wcb_PromotionBanner" sortOrder="40" resource="Wcb_PromotionBanner::manager" />
+        <add id="Wcb_PromotionBanner::index" title="PromotionBanner Settings" module="Wcb_PromotionBanner" sortOrder="10" action="admin/system_config/edit/section/wcbbanner" resource="Wcb_PromotionBanner::index" parent="Wcb_PromotionBanner::manager"/>
+        <add id="Wcb_PromotionBanner::add_row" title="PromotionBanner Grid" module="Wcb_PromotionBanner" sortOrder="20" parent="Wcb_PromotionBanner::manager" action="grid/grid" resource="Wcb_PromotionBanner::add_row"/>
     </menu>
 </config>

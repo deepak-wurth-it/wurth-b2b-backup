@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /**
  *
  * @attribute  Embitel
@@ -74,21 +74,23 @@
 
         <column name="Id">
             <settings>
-                <filter>textRange</filter>
+                <filter>text</filter>
                 <label translate="true">ID</label>
             </settings>
         </column>
         <column name="Name">
             <settings>
-                <filter>textRange</filter>
+                <filter>text</filter>
                 <label translate="true">Name</label>
             </settings>
         </column>
- 
+
          <column name="Active">
             <settings>
-                <filter>text</filter>
-                <label>Active Status</label>
+                <options class="Pim\Attribute\Model\Options\Source\ActiveStatus"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Active Status</label>
             </settings>
         </column>
         <column name="ExternalId">
@@ -100,22 +102,26 @@
 
         <column name="UpdateRequired">
 			<settings>
-				<filter>textRange</filter>
-				<label translate="true">Update Required</label>
+                <options class="Pim\Attribute\Model\Options\Source\UpdateStatus"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Update Required</label>
 			</settings>
 		</column>
         <column name="CreatedDate">
             <settings>
-                <filter>text</filter>
+               <filter>dateRange</filter>
+                <dataType>date</dataType>
                 <label>Created Date</label>
             </settings>
         </column>
         <column name="ModifiedDate">
             <settings>
-                <filter>text</filter>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
                 <label>Modified Date</label>
             </settings>
         </column>
-      
+
     </columns>
 </listing>

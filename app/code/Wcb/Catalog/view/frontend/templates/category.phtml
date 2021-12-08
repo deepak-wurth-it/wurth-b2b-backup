@@ -1,22 +1,67 @@
 <?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+<?php
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_outputHelper = $block->getData('outputHelper');
+?>
+<?php
 $category = $block->getEnableCategory();
 ?>
-<h2 align="center"><?php echo __("Product Categories")?></h2>
-<?php foreach ($category as $categorydata) : ?>
+         <div class="page-title-wrapper">
+            <h1 class="page-title" id="page-title-heading" aria-labelledby="page-title-heading toolbar-amount">
+               <span class="base" data-ui-id="page-title-wrapper"><?php echo __("Product Categories")?></span>    
+            </h1>
+         </div>
+         
+         <div class="products wrapper grid products-grid">
+            <ol class="products list items product-items">
+            <?php foreach ($category as $categorydata) : ?>
     <?php
     $categoryid = $categorydata->getEntityId();
     $categoryFactory = $block->getCategoryName($categoryid);
     $categoryName = $categoryFactory->getName();
     $categoryUrl = $categoryFactory->getUrl();
+    $_imgUrl = $categoryFactory->getImageUrl();
     $productCount = $categoryFactory->getProductCount();
     if($productCount > 0){
     ?>
-    <div>
-        <a class="category-link-show" href="<?php echo $categoryUrl; ?>" alt="<?php echo $categoryName; ?>"
+               <li class="item product product-item cat-item">
+                  <div class="product-item-info">
+                     <a href="<?php echo $categoryUrl; ?>" class="product photo catListImg">
+                     <span class="cat-image-container">
+                     <img src="http://m2.wc.b2b.com/media/.thumbswysiwyg/alati.png?rand=1637223895">                                </span>
+                     </a>
+                     <div class="product details product-item-details">
+                        <strong class="product name product-item-name catName">
+                        <a class="category-link-show" href="<?php echo $categoryUrl; ?>" alt="<?php echo $categoryName; ?>"
            title="<?php echo $categoryName; ?>"><?php echo $categoryName; ?>
         </a>
-        <div class="category-slide">
-            <div class="category-product-count"><?php echo $productCount." Products"; ?></div>
-        </div>
-    </div>
-<?php }endforeach; ?>
+                        </strong>
+                        <p class="CatProductCount"><span class="no-of-pro"><?php echo $productCount; ?> Products</span></p>
+                     
+                     </div>
+                  </div>
+               </li>
+               <?php }endforeach; ?>      
+               
+              
+           
+            </ol>
+         </div>
+        
+        

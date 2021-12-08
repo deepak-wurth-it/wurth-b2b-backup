@@ -1,0 +1,43 @@
+<?php
+$bannerData = $block->getData();
+$productId =  $bannerData['data']['currentproductid'];
+$products = $block->getProducts($productId);
+
+$customerLoggedIn = $bannerData['data']['cl'];
+$currentCustomerGroup = $bannerData['data']['ccg'];
+$banners = $bannerData['data']['banners'];
+?>
+		<?php
+    foreach ($banners as $banner):
+        $customer_group = explode(",", $banner['customer_group']);
+        if (in_array($currentCustomerGroup, $customer_group)):
+            $url_image = $this->getMediaFolder() . $banner['image'];
+            
+                $class = '';
+                if ($banner['position'] == 'banner1') {
+                $class = 'col-md-6 col-sm-6';
+            } elseif ($banner['position'] == 'banner4' || $banner['position'] == 'banner6' || $banner['position'] == 'banner5') {
+                $class = 'col-md-4 col-sm-4';
+            }
+            if ($banner['position'] == 'banner2') {?>
+				<div class="col-md-6 col-sm-6 ">
+			<?php }?>
+			<div class="banner-item-<?php echo $banner['position'] . ' ' . $class ?>">
+			<?php
+            if ($banner['url']): ?>
+				<a href="<?php echo $banner['url'] ?>" target="<?php echo $banner['url']; ?>" class="pt-url">
+				<?php
+            endif; ?>
+				<img src="<?php echo $url_image; ?>" alt="<?php echo $banner['title']; ?>"  src="<?php echo $url_image; ?>"/>
+				<?php if ($banner['url']): ?>
+					</a>
+				<?php
+            endif; ?>      
+		</div>
+    	<?php
+        endif;
+        if ($banner['position'] == 'banner3') { ?>
+	</div>
+		<?php
+        }
+    endforeach; ?> 

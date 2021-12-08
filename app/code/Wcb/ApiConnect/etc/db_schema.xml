@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="wcb_apiconnect_soapclient" resource="default" engine="innodb" comment="wcb_apiconnect_soapclient Table">
+		<column xsi:type="smallint" name="soapclient_id" padding="6" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="soapclient_id"/>
+		</constraint>
+		<column name="content" nullable="false" xsi:type="text" comment="content"/>
+	</table>
+</schema>

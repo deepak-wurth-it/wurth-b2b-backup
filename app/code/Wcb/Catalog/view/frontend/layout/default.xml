@@ -4,9 +4,9 @@
     <body>
         <referenceContainer name="columns" htmlClass ="columns row" />
         <referenceContainer name="sidebar" htmlClass="sidebar sidebar-main col-md-3" />
-        <referenceContainer name="columns.main" htmlClass="column main col-md-9" />
+        <referenceContainer name="columns.main" htmlClass="column main col-md" />
         <referenceContainer name="columns">
-            <container name="columns.main" htmlTag="div" htmlClass="column main" before="-" />
+            <container name="columns.main" htmlTag="div" htmlClass="column main col-md" before="-" />
         </referenceContainer>
         <referenceContainer name="main" htmlClass="row1" />
         <move element="main" destination="columns.main" />
