@@ -1,10 +1,17 @@
 var config = {
- paths: {
+ map: {
+         '*': {
+                 'plp': 'js/plp'
+             }
+         },
+paths: {
      fancybox: 'Plazathemes_InstagramGallery::plazathemes/instagramgallery/js/jquery.fancybox.js'
  },
- shim: {
+shim: {
      fancybox: {
          deps: ['jquery']
      }
    }
 };
+
+ 

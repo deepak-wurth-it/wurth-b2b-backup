@@ -43,6 +43,7 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VI
 $pos = $block->getPositioned();
 $product=false;
 ?>
+<div data-mage-init='{"plp":{}}' ></div>
 <!-- End For Product -->
 <?php if( $level != 5 ) { ?>
     <?= $block->getToolbarHtml() ?>
@@ -210,7 +211,7 @@ $product=false;
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -252,6 +253,8 @@ $product=false;
                     $(this).parent().parent().find(".qty-default").val(currentQTY);
                 }
             });
+
+            
         });
     </script>
 <?php } ?>
