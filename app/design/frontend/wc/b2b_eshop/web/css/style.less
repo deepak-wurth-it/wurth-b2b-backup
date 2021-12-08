@@ -3221,9 +3221,34 @@ body{
 	width: 50px !important;
 	color: #444;
 }
+// minicart popup 
 .minicart-items-wrapper{
 	max-height: 450px;
-    height: 150px !important;
+	.item.product.product-item {
+	    width: 100%;
+		margin-left: 0;
+		padding-left: 15px;
+		padding-right: 15px;
+		margin-bottom: 30px;
+	}
+	.product-item-photo {		
+		width:auto !important;
+		height:auto !important;
+	}
+	.minicart-items .product-item-name a {
+		color: rgba(0, 0, 0, 0.87);
+		font-family: 'wuerthbook';
+		font-size:1.6rem;
+		font-weight:300;
+		line-height: 160%;
+	}
+	.price-container .price {
+		color: #cc0000;
+		font-family: 'wuerthbook';
+		font-size:1.6rem;
+		font-weight:bold;
+		line-height: 160%;
+	}
 }
 .cms-index-index .page.messages{
 	margin: auto;
@@ -5524,7 +5549,7 @@ div#store\.menu {
 		border:1px solid rgba(0, 0 , 0, 8%);
 		border-radius: 5px;
 		padding-bottom: 85% !important;
-		margin: 0 11px 0 11px;
+		margin: 0;
 	}
 	.owl-nav{
 		display:none;
