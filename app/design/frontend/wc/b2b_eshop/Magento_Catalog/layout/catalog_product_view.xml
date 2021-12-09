@@ -11,5 +11,6 @@
         <move element="product.info.stock.sku" destination="product.info.price" after="product.price.final"/>
         <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
 		<move element="product.info.overview" destination="product.info.main" before="product.info"/>
+        <referenceBlock name="multiple-wishlist_sidebar" remove="true" />
     </body>
 </page>
