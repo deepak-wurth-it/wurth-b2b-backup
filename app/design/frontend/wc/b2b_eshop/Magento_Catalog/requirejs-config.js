@@ -1,7 +1,7 @@
 var config = {
     map: {
         '*': {
-            'qty-counter': 'Magento_Catalog/js/qty-counter'
+            'qty-counter':'Magento_Catalog/js/qty-counter'
         }
     }
 };
@@ -13,4 +13,6 @@ var config = {
         },        
     }
 };
+
+
 

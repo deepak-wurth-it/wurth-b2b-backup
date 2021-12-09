@@ -7,7 +7,7 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="columns" htmlClass ="columns row" />
+        <referenceContainer name="columns" htmlClass ="columnss rows" />
         <referenceContainer name="sidebar" htmlClass="sidebar sidebar-main" />
         <referenceContainer name="columns.main" htmlClass="column main" />
         <referenceContainer name="columns">
