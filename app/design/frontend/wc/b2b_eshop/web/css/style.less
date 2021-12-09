@@ -116,7 +116,7 @@ a{
  	margin-bottom:60px;
  }
  .registration-bg{
- 	margin-top:60px;
+ 	margin-top:-60px;
  }
  .carousel-wrap{
  	margin-top:0;
@@ -444,7 +444,7 @@ button{
 	background:#ffffff;
 	padding: 0 20px;
 	height: 45px;
-	width:50%;
+	border-radius:30px;
 	font-size:1.6rem;
 	font-weight: 700;
 	border-radius:0;
@@ -772,7 +772,7 @@ dd {
 		display: inline-block;
 		vertical-align: middle;
 		margin: 0;
-		line-height: 1;
+		line-height: 0;
 	}
 	.h-logo{
 		text-align: center;
@@ -1581,7 +1581,7 @@ margin-bottom:30px;
 	.fieldset{
 		margin-top:30px;
 		margin-bottom:10px;
-			.control{
+			.field:not(.choice) >label, .field:not(.choice) >.control{
 				margin-bottom:30px;
 			}
 			.note{
@@ -5309,7 +5309,9 @@ div#store\.menu {
 	button.action.primary.mst-scroll__button{
 		margin-bottom:30px;
 	}
-
+	a.action.compare.primary{
+		min-width:inherit;
+		}
 	}
 
 
