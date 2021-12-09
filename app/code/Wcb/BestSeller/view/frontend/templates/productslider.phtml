@@ -12,7 +12,7 @@ $blockId = $block->getSliderId() . uniqid('-', false);
 $items = $block->getProductCollection();
 $offer = $block->getOffer();
 ?>
-<div class="bestSellerWrap">
+<div class="bestSellerWrap container-inner">
 <h2><?php echo __("Best Sellers in Protupozarna zastita"); ?></h2>
 <?php
 if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
