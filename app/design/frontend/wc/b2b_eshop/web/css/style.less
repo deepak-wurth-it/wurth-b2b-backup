@@ -3302,6 +3302,11 @@ body{
     font-weight: 700;
     display: inline-block;
 }
+.viewcartbut:hover {
+	background: #393d45;
+    color: #fff !important;
+	opacity:1;
+}
 button#top-cart-btn-checkout {
     background: #cc0000;
     font-family: 'wuerthbold';
@@ -3317,6 +3322,12 @@ button#top-cart-btn-checkout {
     font-weight: 700;
     display: inline-block;
 }
+button#top-cart-btn-checkout:hover {
+    background: #e60505;
+    color: #fff;
+	opacity:1;
+    
+}
 .mincartsub .price-wrapper
 	{
 		color: #cc0000;
@@ -3325,6 +3336,253 @@ button#top-cart-btn-checkout {
 		font-weight:700;
 		line-height: 160%;	
 	}
+// Cart Page by amit
+.cart-summary._sticky {
+    position: unset;
+    width: 645px;
+    background: #ECECEC;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+.cpupfile {
+    font-family: 'wuerthbook';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 160%;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0 0 11px 6px;
+}
+.cartPageForm{
+	border: solid 1px rgba(0, 0, 0, 8%);
+	line-height: 42px;
+	padding:0 0 0 15px;
+	margin:0 0 12px 0;
+	height:91px;
+	.cartitem{
+	font-family: 'wuerthbook';
+    color: #cc0000;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 160%;
+	}
+	.cartAmount{
+	font-family: 'wuerthbook';
+    color: #000000;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 160%;
+	}
+	.itemAdd{
+		background: #cc0000;
+		font-family: 'wuerthbold';
+		color: #fff;
+		border: 0;
+		border-radius: 50px;
+		font-size: 1.6rem;
+		line-height: 22px;
+		width:160px;
+		height: 35px;
+		margin-top: 45px;
+	}
+}
+.chkcart{
+	width:100% !important;
+	th.col{
+		width:auto !important;
+	}
+	.cartTable{
+		border:1px solid rgba(0, 0 , 0, 8%);
+	}
+	td.totItem{
+		border:1px solid rgba(0, 0 , 0, 8%);
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size:18px;
+		line-height:160%;
+	}
+	tr.itemFirst {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 24px;
+		background: rgba(239, 236, 236, 0.8);
+	}
+	.product-image-wrapper {
+		width: 100px;
+		height: 100px;
+	}
+	.item-no {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: #000000;
+	}
+	.product-item-name > a {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	.colitemphto {
+		width:296px;
+	}
+	.product-image-container {
+		width: 125px !important;
+	}
+	.colitem {
+		display: flex;
+		width:300px;
+	}
+	.dIcon {
+		position: absolute;
+		width: 35px;
+		height: 35px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box; 
+		border-radius: 50px;
+		padding: 7px 4px 7px 9px;
+	}
+	.qty-field-wrapper {
+		position: inherit;
+		border: solid 1px rgba(0, 0, 0, 0.08);
+		border-radius:4px;
+		width: 103px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.cpCount {
+		width: 95px;
+		height: 35px;
+		left: 566px;
+		top: 675px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box;
+		border-radius: 4px;
+		margin-left: 10px;
+	}
+	.productFieldset {
+		display: flex;
+		width: 300px;
+	}
+	input, select, textarea{
+		border:none; 
+	}
+	.imd-avilable {
+		width: 273px;
+		margin-top: 10px;
+	}
+	.imd-avlb {
+		width: 256px;
+		font-family:'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 120%;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	.imd-van{
+		margin-right:5px;
+	}
+	.imd-cart{
+		margin-right:5px;
+	}
+	.imd-day{
+		margin-right:5px;
+	}
+	.colsubtotal{
+		width:143px;
+	}
+	.cpdis{
+		display:flex;
+	}
+	.cpcross{
+		text-decoration: line-through;
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	.cpgprice {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: #CC0000;
+	}
+	.carmrp {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+} // cart page end
+
+// summery cart start on cart page by amit
+.controlWrapper {
+    display: flex;
+	input#coupon_code {
+		width: 300px;
+		height: 45px;
+		right: 325px;
+		top: 87px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		box-sizing: border-box;
+		border-radius: 4px;
+	}
+	button.butApply {
+		width: 86px;
+		background: #CC0000;
+		border-radius: 4px;
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 21px;
+		align-items: center;
+		color: #FFFFFF;
+		margin-left: 10px;
+	}
+}
+// End summery cart start on cart page by amit
+
+
+
+
+form#form-validate {
+    width: 100%;
+}
+
 .cms-index-index .page.messages{
 	margin: auto;
 	position: absolute;
