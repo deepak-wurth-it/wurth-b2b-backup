@@ -72,7 +72,7 @@ $product=false;
             <?php echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image'); ?>
             </span>
                                 </a>
-                                <strong class="product name product-item-name">
+                                <strong class="product name product-item-name PlpItemName">
                                     <a class="product-item-link"
                                        href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
                                 </strong>
@@ -132,7 +132,7 @@ $product=false;
                                 </a>
                                 <div class="product details product-item-details">
                                     <?php $_productNameStripped = $block->stripTags($_product->getName(), null, true); ?>
-                                    <strong class="product name product-item-name">
+                                    <strong class="product name product-item-name PlpItemName">
                                         <a class="product-item-link"
                                            href="<?= $escaper->escapeUrl($subcategory->getUrl()) ?>">
                                             <?php echo $product->getName(); ?>

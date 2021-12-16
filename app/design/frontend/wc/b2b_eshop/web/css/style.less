@@ -51,7 +51,7 @@ a:visited, .alink:visited{
  	color: @general_link_color;
  }
 a{ 
-	color: @general_link_color;
+	color: @general_text_color;
 	.transition();
 	&:hover{
 		text-decoration: none;
@@ -116,7 +116,7 @@ a{
  	margin-bottom:60px;
  }
  .registration-bg{
- 	margin-top:60px;
+ 	margin-top:-60px;
  }
  .carousel-wrap{
  	margin-top:0;
@@ -266,6 +266,9 @@ li.product-item.odd.last{
 
 .block-compare .actions-toolbar{
 	margin-top:20px;
+}
+.block-compare .product-item .product-item-name{
+	margin-left:30px;
 }
 span.counter.qty{
 	font-size:1.6rem;
@@ -441,7 +444,7 @@ button{
 	background:#ffffff;
 	padding: 0 20px;
 	height: 45px;
-	width:50%;
+	border-radius:30px;
 	font-size:1.6rem;
 	font-weight: 700;
 	border-radius:0;
@@ -474,6 +477,19 @@ button{
 		.actions-secondary{
 			a.action.towishlist{
 					background:url(../images/compare-wishlist.svg);
+					background-position:-32px -2px;
+					float:right;
+						&:before{
+							content:"";
+						}
+						&:hover{
+							background:url(../images/compare-wishlist.svg);
+							background-position:-32px -32px;
+
+						}
+						}
+			a.action.tocompare{
+					background:url(../images/compare-wishlist.svg);
 					background-position:-3px -2px;
 						&:before{
 							content:"";
@@ -481,18 +497,6 @@ button{
 						&:hover{
 							background:url(../images/compare-wishlist.svg);
 							background-position:-3px -32px;
-
-						}
-						}
-			a.action.tocompare{
-					background:url(../images/compare-wishlist.svg);
-					background-position:-32px -3px;
-						&:before{
-							content:"";
-						}
-						&:hover{
-							background:url(../images/compare-wishlist.svg);
-							background-position:-32px -32px;
 
 						}
 			}
@@ -768,7 +772,7 @@ dd {
 		display: inline-block;
 		vertical-align: middle;
 		margin: 0;
-		line-height: 1;
+		line-height: 0;
 	}
 	.h-logo{
 		text-align: center;
@@ -966,6 +970,7 @@ select:not([disabled]):focus{
 	height: 30px;
     border-radius:30px;
     background:url(../images/drop-arrow.svg) no-repeat 85% 50%;
+    min-width:160px;
     cursor:pointer;
     appearance:none;
 }
@@ -1503,6 +1508,49 @@ label.sorter-label{
 			}
 		}
 	} 
+// New Customer registration 
+
+.newUserRegistration{
+		.fieldset{
+		border-bottom:solid 1px rgba(0, 0, 0, 12%);
+		padding-bottom:20px;
+		margin-bottom:0;
+		}
+		.fieldset >{
+			.field.password.required{
+				.control{
+					select.region_id{
+						color:@general_text_light_color;
+					}
+					.password-strength-meter{
+						background:none;
+						color:@general_text_light_color;
+						font-size:1.4rem;
+						padding:0;
+					}
+				}
+			}
+			.field{
+				margin:0;
+			}
+			.legend{
+				font-size:1.8rem;
+				color:@general_link_hover_color_cyan;
+				font-family:@headingfont;
+				margin-bottom:20px;
+				margin-top:20px;
+			}
+			.field:not(.choice) >label, .field:not(.choice) >.control{
+			width:100%;
+			text-align:left;
+			font-weight:normal;
+			margin-bottom:10px;
+		}
+		}
+}
+	
+
+
 //load more button
 	.button.action.primary.mst-Scroll__button{
 		background-color:@general_link_hover_color_cyan;
@@ -1522,15 +1570,18 @@ label.sorter-label{
 		}
 	}
 // forgot password page CSS
-.customer-account-forgotpassword .page-title-wrapper{
+.customer-account-forgotpassword .page-title-wrapper, .customer-account-create .page-title-wrapper,{
 	display:none;
 }
 .form#form-validate{
-	margin-bottom:30px;
+	
+}
+form.password-forget > {
+margin-bottom:30px;
 	.fieldset{
 		margin-top:30px;
 		margin-bottom:10px;
-			.control{
+			.field:not(.choice) >label, .field:not(.choice) >.control{
 				margin-bottom:30px;
 			}
 			.note{
@@ -1538,12 +1589,10 @@ label.sorter-label{
 				color:@general_text_light_color;
 			}
 	}
-}
-form.password-forgot > {
 	.actions-toolbar{
 		.primary{
 			button{
-				background:#000000;
+				background:@general_link_hover_color;
 			}
 		}
 	}
@@ -2009,7 +2058,7 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
  			justify-content:center;
  			width: 100%;
  			height:220px;
- 			padding:10px;
+ 			padding-bottom:10px;
 
  			img{
  				width:auto;
@@ -2040,7 +2089,7 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination{
  		border-top-left-radius:0;
  		border-bottom-left-radius:0;
  		appearance:inherit;
- 		background:url(../images/select-dropDown.svg) no-repeat 85% 50%;
+ 		background:url(../images/selectDropdown.svg) no-repeat 90% 50%;
 		}	
  }
  }
@@ -2955,7 +3004,13 @@ body{
 
 
 // product-item-name
-.product-item-name,.product.name a{
+
+.product-item-name > a:hover, .product.name a > a:hover{
+	color: @general_link_hover_color;
+	text-decoration:none;
+}
+
+.PlpItemName{
 	color: @general_product_name_color;
 	margin: 0 0 20px 0;
 	font-family:'wuerthbold';
@@ -2965,6 +3020,7 @@ body{
 		text-decoration:none;
 	}
 }
+
 // checkout page by amit star here
 .opc-wrapper.chkoutpage {
 	background: rgba(255, 255, 255, 0.5);
@@ -3018,6 +3074,7 @@ body{
 
 
 // checkout page by amit end here
+
 
 	// Best Seller Section
 
@@ -3075,9 +3132,7 @@ body{
 }
 .sidebar-additional{
 	.block{
-		margin: 0 0 40px 0;
-		border-bottom: 1px solid #ededed;
-		padding-bottom: 40px;
+		margin: 0 0 30px 0;
 		overflow: hidden;
 		&:last-child{
 			border: 0;
@@ -5126,7 +5181,6 @@ ProductListingwrapper{
 		margin-bottom:30px;
 			.product-item-details{
 				a.product-item-link{
-					min-height:unset;
 				}
 				.product-item-inner{
 					.product-actions{
@@ -5274,6 +5328,11 @@ div#store\.menu {
 
 	li.item.product.product-item.cat-item{
 		width:33.33%;
+	}
+
+	.product-item-details a.product-item-link{
+		min-height:69px;
+		display:block;
 	}
 	
 }
@@ -5441,6 +5500,10 @@ div#store\.menu {
 		width: 35%;
 		padding-left:15px;
 	}
+	.page-layout-2columns-left .sidebar-additional{
+		width: 35%;
+	}
+
 	}
 
 
@@ -5704,6 +5767,12 @@ div#store\.menu {
 	.products{
 		margin-bottom:0;
 	}
+	button.action.primary.mst-scroll__button{
+		margin-bottom:30px;
+	}
+	a.action.compare.primary{
+		min-width:inherit;
+		}
 	}
 
 
@@ -6107,6 +6176,10 @@ div#store\.menu {
 			padding-right:15px;
 		}
 
+		.page-layout-2columns-left .sidebar-additional{
+			width: 100%;
+		}
+
 		.padding0-480{
 			padding-left:0;
 			padding-right:0;
@@ -6119,6 +6192,12 @@ div#store\.menu {
 		.product-item-inner{
 		 	margin:0;
 		 }
+		 .logBannerContainer{
+		.firstLoginBanner{
+			margin-top:0;
+			line-height:0;
+			}
+		}
 		 .PlpName{
 			min-height:inherit;
 		}
@@ -6133,4 +6212,5 @@ div#store\.menu {
 			padding-top:20px;
 		}
 }
+
 
