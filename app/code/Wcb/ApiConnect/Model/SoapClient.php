@@ -53,7 +53,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         return $this->setData(self::CONTENT, $content);
     }
 
-    public function GetItemAvailabilityOnLocation($itemNo=null){
+    public function GetItemEShopSalesPriceAndDisc($itemNo=null){
         $soapUrl = "http://172.30.54.201:7047/WurthHRV_Test/WS/WURTH_HRVATSKA%20Test/Codeunit/ShopSync?wsdl";
 
         $soapUser = "WHRINDIA";  //  username
@@ -119,9 +119,71 @@ class SoapClient extends AbstractModel implements SoapClientInterface
 
         // converting
         $response = curl_exec($ch);
-
-        print_r($response);
+        return $response;
+        //print_r($response);
 
     }
+
+    public function GetItemAvailabilityOnLocation($itemNo=null ){
+
+        $soapUrl = "http://172.30.54.201:7047/WurthHRV_Test/WS/WURTH_HRVATSKA%20Test/Codeunit/ShopSync?wsdl";
+
+        $soapUser = "WHRINDIA";  //  username
+
+        $soapPassword = "cUE48c0X"; // password
+
+        // xml post structure
+        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">
+        <soapenv:Header/>
+        <soapenv:Body>
+           <shop:GetItemAvailabilityOnLocation>
+              <shop:itemNoP>'.$itemNo.'</shop:itemNoP>
+              <shop:locationCodeP>100</shop:locationCodeP>
+              <shop:availableQtyAsTxtP>10</shop:availableQtyAsTxtP>
+              <shop:itemDefaultVendorNoP>800001</shop:itemDefaultVendorNoP>
+           </shop:GetItemAvailabilityOnLocation>
+        </soapenv:Body>
+     </soapenv:Envelope>';   // data from the form, e.g. some ID number
+
+        $headers = array(
+            "Content-type: text/xml;charset=\"utf-8\"",
+            "Accept: text/xml",
+            "Cache-Control: no-cache",
+            "Pragma: no-cache",
+            "SOAPAction: urn:microsoft-dynamics-schemas/codeunit/ShopSync:GetItemAvailabilityOnLocation",
+            "Content-length: ".strlen($xml_post_string),
+        ); //SOAPAction: your op URL
+
+        $url = $soapUrl;
+
+        // PHP cURL  for https connection with auth
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_USERPWD, $soapUser.":".$soapPassword); // username and password - declared at the top of the doc
+
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+        curl_setopt($ch, CURLOPT_POST, true);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string); // the SOAP request
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // converting
+        $response = curl_exec($ch);
+        return $response;
+       
+
+    }
+
+
 }
 
