@@ -2765,11 +2765,16 @@ body{
 					font-size: 1.2rem;
 					&:after{
 						font-size: 1.4rem; 
+						background: #DEDEDE;
+						border-radius: 0px 5px 5px 0px;
 					}
 				}
 				&._active{
 					> span:after{
 						font-size: 1.8rem; 
+							height: 4px;
+							background: #CC0000;
+							border-radius: 5px 0px 0px 5px;
 					}	
 				}
 			}
@@ -2780,6 +2785,7 @@ body{
 			}
 			
 		}
+		
 		.opc-sidebar{
 			.modal-header{padding: 0;min-height: auto;border: none;}
 			.modal-content{
@@ -2824,6 +2830,10 @@ body{
 		}
 
 	}
+
+
+// Checkout page End by amit
+
 	// View Cart
 	.cart-container{
 		.cart-summary{
@@ -3010,6 +3020,61 @@ body{
 		text-decoration:none;
 	}
 }
+
+// checkout page by amit star here
+.opc-wrapper.chkoutpage {
+	background: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	box-sizing: border-box;
+	.control {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+		margin-left: 20px;
+	}
+	strong.addtit {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 160%;
+		display: flex;
+		align-items: center;
+		color: #000000;
+	}
+	.addtit {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 160%;
+		display: flex;
+		align-items: center;
+		color: #000000;
+		margin-top: 30px;
+	}
+	.colname {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 160%;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	.coldet {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 160%;
+		color: rgba(0, 0, 0, 0.87);
+	}
+	.addCont {
+		margin: 0 0 0 -8px;
+	}
+}
+
+
+// checkout page by amit end here
+
 
 	// Best Seller Section
 
@@ -3276,10 +3341,40 @@ body{
 	color: #444;
 	height:26px;
 }
-// minicart popup 
+// minicart popup by amit
+button#btn-minicart-close {
+	display: none;
+}
+.row.viewrow {
+    padding: 10px 0px 0px 0px !important;
+}
+div#minicart-content-wrapper {
+    margin: -25px 0px 0px 0px;
+}
+.block-minicart .items-total {   
+    font-family: 'wuerthbook';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 160%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.87);
+	padding-top: 20px;
+}
+span.label.minsubbut {
+    font-family: 'wuerthbook';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 160%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.87);
+}
 .minicart-items-wrapper{
 	max-height: 300px;
 	border-top: none;
+	padding:0;
+	
 	.item.product.product-item {
 	    width: 100%;
 		margin-left: 0;
@@ -3297,6 +3392,7 @@ body{
 	}
 	li.item.product.product-item {
 		margin:0;
+		padding-top:20px;
 	}
 	.minicart-items .product-item-name a {
 		color: rgba(0, 0, 0, 0.87);
@@ -3315,7 +3411,7 @@ body{
 	
 	.details-qty.qty {
     position: inherit;   
-    width: 80%;
+    width: 74%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3338,8 +3434,13 @@ body{
     justify-content: center;
     align-items: center;
     margin-left: 10px;
+}	
 }
-	
+.subtotal.mincartsub {
+    position: absolute;
+    margin: 0 0 0 195px;
+    display: flex;
+	padding-top:20px;
 }
 .viewcartbut {
 	background: #434853;
@@ -3356,6 +3457,11 @@ body{
     font-weight: 700;
     display: inline-block;
 }
+.viewcartbut:hover {
+	background: #393d45;
+    color: #fff !important;
+	opacity:1;
+}
 button#top-cart-btn-checkout {
     background: #cc0000;
     font-family: 'wuerthbold';
@@ -3371,14 +3477,269 @@ button#top-cart-btn-checkout {
     font-weight: 700;
     display: inline-block;
 }
+button#top-cart-btn-checkout:hover {
+    background: #e60505;
+    color: #fff;
+	opacity:1;
+    
+}
 .mincartsub .price-wrapper
 	{
 		color: #cc0000;
 		font-family: 'wuerthbold';
 		font-size:1.6rem;
 		font-weight:700;
-		line-height: 160%;	
+		line-height: 160%;
+		margin-left:5px;	
 	}
+// Cart Page by amit
+.cart-summary._sticky {
+    position: unset;
+    width: 645px;
+    background: #ECECEC;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+.cpupfile {
+    font-family: 'wuerthbook';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 160%;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0 0 11px 6px;
+}
+.cartPageForm{
+	border: solid 1px rgba(0, 0, 0, 8%);
+	line-height: 42px;
+	padding:0 0 7px 8px;
+	margin:0 0 12px 0;
+	.cartitem{
+	font-family: 'wuerthbook';
+    color: #cc0000;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 160%;
+	}
+	.cartAmount{
+	font-family: 'wuerthbook';
+    color: #000000;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 160%;
+	}
+	.itemAdd{
+		background: #cc0000;
+		font-family: 'wuerthbold';
+		color: #fff;
+		border: 0;
+		border-radius: 50px;
+		font-size: 1.6rem;
+		line-height: 22px;
+		width:160px;
+		height: 35px;
+		margin-top: 45px;
+	}	
+}
+
+.chkcart{
+	width:100% !important;
+	th.col{
+		width:auto !important;
+	}
+	.cartTable{
+		border:1px solid rgba(0, 0 , 0, 8%);
+	}
+	td.totItem{
+		border:1px solid rgba(0, 0 , 0, 8%);
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size:18px;
+		line-height:160%;
+	}
+	tr.itemFirst {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 24px;
+		background: rgba(239, 236, 236, 0.8);
+	}
+	.product-image-wrapper {
+		width: 100px;
+		height: 100px;
+	}
+	.item-no {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: #000000;
+	}
+	.product-item-name > a {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	.colitemphto {
+		width:296px;
+	}
+	.product-image-container {
+		width: 125px !important;
+	}
+	.colitem {
+		display: flex;
+		width:300px;
+	}
+	.dIcon {
+		position: absolute;
+		width: 35px;
+		height: 35px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box; 
+		border-radius: 50px;
+		padding: 7px 4px 7px 9px;
+	}
+	.qty-field-wrapper {
+		position: inherit;
+		border: solid 1px rgba(0, 0, 0, 0.08);
+		border-radius:4px;
+		width: 103px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.cpCount {
+		width: 95px;
+		height: 35px;
+		left: 566px;
+		top: 675px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box;
+		border-radius: 4px;
+		margin-left: 10px;
+	}
+	.productFieldset {
+		display: flex;
+		width: 300px;
+	}
+	input, select, textarea{
+		border:none; 
+	}
+	.imd-avilable {
+		width: 273px;
+		margin-top: 10px;
+	}
+	.imd-avlb {
+		width: 256px;
+		font-family:'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 120%;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	.imd-van{
+		margin-right:5px;
+	}
+	.imd-cart{
+		margin-right:5px;
+	}
+	.imd-day{
+		margin-right:5px;
+	}
+	.colsubtotal{
+		width:143px;
+	}
+	.cpdis{
+		display:flex;
+	}
+	.cpcross{
+		text-decoration: line-through;
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	.cpgprice {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: #CC0000;
+	}
+	.carmrp {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	
+} // cart page end
+
+// summery cart start on cart page by amit
+.controlWrapper {
+    display: flex;
+	input#coupon_code {
+		width: 300px;
+		height: 45px;
+		right: 325px;
+		top: 87px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		box-sizing: border-box;
+		border-radius: 4px;
+	}
+	button.butApply {
+		width: 86px;
+		background: #CC0000;
+		border-radius: 4px;
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 21px;
+		align-items: center;
+		color: #FFFFFF;
+		margin-left: 10px;
+	}
+}
+// End summery cart start on cart page by amit
+
+
+
+
+form#form-validate {
+    width: 100%;
+}
+
 .cms-index-index .page.messages{
 	margin: auto;
 	position: absolute;
@@ -5681,6 +6042,7 @@ div#store\.menu {
 @media only screen and (max-width: 574px){
 	.banner-item-banner4, .banner-item-banner5, .banner-item-banner6{
 		margin-bottom:30px;
+		
 	}
 // Best Seller Section
 	.bestSellerWrap{
@@ -5842,6 +6204,13 @@ div#store\.menu {
 		.productFieldset{
  			}
 
+
+			 //for minicart amit
+		.subtotal.mincartsub {
+			margin: 0 0 0 111px;
+			display: flex;
+			padding-top:20px;
+		}
 }
 
 

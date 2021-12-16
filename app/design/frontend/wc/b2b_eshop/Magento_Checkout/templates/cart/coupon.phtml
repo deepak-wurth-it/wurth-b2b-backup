@@ -1,0 +1,63 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Magento\Framework\View\Element\AbstractBlock $block
+ */
+
+// We should use strlen function because coupon code could be "0", converted to bool will lead to false
+$hasCouponCode = (bool) strlen($block->getCouponCode());
+?>
+<div class="block discount">
+    
+        <form id="discount-coupon-form"
+              action="<?= $block->escapeUrl($block->getUrl('checkout/cart/couponPost')) ?>"
+              method="post"
+              data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
+                                               "removeCouponSelector": "#remove-coupon",
+                                               "applyButton": "button.action.apply",
+                                               "cancelButton": "button.action.cancel"}}'>
+            <div class="fieldset coupon<?= $hasCouponCode ? ' applied' : '' ?>">
+                <input type="hidden" name="remove" id="remove-coupon" value="0" />
+                <div class="field">
+                    <label for="coupon_code" class="label"><span><?= $block->escapeHtml(__('Enter the discount code')) ?></span></label>
+                    <div class="controlWrapper">
+                        <input type="text"
+                               class="input-text"
+                               id="coupon_code"
+                               name="coupon_code"
+                               value="<?= $block->escapeHtmlAttr($block->getCouponCode()) ?>"
+                               placeholder="<?= $block->escapeHtmlAttr(__('Enter the discount code')) ?>"
+                                <?php if ($hasCouponCode) :?>
+                                   disabled="disabled"
+                                <?php endif; ?>
+                        />
+                    
+
+                    <div class="butWrapper">
+                    <?php if (!$hasCouponCode) :?>
+                    <div class="butCont">
+                        <button class="butApply" type="button" value="<?= $block->escapeHtmlAttr(__('Apply Discount')) ?>">
+                            <span><?= $block->escapeHtml(__('Apply')) ?></span>
+                        </button>
+                    </div>
+                    <?php else :?>
+                        <div class="primary">
+                            <button  type="button" class="action cancel primary" value="<?= $block->escapeHtmlAttr(__('Cancel Coupon')) ?>"><span><?= $block->escapeHtml(__('Cancel')) ?></span></button>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                </div>
+                </div>
+                
+            </div>
+            <?php if (!$hasCouponCode) : ?>
+                <?= /* @noEscape */ $block->getChildHtml('captcha') ?>
+            <?php endif; ?>
+        </form>
+    </div>
+
