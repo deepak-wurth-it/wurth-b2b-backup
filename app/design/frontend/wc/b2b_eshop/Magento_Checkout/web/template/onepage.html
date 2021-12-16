@@ -1,0 +1,70 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko foreach: getRegion('authentication') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('progressBar') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('estimation') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('messages') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div class="opc-wrapper chkoutpage">
+    <div class="control">
+       <div class="company-address">
+          <div class="addtit">Company address</div>
+          <div class="addCont"> 
+              <table>
+                <tr>
+                    <td class="colname">Name</td>
+                    <td class="coldet">Kristian Koeing</td>
+                </tr>
+                <tr>
+                    <td class="colname">Address</td>
+                      <td class="coldet">Ante Kovica 23</td>
+                </tr>
+                <tr>
+                    <td class="colname">City</td>
+                    <td class="coldet">10299/ Haristina bradoverd</td>
+                </tr>
+              </table>
+            
+          </div>
+       </div>
+    </div>
+    <div class="control">
+       <div class="company-address">
+          <div class="addtit">Delivery Details</div>
+          <div class="addBox"> 
+             <input type="checkbox" id="delivery" name="delivery" value="Delivery">  <span class="coldet">Delivery complite order</span>		
+          </div>
+       </div>
+    </div>
+
+    <ol class="opc" id="checkoutSteps">
+    <!-- ko foreach: getRegion('steps') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+    </ol>
+</div>
+
+<!-- ko foreach: getRegion('sidebar') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<script type="text/javascript">
+    require(["jquery"], function ($) {
+        var listss = jQuery('.opc-progress-bar li');
+listss.filter(':nth-child(2)').insertBefore(listss.filter(':nth-child(1)'));
+    });
+</script>
+
