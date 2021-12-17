@@ -46,8 +46,7 @@ script;
     <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
 </div>
 <script type="text/javascript">
-    require(["jquery"], function ($) {
-        var listss = jQuery('.opc-progress-bar li');
-listss.filter(':nth-child(2)').insertBefore(listss.filter(':nth-child(1)'));
+    require(['jquery', 'checkoutjs'], function($, hello) {
+        hello();
     });
 </script>
