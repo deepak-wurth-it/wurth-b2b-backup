@@ -3064,6 +3064,19 @@ body{
 	background: rgba(255, 255, 255, 0.5);
 	border: 1px solid rgba(0, 0, 0, 0.08);
 	box-sizing: border-box;
+	item._active::before {
+		height: 4px;
+		background: #CC0000;
+		border-radius: 5px 0px 0px 5px;
+	}
+	item::before {
+		height: 4px;
+		background: #DEDEDE;
+		border-radius: 0px 5px 5px 0px;
+	}
+	.opc-progress-bar-item._active > span:before {
+		background: #CC0000;
+	}
 	.control-add {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 		margin-left: 20px;

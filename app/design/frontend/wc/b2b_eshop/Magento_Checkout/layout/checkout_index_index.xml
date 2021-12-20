@@ -445,16 +445,18 @@
             </block>
         </referenceContainer>
         <referenceContainer name="page.messages" remove="true"/>
-        <referenceContainer name="top.links" remove="true"/>
+      <!--<referenceContainer name="top.links" remove="true"/>-->
         <referenceContainer name="top.search" remove="true"/>
-        <referenceContainer name="catalog.topnav" remove="true"/>
+        <!--<referenceContainer name="catalog.topnav" remove="true"/>-->
        
-    <move element="catalog.topnav" destination="header-wrapper" after="top.search"/>
-    <referenceContainer name="page.wrapper">
-        <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header container" before="main.content">
-        </container>
-        <container name="page.top" as="page_top" label="After Page Header" after="header.container" />
+    <!--<move element="catalog.topnav" destination="header-wrapper" after="top.search"/> -->
+    
+      <!--  <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header container" before="main.content">
+        </container>-->
+       <!-- <container name="page.top" as="page_top" label="After Page Header" after="header.container" />-->
+       
+  <!--<referenceContainer name="page.wrapper">
         <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="page-footer"/>
-    </referenceContainer>
+    </referenceContainer> -->
     </body>
 </page>
