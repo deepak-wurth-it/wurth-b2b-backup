@@ -20,7 +20,7 @@
     <!-- ko template: getTemplate() --><!-- /ko -->
 <!--/ko-->
 <div class="opc-wrapper chkoutpage">
-    <div class="control">
+    <div class="control-add">
        <div class="company-address">
           <div class="addtit">Company address</div>
           <div class="addCont"> 
@@ -42,7 +42,7 @@
           </div>
        </div>
     </div>
-    <div class="control">
+    <div class="control-add">
        <div class="company-address">
           <div class="addtit">Delivery Details</div>
           <div class="addBox"> 
@@ -61,10 +61,5 @@
 <!-- ko foreach: getRegion('sidebar') -->
     <!-- ko template: getTemplate() --><!-- /ko -->
 <!--/ko-->
-<script type="text/javascript">
-    require(["jquery"], function ($) {
-        var listss = jQuery('.opc-progress-bar li');
-listss.filter(':nth-child(2)').insertBefore(listss.filter(':nth-child(1)'));
-    });
-</script>
+
 
