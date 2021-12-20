@@ -16,7 +16,7 @@
         <div class="container">
   <div class="row">
     <div class="col-sm">
-<a href="<?= $block->escapeUrl($block->getCreateAccountUrl()) ?>" class="action create">
+     <a href="<?= $block->escapeUrl($block->getUrl('excustomer/account/create')) ?>" class="action create">
      <img src="<?php echo $this->getViewFileUrl('Magento_Customer::images/user-reg.png'); ?>" class="img-rounded" alt="Registration">     
       <p class="reg-text-blue"><?php echo __("Yes, I did (register)"); ?></p>
 </a> 
