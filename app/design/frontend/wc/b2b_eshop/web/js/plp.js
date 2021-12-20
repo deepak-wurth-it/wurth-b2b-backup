@@ -4,15 +4,18 @@ define([
 ], 
 function($,urlBuilder) {
   "use strict";
-
-  console.log('Hola');
-  var updateUrl = urlBuilder.build('/wcbcatalog/ajax/singalproductprice');
+  return function(config) {
+  console.log(config);
+  var singalproductpriceUrl = urlBuilder.build('/wcbcatalog/ajax/singalproductprice');
+  var getmultiproductstock = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
 
   $.ajax({
+               
                 type: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                url: updateUrl,
+                url: singalproductpriceUrl,
+                data: {skus:config.listPids},
+                cache: false,
+                async: false,
                 success: function(result)
                 {    $('#price-container #price').html(result);
                     if (result) {
@@ -34,5 +37,37 @@ function($,urlBuilder) {
                     }
                 }
             });
+            
+            
+            $.ajax({
+                type: "POST",
+                url: getmultiproductstock,
+                data: {skus:config.listPids},
+                cache: false,
+                async: false,
+                success: function(result)
+                {    $('#price-container #price').html(result);
+                    if (result) {
+                       
+                        //var xmlDoc = $.parseXML(result);
+                        //console.log(xmlDoc);
+                        //$('#price-container #price').html(xmlDoc);
+
+                        // $('#customer-info').html(result);
+                        // $('#customer-info').next('.authorization-link').hide();
+
+                        // $('.customer-menu .authorization-link').html('');
+                        // $('.customer-menu .authorization-link').append(signOutLink);
+                        // window.isLoggedIn = true;
+                    } else {
+                        // $('#customer-info').next('.authorization-link').show();
+                        // $('.authorization-link').html('');
+
+                        // $('.authorization-link').append(registerLink);
+                        // window.isLoggedIn = false;
+                    }
+                }
+            });
+        };
 
 });

@@ -3,7 +3,7 @@
  * See COPYING.txt for license details.
  */
 namespace Wcb\Catalog\Controller\Ajax;
-class SingalProductPrice extends \Magento\Framework\App\Action\Action
+class SingalProductStock extends \Magento\Framework\App\Action\Action
 {
 	protected $_pageFactory;
 	protected $resultJsonFactory;
@@ -23,23 +23,24 @@ class SingalProductPrice extends \Magento\Framework\App\Action\Action
 	public function execute()
 	{
 		 /** @var \Magento\Framework\Controller\Result\Json $result */
-		 $result = $this->resultJsonFactory->create(); 
-		 //$sku = $this->getRequest()->getPost('sku'); 
-		// print_r($_POST);
-
-		 ///return var_dump($this->getRequest()->getParams());
-
-		 $xmlPrice = $this->getSinglePrice();
-		 $xmlPrice = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlPrice);
-         $data = simplexml_load_string($xmlPrice);
+		 $result = $this->resultJsonFactory->create();
+		
+		 //$sku = $this->getRequest()->getPost('sku');
+		 $xmlStock = $this->getSingleStock();
+		 
+		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
+         $data = simplexml_load_string($xmlStock);
 		 //echo $data;
 		 $result->setData(array('success'=>$data));
          return $result;
+
+
+
 	}
 
-	public function getSinglePrice($sku='001 512'){
-		echo $sku;
-		return $this->_soapApiClient->GetItemEShopSalesPriceAndDisc($sku);
+	public function getSingleStock($sku='899 102310'){
+		
+		return $this->_soapApiClient->GetItemAvailabilityOnLocation($sku);
 
 	}
 }
