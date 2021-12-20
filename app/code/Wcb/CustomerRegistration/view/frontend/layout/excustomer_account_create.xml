@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */<block class="Magento\Company\Block\Company\Account\Create" name="company_account_create"
+					ifconfig="btob/website_configuration/company_active"
+					template="Wcb_CustomerRegistration::company/account/create.phtml">
+			</block>
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <update handle="customer_form_template_handle"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   ifconfig="company/general/allow_company_registration"
+                   template="Magento_Theme::template.phtml"
+                   name="company.account.create.wrapper">
+                <block class="Magento\Company\Block\Company\Account\Create" name="company_account_create"
+                       ifconfig="btob/website_configuration/company_active"
+                       template="Wcb_CustomerRegistration::customer/form/existing-user-register.phtml">
+                    <block class="Magento\CustomerCustomAttributes\Block\Form" template="Magento_CustomerCustomAttributes::form/userattributes.phtml" name="customer_form_user_attributes">
+                        <action method="setFormCode">
+                            <argument name="code" xsi:type="string">customer_account_create</argument>
+                        </action>
+                        <action method="setEntityModelClass">
+                            <argument name="code" xsi:type="string">Magento\Customer\Model\Customer</argument>
+                        </action>
+                    </block>
+                    <container name="form.additional.info">
+                        <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+                            <action method="setFormId">
+                                <argument name="formId" xsi:type="string">company_create</argument>
+                            </action>
+                            <action method="setImgWidth">
+                                <argument name="width" xsi:type="string">230</argument>
+                            </action>
+                            <action method="setImgHeight">
+                                <argument name="width" xsi:type="string">50</argument>
+                            </action>
+                        </block>
+                    </container>
+                </block>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+        </referenceBlock>
+    </body>
+</page>
