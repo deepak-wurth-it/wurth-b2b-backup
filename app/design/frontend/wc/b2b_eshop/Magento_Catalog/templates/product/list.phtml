@@ -37,13 +37,14 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <!-- For Product -->
 <?php
 $viewMode = 'grid';
+$pid= [];
 $imageDisplayArea = 'category_page_grid';
 $showDescription = false;
 $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
 $pos = $block->getPositioned();
 $product=false;
 ?>
-<div data-mage-init='{"plp":{}}' ></div>
+<!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
 <?php if( $level != 5 ) { ?>
     <?= $block->getToolbarHtml() ?>
@@ -106,6 +107,9 @@ $product=false;
                             <div class="product-item-info"
                                  id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
                                  data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                                <?php $pid[ $_product->getSku()][] = '"'.$_product->getSku().'"'; ?> 
+                                <?php $pid[ $_product->getSku()][] = '"1"'; ?> 
+
                                 <?php
                                 $productImage = $block->getImage($_product, $imageDisplayArea);
                                 if ($pos != null) {
@@ -230,9 +234,22 @@ $product=false;
            "catalogAddToCart": {
                "product_sku": "<?= $escaper->escapeJs($_product->getSku()) ?>"
            }
+           
        }
    }
 </script>
+<?php $pid_json = json_encode($pid) ?>
+<?php echo $pid_json ?>
+<script type="text/x-magento-init">
+    
+        {
+            "body" : {
+                    "plp": {
+                            "listPids": <?php echo $pid_json ?>
+                    }
+            }
+        }
+    </script>
     <?php endif; ?>
     <script type="text/javascript">
         require([
