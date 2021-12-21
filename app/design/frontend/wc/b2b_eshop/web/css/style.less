@@ -3064,9 +3064,25 @@ body{
 	background: rgba(255, 255, 255, 0.5);
 	border: 1px solid rgba(0, 0, 0, 0.08);
 	box-sizing: border-box;
-	.control {
+	item._active::before {
+		height: 4px;
+		background: #CC0000;
+		border-radius: 5px 0px 0px 5px;
+	}
+	item::before {
+		height: 4px;
+		background: #DEDEDE;
+		border-radius: 0px 5px 5px 0px;
+	}
+	.opc-progress-bar-item._active > span:before {
+		background: #CC0000;
+	}
+	.control-add {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 		margin-left: 20px;
+	}
+	.control {
+		border-bottom: none;
 	}
 	strong.addtit {
 		font-family: 'wuerthbook';
@@ -3084,10 +3100,16 @@ body{
 		font-weight: bold;
 		font-size: 18px;
 		line-height: 160%;
-		display: flex;
-		align-items: center;
 		color: #000000;
 		margin-top: 30px;
+	}
+	.othtit {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0, 0, 0, 0.87);
+		margin: 0px 0px 9px 0px;
 	}
 	.colname {
 		font-family: 'wuerthbook';
@@ -3096,6 +3118,7 @@ body{
 		font-size: 16px;
 		line-height: 160%;
 		color: rgba(0, 0, 0, 0.6);
+		width:36%;
 	}
 	.coldet {
 		font-family: 'wuerthbook';
@@ -3107,6 +3130,99 @@ body{
 	}
 	.addCont {
 		margin: 0 0 0 -8px;
+	}
+	.addBox {
+		margin: 20px 0 20px 0px;
+	}
+	.step-title {
+		border: none !important;
+    font-family: 'wuerthbold';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px !important;
+    line-height: 160%;
+    color: rgba(0, 0, 0, 0.87);
+	}
+	button.action.action-show-popup {		
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box;
+		border-radius: 50px;
+		font-size: 16px;
+		line-height: 160%;
+		color: rgba(0, 0, 0, 0.87);
+	}
+	button.sendOrder {				
+		background: #0093DD;
+		border-radius: 50px;
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 160%;
+		align-items: center;
+		color: #FFFFFF;
+		width: 160px;
+		float:right;
+	}
+	.new-address-popup {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+		width: 100%;
+	}
+	button.action.action-show-popup {
+		float: right;
+	}
+	.shipping-address-item > a {
+		color:#0093DD;
+	}
+	.shipping-address-item.selected-item {
+		border-color: #CC0000;
+	}
+	.shipping-address-item.selected-item:after {
+		background: #BAC405 !important;
+	}
+	.del-message {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 160%;
+		color: #0093DD;
+		margin-bottom: 20px;
+	}
+	button.action.action-select-shipping-item {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 160%;
+		color: #0093DD;
+		display: contents;
+	}
+	button.action.action-select-shipping-item:before {
+		content: '\e610';
+		font-family: 'icons-blank-theme';
+	}
+	.new-address-popup {
+		float: right;
+	}
+	.edit-address-link {
+		display: block;
+		float: left;
+		margin: -8px 42px 0px 0px;
+	}
+	.maxdis {
+		font-family: Wuerth;
+		font-style: normal;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 160%;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
 	}
 }
 

@@ -4,17 +4,18 @@ define([
 ], 
 function($,urlBuilder) {
   "use strict";
-
-  console.log('Hola');
+  return function(config) {
+  console.log(config);
   var singalproductpriceUrl = urlBuilder.build('/wcbcatalog/ajax/singalproductprice');
-  var singalproductstockUrl = urlBuilder.build('/wcbcatalog/ajax/singalproductstock');
+  var getmultiproductstock = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
 
   $.ajax({
+               
                 type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
                 url: singalproductpriceUrl,
-                data:{'sku': "001 512"},
+                data: {skus:config.listPids},
+                cache: false,
+                async: false,
                 success: function(result)
                 {    $('#price-container #price').html(result);
                     if (result) {
@@ -40,10 +41,10 @@ function($,urlBuilder) {
             
             $.ajax({
                 type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data:{'sku': "899 102310"},
-                url: singalproductstockUrl,
+                url: getmultiproductstock,
+                data: {skus:config.listPids},
+                cache: false,
+                async: false,
                 success: function(result)
                 {    $('#price-container #price').html(result);
                     if (result) {
@@ -67,5 +68,6 @@ function($,urlBuilder) {
                     }
                 }
             });
+        };
 
 });

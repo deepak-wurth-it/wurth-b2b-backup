@@ -1,0 +1,91 @@
+<?php
+
+use Wcb\BestSeller\Block\AbstractSlider;
+use Magento\Framework\App\Action\Action;
+
+/** @var AbstractSlider $block */
+$helper = $this->helper(\Wcb\BestSeller\Helper\Data::class);
+$mode = 'grid';
+$type = 'widget-product-grid';
+$title = $block->getTitle();
+$blockId = $block->getSliderId() . uniqid('-', false);
+$items = $block->getProductCollection();
+$offer = $block->getOffer();
+?>
+<div class="recommandedProWrap container-inner">
+<h2><?php echo __("Recommanded products"); ?></h2>
+<?php
+if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
+    <div class="block-content mp-product-slider-content">
+        <div class="reCommanded products-<?php echo /** @noEscape */  $mode ?> <?php echo /** @noEscape */  $mode ?>">
+            <ol class="product-items widget-viewed-grid">
+                <?php $iterator = 1; ?>
+                <div id="mp-list-items-<?php echo /** @noEscape */ $blockId ?>" class="owl-carouselrp owl-theme">
+                    <?php foreach ($items as $_item): ?>
+                        <?php echo ($iterator++ == 1) ? '<div class="item">' : '</div><div class="item">' ?>
+                        <div class="slider-product-item-info">
+                            <a href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                               class="product photo slider-product-item-photo">
+                                <?php echo $block->getImage($_item, 'recently_viewed_products_grid_content_widget')->toHtml(); ?>
+                            </a>
+                            <div class="brArt">Br.art. : 701 101002</div>
+                            <div class="product details slider-product-item-details">
+                                <strong class="product name product-item-name">
+                                    <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>">
+                                        <?php echo $block->escapeHtml($_item->getName()) ?>
+                                    </a>
+                                </strong>  
+                                <?php echo /** @noEscape */ $block->getProductDetailsHtml($_item) ?>                                                    
+                              
+                            </div>
+                            
+                            <div class="priceOnline"> Cijena za online kupovinu</div> 
+                        </div>
+                        <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>
+                    <?php endforeach ?>
+                </div>
+            </ol>
+        </div>
+        <script type="text/javascript">
+          /**
+ * Created By : Rohan Hapani
+ */
+require(['jquery', 'owlcarousel'], function($) {
+    $(document).ready(function() {
+        $('.owl-carouselrp').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            navText: [
+                "<i class='fa fa-caret-left'></i>",
+                "<i class='fa fa-caret-right'></i>"
+            ],
+            autoplay: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                  items: 1
+                },
+                600: {
+                  items: 3
+                },
+                1000: {
+                  items: 4
+                }
+            }
+        });
+    });
+});
+        </script>
+        <?php echo $block->getPagerHtml() ?>
+    </div>
+    <script>
+        require(['jquery', 'owlcarousel'], function ($) {
+            $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
+            $(".custom-bpslider").insertBefore(".page-footer");
+        });
+    </script>
+<?php endif; ?>
+    </div>
+
