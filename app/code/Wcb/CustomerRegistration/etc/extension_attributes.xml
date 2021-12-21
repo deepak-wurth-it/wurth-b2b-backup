@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+	<extension_attributes for="Magento\Company\Api\Data\CompanyInterface">
+		<attribute code="number_of_employees" type="string"/>
+		<attribute code="division" type="string"/>
+		<attribute code="activities" type="string"/>
+	</extension_attributes>
+	<extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+		<attribute code="position" type="string"/>
+		<attribute code="verified" type="string"/>
+	</extension_attributes>
+	<extension_attributes for="Magento\Customer\Api\Data\AddressInterface">
+		<attribute code="same_as_headquarters_address" type="string"/>
+	</extension_attributes>
+</config>

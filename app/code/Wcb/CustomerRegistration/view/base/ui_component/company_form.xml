@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<fieldset name="general">
+		<field name="number_of_employees" formElement="input">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">number_of_employees</item>
+				</item>
+			</argument>
+			<settings>
+				<label translate="true">Number of employees</label>
+				<dataType>text</dataType>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field>
+		<field name="division" formElement="textarea">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">division</item>
+				</item>
+			</argument>
+			<settings>
+				<label translate="true">Division</label>
+				<dataType>text</dataType>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field>
+		<field name="activities" formElement="input">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">activities</item>
+				</item>
+			</argument>
+			<settings>
+				<label translate="true">Activities</label>
+				<dataType>text</dataType>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field>
+	</fieldset>
+</form>
