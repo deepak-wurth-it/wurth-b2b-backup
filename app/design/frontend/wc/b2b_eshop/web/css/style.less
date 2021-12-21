@@ -1649,9 +1649,9 @@ margin-bottom:30px;
 	vertical-align: middle;
 	margin: 0 0 0 15px;
 }
-.minicart-wrapper:hover .ui-dialog {
-    display: block !important;
-}
+//.minicart-wrapper:hover .ui-dialog {
+  //  display: block !important;
+//}
 .minicart-wrapper .block-minicart {
     position: absolute;
     top: 35px;
@@ -3225,9 +3225,63 @@ body{
 		color: rgba(0, 0, 0, 0.6);
 	}
 }
-
-
 // checkout page by amit end here
+//recommanded products start by amit
+.recommandedProWrap{
+	.slider-product-item-info{
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box;
+	}
+	.slider-product-item-photo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 272px;
+	}
+	.actions-primary {
+		margin: 0 0 0 17px;
+	}
+	.productFieldset {
+		display: flex;
+		width: 95%;
+	}
+	.field.qty {
+		position: inherit;
+		height: 45px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0;
+	}
+
+	.brArt {
+	font-family: 'wuertbold';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 160%;
+	color: #0093DD;
+	}
+	.product.name.product-item-name {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 160%;
+		color: rgba(0, 0, 0, 0.8);
+	}
+	.priceOnline {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 160%;
+		color: #000000;
+	}
+
+} // recommanded products end
 
 
 	// Best Seller Section
@@ -3541,7 +3595,7 @@ span.label.minsubbut {
 		padding:0px !important;
 	}
 	.product-item-photo {		
-		width:auto !important;
+		width:19% !important;
 		height:auto !important;
 	}
 	li.item.product.product-item {
@@ -3949,6 +4003,7 @@ form#form-validate {
     .block-minicart{
 		color: #666;
 		font-weight: normal;
+		padding-bottom:4px;
     }
     .minicart-items {
     	max-height: 400px;
@@ -5842,7 +5897,7 @@ div#store\.menu {
 	.nav-sections{
 		margin-bottom:0;
 	}
-
+	
 }
 
 //------------------------------------------------------
@@ -6254,6 +6309,76 @@ div#store\.menu {
 }
 @media (max-width: 767px) and (min-width: 481px){
 .category-products .products-grid ul > li:nth-of-type(2n+1) {clear: left;} 
+
+// minicart start
+.viewcartbut {		
+	background: #434853;
+	font-family: 'wuerthbold';
+	color: #fff !important;
+	width: 87%;
+	border: 0;
+	margin: 0 0 0 7px;
+	border-radius: 50px;
+	font-size: 1.8rem;
+	padding: 10px 18px 0px 26px;
+	line-height: 22px;
+	height: 44px;
+	/* font-weight: 700; */
+	display: inline-block;
+	margin-left: 0px;
+	/* position: relative; */
+	margin: 0px 0px 10px 24px !important;
+
+}
+.minicart-items-wrapper .details-qty.qty {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-left: 20px;
+}
+.minicart-items-wrapper .price-container .price {
+color: #cc0000;
+font-family: 'wuerthbold';
+font-size: 1.6rem;
+font-weight: 700;
+line-height: 160%;
+margin: 0px 0px 0px -14px;
+}
+.minicart-items-wrapper .minicart-items .product-item-name a {
+color: rgba(0, 0, 0, 0.87);
+font-family: 'wuerthbook';
+font-size: 1.6rem;
+font-weight: 300;
+line-height: 160%;
+}
+.block-minicart .items-total {
+font-family: 'wuerthbook';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 160%;
+text-align: center;
+color: rgba(0, 0, 0, 0.87);
+padding-top: 20px;
+margin: 0;
+}
+.minicart-wrapper .product .actions > .secondary {
+display: inline;
+float: right;
+position: relative;
+margin: -39px 0px 0px 197px;
+}
+.subtotal.mincartsub {
+position: absolute;
+margin: 0 0 0 112px;
+display: flex;
+padding-top: 20px;
+}
+.row.viewrow {
+float: left;
+margin: 0px 39px 10px 41px;
+}
+// minicart end
 }
 
 /*Fix products-grid */
@@ -6269,6 +6394,7 @@ div#store\.menu {
 		width: 260px;
 		right: auto;
 	}
+	
 }
 
 .product.info.detailed .additional-attributes>thead>tr>th,
@@ -6402,6 +6528,77 @@ div#store\.menu {
 
 		}	
 
+		// minicart start
+		.viewcartbut {		
+				background: #434853;
+				font-family: 'wuerthbold';
+				color: #fff !important;
+				width: 87%;
+				border: 0;
+				margin: 0 0 0 7px;
+				border-radius: 50px;
+				font-size: 1.8rem;
+				padding: 10px 18px 0px 26px;
+				line-height: 22px;
+				height: 44px;
+				/* font-weight: 700; */
+				display: inline-block;
+				margin-left: 0px;
+				/* position: relative; */
+				margin: 0px 0px 10px 24px !important;
+			
+		}
+		.minicart-items-wrapper .details-qty.qty {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-left: 20px;
+		}
+		.minicart-items-wrapper .price-container .price {
+			color: #cc0000;
+			font-family: 'wuerthbold';
+			font-size: 1.6rem;
+			font-weight: 700;
+			line-height: 160%;
+			margin: 0px 0px 0px -14px;
+		}
+		.minicart-items-wrapper .minicart-items .product-item-name a {
+			color: rgba(0, 0, 0, 0.87);
+			font-family: 'wuerthbook';
+			font-size: 1.6rem;
+			font-weight: 300;
+			line-height: 160%;
+		}
+		.block-minicart .items-total {
+			font-family: 'wuerthbook';
+			font-style: normal;
+			font-weight: 300;
+			font-size: 16px;
+			line-height: 160%;
+			text-align: center;
+			color: rgba(0, 0, 0, 0.87);
+			padding-top: 20px;
+			margin: 0;
+		}
+		.minicart-wrapper .product .actions > .secondary {
+			display: inline;
+			float: right;
+			position: relative;
+			margin: -39px 0px 0px 197px;
+		}
+		.subtotal.mincartsub {
+			position: absolute;
+			margin: 0 0 0 112px;
+			display: flex;
+			padding-top: 20px;
+		}
+		.row.viewrow {
+			float: left;
+			margin: 0px 39px 10px 41px;
+		}
+		// minicart end
+		
+		
 }
 
 @media (max-width: 375px){
