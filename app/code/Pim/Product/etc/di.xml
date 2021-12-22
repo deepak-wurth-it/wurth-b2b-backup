@@ -15,6 +15,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="createProduct" xsi:type="object">Pim\Product\Console\Command\CreateProductCommand</item>
+                <item name="updateProduct" xsi:type="object">Pim\Product\Console\Command\UpdateProductCommand</item>
             </argument>
         </arguments>
     </type>
