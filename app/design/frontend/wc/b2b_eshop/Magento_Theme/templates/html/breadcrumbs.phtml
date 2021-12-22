@@ -15,21 +15,38 @@
 			<?php  $i=0; 	?>
 			<?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
 			<?php if($i=='1'){ ?>
-			  <li class="item"  ><strong><a href="#" title="<?php echo __('Product categories') ?>"><?php echo __('Product categories') ?></a></strong></li>
-			<?php } ?>
-				<li class="item <?php /* @escapeNotVerified */ echo $crumbName ?>">
+				<?php
+						$moduleName = $this->getRequest()->getModuleName();
+						$controllerName = $this->getRequest()->getControllerName();
+						$actionName = $this->getRequest()->getActionName();
+						$pageIdentifier = $moduleName.'_'.$controllerName .'_'.$actionName;
+						
+						if($pageIdentifier == 'wcbcatalog_catalog_index') {
+						?>
+						<li class="item"><a href="#"><?php echo __('Online Shop') ?></a></li>
+						<li class="item">
+							<strong><?php echo __('Product categories') ?></strong>
+								</li>
+						<?php
+						}else{?>
+						
+						<li class="item"  ><strong><a href="#" title="<?php echo __('Product categories') ?>"><?php echo __('Product categories') ?></a></strong></li>
+						<?php } ?>
+							<li class="item <?php /* @escapeNotVerified */ echo $crumbName ?>">
 
-				<?php if ($crumbInfo['link']) : ?>
-					<a href="<?php /* @escapeNotVerified */ echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml($crumbInfo['title']) ?>">
-						<?php echo $block->escapeHtml($crumbInfo['label']) ?>
-					</a>
-				<?php elseif ($crumbInfo['last']) : ?>
-					<strong><?php echo $block->escapeHtml($crumbInfo['label']) ?></strong>
-				<?php else: ?>
-					<?php echo $block->escapeHtml($crumbInfo['label']) ?>
-				<?php endif; ?>
-				</li>
-
+							<?php if ($crumbInfo['link']) : ?>
+								<a href="<?php /* @escapeNotVerified */ echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml($crumbInfo['title']) ?>">
+									<?php echo $block->escapeHtml($crumbInfo['label']) ?>
+								</a>
+							<?php elseif ($crumbInfo['last']) : ?>
+								<strong><?php echo $block->escapeHtml($crumbInfo['label']) ?></strong>
+							<?php else: ?>
+								<?php echo $block->escapeHtml($crumbInfo['label']) ?>
+							<?php endif; ?>
+							</li>
+						<?php	
+						}
+						?>
 			<?php $i++ ?>
 			<?php endforeach; ?>
 		</ul>

@@ -17,7 +17,6 @@
                    template="Magento_Theme::template.phtml"
                    name="company.account.create.wrapper">
                 <block class="Magento\Company\Block\Company\Account\Create" name="company_account_create"
-                       ifconfig="btob/website_configuration/company_active"
                        template="Wcb_CustomerRegistration::customer/form/existing-user-register.phtml">
                     <block class="Magento\CustomerCustomAttributes\Block\Form" template="Magento_CustomerCustomAttributes::form/userattributes.phtml" name="customer_form_user_attributes">
                         <action method="setFormCode">
