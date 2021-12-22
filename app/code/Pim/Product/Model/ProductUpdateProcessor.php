@@ -93,8 +93,8 @@ class ProductUpdateProcessor
                     continue;
 
                  }
-                $product = $this->productFactory->create();
-                $product->load($product->getIdBySku($sku));
+                $this->product = $this->productFactory->create();
+                $this->product->load($this->product->getIdBySku($sku));
 
                 try {
 
