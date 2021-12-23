@@ -218,18 +218,19 @@ $formData = $block->getFormData();
         <?php endif ?>
 
         <?= $block->getChildHtml('fieldset_create_info_additional') ?>
-    </fieldset>
 
-
-    <div class="actions-toolbar col-md-12">
-        <div class="primary">
+        <div class="actions-toolbar ">
             <button type="submit" id="confirm-reg"
-                    class="action submit primary-button"
+                    class="action submit primary-button btn160 "
                     title="<?= $block->escapeHtmlAttr(__('Confirm')) ?>">
                 <span><?= $block->escapeHtml(__('Confirm')) ?></span>
             </button>
-        </div>
+
     </div>
+    </fieldset>
+
+
+    
 </form>
 </div>
 <script type="text/x-magento-init">
