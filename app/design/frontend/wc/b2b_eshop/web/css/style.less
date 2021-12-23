@@ -70,6 +70,11 @@ a{
  	font-size:1.6rem;
  	color:@general_text_light_color;
  }
+ input[type="text"]:disabled {
+  background: rgba(0, 0, 0, 8%);
+  opacity:1;
+  border:none;
+}
  .field-error, div.mage-error[generated]{
  	 	font-size:1.6rem;
  	 	color:FF0000;
@@ -80,12 +85,17 @@ a{
  	border-radius:30px;
  	border-color:#cc0000;
  	padding:6px 20px;
+ 	margin-right:0;
  	font-family:'wuerthbold';
  	text-align:center;
  	color:#ffffff;
  	font-size:1.6rem;
  	display:inline-block;
  	min-height:40px;
+ 		&:hover{
+ 		 	background-color:#cc0000;
+ 		 	padding:6px 20px;
+ 		}
  }
  .btn160{
  	width:160px
@@ -1170,6 +1180,7 @@ label.sorter-label{
 }
 .columns{
  display:block; 
+ margin-top:30px;
 }
 .block-cart-failed .action.clear,
 .cart-container .form-cart .action.clear,
@@ -1548,7 +1559,6 @@ label.sorter-label{
 
 .newUserRegistration, .exUserregistration{
 		.fieldset{
-		padding-bottom:20px;
 		margin-bottom:0;
 		}
 		.fieldset >{
@@ -1591,12 +1601,26 @@ label.sorter-label{
 			margin-bottom:20px;
 		}
 }
-	
-.exUserregistration{
-	.page-title{
-		margin-bottom:30px;
+.newUserRegistration{
+	.actions-toolbar{
+		.primary-button{
+			margin-top:10px;
+		}
 	}
+
 }
+.exUserregistration{
+
+		.actions-toolbar{
+			.primary-button{
+				margin-top:30px;
+			}
+		}
+		.page-title{
+			margin-bottom:30px;
+		}
+}
+
 
 //load more button
 	.button.action.primary.mst-Scroll__button{
@@ -5637,6 +5661,16 @@ div#store\.menu {
 		width: 35%;
 	}
 
+	.pt-banner-container .pt-banner-caption {
+		.pt-banner-content{
+			max-width:27%;
+			left:30px;
+		}
+		.pt-title1, .pt-title2, .pt-title3{
+			font-size: 2rem;
+		}
+
+	}
 	}
 
 
@@ -6029,7 +6063,6 @@ div#store\.menu {
 		.catalog-category-view .page-title-wrapper, .page-title-wrapper{
 		.page-title,  {
 			font-size:1.8rem;
-			margin-top:30px;
 		}
 }
 
@@ -6408,6 +6441,7 @@ margin: 0px 39px 10px 41px;
 		.login-container{
 			border:0;
 			margin-top:0;
+			padding-top:0;
 		}
 
 		.product-item-inner{
