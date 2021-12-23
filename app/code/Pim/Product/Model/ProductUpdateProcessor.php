@@ -120,7 +120,7 @@ class ProductUpdateProcessor
                     echo $e->getMessage();
                 }
                 $x++;
-                if ($x == 1000) {
+                if ($x == 10000) {
 
                     $x=0;
                     $this->reindexAll();
