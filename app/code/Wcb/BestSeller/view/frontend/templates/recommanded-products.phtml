@@ -1,0 +1,126 @@
+<?php
+
+use Wcb\BestSeller\Block\AbstractSlider;
+use Magento\Framework\App\Action\Action;
+
+/** @var AbstractSlider $block */
+$helper = $this->helper(\Wcb\BestSeller\Helper\Data::class);
+$mode = 'grid';
+$type = 'widget-product-grid';
+$title = $block->getTitle();
+$blockId = $block->getSliderId() . uniqid('-', false);
+$items = $block->getProductCollection();
+$offer = $block->getOffer();
+?>
+<div class="recommandedProWrap container-inner">
+<h2><?php echo __("Recommanded products"); ?></h2>
+<?php
+if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
+    <div class="block-content mp-product-slider-content">
+        <div class="reCommanded products-<?php echo /** @noEscape */  $mode ?> <?php echo /** @noEscape */  $mode ?>">
+            <ol class="product-items widget-viewed-grid">
+                <?php $iterator = 1; ?>
+                <div id="mp-list-items-<?php echo /** @noEscape */ $blockId ?>" class="owl-carouselrp owl-theme">
+                    <?php foreach ($items as $_item): ?>
+                        <?php echo ($iterator++ == 1) ? '<div class="item">' : '</div><div class="item">' ?>
+                        <div class="slider-product-item-info">
+                            <a href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                               class="product photo slider-product-item-photo">
+                                <?php echo $block->getImage($_item, 'recently_viewed_products_grid_content_widget')->toHtml(); ?>
+                            </a>
+                            <div class="actions-primary">
+                            <div class="brArt">Br.art. : 701 101002</div>
+                            <div class="product details slider-product-item-details">
+                                <strong class="product name product-item-name">
+                                    <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>">
+                                        <?php echo $block->escapeHtml($_item->getName()) ?>
+                                    </a>
+                                 </strong>  
+                                <?php echo /** @noEscape */ $block->getProductDetailsHtml($_item) ?>                                                    
+                              
+                            </div>
+                            
+                            <div class="priceOnline"> Cijena za online kupovinu</div> 
+                            <div class="box-tocart">
+<div class="fieldset productFieldset">
+	<div class="field qty">
+		<!-- <label class="label" for="qty"><span></span></label> -->
+		<div class="control-qty-cart">
+			<span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+			<input type="number" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="qty-default input-text qty" data-validate="null">
+			<span class="quantity-controls quantity-plus icon-interface-plus"></span>
+		</div>
+	</div>
+	<div class="pkgCount">
+		<select>
+			<option>Packing 100</option>
+			<option>Packing 100</option>
+		</select>
+	</div>
+</div>
+</div>
+<!-- button -->
+<div class="product-actions">
+<button type="submit" title="Add to Cart" class="action tocart primary variation-buttom" disabled="">
+<span>Add to Cart</span>
+</button>
+<div data-role="add-to-links" class="actions-secondary">
+<a href="#" class="action towishlist" title="Add to Wish List" aria-label="Add to Wish List" data-post="{&quot;action&quot;:&quot;http:\/\/m2.wc.b2b.com\/wishlist\/index\/add\/&quot;,&quot;data&quot;:{&quot;product&quot;:64048,&quot;uenc&quot;:&quot;aHR0cDovL20yLndjLmIyYi5jb20vYWxhdGktYWt1bXVsYXRvcnNraS1wbmV1bWF0c2tpLWVsZWt0cm8tbW90b3JuaS9ha3VtdWxhdG9yc2tpLWFsYXRpL2J1c2lsaWNlLWktb2R2aWphY2ktYWt1bXVsYXRvcnNraS5odG1s&quot;}}" data-action="add-to-wishlist" role="button">
+<span>Add to Wish List</span>
+</a>
+<a href="#" class="action tocompare" title="Add to Compare" aria-label="Add to Compare" data-post="{&quot;action&quot;:&quot;http:\/\/m2.wc.b2b.com\/catalog\/product_compare\/add\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;64048&quot;,&quot;uenc&quot;:&quot;aHR0cDovL20yLndjLmIyYi5jb20vYWxhdGktYWt1bXVsYXRvcnNraS1wbmV1bWF0c2tpLWVsZWt0cm8tbW90b3JuaS9ha3VtdWxhdG9yc2tpLWFsYXRpL2J1c2lsaWNlLWktb2R2aWphY2ktYWt1bXVsYXRvcnNraS5odG1s&quot;}}" role="button">
+<span>Add to Compare</span>
+</a>
+</div>
+</div>
+                    </div>
+<!-- end button -->
+                        </div>
+                        <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>
+                    <?php endforeach ?>
+                </div>
+            </ol>
+        </div>
+        <script type="text/javascript">
+          /**
+ * Created By : Rohan Hapani
+ */
+require(['jquery', 'owlcarousel'], function($) {
+    $(document).ready(function() {
+        $('.owl-carouselrp').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            navText: [
+                "<i class='fa fa-caret-left'></i>",
+                "<i class='fa fa-caret-right'></i>"
+            ],
+            autoplay: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                  items: 1
+                },
+                600: {
+                  items: 3
+                },
+                1000: {
+                  items: 4
+                }
+            }
+        });
+    });
+});
+        </script>
+        <?php echo $block->getPagerHtml() ?>
+    </div>
+    <script>
+        require(['jquery', 'owlcarousel'], function ($) {
+            $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
+            $(".custom-bpslider").insertBefore(".page-footer");
+        });
+    </script>
+<?php endif; ?>
+    </div>
+

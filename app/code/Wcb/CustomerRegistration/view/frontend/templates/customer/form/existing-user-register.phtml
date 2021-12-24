@@ -21,7 +21,8 @@ $directoryHelper = $block->getData('directoryHelper');
 
 $formData = $block->getFormData();
 ?>
-<form class="form create account form-create-account"
+<div class="row">
+<form class=" form create account form-create-account exUserregistration"
       action="<?php echo $block->getUrl("excustomer/account/createpost"); ?>"
       method="post"
       id="form-validate"
@@ -31,9 +32,9 @@ $formData = $block->getFormData();
  <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>">
     <?= /* @noEscape */ $block->getChildHtml('form_fields_before_in_form') ?>
     <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
-    <fieldset class="fieldset create info">
-        <legend class="legend"><span><?= $block->escapeHtml(__('User Registration for existing customer')) ?></span></legend><br>
-        <div class="field vat-tax-id _required">
+    <fieldset class="fieldset create info col-md-7">
+        <div class="page-title-wrapper">
+        <h1 class="page-title"><span><?= $block->escapeHtml(__('User Registration for existing customer')) ?></span></h1></div>        <div class="field vat-tax-id _required">
             <label class="label" for="vat_tax_id">
                 <span><?= $block->escapeHtml(__('Company OIB')) ?></span>
             </label>
@@ -217,19 +218,21 @@ $formData = $block->getFormData();
         <?php endif ?>
 
         <?= $block->getChildHtml('fieldset_create_info_additional') ?>
-    </fieldset>
 
-
-    <div class="actions-toolbar">
-        <div class="primary">
+        <div class="actions-toolbar ">
             <button type="submit" id="confirm-reg"
-                    class="action submit primary"
+                    class="action submit primary-button btn160 "
                     title="<?= $block->escapeHtmlAttr(__('Confirm')) ?>">
                 <span><?= $block->escapeHtml(__('Confirm')) ?></span>
             </button>
-        </div>
+
     </div>
+    </fieldset>
+
+
+    
 </form>
+</div>
 <script type="text/x-magento-init">
     {
         "*": {
