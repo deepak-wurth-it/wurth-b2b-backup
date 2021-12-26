@@ -102,12 +102,16 @@ $product=false;
                     </li>
                 <?php endif; ?>
                 <?php if (!$subcategory->hasChildren() &&  $productCount == 1): ?>
-                    <?php foreach ($subcategory->getProductCollection() as $_product): ?>
-                        <?php $ProductCode = $_product->getProductCode(); ?>
-                        <?php $ProductCode .= $_product->getResource()->getAttribute('product_code')->getFrontend()->getValue($_product); ?>
-                        <?php $ProductCode .= $_product->getData('product_code'); ?>
-                        <?php $ProductCode .= $_product->getAttributeText('product_code'); ?>
-                        <?php $ProductCode .= $_product->getCustomAttribute('product_code'); ?>
+                    <?php 
+
+                       $products = $subcategory->getProductCollection()->addAttributeToSelect('*');    
+
+                    ?>
+                    <?php foreach ($products as $_product): ?>
+                     
+
+                        <?php  $ProductCode = $_product->getProductCode(); ?>
+                  
                         <?php $product = true; ?>
                         <li class="item product product-item">
                             <div class="product-item-info"
