@@ -1,0 +1,13 @@
+<?php
+/**
+ * @var $block \Wcb\HomePage\Block\HomePage
+ */
+?>
+<div>
+	<?php
+	echo 'bannerText:' . $bannerText =  $this->getConfig('wcbcmshome/general/bannertext').'<br/>';
+	$bannerImage =  'logo/'.$block->getConfig('wcbcmshome/general/logo');
+	echo 'bannerImageDesc:' . $bannerImageDesc =  $block->getConfig('wcbcmshome/general/textarea_example').'<br/>';
+	$fullImage = $block->getMediaUrl().$bannerImage;?>
+	<img src="<?php echo $fullImage?>"/> 
+	</div>
