@@ -3,7 +3,7 @@
  * See COPYING.txt for license details.
  */
 namespace Wcb\Catalog\Controller\Ajax;
-class GetMultiProductStock extends \Magento\Framework\App\Action\Action
+class GetMultiProductPrice extends \Magento\Framework\App\Action\Action
 {
 	protected $_pageFactory;
 	protected $resultJsonFactory;
@@ -40,7 +40,7 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		 $result = $this->resultJsonFactory->create();
 		
 		 //$sku = $this->getRequest()->getPost('sku');
-		 $xmlStock = $this->getMultiStock($dataString);
+		 $xmlStock = $this->getMultiPrice($dataString);
 		 
 		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
          $data = simplexml_load_string($xmlStock);
@@ -72,9 +72,9 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
         return $csv;
 }
 		
-	public function getMultiStock($skus){
+	public function getMultiPrice($skus){
 		
-		return $this->_soapApiClient->GetMultiItemAvailabilityOnLocation($skus);
+		return $this->_soapApiClient->GetMultiItemEShopSalesPriceAndDisc($skus);
 
 
 
