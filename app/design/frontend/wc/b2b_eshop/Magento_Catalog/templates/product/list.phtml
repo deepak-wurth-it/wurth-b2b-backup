@@ -117,8 +117,10 @@ $product=false;
                             <div class="product-item-info"
                                  id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
                                  data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                                <?php if($ProductCode){ ?>
                                 <?php $pid[ $_product->getSku()][] = '"'.$ProductCode.'"'; ?> 
                                 <?php $pid[ $_product->getSku()][] = '"1"'; ?> 
+                                <?php } ?>
 
                                 <?php
                                 $productImage = $block->getImage($_product, $imageDisplayArea);
