@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="soap_api_setting" translate="label" sortOrder="120">
+            <label>Soap API Setting</label>
+        </tab>
+        <section id="soap_api_setting" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Soap API Setting</label>
+            <tab>soap_api_setting</tab>
+            <resource>Wcb_ApiConnect::api_settings</resource>
+            <group id="config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="api_url" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Soap API Url</label>
+                </field>
+                <field id="api_user" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Soap User</label>
+                </field>
+                <field id="api_password" translate="label" type="password" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Soap Password</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
