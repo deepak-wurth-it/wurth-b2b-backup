@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-   <update handle="company_form_template_handle"/>
+   <head>
+        <script src="https://www.google.com/recaptcha/api.js" src_type="url"/>
+    </head>
+    <update handle="company_form_template_handle"/>
      <body>
     <referenceBlock name="customer_form_register">
         <arguments>
