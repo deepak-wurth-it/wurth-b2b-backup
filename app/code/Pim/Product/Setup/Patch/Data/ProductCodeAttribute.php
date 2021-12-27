@@ -67,11 +67,11 @@ class ProductCodeAttribute implements DataPatchInterface, PatchRevertableInterfa
                 'searchable' => true,
                 'filterable' => false,
                 'comparable' => false,
-                'visible_on_front' => false,
+                'visible_on_front' => true,
                 'unique' => false,
                 'apply_to' => '',
                 'group' => 'General',
-                'used_in_product_listing' => false,
+                'used_in_product_listing' => true,
                 'is_used_in_grid' => true,
                 'is_visible_in_grid' => true,
                 'is_filterable_in_grid' => true

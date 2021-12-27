@@ -6,18 +6,18 @@ function($,urlBuilder) {
   "use strict";
   return function(config) {
   console.log(config);
-  var singalproductpriceUrl = urlBuilder.build('/wcbcatalog/ajax/singalproductprice');
-  var getmultiproductstock = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
+  var GetMultiProductPriceUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductPrice');
+  var GetMultiProductStockUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
 
   $.ajax({
                
                 type: "POST",
-                url: singalproductpriceUrl,
+                url: GetMultiProductPriceUrl,
                 data: {skus:config.listPids},
                 cache: false,
                 async: false,
                 success: function(result)
-                {    $('#price-container #price').html(result);
+                {   // $('#price-container #price').html(result);
                     if (result) {
                        
                         //var xmlDoc = $.parseXML(result);
@@ -41,12 +41,12 @@ function($,urlBuilder) {
             
             $.ajax({
                 type: "POST",
-                url: getmultiproductstock,
+                url: GetMultiProductStockUrl,
                 data: {skus:config.listPids},
                 cache: false,
                 async: false,
                 success: function(result)
-                {    $('#price-container #price').html(result);
+                {    //$('#price-container #price').html(result);
                     if (result) {
                        
                         //var xmlDoc = $.parseXML(result);

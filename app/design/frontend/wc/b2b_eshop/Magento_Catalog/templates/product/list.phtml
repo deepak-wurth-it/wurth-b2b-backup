@@ -37,6 +37,7 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <!-- For Product -->
 <?php
 $viewMode = 'grid';
+$kk = "912 814185";
 $pid= [];
 $imageDisplayArea = 'category_page_grid';
 $showDescription = false;
@@ -101,14 +102,25 @@ $product=false;
                     </li>
                 <?php endif; ?>
                 <?php if (!$subcategory->hasChildren() &&  $productCount == 1): ?>
-                    <?php foreach ($subcategory->getProductCollection() as $_product): ?>
+                    <?php 
+
+                       $products = $subcategory->getProductCollection()->addAttributeToSelect('*');    
+
+                    ?>
+                    <?php foreach ($products as $_product): ?>
+                     
+
+                        <?php  $ProductCode = $_product->getProductCode(); ?>
+                  
                         <?php $product = true; ?>
                         <li class="item product product-item">
                             <div class="product-item-info"
                                  id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
                                  data-container="product-<?= /* @noEscape */ $viewMode ?>">
-                                <?php $pid[ $_product->getSku()][] = '"'.$_product->getSku().'"'; ?> 
+                                <?php if($ProductCode){ ?>
+                                <?php $pid[ $_product->getSku()][] = '"'.$ProductCode.'"'; ?> 
                                 <?php $pid[ $_product->getSku()][] = '"1"'; ?> 
+                                <?php } ?>
 
                                 <?php
                                 $productImage = $block->getImage($_product, $imageDisplayArea);
