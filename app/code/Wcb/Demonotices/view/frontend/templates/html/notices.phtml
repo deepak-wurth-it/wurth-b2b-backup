@@ -71,7 +71,7 @@ script;
     $enddate = strtotime($block->getDemoMessageValidTo());
     $todayDate = strtotime($block->getTodayDate());
     
-    if($startdate <= $todayDate && $todayDate <= $enddate && $pageIdentifier == 'cms_index_index') {
+    if($startdate <= $todayDate && $todayDate <= $enddate && ($pageIdentifier == 'cms_index_index' || $pageIdentifier == 'wuerth_home_index')) {
     ?>
     <div class="message global demo">
         <div class="content">
