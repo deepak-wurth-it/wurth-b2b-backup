@@ -46,7 +46,12 @@ html,body {
   	font-display: block;
 }
 
-
+.lineheight0{
+	line-height:0;
+}
+[data-content-type$='block'] .block p:last-child{
+			margin:0;
+		}
 a:visited, .alink:visited{
  	color: @general_link_color;
  }
@@ -125,6 +130,10 @@ a{
  .paddingRight0{
  	padding-right:0;
  }
+
+  .paddingLeft0{
+ 	padding-left:0;
+ }
  .margin0{
  	margin:0;
  }
@@ -133,6 +142,9 @@ a{
  }
  section, .registration-bg, .carousel-wrap,  .promotion-banners, .logBannerContainer, .pt-banner-container, .newUserRegistration, .exUserregistration{
  	margin-bottom:60px;
+ }
+ .cmsMainBanner{
+ 	margin-bottom:30px;
  }
  .registration-bg{
  	margin-top:-60px;
@@ -6551,6 +6563,130 @@ ProductListingwrapper{
     }
 }
 
+// CMS pages style-----------------------------
+
+.cmsMainBanner{
+	position:relative;
+
+	.cmsBannerCaption{
+		width:27%;
+		position:absolute;
+		left:60px;
+		top:50%;
+		transform:translate(0, -50%);
+		color:#ffffff;
+	}
+	h1{
+		font-size:2.8rem;
+		margin-bottom:20px;
+		color:#ffffff;
+	}
+
+}
+
+.cmsHomeInfoBanner{
+	position:relative;
+	.bannerImg{
+		padding:0;
+	}
+	.cmsInfoCaption{
+		width:35%;
+		position:absolute;
+		right:60px;
+		top:100%;
+		transform:translateY(-100%);
+		background:@general_link_hover_color;
+		padding:30px;
+		color:#ffffff;
+		h2{
+			font-size:2.4rem;
+			color:#ffffff;
+			margin-bottom:20px;
+		}
+	}
+}
+
+.eshopOnlineprocess{
+	.des{
+		margin-top:10px;
+		font-family:@headingfont;
+	}
+	.imgWrapper{
+		margin-top:60px;
+		margin-bottom:60px;
+		text-align:center;
+	}
+	ul{
+		padding-left:0;
+		margin-top:20px;
+		margin-bottom:0;
+		li{
+			list-style:none;
+			display:flex;
+			&:before{
+				content:"\2022";
+				color:@general_link_hover_color;
+				font-size:20px;
+				padding-right:10px;
+			}
+			&:last-child{
+				margin-bottom:0;
+			}
+		}
+	}
+}
+
+.cmsHomeContentBanner, .cmsHomeInfoBanner{
+	.contentBannerImg{
+		height:100%;
+		background-position:center;
+		background-size:cover;
+		min-height:160px;
+	}
+	.cmsHomeContent50{
+		background-color:@general_link_hover_color;
+		padding:30px;
+		margin-left:-15px;
+		h2{
+			color:#ffffff;
+			margin-bottom:20px;
+		}
+		.des{
+			color:#ffffff;
+		}
+	}
+}
+
+.cmsWurthFeatures{
+	margin-bottom:0;
+	span{
+		font-size:30px;
+	}
+	.learnMore{
+		color:@general_link_hover_color;
+		font-family:@headingfont;
+		margin-bottom:60px;
+		display:block;
+		&:hover{
+			text-decoration:underline;
+		}
+	}
+}
+.cmsHomeInfoCard{
+	.infoCard{
+		border:solid 1px rgba(0, 0, 0, 12%);
+
+	h3{
+		padding:20px;
+	}
+	.des{
+		padding:0 20px 20px 20px;
+	}
+	}
+
+}
+
+
 //product-listing 
 
 	li.item.product.product-item{
@@ -6649,7 +6785,25 @@ div#store\.menu {
 		.box-content1 .container-inner{
 			box-shadow: none;
 		}
-	
+
+		.cmsHomeInfoBanner{
+			position:relative;
+			.cmsInfoCaption{
+				width:40%;
+				padding:20px;
+			h2{
+				font-size:2rem;
+				color:#ffffff;
+				margin-bottom:20px;
+			}
+			}
+		}
+
+		.eshopOnlineprocess{
+				h3{
+					min-height:45px;
+				}
+	}
 	}
 
 	@media (max-device-width: 1145px) { 
@@ -6782,17 +6936,39 @@ div#store\.menu {
 		width: 35%;
 	}
 
-	.pt-banner-container .pt-banner-caption {
-		.pt-banner-content{
+	.pt-banner-container .pt-banner-caption, .cmsMainBanner{
+		.pt-banner-content, .cmsBannerCaption{
 			max-width:27%;
 			left:30px;
 		}
-		.pt-title1, .pt-title2, .pt-title3{
+		.pt-title1, .pt-title2, .pt-title3, h1{
 			font-size: 2rem;
 		}
 
 	}
-	}
+	.cmsHomeInfoBanner{
+		position:relative;
+		.bannerImg{
+			padding:0;
+			max-width:100%;
+		}
+		.cmsInfoCaption{
+			padding:20px;
+			transform:inherit;
+			position:inherit;
+			margin-left:60px;
+			max-width:100%;
+			width:100%;
+		h2{
+			font-size:2.4rem;
+			color:#ffffff;
+			margin-bottom:20px;
+		}
+		}
+		}
+
+
+}
 
 
 
@@ -7033,7 +7209,7 @@ div#store\.menu {
 		text-align:center;
 	}
 
-	 section, .registration-bg, .carousel-wrap,  .promotion-banners, .logBannerContainer, .pt-banner-container, .newUserRegistration, .exUserregistration{
+	 section, .registration-bg, .carousel-wrap,  .promotion-banners, .logBannerContainer, .pt-banner-container, .newUserRegistration, .exUserregistration, .cmsMainBanner{
  		margin-bottom:30px;
  	}
  	.promotion-banners{
@@ -7060,10 +7236,12 @@ div#store\.menu {
 		min-width:inherit;
 		}
 	.pt-banner-container .pt-banner-caption {
-	.pt-banner-content{
+	.pt-banner-content, .cmsMainBanner{
 			left:30px;
 		}
-		.pt-title1, .pt-title2, .pt-title3{
+
+		.pt-banner-content, .cmsBannerCaption
+		.pt-title1, .pt-title2, .pt-title3, h1{
 			font-size: 1.8rem;
 		}	
 		.pt-banner-des{
@@ -7076,7 +7254,27 @@ div#store\.menu {
 		 .registration-bg{
  			margin-top:-30px;
  			}
+ 	.eshopOnlineprocess{
+	.imgWrapper{
+		margin-top:30px;
+		margin-bottom:30px;
 	}
+	}
+
+	.cmsWurthFeatures{
+		.learnMore{
+			margin-bottom:30px;
+		}
+	}
+
+	.cmsHomeInfoCard{
+	margin-bottom:0;
+	.infoCard{
+		margin-bottom:30px;
+	}
+
+}
+}
 
 
 @media (min-width: 767px){
@@ -7170,8 +7368,8 @@ div#store\.menu {
 	}
 }
 
-	.pt-banner-container .pt-banner-caption {
-	.pt-banner-content{
+	.pt-banner-container .pt-banner-caption, .cmsMainBanner{
+	.pt-banner-content, .cmsBannerCaption{
 			left:16px;
 			padding-right:16px;
 		}
@@ -7336,11 +7534,13 @@ div#store\.menu {
 		padding-right:15px;
 		margin-bottom:30px;
 	}
-	.pt-banner-container .pt-banner-caption {
-		.pt-title1, .pt-title2, .pt-title3{
+
+
+	.pt-banner-container .pt-banner-caption, .cmsMainBanner{
+		.pt-title1, .pt-title2, .pt-title3, h1{
 			font-size: 1.6rem;
 		}	
-		.pt-banner-des{
+		.pt-banner-des, .caption-des{
 			display:none;
 		}
 		.pt-url{
@@ -7348,6 +7548,15 @@ div#store\.menu {
 			padding:4px 20px;
 		}
 
+		}
+		.cmsHomeInfoBanner{
+		.cmsInfoCaption{
+		h2{
+			font-size:1.8rem;
+			color:#ffffff;
+			margin-bottom:20px;
+		}
+		}
 		}
 
 }
@@ -7371,6 +7580,35 @@ div#store\.menu {
 		display:none;
 	}
 }
+	.eshopOnlineprocess{
+		.des{
+			margin-bottom:30px;
+		}
+		.imgWrapper{
+			margin-top:0;
+			margin-bottom:30;
+		}
+	}
+
+	.cmsHomeContentBanner, .cmsHomeInfoBanner{
+		.cmsHomeContent50{
+			margin:0 15px;
+		}
+	}
+	.cmsHomeOfferBanners{
+	.OfferBannersImg{
+		margin-bottom:30px;
+
+		&:last-child{
+			margin-bottom:0;
+		}
+	}
+}
+	.eshopOnlineprocess{
+		h3{
+			min-height:inherit;
+		}
+	}
 }
 @media (max-width: 767px) and (min-width: 481px){
 .category-products .products-grid ul > li:nth-of-type(2n+1) {clear: left;} 
@@ -8298,7 +8536,7 @@ button.allpro {
 	}
 
 		.pt-banner-container .pt-banner-caption {
-		.pt-banner-content{
+		.pt-banner-content, {
 			max-width:27%;
 		}
 		}
