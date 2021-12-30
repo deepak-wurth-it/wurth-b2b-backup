@@ -1,260 +1,77 @@
 <?php
-   /**
-    * Copyright © Magento, Inc. All rights reserved.
-    * See COPYING.txt for license details.
-    */
-   
-   // phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
-   
-   /**
-    * Product additional attributes template
-    *
-    * @var $block \Magento\Catalog\Block\Product\View\Attributes
-    */
-   ?>
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product additional attributes template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Attributes
+ */
+?>
 <?php
-   $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
-   $_product = $block->getProduct();
-   ?>
-<div class="attDetailsWrapp">
-   <div class="execution">Executions</div>
-   <div class="attTitle">
-      <span class="attrow">Item No.</span> 
-      <span class="attrow">Item Name</span> 
-      <span class="attrow">Accumuulator / battery ...</span> 
-      <span class="attrow">Accumuulator / battery ...</span> 
-      <span class="attrow">Nominal voltage</span> 
-      <span class="attrow">Number </span> 
-      <span class="attrow">VE</span> 
-      <span class="attrow">Price PU</span> 
-   </div>
-   <div class="accordion">
-      <span class="attrow itemno">5701408003</span> 
-      <span class="attrow itemname">Busilice-odvijaci - Akumulatorski</span> 
-      <span class="attrow">2 PiECES</span> 
-      <span class="attrow">2 Ah</span> 
-      <span class="attrow">18 V / DC</span> 
-      <span class="attrow">
-      <div class="qty-field">
-    
-    <div id="79-dec" class="decreaseQty icon-interface-minus">
-    </div>
-
-<input id="cart-79-qty" name="cart[79][qty]" data-cart-item-id="Test product" value="1" type="number" size="4" step="any" title="Qty" class="input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
-
-<div id="79-upt" class="increaseQty icon-interface-plus"></div>
- 
-</div>
-      </span>
-      <span class="attrow">
-         <div class="veCount">
-            <select>
-               <option> 100 </option>
-               <option> 100 </option>
-               <option> 100 </option>
-               <option> 100 </option>
-            </select>
-         </div>
-      </span>
-      <span class="attrow loginprice">Please log in to see prices.</span> 
-      <span class="attrow bluecol"><a href="http://m2.wc.b2b.com/test-product.html" class="carticon"></a>
-    </span>
-   </div>
-   <div class="panel">
-      <div class="row">
-         <div class="col-sm-4">
-            <div class="container">        
-               <img src="http://m2.wc.b2b.com/media/catalog/product/cache/0dfee5ff3991729dd0bd32f4d3803aa6/1/2/1234785_1.jpg" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236"> 
-            </div>
-         </div>
-         <div class="col-sm-8">
-            <div class="container">
-               
-               <div class="pdpvarcont">Cordless drill screwdriver ABS 18 BASIC BOSHRBR-AKKU-(ABS 18 BASIC-75J) - 2X2, 0AH MASTER M-CUBE </div>
-               <div class="pdpItemNo"> 5701408004 Item No.</div>
-               <span class="hrline"></span>
-
-              <div class="wurthCat">
-                <div class="catTitle"> Wurth Catalog (2)</div>
-                  <ul>
-                    <li> <span class="pdficon"></span> Catalogue page as PDF1</li>
-                    <li><span class="flipicon"></span> Flip Pdf</li>
-                  </ul>
-              </div> 
-              <span class="hrline"></span>
-              
-               <div class="catTitle">Technical information</div>
-                     
-               <table class="tables table-hovers">                  
-                  <tbody>
-                     <tr>
-                        <td>azivni napon</td>
-                        <td>12 V/DC</td>
-                     </tr>
-                     <tr>
-                        <td>Broj okretaja u praznom hodu 1./2. brzina, min/max</td>
-                        <td>0-400/0-1500 U/min (rpm)</td>
-                     </tr>
-                     <tr>
-                        <td>Okretni moment tvrdi/mekani maks.</td>
-                        <td>32/19 Nm</td>
-                     </tr>
-                     <tr>
-                        <td>Zatezno podrucje brzoztezne glave za busenje min./maks.</td>
-                        <td>0,8-10 mm</td>
-                     </tr>
-                     <tr>
-                        <td>Zatezno podrucje brzoztezne glave za busenje min./maks.</td>
-                        <td>0,8-10 mm</td>
-                     </tr>
-                     <tr>
-                        <td>Zatezno podrucje brzoztezne glave za busenje min./maks.</td>
-                        <td>0,8-10 mm</td>
-                     </tr>
-                     <tr>
-                        <td>Zatezno podrucje brzoztezne glave za busenje min./maks.</td>
-                        <td>0,8-10 mm</td>
-                     </tr>
-                     <tr>
-                        <td>Zatezno podrucje brzoztezne glave za busenje min./maks.</td>
-                        <td>0,8-10 mm</td>
-                     </tr>
-                     <tr>
-                        <td>visina</td>
-                        <td>215 mm</td>
-                     </tr>
-                  </tbody>
-               </table>
-
-               <div class="pdrepbug"><button type="submit" class="itembug"> See all product details</button></div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="accordion gray">
-   <span class="attrow itemno">5701408003</span> 
-      <span class="attrow itemname">Busilice-odvijaci - Akumulatorski</span> 
-      <span class="attrow">2 PiECES</span> 
-      <span class="attrow">2 Ah</span> 
-      <span class="attrow">18 V / DC</span> 
-      <span class="attrow">
-      <div class="qty-field">
-    
-    <div id="79-dec" class="decreaseQty icon-interface-minus">
-    </div>
-
-<input id="cart-79-qty" name="cart[79][qty]" data-cart-item-id="Test product" value="1" type="number" size="4" step="any" title="Qty" class="input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
-
-<div id="79-upt" class="increaseQty icon-interface-plus"></div>
- 
-</div>
-      </span>
-      <span class="attrow">
-         <div class="veCount">
-            <select>
-               <option> 100 </option>
-               <option> 100 </option>
-               <option> 100 </option>
-               <option> 100 </option>
-            </select>
-         </div>
-      </span>
-      <span class="attrow loginprice">Please log in to see prices.</span> 
-      <span class="attrow bluecol"><a href="http://m2.wc.b2b.com/test-product.html" class="carticon"></a>
-    </span>
-    </div>
-   <div class="panel">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-   </div>
-   <div class="accordion">
-   <span class="attrow itemno">5701408003</span> 
-      <span class="attrow itemname">Busilice-odvijaci - Akumulatorski</span> 
-      <span class="attrow">2 PiECES</span> 
-      <span class="attrow">2 Ah</span> 
-      <span class="attrow">18 V / DC</span> 
-      <span class="attrow">
-      <div class="qty-field">
-    
-    <div id="79-dec" class="decreaseQty icon-interface-minus">
-    </div>
-
-<input id="cart-79-qty" name="cart[79][qty]" data-cart-item-id="Test product" value="1" type="number" size="4" step="any" title="Qty" class="input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
-
-<div id="79-upt" class="increaseQty icon-interface-plus"></div>
- 
-</div>
-      </span>
-      <span class="attrow">
-         <div class="veCount">
-            <select>
-               <option> 100 </option>
-               <option> 100 </option>
-               <option> 100 </option>
-               <option> 100 </option>
-            </select>
-         </div>
-      </span>
-      <span class="attrow loginprice">Please log in to see prices.</span> 
-      <span class="attrow bluecol"><a href="http://m2.wc.b2b.com/test-product.html" class="carticon"></a>
-    </span>
-      
-   </div>
-   <div class="panel">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-   </div>
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_product = $block->getProduct();
+?>
+<div class="productDescription">
+<div class="pdpTab">
+  <button class="pdpTabnames" onclick="openCity(event, 'Description')" id="defaultOpens">Description</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'technicalInformation')">Technical Information</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'Documents')">Documents</button>
 </div>
 
+<div id="Description" class="pdpTabcontentbox">
+  <div class="heading">AKUMULATORSKA BUSILICA ODVIJAC-ABS 12 COMPACT M-CUBE</div>
+  <div class="videos"><iframe width="560" height="315" src="https://www.youtube.com/embed/Sh5SxQumpFM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+   <div class="heading">AKUMULATORSKA BUSILICA ODVIJAC-ABS 12 COMPACT M-CUBE</div>
+   <div class="redtext">Vrlo snazna, prenasiva akumulatarska udarna busilica-odvijac s funkcijom udarnog busenija i sa zakrelnim momentom od 140 Nm, kaju je razvio Wurth prema zahtjevima obrlnika</div>
+
+</div>
+
+<div id="technicalInformation" class="pdpTabcontentbox">
+  <h3>Technical Information</h3>
+  <p>Technical Information is the capital of France.</p> 
+</div>
+
+<div id="Documents" class="pdpTabcontentbox">
+  <h3>Documents</h3>
+  <p>Documents is the capital of Japan.</p>
+</div>
+  </div>
+
+<script>
+function openCity(evt, pdpTabName) {
+  var i, pdpTabcontentbox, pdpTabnames;
+  pdpTabcontentbox = document.getElementsByClassName("pdpTabcontentbox");
+  for (i = 0; i < pdpTabcontentbox.length; i++) {
+    pdpTabcontentbox[i].style.display = "none";
+  }
+  pdpTabnames = document.getElementsByClassName("pdpTabnames");
+  for (i = 0; i < pdpTabnames.length; i++) {
+    pdpTabnames[i].className = pdpTabnames[i].className.replace(" active", "");
+  }
+  document.getElementById(pdpTabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpens").click();
+</script>
 
 <!--<?php if ($_additional = $block->getAdditionalData()) :?>
-   <div class="additional-attributes-wrapper table-wrapper">
-       <table class="data table additional-attributes" id="product-attribute-specs-table">
-           <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
-           <tbody>
-           <?php foreach ($_additional as $_data) :?>
-               <tr>
-                   <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
-                   <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
-               </tr>
-           <?php endforeach; ?>
-           </tbody>
-       </table>
-   </div>
-   <?php endif;?> -->
-<script>
-   var acc = document.getElementsByClassName("accordion");
-   var i;
-   
-   for (i = 0; i < acc.length; i++) {
-     acc[i].addEventListener("click", function() {
-       this.classList.toggle("active");
-       var panel = this.nextElementSibling;
-       if (panel.style.maxHeight) {
-         panel.style.maxHeight = null;
-       } else {
-         panel.style.maxHeight = panel.scrollHeight + "px";
-       } 
-     });
-   }
-   
-   jQuery(".itemAdd").click(function() {
-       jQuery('html,body').animate({
-           scrollTop: jQuery(".execution").offset().top},
-           'slow');
-   });
-
-
-   function increaseValue() {
-  var value = parseInt(document.getElementById('number').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  document.getElementById('number').value = value;
-}
-
-function decreaseValue() {
-  var value = parseInt(document.getElementById('number').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value < 1 ? value = 1 : '';
-  value--;
-  document.getElementById('number').value = value;
-}
-</script>
+    <div class="additional-attributes-wrapper table-wrapper">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+            <tbody>
+            <?php foreach ($_additional as $_data) :?>
+                <tr>
+                    <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+                    <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif;?> -->

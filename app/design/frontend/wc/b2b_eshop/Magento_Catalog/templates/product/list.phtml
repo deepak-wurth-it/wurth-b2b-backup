@@ -549,13 +549,16 @@ $product=false;
             $('.sidebar').remove();
             $('.category-view').remove();
             $('.page-title-wrapper').remove();
+            $('.page-layout-2columns-left .column.main').width("100%"); //to increase width of page
             
+            window.addEventListener('resize', function(event){
              if ( $(window).width() > 990) {     
-  $('.page-layout-2columns-left .column.main').width("100%"); //to increase width of page
-}
-else {
-    $('.page-layout-2columns-left .column.main').width("70%"); //to increase width of page  
-}
+                $('.page-layout-2columns-left .column.main').width("100%"); //to increase width of page
+                }
+                else {
+                    $('.page-layout-2columns-left .column.main').width("70%"); //to increase width of page  
+                }
+            });
             
         });
         // ]]>
