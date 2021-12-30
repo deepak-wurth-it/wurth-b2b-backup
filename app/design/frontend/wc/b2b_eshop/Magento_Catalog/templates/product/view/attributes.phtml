@@ -1,0 +1,77 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product additional attributes template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Attributes
+ */
+?>
+<?php
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_product = $block->getProduct();
+?>
+<div class="productDescription">
+<div class="pdpTab">
+  <button class="pdpTabnames" onclick="openCity(event, 'Description')" id="defaultOpens">Description</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'technicalInformation')">Technical Information</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'Documents')">Documents</button>
+</div>
+
+<div id="Description" class="pdpTabcontentbox">
+  <div class="heading">AKUMULATORSKA BUSILICA ODVIJAC-ABS 12 COMPACT M-CUBE</div>
+  <div class="videos"><iframe width="560" height="315" src="https://www.youtube.com/embed/Sh5SxQumpFM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+   <div class="heading">AKUMULATORSKA BUSILICA ODVIJAC-ABS 12 COMPACT M-CUBE</div>
+   <div class="redtext">Vrlo snazna, prenasiva akumulatarska udarna busilica-odvijac s funkcijom udarnog busenija i sa zakrelnim momentom od 140 Nm, kaju je razvio Wurth prema zahtjevima obrlnika</div>
+
+</div>
+
+<div id="technicalInformation" class="pdpTabcontentbox">
+  <h3>Technical Information</h3>
+  <p>Technical Information is the capital of France.</p> 
+</div>
+
+<div id="Documents" class="pdpTabcontentbox">
+  <h3>Documents</h3>
+  <p>Documents is the capital of Japan.</p>
+</div>
+  </div>
+
+<script>
+function openCity(evt, pdpTabName) {
+  var i, pdpTabcontentbox, pdpTabnames;
+  pdpTabcontentbox = document.getElementsByClassName("pdpTabcontentbox");
+  for (i = 0; i < pdpTabcontentbox.length; i++) {
+    pdpTabcontentbox[i].style.display = "none";
+  }
+  pdpTabnames = document.getElementsByClassName("pdpTabnames");
+  for (i = 0; i < pdpTabnames.length; i++) {
+    pdpTabnames[i].className = pdpTabnames[i].className.replace(" active", "");
+  }
+  document.getElementById(pdpTabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpens").click();
+</script>
+
+<!--<?php if ($_additional = $block->getAdditionalData()) :?>
+    <div class="additional-attributes-wrapper table-wrapper">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+            <tbody>
+            <?php foreach ($_additional as $_data) :?>
+                <tr>
+                    <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+                    <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif;?> -->

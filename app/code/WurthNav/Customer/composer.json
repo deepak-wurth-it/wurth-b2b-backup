@@ -1,0 +1,22 @@
+{
+    "name": "wurthnav/module-customer",
+    "description": "WurthNav Customer Module",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Deepak Kumar",
+            "email": "deepak.kumar.rai@wuerth-it.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "WurthNav\\Customer\\": ""
+        }
+    }
+}

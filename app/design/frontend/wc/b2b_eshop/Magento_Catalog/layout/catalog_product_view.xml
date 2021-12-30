@@ -12,5 +12,11 @@
         <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
 		<move element="product.info.overview" destination="product.info.main" before="product.info"/>
         <referenceBlock name="multiple-wishlist_sidebar" remove="true" />
+        <referenceContainer name="columns" htmlClass="columns pdPage" />
+         <referenceContainer name="product.info.price" remove="true"/>
+         <referenceBlock name="product.info.stock.sku" remove="true"/>
+         <referenceBlock name="product.info.addtocart" remove="true"/>
+          <referenceBlock name="view.addto.wishlist" remove="true"/>
+          <referenceBlock name="view.addto.compare" remove="true"/>
     </body>
 </page>

@@ -1,0 +1,7 @@
+{
+    "customer_entity": {
+        "column": {
+            "sync_status": true
+        }
+    }
+}
