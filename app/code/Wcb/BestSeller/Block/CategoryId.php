@@ -79,7 +79,7 @@ class CategoryId extends AbstractSlider
      */
     public function getProductCollection()
     {
-        $this->getCategoryCollection();
+        $collection = $this->getCategoryCollection();
         // $productIds = $this->getProductIdsByCategory();
         // $collection = [];
         // if (!empty($productIds)) {
