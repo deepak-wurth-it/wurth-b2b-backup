@@ -79,15 +79,32 @@ class CategoryId extends AbstractSlider
      */
     public function getProductCollection()
     {
-        $productIds = $this->getProductIdsByCategory();
-        $collection = [];
-        if (!empty($productIds)) {
-            $collection = $this->_productCollectionFactory->create()
-                ->addIdFilter(array('in' => $productIds));
-            $this->_addProductAttributesAndPrices($collection);
-        }
+        $this->getCategoryCollection();
+        // $productIds = $this->getProductIdsByCategory();
+        // $collection = [];
+        // if (!empty($productIds)) {
+        //     $collection = $this->_productCollectionFactory->create()
+        //         ->addIdFilter(array('in' => $productIds));
+        //     $this->_addProductAttributesAndPrices($collection);
+        // }
 
         return $collection;
+    }
+
+    public function getCategoryCollection()
+    {
+        
+        $catIds = $this->getSliderCategoryIds();
+
+        if (is_array($catIds)) {
+            $productId = $categoryArray = [];
+            foreach($catIds as $cat)
+            {
+                $getCategory = $this->_categoryFactory->create()->load($cat);
+                array_push($categoryArray, $getCategory);
+            }
+            return array("categories" => $categoryArray);
+        }
     }
 
     /**
