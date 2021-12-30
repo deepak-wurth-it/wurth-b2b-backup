@@ -3481,8 +3481,11 @@ a.action.print.hidden-print {
 .pdPage{
 	.product.media{
 	background: #FFFFFF;
-	border: 1px solid rgba(0, 0, 0, 0.12);
-	box-sizing: border-box;
+	width:57% !important;
+	}
+	.product-info-main {
+		width: 40% !important;
+		background: #fff;
 	}
 	.page-title.base {
 		font-family: 'wuerthbold';
@@ -3493,6 +3496,64 @@ a.action.print.hidden-print {
 		display: flex;
 		align-items: center;
 		color: rgba(0, 0, 0, 0.87);
+	}
+	.fotorama__thumb {
+		height: 100%;
+		overflow: hidden;
+		position: relative;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.fotorama__thumb-border {
+		border-width: 2px;
+		margin-top: 2px;
+		background: rgba(0, 0, 0, 0.4);
+		border: 1px solid rgba(222, 222, 222, 0.12);
+		box-sizing: border-box;
+	}
+	.fotorama__stage__shaft.fotorama__grab {
+		border: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.fotorama__nav-wrap {
+		text-align: left;
+		margin-top: 20px;
+	}
+	.fotorama__stage{
+		height:496px !important;
+	}
+	.product-actions {
+		position: absolute;
+		margin: 14px 0px 0px 553px;
+		z-index:1;
+	}
+	.comparebut {
+		width: 34px;
+		height: 34px;
+		display: inline-block;
+		box-shadow: 0px 3px 8px 0px #cccccc;
+		position: relative;
+		border-radius: 50%;
+		background: url(../images/compare-wishlist.svg) left -2px top -2px;
+		-webkit-transition: all 0.3s ease-out;
+	}
+	.wishlistbut {
+		width: 34px;
+		height: 34px;
+		display: inline-block;
+		box-shadow: 0px 3px 8px 0px #cccccc;
+		position: relative;
+		border-radius: 50%;
+		background: url(../images/compare-wishlist.svg) right -3px top -1px;
+		-webkit-transition: all 0.3s ease-out;
+	}
+	.wishlistbut:hover{
+		content:"";
+		background:url(../images/compare-wishlist.svg) right -3px bottom -4px;
+		
+	}
+	.comparebut:hover{
+		background:url(../images/compare-wishlist.svg) left -2px bottom -4px;
+		
 	}
 	.pdAku {
 		font-family: 'wuerthbook';
@@ -3505,22 +3566,115 @@ a.action.print.hidden-print {
 		letter-spacing: 0.02em;
 		color: rgba(0, 0, 0, 0.87);
 	}
-	.hrline {
-		display: block;
-		height: 1px;
-		border: 0;
-		border-top: 1px solid rgba(0, 0, 0, 0.08);
-		margin: 1em 0;
-		padding: 0;
+	.brArt {
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 160%;
+		display: flex;
+		align-items: center;
+		letter-spacing: 0.02em;
+		color: #009EE0;
 	}
-	.pdversion {
+	.priceDisplay {
+		color: #CC0000;
+	}
+	.boxcontaner {
+		display: flex;
+		width: 100%;
+	}
+	.qty-field {
+		position: inherit;
+		border: solid 1px rgba(0, 0, 0, 0.08);
+		border-radius: 4px;
+		width: 103px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #fff;
+	}
+	.veCount {
+		border: solid 1px rgba(0, 0, 0, 0.08);
+		border-radius: 4px;
+		width: 123px;
+		display: flex;
+		justify-content: center;
+		background: #fff;		
+		letter-spacing: 0.02em;
+		color: rgb(0, 0, 0, 0.87);
+		height: 45px;
+		margin: auto;
+		align-items: center;
+		text-align: center;
+	}
+	.purchaseWrapp {
+		display: flex;
+		align-items: center;
+		margin-top: 10px;
+	}
+	.proqty {
 		font-family: 'wuerthbook';
 		font-style: normal;
 		font-weight: 300;
 		font-size: 16px;
-		line-height: 160%;
+		line-height: 110%;
 		letter-spacing: 0.02em;
 		color: #000000;
+		margin: 0 20px 0px 0px;
+	}
+	.dodaj {
+		height: 30px;
+		border: 1px solid #0093DD;
+		box-sizing: border-box;
+		border-radius: 50px;
+		margin: auto;
+		color: #0093DD;
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 14px;
+		line-height: 160%;
+	}
+	.dodaj:hover {
+		border: 1px solid #0093DD;
+		color: #ffffff;
+	}
+	.wishlistwrap {
+		display: flex;		
+		align-items: center;
+	}
+	.itemwishbut {
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		border-radius: 50px;
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 160%;
+		letter-spacing: 0.02em;
+		color: #CC0000;
+	}
+	.itembug {
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		box-sizing: border-box;
+		border-radius: 50px;
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		letter-spacing: 0.02em;
+		color: #0093DD;
+		margin: 20px 14px 20px 11px;
+	}
+
+	.pdvariants {
+		width: 175px;
+		justify-content: center;
+		align-items: center;
+		height: 45px;
 	}
 	.itemAdd {
 		font-size: 1.6rem;
@@ -3530,13 +3684,33 @@ a.action.print.hidden-print {
 		font-family: 'wuerthbold';
 		border: solid 1px #0093dd;
 		border-radius: 50px;
-		margin-top: 10px;
 	}
 	.itemAdd:hover {
 		background: #0687c7;
 		color: #fff;
 		opacity:1;
 	}
+	.hrline {
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 1px solid rgba(0, 0, 0, 0.08);
+		margin: 1em 0;
+		padding: 0;
+	}
+
+
+	.pdversion {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 160%;
+		letter-spacing: 0.02em;
+		color: #000000;
+	}
+	
+	
 	.moreInfo {
 		font-family: 'wuerthbold';
 		font-style: normal;
@@ -3584,19 +3758,7 @@ a.action.print.hidden-print {
 		letter-spacing: 0.02em;
 		color: #CC0000;
 	}
-	button.itembug {
-		background: #FFFFFF;
-		border: 2px solid rgba(0, 0, 0, 0.08);
-		box-sizing: border-box;
-		border-radius: 50px;
-		font-family: 'wuerthbold';
-		font-style: normal;
-		font-weight: bold;
-		font-size: 16px;
-		letter-spacing: 0.02em;
-		color: #0093DD;
-		margin: 20px 14px 20px 11px;
-	}
+	
 	
 	.icon-whatsapp
 	{
@@ -3666,218 +3828,54 @@ a.action.print.hidden-print {
 #additional h2.product-section-title {
 	display: none;
 }
-.attDetailsWrapp{
-.execution {
-    font-family: 'wuerthbold';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 160%;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.02em;
-    color: #000000;
-    margin: -84px 0px 8px 0px;
-}
-.attTitle {
-    display: flex;
-	margin: 0 0 10px 15px;
-}
-.attTitle .attrow {
-    font-family: 'wuerthbold';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 160%;
-    letter-spacing: 0.02em;
-    color: #000000;
-    width: 128px;
-}
-.accordion {
-	display: flex;
-    width: 100%;
-	background: rgba(222, 222, 222, 0.5);
-	cursor: pointer;
-	padding: 18px;
-	width: 100%;
-	border: none;
-	text-align: left;
-	outline: none;
-	font-size: 15px;
-	transition: 0.4s;
-  }
-  
-  
-  .accordion:after {
-	content: '\f107';
-	color: #CC0000;
-	font-weight: bold;
-	float: right;
-	margin-left: 5px;
-	font-family: 'FontAwesome';
-  }
-  
-  .active:after {
-	content: "\f106";
-	font-family: 'FontAwesome';
-  }
-  
-  .panel {
-	padding: 0 18px;
-	background-color: white;
-	max-height: 0;
+/* Style the pdpTab */
+.productDescription {
+.pdpTab {
 	overflow: hidden;
-	transition: max-height 0.2s ease-out;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    background-color: #ffffff;
   }
   
-  .accordion.gray{
-	background: #DEDEDE !important;
-  }
-  .attrow.itemno {
-    font-family: 'wuerthbook';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 160%;
-    letter-spacing: 0.02em;
-    color: #CC0000;
-}
-.attrow {
-    font-family: 'wuerthbook';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 160%;
-    letter-spacing: 0.02em;
-    color: #000000;
-	width:126px;
-}
-.attrow .itemname{
-	width:13%;
-}
-
-.boxcontaner {
-    display: flex;
-}
-
-.attrow.loginprice {
-    font-family: 'wuerthbold';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 160%;
-    color: #CC0000;
-	width: 162px;
-}
-
-
-.carticon{
-	width:30px;
-	height:30px;
-	display:inline-block;
-	background:url(../images/cart-icon.svg);
-	margin: 6px 0px 0px 6px;
-}
-.attrow.bluecol {
-    background: #0093DD;
-    width: 45px;
-    height: 45px;
-}
-
-.qty-field{
-    position: inherit;
-    border: solid 1px rgba(0, 0, 0, 0.08);
-    border-radius: 4px;
-    width: 103px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-}
-.veCount {
-    width: 100px;
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
-	border-radius: 4px;
-}
-.pdp-thumbnail {
-    margin-top: 40px;
-    background: #ffffff;
-}
-.pdpvarcont {
-    width: 320px;
-    height: 104px;
-    font-family: 'wuerthbook';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 160%;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.02em;
-    color: #000000;
-}
-.pdpItemNo{
-    font-family: 'wuerthbook';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 160%;
-    display: flex;
-    letter-spacing: 0.02em;
-	color:#CC0000;
-}
-.hrline {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 1px solid rgba(0, 0, 0, 0.08);
-	margin: 1em 0;
-	padding: 0;
-}
-.catTitle {
-    font-family: 'wuerthbold';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 160%;
-    align-items: center;
-    letter-spacing: 0.02em;
-    color: #000000;
-}
-.wurthCat >ul >li {
-    font-family: 'wuerthbook';
-    font-style: normal;
-    font-weight: 300;
+  .pdpTab button {
+    float: left;
+    cursor: pointer;
+    transition: 0.3s;
     font-size: 16px;
     line-height: 24px;
     display: flex;
     align-items: center;
     color: #000000;
-	margin: 0px 0px 0px -37px;
 }
-.pdficon{
-	width:30px;
-	height:30px;
-	display:inline-block;
-	background:url(../images/pdf.svg);	
-	background-repeat: no-repeat;
-	margin: 5px 0 0 0px
+  .pdpTab button:hover {
+	background-color: #ddd;
+  }
+  .pdpTab button.active {
+    background: #0093DD;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
 }
-.flipicon{
-	width:30px;
-	height:30px;
-	display:inline-block;
-	background:url(../images/flip.svg);	
-	background-repeat: no-repeat;
-	margin: 5px 0px -5px 0px;
+  .pdpTabcontentbox {
+	display: none;
+	padding: 20px 0px;
+  }
+  .heading {
+    font-family: 'wuerthbold';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 110%;
+    letter-spacing: 0.02em;
+    color: #000000;
 }
-.tables.table-hovers >tbody >tr {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+.videos {
+    margin: 10px 0 10px 0px;
+}
 }
 
-}
 // pdp page end by amit
 
 // Cat Leve-5 page start by amit
