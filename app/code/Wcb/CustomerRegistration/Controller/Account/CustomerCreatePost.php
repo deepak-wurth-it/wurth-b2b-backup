@@ -352,9 +352,6 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
         $companyRepo = $this->companyRepository;
         $companyObj = $this->companyInterface;
         $dataObj = $this->dataObjectHelper;
-echo "<pre>";
-print_r($request);
-exit;
         $company = [
                     "company_name" => $request['company']['company_name'],
                     "company_email" => $request['confirm_email'],
