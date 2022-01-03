@@ -2,6 +2,47 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
 		<referenceContainer name="content">
+			<!-- <block class="Wcb\HomePage\Block\HomePage" name="homepage" as="homepage" template="Wcb_HomePage::homepage.phtml"/> -->
+			<block class="Magento\Cms\Block\Block" name="cms-main-banner"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">cms-main-banner</argument> 
+				</arguments> 
+			</block>
+			<block class="Magento\Cms\Block\Block" name="cms-home-info-banner"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">cms-home-info-banner</argument> 
+				</arguments> 
+			</block> 
+			<block class="Magento\Cms\Block\Block" name="become-online-shop-customer"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">become-online-shop-customer</argument> 
+				</arguments> 
+			</block>
+			<block class="Magento\Cms\Block\Block" name="cms-home-offer-banners"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">cms-home-offer-banners</argument> 
+				</arguments> 
+			</block>
+			<block class="Magento\Cms\Block\Block" name="cms-home-content-banner"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">cms-home-content-banner</argument> 
+				</arguments> 
+			</block>
+			<block class="Magento\Cms\Block\Block" name="cms-home-info-content-banner"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">cms-home-info-content-banner</argument> 
+				</arguments> 
+			</block>
+			<block class="Magento\Cms\Block\Block" name="cms-home-wurth-features"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">cms-home-wurth-features</argument> 
+				</arguments> 
+			</block>
+			<block class="Magento\Cms\Block\Block" name="cms-home-info-card"> 
+				<arguments> 
+					<argument name="block_id" xsi:type="string">cms-home-info-card</argument> 
+				</arguments> 
+			</block>
 			<block class="Wcb\HomePage\Block\HomePage" name="homepage" as="homepage" template="Wcb_HomePage::homepage.phtml"/>
 		</referenceContainer>
 	</body>

@@ -13,20 +13,23 @@ use Magento\Framework\Url\EncoderInterface;
 use Magento\Framework\View\LayoutFactory;
 use Magento\GroupedProduct\Model\Product\Type\Grouped;
 use Wcb\BestSeller\Helper\Data;
-
+use Wcb\BestSeller\Block\CategoryId;
+use Wcb\BestSeller\Block\BestSellerProducts;
 /**
- * Class CategoryId
+ * Class CategoryProduct
  * @package Wcb\BestSeller\Block
  */
-class CategoryId extends AbstractSlider
+class CategoryProduct extends AbstractSlider
 {
     /**
      * @var CategoryFactory
      */
     protected $_categoryFactory;
 
+    protected $categoryId;
+    protected $bestSellerProducts;
     /**
-     * CategoryId constructor.
+     * CategoryProduct constructor.
      *
      * @param Context $context
      * @param CollectionFactory $productCollectionFactory
@@ -53,9 +56,15 @@ class CategoryId extends AbstractSlider
         Grouped $grouped,
         Configurable $configurable,
         LayoutFactory $layoutFactory,
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollection,
+        \Wcb\BestSeller\Block\CategoryId $categoryId,
+        \Wcb\BestSeller\Block\BestSellerProducts $bestSellerProducts,
         array $data = []
     ) {
         $this->_categoryFactory = $categoryFactory;
+        $this->categoryCollection = $categoryCollection;
+        $this->categoryId = $categoryId;
+        $this->bestSellerProducts = $bestSellerProducts;
 
         parent::__construct(
             $context,
@@ -79,31 +88,48 @@ class CategoryId extends AbstractSlider
      */
     public function getProductCollection()
     {
-        $collection = $this->getCategoryCollection();
-        // $productIds = $this->getProductIdsByCategory();
-        // $collection = [];
-        // if (!empty($productIds)) {
-        //     $collection = $this->_productCollectionFactory->create()
-        //         ->addIdFilter(array('in' => $productIds));
-        //     $this->_addProductAttributesAndPrices($collection);
-        // }
-
+        $collection = $productId = $categoryArray = [];[];
+        $collection['product'] = $this->bestSellerProducts->getProductCollection();
+        $categoryIds = $this->getSliderCategoryIds();
+        if (is_array($categoryIds)) {
+            foreach($categoryIds as $cat)
+            {
+                $getCategory = $this->_categoryFactory->create()->load($cat)->getData();
+                array_push($categoryArray, $getCategory);
+            }
+        }
+        $collection['category'] = $categoryArray;
         return $collection;
     }
 
     public function getCategoryCollection()
     {
-        
         $catIds = $this->getSliderCategoryIds();
+
+        // return $this->categoryCollection->create()
+        // ->addAttributeToSelect('*')
+        // // ->addAttributeToSelect('thumb_nail')
+        // // ->addAttributeToSelect('url_path')
+        // ->addFieldToFilter('entity_id', $catIds)
+        // ;
+
+// foreach ($categoryCollection->getItems() as $category) {
+//     /** @var \Magento\Catalog\Model\Category\Interceptor $category */
+
+//     // get the category data
+//     echo "<pre>";
+//     var_dump($category->getData());
+// }
+
 
         if (is_array($catIds)) {
             $productId = $categoryArray = [];
             foreach($catIds as $cat)
             {
-                $getCategory = $this->_categoryFactory->create()->load($cat);
+                $getCategory = $this->_categoryFactory->create()->load($cat)->getData();
                 array_push($categoryArray, $getCategory);
             }
-            return array("categories" => $categoryArray);
+            return $categoryArray;
         }
     }
 
