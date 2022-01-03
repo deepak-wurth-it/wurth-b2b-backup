@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="left">
+            <block class="Wcb\Testimonials\Block\Adminhtml\Items\Edit\Tabs" name="wcb_testimonials_items_edit_tabs">
+                <block class="Wcb\Testimonials\Block\Adminhtml\Items\Edit\Tab\Main" name="wcb_testimonials_items_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">wcb_testimonials_items_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Wcb\Testimonials\Block\Adminhtml\Items\Edit" name="test_items_edit"/>
+        </referenceContainer>
+    </body>
+</page>
