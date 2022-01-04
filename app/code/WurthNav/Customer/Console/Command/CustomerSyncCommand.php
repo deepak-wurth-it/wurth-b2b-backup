@@ -5,6 +5,7 @@
  * See COPYING.txt for license details.
  */
 
+ 
 namespace WurthNav\Customer\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
