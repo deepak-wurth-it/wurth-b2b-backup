@@ -3477,6 +3477,54 @@ a.action.print.hidden-print {
 	}
 }
 // checkout page by amit end here
+
+// Now Offer home page start by amit
+.nowOffer{
+	.yourAction{		
+		font-family: 'wuerthbook';
+		font-weight: bold;
+		font-size: 16px;
+		color: @general_text_color;
+	}
+	.product-grid {
+		background: @general_bg_color;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		height: auto;
+	}
+	.product-content {
+		padding: 10px;
+	}
+	.productName {
+		font-family: 'wuerthbold';
+		color: rgba(0, 0, 0, 0.8);
+		margin: 10px 0 5px 0px;
+	}
+	.onlineoff{
+	font-family: 'wuerthbook';
+	color: @general_title_color;
+	}
+	.cpgprice{
+		font-family: 'wuerthbold';
+		font-size: 24px;
+		color: @general_price_color;
+	}
+	.cpcross {
+		font-family: 'wuerthbook';
+		font-size: 18px;
+		text-decoration-line: line-through;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	a.image{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+	}
+
+}
+// Now offer home page end by amit
+
 // pdp page start by amit
 .pdPage{
 	
@@ -3551,7 +3599,19 @@ a.action.print.hidden-print {
 		margin: 20px 0px 0px 0px;
 		align-items: center;
 	}
-	
+	.priceDisplay {
+		color: @general_price_color;
+		display: inline-flex;
+		font-family: 'wuerthbold';
+		margin: 0px 0 10px 0px;
+	}	
+	.redStar{	
+		background:url(../images/redStar.svg);
+		background-repeat: no-repeat;
+		width: 15px;
+		margin: 3px 0px 0px 5px;
+		
+	}
 	.redbox{	
 		display:inline-block;
 		background:url(../images/Rectangle.svg);
@@ -8461,9 +8521,7 @@ button.allpro {
 		align-items: center;
 		color: #009EE0;
 	}
-	.priceDisplay {
-		color: #CC0000;
-	}
+	
 	.boxcontaner {
 		width: 100%;
 	}
