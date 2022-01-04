@@ -6,13 +6,18 @@
 ?>
 <?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
 <?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+    $logedIn = $customerSession->isLoggedIn();
+  ?>
 
 <div class="static-content">
 
 <div class="pdAku">AKU BUSILICA ODVIJAC-ABS 12 COMPACT-2X2,O AH</div>
 <div class="brArt">br.art. 701 101002</div>
 <span class="hrline"></span>
-<div class="priceDisplay">Price display for customers after registration</div>
+<div class="priceDisplay"><?php if($customerSession->isLoggedIn()) { ?>Price :   2,421.56 - 25% = 1,816.17 HRK/COM <span class="redStar"></span> <?php } else { ?> Price display for customers after registration <?php } ?></div>
 
 <div class="boxcontaner">
       <div class="qty-field">
@@ -27,6 +32,8 @@
           <button type="submit" class="itemAdd">Dodaj u kosaricu</button>
         </div>     
 </div>
+<?php if($customerSession->isLoggedIn()) { ?><div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> <span class="itembox"> </span> <span class="deliveryday"></span><span> 1</span></div><?php } ?>
+
 <span class="hrline"></span>
 <div class="purchaseWrapp">
     <span class="proqty">Purchase this product in 3 quantity</span> 
@@ -42,7 +49,7 @@
 </div>
 <span class="hrline"></span>
 <div class="col-md more-info-block">
-<div class="moreInfo">Need More Information?</div>
+<h3>Need More Information?</h3>
  <span class="phoneEmail">Contact us by phone or email?</span>
  <div><span class="icon-com-phone-a"></span> <span class="iphone-outline">Phone 0800 4260</span></div>
  <div><span class="icon-wuerth-e-mail"></span><span class="email-outline">Email wuert@wuerth.com.hr</span></div>

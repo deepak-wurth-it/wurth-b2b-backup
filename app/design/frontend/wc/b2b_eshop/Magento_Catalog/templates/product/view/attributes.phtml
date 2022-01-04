@@ -18,27 +18,102 @@
 ?>
 <div class="productDescription">
 <div class="pdpTab">
-  <button class="pdpTabnames" onclick="openCity(event, 'Description')" id="defaultOpens">Description</button>
-  <button class="pdpTabnames" onclick="openCity(event, 'technicalInformation')">Technical Information</button>
-  <button class="pdpTabnames" onclick="openCity(event, 'Documents')">Documents</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'Description')" id="defaultOpens">Opis</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'technicalInformation')">Tehnički podaci</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'Documents')">Informacije o artiklu</button>
 </div>
 
 <div id="Description" class="pdpTabcontentbox">
-  <div class="heading">AKUMULATORSKA BUSILICA ODVIJAC-ABS 12 COMPACT M-CUBE</div>
+  <h3>AKUMULATORSKI UDARNI ODVIJAČ ABS 18 POWER COMBI M-CUBE®</h3>
   <div class="videos"><iframe width="560" height="315" src="https://www.youtube.com/embed/Sh5SxQumpFM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-   <div class="heading">AKUMULATORSKA BUSILICA ODVIJAC-ABS 12 COMPACT M-CUBE</div>
-   <div class="redtext">Vrlo snazna, prenasiva akumulatarska udarna busilica-odvijac s funkcijom udarnog busenija i sa zakrelnim momentom od 140 Nm, kaju je razvio Wurth prema zahtjevima obrlnika</div>
+   <h3>AKUMULATORSKI UDARNI ODVIJAČ ABS 18 POWER COMBI M-CUBE®</h3>
+   <div class="redtext">Vrlo snažna, prenosiva akumulatorska udarna bušilica-odvijač s funkcijom udarnog bušenja i sa zakretnim momentom od 140 Nm, koju je razvio Würth prema zahtjevima obrtnika.</div>
+
+   <div class="ulcontent">
+      <h3>Brza prilagodba pojedinačnoj primjeni</h3>
+      <ul>
+           <li>• Pomoću funkcijske se sklopke za odabir može jednostavno i brzo prebacivati između odvijanja, bušenja i udarnog bušenja</li>
+      </ul>
+  </div>
+
+  <div class="ulcontent">
+      <h3>Robusna izvedba</h3>
+      <ul>
+           <li>• Za zahtjevnu primjenu na gradilištu, svi dijelovi mogu pretrpjeti pad s uobičajenih visina rada</li>
+      </ul>
+  </div>
+
+  <div class="ulcontent">
+      <h3>Kontinuirano nadgledanje motora</h3>
+      <ul>
+           <li>• Elektronička zaštita motora prijevremeno isključuje motor kod blokiranja, preopterećenja i pregrijavanja</li>
+      </ul>
+  </div>
+  <div class="ulcontent">
+      <h3>Dugi vijek trajanja motora</h3>
+      <ul>
+           <li>• Efikasan, bez održavanja, EC motor bez četkica s rezervama snage</li>
+           <li>• I pod opterećenjem zadržava stabilnu krivulju okretaja.</li>
+      </ul>
+  </div>
+  <div class="ulcontent">
+      <h3>Maksimalna trajnost i malo habanje</h3>
+      <ul>
+           <li>• 13 mm Röhm metalna zatezna glava za bušenje, s lemljenim zateznim čeljustima od tvrdog metala</li>
+           <li>• Elektronička signalna sklopka</li>
+      </ul>
+  </div>
+  <div class="ulcontent">
+      <h3>Dobro osvijetljeno radno područje</h3>
+      <ul>
+           <li>LED svjetiljka na postolju akumulatora</li>
+           <li>✔ WÜRTH M-CUBE-Akku-System</li>
+           <li>✘ CV-Akku-System</li>
+      </ul>
+  </div>
+  <div class="ulcontent">
+      <h3>3 godine jamstva na pogreške u proizvodnji i na materijalu</h3>
+      <ul>
+           <li>• Isključena su oštećenja koja se mogu povezati s neprikladnom primjenom, preopterećenjem ili nepridržavanjem</li>
+           <li>• Uputa za uporabu</li>
+      </ul>
+  </div>
+  <div class="ulcontent">
+      <h3>Elektronska funkcija zaštite motora:</h3>
+      <ul>
+           <li>Kontinuirano nadgledanje motora povećava vijek trajanja, jer se motor kod blokade, preopterećenja ili pregrijavanja prijevremeno iskapča.</li>
+      </ul>
+  </div>
 
 </div>
 
 <div id="technicalInformation" class="pdpTabcontentbox">
-  <h3>Technical Information</h3>
-  <p>Technical Information is the capital of France.</p> 
+
+  <?php if ($_additional = $block->getAdditionalData()) :?>
+    <div class="additional-attributes-wrapper table-wrapper">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+            <tbody>
+            <?php foreach ($_additional as $_data) :?>
+                <tr>
+                    <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+                    <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif;?>
 </div>
 
 <div id="Documents" class="pdpTabcontentbox">
-  <h3>Documents</h3>
-  <p>Documents is the capital of Japan.</p>
+<div class="heading">Prodduct Information</div>
+<div class="ulcontent">
+      <ul>
+           <li><span class="pdficon"></span> Catalogue page as PDF 1</li>
+           <li><span class="pdficon"></span> Flip catalog</li>
+      </ul>
+  </div>
 </div>
   </div>
 
@@ -60,18 +135,4 @@ function openCity(evt, pdpTabName) {
 document.getElementById("defaultOpens").click();
 </script>
 
-<!--<?php if ($_additional = $block->getAdditionalData()) :?>
-    <div class="additional-attributes-wrapper table-wrapper">
-        <table class="data table additional-attributes" id="product-attribute-specs-table">
-            <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
-            <tbody>
-            <?php foreach ($_additional as $_data) :?>
-                <tr>
-                    <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
-                    <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-<?php endif;?> -->
+
