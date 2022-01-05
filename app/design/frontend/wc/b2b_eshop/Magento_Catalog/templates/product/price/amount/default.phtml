@@ -21,8 +21,9 @@
         data-price-type="<?php /* @escapeNotVerified */ echo $block->getPriceType(); ?>"
         class="price-wrapper <?php /* @escapeNotVerified */ echo $block->getPriceWrapperCss(); ?>"
        >
-        <?php /* @escapeNotVerified */ echo $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()) ?>
+        <?php //echo $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()) ?>
     </span>
+    <span class="cprice">149,<sup>99</sup></span>  <span class="ccross">199,<sup>99</sup></span>
     <?php if ($block->hasAdjustmentsHtml()): ?>
         <?php echo $block->getAdjustmentsHtml() ?>
     <?php endif; ?>

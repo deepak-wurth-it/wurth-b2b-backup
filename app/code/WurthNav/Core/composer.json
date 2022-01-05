@@ -1,0 +1,22 @@
+{
+    "name": "wurthnav/module-core",
+    "description": "WurthNav Core ERP Module",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Deepak Kumar",
+            "email": "deepak.kumar.rai@wuerth-it.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "WurthNav\\Core\\": ""
+        }
+    }
+}

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-7">
-    <form class="form create account form-create-account newUserRegistration" action="<?= $escaper->escapeUrl($block->getUrl('excustomer/account/newcustomercreate')) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Please fill all Required Fields')) ?>" data-mage-init='{"validation":{}}'>
+    <form class="form create account form-create-account newUserRegistration" action="<?= $escaper->escapeUrl($block->getUrl('excustomer/account/newcustomercreate')) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Please fill all Required Fields')) ?>"  onSubmit="return checkCaptcha() ;" data-mage-init='{"validation":{}}' >
             <fieldset class="fieldset">
                  <div class="formSections">
                 <legend class="legend"><span><?= $block->escapeHtmlAttr(__('About the company')) ?></span></legend>
@@ -12,7 +12,7 @@
                             <input type="text" name="company[vat_tax_id]" id="vat_tax_id" value="" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text" data-validate="{required:true}">
                         </div>
                     </div>
-                
+                    <p id="link-error"></p>
                     <div class="field company-name _required">
                         <label class="label" for="company_name">
                             <span><?= $block->escapeHtml(__('Company Name')) ?></span>
@@ -336,13 +336,44 @@
             </div>
         </div>
     </div>
+
+    <div class="field choice newsletter">
+            <input type="checkbox"
+                   name="is_subscribed"
+                   title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
+                   value="1"
+                   id="is_subscribed"
+                <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
+                   class="checkbox"/>
+            <label for="is_subscribed" class="label">
+                <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
+            </label>
+        </div>
+            <?php /* Extensions placeholder */ ?>
+            <?= $block->getChildHtml('customer.form.register.newsletter') ?>
+
+
+        <div class="form-group required">
+            <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
+            </div>
+            <label for="privacy_policy"><?php echo 'Accept the privacy policy' ?> (<a href=""><?php echo 'privacy policy'; ?></a>)</label>
+        </div>
+        <div class="form-group required">
+            <div class="g-recaptcha required" id="recaptcha"
+                data-sitekey="6Lc7-wsdAAAAAARHYuosBAH_iVvu_Ygeo6ujnuR1">
+            </div>
+                <div style="display:none" id="error-msg">
+                <span><?php echo __('This is a required field.') ?></span>
+            </div>
+        </div>
         <div class="actions-toolbar">
-                <button type="submit" class="action submit primary-button btn160" title="Save"><span><?= $block->
+                <button type="submit" class="action submit primary-button btn160" id="save-button" title="Save"><span><?= $block->
                     escapeHtmlAttr(__('Save')) ?></span></button>
         </div>
         <input type="hidden" id="company_email" name="company_email" value="">
 
             </fieldset>
+            
         </form>
     </div>
 </div>
@@ -419,6 +450,50 @@
             "Magento_Customer/js/block-submit-on-send": {
                 "formId": "form-validate"
             }
+        }
+    }
+</script>
+<?php 
+    $ajaxurl = $block->getUrl('excustomer/account/verifycompany');
+?>
+<script type="text/javascript">
+    require(["jquery"],function($) {
+        $(document).ready(function(){
+        $('#vat_tax_id').on('change keyup', function () {
+            var tax_value = $("#vat_tax_id").val();
+            var minlength = 11;
+            var customurl = "<?php echo $ajaxurl;?>";
+            if (tax_value.length >= minlength && tax_value != '') {
+                $.ajax({
+                    url: customurl,
+                    type: "GET",
+                    data: {CompanyOib:tax_value},
+                    showLoader: true //use for display loader 
+                }).done(function (data) {
+                    // if (data.success != null) {
+                    //     $('#save-button').prop('disabled', false);
+                    // }                
+                    if (data.success == 'true') { 
+                        alert('gfhgff');
+                        $('#save-button').prop('disabled', true);
+                        $( "#link-error" ).append( "Company OIB already exists. Please enter valid company OIB." );  // set the message as html of span
+                    } 
+                    return true;
+                });}
+            });
+        });
+    });
+</script>
+<script>
+    function checkCaptcha() {
+        if ((jQuery('#g-recaptcha-response').val()) === '') {
+            jQuery('#error-msg').css('display', 'block');
+            jQuery('#error-msg').css('color', '#df280a');
+            jQuery('#error-msg').css('font-size', 13);
+            return false;
+        }
+        else {
+            jQuery('#error-msg').css('display', 'none');
         }
     }
 </script>

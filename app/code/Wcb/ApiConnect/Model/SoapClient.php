@@ -3,7 +3,7 @@
  * Copyright ©  All rights reserved.
  * See COPYING.txt for license details.
  */
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Wcb\ApiConnect\Model;
 
@@ -13,10 +13,23 @@ use Wcb\ApiConnect\Api\Data\SoapClientInterface;
 class SoapClient extends AbstractModel implements SoapClientInterface
 {
 
+    const XML_PATH_SOAP_USER = 'soap_api_setting/config/api_user';
+    const XML_PATH_SOAP_PASSWORD = 'soap_api_setting/config/api_password';
+    const XML_PATH_SOAP_URL = 'soap_api_setting/config/api_url';
+
+    public function __construct(
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+    ) {
+
+        $this->scopeConfig = $scopeConfig;
+
+    }
+
     /**
      * @inheritDoc
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init(\Wcb\ApiConnect\Model\ResourceModel\SoapClient::class);
     }
@@ -53,136 +66,82 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         return $this->setData(self::CONTENT, $content);
     }
 
+    
+    public function getSoapUser()
+    {
+        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
 
-    public function GetMultiItemAvailabilityOnLocation($itemNo=null){
-        $soapUrl = "http://172.30.54.201:7047/WurthHRV_Test/WS/WURTH_HRVATSKA%20Test/Codeunit/ShopSync?wsdl";
+        return $this->scopeConfig->getValue(self::XML_PATH_SOAP_USER, $storeScope);
+    }
 
-        $soapUser = "WHRINDIA";  //  username
 
-        $soapPassword = "cUE48c0X"; // password
+    public function getSoapPassword()
+    {
+        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
 
-        // xml post structure
-
-        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">
-        <soapenv:Header/>
-        <soapenv:Body>
-           <shop:GetMultiItemAvailabilityOnLocation>
-              <shop:userIdP>djordje</shop:userIdP>
-              <shop:locationCodeP>100</shop:locationCodeP>
-              <shop:itemsCsvP>
-              '.$itemNo.'
-              </shop:itemsCsvP>
-           </shop:GetMultiItemAvailabilityOnLocation>
-        </soapenv:Body>
-     </soapenv:Envelope>';   // data from the form, e.g. some ID number
-        echo  $xml_post_string .PHP_EOL;
-        $headers = array(
-            "Content-type: text/xml;charset=\"utf-8\"",
-            "Accept: text/xml",
-            "Cache-Control: no-cache",
-            "Pragma: no-cache",
-            "SOAPAction: urn:microsoft-dynamics-schemas/codeunit/ShopSync:GetItemAvailabilityOnLocation",
-            "Content-length: ".strlen($xml_post_string),
-        ); //SOAPAction: your op URL
-
-        $url = $soapUrl;
-
-        // PHP cURL  for https connection with auth
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        curl_setopt($ch, CURLOPT_USERPWD, $soapUser.":".$soapPassword); // username and password - declared at the top of the doc
-
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-
-        curl_setopt($ch, CURLOPT_POST, true);
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string); // the SOAP request
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        // converting
-        $response = curl_exec($ch);
-        return $response;
-        //print_r($response);
+        return $this->scopeConfig->getValue(self::XML_PATH_SOAP_PASSWORD, $storeScope);
 
     }
 
-    public function GetMultiItemEShopSalesPriceAndDisc($itemNo=null){
-        $soapUrl = "http://172.30.54.201:7047/WurthHRV_Test/WS/WURTH_HRVATSKA%20Test/Codeunit/ShopSync?wsdl";
+    public function getSoapUrl()
+    {
+        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
 
-        $soapUser = "WHRINDIA";  //  username
-
-        $soapPassword = "cUE48c0X"; // password
-
-        // xml post structure
-
-        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">
-        <soapenv:Header/>
-        <soapenv:Body>
-           <shop:GetMultiItemEShopSalesPriceAndDisc>
-              <shop:customerNoP>110508</shop:customerNoP>
-              <shop:salesLinesCsvP>"912 910408";"1"
-              "912 814185";"1"
-              "912 812180";"1"
-              "912 810505";"1"</shop:salesLinesCsvP>
-           </shop:GetMultiItemEShopSalesPriceAndDisc>
-        </soapenv:Body>
-     </soapenv:Envelope>';
-  // data from the form, e.g. some ID number
-
-        $headers = array(
-            "Content-type: text/xml;charset=\"utf-8\"",
-            "Accept: text/xml",
-            "Cache-Control: no-cache",
-            "Pragma: no-cache",
-            "SOAPAction: urn:microsoft-dynamics-schemas/codeunit/ShopSync:GetItemAvailabilityOnLocation",
-            "Content-length: ".strlen($xml_post_string),
-        ); //SOAPAction: your op URL
-
-        $url = $soapUrl;
-
-        // PHP cURL  for https connection with auth
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        curl_setopt($ch, CURLOPT_USERPWD, $soapUser.":".$soapPassword); // username and password - declared at the top of the doc
-
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-
-        curl_setopt($ch, CURLOPT_POST, true);
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string); // the SOAP request
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        // converting
-        $response = curl_exec($ch);
-        return $response;
-        //print_r($response);
+        return $this->scopeConfig->getValue(self::XML_PATH_SOAP_URL, $storeScope);
 
     }
 
-    public function GetItemEShopSalesPriceAndDisc($itemNo=null){
-        $soapUrl = "http://172.30.54.201:7047/WurthHRV_Test/WS/WURTH_HRVATSKA%20Test/Codeunit/ShopSync?wsdl";
+    
+    public function GetMultiItemAvailabilityOnLocation($itemNo = null)
+    {
 
-        $soapUser = "WHRINDIA";  //  username
+        // xml post structure
 
-        $soapPassword = "cUE48c0X"; // password
+        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">';
+        $xml_post_string .= '<soapenv:Header/>';
+        $xml_post_string .= '<soapenv:Body>';
+        $xml_post_string .= '<shop:GetMultiItemAvailabilityOnLocation>';
+        $xml_post_string .= '<shop:userIdP>djordje</shop:userIdP>';
+        $xml_post_string .= '<shop:locationCodeP>100</shop:locationCodeP>';
+        $xml_post_string .= '<shop:itemsCsvP>';
+        $xml_post_string .= $itemNo;
+        $xml_post_string .= '</shop:itemsCsvP>';
+        $xml_post_string .= '</shop:GetMultiItemAvailabilityOnLocation>';
+        $xml_post_string .= '</soapenv:Body>';
+        $xml_post_string .= '</soapenv:Envelope>';
+        $xml_post_string = trim($xml_post_string);
+        // data from the form, e.g. some ID number
+        $response = $this->initCurl($xml_post_string);
+
+        return $response;
+
+    }
+
+    public function GetMultiItemEShopSalesPriceAndDisc($itemNo = null)
+    {
+
+        // xml post structure
+
+        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">';
+        $xml_post_string .= '<soapenv:Header/>';
+        $xml_post_string .= '<soapenv:Body>';
+        $xml_post_string .= '<shop:GetMultiItemEShopSalesPriceAndDisc>';
+        $xml_post_string .= '<shop:customerNoP>110508</shop:customerNoP>';
+        $xml_post_string .= '<shop:salesLinesCsvP>';
+        $xml_post_string .= $itemNo;
+        $xml_post_string .= '</shop:salesLinesCsvP>';
+        $xml_post_string .= '</shop:GetMultiItemEShopSalesPriceAndDisc>';
+        $xml_post_string .= '</soapenv:Body>';
+        $xml_post_string .= '</soapenv:Envelope>';
+        // data from the form, e.g. some ID number
+        $response = $this->initCurl($xml_post_string);
+
+        return $response;
+
+    }
+
+    public function GetItemEShopSalesPriceAndDisc($itemNo = null)
+    {
 
         // xml post structure
 
@@ -191,7 +150,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
     <soapenv:Body>
     <shop:GetItemEShopSalesPriceAndDisc>
     <shop:customerNoP>110508</shop:customerNoP>
-    <shop:itemNoP>'.$itemNo.'</shop:itemNoP>
+    <shop:itemNoP>' . $itemNo . '</shop:itemNoP>
     <shop:qtyOnSalesLineAsTxtP>1</shop:qtyOnSalesLineAsTxtP>
     <shop:suggestedPriceAsTxtP>?</shop:suggestedPriceAsTxtP>
     <shop:suggestedDiscountAsTxtP>?</shop:suggestedDiscountAsTxtP>
@@ -207,67 +166,44 @@ class SoapClient extends AbstractModel implements SoapClientInterface
     <shop:noteP>?</shop:noteP>
     </shop:GetItemEShopSalesPriceAndDisc>
     </soapenv:Body>
-    </soapenv:Envelope>';   // data from the form, e.g. some ID number
+    </soapenv:Envelope>'; // data from the form, e.g. some ID number
+        $response = $this->initCurl($xml_post_string);
 
-        $headers = array(
-            "Content-type: text/xml;charset=\"utf-8\"",
-            "Accept: text/xml",
-            "Cache-Control: no-cache",
-            "Pragma: no-cache",
-            "SOAPAction: urn:microsoft-dynamics-schemas/codeunit/ShopSync:GetItemAvailabilityOnLocation",
-            "Content-length: ".strlen($xml_post_string),
-        ); //SOAPAction: your op URL
-
-        $url = $soapUrl;
-
-        // PHP cURL  for https connection with auth
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        curl_setopt($ch, CURLOPT_USERPWD, $soapUser.":".$soapPassword); // username and password - declared at the top of the doc
-
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-
-        curl_setopt($ch, CURLOPT_POST, true);
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string); // the SOAP request
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        // converting
-        $response = curl_exec($ch);
         return $response;
-        //print_r($response);
 
     }
 
-    public function GetItemAvailabilityOnLocation($itemNo=null ){
-
-        $soapUrl = "http://172.30.54.201:7047/WurthHRV_Test/WS/WURTH_HRVATSKA%20Test/Codeunit/ShopSync?wsdl";
-
-        $soapUser = "WHRINDIA";  //  username
-
-        $soapPassword = "cUE48c0X"; // password
+    public function GetItemAvailabilityOnLocation($itemNo = null)
+    {
 
         // xml post structure
         $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">
         <soapenv:Header/>
         <soapenv:Body>
            <shop:GetItemAvailabilityOnLocation>
-              <shop:itemNoP>'.$itemNo.'</shop:itemNoP>
+              <shop:itemNoP>' . $itemNo . '</shop:itemNoP>
               <shop:locationCodeP>100</shop:locationCodeP>
               <shop:availableQtyAsTxtP>10</shop:availableQtyAsTxtP>
               <shop:itemDefaultVendorNoP>800001</shop:itemDefaultVendorNoP>
            </shop:GetItemAvailabilityOnLocation>
         </soapenv:Body>
-     </soapenv:Envelope>';   // data from the form, e.g. some ID number
+     </soapenv:Envelope>'; // data from the form, e.g. some ID number
+
+        $response = $this->initCurl($xml_post_string);
+
+        return $response;
+
+    }
+
+    public function initCurl($xml_post_string)
+    {
+
+        $soapUrl = $this->getSoapUrl();
+
+        $soapUser = $this->getSoapUser(); //  username
+
+        $soapPassword = $this->getSoapPassword(); // password
+        // PHP cURL  for https connection with auth
 
         $headers = array(
             "Content-type: text/xml;charset=\"utf-8\"",
@@ -275,12 +211,10 @@ class SoapClient extends AbstractModel implements SoapClientInterface
             "Cache-Control: no-cache",
             "Pragma: no-cache",
             "SOAPAction: urn:microsoft-dynamics-schemas/codeunit/ShopSync:GetItemAvailabilityOnLocation",
-            "Content-length: ".strlen($xml_post_string),
+            "Content-length: " . strlen($xml_post_string),
         ); //SOAPAction: your op URL
 
         $url = $soapUrl;
-
-        // PHP cURL  for https connection with auth
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
@@ -289,7 +223,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        curl_setopt($ch, CURLOPT_USERPWD, $soapUser.":".$soapPassword); // username and password - declared at the top of the doc
+        curl_setopt($ch, CURLOPT_USERPWD, $soapUser . ":" . $soapPassword); // username and password - declared at the top of the doc
 
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 
@@ -304,10 +238,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         // converting
         $response = curl_exec($ch);
         return $response;
-       
 
     }
 
-
 }
-

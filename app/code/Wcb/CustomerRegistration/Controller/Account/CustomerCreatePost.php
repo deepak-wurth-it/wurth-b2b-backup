@@ -42,7 +42,7 @@ use Magento\Framework\Data\Form\FormKey\Validator;
 use Magento\Customer\Controller\AbstractAccount;
 use Magento\Company\Api\CompanyRepositoryInterface;
 use Magento\Company\Api\Data\CompanyInterface;
-
+use Magento\Company\Api\CompanyManagementInterface;
 
 /**
  * Post create customer action
@@ -203,6 +203,7 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
         CustomerRepository $customerRepository,
         CompanyRepositoryInterface $companyRepository,
         CompanyInterface $companyInterface,
+        CompanyManagementInterface $companyManageRepository,
         Validator $formKeyValidator = null
     ) {
         $this->session = $customerSession;
@@ -224,6 +225,7 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
         $this->accountRedirect = $accountRedirect;
         $this->companyRepository = $companyRepository;
         $this->companyInterface = $companyInterface;
+        $this->companyManageRepository = $companyManageRepository;
         $this->formKeyValidator = $formKeyValidator ?: ObjectManager::getInstance()->get(Validator::class);
         $this->customerRepository = $customerRepository;
         parent::__construct($context);
@@ -345,41 +347,34 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
         return null;
     }
 
-    public function createCompany($company)
+    public function createCompany($request, $customerId)
     {
         $companyRepo = $this->companyRepository;
         $companyObj = $this->companyInterface;
         $dataObj = $this->dataObjectHelper;
-
         $company = [
-                    "company_name" => "Ravi Company",
-                    "company_email" => "yaro1234@yopmail.com",
-                    "email" => "yaro1234@yopmail.com",
-                    "street" => ["100 Big Tree Avenue"],
-                    "city" => "San Francisco",
-                    "country_id" => "US",
-                    "region" => "CA",
-                    "region_id" => "12",
-                    "postcode" => "99999",
-                    "telephone" => "4155551212",
-                    "super_user_id" => 21,
-                    "position" => 'dsds',
+                    "company_name" => $request['company']['company_name'],
+                    "company_email" => $request['confirm_email'],
+                    "email" => $request['confirm_email'],
+                    "street" => $request['company']['street'],
+                    "city" => $request['company']['city'],
+                    "country_id" => 'HR',//$request['company_country'],
+                    "region" => $request['region'],
+                    "region_id" => $request['region'],
+                    "postcode" => $request['company']['postcode'],
+                    "telephone" => $request['telephone'],
+                    "super_user_id" => $customerId,
+                    "position" => $request['position'],
                     "customer_group_id" => 1,
-                    "number_of_employees" => '45',
-                    "division" =>'ss',
-                    "activities" => '789',
-                    "firstname" =>'ds',
-                    "lastname" =>'dsa',
-                    
+                    "number_of_employees" => $request['company']['no_of_employees'],
+                    "division" => $request['company']['division'],
+                    "activities" => $request['company']['activities'],
+                    "firstname" => $request['firstname'],
+                    "lastname" => $request['lastname'],
                 ];
 
-        $dataObj->populateWithArray(
-            $companyObj,
-            $company,
-            \Magento\Company\Api\Data\CompanyInterface::class
-        );
-
-        $companyRepo->save($companyObj);
+        $dataObj->populateWithArray($companyObj, $company, \Magento\Company\Api\Data\CompanyInterface::class);
+        return $companyRepo->save($companyObj);
     }
     /**
      * Create customer account action
@@ -391,8 +386,6 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
     public function execute()
     { 
         $post = $this->getRequest()->getPostValue();
-
-        //$this->createCompany($company);
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($this->session->isLoggedIn() || !$this->registration->isAllowed()) {
@@ -410,9 +403,9 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
         $this->session->regenerateId();
         try {
             $address = $this->extractAddress();
-            $addresses = $address === null ? [] : [$address];
+            $addresses = $address == [];//= null ? [] : [$address];
             $customer = $this->customerExtractor->extract('customer_account_create', $this->_request);
-            $customer->setAddresses($addresses);
+            //$customer->setAddresses($addresses);
             $password = $this->getRequest()->getParam('password');
             $confirmation = $this->getRequest()->getParam('password_confirmation');
             $redirectUrl = $this->session->getBeforeAuthUrl();
@@ -424,7 +417,12 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
 
             $customer = $this->accountManagement
                 ->createAccount($customer, $password, $redirectUrl);
-
+                echo $customer->getId();
+            exit;
+            //Create company
+            $company = $this->createCompany($request, $customer->getId());
+            $companyId = $company->getId();
+            $this->assignedCompany($companyId, $customer->getId());
             $this->_eventManager->dispatch(
                 'customer_register_success',
                 ['account_controller' => $this, 'customer' => $customer]
@@ -479,7 +477,14 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
         $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
         return $resultRedirect->setUrl($this->_redirect->error($defaultUrl));
     }
-
+    public function assignedCompany($companyId, $customerId)
+    {
+        $company = null;
+        if($companyId && $customerId) {
+            $company = $this->companyRepository->assignCustomer($companyId,$customerId);
+        }
+        return $company;
+    }
     /**
      * Make sure that password and password confirmation matched
      *

@@ -40,7 +40,7 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		 $result = $this->resultJsonFactory->create();
 		
 		 //$sku = $this->getRequest()->getPost('sku');
-		 $xmlStock = $this->getSingleStock($dataString);
+		 $xmlStock = $this->getMultiStock($dataString);
 		 
 		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
          $data = simplexml_load_string($xmlStock);
@@ -72,9 +72,9 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
         return $csv;
 }
 		
-	public function getSingleStock($sku='899 102310'){
+	public function getMultiStock($skus){
 		
-		return $this->_soapApiClient->GetMultiItemAvailabilityOnLocation($sku);
+		return $this->_soapApiClient->GetMultiItemAvailabilityOnLocation($skus);
 
 
 

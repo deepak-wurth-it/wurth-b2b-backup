@@ -1,16 +1,27 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © 2016 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <move element="page.main.title" destination="product.info.main" before="-"/>
-        <move element="product.info.stock.sku" destination="product.info.price" after="product.price.final"/>
-        <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
-		<move element="product.info.overview" destination="product.info.main" before="product.info"/>
-        <referenceBlock name="multiple-wishlist_sidebar" remove="true" />
+        <referenceContainer name="content">
+          
+                <container name="content.row.product-info" htmlTag="div" htmlClass="product-info row" >
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="product.info.main" htmlClass="product-info-main col-md-5" />
+        <referenceContainer name="product.info.media" htmlClass="product media col-md-7" />
+        <move element="product.info.media" destination="content.row.product-info" before="-" />
+        <move element="product.info.main" destination="content.row.product-info" />
+
+        <referenceContainer name="div.sidebar.main" remove="true" />
+        <referenceContainer name="catalog.product.related" remove="true" />
+         <referenceBlock name="multiple-wishlist_sidebar" remove="true" />
+        <referenceContainer name="columns" htmlClass="columns pdPage" />
+        <referenceContainer name="product-info-main" htmlClass="product-info-main col-md-5" />
+         <referenceContainer name="product.info.price" remove="true"/>
+         <referenceBlock name="product.info.stock.sku" remove="true"/>
+         <referenceBlock name="product.info.addtocart" remove="true"/>
+          <referenceBlock name="view.addto.wishlist" remove="true"/>
+          <referenceBlock name="view.addto.compare" remove="true"/>
     </body>
 </page>
