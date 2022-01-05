@@ -1,3 +1,60 @@
-<?php
-echo 'This is a simple custom module and it does not include admin and database realted files.';
+<?php $collection = $block->getTestimonialsCollection(); 
+
+if($collection->count() > 0): 
 ?>
+ 
+<div class="carousel-wrap container testimonialContainer">
+	<h2><?php echo __('What our customers say about Würth')?></h2>    
+	<div class="owl-theme owl-testimonial carousel">
+    <?php foreach ($collection as $key => $data): ?>
+			<div class="item">
+            <div class="testimonialWrapper">
+						<div class="photo">
+                             <img src="<?php echo $this->getMediaFolder().'/'. $data->getImage(); ?>" class="mr-3">
+                                    
+					       </div>
+									<div class="media-body">
+										<div class="testimonial">
+											<p>Maecenas dignissim accumsan cursus. Integer vitae accumsan dui. Aenean ac congue enim. Interdum et ac ante ipsum primis in faucibus malesuada fames ac ante ipsum primis in faucibus. Fusce urna nisl, pulvinar sit amet ac ante ipsum primis in faucibus tempus nec, convallis nec libero.</p>
+											<p class="overview"><b>_ Josip Horvat</b></p>
+										</div>
+									</div>
+								</div>
+		</div>
+    	<?php endforeach; ?>
+	</div>
+</div>
+<?php endif; ?>
+
+<script type="text/javascript">
+          /**
+ * Created By : Rohan Hapani
+ */
+require(['jquery', 'owlcarousel'], function($) {
+    $(document).ready(function() {
+        $('.owl-testimonial').owlCarousel({
+            loop: true,
+            margin: 10,
+            autoHeight: true,
+            nav: true,
+            navText: [
+                "<i class='fa fa-caret-left'></i>",
+                "<i class='fa fa-caret-right'></i>"
+            ],
+            autoplay: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                  items: 1
+                },
+                600: {
+                  items: 1
+                },
+                1000: {
+                  items: 2
+                }
+            }
+        });
+    });
+});
+        </script>
