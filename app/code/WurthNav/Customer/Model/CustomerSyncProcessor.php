@@ -6,6 +6,7 @@
  */
 
 namespace WurthNav\Customer\Model;
+use WurthNav\Customer\Model\ResourceModel\ShopContactFactory as ResourceShopContactFactory;
 
 use Psr\Log\LoggerInterface;
 
@@ -24,11 +25,13 @@ class CustomerSyncProcessor
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \WurthNav\Customer\Model\ShopContactFactory    $shopContactFactory,
+        ResourceShopContactFactory    $resourceShopContactFactory,
         LoggerInterface $logger
     ) {
 
         $this->storeManager = $storeManager;
         $this->shopContactFactory = $shopContactFactory;
+        $this->resourceShopContactFactory = $resourceShopContactFactory;
         $this->customerFactory = $customerFactory;
 
     }
@@ -48,6 +51,7 @@ class CustomerSyncProcessor
             'sync_status = ?',
             '0'
         );
+
       
         $x = 0;
         if ($collection->getSize() && $collection->count()) {
@@ -66,11 +70,25 @@ class CustomerSyncProcessor
                 $ship_city = '';
                 $invoice_postcode='';
                 $invoice_city = '';
+                $updateData='';
+                $saveData='';
+                $key='';
+                $value='';
+
+
                 
              
 
-                $shopContact = $this->shopContactFactory->create();
+                $shopContactFactory = $this->shopContactFactory->create();
+                $shopContact = $shopContactFactory->getCollection();
+                
 
+               
+                $shopContact->getSelect()->where(
+                    'No_ = ?',
+                    $customer->getId()
+                );
+               
                 if ($address) {
                     $postcode =  $address->getPostcode();
                 }
@@ -114,32 +132,48 @@ class CustomerSyncProcessor
                 'Country'=>$country,
                 'Mobile Phone No_'=>$contact,
                 'E-Mail'=>$customer->getEmail(),
-                'Salesperson Code'=>'',
-                'VAT Registration No_'=>'',
-                'Job Title'=>'',
-                'Type'=>'1',
-                'Company No_'=>123,
-                'Company Name'=>'Company Name',
+                'Salesperson Code'=>'',// Balnk As of now
+                'VAT Registration No_'=>'',//oib
+                'Job Title'=>'',//Postiton in company
+                'Type'=>'1',//0 = New or 1 = Existing User
+                'Company No_'=>123,//If type 1 company no will go else blank
+                'Company Name'=>'Company Name1',//Company name
                 'Contact No_'=>$contact,
                 'Customer No_'=>$customer->getId(),
-                'Cust_ Business Unit Code'=>'',
-                'Status'=>'',
+                'Cust_ Business Unit Code'=>'',//Blank
+                'Status'=>'',//Blank
                 'Phone No_'=>$contact,
-                'Global Dimension 1 Code'=>'',
-                'Global Dimension 2 Code'=>'',
+                'Global Dimension 1 Code'=>'',//Division
+                'Global Dimension 2 Code'=>'',//Activity
                 'Ship To Address'=>json_encode($getDefaultShippingAddress),
                 'Invoice To Address'=>json_encode($getDefaultBillingAddress),
-                'Send Invoice Via E-mail'=>$customer->getEmail(),
+                'Send Invoice Via E-mail'=>'',//blank
                 'Ship To Post Code'=>$ship_postcode,
                 'Ship To City'=>$ship_city,
                 'Invoice To Post Code'=>$invoice_postcode,
                 'Invoice To City'=>$invoice_city);
                
+                if ($shopContact->getData()){
+                   //print_r(get_class_methods($shopContact));exit;
+                    foreach($data as $key=>$value){
+                        if($value){
+                        $shopContact->getFirstItem()->setData($key,$value);
+                        }    
+                    }
+                   
+                    $updateData = $shopContact->save();
+                }else{
+                    $shopContactFactory->addData($data);
+                    $saveData = $shopContactFactory->save();
+                }
+
                
-                $shopContact->addData($data);
-                $saveData = $shopContact->save();
+               
                 if($saveData){
-                    echo  __('Insert Record Successfully !') ;
+                    echo  __('Insert Record Successfully for customer id '.$customer->getName().' !').PHP_EOL ;
+                }
+                if($updateData){
+                    echo  __('Updated Record Successfully for customer id '.$customer->getName().' !').PHP_EOL ;
                 }
                 //print_r($shopContact->debug());exit;
                 //print_r(get_class_methods($shopContact));exit;
