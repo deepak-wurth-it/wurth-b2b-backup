@@ -11,6 +11,7 @@ class ShopContact extends WurthNavResourceCoreModel
     
     public function _construct()
     {
-        $this->_init('Shop_Contact', 'No_');
+        $this->_init('Shop_Contact', 'Id');
     }
 }
+

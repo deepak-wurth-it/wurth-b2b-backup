@@ -16,6 +16,7 @@ class ShopContact extends \Magento\Framework\Model\AbstractModel{
      */
     protected $_cacheTag = 'wurthnav_shop_contact';
 
+    
     /**
      * Prefix of model events names.
      *
