@@ -68,6 +68,28 @@
 <li><a href="#!" role="button"><span class="icon-youtube"></span></a></li>
 </ul>
 </div>
-
 </div>
 
+<script type="text/javascript">
+require(['jquery'], function($) {
+    $(document).ready(function() {  
+var incrementPlus;
+var incrementMinus;
+var buttonPlus  = $(".increaseQty");
+var buttonMinus = $(".decreaseQty");
+var incrementPlus = buttonPlus.click(function() {
+	var $n = $(".qty")
+	$n.val(Number($n.val())+1 );
+});
+
+var incrementMinus = buttonMinus.click(function() {
+		var $n = $(".qty")
+	var amount = Number($n.val());
+	if (amount > 1) {
+		$n.val(amount-1);
+	}
+});
+
+});
+});
+  </script>

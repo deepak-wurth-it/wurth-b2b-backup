@@ -1,5 +1,9 @@
 <?xml version="1.0" ?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head>
+ 		<css src="Wcb_Testimonials::css/owl.carousel.css"/>
+        <script src="Wcb_Testimonials::js/common.js" async="async" />
+    </head>
 	<body>
 		<referenceContainer name="content">
 			<!-- <block class="Wcb\HomePage\Block\HomePage" name="homepage" as="homepage" template="Wcb_HomePage::homepage.phtml"/> -->
@@ -44,6 +48,9 @@
 				</arguments> 
 			</block>
 			<block class="Wcb\HomePage\Block\HomePage" name="homepage" as="homepage" template="Wcb_HomePage::homepage.phtml"/>
+			<block class="Wcb\Testimonials\Block\Testimonials" name="testimonials" as="testimonials" template="Wcb_Testimonials::testimonials.phtml"/>
+			 <block class="Wcb\Blog\Block\BlogListData" name="blog.bloglist" template="Wcb_Blog::list.phtml" cacheable="false">
+            </block>
 		</referenceContainer>
 	</body>
 </page>
