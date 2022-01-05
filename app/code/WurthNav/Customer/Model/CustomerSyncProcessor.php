@@ -90,8 +90,8 @@ class CustomerSyncProcessor
                 
                 $updateData='';
                 $saveData='';
-                $key='';
-                $value='';
+                //$key='';
+                //$value='';
                
                 $shopContactFactory = $this->shopContactFactory->create();
 
@@ -100,7 +100,6 @@ class CustomerSyncProcessor
                     'No_ = ?',
                     $customer->getId()
                 );
-              
                
                 //print_r(($this->isAccountConfirmed($customer->getId())));
 
@@ -243,17 +242,20 @@ class CustomerSyncProcessor
                 'Ship To City'=>$ship_city,
                 'Invoice To Post Code'=>$invoice_postcode,
                 'Invoice To City'=>$invoice_city,
-                'Newsletter'=>$newsLetterOptStatus);
-               
-                if ($shopContact->getData()){
+                'Newsletter'=>$newsLetterOptStatus
+            );
+                
+                if ($shopContact->getData() && $shopContact->getFirstItem()->getData('needs_update') ){
                     foreach($data as $key=>$value){
                         if($value){
+                           
                            $shopContact->getFirstItem()->setData($key,$value);
                         }    
+                        
                     }
-                   
+                    $shopContact->getFirstItem()->setData('needs_update',0);
                     $updateData = $shopContact->save();
-                }else{
+                }else if(empty($shopContact->getData())){
                     $shopContactFactory->addData($data);
                     $saveData = $shopContactFactory->save();
                 }
