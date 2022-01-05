@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="wcb_blog::core" title="Blog" module="Wcb_Blog" sortOrder="90" resource="Wcb_Blog::sample"/>
+        <add id="wcb_blog::test" title="Items" module="Wcb_Blog" sortOrder="10" parent="wcb_blog::core" action="wcb_blog/items/" resource="Wcb_Blog::items"/>
+    </menu>
+</config>
