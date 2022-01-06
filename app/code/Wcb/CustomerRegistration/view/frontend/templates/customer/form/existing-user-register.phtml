@@ -196,7 +196,16 @@ $formData = $block->getFormData();
                        autocomplete="off">
             </div>
         </div>
-        <div class="field choice newsletter">
+                     <div class="form-group required googleCaptcha">
+            <div class="g-recaptcha required" id="recaptcha"
+                data-sitekey="6Lc7-wsdAAAAAARHYuosBAH_iVvu_Ygeo6ujnuR1">
+            </div>
+             <div style="display:none" id="error-msg">
+                <span><?php echo __('This is a required field.') ?></span>
+            </div>
+        </div>
+        <div class="field choice newsletterAcceptance">
+            <label for="is_subscribed" class="label newsletter">
             <input type="checkbox"
                    name="is_subscribed"
                    title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
@@ -204,7 +213,8 @@ $formData = $block->getFormData();
                    id="is_subscribed"
                 <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
                    class="checkbox"/>
-            <label for="is_subscribed" class="label">
+                   <span class="checkmark"> </span>
+            
                 <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
             </label>
         </div>
@@ -220,20 +230,12 @@ $formData = $block->getFormData();
 
         <?= $block->getChildHtml('fieldset_create_info_additional') ?>
         
-        
-        <div class="form-group required">
-            <div class="g-recaptcha required" id="recaptcha"
-                data-sitekey="6Lc7-wsdAAAAAARHYuosBAH_iVvu_Ygeo6ujnuR1">
-            </div>
-             <div style="display:none" id="error-msg">
-                <span><?php echo __('This is a required field.') ?></span>
-            </div>
-        </div>
-        <div class="form-group required">
+        <div class="form-group required ">
+            <label for="privacy_policy" class="newsletter">
             <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
+            <span class="checkmark"> </span>
+            <?php echo 'Accept the privacy policy' ?> (<a href=""><?php echo 'privacy policy'; ?></a>)</label>
             </div>
-            <label for="privacy_policy"><?php echo 'Accept the privacy policy' ?> (<a href=""><?php echo 'privacy policy'; ?></a>)</label>
-        </div>
         <div class="actions-toolbar ">
             <button type="submit" id="confirm-reg"
                     class="action submit primary-button btn160 "

@@ -4,7 +4,7 @@
             <fieldset class="fieldset">
                  <div class="formSections">
                 <legend class="legend"><span><?= $block->escapeHtmlAttr(__('About the company')) ?></span></legend>
-                    <div class="field vat-tax-id _required">
+                    <div class="field vat-tax-id required">
                         <label class="label" for="vat_tax_id">
                             <span><?= $block->escapeHtml(__('Company OIB')) ?></span>
                         </label>
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <p id="link-error"></p>
-                    <div class="field company-name _required">
+                    <div class="field company-name required">
                         <label class="label" for="company_name">
                             <span><?= $block->escapeHtml(__('Company Name')) ?></span>
                         </label>
@@ -78,6 +78,24 @@
                         </div>
                     </div>
 
+                    <div class="field company-street required">
+                        <label class="label" for="street">
+                            <span><?= $block->escapeHtml(__('Address')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="company[street]" id="street" value=""                                title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
+                        </div>
+                    </div>
+
+                    <div class="field company-city required">
+                        <label class="label" for="city">
+                            <span><?= $block->escapeHtml(__('City')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="company[city]" id="city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
+                        </div>
+                    </div>
+
                     <div class="field company-region required">
                         <label class="label" for="region">
                             <span><?= $block->escapeHtml(__('Region')) ?></span>
@@ -98,23 +116,6 @@
                         </div>
                     </div>
 
-                    <div class="field company-city required">
-                        <label class="label" for="city">
-                            <span><?= $block->escapeHtml(__('City')) ?></span>
-                        </label>
-                        <div class="control">
-                            <input type="text" name="company[city]" id="city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
-                        </div>
-                    </div>
-
-                    <div class="field company-street required">
-                        <label class="label" for="street">
-                            <span><?= $block->escapeHtml(__('Address')) ?></span>
-                        </label>
-                        <div class="control">
-                            <input type="text" name="company[street]" id="street" value=""                                title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
-                        </div>
-                    </div>
                     <div class="field company-postcode required">
                         <label class="label" for="postcode">
                             <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
@@ -190,10 +191,10 @@
                             <input type="password" name="password_confirmation" title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
                         </div>
                     </div>
-                    <div class="field name required">
+                    <div class="field name">
                         <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Telephone')) ?></span></label>
                         <div class="control">
-                            <input name="telephone" id="telephone" title="Telephone" value="" class="input-text" type="text" data-validate="{required:true}">
+                            <input name="telephone" id="telephone" title="Telephone" value="" class="input-text" type="text" data-validate="{required:false}">
                         </div>
                     </div>
                 </div>
@@ -220,7 +221,26 @@
             </div>
         </div>
 
-        <div class="field daddress-region required">
+        <div class="field daddress-da-street required">
+            <label class="label" for="da_street">
+                <span><?= $block->escapeHtml(__('Address')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="daddress[da_street]" id="da_street" value="" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+
+
+        <div class="field da-city required">
+            <label class="label" for="da_city">
+                <span><?= $block->escapeHtml(__('City')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="daddress[da_city]" id="da_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+
+         <div class="field daddress-region required">
             <label class="label" for="region">
                 <span><?= $block->escapeHtml(__('Region')) ?></span>
             </label>
@@ -240,23 +260,6 @@
             </div>
         </div>
 
-        <div class="field da-city required">
-            <label class="label" for="da_city">
-                <span><?= $block->escapeHtml(__('City')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="daddress[da_city]" id="da_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
-            </div>
-        </div>
-
-        <div class="field daddress-da-street required">
-            <label class="label" for="da_street">
-                <span><?= $block->escapeHtml(__('Address')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="daddress[da_street]" id="da_street" value="" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
-            </div>
-        </div>
         <div class="field daddress-postcode required">
             <label class="label" for="da_postcode">
                 <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
@@ -290,6 +293,24 @@
             </div>
         </div>
 
+        <div class="field company-street required">
+                        <label class="label" for="street">
+                            <span><?= $block->escapeHtml(__('Address')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="company[street]" id="street" value=""                                title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
+                        </div>
+                    </div>
+
+        <div class="field iaddress-city required">
+            <label class="label" for="ia_city">
+                <span><?= $block->escapeHtml(__('City')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="iaddress[ia_city]" id="ia_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+
         <div class="field iaddress-ia-region required">
             <label class="label" for="ia_region">
                 <span><?= $block->escapeHtml(__('Region')) ?></span>
@@ -310,23 +331,6 @@
             </div>
         </div>
 
-        <div class="field iaddress-city required">
-            <label class="label" for="ia_city">
-                <span><?= $block->escapeHtml(__('City')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="iaddress[ia_city]" id="ia_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
-            </div>
-        </div>
-
-        <div class="field iaddress-street required">
-            <label class="label" for="ia_street">
-                <span><?= $block->escapeHtml(__('Address')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="iaddress[ia_street]" id="ia_street" value="" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
-            </div>
-        </div>
         <div class="field daddress-postcode required">
             <label class="label" for="ia_postcode">
                 <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
@@ -337,28 +341,7 @@
         </div>
     </div>
 
-    <div class="field choice newsletter">
-            <input type="checkbox"
-                   name="is_subscribed"
-                   title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
-                   value="1"
-                   id="is_subscribed"
-                <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
-                   class="checkbox"/>
-            <label for="is_subscribed" class="label">
-                <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
-            </label>
-        </div>
-            <?php /* Extensions placeholder */ ?>
-            <?= $block->getChildHtml('customer.form.register.newsletter') ?>
-
-
-        <div class="form-group required">
-            <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
-            </div>
-            <label for="privacy_policy"><?php echo 'Accept the privacy policy' ?> (<a href=""><?php echo 'privacy policy'; ?></a>)</label>
-        </div>
-        <div class="form-group required">
+    <div class="form-group required googleCaptcha">
             <div class="g-recaptcha required" id="recaptcha"
                 data-sitekey="6Lc7-wsdAAAAAARHYuosBAH_iVvu_Ygeo6ujnuR1">
             </div>
@@ -366,15 +349,46 @@
                 <span><?php echo __('This is a required field.') ?></span>
             </div>
         </div>
+
+    <div class="field choice newsletterAcceptance">
+        <label for="is_subscribed" class="label newsletter">
+            <input type="checkbox"
+                   name="is_subscribed"
+                   title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
+                   value="1"
+                   id="is_subscribed"
+                <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
+                   class="checkbox"/>
+                   <span class="checkmark"> </span>
+            
+                <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
+            </label>
+        </div>
+            <?php /* Extensions placeholder */ ?>
+            <?= $block->getChildHtml('customer.form.register.newsletter') ?>
+
+
+        <div class="form-group required ">
+            <label for="privacy_policy" class="newsletter">
+            <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
+            <span class="checkmark"> </span>
+            <?php echo 'Accept the privacy policy' ?> (<a href=""><?php echo 'privacy policy'; ?></a>)</label>
+            </div>
+            
+    
+        <input type="hidden" id="company_email" name="company_email" value="">
+
         <div class="actions-toolbar">
                 <button type="submit" class="action submit primary-button btn160" id="save-button" title="Save"><span><?= $block->
-                    escapeHtmlAttr(__('Save')) ?></span></button>
+                    escapeHtmlAttr(__('Save')) ?></span>
+                </button>
         </div>
-        <input type="hidden" id="company_email" name="company_email" value="">
 
             </fieldset>
             
         </form>
+
+        </div>
     </div>
 </div>
 <script>
@@ -489,7 +503,7 @@
         if ((jQuery('#g-recaptcha-response').val()) === '') {
             jQuery('#error-msg').css('display', 'block');
             jQuery('#error-msg').css('color', '#df280a');
-            jQuery('#error-msg').css('font-size', 13);
+            jQuery('#error-msg').css('font-size', 16);
             return false;
         }
         else {
