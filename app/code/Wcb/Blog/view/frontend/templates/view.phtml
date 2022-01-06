@@ -1,0 +1,19 @@
+<?php
+    $singleData = $block->getSingleData();
+?>
+<div>
+    <h3>Title</h3>
+    <p><?php echo $singleData->getTitle(); ?></p>   
+</div>
+<div>
+    <h3>Author</h3>
+    <p><?php echo $singleData->getAuthor(); ?></p>
+</div>
+<div>
+    <h3>Content</h3>
+    <p><?php echo $this->_filterProvider->getPageFilter()->filter($singleData->getContent()); ?></p>
+</div>
+<div>
+    <h3>Date</h3>
+    <p><?php echo $singleData->getCreatedAt(); ?></p>
+</div>
