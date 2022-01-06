@@ -10,7 +10,7 @@
 		<referenceContainer name="page.top">
             
 				<block class="Wcb\Megamenu\Block\Menu" name="wcbhozmegamenu" template="wcbmegamenu.phtml"  as='wcbmegamenu_top' />
-				<block class="Wcb\Megamenu\Block\Menu" name="dashboard_menu" template="dashboard-menu.phtml"  as='dashboard_menuh' />
+				<block class="Wcb\Megamenu\Block\Menu" name="dashboard_menu" template="dashboard-menu.phtml"  as='dashboard_menuh' /> 
                 <!--block class="Plazathemes\Hozmegamenu\Block\Menu" name="mobilemenu" template="mobilemenu.phtml"  as='mobilemenu' />
                 <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml" />
 				<block class="Magento\Store\Block\Switcher" name="store_language_mobile" as="store_language_mobile" template="switch/languages_mobile.phtml"/>
