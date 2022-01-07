@@ -46,7 +46,6 @@
 					<argument name="block_id" xsi:type="string">cms-home-info-card</argument> 
 				</arguments> 
 			</block>
-			<block class="Wcb\HomePage\Block\HomePage" name="homepage" as="homepage" template="Wcb_HomePage::homepage.phtml"/>
 			<block class="Wcb\Testimonials\Block\Testimonials" name="testimonials" as="testimonials" template="Wcb_Testimonials::testimonials.phtml"/>
 			 <block class="Wcb\Blog\Block\BlogListData" name="blog.bloglist" template="Wcb_Blog::list.phtml" cacheable="false">
             </block>
