@@ -86,7 +86,7 @@ $formData = $block->getFormData();
         <input type="hidden" name="error_url" value="<?= $block->escapeUrl($block->getErrorUrl()) ?>"/>
       
 <div id="link-error"></div>
-        <div class="field field-name-firstname required">
+        <div class="field field-name-firstname _required">
             <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
             <div class="control">
                 <input type="text" id="firstname"
@@ -97,7 +97,7 @@ $formData = $block->getFormData();
             </div>
         </div>
 
-        <div class="field field-name-lastname required">
+        <div class="field field-name-lastname _required">
             <label class="label" for="lastname"><span><?php echo __("Last Name")?></span></label>
             <div class="control">
                 <input type="text" id="lastname"
@@ -108,7 +108,7 @@ $formData = $block->getFormData();
             </div>
         </div>
 
-<div class="field password required">
+<div class="field password _required">
 <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
     <div class="control">
         <input type="password" name="password" id="password"
@@ -131,7 +131,7 @@ $formData = $block->getFormData();
     </div>
 </div>
       
-        <div class="field confirmation required">
+        <div class="field confirmation _required">
             <label for="password-confirmation" class="label">
                 <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
             </label>
@@ -145,7 +145,7 @@ $formData = $block->getFormData();
                        autocomplete="off">
             </div>
         </div>
-<div class="field required">
+<div class="field _required">
             <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
             <div class="control">
                 <input type="email"
@@ -160,7 +160,7 @@ $formData = $block->getFormData();
             </div>
         </div>
 
-        <div class="field required">
+        <div class="field _required">
             <label for="confirm_email_address" class="label"><span><?= $escaper->escapeHtml(__('Confirm Email')) ?></span></label>
             <div class="control">
                 <input type="email"
@@ -175,14 +175,14 @@ $formData = $block->getFormData();
             </div>
         </div>
         
-        <div class="field name required">
+        <div class="field name _required">
             <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Telephone')) ?></span></label>
             <div class="control">
                 <input name="telephone" id="telephone" title="Telephone" value="" class="input-text validate-number"
                         type="text" data-validate="{required:true}">
             </div>
         </div>
-            <div class="field position required">
+            <div class="field position _required">
             <label for="position" class="label">
                 <span><?= $escaper->escapeHtml(__('Position in the Company')) ?></span>
             </label>
