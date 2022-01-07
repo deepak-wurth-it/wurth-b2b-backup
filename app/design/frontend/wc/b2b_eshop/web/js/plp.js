@@ -5,7 +5,7 @@ define([
 function($,urlBuilder) {
   "use strict";
   return function(config) {
-  console.log(config);
+  //console.log(config);
   var GetMultiProductPriceUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductPrice');
   var GetMultiProductStockUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
 
@@ -17,23 +17,22 @@ function($,urlBuilder) {
                 cache: false,
                 async: false,
                 success: function(result)
-                {   // $('#price-container #price').html(result);
-                    if (result) {
-                       
-                        //var xmlDoc = $.parseXML(result);
-                        //console.log(xmlDoc);
-                        //$('#price-container #price').html(xmlDoc);
+                {   // $('#price-container #price').html(result);                        
+                   // alert();
+                    //console.log(JSON.parse(result.success));
 
-                        // $('#customer-info').html(result);
-                        // $('#customer-info').next('.authorization-link').hide();
-                        // $('.customer-menu .authorization-link').html('');
-                        // $('.customer-menu .authorization-link').append(signOutLink);
-                        // window.isLoggedIn = true;
+
+                    if (result) {
+                        //console.log(JSON.parse(result.success));
+
+                        //var data  = JSON.parse(result.success);
+                        console.log(data);return;
+                        data.forEach((element) => {
+                            console.log(element);
+                        });
+                       
                     } else {
-                        // $('#customer-info').next('.authorization-link').show();
-                        // $('.authorization-link').html('');
-                        // $('.authorization-link').append(registerLink);
-                        // window.isLoggedIn = false;
+                       
                     }
                 }
             });
@@ -48,23 +47,14 @@ function($,urlBuilder) {
                 success: function(result)
                 {    //$('#price-container #price').html(result);
                     if (result) {
-                       
-                        //var xmlDoc = $.parseXML(result);
-                        //console.log(xmlDoc);
-                        //$('#price-container #price').html(xmlDoc);
-
-                        // $('#customer-info').html(result);
-                        // $('#customer-info').next('.authorization-link').hide();
-
-                        // $('.customer-menu .authorization-link').html('');
-                        // $('.customer-menu .authorization-link').append(signOutLink);
-                        // window.isLoggedIn = true;
+                        //var data  = JSON.parse(result.success);
+                        console.log(result.success);return;
+                        data.forEach((element) => {
+                            console.log(element);
+                        });
+                        
                     } else {
-                        // $('#customer-info').next('.authorization-link').show();
-                        // $('.authorization-link').html('');
-
-                        // $('.authorization-link').append(registerLink);
-                        // window.isLoggedIn = false;
+                       
                     }
                 }
             });
