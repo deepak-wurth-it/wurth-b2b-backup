@@ -46,6 +46,11 @@ html,body {
   	font-display: block;
 }
 
+.formSection > .field.required > .label:after, .fieldset > .field.required > .label:after, .fieldset > .fields > .field.required > .label:after, .fieldset > .field._required > .label:after, .fieldset > .fields > .field._required > .label:after{
+	font-size:1.6rem;
+	margin:0 0 0 2px;
+}
+
 .lineheight0{
 	line-height:0;
 }
@@ -1575,6 +1580,7 @@ label.sorter-label{
 		}
 		.fieldset >{
 			.field.password.required{
+
 				.control{
 					select.region_id{
 						color:@general_text_light_color;
@@ -1585,6 +1591,14 @@ label.sorter-label{
 						font-size:1.4rem;
 						padding:0;
 					}
+				}
+			}
+			
+			.field._required:not(.choice) >label{
+				&:after{
+					content:"*";
+					font-size:16px;
+					color:red;
 				}
 			}
 			.field{
@@ -1599,13 +1613,98 @@ label.sorter-label{
 				font-family:@headingfont;
 				margin-bottom:20px;
 			}
+
 			.field:not(.choice) >label, .field:not(.choice) >.control{
 			width:100%;
 			text-align:left;
 			font-weight:normal;
 			margin-bottom:10px;
+
 		}
+		.googleCaptcha{
+			margin-top:30px;
+			margin-bottom:30px;
 		}
+
+		.newsletterAcceptance{
+			margin-bottom:20px;
+		}
+
+			.actions-toolbar{
+		.primary-button{
+			margin-top:10px;
+		}
+	}
+
+		.newsletter {
+		  	display: block;
+			position: relative;
+			padding-left: 30px;
+			margin-bottom: 12px;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+
+		/* Hide the browser's default checkbox */
+		input {
+		  position: absolute;
+		  opacity: 0;
+		  cursor: pointer;
+		  height: 0;
+		  width: 0;
+		}
+
+		/* Create a custom checkbox */
+		.checkmark {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  height: 20px;
+		  width: 20px;
+		  border:solid 1px rgba(0, 0, 0, 12%);
+		  border-radius:2px;
+		}
+
+		/* On mouse-over, add a grey background color */
+		&:hover input ~ .checkmark {
+		    border:solid 1px rgba(0, 0, 0, 20%);
+		}
+
+		/* When the checkbox is checked, add a blue background */
+		input:checked ~ .checkmark {
+		  background-color: #bac405;
+		}
+
+		/* Create the checkmark/indicator (hidden when not checked) */
+		.checkmark:before {
+		  content: "";
+		  position: absolute;
+		  display: none;
+		}
+
+		/* Show the checkmark when checked */
+		input:checked ~ .checkmark:before {
+		  display: block;
+		}
+
+		/* Style the checkmark/indicator */
+		.checkmark:before {
+		  left: 5px;
+		  top: 2px;
+		  width: 7px;
+		  height: 12px;
+		  border: solid white;
+		  border-width: 0 3px 3px 0;
+		  -webkit-transform: rotate(45deg);
+		  -ms-transform: rotate(45deg);
+		  transform: rotate(45deg);
+		}
+
+		}
+
+}
 
 		.formSections{
 			padding-bottom:20px;
@@ -1613,14 +1712,10 @@ label.sorter-label{
 			margin-bottom:20px;
 		}
 }
-.newUserRegistration{
-	.actions-toolbar{
-		.primary-button{
-			margin-top:10px;
-		}
-	}
 
-}
+
+
+
 .exUserregistration{
 
 		.actions-toolbar{
@@ -1630,6 +1725,12 @@ label.sorter-label{
 		}
 		.page-title{
 			margin-bottom:30px;
+		}
+		.fieldset{
+
+		.googleCaptcha{
+			margin-top:20px;
+		}
 		}
 }
 
@@ -8016,6 +8117,20 @@ margin: 0px 39px 10px 41px;
 			margin: 0px 39px 10px 41px;
 		}
 		// minicart end
+
+		.g-recaptcha {
+			transform:scale(0.96);
+			transform-origin:0 0;
+		}
+
+		.exUserregistration, .newUserRegistration{
+			.fieldset{
+
+			.googleCaptcha{
+				width:290px;
+			}
+			}
+		}
 
 		// compare page start by amit
 .catalog-product_compare-index .base {
