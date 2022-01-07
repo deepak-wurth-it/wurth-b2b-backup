@@ -26,7 +26,7 @@ function($,urlBuilder) {
                         //console.log(JSON.parse(result.success));
 
                         //var data  = JSON.parse(result.success);
-                        console.log(data);return;
+                        console.log(result.success);return;
                         data.forEach((element) => {
                             console.log(element);
                         });
