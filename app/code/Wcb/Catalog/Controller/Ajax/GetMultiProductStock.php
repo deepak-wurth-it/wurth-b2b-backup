@@ -43,7 +43,12 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		 $xmlStock = $this->getMultiStock($dataString);
 		 
 		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
+		 
          $data = simplexml_load_string($xmlStock);
+		
+		 
+		$data = $data->SoapBody->GetMultiItemAvailabilityOnLocation_Result->itemsCsvP;
+		
 		 //echo $data;
 		 $result->setData(array('success'=>$data));
          return $result;
