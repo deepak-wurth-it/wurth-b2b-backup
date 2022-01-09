@@ -1,6 +1,7 @@
 <?php
 namespace Wcb\CustomerRegistration\Controller\Account;
 
+use Magento\Framework\Controller\ResultFactory; 
 class NewCustomerCreate extends \Magento\Framework\App\Action\Action
 {
 	protected $_pageFactory;
@@ -31,7 +32,9 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
 	{
         $data = $this->getRequest()->getPostValue();
         $this->createCustomer($data);
-		return $this->_pageFactory->create();
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $resultRedirect->setPath("customer/account/create");
+        return $resultRedirect;
 	}
 
         public function createCompany($request, $customerId)
@@ -61,6 +64,10 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                 ];
 
         $dataObj->populateWithArray($companyObj, $company, \Magento\Company\Api\Data\CompanyInterface::class);
+        
+        $companyObj->setNumberOfEmployees($request['company']['no_of_employees']);
+        $companyObj->setDivision($request['company']['division']);
+        $companyObj->setActivities($request['company']['activities']);
         return $companyRepo->save($companyObj);
     }
 
@@ -84,9 +91,13 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     ->setMobile($data['telephone'])
                     ->setEmail($data['email'])
                     ->setPassword($data['password']);
-            $customer->save();
-            $this->createCompany($data, $customer->getId());
-
+            $customerSave = $customer->save();
+            $companySave = $this->createCompany($data, $customer->getId());
+            
+            if($customer && $companySave){
+                $this->messageManager->addSuccess(__('Customer and Company created successfully.'));
+            }
+            
             $this->saveAddress($data, 'delivery', $customer->getId());
             $this->saveAddress($data, 'invoice', $customer->getId());
 
