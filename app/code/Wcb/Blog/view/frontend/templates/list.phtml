@@ -1,4 +1,4 @@
-<?php $collection = $block->getBlogCollection(); ?>
+<?php $collection = $block->getBlogCollection();?>
 <?php if($collection->count() > 0): ?>
     <div class="container">
     <div class="row blogs">
@@ -13,10 +13,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data->getTitle(); ?></h5>
-                        <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                        </p>
+                        <p class="card-text"><?php echo $data->getContent(); ?></p>
                     </div>
                     </div>
         </div>

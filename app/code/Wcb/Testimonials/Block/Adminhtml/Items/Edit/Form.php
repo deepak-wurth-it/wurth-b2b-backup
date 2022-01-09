@@ -13,7 +13,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     {
         parent::_construct();
         $this->setId('testimonials_items_form');
-        $this->setTitle(__('Item Information'));
+        $this->setTitle(__('Testimonials'));
     }
 
     /**

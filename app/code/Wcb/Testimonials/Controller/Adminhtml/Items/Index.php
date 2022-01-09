@@ -14,8 +14,8 @@ class Index extends \Wcb\Testimonials\Controller\Adminhtml\Items
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Wcb_Testimonials::test');
-        $resultPage->getConfig()->getTitle()->prepend(__('Test Items'));
-        $resultPage->addBreadcrumb(__('Test'), __('Test'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Testimonials'));
+        $resultPage->addBreadcrumb(__('Testimonials'), __('Testimonials'));
         $resultPage->addBreadcrumb(__('Items'), __('Items'));
         return $resultPage;
     }

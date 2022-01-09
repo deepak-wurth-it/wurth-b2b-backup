@@ -114,13 +114,6 @@ class CreatePost extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-//         $customerId=19;
-//         $this->assignCompany(2, $customerId);exit;
-// $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-// $customerData = $objectManager->create('Magento\Customer\Model\Customer')->load($customerId);
-//         echo  "<pre>";
-//         print_r($customerData->getData());
-//         exit;
         $postData = $this->getRequest()->getPost();
 
         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
@@ -221,8 +214,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
     {
         $company = null;
         if($companyId && $customerId) {
-            echo "heere";
-            print_r($company = $this->companyMngRepository->assignCustomer($companyId,$customerId));
+            $company = $this->companyMngRepository->assignCustomer($companyId,$customerId);
         }
         return $company;
     }
