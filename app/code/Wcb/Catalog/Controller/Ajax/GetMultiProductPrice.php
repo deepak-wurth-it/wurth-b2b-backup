@@ -44,7 +44,8 @@ class GetMultiProductPrice extends \Magento\Framework\App\Action\Action
 		 
 		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
          $data = simplexml_load_string($xmlStock);
-		 //echo $data;
+		 $data = $data->SoapBody->GetMultiItemEShopSalesPriceAndDisc_Result->salesLinesCsvP;
+		 //echo $data;exit;
 		 $result->setData(array('success'=>$data));
          return $result;
 

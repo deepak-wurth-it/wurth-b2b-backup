@@ -112,7 +112,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         $xml_post_string = trim($xml_post_string);
         // data from the form, e.g. some ID number
         $response = $this->initCurl($xml_post_string);
-
+        
         return $response;
 
     }
@@ -135,7 +135,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         $xml_post_string .= '</soapenv:Envelope>';
         // data from the form, e.g. some ID number
         $response = $this->initCurl($xml_post_string);
-
+        
         return $response;
 
     }
@@ -168,7 +168,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
     </soapenv:Body>
     </soapenv:Envelope>'; // data from the form, e.g. some ID number
         $response = $this->initCurl($xml_post_string);
-
+        
         return $response;
 
     }
