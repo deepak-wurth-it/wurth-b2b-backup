@@ -1,0 +1,26 @@
+<?php $collection = $block->getBlogCollection();?>
+<?php if($collection->count() > 0): ?>
+    <div class="container">
+    <div class="row blogs">
+    <?php foreach ($collection as $key => $data): ?>
+       <div class="col-sm-3 box">
+            <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                    <img src="<?php echo $this->getMediaFolder().'/'. $data->getImage(); ?>" class="img-fluid">
+                        <a href="#!">
+                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $data->getTitle(); ?></h5>
+                        <p class="card-text"><?php echo $data->getContent(); ?></p>
+                    </div>
+                    </div>
+        </div>
+        <?php endforeach; ?>  
+        <?php else: ?>
+    <h2>We couldn't find any records</h2>
+<?php endif; ?>
+</div>
+        </div>
+

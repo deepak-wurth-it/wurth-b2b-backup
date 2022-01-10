@@ -9,13 +9,78 @@ $mode = 'grid';
 $type = 'widget-product-grid';
 $title = $block->getTitle();
 $blockId = $block->getSliderId() . uniqid('-', false);
-$itemss = $block->getProductCollection()['category'];
+$categoryitems = $block->getProductCollection()['category'];
 $items = $block->getProductCollection()['product'];
+
 $offer = $block->getOffer();
+
 $moduleName = $this->getRequest()->getModuleName();
 $controllerName = $this->getRequest()->getControllerName();
 $actionName = $this->getRequest()->getActionName();
 $pageIdentifier = $moduleName.'_'.$controllerName .'_'.$actionName;
+?>
+<?php
+if($pageIdentifier == 'cms_index_index') {
+?>
+<div class="carousel-wrap container-inner nowOffer">
+	<h2><?php echo __('Now offer on')?></h2>    
+    <div class="yourAction"><?php echo __('Your actions in June')?></div>
+	<div class="owl-theme owl-carouselrp">
+		<?php foreach($categoryitems as $category){ ?>
+			<div class="item">
+                    <div class="product-grid">
+                        <div class="product-image">
+                            <a href="#" class="image">
+                                <img class="img-1" src="http://m2.wc.b2b.com/static/version1641270815/frontend/wc/b2b_eshop/hr_HR/Magento_Catalog/images/product/placeholder/small_image.jpg">
+                            </a>
+                           
+                        </div>
+                        <div class="product-content">
+                            <div class="productName"><a href="#">ZASTITNE RUKAVICE ZA MONTAZU</a></div>
+                            <div class="onlineoff">Cijena za online kupovinu</div>
+                        <div class="price">
+                            <span class="cpgprice">149, <sup>99</sup></span> 
+                            <span class="cpcross">199,<sup>99</sup> </span></div>
+                        </div>
+                    </div>
+		</div>
+    	<?php } ?> 
+	</div>
+</div>
+<?php } ?>
+<script type="text/javascript">
+          /**
+ * Created By : Rohan Hapani
+ */
+require(['jquery', 'owlcarousel'], function($) {
+    $(document).ready(function() {
+        $('.owl-carouselrp').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            navText: [
+                "<i class='fa fa-caret-left'></i>",
+                "<i class='fa fa-caret-right'></i>"
+            ],
+            autoplay: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                  items: 1
+                },
+                600: {
+                  items: 3
+                },
+                1000: {
+                  items: 4
+                }
+            }
+        });
+    });
+});
+        </script>
+
+<?php
 if($pageIdentifier == 'cms_index_index') {
 ?>
 <div class="bestSellerWrap container-inner">
