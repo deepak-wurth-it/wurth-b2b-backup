@@ -14,8 +14,8 @@ class Index extends \Wcb\Blog\Controller\Adminhtml\Items
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Wcb_Blog::test');
-        $resultPage->getConfig()->getTitle()->prepend(__('Test Items'));
-        $resultPage->addBreadcrumb(__('Test'), __('Test'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Blog Items'));
+        $resultPage->addBreadcrumb(__('Blog'), __('Blog'));
         $resultPage->addBreadcrumb(__('Items'), __('Items'));
         return $resultPage;
     }

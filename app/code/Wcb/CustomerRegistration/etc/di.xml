@@ -1,14 +1,8 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-	<type name="Magento\Company\Model\Company\DataProvider">
-		<plugin name="Wcb_CustomerRegistration_Plugin_Magento_Company_Model_Company_DataProvider" type="Wcb\CustomerRegistration\Plugin\Magento\Company\Model\Company\DataProvider" sortOrder="10" disabled="false"/>
-	</type>
+    <preference for="Magento\Company\Model\Company\DataProvider" type="Wcb\CustomerRegistration\Model\Company\DataProvider" />
+
 	<type name="Magento\Company\Controller\Adminhtml\Index\Save">
 		<plugin name="Wcb_CustomerRegistration_Plugin_Magento_Company_Controller_Adminhtml_Index_Save" type="Wcb\CustomerRegistration\Plugin\Magento\Company\Controller\Adminhtml\Index\Save" sortOrder="10" disabled="false"/>
 	</type>
-	<type name="Magento\Company\Api\CompanyRepositoryInterface">
-		<plugin name="Wcb_CustomerRegistration_Plugin_Magento_Company_Api_CompanyRepositoryInterface" type="Wcb\CustomerRegistration\Plugin\Magento\Company\Api\CompanyRepositoryInterface" sortOrder="10" disabled="false"/>
-	</type>
-	    <preference for="Magento\Customer\Controller\Account\CreatePost" type="Wcb\CustomerRegistration\Controller\Account\CustomerCreatePost" />
-	    <preference for="Magento\Customer\Block\Widget\Name" type="Wcb\CustomerRegistration\Block\Widget\Name" />
 </config>

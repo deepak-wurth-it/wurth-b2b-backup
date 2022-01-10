@@ -9,17 +9,14 @@ if($collection->count() > 0):
     <?php foreach ($collection as $key => $data): ?>
 			<div class="item">
             <div class="testimonialWrapper">
-						<div class="photo">
-                             <img src="<?php echo $this->getMediaFolder().'/'. $data->getImage(); ?>" class="mr-3">
-                                    
-					       </div>
-									<div class="media-body">
-										<div class="testimonial">
-											<p>Maecenas dignissim accumsan cursus. Integer vitae accumsan dui. Aenean ac congue enim. Interdum et ac ante ipsum primis in faucibus malesuada fames ac ante ipsum primis in faucibus. Fusce urna nisl, pulvinar sit amet ac ante ipsum primis in faucibus tempus nec, convallis nec libero.</p>
-											<p class="overview"><b>_ Josip Horvat</b></p>
-										</div>
-									</div>
-								</div>
+						<div class="photo"><img src="<?php echo $this->getMediaFolder().'/'. $data->getImage(); ?>" class="mr-3"></div>
+            <div class="media-body">
+              <div class="testimonial">
+                <p><?php echo $data->getContent();?></p>
+                <p class="overview"><b><?php echo $data->getAuthor();?></b></p>
+              </div>
+            </div>
+      </div>
 		</div>
     	<?php endforeach; ?>
 	</div>

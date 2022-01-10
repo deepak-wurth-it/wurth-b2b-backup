@@ -6,4 +6,9 @@
 	<table name="order_address">
 		<column name="same_as_headquarters_address" nullable="true" xsi:type="int" comment="Same as headquarters address"/>
 	</table>
+	<table name="company" resource="default" comment="My table" charset="utf8">
+		<column name="number_of_employees" xsi:type="int" />
+		<column name="division" xsi:type="text" nullable="true"/>
+		<column name="activities" xsi:type="text" nullable="true"  />
+	</table>
 </schema>
