@@ -3642,7 +3642,14 @@ a.action.print.hidden-print {
 
 // checkout page by amit end here
 // My profile page start by amit
+
 .myProfile{
+	.col-md.addBox {
+		padding: inherit;
+	}
+	.addBoxs {
+		padding: inherit;
+	}
 	.boxTitle {
 		font-family: 'wuerthbold';
 		font-size: 18px;
@@ -3669,6 +3676,7 @@ a.action.print.hidden-print {
 	#changePass {
 		font-family: 'wuerthbold';
 		color: @general_link_hover_color_cyan;
+		cursor: pointer;
 	}
 	.seprator{
 		margin-top: 20px;
@@ -3679,7 +3687,7 @@ a.action.print.hidden-print {
 	}
 	.newslettertext {
 		height: 45px;
-		background: #0093DD;
+		background: @general_link_hover_color_cyan;
 		border-radius: 50px;
 		display: flex;
         align-items: center;
@@ -3689,14 +3697,14 @@ a.action.print.hidden-print {
 	.newslettertext a {
 		font-family: 'wuerthbold';
 		text-align: center;
-		color: #FFFFFF;
+		color: @color-white-smoke;
 	}
 	.emailBox {
 		font-family: 'wuerthbold';
 		font-size: 16px;
 		color: rgba(255, 255, 255, 0.87);
 		height: 35px;
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 30px;
 		align-items: center;
 		display: flex;
@@ -3717,7 +3725,7 @@ a.action.print.hidden-print {
 		font-size: 16px;
 		color: rgba(255, 255, 255, 0.87);
 		height: 35px;
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 30px;
 		align-items: center;
 		display: flex;
@@ -3726,16 +3734,58 @@ a.action.print.hidden-print {
 	}
 	.textBluebold {
 		font-family: 'wuerthbold';
-		color: #0093DD;
-		width: 42%;
+		color: @general_link_hover_color_cyan;
+		width: 30%;
 	}
-	.consultOne {
-		background: url(../images/consult-1.svg);
-   		 background-repeat: no-repeat;
-		width: 100%;
-		height: 100%;
-		position: absolute;
+	.supportBox {
+		display: flex;
 	}
+	.supportIcon {
+		width: 65%;
+	}
+	.redColor {
+		font-family: 'wuerthbold';
+		color: @general_price_color;
+	}
+	.genText {
+		font-family: 'wuerthbold';
+		color: @general_text_color;
+	}
+	#passBox {
+		margin-top: 20px;
+	}
+	#passBox form {
+		padding: 10px;
+		background: @color-white-smoke;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		box-sizing: border-box;
+	}
+	.inputLevel {
+		font-family: 'wuerthbook';
+		color: @general_text_color;
+	}
+	.inputLevel span {
+		color: @general_price_color;
+	}
+	input.form-control {
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		border-radius: 4px;
+	}
+	.form-group {
+		padding: 10px 0 10px 0px;
+	}
+	small#emailHelp {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: rgba(0, 0, 0, 0.6);
+	}
+	button.btn.btn-primary {
+		background: #CC0000;
+		border-radius: 50px;
+		color: #fff;
+	}
+	
 	.container.last {
 		margin-bottom: 70px;
 	}
@@ -3757,7 +3807,7 @@ a.action.print.hidden-print {
 	nav.greedys button {
 		align-self: stretch;
 		transition: all .4s ease-out;
-		color: #ffffff;
+		color: @color-white-smoke;
 		background: #006EA5;
 	}
 	nav.greedys button.hidden {
@@ -3801,7 +3851,7 @@ a.action.print.hidden-print {
 		padding-right: 1rem;
 		font-family: 'wuerthbook';
 		font-size: 18px;
-		color: #fff;
+		color: @color-white-smoke;
 	}
 	ul.hidden-links.hidden {
 		display: none;
