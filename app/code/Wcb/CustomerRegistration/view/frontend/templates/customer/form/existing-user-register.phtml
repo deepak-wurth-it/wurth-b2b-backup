@@ -27,7 +27,7 @@ $formData = $block->getFormData();
       method="post"
       id="form-validate"
       enctype="multipart/form-data"
-      autocomplete="off" onSubmit="return checkCaptcha() ;" data-mage-init='{"validation":{}}' >
+      autocomplete="off" data-mage-init='{"validation":{}}' >
 
  <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>">
     <?= /* @noEscape */ $block->getChildHtml('form_fields_before_in_form') ?>
@@ -196,14 +196,7 @@ $formData = $block->getFormData();
                        autocomplete="off">
             </div>
         </div>
-                     <div class="form-group required googleCaptcha">
-            <div class="g-recaptcha required" id="recaptcha"
-                data-sitekey="6Lc7-wsdAAAAAARHYuosBAH_iVvu_Ygeo6ujnuR1">
-            </div>
-             <div style="display:none" id="error-msg">
-                <span><?php echo __('This is a required field.') ?></span>
-            </div>
-        </div>
+                     
         <div class="field choice newsletterAcceptance">
             <label for="is_subscribed" class="label newsletter">
             <input type="checkbox"
@@ -220,21 +213,17 @@ $formData = $block->getFormData();
         </div>
             <?php /* Extensions placeholder */ ?>
             <?= $block->getChildHtml('customer.form.register.newsletter') ?>
-
-       
-
         <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
         <?php if ($_taxvat->isEnabled()): ?>
             <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
         <?php endif ?>
 
-        <?= $block->getChildHtml('fieldset_create_info_additional') ?>
-        
+        <?= $block->getChildHtml('form.additional.info') ?>
         <div class="form-group required ">
             <label for="privacy_policy" class="newsletter">
             <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
             <span class="checkmark"> </span>
-            <?php echo 'Accept the privacy policy' ?> (<a href=""><?php echo 'privacy policy'; ?></a>)</label>
+            <?php echo 'Accept the privacy policy' ?> (<a href="javascript:void(0)" id="privacy-policy-ex"><?php echo 'privacy policy'; ?></a>)</label>
             </div>
         <div class="actions-toolbar ">
             <button type="submit" id="confirm-reg"
@@ -242,12 +231,11 @@ $formData = $block->getFormData();
                     title="<?= $block->escapeHtmlAttr(__('Confirm')) ?>">
                 <span><?= $block->escapeHtml(__('Confirm')) ?></span>
             </button>
-
-    </div>
-    </fieldset>
-
-
-    
+        </div>
+        <div id="popup-modal" style="display:none;">
+            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-login')->toHtml();?>
+        </div>
+    </fieldset>    
 </form>
 </div>
 <script type="text/x-magento-init">
@@ -270,6 +258,33 @@ $formData = $block->getFormData();
         }
     }
 </script>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function($, modal) {
+            $("#privacy-policy-ex").click(function(e){
+                var popup = modal(options, $('#popup-modal'));
+                $('#popup-modal').modal('openModal');
+            });
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Custom Form Popup',
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+        }
+    );
+</script>
 <?php
 $ajaxurl = $block->getUrl('excustomer/account/checkcompany');
 ?>
@@ -281,17 +296,4 @@ $ajaxurl = $block->getUrl('excustomer/account/checkcompany');
                 }
             }
         }
-</script>
-<script>
-    function checkCaptcha() {
-        if ((jQuery('#g-recaptcha-response').val()) === '') {
-            jQuery('#error-msg').css('display', 'block');
-            jQuery('#error-msg').css('color', '#df280a');
-            jQuery('#error-msg').css('font-size', 13);
-            return false;
-        }
-        else {
-            jQuery('#error-msg').css('display', 'none');
-        }
-    }
 </script>
