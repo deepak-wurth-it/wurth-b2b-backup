@@ -15,7 +15,7 @@
 				</validation>
 			</settings>
 		</field>
-		<field name="division" formElement="textarea">
+		<field name="division" formElement="input">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">division</item>
