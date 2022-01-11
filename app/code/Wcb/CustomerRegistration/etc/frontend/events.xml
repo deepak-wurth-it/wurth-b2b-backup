@@ -3,7 +3,10 @@
 	<event name="customer_register_success">
 		<observer name="persistent" instance="Wcb\CustomerRegistration\Observer\Frontend\Customer\RegisterSuccess"/>
 	</event>
-	<event name="controller_action_predispatch_myrecaptcha_index_save">
+	<event name="controller_action_predispatch_exrecaptcha_index_save">
 		<observer name="recaptcha_demo_form" instance="Wcb\CustomerRegistration\Observer\RecapchaObserver"/>
+	</event>
+	<event name="controller_action_predispatch_newrecaptcha_index_save">
+		<observer name="recaptcha_demo_form" instance="Wcb\CustomerRegistration\Observer\NewUserRecaptchaObserver"/>
 	</event>
 </config>
