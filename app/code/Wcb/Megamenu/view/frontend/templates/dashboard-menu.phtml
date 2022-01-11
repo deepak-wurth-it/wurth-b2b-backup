@@ -1,0 +1,107 @@
+<div class="dashboardMenu"> 
+   <nav class='greedys'>
+  <ul class='links'>
+    <li><a href='#'>My profile</a></li>
+    <li><a href='#'>Tracking orders</a></li>
+    <li><a href='http://m2.wc.b2b.com/customer/'>Sales history</a></li>
+    <li><a href='#'>Order templates</a></li>
+    <li><a href='#'>IOS overview</a></li>
+    <li><a href='#'>Favorites</a></li>    
+    <li><a href='#'>Offers</a></li>
+    <li><a href='#'>Undelivered lines</a></li>
+    <li><a href='#'>Trade Agreement</a></li>    
+    <li><a href='#'>Click and collect orders</a></li>
+    <li><a href='#'>Confirm order</a></li>
+  </ul>
+  <button class="more">More</button>
+  <ul class='hidden-links hidden'></ul>   
+</nav>
+</div>
+ 
+<script type="text/javascript">
+require(['jquery'], function($) {
+
+  // Create the dropdown base
+  $("<select />").appendTo(".greedys");
+      
+      // Populate dropdown with menu items
+      $(".greedys a").each(function() {
+       var el = $(this);
+       $("<option />", {
+           "value"   : el.attr("href"),
+           "text"    : el.text()
+       }).appendTo(".greedys select");
+      });      
+	   // To make dropdown actually work
+      $(".greedys select").change(function() {
+        window.location = $(this).find("option:selected").val();
+      });
+
+  //for rezie menu after 480 resulation
+  var $btn = $('nav.greedys button');
+  var $vlinks = $('nav.greedys .links');
+  var $hlinks = $('nav.greedys .hidden-links');
+
+  var numOfItems = 0;
+  var totalSpace = 0;
+  var closingTime = 1000;
+  var breakWidths = [];
+
+  // Get initial state
+  $vlinks.children().outerWidth(function(i, w) {
+    totalSpace += w;
+    numOfItems += 1;
+    breakWidths.push(totalSpace);
+  });
+
+  var availableSpace, numOfVisibleItems, requiredSpace, timer;
+
+  function check() {
+
+    // Get instant state
+    availableSpace = $vlinks.width() - 10;
+    numOfVisibleItems = $vlinks.children().length;
+    requiredSpace = breakWidths[numOfVisibleItems - 1];
+
+    // There is not enought space
+    if (requiredSpace > availableSpace) {
+      $vlinks.children().last().prependTo($hlinks);
+      numOfVisibleItems -= 1;
+      check();
+      // There is more than enough space
+    } else if (availableSpace > breakWidths[numOfVisibleItems]) {
+      $hlinks.children().first().appendTo($vlinks);
+      numOfVisibleItems += 1;
+      check();
+    }
+    // Update the button accordingly
+    $btn.attr("count", numOfItems - numOfVisibleItems);
+    if (numOfVisibleItems === numOfItems) {
+      $btn.addClass('hidden');
+    } else $btn.removeClass('hidden');
+  }
+
+  // Window listeners
+  $(window).resize(function() {
+    check();
+  });
+
+  $btn.on('click', function() {
+    $hlinks.toggleClass('hidden');
+    clearTimeout(timer);
+  });
+
+  $hlinks.on('mouseleave', function() {
+    // Mouse has left, start the timer
+    timer = setTimeout(function() {
+      $hlinks.addClass('hidden');
+    }, closingTime);
+  }).on('mouseenter', function() {
+    // Mouse is back, cancel the timer
+    clearTimeout(timer);
+  })
+
+  check();
+
+});
+ </script>   
