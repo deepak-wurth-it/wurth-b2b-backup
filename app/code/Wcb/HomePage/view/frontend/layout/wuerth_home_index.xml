@@ -4,6 +4,7 @@
         <script src="Wcb_Testimonials::js/common.js" async="async" />
     </head>
 	<body>
+	<referenceContainer name="main.content" htmlTag="main" htmlId="maincontent" htmlClass="page-main-Full-Width"/>
 		<referenceContainer name="content">
 			<!-- <block class="Wcb\HomePage\Block\HomePage" name="homepage" as="homepage" template="Wcb_HomePage::homepage.phtml"/> -->
 			<block class="Magento\Cms\Block\Block" name="cms-main-banner"> 
