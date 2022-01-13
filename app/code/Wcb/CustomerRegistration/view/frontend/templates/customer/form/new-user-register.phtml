@@ -372,7 +372,7 @@
             <label for="privacy_policy" class="newsletter">
             <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
             <span class="checkmark"> </span>
-            <?php echo 'Accept the privacy policy' ?> (<a href=""><?php echo 'privacy policy'; ?></a>)</label>
+            <?php echo 'Accept the privacy policy' ?> (<a href="javascript:void(0)" id="privacy-policy-ex"><?php echo 'privacy policy'; ?></a>)</label>
             </div>
             
     
@@ -383,7 +383,9 @@
                     escapeHtmlAttr(__('Save')) ?></span>
                 </button>
         </div>
-
+                <div id="popup-modal" style="display:none;">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-login')->toHtml();?>
+                </div>
             </fieldset>
             
         </form>
@@ -466,6 +468,45 @@
             }
         }
     }
+</script>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function($, modal) {
+            $("#privacy-policy-ex").click(function(e){
+                var popup = modal(options, $('#popup-modal'));
+                $('#popup-modal').modal('openModal');
+            });
+            var options = {
+                type: 'popup',
+                title: '',
+                modalClass: 'termsCodition',
+                responsive: false,
+                innerScroll: true,
+                title: 'Privacy Policy',
+                modalCloseBtn: false,
+                buttons: [{
+                    text: $.mage.__('I accept'),
+                    class: 'accept',
+                    click: function () {
+                        //this.closeModal();
+                    }
+                    
+                },
+                {
+                    text: $.mage.__('I do not accept'),
+                    class: 'notAccept',
+                    click: function () {
+                        this.closeModal();
+                    }
+                    
+                }]
+            };
+        }
+    );
 </script>
 <?php 
     $ajaxurl = $block->getUrl('excustomer/account/verifycompany');
