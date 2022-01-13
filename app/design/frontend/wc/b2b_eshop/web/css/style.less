@@ -1671,6 +1671,27 @@ label.sorter-label {
 	h2.WishlistTitle {
 		padding-bottom: 20px;
 	}
+	.primary button.action.update {
+		height: 26px;
+		background: #CC0000;
+		border-radius: 20px;
+	}
+	.primary button.action.update span {
+		font-family: 'wuerthbold';
+		font-size: 14px;
+		color: #FFFFFF;
+	}
+	.primary button.action.tocart {
+		height: 26px;
+		background: #0093DD;
+		border: 1px solid #0093DD;
+		border-radius: 20px;
+	}
+	.primary button.action.tocart span {
+		font-family: 'wuerthbold';
+		font-size: 14px;
+		color: #FFFFFF;
+	}
 }
 // Favorites Page End By Amit
 // Terms & Condition PopUp Start By Amit
@@ -3913,7 +3934,7 @@ a.action.print.hidden-print {
 		color: @general_price_color;
 	}
 	input.form-control {
-		background: #FFFFFF;
+		background: @general_bg_color;
 		border: 1px solid rgba(0, 0, 0, 0.12);
 		border-radius: 4px;
 	}
@@ -3926,9 +3947,9 @@ a.action.print.hidden-print {
 		color: rgba(0, 0, 0, 0.6);
 	}
 	button.btn.btn-primary {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 50px;
-		color: #fff;
+		color: @general_bg_color;
 	}
 	
 	.container.last {
@@ -3938,7 +3959,7 @@ a.action.print.hidden-print {
 // My profile page end by amit
 // Myaccount Navigation start by Amit
 .dashboardMenu {
-	background: #0093DD;
+	background: @general_link_hover_color_cyan;
 	height: 45px;
 	padding: 0 !important;
 	nav.greedys {
@@ -3946,14 +3967,14 @@ a.action.print.hidden-print {
 		display: flex;
 		align-items: center;
 		height: 45px;
-		background: #0093DD;
+		background: @general_link_hover_color_cyan;
 		margin: 0px 80px 0px 0px;
 	}
 	nav.greedys button {
 		align-self: stretch;
 		transition: all .4s ease-out;
 		color: @color-white-smoke;
-		background: #006EA5;
+		background: @general_link_hover_color_cyan;
 	}
 	nav.greedys button.hidden {
 		transition: none;
@@ -3991,6 +4012,7 @@ a.action.print.hidden-print {
 		background: #006EA5;
 		right: 0;
 		top: 100%;
+		z-index: 99999;
 	}
 	ul.hidden-links li a {
 		padding-right: 1rem;
@@ -4138,6 +4160,9 @@ a.action.print.hidden-print {
 		box-sizing: border-box;
 	}
 	.fotorama__stage__shaft.fotorama__grab {
+		border: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.fotorama__stage__shaft {
 		border: 1px solid rgba(0, 0, 0, 0.12);
 		width: auto !important;
 	}
@@ -9495,7 +9520,7 @@ print {
 		  height:38px;
 		  font-family: 'wuerthbook';
 		  font-size: 18px;        
-		  background: #0093DD;
+		  background: @general_link_hover_color_cyan;
 		  color: rgba(255, 255, 255, 0.87);  
 		 }
 	// Myaccount Navigation end by Amit

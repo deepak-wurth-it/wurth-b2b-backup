@@ -23,7 +23,7 @@ class BlogListData extends \Magento\Framework\View\Element\Template
 
     public function _prepareLayout()
     {
-        $this->pageConfig->getTitle()->set(__('Wuerth CMS Home Page'));
+     //   $this->pageConfig->getTitle()->set(__('Wuerth CMS Home Page'));
         
         if ($this->getBlogCollection()) {
             $pager = $this->getLayout()->createBlock(
