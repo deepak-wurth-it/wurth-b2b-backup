@@ -7,6 +7,9 @@
 -->
 <page layout="2columns-left" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+           <referenceContainer name="page.top">
+               <block class="Magento\Framework\View\Element\Template" name="dashboard_menus" template="Magento_Customer::dashboard-menu.phtml"  as='dashboard_menuh' /> 
+           </referenceContainer>
         <referenceContainer name="sidebar.main">
             <block class="Magento\Framework\View\Element\Template" name="customer_account_navigation_block" template="Magento_Theme::html/collapsible.phtml" before="-">
                 <arguments>

@@ -3,16 +3,24 @@
 if($collection->count() > 0): 
 ?>
  
-<div class="carousel-wrap container testimonialContainer">
+<div class="carousel-wrap cmsHomeInfoCard container-inner testimonialContainer">
 	<h2><?php echo __('What our customers say about Würth')?></h2>    
 	<div class="owl-theme owl-testimonial carousel">
     <?php foreach ($collection as $key => $data): ?>
+      <?php  $string = strip_tags($data->getContent());
+                    if (strlen($string) > 200) {
+                        $stringCut = substr($string, 0, 200);
+                        $endPoint = strrpos($stringCut, ' ');
+                        $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                        $string .= '...';
+                    }
+        ?>
 			<div class="item">
             <div class="testimonialWrapper">
 						<div class="photo"><img src="<?php echo $this->getMediaFolder().'/'. $data->getImage(); ?>" class="mr-3"></div>
             <div class="media-body">
               <div class="testimonial">
-                <p><?php echo $data->getContent();?></p>
+                <p><?php echo $string;?></p>
                 <p class="overview"><b><?php echo $data->getAuthor();?></b></p>
               </div>
             </div>
@@ -31,7 +39,7 @@ require(['jquery', 'owlcarousel'], function($) {
     $(document).ready(function() {
         $('.owl-testimonial').owlCarousel({
             loop: true,
-            margin: 10,
+            margin: 30,
             autoHeight: true,
             nav: true,
             navText: [

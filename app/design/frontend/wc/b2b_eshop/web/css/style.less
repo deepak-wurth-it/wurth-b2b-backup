@@ -1666,51 +1666,196 @@ label.sorter-label {
 		}
 	}
 }
-
-// New Customer registration 
-.newUserRegistration,
-.exUserregistration {
-	.fieldset {
-		margin-bottom: 0;
-	}
-	.fieldset> {
-		.field.password.required {
-			.control {
-				select.region_id {
-					color: @general_text_light_color;
-				}
-				.password-strength-meter {
-					background: none;
-					color: @general_text_light_color;
-					font-size: 1.4rem;
-					padding: 0;
-				}
-			}
-		}
-		.field {
-			margin: 0;
-			&:before {
-				display: none;
-			}
-		}
-		.legend {
-			font-size: 1.8rem;
-			color: @general_link_hover_color_cyan;
-			font-family: @headingfont;
-			margin-bottom: 20px;
-		}
-		.field:not(.choice)>label,
-		.field:not(.choice)>.control {
-			width: 100%;
-			text-align: left;
-			font-weight: normal;
-			margin-bottom: 10px;
-		}
-	}
-	.formSections {
+// Favorites Page Start By Amit
+.wishlist-index-index{
+	h2.WishlistTitle {
 		padding-bottom: 20px;
-		border-bottom: solid 1px rgba(0, 0, 0, 12%);
-		margin-bottom: 20px;
+	}
+}
+// Favorites Page End By Amit
+// Terms & Condition PopUp Start By Amit
+.termsCodition{
+	h1.modal-title {
+		font-family: 'wuerthbold';
+		font-size: 24px;
+		color: #000000;
+		border: none;
+	}
+	.accept {
+		background: #0093DD;
+		border-radius: 50px;
+		font-family: 'wuerthbold';
+        color: #FFFFFF;
+	}
+	button.notAccept {
+		background: #605D5C;
+		border-radius: 50px;
+		font-family: 'wuerthbold';
+		font-size: 16px;
+		color: #FFFFFF;
+		margin-left: 20px;
+	}
+	button.action-close {
+		display: none !important;
+	}
+	.modal-inner-wrap {
+		width: 75% !important;	
+	}
+	::-webkit-scrollbar {
+        width: 10px;
+		scrollbar-width: thin;
+		
+    }
+
+    ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.12);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+    }
+}
+
+
+// Terms & Condition PopUp End By Amit
+// New Customer registration 
+.newUserRegistration, .exUserregistration{
+	.fieldset{
+	margin-bottom:0;
+	}
+	.fieldset >{
+		.field.password.required{
+
+			.control{
+				select.region_id{
+					color:@general_text_light_color;
+				}
+				.password-strength-meter{
+					background:none;
+					color:@general_text_light_color;
+					font-size:1.4rem;
+					padding:0;
+				}
+			}
+		}
+		
+		.field._required:not(.choice) >label{
+			&:after{
+				content:"*";
+				font-size:16px;
+				color:red;
+			}
+		}
+		.field{
+			margin:0;
+			&:before{
+				display:none;
+			}
+		}
+		.legend{
+			font-size:1.8rem;
+			color:@general_link_hover_color_cyan;
+			font-family:@headingfont;
+			margin-bottom:20px;
+		}
+
+		.field:not(.choice) >label, .field:not(.choice) >.control{
+		width:100%;
+		text-align:left;
+		font-weight:normal;
+		margin-bottom:10px;
+
+	}
+	.googleCaptcha{
+		margin-top:30px;
+		margin-bottom:30px;
+	}
+
+	.newsletterAcceptance{
+		margin-bottom:20px;
+	}
+
+		.actions-toolbar{
+	.primary-button{
+		margin-top:10px;
+	}
+}
+
+	.newsletter {
+		  display: block;
+		position: relative;
+		padding-left: 30px;
+		margin-bottom: 12px;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+
+	/* Hide the browser's default checkbox */
+	input {
+	  position: absolute;
+	  opacity: 0;
+	  cursor: pointer;
+	  height: 0;
+	  width: 0;
+	}
+
+	/* Create a custom checkbox */
+	.checkmark {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  height: 20px;
+	  width: 20px;
+	  border:solid 1px rgba(0, 0, 0, 12%);
+	  border-radius:2px;
+	}
+
+	/* On mouse-over, add a grey background color */
+	&:hover input ~ .checkmark {
+		border:solid 1px rgba(0, 0, 0, 20%);
+	}
+
+	/* When the checkbox is checked, add a blue background */
+	input:checked ~ .checkmark {
+	  background-color: #bac405;
+	}
+
+	/* Create the checkmark/indicator (hidden when not checked) */
+	.checkmark:before {
+	  content: "";
+	  position: absolute;
+	  display: none;
+	}
+
+	/* Show the checkmark when checked */
+	input:checked ~ .checkmark:before {
+	  display: block;
+	}
+
+	/* Style the checkmark/indicator */
+	.checkmark:before {
+	  left: 5px;
+	  top: 2px;
+	  width: 7px;
+	  height: 12px;
+	  border: solid white;
+	  border-width: 0 3px 3px 0;
+	  -webkit-transform: rotate(45deg);
+	  -ms-transform: rotate(45deg);
+	  transform: rotate(45deg);
+	}
+
+	}
+
+}
+
+	.formSections{
+		padding-bottom:20px;
+		border-bottom:solid 1px rgba(0, 0, 0, 12%);
+		margin-bottom:20px;
 	}
 }
 
@@ -3914,9 +4059,7 @@ a.action.print.hidden-print {
 // Now offer home page end by amit
 // Testimonial start from Amit
 .testimonialContainer {
-	.owl-stage-outer.owl-height {
-		height: 247px !important;
-	}
+	top:40px;
 	h2 {
 		font-family: 'wuerthbold';
 		text-transform: capitalize;
@@ -3930,11 +4073,11 @@ a.action.print.hidden-print {
 		box-sizing: border-box;
 	}
 	.photo img {
-		width: 175px;
-		height: 175px;
+		width: 150px;
+		height: 150px;
 		display: block;
 		border-radius: 50%;
-		padding: 10px;
+		margin:30px 20px;
 	}
 	.testimonial {
 		padding: 15px 15px 0 15px;
@@ -5232,9 +5375,10 @@ span.label.minsubbut {
 }
 
 .minicart-items-wrapper {
-	max-height: 300px;
+	max-height: 325px;
 	border-top: none;
 	padding: 0;
+	overflow-y: hidden;
 	.item.product.product-item {
 		width: 100%;
 		margin-left: 0;
@@ -5663,7 +5807,7 @@ form#form-validate {
 		padding-bottom: 4px;
 	}
 	.minicart-items {
-		max-height: 400px;
+		max-height: 300px;
 		overflow: auto;
 		.product-item-details {
 			padding-right: 15px;

@@ -1,8 +1,16 @@
 <?php $collection = $block->getBlogCollection();?>
-<?php if($collection->count() > 0): ?>
-    <div class="container">
+<?php if($collection->count() > 0): ?>    
+    <div class="cmsHomeInfoCard container-inner">
     <div class="row blogs">
     <?php foreach ($collection as $key => $data): ?>
+        <?php  $string = strip_tags($data->getContent());
+                    if (strlen($string) > 160) {
+                        $stringCut = substr($string, 0, 160);
+                        $endPoint = strrpos($stringCut, ' ');
+                        $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                        $string .= '...';
+                    }
+        ?>
        <div class="col-sm-3 box">
             <div class="card">
                     <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
@@ -13,7 +21,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data->getTitle(); ?></h5>
-                        <p class="card-text"><?php echo $data->getContent(); ?></p>
+                        <p class="card-text"><?php echo $string; ?></p>
                     </div>
                     </div>
         </div>
