@@ -1,10 +1,9 @@
-
-  <div class="dashboardMenu"> 
+<div class="dashboardMenu"> 
    <nav class='greedys'>
   <ul class='links'>
     <li><a href='#'>My profile</a></li>
     <li><a href='#'>Tracking orders</a></li>
-    <li><a href='#'>Sales history</a></li>
+    <li><a href='http://m2.wc.b2b.com/customer/'>Sales history</a></li>
     <li><a href='#'>Order templates</a></li>
     <li><a href='#'>IOS overview</a></li>
     <li><a href='#'>Favorites</a></li>    
@@ -15,13 +14,30 @@
     <li><a href='#'>Confirm order</a></li>
   </ul>
   <button class="more">More</button>
-  <ul class='hidden-links hidden'></ul>  
+  <ul class='hidden-links hidden'></ul>   
 </nav>
 </div>
-
+ 
 <script type="text/javascript">
 require(['jquery'], function($) {
 
+  // Create the dropdown base
+  $("<select />").appendTo(".greedys");
+      
+      // Populate dropdown with menu items
+      $(".greedys a").each(function() {
+       var el = $(this);
+       $("<option />", {
+           "value"   : el.attr("href"),
+           "text"    : el.text()
+       }).appendTo(".greedys select");
+      });      
+	   // To make dropdown actually work
+      $(".greedys select").change(function() {
+        window.location = $(this).find("option:selected").val();
+      });
+
+  //for rezie menu after 480 resulation
   var $btn = $('nav.greedys button');
   var $vlinks = $('nav.greedys .links');
   var $hlinks = $('nav.greedys .hidden-links');
