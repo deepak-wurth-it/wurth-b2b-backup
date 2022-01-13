@@ -4080,37 +4080,44 @@ a.action.print.hidden-print {
 
 // Now offer home page end by amit
 // Testimonial start from Amit
+
 .testimonialContainer {
-	top:40px;
-	h2 {
-		font-family: 'wuerthbold';
-		text-transform: capitalize;
-		color: #000000;
-		text-align: center;
+	.owl-stage{
+		display:flex;
+	}
+
+	.owl-item{
+		border:solid 1px rgba(0, 0, 0, 12%);
+		display:table-cell;
+	}
+
+	.owl-carousel .owl-stage-outer{
+		height:auto !important;
 	}
 	.testimonialWrapper {
 		display: flex;
 		align-items: center;
-		border: 1px solid #DEDEDE;
 		box-sizing: border-box;
 	}
-	.photo img {
+	.photo {
 		width: 150px;
 		height: 150px;
 		display: block;
 		border-radius: 50%;
 		margin:30px 20px;
+		flex:none;
+		overflow:hidden;
 	}
 	.testimonial {
-		padding: 15px 15px 0 15px;
+		padding: 15px 15px 30px 15px;
 		position: relative;
-		width: 350px;
 	}
-	.overview b {
-		font-family: 'wuerthbold';
+	.overview{
+		font-family:@headingfont;
 		font-size: 16px;
-		text-transform: capitalize;
-		color: #000000;
+		&:before{
+			content:"_";
+		}
 	}
 }
 
@@ -7397,10 +7404,11 @@ ProductListingwrapper {
 	.infoCard {
 		border: solid 1px rgba(0, 0, 0, 12%);
 		h3 {
-			padding: 20px;
+			padding: 0 0 20px 0;
 		}
+
 		.des {
-			padding: 0 20px 20px 20px;
+			padding:0;
 		}
 	}
 }
@@ -9464,37 +9472,21 @@ print {
 		}
 	}
 	// pdp page end by amit
-	// Testimonial start from Amit
+	// Testimonial section
 	.testimonialContainer {
-		.owl-stage-outer.owl-height {
-			height: 462px !important;
-		}
-		h2 {
-			font-family: 'wuerthbold';
-			text-transform: capitalize;
-			color: #000000;
-			text-align: left;
-			width: 80%;
-		}
 		.testimonialWrapper {
 			display: block;
-			align-items: center;
-			border: 1px solid #DEDEDE;
-		}
-		.photo {
-			text-align: -webkit-center;
-			margin: 20px;
-		}
-		.photo img {
-			width: 175px !important;
-			height: 175px;
-			border-radius: 50%;
-		}
-		.testimonial {
-			width: auto;
+			.photo{
+				margin-left:auto;
+				margin-right:auto;
+			}
+			.testimonial{
+				padding-top:0;
+				padding-bottom:10px;
+			}
 		}
 	}
-	// Testimonial End from Amit
+
 	// Myaccount Navigation start by Amit
 	.dashboardMenu ul.links    { display: none; }
 	.dashboardMenu {
