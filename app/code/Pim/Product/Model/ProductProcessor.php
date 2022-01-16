@@ -125,6 +125,8 @@ class ProductProcessor
                         $this->setProductStatus($item);
                         $this->setPimStockData($item);
                         $this->setQuantityAndStockStatus($item);
+                        $this->setProductCode($item);
+                        //print_r(($this->product->getDescription()));exit;
                         try {
                             $this->product->save();
                             echo 'End Product Id '.$pimProductId.PHP_EOL;
@@ -146,7 +148,6 @@ class ProductProcessor
                 }
                 $x++;
                 if ($x == 500) {
-
                     $x=0;
                     $this->reindexAll();
                     //break;
@@ -197,7 +198,7 @@ class ProductProcessor
     {
         $desc = $item->getData('LongDescription') ? $item->getData('LongDescription') : '';
         if ($desc &&  $this->product) {
-            $this->product->setDescription($item);
+            $this->product->setDescription($desc);
         }
 
     }
@@ -416,6 +417,16 @@ class ProductProcessor
             $item->setData('magento_product_id',$this->product->getId());
             $item->save();
         }
+    }
+
+
+    public function setProductCode($item)
+    {
+        if ($this->product && $item) {
+            $pimProductCode = $item->getData('Code') ? $item->getData('Code') : '';
+            $this->product->setProductCode($pimProductCode);
+        }
+
     }
 
     /**

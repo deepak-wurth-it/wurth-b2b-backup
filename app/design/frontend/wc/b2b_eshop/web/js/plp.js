@@ -23,13 +23,16 @@ function($,urlBuilder) {
 
 
                     if (result) {
-                        //console.log(JSON.parse(result.success));
-
-                        //var data  = JSON.parse(result.success);
-                        console.log(result.success);return;
-                        data.forEach((element) => {
-                            console.log(element);
-                        });
+                        var i;
+                        var itemNo,price;
+                        for (i = 0; i < result.length; ++i) {
+                            console.log(result[i]);
+                            itemNo = result[i]['Item No'];
+                            price = result[i]['Suggested Price'];
+                            if(itemNo && price){
+                             $('#price_'.itemNo).html(price);
+                            }
+                        }
                        
                     } else {
                        
@@ -47,11 +50,16 @@ function($,urlBuilder) {
                 success: function(result)
                 {    //$('#price-container #price').html(result);
                     if (result) {
-                        //var data  = JSON.parse(result.success);
-                        console.log(result.success);return;
-                        data.forEach((element) => {
-                            console.log(element);
-                        });
+                        var i;
+                        var itemNo,quantity;
+                        for (i = 0; i < result.length; ++i) {
+                            console.log(result[i]);
+                            itemNo = result[i]['Item No'];
+                            quantity = result[i]['Available Quantity'];
+                            if(itemNo && quantity){
+                             $('#stock_'.itemNo).html(quantity);
+                            }
+                        }
                         
                     } else {
                        
