@@ -56,7 +56,7 @@ define([
                             itemNo = element['Item No.'];
                             quantity = element['Available Quantity'];
                             if(itemNo && quantity){
-                              $('#price_'.itemNo).html(price);
+                              $('#price_'.itemNo).html(quantity);
                             }
                       });
                           
