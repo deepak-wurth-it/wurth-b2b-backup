@@ -25,13 +25,17 @@ define([
                           console.log(finalResult);
                           for (i = 0; i <= finalResult.length; i++) {
                               //console.log(finalResult);
-                              console.log(finalResult[i]['Item No.']);
+                              //console.log(finalResult[i]['Item No.']);
                             //   itemNo = finalResult[i]['Item No.'];
                             //   price = finalResult[i]['Suggested Price'];
                             //   if(itemNo && price){
                             //    $('#price_'.itemNo).html(price);
                             //   }
                           }
+
+                          $(finalResult).each(function( index, element ) {
+                              console.log(index, element);
+                        });
                          
                       } else {
                          
