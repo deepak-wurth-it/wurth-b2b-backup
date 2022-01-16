@@ -25,7 +25,7 @@ define([
                           console.log(finalResult);
                           for (i = 0; i <= finalResult.length; i++) {
                               //console.log(finalResult);
-                              console.log(finalResult[i]);
+                              console.log(finalResult[i]['Item No.']);
                             //   itemNo = finalResult[i]['Item No.'];
                             //   price = finalResult[i]['Suggested Price'];
                             //   if(itemNo && price){
