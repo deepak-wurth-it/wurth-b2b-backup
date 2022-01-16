@@ -22,9 +22,10 @@ define([
                           var i;
                           var itemNo,price;
                           var finalResult = result.success;
+                          console.log(finalResult);
                           for (i = 0; i <= finalResult.length; i++) {
                               console.log(finalResult);
-                              itemNo = finalResult[i]['Item No'];
+                              itemNo = finalResult[i]['Item No.'];
                               price = finalResult[i]['Suggested Price'];
                               if(itemNo && price){
                                $('#price_'.itemNo).html(price);
@@ -50,9 +51,10 @@ define([
                           var i;
                           var itemNo,quantity;
                           var finalResult = result.success;
+                          console.log(finalResult);
                           for (i = 0; i <= finalResult.length; i++) {
                               console.log(finalResult);
-                              itemNo = finalResult[i]['Item No'];
+                              itemNo = finalResult[i]['Item No.'];
                               quantity = finalResult[i]['Available Quantity'];
                               if(itemNo && quantity){
                                $('#stock_'.itemNo).html(quantity);
