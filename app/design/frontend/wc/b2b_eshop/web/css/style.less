@@ -1707,6 +1707,11 @@ label.sorter-label {
 		border-radius: 50px;
 		font-family: 'wuerthbold';
         color: #FFFFFF;
+		width:120px
+	}
+	.accept:hover {
+		background: #0093DD;
+		border-radius: 50px;
 	}
 	button.notAccept {
 		background: #605D5C;
@@ -1715,6 +1720,11 @@ label.sorter-label {
 		font-size: 16px;
 		color: #FFFFFF;
 		margin-left: 20px;
+		width: 155px;
+	}
+	button.notAccept:hover {
+		background: #605D5C;
+		border-radius: 50px;
 	}
 	button.action-close {
 		display: none !important;
@@ -1738,6 +1748,41 @@ label.sorter-label {
     }
 }
 
+// Contents
+.newsLetterContent{
+	.topCenter{
+	text-align: center;
+    font-family: 'wuerthbold';
+    font-size: 18px;
+	margin: 0 0 20px 0px;
+	}
+	p {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: #000000;
+	}
+	h3 {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		font-family: 'wuerthbold';
+		font-weight: bold;
+		font-size: 16px;
+		color: #000000;
+	}
+	ul.newscontent li {
+		list-style: none;
+		font-family: 'wuerthbook';
+        font-size: 16px;
+	}
+	ul li {
+		list-style: none;
+		font-family: 'wuerthbook';
+        font-size: 16px;
+	}
+	a {
+		color: @general_link_hover_color_cyan;
+	}
+}
 
 // Terms & Condition PopUp End By Amit
 // New Customer registration 
@@ -1804,7 +1849,7 @@ label.sorter-label {
 }
 
 	.newsletter {
-		  display: block;
+		display: block;
 		position: relative;
 		padding-left: 30px;
 		margin-bottom: 12px;
@@ -1813,6 +1858,7 @@ label.sorter-label {
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+		width: fit-content;
 
 	/* Hide the browser's default checkbox */
 	input {
@@ -7404,11 +7450,14 @@ ProductListingwrapper {
 	.infoCard {
 		border: solid 1px rgba(0, 0, 0, 12%);
 		h3 {
-			padding: 0 20px 20px 20px;
+			padding: 10px 10px 10px 10px;
+		}
+		img.img-fluid {
+			width: 100%;
 		}
 
 		.des {
-			padding:0 20px 20px 20px;
+			padding:10px 10px 10px 10px;
 		}
 	}
 }
@@ -9516,6 +9565,21 @@ print {
 		  color: rgba(255, 255, 255, 0.87);  
 		 }
 	// Myaccount Navigation end by Amit
+// Terms & Condition PopUp Start By Amit
+.termsCodition{
+	footer.modal-footer {
+		align-items: center;
+		text-align: center;
+	}
+	button.accept {
+		margin-bottom: 10px;
+	}
+	button.notAccept {
+		margin-top:10px;
+	}
+}
+// Terms & Condition PopUp End By Amit
+
 }
 
 //---------------------------------------------------------	
