@@ -3,7 +3,7 @@
 if($collection->count() > 0): 
 ?>
  
-<div class="carousel-wrap container testimonialContainer">
+<div class="carousel-wrap cmsHomeInfoCard container-inner testimonialContainer">
 	<h2><?php echo __('What our customers say about Würth')?></h2>    
 	<div class="owl-theme owl-testimonial carousel">
     <?php foreach ($collection as $key => $data): ?>
@@ -13,7 +13,7 @@ if($collection->count() > 0):
             <div class="media-body">
               <div class="testimonial">
                 <p><?php echo $data->getContent();?></p>
-                <p class="overview"><b><?php echo $data->getAuthor();?></b></p>
+                <span class="overview"><?php echo $data->getAuthor();?></span>
               </div>
             </div>
       </div>
@@ -31,12 +31,12 @@ require(['jquery', 'owlcarousel'], function($) {
     $(document).ready(function() {
         $('.owl-testimonial').owlCarousel({
             loop: true,
-            margin: 10,
+            margin: 30,
             autoHeight: true,
             nav: true,
             navText: [
-                "<i class='fa fa-caret-left'></i>",
-                "<i class='fa fa-caret-right'></i>"
+                "<i class='icon-interface-left'></i>",
+                "<i class='icon-interface-right'></i>"
             ],
             autoplay: true,
             autoplayHoverPause: true,

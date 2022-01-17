@@ -1666,51 +1666,217 @@ label.sorter-label {
 		}
 	}
 }
-
-// New Customer registration 
-.newUserRegistration,
-.exUserregistration {
-	.fieldset {
-		margin-bottom: 0;
-	}
-	.fieldset> {
-		.field.password.required {
-			.control {
-				select.region_id {
-					color: @general_text_light_color;
-				}
-				.password-strength-meter {
-					background: none;
-					color: @general_text_light_color;
-					font-size: 1.4rem;
-					padding: 0;
-				}
-			}
-		}
-		.field {
-			margin: 0;
-			&:before {
-				display: none;
-			}
-		}
-		.legend {
-			font-size: 1.8rem;
-			color: @general_link_hover_color_cyan;
-			font-family: @headingfont;
-			margin-bottom: 20px;
-		}
-		.field:not(.choice)>label,
-		.field:not(.choice)>.control {
-			width: 100%;
-			text-align: left;
-			font-weight: normal;
-			margin-bottom: 10px;
-		}
-	}
-	.formSections {
+// Favorites Page Start By Amit
+.wishlist-index-index{
+	h2.WishlistTitle {
 		padding-bottom: 20px;
-		border-bottom: solid 1px rgba(0, 0, 0, 12%);
-		margin-bottom: 20px;
+	}
+	.primary button.action.update {
+		height: 26px;
+		background: #CC0000;
+		border-radius: 20px;
+	}
+	.primary button.action.update span {
+		font-family: 'wuerthbold';
+		font-size: 14px;
+		color: #FFFFFF;
+	}
+	.primary button.action.tocart {
+		height: 26px;
+		background: #0093DD;
+		border: 1px solid #0093DD;
+		border-radius: 20px;
+	}
+	.primary button.action.tocart span {
+		font-family: 'wuerthbold';
+		font-size: 14px;
+		color: #FFFFFF;
+	}
+}
+// Favorites Page End By Amit
+// Terms & Condition PopUp Start By Amit
+.termsCodition{
+	h1.modal-title {
+		font-family: 'wuerthbold';
+		font-size: 24px;
+		color: #000000;
+		border: none;
+	}
+	.accept {
+		background: #0093DD;
+		border-radius: 50px;
+		font-family: 'wuerthbold';
+        color: #FFFFFF;
+	}
+	button.notAccept {
+		background: #605D5C;
+		border-radius: 50px;
+		font-family: 'wuerthbold';
+		font-size: 16px;
+		color: #FFFFFF;
+		margin-left: 20px;
+	}
+	button.action-close {
+		display: none !important;
+	}
+	.modal-inner-wrap {
+		width: 75% !important;	
+	}
+	::-webkit-scrollbar {
+        width: 10px;
+		scrollbar-width: thin;
+		
+    }
+
+    ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.12);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+    }
+}
+
+
+// Terms & Condition PopUp End By Amit
+// New Customer registration 
+.newUserRegistration, .exUserregistration{
+	.fieldset{
+	margin-bottom:0;
+	}
+	.fieldset >{
+		.field.password.required{
+
+			.control{
+				select.region_id{
+					color:@general_text_light_color;
+				}
+				.password-strength-meter{
+					background:none;
+					color:@general_text_light_color;
+					font-size:1.4rem;
+					padding:0;
+				}
+			}
+		}
+		
+		.field._required:not(.choice) >label{
+			&:after{
+				content:"*";
+				font-size:16px;
+				color:red;
+			}
+		}
+		.field{
+			margin:0;
+			&:before{
+				display:none;
+			}
+		}
+		.legend{
+			font-size:1.8rem;
+			color:@general_link_hover_color_cyan;
+			font-family:@headingfont;
+			margin-bottom:20px;
+		}
+
+		.field:not(.choice) >label, .field:not(.choice) >.control{
+		width:100%;
+		text-align:left;
+		font-weight:normal;
+		margin-bottom:10px;
+
+	}
+	.googleCaptcha{
+		margin-top:30px;
+		margin-bottom:30px;
+	}
+
+	.newsletterAcceptance{
+		margin-bottom:20px;
+	}
+
+		.actions-toolbar{
+	.primary-button{
+		margin-top:10px;
+	}
+}
+
+	.newsletter {
+		  display: block;
+		position: relative;
+		padding-left: 30px;
+		margin-bottom: 12px;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+
+	/* Hide the browser's default checkbox */
+	input {
+	  position: absolute;
+	  opacity: 0;
+	  cursor: pointer;
+	  height: 0;
+	  width: 0;
+	}
+
+	/* Create a custom checkbox */
+	.checkmark {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  height: 20px;
+	  width: 20px;
+	  border:solid 1px rgba(0, 0, 0, 12%);
+	  border-radius:2px;
+	}
+
+	/* On mouse-over, add a grey background color */
+	&:hover input ~ .checkmark {
+		border:solid 1px rgba(0, 0, 0, 20%);
+	}
+
+	/* When the checkbox is checked, add a blue background */
+	input:checked ~ .checkmark {
+	  background-color: #bac405;
+	}
+
+	/* Create the checkmark/indicator (hidden when not checked) */
+	.checkmark:before {
+	  content: "";
+	  position: absolute;
+	  display: none;
+	}
+
+	/* Show the checkmark when checked */
+	input:checked ~ .checkmark:before {
+	  display: block;
+	}
+
+	/* Style the checkmark/indicator */
+	.checkmark:before {
+	  left: 5px;
+	  top: 2px;
+	  width: 7px;
+	  height: 12px;
+	  border: solid white;
+	  border-width: 0 3px 3px 0;
+	  -webkit-transform: rotate(45deg);
+	  -ms-transform: rotate(45deg);
+	  transform: rotate(45deg);
+	}
+
+	}
+
+}
+
+	.formSections{
+		padding-bottom:20px;
+		border-bottom:solid 1px rgba(0, 0, 0, 12%);
+		margin-bottom:20px;
 	}
 }
 
@@ -3768,7 +3934,7 @@ a.action.print.hidden-print {
 		color: @general_price_color;
 	}
 	input.form-control {
-		background: #FFFFFF;
+		background: @general_bg_color;
 		border: 1px solid rgba(0, 0, 0, 0.12);
 		border-radius: 4px;
 	}
@@ -3781,9 +3947,9 @@ a.action.print.hidden-print {
 		color: rgba(0, 0, 0, 0.6);
 	}
 	button.btn.btn-primary {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 50px;
-		color: #fff;
+		color: @general_bg_color;
 	}
 	
 	.container.last {
@@ -3793,7 +3959,7 @@ a.action.print.hidden-print {
 // My profile page end by amit
 // Myaccount Navigation start by Amit
 .dashboardMenu {
-	background: #0093DD;
+	background: @general_link_hover_color_cyan;
 	height: 45px;
 	padding: 0 !important;
 	nav.greedys {
@@ -3801,14 +3967,14 @@ a.action.print.hidden-print {
 		display: flex;
 		align-items: center;
 		height: 45px;
-		background: #0093DD;
+		background: @general_link_hover_color_cyan;
 		margin: 0px 80px 0px 0px;
 	}
 	nav.greedys button {
 		align-self: stretch;
 		transition: all .4s ease-out;
 		color: @color-white-smoke;
-		background: #006EA5;
+		background: @general_link_hover_color_cyan;
 	}
 	nav.greedys button.hidden {
 		transition: none;
@@ -3846,6 +4012,7 @@ a.action.print.hidden-print {
 		background: #006EA5;
 		right: 0;
 		top: 100%;
+		z-index: 99999;
 	}
 	ul.hidden-links li a {
 		padding-right: 1rem;
@@ -3913,39 +4080,44 @@ a.action.print.hidden-print {
 
 // Now offer home page end by amit
 // Testimonial start from Amit
+
 .testimonialContainer {
-	.owl-stage-outer.owl-height {
-		height: 247px !important;
+	.owl-stage{
+		display:flex;
 	}
-	h2 {
-		font-family: 'wuerthbold';
-		text-transform: capitalize;
-		color: #000000;
-		text-align: center;
+
+	.owl-item{
+		border:solid 1px rgba(0, 0, 0, 12%);
+		display:table-cell;
+	}
+
+	.owl-carousel .owl-stage-outer{
+		height:auto !important;
 	}
 	.testimonialWrapper {
 		display: flex;
 		align-items: center;
-		border: 1px solid #DEDEDE;
 		box-sizing: border-box;
 	}
-	.photo img {
-		width: 175px;
-		height: 175px;
+	.photo {
+		width: 150px;
+		height: 150px;
 		display: block;
 		border-radius: 50%;
-		padding: 10px;
+		margin:30px 20px;
+		flex:none;
+		overflow:hidden;
 	}
 	.testimonial {
-		padding: 15px 15px 0 15px;
+		padding: 15px 15px 30px 15px;
 		position: relative;
-		width: 350px;
 	}
-	.overview b {
-		font-family: 'wuerthbold';
+	.overview{
+		font-family:@headingfont;
 		font-size: 16px;
-		text-transform: capitalize;
-		color: #000000;
+		&:before{
+			content:"_";
+		}
 	}
 }
 
@@ -3995,6 +4167,9 @@ a.action.print.hidden-print {
 		box-sizing: border-box;
 	}
 	.fotorama__stage__shaft.fotorama__grab {
+		border: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.fotorama__stage__shaft {
 		border: 1px solid rgba(0, 0, 0, 0.12);
 		width: auto !important;
 	}
@@ -5232,9 +5407,10 @@ span.label.minsubbut {
 }
 
 .minicart-items-wrapper {
-	max-height: 300px;
+	max-height: 325px;
 	border-top: none;
 	padding: 0;
+	overflow-y: hidden;
 	.item.product.product-item {
 		width: 100%;
 		margin-left: 0;
@@ -5663,7 +5839,7 @@ form#form-validate {
 		padding-bottom: 4px;
 	}
 	.minicart-items {
-		max-height: 400px;
+		max-height: 300px;
 		overflow: auto;
 		.product-item-details {
 			padding-right: 15px;
@@ -7228,10 +7404,11 @@ ProductListingwrapper {
 	.infoCard {
 		border: solid 1px rgba(0, 0, 0, 12%);
 		h3 {
-			padding: 20px;
-		}
-		.des {
 			padding: 0 20px 20px 20px;
+		}
+
+		.des {
+			padding:0 20px 20px 20px;
 		}
 	}
 }
@@ -9295,37 +9472,21 @@ print {
 		}
 	}
 	// pdp page end by amit
-	// Testimonial start from Amit
+	// Testimonial section
 	.testimonialContainer {
-		.owl-stage-outer.owl-height {
-			height: 462px !important;
-		}
-		h2 {
-			font-family: 'wuerthbold';
-			text-transform: capitalize;
-			color: #000000;
-			text-align: left;
-			width: 80%;
-		}
 		.testimonialWrapper {
 			display: block;
-			align-items: center;
-			border: 1px solid #DEDEDE;
-		}
-		.photo {
-			text-align: -webkit-center;
-			margin: 20px;
-		}
-		.photo img {
-			width: 175px !important;
-			height: 175px;
-			border-radius: 50%;
-		}
-		.testimonial {
-			width: auto;
+			.photo{
+				margin-left:auto;
+				margin-right:auto;
+			}
+			.testimonial{
+				padding-top:0;
+				padding-bottom:10px;
+			}
 		}
 	}
-	// Testimonial End from Amit
+
 	// Myaccount Navigation start by Amit
 	.dashboardMenu ul.links    { display: none; }
 	.dashboardMenu {
@@ -9351,7 +9512,7 @@ print {
 		  height:38px;
 		  font-family: 'wuerthbook';
 		  font-size: 18px;        
-		  background: #0093DD;
+		  background: @general_link_hover_color_cyan;
 		  color: rgba(255, 255, 255, 0.87);  
 		 }
 	// Myaccount Navigation end by Amit
