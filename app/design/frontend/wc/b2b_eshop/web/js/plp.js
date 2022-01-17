@@ -1,63 +1,71 @@
 define([
-  "jquery",
-  "mage/url"
-], 
-function($,urlBuilder) {
-  "use strict";
-  return function(config) {
-  //console.log(config);
-  var GetMultiProductPriceUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductPrice');
-  var GetMultiProductStockUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
-
-  $.ajax({
-               
-                type: "POST",
-                url: GetMultiProductPriceUrl,
-                data: {skus:config.listPids},
-                cache: false,
-                async: false,
-                success: function(result)
-                {   // $('#price-container #price').html(result);                        
-                   // alert();
-                    //console.log(JSON.parse(result.success));
-
-
-                    if (result) {
-                        //console.log(JSON.parse(result.success));
-
-                        //var data  = JSON.parse(result.success);
-                        console.log(result.success);return;
-                        data.forEach((element) => {
-                            console.log(element);
+    "jquery",
+    "mage/url"
+  ], 
+  function($,urlBuilder) {
+    "use strict";
+    return function(config) {
+    //console.log(config);
+    var GetMultiProductPriceUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductPrice');
+    var GetMultiProductStockUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
+  
+    $.ajax({
+                 
+                  type: "POST",
+                  url: GetMultiProductPriceUrl,
+                  data: {skus:config.listPids},
+                  cache: false,
+                  async: false,
+                  success: function(result)
+                  {  
+                      if (result.success) {
+                          var i;
+                          var itemNo,price;
+                          var finalResult = result.success;
+                         $(finalResult).each(function( index, element ) {
+                              console.log(index, element);
+                              itemNo = element['Item No.'];
+                              price = element['Suggested Price'];
+                              if(itemNo && price){
+                                $('#price_'.itemNo).html(price);
+                              }
                         });
-                       
-                    } else {
-                       
-                    }
-                }
-            });
-            
-            
-            $.ajax({
-                type: "POST",
-                url: GetMultiProductStockUrl,
-                data: {skus:config.listPids},
-                cache: false,
-                async: false,
-                success: function(result)
-                {    //$('#price-container #price').html(result);
-                    if (result) {
-                        //var data  = JSON.parse(result.success);
-                        console.log(result.success);return;
-                        data.forEach((element) => {
-                            console.log(element);
-                        });
+                         
+                      } else {
+                         
+                      }
+                  }
+              });
+              
+              
+              $.ajax({
+                  type: "POST",
+                  url: GetMultiProductStockUrl,
+                  data: {skus:config.listPids},
+                  cache: false,
+                  async: false,
+                  success: function(result)
+                  {    
+                      if (result.success) {
+                          var i;
+                          var itemNo,quantity;
+                          var finalResult = result.success;
                         
-                    } else {
-                       
-                    }
-                }
-            });
-        };
-
-});
+                          $(finalResult).each(function( index, element ) {
+                            console.log(index, element);
+                            itemNo = element['Item No.'];
+                            quantity = element['Available Quantity'];
+                            if(itemNo && quantity){
+                              $('#price_'.itemNo).html(quantity);
+                            }
+                      });
+                          
+                      } else {
+                         
+                      }
+                  }
+              });
+          };
+  
+  });
+  

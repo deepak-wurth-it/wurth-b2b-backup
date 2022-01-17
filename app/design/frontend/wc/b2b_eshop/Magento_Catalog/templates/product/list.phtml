@@ -154,7 +154,9 @@ $product=false;
                                             <?php echo $product->getName(); ?>
                                         </a>
                                     </strong>
-                                    <span class="price"><?php echo $abstractProductBlock->getProductPrice($product) ?> </span>
+                                    <span class="price" id="price_<?php echo $ProductCode; ?>"> </span>
+                                    <span class="stock" id="stock_<?php echo $ProductCode; ?>"> </span>
+
                                     <div class="product-item-inner">
                                         <div class="product actions product-item-actions">
                                             <div class="actions-primary">
