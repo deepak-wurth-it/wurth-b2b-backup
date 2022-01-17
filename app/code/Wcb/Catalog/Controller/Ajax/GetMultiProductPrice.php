@@ -28,6 +28,9 @@ class GetMultiProductPrice extends \Magento\Framework\App\Action\Action
 		$data = "";
 		$dataString = "";
 		$key = "";
+		$header = "";
+		$finalData = [];
+
 
 	
 		foreach($skus as $key=>$sku){
@@ -41,12 +44,26 @@ class GetMultiProductPrice extends \Magento\Framework\App\Action\Action
 		
 		 //$sku = $this->getRequest()->getPost('sku');
 		 $xmlStock = $this->getMultiPrice($dataString);
-		 
-		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
-         $data = simplexml_load_string($xmlStock);
-		 $data = $data->SoapBody->GetMultiItemEShopSalesPriceAndDisc_Result->salesLinesCsvP;
-		 //echo $data;exit;
-		 $result->setData(array('success'=>$data));
+		
+			$xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
+			$data = simplexml_load_string($xmlStock);
+			if($xmlStock){
+			$data = $data->SoapBody->GetMultiItemEShopSalesPriceAndDisc_Result->salesLinesCsvP;
+
+			$data = preg_split("/\r\n|\n|\r/", $data[0]);
+			foreach($data as $key=>$row){
+				if(empty($row)){
+					continue;
+				}   
+				$header = explode(';', $data[0]);
+				$dataStage2 = explode(';', $row);
+				
+				if(count($header) == count($dataStage2) && $key !== 0 ){
+					$finalData[] =  array_combine($header,$dataStage2);
+				}
+			}
+		 }
+		 $result->setData(array('success'=>$finalData));
          return $result;
 
 		}
@@ -80,4 +97,6 @@ class GetMultiProductPrice extends \Magento\Framework\App\Action\Action
 
 
 	}
+
+	
 }
