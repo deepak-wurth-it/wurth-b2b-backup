@@ -12,7 +12,7 @@ $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAl
 <span data-action="toggle-nav" class="action nav-toggle"><span><?= $block->escapeHtml(__('Toggle Nav')) ?></span></span>
 <a
     class="logo"
-    href="https://wuerth.com.hr"
+    href="<?php echo $block->getUrl('wuerth/home/index'); ?>"
     title="<?= $block->escapeHtmlAttr($storeName) ?>"
     aria-label="store logo">
     <img src="<?= $block->escapeUrl($block->getLogoSrc()) ?>"

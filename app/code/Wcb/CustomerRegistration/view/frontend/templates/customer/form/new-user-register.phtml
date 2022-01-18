@@ -9,7 +9,7 @@
                             <span><?= $block->escapeHtml(__('Company OIB')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[vat_tax_id]" id="vat_tax_id" value="" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text" data-validate="{required:true}">
+                            <input type="text" name="company[vat_tax_id]" id="vat_tax_id" value="" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text validate-length minimum-length-11 maximum-length-11" data-validate="{required:true}">
                         </div>
                     </div>
                     <p id="link-error"></p>
@@ -18,7 +18,7 @@
                             <span><?= $block->escapeHtml(__('Company Name')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[company_name]" id="company_name" value="" title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>" class="input-text" data-validate="{required:true}">
+                            <input type="text" name="company[company_name]" id="company_name" value="" title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>" class="input-text validate-alpha" data-validate="{required:true}">
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
                             <span><?= $block->escapeHtml(__('Number of Employees')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[no_of_employees]" id="no_of_employees" value="" title="<?= $block->escapeHtmlAttr(__('Number of Employees')) ?>" class="input-text" data-validate="{required:true}">
+                            <input type="text" name="company[no_of_employees]" id="no_of_employees" value="" title="<?= $block->escapeHtmlAttr(__('Number of Employees')) ?>" class="input-text validate-number" data-validate="{required:true}">
                         </div>
                     </div>
 
@@ -43,7 +43,7 @@
                             <span><?= $block->escapeHtml(__('Division')) ?></span>
                         </label>
                         <div class="control">
-                            <select name='company[division]' class='form-control'>
+                            <select name='company[division]' class='form-control' data-validate="{required:true}">
                                 <option value=""><?php echo __("Please select Division")?></option>
                                 <?php foreach($resultArray as $key => $value){?>                                    
                                 <option value="<?php echo $key;?>"><?php echo $value ?></option>
@@ -57,9 +57,9 @@
                             <span><?= $block->escapeHtml(__('Activities')) ?></span>
                         </label>
                         <div class="control">
-                        <select name='company[activities]' class='form-control'>
+                        <select name='company[activities]' class='form-control' data-validate="{required:true}">
                             <option value=""><?php echo __("Please select Activities")?></option>
-                            <option value="<?php echo 'ds'?>"><?php echo 'gfgf' ?></option>
+                            <option value="<?php echo 'ds'?>"><?php echo 'Activity 1' ?></option>
                         </select>
                         </div>
                     </div>
@@ -133,14 +133,14 @@
                     <div class="field field-name-firstname _required">
                         <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
                         <div class="control">
-                            <input type="text" id="firstname" name="firstname" value="" title="firstname" class="input-text letters-only " data-validate="{required:true}">
+                            <input type="text" id="firstname" name="firstname" value="" title="firstname" class="input-text validate-alpha" data-validate="{required:true}">
                         </div>
                     </div>
 
                     <div class="field field-name-lastname _required">
-                        <label class="label" for="lastname"><span><?php echo __("Last Name")?></span></label>
+                        <label class="label" for="lastname"><span><?php echo __("Surname")?></span></label>
                         <div class="control">
-                            <input type="text" id="lastname" name="lastname" value="" title="lastname" class="input-text letters-only " data-validate="{required:true}">
+                            <input type="text" id="lastname" name="lastname" value="" title="surname" class="input-text validate-alpha" data-validate="{required:true}">
                         </div>
                     </div>
                     
@@ -164,7 +164,7 @@
                             <span><?= $escaper->escapeHtml(__('Position in the Company')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="position" title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>" id="position" class="input-text" data-validate="{required:true}" autocomplete="off">
+                            <input type="text" name="position" title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>" id="position" class="input-text validate-alpha" data-validate="{required:true}" autocomplete="off">
                         </div>
                     </div>
 
@@ -192,9 +192,9 @@
                         </div>
                     </div>
                     <div class="field name">
-                        <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Telephone')) ?></span></label>
+                        <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
                         <div class="control">
-                            <input name="telephone" id="telephone" title="Telephone" value="" class="input-text" type="text" data-validate="{required:false}">
+                            <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-number" type="text" data-validate="{required:false}">
                         </div>
                     </div>
                 </div>
@@ -210,23 +210,22 @@
                             </label>
                         </div>
                     </div>
-        <div class="field daddress-country _required">
-            <label class="label" for="daddress_country">
-                <span><?= $block->escapeHtml(__('Country')) ?></span>
-            </label>
-            <div class="control">
-            <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data');?>
-            <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "daddress[daddress_country]", $id = "daddress_country", $title = 'Country');?>
-
-            </div>
-        </div>
+                <div class="field daddress-country _required">
+                    <label class="label" for="daddress_country">
+                        <span><?= $block->escapeHtml(__('Country')) ?></span>
+                    </label>
+                    <div class="control">
+                    <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data');?>
+                    <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "daddress[daddress_country]", $id = "daddress_country", $title = 'Country');?>
+                    </div>
+                </div>
 
         <div class="field daddress-da-street _required">
             <label class="label" for="da_street">
                 <span><?= $block->escapeHtml(__('Address')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="daddress[da_street]" id="da_street" value="" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
+                <input type="text" name="daddress[da_street]" id="da_street" value="" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
             </div>
         </div>
 
@@ -236,7 +235,7 @@
                 <span><?= $block->escapeHtml(__('City')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="daddress[da_city]" id="da_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
+                <input type="text" name="daddress[da_city]" id="da_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text validate-alpha" data-validate="{required:true}">
             </div>
         </div>
 
@@ -265,7 +264,7 @@
                 <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="daddress[da_postcode]" id="da_postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text" data-validate="{required:true}">
+                <input type="text" name="daddress[da_postcode]" id="da_postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text validate-number" data-validate="{required:true}">
             </div>
         </div>
     </div>
@@ -275,7 +274,7 @@
         <legend class="legend"><?php echo __(" Invoice Address")?></legend>
         <div class="field same_as_hq_address">
             <div class="control">
-                <input type="checkbox" id="ia_same_as_hq_address" name="ia_same_as_hq_address" class="input-checkbox checkbox" value="1">
+                <input type="checkbox" id="ia_same_as_hq_address" name="iaddress[ia_same_as_hq_address]" class="input-checkbox checkbox" value="1">
                 <label for="ia_same_as_hq_address" class="label">
                     <?= __('Same as Headquarters Address') ?>
                 </label>
@@ -294,11 +293,11 @@
         </div>
 
         <div class="field company-street _required">
-                        <label class="label" for="street">
+                        <label class="label" for="ia_street">
                             <span><?= $block->escapeHtml(__('Address')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[street]" id="street" value=""                                title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text" data-validate="{required:true}">
+                            <input type="text" name="iaddress[ia_street]" id="ia_street" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
                         </div>
                     </div>
 
@@ -307,7 +306,7 @@
                 <span><?= $block->escapeHtml(__('City')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="iaddress[ia_city]" id="ia_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text" data-validate="{required:true}">
+                <input type="text" name="iaddress[ia_city]" id="ia_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text validate-alpha" data-validate="{required:true}">
             </div>
         </div>
 
@@ -336,20 +335,29 @@
                 <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="iaddress[ia_postcode]" id="ia_postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text" data-validate="{required:true}">
+                <input type="text" name="iaddress[ia_postcode]" id="ia_postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text validate-number" data-validate="{required:true}">
             </div>
         </div>
     </div>
-
+    <?php
+        $helper = $this->helper("Wcb\CustomerRegistration\Helper\Data");
+        $enabled = $helper->isNewUserEnabled();
+        $sitekey = $helper->getSiteKey();
+        $secretkey = $helper->getSecretKey();
+        if($enabled){
+    ?>
     <div class="form-group required googleCaptcha">
             <div class="g-recaptcha required" id="recaptcha"
-                data-sitekey="6Lc7-wsdAAAAAARHYuosBAH_iVvu_Ygeo6ujnuR1">
+                data-sitekey="<?php echo $sitekey;?>">
             </div>
                 <div style="display:none" id="error-msg">
                 <span><?php echo __('This is a required field.') ?></span>
             </div>
         </div>
+<?php
 
+}
+?>
     <div class="field choice newsletterAcceptance">
         <label for="is_subscribed" class="label newsletter">
             <input type="checkbox"
@@ -383,14 +391,18 @@
                     escapeHtmlAttr(__('Save')) ?></span>
                 </button>
         </div>
-                <div id="popup-modal" style="display:none;">
-                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-login')->toHtml();?>
-                </div>
-            </fieldset>
-            
-        </form>
-
+        <div id="popup-modal" style="display:none;">
+            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-login')->toHtml();?>
         </div>
+
+        <div id="popup-modal-signup" style="display:none;">
+            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-newsletter')->toHtml();?>
+        </div>
+    </fieldset>
+            
+    </form>
+
+</div>
     </div>
 </div>
 <script>
@@ -408,6 +420,7 @@
 
     require(['jquery'],function($) {
         $(document).ready(function () {
+            $("#country").prop("disabled", true);
             $('#confirm_email_address').change(function() {
                 $('#company_email').val($(this).val());
             });
@@ -488,11 +501,40 @@
                 innerScroll: true,
                 title: 'Privacy Policy',
                 modalCloseBtn: false,
+                buttons: false
+            };
+        }
+    );
+</script>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function($, modal) {
+            $("#is_subscribed").click(function(e){
+                var popup = modal(options, $('#popup-modal-signup'));
+                $('#popup-modal-signup').modal('openModal');
+            });
+            var options = {
+                type: 'popup',
+                title: '',
+                modalClass: 'termsCodition',
+                responsive: false,
+                innerScroll: true,
+                title: 'PRAVILA O PRIVATNOSTI',
+                modalCloseBtn: false,
                 buttons: [{
                     text: $.mage.__('I accept'),
                     class: 'accept',
                     click: function () {
-                        //this.closeModal();
+                      if ($('#is_subscribed').is(
+                      ":checked")) {
+                    } else {                        
+                        $('#is_subscribed').attr('checked', 'checked');
+                    }
+                        this.closeModal();
                     }
                     
                 },
@@ -500,6 +542,12 @@
                     text: $.mage.__('I do not accept'),
                     class: 'notAccept',
                     click: function () {
+                        if ($('#is_subscribed').is(
+                      ":checked")) {
+                        $('#is_subscribed').removeAttr('checked');
+                    } else {                        
+                        $('#is_subscribed').removeAttr('checked');
+                    }
                         this.closeModal();
                     }
                     
