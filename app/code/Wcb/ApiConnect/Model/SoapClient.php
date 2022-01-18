@@ -237,8 +237,22 @@ class SoapClient extends AbstractModel implements SoapClientInterface
 
         // converting
         $response = curl_exec($ch);
+        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
+		$response = simplexml_load_string($response);
+       // print_r($response);exit;
         return $response;
 
     }
+
+    public function trimMiddleWhiteSpaces($header){
+		$newHeader = [];
+		foreach($header as $value){
+			$newHeader[] = preg_replace( '/[^A-Za-z0-9\-]/', '',$value);
+		
+		}
+
+		return $newHeader;
+
+	}
 
 }

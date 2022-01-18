@@ -42,15 +42,10 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		 $result = $this->resultJsonFactory->create();
 		
 		 //$sku = $this->getRequest()->getPost('sku');
-		 $xmlStock = $this->getMultiStock($dataString);
-		
-		 	$xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
+		 $xmlData = $this->getMultiStock($dataString);
+        if($xmlData){
 		 
-         	$data = simplexml_load_string($xmlStock);
-
-			if($xmlStock){
-		 
-			$data = $data->SoapBody->GetMultiItemAvailabilityOnLocation_Result->itemsCsvP;
+			$data = $xmlData->SoapBody->GetMultiItemAvailabilityOnLocation_Result->itemsCsvP;
 			
 		   	$data = preg_split("/\r\n|\n|\r/", $data[0]);
 			
@@ -58,7 +53,11 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 				if(empty($row)){
 					continue;
 				}   
-				$header = explode(';', $data[0]);
+				
+				if($key == 0){
+					$header = explode(';', $data[0]);
+					$header =$this->_soapApiClient->trimMiddleWhiteSpaces($header);
+				}
 				$dataStage2 = explode(';', $row);
 				
 				if(count($header) == count($dataStage2) && $key !== 0 ){
