@@ -1,17 +1,40 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
- <system>
-  <section id="recaptcha_frontend">
-    <group id="type_for">
-		<field id="exregistration" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
-			<label>Enable for Existing User SignUp Form</label>
-			<source_model>Magento\ReCaptchaAdminUi\Model\OptionSource\Type</source_model>
-		</field>
-		<field id="newregistration" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
-			<label>Enable for New User SignUp Form</label>
-			<source_model>Magento\ReCaptchaAdminUi\Model\OptionSource\Type</source_model>
-		</field>
-   </group>
-  </section>
- </system>
+    <system>
+        <tab id="wcbreg" translate="label" sortOrder="10">
+            <label>User Registration</label>
+        </tab>
+        <section id="wcbreg" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>User Registration</label>
+            <tab>wcbreg</tab>
+            <resource>Wcb_CustomerRegistration::wcbreg</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="newenabled" type="select" translate="label,comment,tooltip" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled For New User Signup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>wcbreg/general/newenabled</config_path>
+                    <comment>Enable/Disable Google Recaptcha for New User Sign-Up.</comment>
+                </field>
+                <field id="exenabled" type="select" translate="label,comment,tooltip" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled For Existing User Signup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>wcbreg/general/exenabled</config_path>
+                    <comment>Enable/Disable Google Recaptcha for Existing User Sign-Up.</comment>
+                </field>
+                <field id="sitekey" type="obscure" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Site Key</label>
+                    <validate>required-entry</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <config_path>wcbreg/general/sitekey</config_path>
+                </field>
+                <field id="secretkey" type="obscure" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Secret Key</label>
+                    <validate>required-entry</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <config_path>wcbreg/general/secretkey</config_path>
+                </field>
+            </group>
+        </section>
+    </system>
 </config>
