@@ -82,14 +82,14 @@ $formData = $block->getFormData();
         <div class="field field-name-firstname _required">
             <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
             <div class="control">
-                <input type="text" id="firstname" name="firstname" title="firstname" class="input-text validate-alpha" data-validate="{required:true}">
+                <input type="text" id="firstname" name="firstname" title="firstname" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
             </div>
         </div>
 
         <div class="field field-name-lastname _required">
             <label class="label" for="lastname"><span><?php echo __("Surname")?></span></label>
             <div class="control">
-                <input type="text" id="lastname" name="lastname" title="lastname" class="input-text validate-alpha" data-validate="{required:true}">
+                <input type="text" id="lastname" name="lastname" title="lastname" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
             </div>
         </div>
 
@@ -176,7 +176,7 @@ $formData = $block->getFormData();
                        name="position"
                        title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>"
                        id="position"
-                       class="input-text validate-alpha"
+                       class="input-text validate-alphanum-with-spaces"
                        data-validate="{required:true}"
                        autocomplete="off">
             </div>
