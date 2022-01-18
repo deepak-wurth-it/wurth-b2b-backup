@@ -113,7 +113,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
             }
 
         } else {
-            return __('Customer is already exist!');
+            $this->messageManager->addError(__('Customer is already exist!'));
         }
     }
 
