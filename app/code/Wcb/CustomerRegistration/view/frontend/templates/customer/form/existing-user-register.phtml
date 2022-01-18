@@ -39,11 +39,7 @@ $formData = $block->getFormData();
                 <span><?= $block->escapeHtml(__('Company OIB')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="company[vat_tax_id]" id="vat_tax_id"
-                       value=""
-                       data-validate="{required:true}"
-                       title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>"
-                       class="input-text validate-length minimum-length-11 maximum-length-20">
+                <input type="text" name="company[vat_tax_id]" id="vat_tax_id" data-validate="{required:true}" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text validate-length validate-number minimum-length-11 maximum-length-11">
             </div>
         </div>
         <div class="field company-name _required">
@@ -51,10 +47,7 @@ $formData = $block->getFormData();
                 <span><?= $block->escapeHtml(__('Company Name')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="company[company_name]" id="company_name"
-                       value=""
-                       title="<?= $block->escapeHtmlAttr(__('Compmmany Name')) ?>"
-                       class="input-text" data-validate="{required:true}" disabled='true'>
+                <input type="text" name="company[company_name]" id="company_name" title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>" class="input-text" data-validate="{required:true}" disabled='true'>
             </div>
         </div>
 
@@ -89,22 +82,14 @@ $formData = $block->getFormData();
         <div class="field field-name-firstname _required">
             <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
             <div class="control">
-                <input type="text" id="firstname"
-                       name="firstname"
-                       value=""
-                       title="firstname"
-                       class="input-text letters-only " data-validate="{required:true}">
+                <input type="text" id="firstname" name="firstname" title="firstname" class="input-text validate-alpha" data-validate="{required:true}">
             </div>
         </div>
 
         <div class="field field-name-lastname _required">
-            <label class="label" for="lastname"><span><?php echo __("Last Name")?></span></label>
+            <label class="label" for="lastname"><span><?php echo __("Surname")?></span></label>
             <div class="control">
-                <input type="text" id="lastname"
-                       name="lastname"
-                       value=""
-                       title="lastname"
-                       class="input-text letters-only " data-validate="{required:true}">
+                <input type="text" id="lastname" name="lastname" title="lastname" class="input-text validate-alpha" data-validate="{required:true}">
             </div>
         </div>
 
@@ -176,9 +161,9 @@ $formData = $block->getFormData();
         </div>
         
         <div class="field name _required">
-            <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Telephone')) ?></span></label>
+            <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
             <div class="control">
-                <input name="telephone" id="telephone" title="Telephone" value="" class="input-text validate-number"
+                <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-number"
                         type="text" data-validate="{required:true}">
             </div>
         </div>
@@ -191,19 +176,30 @@ $formData = $block->getFormData();
                        name="position"
                        title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>"
                        id="position"
-                       class="input-text"
+                       class="input-text validate-alpha"
                        data-validate="{required:true}"
                        autocomplete="off">
             </div>
         </div>
-
+        <div id="div-for-captcha" class="div-for-captcha">
+        <?php
+            $helper = $this->helper("Wcb\CustomerRegistration\Helper\Data");
+            $enabled = $helper->isExUserEnabled();
+            $sitekey = $helper->getSiteKey();
+            $secretkey = $helper->getSecretKey();
+            if($enabled){
+        ?>
         <div class="form-group required googleCaptcha">
-            <div class="g-recaptcha required" id="recaptcha"
-                data-sitekey="6LdQZAYeAAAAANpznkwxwGepsk4zIJne5cVr00Ao">
+                <div class="g-recaptcha required" id="recaptcha"
+                    data-sitekey="<?php echo $sitekey;?>">
+                </div>
+                    <div style="display:none" id="error-msg">
+                    <span><?php echo __('This is a required field.') ?></span>
+                </div>
             </div>
-             <div style="display:none" id="error-msg">
-                <span><?php echo __('This is a required field.') ?></span>
-            </div>
+        <?php
+            }
+        ?>
         </div>
                      
         <div class="field choice newsletterAcceptance">
@@ -221,13 +217,10 @@ $formData = $block->getFormData();
             </label>
         </div>
             <?php /* Extensions placeholder */ ?>
-            <?= $block->getChildHtml('customer.form.register.newsletter') ?>
-        <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
-        <?php if ($_taxvat->isEnabled()): ?>
-            <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
-        <?php endif ?>
-
+        
+        <?= $block->getChildHtml('customer.form.register.newsletter') ?>
         <?= $block->getChildHtml('form.additional.info') ?>
+
         <div class="form-group required ">
             <label for="privacy_policy" class="newsletter">
             <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
@@ -243,6 +236,9 @@ $formData = $block->getFormData();
         </div>
         <div id="popup-modal" style="display:none;">
             <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-login')->toHtml();?>
+        </div>
+        <div id="popup-modal-signup" style="display:none;">
+            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-newsletter')->toHtml();?>
         </div>
     </fieldset>    
 </form>
@@ -268,6 +264,15 @@ $formData = $block->getFormData();
     }
 </script>
 <script>
+    require([
+        'jquery'
+],
+function ($) {
+    $('.field-recaptcha').append($('.div-for-captcha'))
+    });
+</script>
+
+<script>
     require(
         [
             'jquery',
@@ -286,11 +291,43 @@ $formData = $block->getFormData();
                 innerScroll: true,
                 title: 'Privacy Policy',
                 modalCloseBtn: false,
+                buttons: false
+            };
+        }
+    );
+</script>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function($, modal) {
+            $("#is_subscribed").click(function(e){
+                var popup = modal(options, $('#popup-modal-signup'));
+                $('#popup-modal-signup').modal('openModal');
+            });
+            var options = {
+                type: 'popup',
+                title: '',
+                modalClass: 'termsCodition',
+                responsive: false,
+                innerScroll: true,
+                title: 'PRAVILA O PRIVATNOSTI',
+                modalCloseBtn: false,
                 buttons: [{
                     text: $.mage.__('I accept'),
                     class: 'accept',
                     click: function () {
-                        //this.closeModal();
+                      //  $('#is_subscribed').addClass("show");
+                     // $('#is_subscribed').attr('checked');
+                      if ($('#is_subscribed').is(
+                      ":checked")) {
+                       // alert("Check box in Checked");
+                    } else {                        
+                        $('#is_subscribed').attr('checked', 'checked');
+                    }
+                        this.closeModal();
                     }
                     
                 },
@@ -298,6 +335,12 @@ $formData = $block->getFormData();
                     text: $.mage.__('I do not accept'),
                     class: 'notAccept',
                     click: function () {
+                        if ($('#is_subscribed').is(
+                      ":checked")) {
+                        $('#is_subscribed').removeAttr('checked');
+                    } else {                        
+                        $('#is_subscribed').removeAttr('checked');
+                    }
                         this.closeModal();
                     }
                     

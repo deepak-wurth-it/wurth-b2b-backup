@@ -33,19 +33,6 @@
                         </action>
                     </block>
                 </block>
-            <block class="Magento\ReCaptchaUi\Block\ReCaptcha" name="recaptcha" after="-" template="Magento_ReCaptchaFrontendUi::recaptcha.phtml" ifconfig="recaptcha_frontend/type_for/exregistration">
-                    <arguments>
-                        <argument name="recaptcha_for" xsi:type="string">exregistration</argument>
-                        <argument name="jsLayout" xsi:type="array">
-                            <item name="components" xsi:type="array">
-                                <item name="recaptcha" xsi:type="array">
-                                <item name="component" xsi:type="string">Magento_ReCaptchaFrontendUi/js/reCaptcha</item>   
-                                </item>
-                            </item>
-                        </argument>
-                    </arguments>
-                    <container name="form.additional.info" />
-            </block>
             </block>
         </referenceContainer>
         <referenceBlock name="head.components">

@@ -16,6 +16,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         \Magento\Company\Api\CompanyRepositoryInterface $companyRepository,
         \Magento\Company\Api\Data\CompanyInterface $companyInterface,
         \Magento\Framework\Api\DataObjectHelper $objectHelper,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,    
         array $data = []){
 		$this->_pageFactory = $pageFactory;
         $this->storeManager = $storeManager;
@@ -25,6 +26,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         $this->companyRepository = $companyRepository;
         $this->companyInterface = $companyInterface;
         $this->objectHelper = $objectHelper;
+        $this->customerRepository = $customerRepository;
         return parent::__construct($context);
 	}
 
@@ -48,7 +50,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     "email" => $request['confirm_email'],
                     "street" => $request['company']['street'],
                     "city" => $request['company']['city'],
-                    "country_id" => 'HR',//$request['company_country'],
+                    "country_id" => 'HR',
                     "region" => $request['region'],
                     "region_id" => $request['region'],
                     "postcode" => $request['company']['postcode'],
@@ -89,17 +91,26 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     ->setLastname($data['lastname'])
                     ->setPosition($data['position'])
                     ->setMobile($data['telephone'])
+                    ->setPhone($data['telephone'])
+                    ->setCustomerCode($data['telephone'])
                     ->setEmail($data['email'])
                     ->setPassword($data['password']);
             $customerSave = $customer->save();
             $companySave = $this->createCompany($data, $customer->getId());
-            
+            $customerId = $customer->getId();
+            if($customerId && $data['company']['division']){
+                $this->updateCustomerGroup($customerId, $data['company']['division']);    
+            }
             if($customer && $companySave){
                 $this->messageManager->addSuccess(__('Customer and Company created successfully.'));
             }
+            if (array_key_exists('daddress',$data)){
+                $this->saveAddress($data, 'delivery', $customerId);
+            }
             
-            $this->saveAddress($data, 'delivery', $customer->getId());
-            $this->saveAddress($data, 'invoice', $customer->getId());
+            if (array_key_exists('iaddress',$data)){
+                $this->saveAddress($data, 'invoice', $customerId);
+            }
 
         } else {
             return __('Customer is already exist!');
@@ -112,13 +123,13 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
 
         $defaultCountryCode = 'HR';
         $sameAsHeadQuartersDelAd = $sameAsHeadQuartersInvAd = 0;
-        if($type == 'delivery'){
+        if($type === 'delivery'){
             $addressToSave = 'daddress';
             $sameAsHeadQuartersDelAd = ($data['daddress']['da_same_as_hq_address'])? 1 : 0;
             $prefix = 'da_';
-        }elseif($type == 'invoice'){
+        }elseif($type === 'invoice'){
             $addressToSave = 'iaddress';
-            $sameAsHeadQuartersInvAd = ($data['ia_same_as_hq_address']) ? 1 : 0;
+            $sameAsHeadQuartersInvAd = ($data['iaddress']['ia_same_as_hq_address']) ? 1 : 0;
             $prefix = 'ia_';
         }
 
@@ -130,7 +141,6 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
 
 //        $street[] = $data[$addressToSave]['street'];//pass street as array
         $address->setStreet([$data[$addressToSave][$prefix.'street']]);
-
         $address->setCity($data[$addressToSave][$prefix."city"]);
         $address->setCountryId($defaultCountryCode);
         $address->setPostcode($data[$addressToSave][$prefix."postcode"]);
@@ -146,5 +156,42 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
             return __('Error in shipping/billing address.');
         }
     }
+
+     /**
+     * Save Customer group
+     * @param int $customerId
+     * @param int $groupId
+     * @return void
+     */
+    public function updateCustomerGroup(int $customerId, int $groupId): void
+    {
+        $customer = $this->getCustomerById($customerId);
+        
+        if ($customer) {
+            try {
+                $customer->setGroupId($groupId);
+                $this->customerRepository->save($customer);
+            } catch (LocalizedException $exception) {
+             $this->logger->error($exception);
+            }
+        }
+    }
+ 
+    /**
+     * Get Customer By Id
+     * @param int $customerId
+     * @return CustomerInterface|null
+     */
+    public function getCustomerById(int $customerId)
+    {
+        try {
+            $customer = $this->customerRepository->getById($customerId);
+        } catch (LocalizedException $exception) {
+            $customer = null;
+            $this->logger->error($exception);
+        }
+ 
+        return $customer;
+    }   
     
 }
