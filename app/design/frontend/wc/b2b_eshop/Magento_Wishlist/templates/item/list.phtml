@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+?>
+
+ <div class="row">
+    <?php if (count($block->getItems())) : ?>
+  
+        <?php foreach ($block->getItems() as $item) : ?>
+            <div class="col-md-3 col-sm-6 boxs">
+                     <div data-row="product-item" class="productItem" id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>">
+                <div class="product-item-infos" data-container="product-grid">
+                    <?php foreach ($columns as $column) : ?>
+                        <?= $column->setItem($item)->toHtml();?>
+                    <?php endforeach; ?>
+                </div>
+                    </div>
+             </div>
+        <?php endforeach; ?>
+  
+    <?php else : ?>
+        <div class="message info empty">
+            <span><?= $block->escapeHtml(__('This Wish List has no Items')) ?></span>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php foreach ($columns as $column) : ?>
+    <?= $column->getAdditionalHtml() ?>
+<?php endforeach; ?>
+
+<script type="text/javascript">
+require(['jquery'], function($) {
+    $('.block-wishlist-management').css('display','none');
+    $('button.action.share').css('display','none');
+    $('.secondary').css('display','none');
+});
+ </script> 

@@ -387,7 +387,7 @@
         <input type="hidden" id="company_email" name="company_email" value="">
 
         <div class="actions-toolbar">
-                <button type="submit" class="action submit primary-button btn160" id="save-button" title="Save"><span><?= $block->
+                <button type="submit" class="action submit primary-button btn160" id="save-button" title="Save" disabled="disabled"><span><?= $block->
                     escapeHtmlAttr(__('Save')) ?></span>
                 </button>
         </div>
@@ -500,7 +500,6 @@
                 responsive: false,
                 innerScroll: true,
                 title: 'Privacy Policy',
-                modalCloseBtn: false,
                 buttons: false
             };
         }
@@ -524,7 +523,6 @@
                 responsive: false,
                 innerScroll: true,
                 title: 'PRAVILA O PRIVATNOSTI',
-                modalCloseBtn: false,
                 buttons: [{
                     text: $.mage.__('I accept'),
                     class: 'accept',
@@ -556,6 +554,17 @@
         }
     );
 </script>
+<script type="text/javascript">
+require(['jquery'], function($) {
+    
+        $("#privacy_policy").click(function () {
+            $("#save-button").attr("disabled", !this.checked);
+        });
+        $("#is_subscribed").click(function () {
+            $('#is_subscribed').removeAttr('checked');
+        });
+});
+ </script> 
 <?php 
     $ajaxurl = $block->getUrl('excustomer/account/verifycompany');
 ?>

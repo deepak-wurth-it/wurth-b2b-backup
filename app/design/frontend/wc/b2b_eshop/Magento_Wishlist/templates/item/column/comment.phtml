@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Comment $block  */
+
+/* @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+?>
+<span class="hrline"></span>
+<span class="comment"><strong><?php echo __('Comment:'); ?></strong> Quisque scelerisque id urna non dignissim </span>
+<span class="hrline"></span>
+<!--<div class="field comment-box">
+    <label class="label" for="product-item-comment-<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>">
+        <span><?= $block->escapeHtml(__('Comment')) ?></span>
+    </label>
+    <div class="control">
+       <textarea id="product-item-comment-<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>" placeholder="<?= /* @noEscape */ $this->helper(\Magento\Wishlist\Helper\Data::class)->defaultCommentString() ?>" name="description[<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>]" title="<?= $block->escapeHtmlAttr(__('Comment')) ?>" class="product-item-comment" <?= $item->getProduct()->isSaleable() ? '' : 'disabled="disabled"' ?>><?= ($block->escapeHtml($item->getDescription())) ?></textarea>     
+     <span class="comment"><strong>Comment:</strong> Quisque scelerisque id urna non dignissim </span>
+    </div>
+</div>-->
