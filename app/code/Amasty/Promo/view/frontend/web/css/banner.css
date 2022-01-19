@@ -1,0 +1,34 @@
+.ampromo-gift a.product-image{
+    text-decoration: none;
+}
+
+ul.ampromo-gift {
+    padding: 0;
+    list-style-type: none;
+}
+
+.ampromo-gift li{
+    margin: 10px 10px;
+    display: inline;
+}
+
+.ampromo-banner-tooltip{
+    padding:2px 5px;
+    background:#FEC;
+    border:1px solid #FAA819;
+    color:#1F5070;
+    text-align:left;
+    width:300px;
+}
+
+.ampromo-product-name{
+    font-weight: bold;
+}
+
+.ampromo-short-description{
+}
+
+.ampromo-label {
+    position: absolute;
+    z-index: 1000;
+}

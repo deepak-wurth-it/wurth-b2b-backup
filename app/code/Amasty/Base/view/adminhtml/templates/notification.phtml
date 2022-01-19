@@ -1,0 +1,17 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+?>
+<?php
+/** @var \Amasty\Base\Block\Adminhtml\Notification $block */
+?>
+<?php if ($count = $block->getUpdatesCount()): ?>
+<style>
+    .ambase-tab-container > .admin__page-nav-title:before {
+        content: '<?= (int)$count ?>';
+    }
+</style>
+<?php endif; ?>

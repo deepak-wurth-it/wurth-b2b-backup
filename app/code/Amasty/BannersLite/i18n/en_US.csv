@@ -1,0 +1,33 @@
+"Something went wrong while saving the file(s).","Something went wrong while saving the file(s)."
+"Unable to save banner with ID %1. Error: %2","Unable to save banner with ID %1. Error: %2"
+"Unable to save new banner. Error: %1","Unable to save new banner. Error: %1"
+"Banner with specified ID ""%1"" not found.","Banner with specified ID ""%1"" not found."
+"Banner with specified ID and Banner Type not found.","Banner with specified ID and Banner Type not found."
+"Unable to remove banner with ID %1. Error: %2","Unable to remove banner with ID %1. Error: %2"
+"Unable to remove banner. Error: %1","Unable to remove banner. Error: %1"
+"Unable to save bannerRule with ID %1. Error: %2","Unable to save bannerRule with ID %1. Error: %2"
+"Unable to save new bannerRule. Error: %1","Unable to save new bannerRule. Error: %1"
+"BannerRule with specified ID ""%1"" not found.","BannerRule with specified ID ""%1"" not found."
+"Unable to remove bannerRule with ID %1. Error: %2","Unable to remove bannerRule with ID %1. Error: %2"
+"Unable to remove bannerRule. Error: %1","Unable to remove bannerRule. Error: %1"
+"Promo Banners Lite","Promo Banners Lite"
+General,General
+"Enable Top Banners","Enable Top Banners"
+"Enable After Product Description Banners","Enable After Product Description Banners"
+"Enable Product Label","Enable Product Label"
+"Show One Banner Only","Show One Banner Only"
+"Highlight Promotion","Highlight Promotion"
+"Show Banner For","Show Banner For"
+"All Products","All Products"
+"Product SKU","Product SKU"
+Categories,Categories
+"Product SKUs","Product SKUs"
+"A list of SKUs, separated by commas","A list of SKUs, separated by commas"
+"Banners and Labels will be displayed on pages of products associated with the specified categories, NOT on category pages itself","Banners and Labels will be displayed on pages of products associated with the specified categories, NOT on category pages itself"
+"Top Banner On Product Page","Top Banner On Product Page"
+Image,Image
+Alt,Alt
+"On Hover Text","On Hover Text"
+Link,Link
+"After Product Description Banner","After Product Description Banner"
+"Product Label","Product Label"

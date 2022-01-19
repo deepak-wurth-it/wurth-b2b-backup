@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Base\Model\Feed\Response\FeedResponseInterface" type="Amasty\Base\Model\Feed\Response\FeedResponse"/>
+    <preference for="Magento\Framework\Filesystem\DriverInterface" type="Magento\Framework\Filesystem\Driver\File" />
+
+    <preference for="Amasty\Base\Model\SysInfo\InfoProviderInterface" type="Amasty\Base\Model\SysInfo\InfoComposite"/>
+    <preference for="Amasty\Base\Model\SysInfo\FormatterInterface" type="Amasty\Base\Model\SysInfo\Formatter\Xml"/>
+
+    <type name="Amasty\Base\Model\Response\OctetResponseInterfaceFactory">
+        <arguments>
+            <argument name="responseFactoryAssociationMap" xsi:type="array">
+                <item name="file" xsi:type="object">Amasty\Base\Model\Response\File\FileOctetResponseFactory</item>
+                <item name="url" xsi:type="object">Amasty\Base\Model\Response\File\FileUrlOctetResponseFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\TemplateEngine\Php">
+        <plugin name="Amasty_Base::AddEscaperToPhpRenderer" type="Amasty\Base\Plugin\Framework\View\TemplateEngine\Php" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\Setup\Declaration\Schema\Diff\Diff">
+        <plugin name="Amasty_Base::AllowDropReference" type="Amasty\Base\Plugin\Framework\Setup\Declaration\Schema\Diff\Diff\RestrictDropTables"/>
+    </type>
+
+    <!--Add possibility for apply patches before DS start-->
+    <virtualType name="Magento\Framework\Setup\Patch\DeclarativeSchemaApplyBeforeReader" type="Magento\Framework\Setup\Patch\PatchReader">
+        <arguments>
+            <argument name="type" xsi:type="string">declarativeSchemaApplyBefore</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Amasty\Base\Setup\Patch\PatchApplier" type="Magento\Framework\Setup\Patch\PatchApplier">
+        <arguments>
+            <argument name="dataPatchReader" xsi:type="object">Magento\Framework\Setup\Patch\DeclarativeSchemaApplyBeforeReader</argument>
+            <argument name="schemaPatchReader" xsi:type="object">Magento\Framework\Setup\Patch\DeclarativeSchemaApplyBeforeReader</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\Base\Plugin\Setup\Model\DeclarationInstaller\ApplyPatchesBeforeDeclarativeSchema">
+        <arguments>
+            <argument name="patchApplier" xsi:type="object">Amasty\Base\Setup\Patch\PatchApplier</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Setup\Model\DeclarationInstaller">
+        <plugin name="Amasty_Base::execute-patches-before-schema-apply"
+                type="Amasty\Base\Plugin\Setup\Model\DeclarationInstaller\ApplyPatchesBeforeDeclarativeSchema"/>
+    </type>
+    <!--Add possibility for apply patches before DS end-->
+
+    <type name="Amasty\Base\Model\SysInfo\InfoComposite">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="module" xsi:type="object">Amasty\Base\Model\SysInfo\Provider\Module</item>
+                <item name="config" xsi:type="object">Amasty\Base\Model\SysInfo\Provider\Config</item>
+                <item name="system" xsi:type="object">Amasty\Base\Model\SysInfo\Provider\System</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

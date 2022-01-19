@@ -1,0 +1,17 @@
+.amwizard-preview-summary {
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.40);
+    border-radius: 4px;
+    padding: 10px 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.amwizard-preview-summary .title{
+    text-align: center;
+    font-weight: 600;
+}
+.amwizard-preview ul{
+    padding-left: 2em;
+}
+.amwizard-preview .condition{
+    padding-left: 16px;
+}

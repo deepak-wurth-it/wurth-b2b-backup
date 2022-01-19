@@ -1,0 +1,49 @@
+<?php
+/**
+ * @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi
+ * @var $escaper Magento\Framework\Escaper
+ */
+$option = $block->getOption();
+$selections = $option->getSelections();
+?>
+
+<div class="field option <?= /* @noEscape */ ($option->getRequired()) ? ' required': '' ?>">
+    <label class="label" for="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>">
+        <span><?= $escaper->escapeHtml($option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <?php if ($block->showSingle()): ?>
+            <span class="product-name">
+                <?= /* @noEscape */ $selections[0]->getSelectionQty() * 1  . ' x '
+                . $escaper->escapeHtml($selections[0]->getName()) ?>
+            </span>
+            <input type="hidden"
+                   name="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                   value="<?= $escaper->escapeHtmlAttr($selections[0]->getSelectionId()) ?>"
+                   class="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?> bundle option"/>
+        <?php else: ?>
+            <select multiple="multiple"
+                    size="5"
+                    id="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>"
+                    name="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>][]"
+                    data-selector="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>][]"
+                    class="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>
+                     multiselect product bundle option change-container-classname"
+.                    <?= $option->getRequired() ? 'data-validate={required:true}' : '' ?>>
+                <?php if (!$option->getRequired()): ?>
+                    <option value=""><?= $escaper->escapeHtml(__('None')) ?></option>
+                <?php endif; ?>
+                <?php foreach ($selections as $selection): ?>
+                    <option value="<?= $escaper->escapeHtmlAttr($selection->getSelectionId()) ?>"
+                            <?= $block->isSelected($selection) ?' selected="selected"' : '' ?>
+                            <?= !$selection->isSaleable() ? ' disabled="disabled"' : '' ?>>
+                        <span class="product-name">
+                            <?= $selection->getSelectionQty() * 1
+                            . ' x ' . $escaper->escapeHtml($selection->getName()) ?>
+                        </span>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        <?php endif; ?>
+    </div>
+</div>

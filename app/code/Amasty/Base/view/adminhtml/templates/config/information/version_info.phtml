@@ -1,0 +1,39 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+?>
+<?php
+/** @var \Amasty\Base\Block\Adminhtml\System\Config\InformationBlocks\VersionInfo $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php if ($block->getCurrentVersion()): ?>
+    <?php $isVersionLast = $block->isLastVersion(); ?>
+    <?php $class = $isVersionLast ? 'last-version' : ''; ?>
+    <div class="amasty-module-version">
+        <div>
+            <span class="version-title">
+                <?= $escaper->escapeHtml($block->getConfigModuleName()) ?>
+                <span class="module-version <?= /** @noEscape */ $class ?>">
+                    <?= $escaper->escapeHtml($block->getCurrentVersion()) ?>
+                </span>
+                <?= $escaper->escapeHtml(__(' by ')) ?>
+                <a target="_blank" href="<?= $escaper->escapeUrl($block->getLogoHref()) ?>">
+                    <img alt="amasty" class="amasty-logo" src="<?= $escaper->escapeHtmlAttr($block->getLogoUrl()) ?>"/>
+                </a>
+            </span>
+        </div>
+        <?php if (!$isVersionLast && !$block->isOriginMarketplace()): ?>
+        <div>
+           <span class="upgrade-error message message-warning">
+                <?= $escaper->escapeHtml(__('Update is available and recommended. See the')) ?>
+                <a target="_blank" href="<?= $escaper->escapeHtmlAttr($block->getChangelogLink()) ?>)">
+                    <?= $escaper->escapeHtml('Change Log') ?>
+                </a>
+            </span>
+        </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,125 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+?>
+<?php
+/** @var \Amasty\Base\Block\Adminhtml\Extensions $block */
+$modules = $block->getModuleList();
+$anchor = $block->isOriginMarketplace() ? '#product.info.details.release_notes' : '#changelog';
+?>
+<div class="ambase-updates-block">
+    <h2 class="ambase-title">
+        <?= $block->escapeHtml(__('Installed Extensions')) ?>
+    </h2>
+    <div class="ambase-updates-container">
+        <?php if (!$block->isOriginMarketplace()): ?>
+        <div class="ambase-btns-block">
+            <a href="https://amasty.com/extupdates/account/downloads/<?= $block->escapeUrl($block->getSeoparams()) ?>"
+               class="ambase-btn -orange"
+               target="_blank"
+               title="<?= $block->escapeHtml(__('Get Updates at Your Amasty.com Account')) ?>">
+                <?= $block->escapeHtml(__('Get Updates at Your')) ?>
+                <span class="_strong"><?= $block->escapeHtml(__('Amasty.com')) ?></span>
+                <?= $block->escapeHtml(__('Account')) ?>
+            </a>
+            <a href="https://amasty.com/knowledge-base/upgrade-magento-2-extension.html<?= $block->escapeUrl($block->getSeoparams()) ?>"
+               class="ambase-btn -blue"
+               target="_blank"
+               title="<?= $block->escapeHtml(__('How to Update?')) ?>">
+                <?= $block->escapeHtml(__('How to Update?')) ?>
+            </a>
+        </div>
+        <?php endif; ?>
+        <div class="ambase-modules-block">
+            <?php foreach ($modules['hasUpdate'] as $module): ?>
+            <div class="ambase-module-container -update">
+                <div class="ambase-title-container">
+                    <?php if (!empty($module['url'])): ?>
+                    <a href="<?= $block->escapeUrl($module['url'] . $block->getSeoparams()) ?>"
+                       class="ambase-title -link"
+                       target="_blank"
+                       title="<?= $block->escapeHtml($module['description']) ?>">
+                        <?= $block->escapeHtml($module['description']) ?>
+                    </a>
+                    <?php else: ?>
+                    <h3 class="ambase-title">
+                        <?= $block->escapeHtml($module['description']) ?>
+                    </h3>
+                    <?php endif ?>
+                </div>
+                <div class="ambase-version-block">
+                    <div class="ambase-version-container">
+                        <p class="ambase-version">
+                            <?= $block->escapeHtml($module['version']) ?>
+                        </p>
+                        <span class="ambase-svg -arrow"></span>
+                        <p class="ambase-version">
+                            <?= $block->escapeHtml($module['lastVersion']) ?>
+                        </p>
+                    </div>
+                    <?php if (!empty($module['url'])): ?>
+                    <a href="<?= $block->escapeUrl($module['url'] . $block->getSeoparams() . $anchor) ?>"
+                       class="ambase-link"
+                       target="_blank"
+                       title="<?= $block->escapeHtml(__('See what\'s new')) ?>">
+                        <?= $block->escapeHtml(__('See what\'s new')) ?>
+                    </a>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<div class="ambase-updates-block">
+    <h2 class="ambase-title -small">
+        <?= $block->escapeHtml(__('Up-to-Date Amasty Extensions')) ?>
+    </h2>
+    <div class="ambase-modules-block">
+        <?php foreach ($modules['lastVersion'] as $module): ?>
+            <?php if (!empty($module['url'])): ?>
+            <a href="<?= $block->escapeUrl($module['url'] . $block->getSeoparams()) ?>"
+               class="ambase-module-container -link"
+               target="_blank"
+               title="<?= $block->escapeHtml($module['description']) ?>">
+                <span class="ambase-title">
+                    <?= $block->escapeHtml($module['description']) ?>
+                </span>
+                <span class="ambase-version-block">
+                    <span class="ambase-version-container">
+                        <span class="ambase-svg"></span>
+                        <span class="ambase-version"><?= $block->escapeHtml($module['version']) ?></span>
+                    </span>
+                    <?php if (!empty($module['date'])): ?>
+                    <span class="ambase-date"><?= $block->escapeHtml($module['date']) ?></span>
+                    <?php endif; ?>
+                </span>
+            </a>
+            <?php else: ?>
+            <div class="ambase-module-container">
+                <div class="ambase-title-container">
+                    <h3 class="ambase-title">
+                        <?= $block->escapeHtml($module['description']) ?>
+                    </h3>
+                </div>
+                <div class="ambase-version-block">
+                    <div class="ambase-version-container">
+                        <span class="ambase-svg"></span>
+                        <p class="ambase-version">
+                            <?= $block->escapeHtml($module['version']) ?>
+                        </p>
+                    </div>
+                    <?php if (!empty($module['date'])): ?>
+                        <p class="ambase-date">
+                            <?= $block->escapeHtml($module['date']) ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+</div>

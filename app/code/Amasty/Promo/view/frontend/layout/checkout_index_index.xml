@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="ampromo_popup" />
+    <head>
+        <link src="Amasty_Promo::js/amastyNoticeDisable.js"/>
+    </head>
+    <body>
+        <move element="ampromo.add" destination="content" before="-" />
+        <referenceContainer name="content">
+            <block name="ampromo_messenger" template="Amasty_Promo::ampromo_messenger.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Amasty\Promo\ViewModel\Checkout\Messenger</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="checkout.root" >
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="block-amasty-promo" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="block-amasty-promo" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="amasty-promo" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Amasty_Promo/js/model/promo-subscribe</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
