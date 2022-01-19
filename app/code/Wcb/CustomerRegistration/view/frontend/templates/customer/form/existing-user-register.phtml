@@ -82,14 +82,14 @@ $formData = $block->getFormData();
         <div class="field field-name-firstname _required">
             <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
             <div class="control">
-                <input type="text" id="firstname" name="firstname" title="firstname" class="input-text validate-alpha" data-validate="{required:true}">
+                <input type="text" id="firstname" name="firstname" title="firstname" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
             </div>
         </div>
 
         <div class="field field-name-lastname _required">
             <label class="label" for="lastname"><span><?php echo __("Surname")?></span></label>
             <div class="control">
-                <input type="text" id="lastname" name="lastname" title="lastname" class="input-text validate-alpha" data-validate="{required:true}">
+                <input type="text" id="lastname" name="lastname" title="lastname" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
             </div>
         </div>
 
@@ -176,7 +176,7 @@ $formData = $block->getFormData();
                        name="position"
                        title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>"
                        id="position"
-                       class="input-text validate-alpha"
+                       class="input-text validate-alphanum-with-spaces"
                        data-validate="{required:true}"
                        autocomplete="off">
             </div>
@@ -230,7 +230,7 @@ $formData = $block->getFormData();
         <div class="actions-toolbar ">
             <button type="submit" id="confirm-reg"
                     class="action submit primary-button btn160 "
-                    title="<?= $block->escapeHtmlAttr(__('Confirm')) ?>">
+                    title="<?= $block->escapeHtmlAttr(__('Confirm')) ?>"  disabled="disabled">
                 <span><?= $block->escapeHtml(__('Confirm')) ?></span>
             </button>
         </div>
@@ -283,6 +283,7 @@ function ($) {
                 var popup = modal(options, $('#popup-modal'));
                 $('#popup-modal').modal('openModal');
             });
+
             var options = {
                 type: 'popup',
                 title: '',
@@ -290,7 +291,6 @@ function ($) {
                 responsive: false,
                 innerScroll: true,
                 title: 'Privacy Policy',
-                modalCloseBtn: false,
                 buttons: false
             };
         }
@@ -307,6 +307,7 @@ function ($) {
                 var popup = modal(options, $('#popup-modal-signup'));
                 $('#popup-modal-signup').modal('openModal');
             });
+            
             var options = {
                 type: 'popup',
                 title: '',
@@ -314,7 +315,6 @@ function ($) {
                 responsive: false,
                 innerScroll: true,
                 title: 'PRAVILA O PRIVATNOSTI',
-                modalCloseBtn: false,
                 buttons: [{
                     text: $.mage.__('I accept'),
                     class: 'accept',
@@ -344,11 +344,24 @@ function ($) {
                         this.closeModal();
                     }
                     
-                }]
+                },]
             };
         }
     );
 </script>
+<script type="text/javascript">
+require(['jquery'], function($) {
+    
+        $("#privacy_policy").click(function () {
+            $("#confirm-reg").attr("disabled", !this.checked);
+        });
+
+        $("#is_subscribed").click(function () {
+            $('#is_subscribed').removeAttr('checked');
+        });
+    
+});
+ </script>  
 <?php
 $ajaxurl = $block->getUrl('excustomer/account/checkcompany');
 ?>

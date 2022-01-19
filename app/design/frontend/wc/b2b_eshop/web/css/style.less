@@ -1671,6 +1671,59 @@ label.sorter-label {
 	h2.WishlistTitle {
 		padding-bottom: 20px;
 	}
+	.product-item-inner {
+		 margin-top: 0px;
+		 padding:10px;
+	}
+	.product-item-infos {
+		border: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.boxs {
+		padding-bottom: 30px;
+	}
+	.brArt {
+		font-family: 'wuerthbold';
+		font-size: 14px;
+		color: #0093DD;
+		padding: 0px 10px 0px 10px;
+		margin: 0;
+	}
+	.product-item-name {
+		font-family: 'wuerthbold';
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0, 0, 0, 0.87);
+		padding: 0px 8px 0px 10px;
+	}
+	.comment {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: rgba(0, 0, 0, 0.87);
+	}
+	.comment strong {
+		font-family: 'wuerthbold';
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0, 0, 0, 0.87);
+	}
+	.hrline {
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 1px solid rgba(0, 0, 0, 0.08);
+		margin: 1em 0;
+		padding: 0 10px 0 10px;
+	}
+	.userName {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: #CC0000;
+	}
+	.userName strong {
+		font-family: 'wuerthbold';
+		font-weight: bold;
+	}
+	
 	.primary button.action.update {
 		height: 26px;
 		background: #CC0000;
@@ -1726,9 +1779,7 @@ label.sorter-label {
 		background: #605D5C;
 		border-radius: 50px;
 	}
-	button.action-close {
-		display: none !important;
-	}
+	
 	.modal-inner-wrap {
 		width: 75% !important;	
 	}
@@ -1879,7 +1930,9 @@ label.sorter-label {
 	  border:solid 1px rgba(0, 0, 0, 12%);
 	  border-radius:2px;
 	}
-
+	a#privacy-policy-ex {
+		color: @general_link_hover_color;
+	}
 	/* On mouse-over, add a grey background color */
 	&:hover input ~ .checkmark {
 		border:solid 1px rgba(0, 0, 0, 20%);
@@ -7452,12 +7505,15 @@ ProductListingwrapper {
 	.infoCard {
 		border: solid 1px rgba(0, 0, 0, 12%);
 		h3 {
-			padding: 0 10px 10px 10px;
+			padding:10px;
 		}
 
 		.des {
-			padding:0 10px 20px 10px;
+			padding:10px;
 			margin:0;
+		}
+		img.img-fluid {
+			width: 100%;
 		}
 	}
 }
