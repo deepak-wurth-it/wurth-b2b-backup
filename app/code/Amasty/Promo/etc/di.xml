@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Promo\Api\Data\GiftRuleInterface" type="Amasty\Promo\Model\Rule"/>
+    <preference for="Amasty\Promo\Api\Data\TotalsItemImageInterface" type="Amasty\Promo\Model\Quote\Totals\Item\ImageData"/>
+
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="Amasty_Promo::Simple_View" type="Amasty\Promo\Plugin\Block\Product\Simple"/>
+    </type>
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="Amasty_Promo::CustomerData_Cart" type="Amasty\Promo\Plugin\Model\CustomerData\Cart"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="Amasty_Promo::Configurable_View" type="Amasty\Promo\Plugin\Block\Product\Configurable"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="AmastyPromo::SaveQuote" type="Amasty\Promo\Plugin\Quote\Model\QuotePlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="Amasty_Promo::QuoteItem" type="Amasty\Promo\Plugin\Quote\Item"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\Processor">
+        <plugin name="AmastyPromo::QuoteItemProcessor" type="Amasty\Promo\Plugin\Quote\Model\Quote\Item\ProcessorPlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\QuoteRepository\SaveHandler">
+        <plugin name="AmastyPromo::restrictQuoteResave" type="Amasty\Promo\Plugin\Quote\Model\QuoteRepository\SaveHandlerPlugin"/>
+    </type>
+    <type name="Magento\Sales\Controller\AbstractController\Reorder">
+        <plugin name="Amasty_Promo::Reorder" type="Amasty\Promo\Plugin\Reorder\Reorder"/>
+    </type>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="Amasty_Promo::Reorder_Items_Cleaner" type="Amasty\Promo\Plugin\Reorder\ReorderItemsCleaner"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule">
+        <plugin name="Amasty_Promo::SalesRule" type="Amasty\Promo\Plugin\SalesRule"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Action\Discount\CalculatorFactory">
+        <plugin name="Amasty_Promo::CalculatorFactory" type="Amasty\Promo\Plugin\CalculatorFactory"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Metadata\ValueProvider">
+        <plugin name="Amasty_Promo::SalesRule_ValueProvider" type="Amasty\Promo\Plugin\ValueProvider"/>
+    </type>
+    <type name="Magento\SalesRule\Observer\SalesOrderAfterPlaceObserver">
+        <plugin name="Amasty_Promo::Fix_Coupon_Usage" type="Amasty\Promo\Plugin\FixCouponsUsage"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\DataProvider">
+        <plugin name="AmastyPromo::DataProvider" type="Amasty\Promo\Plugin\SalesRule\Model\DataProviderPlugin"/>
+    </type>
+    <type name="Magento\GiftCard\Model\Validator\Discount">
+        <plugin name="Amasty_Promo::GiftCard_Discount" type="Amasty\Promo\Plugin\Model\GiftCard\Validator\Discount"/>
+    </type>
+    <type name="Magento\OfflineShipping\Model\SalesRule\Calculator">
+        <plugin name="Amasty_Promo::Apply_Shipping" type="Amasty\Promo\Plugin\OfflineShipping\Model\SalesRule\Calculator"/>
+    </type>
+    <type name="Magento\Tax\Model\Sales\Total\Quote\CommonTaxCollector">
+        <plugin name="Amasty_Promo::Apply_Tax" type="Amasty\Promo\Plugin\Tax\Model\Sales\Total\Quote\CommonTaxCollector"/>
+    </type>
+    <type name="Magento\Tax\Model\TaxDetails\TaxDetails">
+        <plugin name="Amasty_Promo::Tax_Details" type="Amasty\Promo\Plugin\Tax\Model\TaxDetails\TaxDetails"/>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Magento\SalesRule\Api\Data\RuleInterface" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="create_ampromo_rule" xsi:type="string">Amasty\Promo\Model\SalesRule\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="update_ampromo_rule" xsi:type="string">Amasty\Promo\Model\SalesRule\SaveHandler</item>
+                    </item>
+                    <item name="read" xsi:type="array">
+                        <item name="read_ampromo_rule" xsi:type="string">Amasty\Promo\Model\SalesRule\ReadHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Promo\Model\Product">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <!--fixes of Magneto EE bugs.-->
+    <!--Name of plugins are the same as in other modules because we need only one fix,-->
+    <!--so plugins with the same name will override each other-->
+    <type name="Magento\SalesRule\Model\Converter\ToDataModel">
+        <plugin sortOrder="10" name="Amasty_Rules::ee21_compatibility" type="Amasty\Promo\Plugin\SalesRule\Model\ToDataModelPlugin"/>
+    </type>
+    <type name="Magento\SalesRuleStaging\Model\Rule\Hydrator">
+        <plugin sortOrder="10" name="Amasty_Rules::ee21_compatibility" type="Amasty\Promo\Plugin\SalesRuleStaging\Model\Rule\HydratorPlugin"/>
+    </type>
+    <type name="Magento\CheckoutStaging\Model\ResourceModel\PreviewQuota">
+        <plugin name="AmastyRules::PreviewQuotaFix" type="Amasty\Promo\Plugin\CheckoutStaging\Model\ResourceModel\PreviewQuotaPlugin"/>
+    </type>
+    <!--finish magneto ee bug fixes-->
+    <type name="Amasty\Promo\Block\Banner">
+        <arguments>
+            <argument name="bannerProvider" xsi:type="object">Amasty\BannersLite\Model\ProductBannerProvider\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Api\ShipmentEstimationInterface">
+        <plugin name="AmastyPromo::restrictAutoAddOnShippingEstimate" type="Amasty\Promo\Plugin\Quote\Model\ShippingMethodManagementPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Api\TotalsInformationManagementInterface">
+        <plugin name="AmastyPromo::restrictAutoAddOnShippingEstimate" type="Amasty\Promo\Plugin\Checkout\Model\TotalsInformationManagementPlugin"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Condition\Product\Combine">
+        <plugin name="Amasty_Promo::Condition_Combine_Product" type="Amasty\Promo\Plugin\SalesRule\Model\Rule\Condition\Product\CombinePlugin" />
+    </type>
+    <!-- Add new rule in conditions -->
+    <type name="Magento\SalesRule\Model\Rule\Condition\Product">
+        <plugin name="AmastyPromo::add_conditin_for_promo_item" type="Amasty\Promo\Plugin\SalesRule\Conditions\Product"/>
+    </type>
+    <type name="Magento\Weee\Model\Tax">
+        <plugin name="AmastyPromo::fixed_product_tax" type="Amasty\Promo\Plugin\Weee\Model\TaxPlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\AbstractItem">
+        <plugin name="AmastyPromo::skip_child_check"
+                type="Amasty\Promo\Plugin\Quote\Model\Quote\Item\AbstractItem\SkipChildCheck" sortOrder="10"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Item">
+        <plugin name="AmastyPromo::skip_child_check" type="Amasty\Promo\Plugin\Sales\Model\Order\Item\SkipChildCheck"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Creditmemo\Item">
+        <plugin name="AmastyPromo::adjust_bundle_qty" type="Amasty\Promo\Plugin\Sales\Model\Order\Creditmemo\Item\AdjustBundleQty"/>
+        <plugin name="AmastyPromo::reset_bundle_parent_price" type="Amasty\Promo\Plugin\Sales\Model\Order\Creditmemo\Item\ResetBundlePrice"/>
+    </type>
+    <!-- Added compatibility with changing the number of products on the OSC -->
+    <type name="Amasty\CheckoutCore\Api\ItemManagementInterface">
+        <plugin name="AmastyPromo::update_qty_item" type="Amasty\Promo\Plugin\Checkout\Model\ItemManagementPlugin"/>
+    </type>
+</config>

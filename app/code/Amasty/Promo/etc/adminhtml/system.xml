@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="ampromo" translate="label" type="text" sortOrder="061807" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Amasty_Promo::config_promo</resource>
+            <class>separator-top</class>
+            <label>Free Gift</label>
+            <tab>amasty</tab>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\Promo\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="auto_add" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Add Simple/Virtual/Downloadable/Bundle Products Automatically, Without Confirmation</label>
+                    <comment>Products will be added automatically only if there are no options to specify</comment>
+                    <source_model>Amasty\Promo\Model\Config\Source\AutoAdd\Mode</source_model>
+                </field>
+                <field id="discount_include" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="01">
+                    <label>Auto Add Free Items Based on Cart Amount</label>
+                    <comment>Applicable only for Every X Spent Free Gift Rules</comment>
+                    <source_model>Amasty\Promo\Model\Config\Source\AutoAdd\Discount</source_model>
+                </field>
+                <field id="tax_include" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Tax in Subtotal</label>
+                    <comment>Applicable only for Every X Spent Free Gift Rules</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="messages" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Messages And Notifications Settings</label>
+                <field id="gift_selection_method" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Gifts Selection Method</label>
+                    <source_model>Amasty\Promo\Model\Config\Source\Selection\Mode</source_model>
+                </field>
+                <field id="popup_title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Popup header text</label>
+                </field>
+                <field id="add_button_title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>"Add to Cart" button text</label>
+                </field>
+                <field id="cart_message" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Message For The Free Item In The Cart</label>
+                </field>
+                <field id="gift_representation_mode" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Represent Free Gift As</label>
+                    <source_model>Amasty\Promo\Model\Config\Source\GiftRepresentationMode</source_model>
+                </field>
+                <field id="prefix" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Prefix For The Free Item Name In The Order</label>
+                </field>
+                <field id="add_message" translate="label comment" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Free Gift Message</label>
+                </field>
+                <field id="auto_open_popup" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Open Popup Automatically</label>
+                    <comment>Always open free gift popup on cart page if any free gift is available</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_price_in_popup" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Original Price in the Popup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_error_messages" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Error Messages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_success_messages" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Success Messages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_remaining_gifts_counter" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Remaining Gifts Counter</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_notification" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reminder about Available Promos</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="notification_text" translate="label" type="textarea" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Message</label>
+                    <comment>{url checkout/cart} placeholder will be replaced with actual cart url</comment>
+                    <depends>
+                        <field id="display_notification">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="limitations" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Limitations</label>
+                <field id="skip_special_price" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Do not Offer Promos for Products with Special Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="skip_special_price_configurable" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Do not Offer Promos for Configurable Products when Child has Special Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="skip_special_price">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="gift_images" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Gift Images</label>
+                <field id="gift_image_width" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Gift Image Width (px)</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="gift_image_height" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Gift Image Height (px)</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="attribute_header" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Product Attribute for Header</label>
+                    <source_model>Amasty\Promo\Model\Config\Source\Attribute</source_model>
+                </field>
+                <field id="attribute_description" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Product Attribute for Description</label>
+                    <source_model>Amasty\Promo\Model\Config\Source\Attribute</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

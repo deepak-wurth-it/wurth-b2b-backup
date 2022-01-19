@@ -1,0 +1,26 @@
+[
+    {
+        "module_code": "*",
+        "tab_name": "Full Page Cache Warmer",
+        "upsell_module_code": "Amasty_Fpc",
+        "text_market": "Speed up your website to the full and make performance flawless with automated [https://marketplace.magento.com/amasty-module-fpc-warmer.html|cache warming].",
+        "text": "Speed up your website to the full and make performance flawless with automated [https://amasty.com/full-page-cache-warmer-for-magento-2.html?utm_source=extension&utm_medium=extend&utm_campaign=optimizer_fpc_m2|cache warming].",
+        "priority": "1"
+    },
+    {
+        "module_code": "*",
+        "tab_name": "SEO Toolkit",
+        "upsell_module_code": "Amasty_SeoToolKit",
+        "text_market": "Maximize your store visibility in search results and convert traffic into sales with [https://marketplace.magento.com/amasty-module-seo-toolkit-meta.html|all-in-one SEO solution].",
+        "text": "Maximize your store visibility in search results and convert traffic into sales with [https://amasty.com/seo-toolkit-for-magento-2.html?utm_source=extension&utm_medium=extend&utm_campaign=optimizer_stoolkit_m2|all-in-one SEO solution].",
+        "priority": "2"
+    },
+    {
+        "module_code": "*",
+        "tab_name": "Google Page Speed Optimizer",
+        "upsell_module_code": "Amasty_PageSpeedOptimizer",
+        "text_market": "Improve your store performance and boost search rating with [https://marketplace.magento.com/amasty-module-page-speed-optimizer.html|Google Page Speed Optimization] tool.",
+        "text": "Improve your store performance and boost search rating with [https://amasty.com/google-page-speed-optimizer-for-magento-2.html?utm_source=extension&utm_medium=extend&utm_campaign=fpc_optimizer_m2|Google Page Speed Optimization] tool.",
+        "priority": "3"
+    }
+]

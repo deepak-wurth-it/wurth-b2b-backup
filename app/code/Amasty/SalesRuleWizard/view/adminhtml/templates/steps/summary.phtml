@@ -1,0 +1,76 @@
+<?php
+
+// @codingStandardsIgnoreFile
+/* @var $block \Amasty\SalesRuleWizard\Block\Adminhtml\Steps\Summary */
+?>
+<div class="<?= /* @noEscape */ $block->getData('config/dataScope') ?>"  data-bind="scope: '<?= /* @noEscape */  $block->getComponentName()?>'" data-role="select-summary-step">
+    <h2 class="steps-wizard-title"><?php echo $block->escapeHtml(
+            __('Step 4: Summary')
+        ); ?></h2>
+    <div class="steps-wizard-section">
+        <div class="entry-edit form-inline admin__fieldset">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- ko if:previewObserver -->
+            <div class="amwizard-preview-summary">
+                <p class="title">Below is a short summary of your rule you can review before saving and starting your promotion.
+                    <br/>You can make changes you need just by taking a step back to the desired Wizard Step:</p>
+                <!-- ko template: {name: previewConfig.template, data: previewObserver} --><!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= /* @noEscape */  $block->getComponentName()?>": {
+                        "component": "Amasty_SalesRuleWizard/js/steps/summary",
+                        "submit_url": "<?= $block->getSaveUrl() ?>",
+                        "children": {
+                            "rule_name": {
+                                "name": "rule_name",
+                                "dataScope": "rule_name",
+                                "source": "additional",
+                                "config": {
+                                    "component": "Magento_Ui/js/form/element/abstract",
+                                    "template": "ui/form/field",
+                                    "dataType": "text",
+                                    "label": "<?= __('Rule Name') ?>",
+                                    "validation": {
+                                        "required-entry": "true"
+                                    },
+                                    "formElement": "input"
+                                }
+                            },
+                            "free_type": {
+                                "name": "is_active",
+                                "dataScope": "is_active",
+                                "source": "additional",
+                                "config": {
+                                    "component": "Magento_Ui/js/form/element/single-checkbox",
+                                    "template": "ui/form/field",
+                                    "dataType": "number",
+                                    "label": "<?= __('Rule is Active?') ?>",
+                                    "formElement": "checkbox",
+                                    "prefer": "toggle",
+                                    "valueMap": {
+                                        "true": 1,
+                                        "false": 0
+                                    },
+                                    "toggleLabels": {
+                                        "on": "<?= __('Yes') ?>",
+                                        "off": "<?= __('No') ?>"
+                                    },
+                                    "default": 1
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>
