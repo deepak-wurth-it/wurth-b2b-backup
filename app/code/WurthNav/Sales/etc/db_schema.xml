@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="SalesShipmentLine" resource="default" engine="innodb" comment="Sales Shipment Line Table">
+		<column xsi:type="int" name="Id" padding="8" unsigned="true" nullable="false" identity="true" comment="Auto Increment Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="Id"/>
+            <column name="DocumentNo"/>
+            <column name="LineNo"/>
+		</constraint>
+		<column name="SalesShipmentLine_ai_id" nullable="false" xsi:type="int" comment="Sales Shipment Line table auto increment id"/>
+        <column name="LineNo" nullable="false" xsi:type="int" comment="Line No"/>
+        <column name="DocumentNo" nullable="false" xsi:type="varchar" length="255" comment="Document No"/>
+		<column name="SellToCustomerNo" nullable="true" xsi:type="varchar" length="255" comment="Sell To Customer No"/>
+		<column name="Type" nullable="true" xsi:type="int" comment="Type"/>
+		<column name="No" nullable="true" xsi:type="varchar" length="255" comment="client_name"/>
+		<column name="ShipmentDate" nullable="true" xsi:type="date" comment="Shipment Date"/>
+		<column name="Decription" nullable="true" xsi:type="varchar" length="255" comment="Description"/>
+		<column name="Quantity" nullable="true" xsi:type="decimal" scale="20" precision="38" comment="Quantity"/>
+        <column name="ShortcutDimension1Code" nullable="true" xsi:type="varchar" length="255" comment="Shortcut Dimension 1 Code"/>
+        <column name="OrderNo" nullable="true" xsi:type="varchar" length="255" comment="Order No"/>
+        <column name="BillToCustomerNo" nullable="true" xsi:type="varchar" length="255" comment="Bill To Customer No"/>
+        <column name="TypeDocument" nullable="true" xsi:type="varchar" length="255" comment="Type Document"/>
+        <column name="ModifyDate" nullable="true" xsi:type="varchar" length="255" comment="Modify Date"/>
+        <column name="CreateDate" nullable="true" xsi:type="datetime" comment="Create Date"/>
+	</table>
+</schema>
