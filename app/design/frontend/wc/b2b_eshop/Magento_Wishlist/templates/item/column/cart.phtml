@@ -1,0 +1,102 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+/** @var \Magento\Wishlist\ViewModel\AllowedQuantity $viewModel */
+$viewModel = $block->getData('allowedQuantityViewModel');
+$allowedQty = $viewModel->setItem($item)->getMinMaxQty();
+?>
+<?php foreach ($block->getChildNames() as $childName) : ?>
+    <?= /* @noEscape */ $block->getLayout()->renderElement($childName, false) ?>
+<?php endforeach;?>
+<div class="box-tocart">
+
+
+    <fieldset class="fieldset">
+    <!--<?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()) : ?>
+        <div class="field qty">
+            <label class="label" for="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+            <div class="control">
+                <input type="number" data-role="qty" id="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" class="input-text qty" data-validate="{'required-number':true,'validate-greater-than-zero':true, 'validate-item-quantity':{'minAllowed':<?= /* @noEscape */ $allowedQty['minAllowed'] ?>,'maxAllowed':<?= /* @noEscape */ $allowedQty['maxAllowed'] ?>}}"
+               name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" value="<?= /* @noEscape */ $block->getAddToCartQty($item) * 1 ?>" <?= $product->isSaleable() ? '' : 'disabled="disabled"' ?>>
+            </div>
+        </div>
+    <?php endif; ?>-->
+    <div class="fieldset productFieldset">
+<?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()) : ?>
+    <div class="field qty">
+        <div class="control control-qty-cart">
+            <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+            <input type="number" data-role="qty" id="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" class="qty-default input-text qty" data-validate="{'required-number':true,'validate-greater-than-zero':true, 'validate-item-quantity':{'minAllowed':<?= /* @noEscape */ $allowedQty['minAllowed'] ?>,'maxAllowed':<?= /* @noEscape */ $allowedQty['maxAllowed'] ?>}}"
+            name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" value="<?= /* @noEscape */ $block->getAddToCartQty($item) * 1 ?>" <?= $product->isSaleable() ? '' : 'disabled="disabled"' ?>>
+            <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+        </div>
+    </div>
+    <div class="pkgCount">
+            <select>
+                <option> 100 PC</option>
+                <option> 100 PC</option>
+                <option> 100 PC</option>
+                <option> 100 PC</option>
+            </select>
+    </div>
+    <?php endif; ?>
+</div>
+    <?php if ($product->isSaleable()) : ?>
+    <div class="product-item-actions">
+        <div class="actions-primary">
+            <button type="button" data-role="tocart" data-post='<?= /* @noEscape */ $block->getItemAddToCartParams($item) ?>' title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>" data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>" class="action tocart primary">
+                <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+            </button>
+            <div class="delBut"> 
+               <a href="#" data-role="remove" data-post-remove='<?= /* @noEscape */ $block->getItemRemoveParams($block->getItem()) ?>' title="<?= $block->escapeHtmlAttr(__('Remove Item')) ?>" class="btn-remove action delete">
+               <span class="deleteticon"></span>
+              </a>
+            </div>
+        </div>
+    </div>
+    <?php else : ?>
+        <?php if ($product->getIsSalable()) : ?>
+            <p class="available stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                <span><?= $block->escapeHtml(__('In stock')) ?></span>
+            </p>
+        <?php else : ?>
+            <p class="unavailable stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+            </p>
+        <?php endif; ?>
+    <?php endif; ?>
+    </fieldset>
+</div>
+
+
+<script type="text/javascript">
+        require([
+            'jquery'
+        ], function ($) {
+            $('.quantity-plus').click(function () {
+                // $('.qty-default').val(Number($('.qty-default').val()) + 1);
+                var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
+                currentQTY = currentQTY + 1;
+                $(this).parent().parent().find(".qty-default").val(currentQTY);
+            });
+
+            $('.quantity-minus').click(function () {
+                // var value = Number($('.qty-default').val()) - 1;
+                var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
+                currentQTY = currentQTY - 1;
+                if (currentQTY > 0) {
+                    $(this).parent().parent().find(".qty-default").val(currentQTY);
+                }
+            });
+
+            
+        });
+    </script>

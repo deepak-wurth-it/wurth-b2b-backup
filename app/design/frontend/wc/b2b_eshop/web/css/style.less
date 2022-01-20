@@ -1673,7 +1673,7 @@ label.sorter-label {
 	}
 	.product-item-inner {
 		 margin-top: 0px;
-		 padding:10px;
+		 padding: 0px 20px 0 20px;
 	}
 	.product-item-infos {
 		border: 1px solid rgba(0, 0, 0, 0.12);
@@ -1685,7 +1685,7 @@ label.sorter-label {
 		font-family: 'wuerthbold';
 		font-size: 14px;
 		color: #0093DD;
-		padding: 0px 10px 0px 10px;
+		padding: 0px 20px 0px 20px;
 		margin: 0;
 	}
 	.product-item-name {
@@ -1693,7 +1693,8 @@ label.sorter-label {
 		font-weight: bold;
 		font-size: 16px;
 		color: rgba(0, 0, 0, 0.87);
-		padding: 0px 8px 0px 10px;
+		padding: 0px 20px 0px 20px;
+		min-height: 75px;
 	}
 	.comment {
 		font-family: 'wuerthbook';
@@ -1711,8 +1712,41 @@ label.sorter-label {
 		height: 1px;
 		border: 0;
 		border-top: 1px solid rgba(0, 0, 0, 0.08);
-		margin: 1em 0;
-		padding: 0 10px 0 10px;
+		margin: 5px 0 5px 0px;
+	}
+	button.action.tocart.primary {
+		height: 45px;
+		background: #0093DD;
+		border: 1px solid #0093DD;
+		box-sizing: border-box;
+		border-radius: 50px;
+		color: #fff;
+	}
+	.deleteticon {
+		width: 34px;
+		height: 34px;
+		display: inline-block;
+		box-shadow: 0px 3px 8px 0px #cccccc;
+		border-radius: 50%;
+		background: url(../images/delete-pro.svg) right 7px top 5px;
+		background-repeat:no-repeat;
+		-webkit-transition: all 0.3s ease-out;
+	}
+	.delBut {
+		float: right;
+		margin: 5px 0px 0px 0px;
+	}
+	.actions-primary {
+		display: flex;
+		margin-top: 0px;
+	}	
+	.fieldset {
+		border: 0;
+		margin-top: 2px;
+		margin-bottom: 0px;
+	}
+	.fieldset.productFieldset {
+		margin: 0 0 20px 0px;
 	}
 	.userName {
 		font-family: 'wuerthbook';
@@ -1748,7 +1782,10 @@ label.sorter-label {
 }
 // Favorites Page End By Amit
 // Terms & Condition PopUp Start By Amit
-.termsCodition{
+.modals-wrapper{
+	scrollbar-width: thin;
+.modal-popup, .termsCodition{
+
 	h1.modal-title {
 		font-family: 'wuerthbold';
 		font-size: 24px;
@@ -1781,12 +1818,10 @@ label.sorter-label {
 	}
 	
 	.modal-inner-wrap {
-		width: 75% !important;	
+		width: 75%;	
 	}
 	::-webkit-scrollbar {
-        width: 10px;
-		scrollbar-width: thin;
-		
+        width: 10px;	
     }
 
     ::-webkit-scrollbar-track {
@@ -1797,6 +1832,7 @@ label.sorter-label {
         background-color: rgba(0, 0, 0, 0.25);
         border-radius: 20px;
     }
+}
 }
 
 // Contents
@@ -5995,6 +6031,7 @@ form#form-validate {
 	.modal-footer {
 		box-shadow: none;
 		border: 0;
+		scrollbar-width:thin;
 	}
 }
 
@@ -9635,6 +9672,30 @@ print {
 	}
 }
 // Terms & Condition PopUp End By Amit
+// Favorites Page Start By Amit
+.wishlist-index-index{
+	main#maincontent {
+		padding-top: 0px;
+	}
+	.account .column.main .toolbar {
+		text-align: left;
+	}
+	.pager {
+		display: flex;
+	}
+	.toolbar-amount {
+		width: 45%;
+		text-align: left;
+	}
+	.primary button.action.update {
+		width: fit-content;
+	}
+	.primary button.action.tocart {
+		width: fit-content;
+		margin: 0 0 10px 10px;
+	}
+}
+// Favorites Page End By Amit
 
 }
 
