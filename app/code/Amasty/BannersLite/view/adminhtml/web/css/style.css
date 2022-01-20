@@ -1,0 +1,7 @@
+.modal-popup .action-close:before, .modal-slide .action-close:before {
+    font-size: inherit;
+}
+
+.modal-slide .action-close {
+    padding: 0;
+}

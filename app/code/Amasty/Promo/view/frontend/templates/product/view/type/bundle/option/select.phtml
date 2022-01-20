@@ -1,0 +1,65 @@
+<?php
+/**
+ * @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select
+ * @var $escaper Magento\Framework\Escaper
+ */
+$option = $block->getOption();
+$selections = $option->getSelections();
+$default = $option->getDefaultSelection();
+list($defaultQty, $canChangeQty) = $block->getDefaultValues();
+?>
+
+<div class="field option <?= /* @noEscape */ $option->getRequired() ? ' required': '' ?>">
+    <label class="label" for="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>">
+        <span><?= $escaper->escapeHtml($option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <?php if ($block->showSingle()): ?>
+            <span class="product-name"> <?= $escaper->escapeHtml($selections[0]->getName()) ?></span>
+            <input type="hidden"
+                   class="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>  product bundle option"
+                   name="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                   value="<?= $escaper->escapeHtmlAttr($selections[0]->getSelectionId()) ?>"/>
+        <?php else: ?>
+            <select id="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>"
+                    name="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                    data-selector="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                    data-option-id="<?= $escaper->escapeHtmlAttr($option->getId()) ?>"
+                    class="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>
+                     product bundle option bundle-option-select change-container-classname"
+                <?= $option->getRequired() ? 'data-validate = {required:true}' : '' ?>>
+                <option value=""><?= $escaper->escapeHtml(__('Choose a selection...')) ?></option>
+                <?php foreach ($selections as $selection): ?>
+                    <option value="<?= $escaper->escapeHtmlAttr($selection->getSelectionId()) ?>"
+                            data-default-qty="<?= $escaper->escapeHtmlAttr($selection->getSelectionQty()) ?>"
+                        <?= $block->isSelected($selection) ? ' selected="selected"' : ''?>
+                        <?= !$selection->isSaleable() ? ' disabled="disabled"' : '' ?>>
+                        <span class="product-name"> <?= $escaper->escapeHtml($selection->getName()) ?></span>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <div id="option-tier-prices-<?= $escaper->escapeHtmlAttr($option->getId()) ?>" class="option-tier-prices">
+                <?php foreach ($selections as $selection): ?>
+                    <div data-role="selection-tier-prices"
+                         data-selection-id="<?= $escaper->escapeHtmlAttr($selection->getSelectionId()) ?>"
+                         class="selection-tier-prices">
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        <div class="nested">
+            <div class="field qty qty-holder">
+                <div class="control">
+                    <input id="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>-qty-input"
+                           class="input-text
+                           qty <?= !$canChangeQty ? 'qty-disabled' : '' ?>
+                           qty-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>"
+                           type="hidden"
+                           name="bundle_option_qty[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                           data-selector="bundle_option_qty[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                           value="<?= $escaper->escapeHtmlAttr($defaultQty ? $defaultQty : 1) ?>"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

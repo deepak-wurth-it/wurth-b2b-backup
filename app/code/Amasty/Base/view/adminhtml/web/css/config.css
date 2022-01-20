@@ -1,0 +1,96 @@
+/* additional tab in config section*/
+
+.module-version {
+    color: #ea7601;
+}
+
+.amasty-info-block .module-version.last-version {
+    color: green;
+}
+
+.upgrade-error {
+    display: inline-block;
+}
+
+.amasty-conflicts-title,
+.version-title,
+.module-version {
+    letter-spacing: .025em;
+    font-weight: 600;
+    font-size: 1.7rem;
+}
+
+.amasty-conflicts-title {
+    margin: 25px 0 10px;
+}
+
+.amasty-module-version div:first-child {
+    margin-bottom: 10px;
+}
+
+.amasty-info-block span.message {
+    display: inline-block;
+}
+
+.amasty-info-block .message.success {
+    background-color: #e9fbdb;
+}
+
+a[id*='amasty_information'] {
+    display: none !important;
+}
+
+.amasty-module-version .amasty-logo {
+    position: relative;
+    bottom: -9px;
+    display: inline-block;
+    max-height: 26px;
+}
+
+tr[id*='amasty_not_instaled'] .value {
+    color: #f70606;
+}
+
+tr[id*='amasty_is_instaled'] .value {
+    color: #0a820b;
+}
+
+.ambase-unsubscribe .message-success:before {
+    display: none;
+}
+
+.ambase-unsubscribe img {
+    margin-right: 10px;
+    max-width: 20px;
+}
+
+.ambase-unsubscribe .message-success {
+    padding: 1.8rem 4rem 1.8rem 2rem;
+}
+
+.ambase-unsubscribe .message-success span {
+    vertical-align: top;
+}
+
+.accordion .config td.value.with-tooltip {
+    font-size: inherit;
+}
+
+.accordion .config .value.with-tooltip div.tooltip {
+    margin-top: 10px;
+}
+
+.accordion .config .value.with-tooltip div.tooltip .tooltip-content {
+    max-width: 400px;
+    width: 400px;
+}
+
+.value.with-tooltip .select,
+.value.with-tooltip .admin__control-table {
+    float: left;
+}
+
+.accordion .form-inline .config .value {
+    padding-right: 4rem;
+}
+

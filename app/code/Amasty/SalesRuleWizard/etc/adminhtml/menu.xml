@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_SalesRuleWizard::wizard" title="Free Gift Rules Wizard" module="Amasty_SalesRuleWizard" sortOrder="100" parent="Magento_CatalogRule::promo" action="amasty_promowizard/wizard/" resource="Amasty_SalesRuleWizard::wizard"/>
+    </menu>
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Base::css/config.css"/>
+    </head>
+    <body>
+        <referenceContainer name="messages.wrapper">
+            <block class="Amasty\Base\Block\Adminhtml\Messages" name="ambase.messages" template="Amasty_Base::messages.phtml" after="page.messages"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Amasty\Base\Block\Adminhtml\Notification" name="ambase.notification" template="Amasty_Base::notification.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

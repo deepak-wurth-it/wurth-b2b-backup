@@ -1,0 +1,57 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\BannersLite\Api\Data\BannerInterface" type="Amasty\BannersLite\Model\Banner" />
+    <preference for="Amasty\BannersLite\Api\BannerRepositoryInterface" type="Amasty\BannersLite\Model\BannerRepository" />
+    <preference for="Amasty\BannersLite\Api\Data\BannerRuleInterface" type="Amasty\BannersLite\Model\BannerRule" />
+    <preference for="Amasty\BannersLite\Api\BannerRuleRepositoryInterface" type="Amasty\BannersLite\Model\BannerRuleRepository" />
+
+    <type name="Amasty\BannersLite\Model\BannerImageUpload">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="const">\Amasty\BannersLite\Model\ImageProcessor::BANNERS_MEDIA_TMP_PATH</argument>
+            <argument name="basePath" xsi:type="const">\Amasty\BannersLite\Model\ImageProcessor::BANNERS_MEDIA_PATH</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\BannersLite\Controller\Adminhtml\Banners\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Amasty\BannersLite\Model\BannerImageUpload</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\BannersLite\Model\Cache">
+        <arguments>
+            <argument name="config" xsi:type="object">Magento\PageCache\Model\Config\Proxy</argument>
+            <argument name="purgeCache" xsi:type="object">Magento\CacheInvalidate\Model\PurgeCache\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\SalesRule\Model\Rule\DataProvider">
+        <plugin name="amastyBannersLiteDataProvider" type="Amasty\BannersLite\Plugin\SalesRule\Model\DataProviderPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Magento\SalesRule\Api\Data\RuleInterface" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="create_promo_banners_lite" xsi:type="string">Amasty\BannersLite\Model\SalesRule\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="update_promo_banners_lite" xsi:type="string">Amasty\BannersLite\Model\SalesRule\SaveHandler</item>
+                    </item>
+                    <item name="read" xsi:type="array">
+                        <item name="read_promo_banners_lite" xsi:type="string">Amasty\BannersLite\Model\SalesRule\ReadHandler</item>
+                    </item>
+                    <item name="delete" xsi:type="array">
+                        <item name="delete_promo_banners_lite" xsi:type="string">Amasty\BannersLite\Model\SalesRule\DeleteHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

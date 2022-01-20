@@ -1,0 +1,255 @@
+//
+//  Amasty Slick Slider Styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amslick-slider-container {
+        .slick-dots li button:focus,
+        .slick-dots li button:hover,
+        .slick-list:focus {
+            outline: 0;
+        }
+
+        .slick-list,
+        .slick-slider,
+        .slick-track {
+            position: relative;
+            display: block;
+        }
+
+        .slick-loading .slick-slide,
+        .slick-loading .slick-track {
+            visibility: hidden;
+        }
+
+        .slick-list {
+            overflow: hidden;
+            margin: @amslick-indent__zero;
+            padding: @amslick-indent__zero;
+        }
+
+        .slick-list.dragging {
+            cursor: pointer;
+            cursor: hand;
+        }
+
+        .slick-slider .slick-list,
+        .slick-slider .slick-track {
+            transform: translate3d(0,0,0);
+        }
+
+        .slick-track {
+            & {
+                top: 0;
+                left: 0;
+                margin: @amslick-indent__zero auto;
+            }
+
+            &:after,
+            &:before {
+                display: table;
+                content: '';
+            }
+
+            &:after {
+                clear: both;
+            }
+        }
+
+        .slick-slide,
+        .slick-slide.slick-loading img {
+            display: none;
+        }
+
+        .slick-slide {
+            float: left;
+            min-height: 1px;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        [dir=rtl] .slick-slide {
+            float: right;
+        }
+
+        .slick-slide.dragging img {
+            pointer-events: none;
+        }
+
+        .slick-vertical .slick-slide {
+            display: block;
+            height: auto;
+            border: 1px solid transparent;
+        }
+
+        .slick-arrow.slick-hidden {
+            display: none;
+        }
+
+        .slick-loading .slick-list {
+            position: relative;
+            background: 0 0;
+        }
+
+        .slick-loading .slick-list:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: block;
+            width: @amslick-list__size;
+            height: @amslick-list__size;
+            border-width: 3px;
+            border-style: solid;
+            border-color: rgba(0,0,0,.2);
+            border-top-color: #5c5c5c;
+            border-radius: 100%;
+            content: '';
+            transform: translate(-50%,-50%);
+            animation: loading 1s infinite linear;
+        }
+
+        .slick-next.slick-disabled,
+        .slick-prev.slick-disabled {
+            opacity: @amslick-opacity__not-active;
+        }
+
+        .slick-dotted.slick-slider {
+            margin-bottom: @amslick-indent__l;
+        }
+
+        .slick-dots {
+            position: absolute;
+            left: 0;
+            display: block;
+            margin: @amslick-indent__zero;
+            padding: @amslick-indent__zero;
+            width: 100%;
+            list-style: none;
+            text-align: center;
+        }
+
+        .slick-dots li {
+            position: relative;
+            display: inline-block;
+            margin: @amslick-indent__zero @amslick-indent__xs;
+            padding: @amslick-indent__zero;
+            width: @amslick-dot__size;
+            height: @amslick-dot__size;
+            cursor: pointer;
+        }
+
+        .slick-dots li button,
+        .slick-slider .slick-arrow {
+            display: block;
+            outline: 0;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        .slick-dots li button {
+            & {
+                padding: @amslick-indent__xs;
+                width: @amslick-dot__size;
+                height: @amslick-dot__size;
+                border: 0;
+                background: 0 0;
+                color: transparent;
+                font-size: 0;
+                line-height: 0;
+            }
+
+            &:focus:before,
+            &:hover:before {
+                opacity: @amslick-opacity__on-hover;
+            }
+
+            &:before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: @amslick-dot__size;
+                height: @amslick-dot__size;
+                color: @amslick-dot__color;
+                content: '•';
+                text-align: center;
+                font-size: 16px;
+                line-height: @amslick-dot__size;
+                opacity: @amslick-opacity__not-active;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        .slick-dots li.slick-active button:before {
+            color: @amslick-dot__color;
+            opacity: @amslick-opacity__default;
+        }
+
+        .slick-slider {
+            box-sizing: border-box;
+            padding: @amslick-indent__zero @amslick-indent__m;
+            user-select: none;
+            touch-action: pan-y;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .slick-slider .slick-arrow {
+            & {
+                position: absolute;
+                top: 50%;
+                padding: @amslick-indent__zero;
+                width: 15px;
+                height: 22px;
+                border: none;
+                background: @amslick-arrow__background !important;
+                color: transparent;
+                font-size: 0;
+                line-height: 0;
+                transition: background .3s ease;
+                transform: translate(0,-50%);
+            }
+
+            &:before,
+            &:after {
+                content: '';
+            }
+
+            &:hover {
+                background: @amslick-arrow__background__hover;
+            }
+        }
+
+        .slick-slider .slick-arrow.slick-next {
+            right: 0;
+        }
+
+        .slick-slider .slick-arrow.slick-prev {
+            left: 0;
+            transform: rotate(180deg) translate(0,50%);
+        }
+
+        .slick-initialized .slick-slide {
+            display: inline-block !important;
+            float: none !important;
+            height: auto;
+        }
+
+        .product-items.slick-slider > .slick-list {
+            padding: @amslick-indent__s @amslick-indent__zero;
+        }
+
+        .product-items.slick-slider .slick-slide .product-item {
+            display: block !important;
+            margin: auto !important;
+            max-width: 205px;
+        }
+
+        .sidebar.sidebar-additional {
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+?>
+<?php
+/** @var \Amasty\Base\Block\Adminhtml\System\Config\InformationBlocks\FeatureRequest $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php if (!$block->isOriginMarketplace()): ?>
+    <a href="<?= $escaper->escapeUrl($block->getFeatureRequestLink()) ?>"
+       class="ambase-button"
+       target="_blank"
+       title="<?= $escaper->escapeHtmlAttr(__("Request New Feature")) ?>">
+        <?= $escaper->escapeHtml(__("Request New Feature")) ?>
+    </a>
+<?php endif; ?>

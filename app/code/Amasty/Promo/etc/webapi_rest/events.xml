@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_quote_remove_item">
+        <observer name="amasty_promo_quote_remove_item" instance="Amasty\Promo\Observer\QuoteRemoveItemObserver" />
+    </event>
+    <event name="items_additional_data">
+        <!--add images data for added products by coupon-->
+        <observer name="Amasty_Promo::setMarkToQuoteItem" instance="Amasty\Promo\Observer\SetMarkToQuoteItem" />
+    </event>
+</config>

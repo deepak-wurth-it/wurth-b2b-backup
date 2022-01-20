@@ -1,0 +1,18 @@
+<?php
+/** @var \Magento\Backend\Block\Template $block */
+/** @var \Amasty\Promo\ViewModel\Checkout\Messenger $viewModel */
+/** @var $escaper Magento\Framework\Escaper */
+$viewModel = $block->getViewModel();
+?>
+<?php if ($viewModel->isShowErrorMessage()): ?>
+    <script>
+        require(
+            [
+                'uiRegistry'
+            ], function (registry) {
+                registry.get('checkout.errors', function (errors) {
+                    errors.messageContainer.errorMessages(<?= /* @noEscape */ $viewModel->getErrorMessages()?>);
+                });
+            });
+    </script>
+<?php endif; ?>
