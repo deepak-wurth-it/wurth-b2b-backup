@@ -1,0 +1,176 @@
+<?php
+// phpcs:ignoreFile
+
+/** @var \Amasty\Promo\Block\Items $block */
+
+use Magento\Framework\App\Action\Action;
+
+$products = $block->getItems();
+$imageHelper = $block->getImageHelper();
+$selectionMethod = $block->getSelectionMethod();
+$giftsCounter = $block->getGiftsCounter();
+$isShowPrice = $block->getShowPriceInPopup();
+?>
+
+<?php if ($products) : ?>
+    <div class="ampromo-carousel-product" data-ampromo-js="popup-products">
+        <div class="ampromo-gallery ampromo-slick" data-count="<?= $products ? count($products) : 0 ?>" data-role="ampromo-gallery" >
+            <?php foreach ($products as $product) : ?>
+                <?php
+                $product = $block->getProductById($product->getId());
+                $isVisible =
+                    $product->getVisibility() != Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE;
+                $optionsBlock = $block->getChildBlock($product->getTypeId() . '_prototype');
+                ?>
+                <div class="ampromo-item"
+                     data-product-id="<?= (int)$product->getId() ?>"
+                     data-product-sku="<?= $block->escapeHtml($product->getSku()) ?>"
+                     data-role="ampromo-item">
+                    <form method="POST"
+                          action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+                          data-role="ampromo-items-form"
+                          data-ampromo-js="form-item"
+                          class="ampromo-items-form"
+                          id="ampromo_items_form-<?= (int)$product->getId() ?>">
+                        <input type="hidden"
+                               name="<?= Action::PARAM_NAME_URL_ENCODED; ?>"
+                               value="<?= $block->escapeHtml($block->getCurrentBase64Url()) ?>">
+                        <input type="hidden"
+                               name="isPromoItems"
+                               value="true">
+                        <?php if ($selectionMethod) : ?>
+                            <div class="ampromo-product-select" data-role="ampromo-product-select">
+                                <input data-ampromo-js="checkbox" type="checkbox"/>
+                            </div>
+                        <?php endif; ?>
+                        <div class="ampromo-item-title">
+                            <?php if ($isVisible) : ?>
+                                <h4 class="ampromo-title">
+                                    <a title="<?= $block->escapeHtml($product->getName()) ?>"
+                                       href="<?= $block->escapeUrl($product->getProductUrl()) ?>">
+                                        <?= $block->escapeHtml($product->getName()) ?> </a>
+                                </h4>
+                            <?php else : ?>
+                                <h4 class="ampromo-title"><?= $block->escapeHtml($product->getName()) ?></h4>
+                            <?php endif ?>
+                        </div>
+                        <?php $imageHelper->init($product, 'cart_page_product_thumbnail')
+                            ->keepFrame(false)
+                            ->constrainOnly(true)
+                            ->resize(160, 160);
+                        ?>
+                        <img src="<?= $block->escapeUrl($imageHelper->getUrl()) ?>"
+                             width="160"
+                             height="160"
+                             class="ampromo-item-image"
+                             alt="<?= $block->escapeHtml($block->stripTags($product->getName(), null, true)) ?>"/>
+                        <input type="hidden" value="<?= (int)$product->getId() ?>" name="product_id"/>
+                        <div class="ampromo-options" id="ampromo-options">
+                            <fieldset class="fieldset" tabindex="0">
+                                <?php if ($optionsBlock) :
+                                    echo $optionsBlock->setProduct($product)->toHtml();
+                                    if ($product->getTypeId() === 'giftcard') {
+                                        echo $block->getGiftCardPrice($product);
+                                    }
+                                    ?>
+                                <?php endif ?>
+                                <?= $block->getOptionsHtml($product); ?>
+                            </fieldset>
+                        </div>
+                        <div class="product-info-price">
+                            <div class="price-base-price price-box-<?= (int)$product->getId() ?>"
+                                 data-product-id="<?= (int)$product->getId() ?>"
+                                <?php if (!$isShowPrice): ?>
+                                    hidden
+                                <?php endif; ?>
+                                 data-role="priceBox">
+                                    <span class="price-container price-base-price tax weee">
+                                        <span id="product-price-<?= (int)$product->getId() ?>"
+                                              data-price-amount="<?= $block->escapeHtml(
+                                                  $block->getProductPrice($product)
+                                              ) ?>"
+                                              data-price-type="basePrice"
+                                              class="price-wrapper">
+                                            <span class="price"></span>
+                                        </span>
+                                    </span>
+                            </div>
+                            <div class="price-new-price price-box-<?= (int)$product->getId() ?>"
+                                 data-product-id="<?= (int)$product->getId() ?>"
+                                 data-role="priceBox">
+                                    <span class="price-new-price tax weee">
+                                        <span id="product-price-<?= (int)$product->getId() ?>"
+                                              data-price-amount="<?= $block->escapeHtml(
+                                                  $block->getProductPrice($product)
+                                              ) ?>"
+                                              data-price-type="newPrice"
+                                              class="price-wrapper">
+                                            <span class="price"></span>
+                                        </span>
+                                    </span>
+                            </div>
+                        </div>
+                        <?php if ($selectionMethod) : ?>
+                            <div class="ampromo-item-qty-input">
+                                <input class="ampromo-qty"
+                                       type="number"
+                                       name="ampromo_qty_select_<?= (int)$product->getId() ?>"
+                                       id="ampromo_qty_select_<?= (int)$product->getId() ?>"
+                                       min="0"
+                                       value="0"
+                                       data-rule="0"
+                                       data-rule-type="0"
+                                       disabled="disabled"
+                                       data-validate="{
+                                           required:true}"
+                                       title="QTY Select"
+                                       data-am-js="ampromo-qty-input"/>
+                                <?php if ($giftsCounter) : ?>
+                                <span class="ampromo-item-qty-left">
+                                    <span data-ampromo-js="qty-left-text">1</span><?= __(' left') ?>
+                                </span>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!$selectionMethod) : ?>
+                            <div class="ampromo-item-buttons" data-role="ampromo-item-buttons">
+                                <button class="action tocart primary"
+                                        type="submit"
+                                        title="<?= $block->escapeHtml($block->getAddButtonName()) ?>">
+                                        <?= $block->escapeHtml($block->getAddButtonName()) ?>
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                    </form>
+                    <?php if ($product->getTypeId()
+                        !== \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE
+                    ) : ?>
+                        <script>
+                            require([
+                                'jquery',
+                                'Amasty_Promo/js/price-updater'
+                            ], function ($) {
+                                $('[data-role=ampromo-overlay]').on('init.ampopup', function () {
+                                    $('.ampromo-items-content').ampromoPriceUpdater({
+                                        productId: <?= (int)$product->getId() ?>,
+                                        priceConfig: <?= $block->getJsonConfig($product) ?>
+                                    });
+                                });
+                            });
+                        </script>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach ?>
+        </div>
+        <?php if ($selectionMethod) : ?>
+            <div class="ampromo-item-buttons" data-role="ampromo-item-buttons">
+                <button class="action tocart primary ampromo-button"
+                        type="button"
+                        data-am-js="ampromo-add-button"
+                        title="<?= $block->escapeHtml($block->getAddButtonName()) ?>">
+                    <?= $block->escapeHtml($block->getAddButtonName()) ?>
+                </button>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

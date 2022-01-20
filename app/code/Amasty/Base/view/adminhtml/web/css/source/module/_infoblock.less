@@ -1,0 +1,40 @@
+//
+//  Amasty Base Info-block
+//  _____________________________________________
+
+//
+//  Variables
+//  _____________________________________________
+
+@ambase-button__margin: 25px;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .ambase-buttons-container {
+        & {
+            display: flex;
+            align-items: center;
+            margin-top: @ambase-button__margin;
+        }
+
+        .ambase-button {
+            margin-right: @ambase-button__margin;
+            padding: 13px 27px;
+            border-radius: 4px;
+            background: #1787e0;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.25px;
+            font-weight: 600;
+            transition: opacity .3s ease-in-out;
+        }
+
+        .ambase-button:hover {
+            opacity: .8;
+        }
+    }
+}

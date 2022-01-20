@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="amasty" translate="label" sortOrder="999999" class="amasty-tab ambase-tab-container">
+            <label>Amasty Extensions</label>
+        </tab>
+        <section id="amasty_base" translate="label" type="text" sortOrder="-5000" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label><![CDATA[Extensions &amp; Notifications]]></label>
+            <tab>amasty</tab>
+            <resource>Amasty_Base::config</resource>
+            <group id="extensions" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Installed Extensions</label>
+                <frontend_model>Amasty\Base\Block\Adminhtml\Extensions</frontend_model>
+            </group>
+            <group id="notifications" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Notifications</label>
+                <field id="frequency" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Update Frequency</label>
+                    <source_model>Amasty\Base\Model\Source\Frequency</source_model>
+                </field>
+                <field id="type" translate="label" type="multiselect" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>I want to Receive Notifications about:</label>
+                    <source_model>Amasty\Base\Model\Source\NotificationType</source_model>
+                    <backend_model>Amasty\Base\Model\Config\Backend\Unsubscribe</backend_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="ads_enable" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Feature Suggestions in Config?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <group id="menu" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Menu</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Amasty Menu Item</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Amasty\Base\Model\Config\Backend\Menu</backend_model>
+                </field>
+                <frontend_model>Amasty\Base\Block\MenuGroup</frontend_model>
+            </group>
+
+            <group id="information" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>System Information</label>
+                <frontend_model>Amasty\Base\Block\Info</frontend_model>
+            </group>
+        </section>
+    </system>
+</config>

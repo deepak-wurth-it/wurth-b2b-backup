@@ -1,0 +1,56 @@
+<?php
+// phpcs:ignoreFile
+?>
+
+<?php
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable */
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <?php foreach ($_attributes as $_attribute): ?>
+        <div class="field configurable required">
+            <label class="label" for="attribute<?= (int)$_attribute->getAttributeId() ?>">
+                <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+            </label>
+            <div class="control">
+                <select name="super_attribute[<?= (int)$_attribute->getAttributeId() ?>]"
+                        data-validate="{required:true}"
+                        id="attribute<?= $_attribute->getAttributeId() . "-" . $_product->getId() ?>"
+                        class="super-attribute-select">
+                    <option value=""><?= $block->escapeHtml(__('Choose an Option...')); ?></option>
+                </select>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <script>
+        require(
+            [
+                'jquery',
+                'Amasty_Promo/js/type/configurable',
+                'Amasty_Promo/js/price-updater'
+            ], function($) {
+                var popupOverlay = $('[data-role=ampromo-overlay]');
+
+                popupOverlay.on('init.ampopup', function () {
+                    initConfigurable();
+                });
+
+                function initConfigurable() {
+                    $('[data-ampromo-js="items-content"]').ampromoPriceUpdater({
+                        productId: <?= $block->escapeHtml($_product->getId()) ?>,
+                        priceConfig: <?= /* @escapeNotVerified */ $block->getJsonConfig() ?>
+                    });
+
+                    var spConfig = <?= $block->unsetData('allow_products')->getJsonConfig() ?>;
+                    spConfig.containerId = "#ampromo_items_form-<?= $_product->getId() ?>";
+                    $('#ampromo_items_form-<?= $_product->getId() ?>').ampromoConfigurable({
+                        priceHolderSelector: ".price-box-<?= $_product->getId() ?>",
+                        spConfig: spConfig,
+                        gallerySwitchStrategy: "<?= /* @escapeNotVerified */ $block->getVar('gallery_switch_strategy',
+                            'Magento_ConfigurableProduct') ?: 'replace'; ?>"
+                    });
+                }
+            });
+    </script>
+<?php endif;?>

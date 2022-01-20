@@ -1,0 +1,26 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Amasty\SalesRuleWizard\Block\Adminhtml\Steps\ApplySettings */
+?>
+<div data-bind="scope: '<?= /* @noEscape */  $block->getComponentName()?>'">
+    <h2 class="steps-wizard-title"><?php echo $block->escapeHtml(
+            __('Step 3: Rule Settings')
+        ); ?></h2>
+    <?= $block->getChildHtml() ?>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "<?= /* @noEscape */  $block->getComponentName()?>": {
+                    "component": "Amasty_SalesRuleWizard/js/steps/apply_settings",
+                    "formName": "<?= /* @noEscape */ $block->getData('config/formName') ?>"
+                }
+            }
+        }
+    }
+}
+</script>

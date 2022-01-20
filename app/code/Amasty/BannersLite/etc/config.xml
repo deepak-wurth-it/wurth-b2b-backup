@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_banners_lite>
+            <general>
+                <enable_top_banner>1</enable_top_banner>
+                <enable_after_banner>1</enable_after_banner>
+                <enable_product_label>1</enable_product_label>
+                <show_one_banner>0</show_one_banner>
+            </general>
+        </amasty_banners_lite>
+    </default>
+</config>

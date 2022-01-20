@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="promo_banners_highlights">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Highlight Promotion</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">100</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="component" xsi:type="string">Amasty_BannersLite/js/form</item>
+            </item>
+        </argument>
+        <field name="show_banner_for">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Show Banner For</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="dataScope" xsi:type="string">extension_attributes.show_banner_for</item>
+                    <item name="sortOrder" xsi:type="number">2</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">sales_rule_form.sales_rule_form.promo_banners_highlights.banner_product_sku</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">sales_rule_form.sales_rule_form.promo_banners_highlights.banner_product_categories</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">sales_rule_form.sales_rule_form.promo_banners_highlights.banner_product_sku</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">sales_rule_form.sales_rule_form.promo_banners_highlights.banner_product_categories</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="2" xsi:type="array">
+                                <item name="value" xsi:type="number">2</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">sales_rule_form.sales_rule_form.promo_banners_highlights.banner_product_sku</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">sales_rule_form.sales_rule_form.promo_banners_highlights.banner_product_categories</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="value" xsi:type="number">0</item>
+                        <item name="label" xsi:type="string" translate="true">All Products</item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="value" xsi:type="number">1</item>
+                        <item name="label" xsi:type="string" translate="true">Product SKU</item>
+                    </item>
+                    <item name="2" xsi:type="array">
+                        <item name="value" xsi:type="number">2</item>
+                        <item name="label" xsi:type="string" translate="true">Categories</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="banner_product_sku">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Product SKUs</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="dataScope" xsi:type="string">extension_attributes.banner_product_sku</item>
+                    <item name="sortOrder" xsi:type="number">2</item>
+                    <item name="notice" xsi:type="string" translate="true">A list of SKUs, separated by commas</item>
+                </item>
+            </argument>
+        </field>
+        <field name="banner_product_categories">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Categories</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="dataScope" xsi:type="string">extension_attributes.banner_product_categories</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="component" xsi:type="string">Amasty_BannersLite/js/form/element/category-tree</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="chipsEnabled" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="string">1</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="listens" xsi:type="array">
+                        <item name="newOption" xsi:type="string">toggleOptionSelected</item>
+                    </item>
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">category_ids</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Banners and Labels will be displayed on pages of products associated with the specified categories, NOT on category pages itself</item>
+                </item>
+                <item name="options" xsi:type="object">Magento\Catalog\Ui\Component\Product\Form\Categories\Options</item>
+            </argument>
+        </field>
+        <fieldset name="top_banner">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Top Banner On Product Page</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="opened" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <field name="top_banner_image">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Image</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="formElement" xsi:type="string">fileUploader</item>
+                        <item name="componentType" xsi:type="string">fileUploader</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.0.banner_image</item>
+                        <item name="uploaderConfig" xsi:type="array">
+                            <item name="url" xsi:type="url" path="banners_lite/banners/upload"/>
+                            <item name="paramName" xsi:type="string">banner_image</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+            <field name="top_banner_alt">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Alt</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.0.banner_alt</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="top_banner_hover_text">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">On Hover Text</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.0.banner_hover_text</item>
+                        <item name="sortOrder" xsi:type="number">30</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="top_banner_link" class="Amasty\BannersLite\Ui\Component\Form\BannerLink">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Link</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.0.banner_link</item>
+                        <item name="sortOrder" xsi:type="number">40</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+        <fieldset name="after_description_banner">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">After Product Description Banner</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="opened" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <field name="after_description_banner_image">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Image</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="formElement" xsi:type="string">fileUploader</item>
+                        <item name="componentType" xsi:type="string">fileUploader</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.1.banner_image</item>
+                        <item name="uploaderConfig" xsi:type="array">
+                            <item name="url" xsi:type="url" path="banners_lite/banners/upload"/>
+                            <item name="paramName" xsi:type="string">banner_image</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+            <field name="after_description_banner_alt">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Alt</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.1.banner_alt</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="after_description_banner_hover_text">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">On Hover Text</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.1.banner_hover_text</item>
+                        <item name="sortOrder" xsi:type="number">30</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="after_description_banner_link" class="Amasty\BannersLite\Ui\Component\Form\BannerLink">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Link</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.1.banner_link</item>
+                        <item name="sortOrder" xsi:type="number">40</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+        <fieldset name="product_banner">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Product Label</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="opened" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <field name="product_banner_image">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Image</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="formElement" xsi:type="string">fileUploader</item>
+                        <item name="componentType" xsi:type="string">fileUploader</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.2.banner_image</item>
+                        <item name="uploaderConfig" xsi:type="array">
+                            <item name="url" xsi:type="url" path="banners_lite/banners/upload"/>
+                            <item name="paramName" xsi:type="string">banner_image</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+            <field name="product_banner_alt" class="Amasty\BannersLite\Ui\Component\Form\BannerLabel">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Alt</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">sales_rule</item>
+                        <item name="dataScope" xsi:type="string">extension_attributes.promo_banners_lite.2.banner_alt</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+    </fieldset>
+</form>

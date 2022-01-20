@@ -1,0 +1,22 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+?>
+<?php
+/**
+ * @var \Magento\Backend\Block\Template $block
+ */
+?>
+<script>
+    require([
+        "jquery"
+    ], function($){
+        $(document).ready(function () {
+            $('a[href*="https://amasty.com"], a[href*="http://amasty.com"], a[href*="https://marketplace.magento.com"]')
+                .attr('target', '_blank');
+        });
+    });
+</script>

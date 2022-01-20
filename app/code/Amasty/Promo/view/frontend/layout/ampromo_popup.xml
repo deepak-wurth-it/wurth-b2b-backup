@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Base::vendor/slick/amslick.min.css"/>
+    </head>
+    <update handle="ampromo_items" />
+    <body>
+        <block name="ampromo.add" class="Amasty\Promo\Block\Add" before="-" template="Amasty_Promo::add.phtml" />
+        <referenceContainer name="page.wrapper">
+            <block name="ampromo.popup" class="Amasty\Promo\Block\Popup" after="-" template="Amasty_Promo::popup.phtml">
+                <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
+            </block>
+        </referenceContainer>
+        <move element="ampromo.items" destination="ampromo.popup" as="items" />
+    </body>
+</page>

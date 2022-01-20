@@ -1,0 +1,19 @@
+<?php /** @var \Amasty\BannersLite\Block\Banner $block */ ?>
+<?php foreach ($block->getBanners() as $banner) : ?>
+    <?php if ($block->isEnableBannerPosition() && $img = $block->getImage($banner)) : ?>
+        <div data-role="am-banners-lite">
+            <p class="am-banners-lite-img">
+                <a href="<?= $block->escapeUrl($block->getLink($banner)); ?>"
+                   title="<?= $block->escapeHtml($block->getHoverText($banner)) ?>">
+                    <img src="<?= $block->escapeUrl($img) ?>"
+                         alt="<?= $block->escapeHtml($block->getAlt($banner)) ?>"
+                         title="<?= $block->escapeHtml($block->getHoverText($banner)) ?>"/>
+                </a>
+            </p>
+        </div>
+    <?php endif; ?>
+<?php endforeach; ?>
+<?php if ($block->isEnableBannerPosition() && ($afterBlock = $block->getChildBlock('after_banners'))) : ?>
+    <?= $afterBlock->toHtml() ?>
+<?php endif; ?>
+

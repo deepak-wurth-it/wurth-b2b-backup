@@ -1,0 +1,33 @@
+<?php /** @var \Amasty\Promo\Block\Banner $block */?>
+<?php /** @var \Amasty\Promo\Model\Rule $rule */?>
+<?php foreach ($block->getValidRules() as $rule):?>
+    <?php if ($block->isShowGiftImages($rule)):?>
+        <ul class="ampromo-gift">
+            <?php /** @var \Magento\Catalog\Model\Product $product */?>
+            <?php foreach ($block->getProducts($rule) as $product): ?>
+                <?php
+                $product->getAttributeRawValue($product->getId(), $block->getAttributeHeader(), 1);
+                $id = uniqid("ampromo-gift-img-");
+                ?>
+                <li>
+                    <a class="product-image" href="<?= $block->escapeUrl($product->getProductUrl())?>">
+                        <img class="ampromo-banner-<?= $block->escapeHtml($block->getPosition())?>-img"
+                             id="<?= /**@no-escape*/$id;?>"
+                             alt="<?= $block->escapeHtml('Product Image') ?>"
+                             width="<?= (float)$block->getWidth();?>"
+                             height="<?= (float)$block->getHeight();?>"
+                             src="<?= $block->escapeUrl($block->getImageForProduct($product));?>"/>
+                        <div id="<?= /**@no-escape*/$id;?>-data" style="display: none;">
+                            <div class="ampromo-product-name">
+                                <?= $block->escapeHtml($block->getNameForProduct($product));?>
+                            </div>
+                            <div class="ampromo-short-description">
+                                <?= $block->escapeHtml($block->getDescriptionForProduct($product));?>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+<?php endforeach; ?>

@@ -1,0 +1,73 @@
+"Apply To","Apply To"
+Conditions,Conditions
+"Rule Settings","Rule Settings"
+"Automatically add products to cart","Automatically add products to cart"
+"A customer adds N products to the cart and gets free gifts","A customer adds N products to the cart and gets free gifts"
+"A customer reaches $X amount and gets free gifts","A customer reaches $X amount and gets free gifts"
+Scenario,Scenario
+"Product Settings","Product Settings"
+Summary,Summary
+"Cart Price Rule Wizard","Cart Price Rule Wizard"
+"Form Data is empty","Form Data is empty"
+"Something went wrong while saving the rule data. Please review the error log.","Something went wrong while saving the rule data. Please review the error log."
+"The Rule was saved successfully!","The Rule was saved successfully!"
+"You can find more options related to taxes and shipping rates for free items <a href=""%1"">here</a>.","You can find more options related to taxes and shipping rates for free items <a href=""%1"">here</a>."
+"If you want to use multiple coupon codes with auto generation - you can find these settings in the section ""Manage coupon codes"".","If you want to use multiple coupon codes with auto generation - you can find these settings in the section ""Manage coupon codes""."
+"Don't forget to configure promo banners and product labels to highlight your promotion on the storefront.","Don't forget to configure promo banners and product labels to highlight your promotion on the storefront."
+"Only First Time when conditions are met","Only First Time when conditions are met"
+"Every Time when conditions are met","Every Time when conditions are met"
+"Every Time with Limit when conditions are met","Every Time with Limit when conditions are met"
+"Free Gift Rules Wizard","Free Gift Rules Wizard"
+"Step 3: Rule Settings","Step 3: Rule Settings"
+"Step 1: Choose Scenario","Step 1: Choose Scenario"
+"Step 2: Product Settings","Step 2: Product Settings"
+"Step 4: Summary","Step 4: Summary"
+"Rule Name","Rule Name"
+"Rule is Active?","Rule is Active?"
+Yes,Yes
+No,No
+Cancel,Cancel
+Back,Back
+Next,Next
+"Form is undefined, please try again.","Form is undefined, please try again."
+"Step is invalid.","Step is invalid."
+"Please select scenario.","Please select scenario."
+"You should choose Promo products.","You should choose Promo products."
+"Cart Price Rules Wizard by Amasty","Cart Price Rules Wizard by Amasty"
+ID,ID
+Thumbnail,Thumbnail
+Name,Name
+Status,Status
+Type,Type
+SKU,SKU
+Price,Price
+Quantity,Quantity
+"Does Coupon Code need to be applied to trigger the rule?","Does Coupon Code need to be applied to trigger the rule?"
+"No, the rule will be triggered automatically","No, the rule will be triggered automatically"
+"Yes, a specific coupon code is needed","Yes, a specific coupon code is needed"
+"Coupon Code","Coupon Code"
+Websites,Websites
+"Customer Groups","Customer Groups"
+"How many times your rule will be triggered?","How many times your rule will be triggered?"
+"What is the maximum number of times your rule will be triggered? (Set your Limit)","What is the maximum number of times your rule will be triggered? (Set your Limit)"
+Times,Times
+"Do you have extra criteria for applying the rule?","Do you have extra criteria for applying the rule?"
+"Yes, I have","Yes, I have"
+"How many products customer needs to buy to get a free item?","How many products customer needs to buy to get a free item?"
+"How much customer needs to spend to get a free item?","How much customer needs to spend to get a free item?"
+"Cart Subtotal amount in Base Currency, before taxes and discounts","Cart Subtotal amount in Base Currency, before taxes and discounts"
+"Which products customer needs to buy?","Which products customer needs to buy?"
+"Any products","Any products"
+"Specific products","Specific products"
+"How many free products will receive your customer?","How many free products will receive your customer?"
+"Which products your customer will be gifted:","Which products your customer will be gifted:"
+"The same as added to the cart","The same as added to the cart"
+"Different products","Different products"
+"Your customer will be able to choose free products (any combination but up to the allowed maximum)","Your customer will be able to choose free products (any combination but up to the allowed maximum)"
+"Your customer will get N free products of each kind specified in the 'List your free products' field","Your customer will get N free products of each kind specified in the 'List your free products' field"
+"List your free products:","List your free products:"
+"Add products","Add products"
+Remove,Remove
+Actions,Actions
+"Select promo products","Select promo products"
+"Add Selected Products","Add Selected Products"

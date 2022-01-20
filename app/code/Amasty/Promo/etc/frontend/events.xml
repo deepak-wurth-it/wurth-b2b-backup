@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_quote_collect_totals_before">
+        <observer name="amasty_promo_collect_totals_before_for_multishipping" instance="Amasty\Promo\Observer\CheckOutwithMultipleAddresses" />
+    </event>
+    <event name="sales_quote_remove_item">
+        <observer name="amasty_promo_quote_remove_item" instance="Amasty\Promo\Observer\QuoteRemoveItemObserver" />
+    </event>
+</config>

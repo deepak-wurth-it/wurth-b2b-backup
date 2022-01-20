@@ -1,0 +1,34 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Conditions\Api\Data\AddressInterface" type="Amasty\Conditions\Model\Address" />
+    <preference for="Amasty\Conditions\Api\Negotiable\TotalsInformationManagementInterface" type="Amasty\Conditions\Model\Negotiable\TotalsInformationManagement" />
+
+    <type name="Amasty\Conditions\Model\Rule\Condition\CustomOptions">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="form_name" xsi:type="string">sales_rule_form</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Quote\Model\Cart\CartTotalRepository">
+        <plugin name="Amasty_Conditions::cart_total_repository_get" type="Amasty\Conditions\Plugin\Cart\CartTotalRepository" sortOrder="1" />
+    </type>
+    <type name="Magento\Framework\Api\DataObjectHelper">
+        <plugin name="Amasty_Conditions::dataHelper" type="Amasty\Conditions\Plugin\Framework\Api\DataObjectHelperPlugin" sortOrder="1" />
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Condition\Product">
+        <!--This plugin can be disabled by Amasty_Rules di, because have same functionality-->
+        <plugin name="Amasty_Conditions::AdditionalConditions" type="Amasty\Conditions\Plugin\SalesRule\Condition\ProductPlugin" />
+    </type>
+    <type name="Temando\Shipping\Observer\SaveCheckoutFieldsObserver">
+        <plugin name="Amasty_CashOnDelivery::Temando_Shipping_Observer_SaveCheckoutFieldsObserver" type="Amasty\Conditions\Plugin\Shipping\Observer\SaveCheckoutFieldsObserverPlugin" />
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Condition\Product\Combine">
+        <plugin name="Amasty_Conditions::AdditionalProductConditions" type="Amasty\Conditions\Plugin\SalesRuleModel\Rule\Condition\Product\CombinePlugin"/>
+    </type>
+
+    <type name="Magento\Checkout\Model\TotalsInformationManagement">
+        <plugin name="Amasty_Conditions::ExtensionAttributesResolver" type="Amasty\Conditions\Plugin\Checkout\Model\TotalInformationManagementPlugin"/>
+    </type>
+</config>

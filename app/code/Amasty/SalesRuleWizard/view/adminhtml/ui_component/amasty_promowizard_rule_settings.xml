@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Amasty_SalesRuleWizard/js/ui/form/form</item>
+            <item name="provider" xsi:type="string">amasty_promowizard_rule_settings.rule_settings_data_source</item>
+            <item name="deps" xsi:type="string">amasty_promowizard_rule_settings.rule_settings_data_source</item>
+        </item>
+
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">amasty_promowizard_rule_settings</item>
+        </item>
+
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <dataSource name="rule_settings_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\SalesRuleWizard\Model\RuleDataProvider</argument>
+            <argument name="name" xsi:type="string">rule_settings_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">rule_id</argument>
+            <argument name="requestFieldName" xsi:type="string">rule_id</argument>
+        </argument>
+
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <field name="need_to_buy">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="label" xsi:type="string" translate="true">How many products customer needs to buy to get a free item?</item>
+                    <item name="notice" xsi:type="string" translate="true">Quantity</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                        <item name="integer" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">At least 1 product</item>
+                    </item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataScope" xsi:type="string">discount_step</item>
+                    <item name="scenario" xsi:type="array">
+                        <item name="0" xsi:type="string">buy_x_get_y</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="need_spent">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="default" xsi:type="number">0.01</item>
+                    <item name="label" xsi:type="string" translate="true">How much customer needs to spend to get a free item?</item>
+                    <item name="notice" xsi:type="string" translate="true">Cart Subtotal amount in Base Currency, before taxes and discounts</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-currency-dollar" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">11</item>
+                    <item name="dataScope" xsi:type="string">discount_step</item>
+                    <item name="scenario" xsi:type="array">
+                        <item name="0" xsi:type="string">spent_x_get_y</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="is_actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="label" xsi:type="string" translate="true">Which products customer needs to buy?</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">is_actions</item>
+                    <item name="sortOrder" xsi:type="number">24</item>
+                    <item name="options" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="value" xsi:type="number">0</item>
+                            <item name="label" xsi:type="string" translate="true">Any products</item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="value" xsi:type="number">1</item>
+                            <item name="label" xsi:type="string" translate="true">Specific products</item>
+                        </item>
+                    </item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">${$.parentName}.actions_apply_to.html_content</item>
+                                        <item name="callback" xsi:type="string">visible</item>
+                                        <item name="params" xsi:type="array">
+                                            <item name="0" xsi:type="boolean">false</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">${$.parentName}.actions_apply_to.html_content</item>
+                                        <item name="callback" xsi:type="string">visible</item>
+                                        <item name="params" xsi:type="array">
+                                            <item name="0" xsi:type="boolean">true</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <container name="actions_apply_to">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="array">
+                        <item name="after" xsi:type="string">amasty_promowizard_rule_settings.amasty_promowizard_rule_settings.general.is_actions</item>
+                    </item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="template" xsi:type="string">Amasty_SalesRuleWizard/htmlContent</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Amasty\SalesRuleWizard\Block\Adminhtml\Actions</argument>
+            </htmlContent>
+        </container>
+
+        <field name="free_products_qty">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">How many free products will receive your customer?</item>
+                    <item name="notice" xsi:type="string" translate="true">Quantity</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="string">true</item>
+                        <item name="integer" xsi:type="string">true</item>
+                        <item name="validate-zero-or-greater" xsi:type="string">true</item>
+                    </item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">discount_amount</item>
+                    <item name="sortOrder" xsi:type="number">27</item>
+                    <item name="scenario" xsi:type="array">
+                        <item name="0" xsi:type="string">buy_x_get_y</item>
+                        <item name="1" xsi:type="string">spent_x_get_y</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="is_same_product">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="label" xsi:type="string" translate="true">Which products your customer will be gifted:</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">is_same_product</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="scenario" xsi:type="array">
+                        <item name="0" xsi:type="string">buy_x_get_y</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="value" xsi:type="number">1</item>
+                            <item name="label" xsi:type="string" translate="true">The same as added to the cart</item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="value" xsi:type="number">0</item>
+                            <item name="label" xsi:type="string" translate="true">Different products</item>
+                        </item>
+                    </item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">${$.parentName}.ampromorule_sku</item>
+                                        <item name="callback" xsi:type="string">visible</item>
+                                        <item name="params" xsi:type="array">
+                                            <item name="0" xsi:type="boolean">true</item>
+                                        </item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">${$.parentName}.free_type</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">${$.parentName}.ampromorule_sku</item>
+                                        <item name="callback" xsi:type="string">visible</item>
+                                        <item name="params" xsi:type="array">
+                                            <item name="0" xsi:type="boolean">false</item>
+                                        </item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">${$.parentName}.free_type</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="free_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="additionalClasses" xsi:type="string">admin__field-no-label</item>
+                    <item name="label" xsi:type="boolean">false</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">radio</item>
+                    <item name="description" xsi:type="string">radio</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="value" xsi:type="number">1</item>
+                            <item name="label" xsi:type="string" translate="true">Your customer will be able to choose free products (any combination but up to the allowed maximum)</item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="value" xsi:type="number">0</item>
+                            <item name="label" xsi:type="string" translate="true">Your customer will get N free products of each kind specified in the 'List your free products' field</item>
+                        </item>
+                    </item>
+                    <item name="templates" xsi:type="array">
+                        <item name="radio" xsi:type="string">Amasty_SalesRuleWizard/element/radio</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="dataScope" xsi:type="string">extension_attributes.ampromo_rule.type</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="scenario" xsi:type="array">
+                        <item name="0" xsi:type="string">buy_x_get_y</item>
+                        <item name="1" xsi:type="string">spent_x_get_y</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <fieldset name="ampromorule_sku">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="opened" xsi:type="boolean">true</item>
+                    <item name="scenario" xsi:type="array">
+                        <item name="0" xsi:type="string">buy_x_get_y</item>
+                        <item name="1" xsi:type="string">spent_x_get_y</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="buttons">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="required" xsi:type="boolean">true</item>
+                        <item name="label" xsi:type="string" translate="true">List your free products:</item>
+                        <item name="labelVisible" xsi:type="boolean">true</item>
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+                        <item name="template" xsi:type="string">ui/form/components/button/container</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                        <item name="title" xsi:type="string" translate="true">Add products</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">${$.parentName}.modal</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">${$.parentName}.modal.products_grid</item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </container>
+            <container name="products">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="string">admin__field-wide</item>
+                        <item name="componentType" xsi:type="string">dynamicRows</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows-grid</item>
+                        <item name="template" xsi:type="string">Amasty_SalesRuleWizard/dynamic-rows-grid</item>
+                        <item name="recordTemplate" xsi:type="string">record</item>
+                        <item name="addButton" xsi:type="boolean">false</item>
+                        <item name="columnsHeader" xsi:type="boolean">false</item>
+                        <item name="columnsHeaderAfterRender" xsi:type="boolean">true</item>
+                        <item name="renderDefaultRecord" xsi:type="boolean">false</item>
+                        <item name="deleteButtonLabel" xsi:type="string" translate="true">Remove</item>
+                        <item name="dataScope" xsi:type="string">free_gifts</item>
+                        <item name="identificationProperty" xsi:type="string">entity_id</item>
+                        <item name="identificationDRProperty" xsi:type="string">position</item>
+                        <item name="dataProvider" xsi:type="string">data.products</item>
+                        <item name="pageSize" xsi:type="number">10</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                        <item name="map" xsi:type="array">
+                            <item name="entity_id" xsi:type="string">entity_id</item>
+                            <item name="thumbnail" xsi:type="string">thumbnail_src</item>
+                            <item name="name" xsi:type="string">name</item>
+                            <item name="status" xsi:type="string">status</item>
+                            <item name="type_id" xsi:type="string">type_id</item>
+                            <item name="sku" xsi:type="string">sku</item>
+                            <item name="qty" xsi:type="string">qty</item>
+                            <item name="position" xsi:type="string">entity_id</item>
+                        </item>
+                        <item name="links" xsi:type="array">
+                            <item name="insertData" xsi:type="string">${ $.provider }:${ $.dataProvider }</item>
+                        </item>
+                        <item name="dndConfig" xsi:type="array">
+                            <item name="enabled" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="required" xsi:type="boolean">true</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <container name="record">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                            <item name="isTemplate" xsi:type="boolean">true</item>
+                            <item name="positionProvider" xsi:type="string">position</item>
+                            <item name="is_collection" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                    <field name="entity_id">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">true</item>
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">entity_id</item>
+                                <item name="label" xsi:type="string" translate="true">ID</item>
+                                <item name="sortOrder" xsi:type="string">10</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="thumbnail">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">true</item>
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/thumbnail</item>
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">thumbnail</item>
+                                <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+                                <item name="sortOrder" xsi:type="string">20</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="name">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">name</item>
+                                <item name="label" xsi:type="string" translate="true">Name</item>
+                                <item name="sortOrder" xsi:type="string">30</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="status">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="formElement" xsi:type="string">select</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">status</item>
+                                <item name="label" xsi:type="string" translate="true">Status</item>
+                                <item name="sortOrder" xsi:type="string">40</item>
+                            </item>
+                            <item name="options" xsi:type="object">Magento\Catalog\Model\Product\Attribute\Source\Status</item>
+                        </argument>
+                    </field>
+                    <field name="type_id">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="formElement" xsi:type="string">select</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">type_id</item>
+                                <item name="label" xsi:type="string" translate="true">Type</item>
+                                <item name="sortOrder" xsi:type="string">50</item>
+                            </item>
+                            <item name="options" xsi:type="object">Amasty\SalesRuleWizard\Model\OptionsProvider\FreeGift\ProductType</item>
+                        </argument>
+                    </field>
+                    <field name="sku">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">sku</item>
+                                <item name="label" xsi:type="string" translate="true">SKU</item>
+                                <item name="sortOrder" xsi:type="string">60</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="qty">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">true</item>
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="dataScope" xsi:type="string">qty</item>
+                                <item name="label" xsi:type="string" translate="true">Quantity</item>
+                                <item name="sortOrder" xsi:type="number">70</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <actionDelete>
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                                <item name="componentType" xsi:type="string">actionDelete</item>
+                                <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="label" xsi:type="string" translate="true">Actions</item>
+                                <item name="sortOrder" xsi:type="string">90</item>
+                            </item>
+                        </argument>
+                    </actionDelete>
+                    <field name="position">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="dataType" xsi:type="string">number</item>
+                                <item name="formElement" xsi:type="string">input</item>
+                                <item name="componentType" xsi:type="string">field</item>
+                                <item name="dataScope" xsi:type="string">position</item>
+                                <item name="sortOrder" xsi:type="number">80</item>
+                                <item name="visible" xsi:type="boolean">false</item>
+                            </item>
+                        </argument>
+                    </field>
+                </container>
+            </container>
+
+            <container name="modal">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentType" xsi:type="string">modal</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                        <item name="options" xsi:type="array">
+                            <item name="type" xsi:type="string">slide</item>
+                            <item name="title" xsi:type="string" translate="true">Select promo products</item>
+                            <item name="buttons" xsi:type="array">
+                                <item name="0" xsi:type="array">
+                                    <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                    <item name="actions" xsi:type="array">
+                                        <item name="0" xsi:type="string">closeModal</item>
+                                    </item>
+                                </item>
+                                <item name="1" xsi:type="array">
+                                    <item name="text" xsi:type="string" translate="true">Add Selected Products</item>
+                                    <item name="class" xsi:type="string">action-primary</item>
+                                    <item name="actions" xsi:type="array">
+                                        <item name="0" xsi:type="array">
+                                            <item name="targetName" xsi:type="string">index = products_grid</item>
+                                            <item name="actionName" xsi:type="string">save</item>
+                                        </item>
+                                        <item name="1" xsi:type="string">closeModal</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+                <insertListing name="products_grid">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <!--Avoid admin__scope-old cssclass assign -->
+                            <item name="cssclass" xsi:type="string">product-grid-insert-listing</item>
+                            <item name="dataScope" xsi:type="string">products</item>
+                            <item name="autoRender" xsi:type="boolean">false</item>
+                            <item name="selectionsProvider" xsi:type="string">amasty_freegift_listing.amasty_freegift_listing.amasty_freegift_listing_columns.ids</item>
+                            <item name="externalProvider" xsi:type="string">amasty_freegift_listing.amasty_wizard_freegift_data_source</item>
+                            <item name="ns" xsi:type="string">amasty_freegift_listing</item>
+                            <item name="realTimeLink" xsi:type="boolean">true</item>
+                            <item name="behaviourType" xsi:type="string">simple</item>
+                            <item name="dataLinks" xsi:type="array">
+                                <item name="imports" xsi:type="boolean">false</item>
+                                <item name="exports" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="externalFilterMode" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </insertListing>
+            </container>
+        </fieldset>
+    </fieldset>
+</form>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_Base:etc/less_to_css.xsd">
+    <module name="Amasty_Promo">
+        <handle name="catalog_product_view" />
+        <handle name="checkout_cart_index" />
+        <handle name="checkout_index_index" />
+        <cssOptions fileName="ampromo" path="css/source/mkcss" />
+    </module>
+</config>

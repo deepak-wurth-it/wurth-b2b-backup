@@ -1,0 +1,69 @@
+<?php
+/** @var \Amasty\Promo\Block\Popup $block */
+$countersMode = $block->getCountersMode();
+$promoAddBlock = $block->getPromoAddBlock();
+?>
+
+<?php if ($block->hasQuoteItems()): ?>
+    <?= $block->getChildHtml('html_calendar') ?>
+    <div class="ampromo-overlay" data-role="ampromo-overlay">
+        <div class="ampromo-items-content" data-ampromo-js="items-content">
+            <div class="ampromo-close" data-role="ampromo-popup-hide"></div>
+            <?php if ($countersMode): ?>
+                <h2 class="ampromo-popup-title" data-ampromo-js="popup-title">
+                    <?= $block->escapeHtml($block->getPopupName()) . ' ('?>
+                    <span class="ampromo-counter" data-role="ampromo-popup-common-qty"></span>
+                    <?= $block->escapeHtml(__(' left)')) ?>
+                </h2>
+            <?php else: ?>
+                <h2>
+                    <?= $block->escapeHtml($block->getPopupName())?>
+                </h2>
+            <?php endif; ?>
+            <div class="ampromo-popup-container" data-ampromo-js="popup-container">
+                <?= $block->getChildHtml('items') ?>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/x-magento-init">
+    {
+        "[data-role=ampromo-overlay]": {
+            "Amasty_Promo/js/popup": {
+                "sourceUrl": "<?= $promoAddBlock->escapeUrl($promoAddBlock->getUrl('amasty_promo/popup/reload')) ?>",
+                "uenc":   "<?= $promoAddBlock->escapeUrl($promoAddBlock->getCurrentBase64Url()) ?>",
+                "slickSettings": {
+                    "slidesToShow": 3,
+                    "slidesToScroll": 3,
+                    "dots": true,
+                    "infinite": false,
+                    "respondTo": "slider",
+                    "rows": 0,
+                    "responsive": [
+                        {
+                            "breakpoint": 571,
+                            "settings": {
+                                "slidesToShow": 2,
+                                "slidesToScroll": 2
+                            }
+                        },
+                        {
+                            "breakpoint": 281,
+                            "settings": {
+                                "slidesToShow": 1,
+                                "slidesToScroll": 1
+                            }
+                        }
+                    ]
+                },
+                "commonQty": "<?= (int)$promoAddBlock->getAvailableProductQty()['common_qty'] ?>",
+                "products": <?= \Zend_Json::encode($promoAddBlock->getAvailableProductQty()) ?>,
+                "formUrl": "<?= $promoAddBlock->escapeUrl($promoAddBlock->getFormActionUrl()) ?>",
+                "selectionMethod": <?= (int)$promoAddBlock->getSelectionMethod() ?>,
+                "giftsCounter": <?= (int)$promoAddBlock->getGiftsCounter() ?>,
+                "autoOpenPopup": <?= $promoAddBlock->isOpenAutomatically() ? "true" : "false" ?>
+            }
+        }
+    }
+    </script>
+<?php endif; ?>

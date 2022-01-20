@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="ammessages" xsi:type="string">Amasty\Promo\CustomerData\Messages</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\TotalsCollector">
+        <plugin name="AmastyPromo::AutoAdd" type="Amasty\Promo\Plugin\Quote\Model\Quote\TotalsCollectorPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Item\Renderer">
+        <plugin name="Amasty_Promo::item_renderer" type="Amasty\Promo\Plugin\Checkout\Block\Cart\Item\RendererPlugin"/>
+    </type>
+    <type name="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle">
+        <plugin name="Amasty_Promo::bundle_view" type="Amasty\Promo\Plugin\Bundle\Block\Catalog\Product\View\Type\Bundle\ForceLoadOptions"/>
+    </type>
+</config>
