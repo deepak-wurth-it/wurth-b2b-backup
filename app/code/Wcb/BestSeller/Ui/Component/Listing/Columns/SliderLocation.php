@@ -100,6 +100,14 @@ class SliderLocation extends Column
                 $location['type'] = 'Checkout Page';
                 $location['location'] = 'Bottom of Content';
                 break;
+            case Location::CMS_HOMEPAGE_CONTENT_TOP:
+                $location['type'] = 'CMS Home Page';
+                $location['location'] = 'Top of Content';
+                break;
+            case Location::CMS_HOMEPAGE_CONTENT_BOTTOM:
+                $location['type'] = 'CMS Home Page';
+                $location['location'] = 'Bottom of Content';
+                break;
         }
 
         return $location;
