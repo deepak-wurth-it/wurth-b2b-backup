@@ -1666,6 +1666,70 @@ label.sorter-label {
 		}
 	}
 }
+
+//Order Template Start By Amit
+table.ReqListTable
+{
+	th{
+		background: #ECECEC;	
+	}
+	td{
+		background: rgba(0, 147, 221, 0.12);	
+	}
+	tr.data-row._odd-row {
+		background: rgba(0, 147, 221, 0.12);
+	}
+}
+
+//Order Template End By Amit
+
+//Order Template Cart Page Start By Amit
+.checkout-cart-index {
+	.textMsg {
+		font-family: 'wuerthbook';
+		font-style: normal;
+		line-height: 22px;
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 0.6);
+		padding: 0 0 20px 0px;
+	}
+.cart-container .block-requisition-list {
+    display: block;
+    float: right;
+    margin: -39px 26px 0px 0px;
+}
+.page-title-wrapper .block {
+    display: none;
+}
+.requisition-list-action .action.toggle {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 0px;
+    background: url(../images/fileico.png) right 3px top 10px;
+    background-repeat: no-repeat;
+	cursor: pointer;
+}
+.requisition-list-action .action.toggle.active {
+    display: inline-block;
+    text-decoration: none;
+    background: url(../images/fileico.png) right 3px top 10px;
+    background-repeat: no-repeat;
+    font-size: 0px;
+	cursor: pointer;
+}
+.block-requisition-list .requisition-list-action .action.toggle:before{
+	display:none;
+}
+.requisition-list-action .action.toggle.active:after {	
+		font-size:0px;
+	}
+	.requisition-list-action > .action.toggle {
+		padding: 5px 7px;
+	}
+}
+//Order Template Cart Page End By Amit
+
 // Favorites Page Start By Amit
 .wishlist-index-index{
 	h2.WishlistTitle {
@@ -5792,6 +5856,9 @@ button#top-cart-btn-checkout:hover {
 		border-radius: 50px;
 		padding: 7px 4px 7px 9px;
 	}
+	.dIcons.myQuoto {
+		padding: 0 40px 0px 0px;
+	}
 	.qty-field-wrapper {
 		position: inherit;
 		border: solid 1px rgba(0, 0, 0, 0.08);
@@ -9696,6 +9763,13 @@ print {
 	}
 }
 // Favorites Page End By Amit
+//Order Template Cart Page Start By Amit
+.checkout-cart-index {
+	.cart-container .block-requisition-list {
+		margin: -39px 0px 0px 0px;
+	}
+}
+//Order Template Cart Page End By Amit
 
 }
 
