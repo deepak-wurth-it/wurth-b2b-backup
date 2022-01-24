@@ -41,12 +41,12 @@ class BlogListData extends \Magento\Framework\View\Element\Template
     public function getBlogCollection()
     {
         $page = ($this->getRequest()->getParam('p'))? $this->getRequest()->getParam('p') : 1;
-        $pageSize = ($this->getRequest()->getParam('limit'))? $this->getRequest()->getParam('limit') : 5;
+        $pageSize = ($this->getRequest()->getParam('limit'))? $this->getRequest()->getParam('limit') : 4;
 
         $blog = $this->_blog->create();
         $collection = $blog->getCollection();
         $collection->addFieldToFilter('status','1');
-        //$blog->setOrder('blog_id','ASC');
+        $collection->setOrder('blog_id','DESC');
         $collection->setPageSize($pageSize);
         $collection->setCurPage($page);
 
