@@ -91,7 +91,7 @@
                     <class name="dateRange">true</class>
                 </fieldClass>
             </settings>
-        </column>
+        </column> 
         <actionsColumn name="action" class="Magento\RequisitionList\Ui\Component\Listing\Column\Actions">
             <settings>
                 <label/>
