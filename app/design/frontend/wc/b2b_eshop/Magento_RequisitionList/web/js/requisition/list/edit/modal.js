@@ -19,14 +19,9 @@ define([
                 focus: '.requisition-popup .input-text:first',
                 buttons: [
                     {
-                        'class': 'action primary confirm',
-                        text: $.mage.__('Save'),
+                        'class': 'action primary confirm OrdSave',
+                        text: $.mage.__('Save the template'),
                         actions: ['actionDone']
-                    },
-                    {
-                        'class': 'action secondary cancel',
-                        text: $.mage.__('Cancel'),
-                        actions: ['actionCancel']
                     }
                 ],
                 keyEventHandlers: {
