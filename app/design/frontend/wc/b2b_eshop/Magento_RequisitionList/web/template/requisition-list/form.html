@@ -1,0 +1,36 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form method="post">
+    <input type="hidden" data-bind="value: value().product_data" name="product_data">
+    <fieldset class="fieldset">
+        <span class="textMsg" data-bind="i18n: 'You can also save the contents of the basket as an order template by specifying the name and confirming by clicking on Save template. You can use the order template when creating new orders.'"> </span>
+        <div class="field _required">
+            <label for="requisition-list-name" class="label requisition-label">
+                <span data-bind="i18n: 'Order Template'"></span>
+            </label>
+            <div class="control">
+                <input class="input-text maximum-length-40"
+                        name="name"
+                        id="requisition-list-name"
+                        data-bind="value: value().name"
+                        data-validate='{"required": true, "validate-length": true}'
+                        type="text">
+            </div>
+        </div>
+        <div class="field textarea">
+            <label for="requisition-list-description" class="label requisition-label">
+                <span data-bind="i18n: 'Description'"></span>
+            </label>
+            <div class="control">
+                <textarea name="description"
+                          maxlength="255"
+                          id="requisition-list-description"
+                          data-bind="value: value().description"></textarea>
+            </div>
+        </div>
+    </fieldset>
+</form>

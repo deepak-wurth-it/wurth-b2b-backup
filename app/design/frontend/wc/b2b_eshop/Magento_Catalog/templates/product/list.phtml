@@ -380,7 +380,6 @@ $product=false;
       <?php if($customerSession->isLoggedIn()) { ?> <div class="itemboxwraper <?= (($logedIn ?'logdIn top':'')); ?>"><span class="itembox <?= (($logedIn ?'logdIn top':'')); ?>"></span><span class="deliveryday <?= (($logedIn ?'logdIn top':'')); ?>">1</span> </div> <?php } ?>
     </span>
 </div>
-
     <span class="attrow loginprice <?= (($logedIn ?'logdIn':'')); ?>"><?php if($customerSession->isLoggedIn()) { ?> 2,421.56 - 25% = 1,816.17 HRK/COM <div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> </div> <?php } else { ?> Please log in to see prices. <?php } ?></span>
     <span class="attrow bluecol">
       <!-- <a href="http://m2.wc.b2b.com/test-product.html" class="carticon"></a> -->
@@ -404,13 +403,15 @@ $product=false;
                     title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
                     class="action tocart primary carticon"
                     disabled>
-                <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+               <!-- <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>-->
             </button>
         </form>
       </div>
       <?php endif;  ?>
     </span>
   </div>
+  
+  <div class="expendRow"></div>
   <div class="panel">
     <div class="row">
       <div class="col-sm-4">
@@ -510,10 +511,15 @@ $product=false;
                 }
             });
             
+   $(".itemAdd").click(function() {
+       $('html,body').animate({
+           scrollTop: $(".execution").offset().top},
+           'slow');
+   });
         });
         // ]]>
 
-   var acc = document.getElementsByClassName("accordion");
+   var acc = document.getElementsByClassName("expendRow");
    var i;   
    for (i = 0; i < acc.length; i++) {
      acc[i].addEventListener("click", function() {
@@ -527,11 +533,16 @@ $product=false;
      });
    }
    
-   jQuery(".itemAdd").click(function() {
-       jQuery('html,body').animate({
-           scrollTop: jQuery(".execution").offset().top},
-           'slow');
-   });
     </script>
+      <script type="text/x-magento-init">
+   {
+       "[data-role=tocart-form], .form.map.checkout": {
+           "catalogAddToCart": {
+               "product_sku": "<?= $escaper->escapeJs($product->getSku()) ?>"
+           }
+           
+       }
+   }
+</script>
 
 <?php } ?>

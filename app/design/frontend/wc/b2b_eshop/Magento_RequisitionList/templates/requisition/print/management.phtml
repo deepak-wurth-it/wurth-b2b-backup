@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Details
+ */
+?>
+<div class="block-requisition-management">
+    <div class="requisition-list-title">
+        <h1><?= $block->escapeHtml($block->getRequisitionList()->getName()) ?></h1>
+        <div class="requisition-list-description">
+            <?= $block->escapeHtml($block->getRequisitionList()->getDescription()) ?>
+        </div>
+    </div>
+
+    <?php if ($block->getItemCount()) : ?>
+        <div class="requisition-info">
+            <span class="counter qty">
+                <?= (int)$block->getItemCount() ?>
+                <?php if ($block->getItemCount() > 1) : ?>
+                    <?= $block->escapeHtml(__('items')) ?>
+                <?php else : ?>
+                    <?= $block->escapeHtml(__('item')) ?>
+                <?php endif ?>
+                <?= $block->escapeHtml(__('in requisition list')) ?>
+            </span>
+        </div>
+    <?php endif ?>
+</div>

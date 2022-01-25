@@ -1,0 +1,11 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="data-grid-cell-content">
+    <!-- ko foreach: $col.getLabels($row())  -->
+    <div data-bind="attr: {'class': $col.getLineClass(index)}" text="label" />
+    <!-- /ko -->
+</div>

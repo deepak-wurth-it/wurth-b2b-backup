@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/** @var $block Magento\RequisitionList\Block\Requisition\View\Details */
+?>
+<a class="action export"
+   href="<?= $block->escapeUrl($block->getViewModel()->getExportUrl()) ?>"
+   data-mobile-label="<?= $block->escapeHtmlAttr(__('Export')) ?>"
+>
+    <span><?= $block->escapeHtml(__('Export')) ?></span>
+</a>
