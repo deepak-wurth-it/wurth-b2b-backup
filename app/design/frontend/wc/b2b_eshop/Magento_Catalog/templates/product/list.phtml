@@ -88,7 +88,7 @@ $product=false;
                                     <p class="variation-box"><label><?php echo $productCount; ?>
                                             variations </label>
                                     </p>
-                                    <p class="variation-buttom"><a href="<?= $subcategory->getUrl() ?>"><label> Show variations</label></a></p>
+                                    <p class="variation-buttom"><label><a href="<?= $subcategory->getUrl() ?>"> <?php echo  __("Show variations"); ?> </a></label></p>
                                 <?php } ?>
                                 <?php if ($level > 3 && $productCount == 1) { ?>
                                     <p class="quantity-available">Quantity available immediately: 90</p>
