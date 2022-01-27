@@ -417,8 +417,7 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
 
             $customer = $this->accountManagement
                 ->createAccount($customer, $password, $redirectUrl);
-                echo $customer->getId();
-            exit;
+            $customer->getId();
             //Create company
             $company = $this->createCompany($request, $customer->getId());
             $companyId = $company->getId();

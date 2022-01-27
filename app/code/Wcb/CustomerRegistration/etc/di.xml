@@ -1,7 +1,9 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Company\Model\Company\DataProvider" type="Wcb\CustomerRegistration\Model\Company\DataProvider" />
-
+	<type name="\Magento\Customer\Controller\Account\LoginPost">
+        <plugin name="redirect_custom_url" type="Wcb\CustomerRegistration\Plugin\RedirectCustomUrl" sortOrder="1"/>
+    </type>
 	<type name="Magento\Company\Controller\Adminhtml\Index\Save">
 		<plugin name="Wcb_CustomerRegistration_Plugin_Magento_Company_Controller_Adminhtml_Index_Save" type="Wcb\CustomerRegistration\Plugin\Magento\Company\Controller\Adminhtml\Index\Save" sortOrder="10" disabled="false"/>
 	</type>
