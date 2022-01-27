@@ -39,7 +39,7 @@ $formData = $block->getFormData();
                 <span><?= $block->escapeHtml(__('Company OIB')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="company[vat_tax_id]" id="vat_tax_id" data-validate="{required:true}" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text validate-length validate-number minimum-length-11 maximum-length-11">
+                <input type="text" name="company[vat_tax_id]" id="vat_tax_id" data-validate="{required:true}" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text validate-length validate-number minimum-length-11 maximum-length-11 v-validate">
             </div>
         </div>
         <div class="field company-name _required">
@@ -47,7 +47,7 @@ $formData = $block->getFormData();
                 <span><?= $block->escapeHtml(__('Company Name')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="company[company_name]" id="company_name" title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>" class="input-text" data-validate="{required:true}" disabled='true'>
+                <input type="text" name="company[company_name]" id="company_name" title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>" class="input-text v-validate" data-validate="{required:true}" disabled='true'>
             </div>
         </div>
 
@@ -56,10 +56,7 @@ $formData = $block->getFormData();
                 <span><?= $block->escapeHtml(__('Customer Code')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="company[customer_code]" id="customer_code"
-                       value=""
-                       title="<?= $block->escapeHtmlAttr(__('Customer Code')) ?>"
-                       class="input-text validate-number" data-validate="{required:true}">
+                <input type="text" name="company[customer_code]" id="customer_code" value="" title="<?= $block->escapeHtmlAttr(__('Customer Code')) ?>" class="input-text validate-number v-validate" data-validate="{required:true}">
             </div>
         </div>
 
@@ -68,11 +65,7 @@ $formData = $block->getFormData();
                 <span><?= $block->escapeHtml(__('Confirm Customer Code')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="company[confirm_customer_code]" id="confirm_customer_code"
-                       value=""
-                       title="<?= $block->escapeHtmlAttr(__('Confirm Company Name')) ?>"
-                       class="input-text"
-                       data-validate="{required:true, equalTo:'#customer_code'}" disabled='true'>
+                <input type="text" name="company[confirm_customer_code]" id="confirm_customer_code" value="" title="<?= $block->escapeHtmlAttr(__('Confirm Company Name')) ?>" class="input-text v-validate" data-validate="{required:true, equalTo:'#customer_code'}" disabled='true'>
             </div>
         </div>
         <input type="hidden" name="success_url" value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>"/>
@@ -82,29 +75,21 @@ $formData = $block->getFormData();
         <div class="field field-name-firstname _required">
             <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
             <div class="control">
-                <input type="text" id="firstname" name="firstname" title="firstname" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
+                <input type="text" id="firstname" name="firstname" title="firstname" class="input-text v-validate" data-validate="{required:true}">
             </div>
         </div>
 
         <div class="field field-name-lastname _required">
             <label class="label" for="lastname"><span><?php echo __("Surname")?></span></label>
             <div class="control">
-                <input type="text" id="lastname" name="lastname" title="lastname" class="input-text validate-alphanum-with-spaces" data-validate="{required:true}">
+                <input type="text" id="lastname" name="lastname" title="lastname" class="input-text v-validate" data-validate="{required:true}">
             </div>
         </div>
 
 <div class="field password _required">
 <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
     <div class="control">
-        <input type="password" name="password" id="password"
-                title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
-                class="input-text"
-                data-password-min-length="<?=
-                $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
-                data-password-min-character-sets="<?=
-                $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
-                data-validate="{required:true, 'validate-customer-password':true}"
-                autocomplete="off">
+        <input type="password" name="password" id="password" title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>" class="input-text v-validate" data-password-min-length="<?= $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>" data-password-min-character-sets="<?= $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>" data-validate="{required:true, 'validate-customer-password':true}" autocomplete="off">
         <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
             <div id="password-strength-meter" class="password-strength-meter">
                 <?= $escaper->escapeHtml(__('Password Strength')) ?>:
@@ -121,49 +106,27 @@ $formData = $block->getFormData();
                 <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
             </label>
             <div class="control">
-                <input type="password"
-                       name="password_confirmation"
-                       title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>"
-                       id="password-confirmation"
-                       class="input-text"
-                       data-validate="{required:true, equalTo:'#password'}"
-                       autocomplete="off">
+                <input type="password" name="password_confirmation" title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>" id="password-confirmation" class="input-text v-validate" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
             </div>
         </div>
 <div class="field _required">
             <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
             <div class="control">
-                <input type="email"
-                       name="email"
-                       autocomplete="email"
-                       id="email_address"
-                       value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>"
-                       title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
-                       class="input-text"
-                       data-mage-init='{"mage/trim-input":{}}'
-                       data-validate="{required:true, 'validate-email':true}">
+                <input type="email" name="email" autocomplete="email" id="email_address" value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>" title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>" class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true}">
             </div>
         </div>
 
         <div class="field _required">
             <label for="confirm_email_address" class="label"><span><?= $escaper->escapeHtml(__('Confirm Email')) ?></span></label>
             <div class="control">
-                <input type="email"
-                       name="confirm_email"
-                       autocomplete="email"
-                       id="confirm_email_address"
-                       value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>"
-                       title="<?= $escaper->escapeHtmlAttr(__('Confirm Email')) ?>"
-                       class="input-text"
-                       data-mage-init='{"mage/trim-input":{}}'
-                       data-validate="{required:true, 'validate-email':true,equalTo:'#email_address'}">
+                <input type="email" name="confirm_email" autocomplete="email" id="confirm_email_address" value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>" title="<?= $escaper->escapeHtmlAttr(__('Confirm Email')) ?>" class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true,equalTo:'#email_address'}">
             </div>
         </div>
         
         <div class="field name _required">
             <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
             <div class="control">
-                <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-number"
+                <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-number v-validate"
                         type="text" data-validate="{required:true}">
             </div>
         </div>
@@ -172,13 +135,7 @@ $formData = $block->getFormData();
                 <span><?= $escaper->escapeHtml(__('Position in the Company')) ?></span>
             </label>
             <div class="control">
-                <input type="text"
-                       name="position"
-                       title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>"
-                       id="position"
-                       class="input-text validate-alphanum-with-spaces"
-                       data-validate="{required:true}"
-                       autocomplete="off">
+                <input type="text" name="position" title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>" id="position" class="input-text v-validate" data-validate="{required:true}" autocomplete="off">
             </div>
         </div>
         <div id="div-for-captcha" class="div-for-captcha">
@@ -371,6 +328,7 @@ $ajaxurl = $block->getUrl('excustomer/account/checkcompany');
                 "Wcb_CustomerRegistration/js/companyoib": {
                     "AjaxUrl": "<?php echo $ajaxurl; ?>"
                 }
-            }
+            },
+            ".v-validate": { "Wcb_CustomerRegistration/js/wuerth_reg": {} } 
         }
 </script>

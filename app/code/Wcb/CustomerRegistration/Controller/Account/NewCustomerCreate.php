@@ -113,7 +113,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
             }
 
         } else {
-            $this->messageManager->addError(__('Customer is already exist!'));
+            $this->messageManager->addError(__('This User already exists. Please try to reset your PW and PW Link or contact your Sales Rep.'));
         }
     }
 
