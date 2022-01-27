@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Promo::css/banner.css"/>
+    </head>
+    <body>
+        <referenceBlock name="amasty.banners.lite.top">
+            <block class="Amasty\Promo\Block\Banner" as="after_banners" template="banner.phtml" >
+                <action method="setPosition">
+                    <argument name="position" xsi:type="string">top</argument>
+                </action>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="amasty.banners.lite.after_description">
+            <block class="Amasty\Promo\Block\Banner" as="after_banners" template="banner.phtml" >
+                <action method="setPosition">
+                    <argument name="position" xsi:type="string">after_product</argument>
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,59 @@
+<?php
+/**
+ * @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox
+ * @var $escaper Magento\Framework\Escaper
+ */
+$option = $block->getOption();
+$selections = $option->getSelections();
+$dataValidation = 'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option['
+    . $escaper->escapeHtmlAttr($option->getId()) . ']&quot;]:checked\'}"';
+?>
+<div class="field option <?= /* @noEscape */ ($option->getRequired()) ? ' required': '' ?>">
+    <label class="label">
+        <span><?= $escaper->escapeHtml($option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <div class="nested options-list">
+            <?php if ($block->showSingle()): ?>
+                <span class="product-name">
+                    <?= /* @noEscape */ $selections[0]->getSelectionQty() * 1
+                    . ' x ' . $escaper->escapeHtml($selections[0]->getName()) ?>
+                </span>
+                <input type="hidden"
+                       class="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>  product bundle option"
+                       name="bundle_option[<?= $escaper->escapeHtml($option->getId()) ?>]"
+                       value="<?= $escaper->escapeHtmlAttr($selections[0]->getSelectionId()) ?>"/>
+            <?php else: ?>
+                <?php foreach ($selections as $selection): ?>
+                    <?php $selectionOptionId = $escaper->escapeHtmlAttr($option->getId())
+                        . '-'
+                        . $escaper->escapeHtmlAttr($selection->getSelectionId()); ?>
+                    <div class="field choice">
+                        <input class="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>
+                         checkbox product bundle option change-container-classname"
+                               id="bundle-option-<?= /* @noEscape */ $selectionOptionId ?>"
+                               type="checkbox"
+                            <?= /* @noEscape */ $option->getRequired() ? $dataValidation : ''?>
+                               name="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>][<?= $escaper->escapeHtmlAttr($selection->getId()) ?>]"
+                               data-selector="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>][<?= $escaper->escapeHtmlAttr($selection->getId()) ?>]"
+                            <?= $block->isSelected($selection) ? ' checked="checked"' : '' ?>
+                            <?= !$selection->isSaleable() ? ' disabled="disabled"' : '' ?>
+                               value="<?= $escaper->escapeHtmlAttr($selection->getSelectionId()) ?>"/>
+                        <label class="label"
+                               for="bundle-option-<?= /* @noEscape */ $selectionOptionId ?>">
+                            <span>
+                                <span class="product-name">
+                                    <?= /* @noEscape */ $selection->getSelectionQty() * 1
+                                    . ' x ' . $escaper->escapeHtml($selection->getName()) ?>
+                                </span>
+                            </span>
+                            <br/>
+                            <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($selection) ?>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+                <div id="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>-container"></div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

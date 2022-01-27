@@ -1,0 +1,8 @@
+<?php /** @var \Amasty\BannersLite\Block\Banner $block */?>
+<?php foreach ($block->getBanners() as $banner) : ?>
+    <?php if ($block->isEnableBannerPosition() && $img = $block->getImage($banner)) : ?>
+        <img class="am-banners-lite-label"
+             alt="<?= $block->escapeHtml($block->getAlt($banner)) ?>"
+             src="<?= $block->escapeUrl($img) ?>">
+    <?php endif;?>
+<?php endforeach; ?>

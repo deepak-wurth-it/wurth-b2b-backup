@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\SalesRule\Api\Data\RuleInterface">
+        <attribute code="promo_banners_lite" type="Amasty\BannersLite\Api\Data\BannerInterface[]"/>
+        <attribute code="banner_product_sku" type="string"/>
+        <attribute code="banner_product_categories" type="string"/>
+        <attribute code="show_banner_for" type="int"/>
+    </extension_attributes>
+</config>

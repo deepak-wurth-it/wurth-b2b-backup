@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_BannersLite::css/style.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block ifconfig="amasty_banners_lite/general/enable_top_banner" before="-" class="Amasty\BannersLite\Block\Banner" name="amasty.banners.lite.top" template="banner.phtml" >
+                <action method="setPosition">
+                    <argument name="position" xsi:type="string">0</argument>
+                </action>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="product.info.extrahint">
+            <block ifconfig="amasty_banners_lite/general/enable_after_banner" after="product.info.social" class="Amasty\BannersLite\Block\Banner" name="amasty.banners.lite.after_description" template="banner.phtml" >
+                <action method="setPosition">
+                    <argument name="position" xsi:type="string">1</argument>
+                </action>
+            </block>
+        </referenceBlock>
+
+        <referenceContainer name="product.info.media">
+            <block before="-" class="Amasty\BannersLite\Block\Banner" name="amasty.banners.lite.label" template="label.phtml">
+                <action method="setPosition">
+                    <argument name="position" xsi:type="string">2</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

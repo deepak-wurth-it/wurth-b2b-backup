@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <block name="ampromo.items" class="Amasty\Promo\Block\Items" after="-" template="Amasty_Promo::items.phtml">
+            <block class="Magento\Catalog\Block\Product\View\Options" name="ampromo.options.prototype" as="options_prototype" template="Magento_Catalog::product/view/options.phtml">
+                <block class="Magento\Catalog\Block\Product\View\Options\Type\DefaultType" as="default" template="Magento_Catalog::product/view/options/type/default.phtml"/>
+                <block class="Magento\Catalog\Block\Product\View\Options\Type\Text" as="text" template="Magento_Catalog::product/view/options/type/text.phtml"/>
+                <block class="Magento\Catalog\Block\Product\View\Options\Type\File" as="file" template="Magento_Catalog::product/view/options/type/file.phtml"/>
+                <block class="Magento\Catalog\Block\Product\View\Options\Type\Select" as="select" template="Magento_Catalog::product/view/options/type/select.phtml"/>
+                <block class="Magento\Catalog\Block\Product\View\Options\Type\Date" as="date" template="Magento_Catalog::product/view/options/type/date.phtml"/>
+            </block>
+
+<!--fix popup with custom options-->
+            <block class="Magento\Framework\Pricing\Render" name="product.price.render.default">
+                <arguments>
+                    <argument name="price_render_handle" xsi:type="string">catalog_product_prices</argument>
+                    <argument name="use_link_for_as_low_as" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="ampromo.configurable.prototype" as="configurable_prototype" template="Amasty_Promo::product/view/type/options/configurable.phtml"/>
+            <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="ampromo.bundle.prototype" as="bundle_prototype" template="Amasty_Promo::product/view/type/options/bundle.phtml" >
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Amasty\Promo\ViewModel\Product\View\Type\Bundle</argument>
+                </arguments>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select">
+                    <arguments>
+                        <argument name="tier_price_renderer" xsi:type="object">Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+                    </arguments>
+                    <action method="setTemplate">
+                        <argument name="template" xsi:type="string">Amasty_Promo::product/view/type/bundle/option/select.phtml</argument>
+                    </action>
+                </block>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi">
+                    <action method="setTemplate">
+                        <argument name="template" xsi:type="string">Amasty_Promo::product/view/type/bundle/option/multi.phtml</argument>
+                    </action>
+                </block>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" name="product.info.bundle.options.radio" as="radio">
+                    <arguments>
+                        <argument name="tier_price_renderer" xsi:type="object">Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+                    </arguments>
+                    <action method="setTemplate">
+                        <argument name="template" xsi:type="string">Amasty_Promo::product/view/type/bundle/option/radio.phtml</argument>
+                    </action>
+                </block>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox">
+                    <arguments>
+                        <argument name="tier_price_renderer" xsi:type="object">Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+                    </arguments>
+                    <action method="setTemplate">
+                        <argument name="template" xsi:type="string">Amasty_Promo::product/view/type/bundle/option/checkbox.phtml</argument>
+                    </action>
+                </block>
+            </block>
+            <block class="Magento\Downloadable\Block\Catalog\Product\Links" name="ampromo.downloadable.prototype" as="downloadable_prototype" template="Amasty_Promo::catalog/product/links.phtml" />
+            <block class="Magento\Framework\Pricing\Render\RendererPool" name="render.product.prices">
+                <arguments>
+                    <argument name="giftcard" xsi:type="array">
+                        <item name="prices" xsi:type="array">
+                            <item name="final_price" xsi:type="array">
+                                <item name="render_class" xsi:type="string">Magento\GiftCard\Pricing\Render\FinalPriceBox</item>
+                                <item name="render_template" xsi:type="string">Amasty_Promo::product/price/final_price.phtml</item>
+                                <item name="render_block" xsi:type="string">Magento\Catalog\Pricing\Render</item>
+                                <item name="price_render_handle" xsi:type="string">catalog_product_prices</item>
+                                <item name="type" xsi:type="string">Magento\Catalog\Pricing\Render</item>
+                                <item name="price_render" xsi:type="string">product.price.render.default</item>
+                                <item name="zone" xsi:type="string">item_view</item>
+                                <item name="display_msrp_help_message" xsi:type="string">1</item>
+                                <item name="render_form" xsi:type="string">1</item>
+                                <item name="css_classes" xsi:type="string">price-final_price</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </block>
+    </body>
+</page>

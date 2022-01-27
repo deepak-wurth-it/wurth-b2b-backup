@@ -101,8 +101,7 @@
       </button> -->
       <?php endif ?>
       <div class="cart-act-icon">
-         <span class="dIcons"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/editico.png'); ?>" /></span>
-         <span class="dIcons"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/fileico.png'); ?>" /></span>
+         <span class="dIcons myQuoto"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/editico.png'); ?>" /></span>
          <span class="dIcons"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/delico.png'); ?>" /></span>
       </div>
      <!-- <button type="submit"
@@ -112,10 +111,15 @@
          title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
          class="action update">
       <span><?= $block->escapeHtml(__('Update Shopping Cart')) ?></span>
-      </button>-->
+      </button>--> 
       <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
    </div>
 </form>
 <?= $block->getChildHtml('checkout.cart.order.actions') ?>
 <?= $block->getChildHtml('shopping.cart.table.after') ?>
 
+<script type="text/javascript">
+require(['jquery'], function($) {
+  $(".block .block-requisition-list").prependTo(".cart-act-icon");  
+});
+ </script> 

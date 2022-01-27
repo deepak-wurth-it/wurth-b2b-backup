@@ -1,0 +1,22 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+?>
+<?php
+/** @var \Amasty\Base\Block\Adminhtml\System\Config\InformationBlocks\UserGuide $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php if ($guideLink = $block->getUserGuideLink()): ?>
+<div class="amasty-user-guide">
+    <span class="message success">
+        <?= $escaper->escapeHtml(__('Need help with the settings? Please  consult the')) ?>
+        <a target="_blank" href="<?= $escaper->escapeUrl($guideLink) ?>">
+            <?= $escaper->escapeHtml(__('user guide')) ?>
+        </a>
+        <?= $escaper->escapeHtml(__('to configure the extension properly.')) ?>
+    </span>
+</div>
+<?php endif; ?>

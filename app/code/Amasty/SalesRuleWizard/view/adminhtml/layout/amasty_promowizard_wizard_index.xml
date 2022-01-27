@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_SalesRuleWizard::css/wizard.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Ui\Block\Component\StepsWizard" name="promo-steps-wizard" template="Amasty_SalesRuleWizard::stepswizard.phtml">
+                <arguments>
+                    <argument name="config" xsi:type="array">
+                        <item name="hideCancel" xsi:type="boolean">true</item>
+                    </argument>
+                </arguments>
+                <block class="Amasty\SalesRuleWizard\Block\Adminhtml\Steps\Initial" name="step1" template="Amasty_SalesRuleWizard::steps/initial.phtml">
+                </block>
+                <block class="Amasty\SalesRuleWizard\Block\Adminhtml\Steps\RuleSettings" name="step2" template="Amasty_SalesRuleWizard::steps/rule_settings.phtml">
+                    <arguments>
+                        <argument name="config" xsi:type="array">
+                            <item name="formName" xsi:type="string">amasty_promowizard_rule_settings.amasty_promowizard_rule_settings</item>
+                        </argument>
+                    </arguments>
+                    <uiComponent name="amasty_promowizard_rule_settings"/>
+                </block>
+                <block class="Amasty\SalesRuleWizard\Block\Adminhtml\Steps\ApplySettings" name="step3" template="Amasty_SalesRuleWizard::steps/apply_settings.phtml">
+                    <arguments>
+                        <argument name="config" xsi:type="array">
+                            <item name="formName" xsi:type="string">amasty_promowizard_apply_settings.amasty_promowizard_apply_settings</item>
+                        </argument>
+                    </arguments>
+                    <uiComponent name="amasty_promowizard_apply_settings"/>
+                </block>
+                <block class="Amasty\SalesRuleWizard\Block\Adminhtml\Steps\Summary" name="step4" template="Amasty_SalesRuleWizard::steps/summary.phtml">
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

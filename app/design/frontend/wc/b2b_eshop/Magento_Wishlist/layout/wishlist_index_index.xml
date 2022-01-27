@@ -7,7 +7,8 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="customer_account"/>
-    <body>     
+    <body>
+    <referenceBlock name="page.main.title" display="false"/>     
         <referenceBlock name="head.components">
             <block class="Magento\Framework\View\Element\Js\Components" name="wishlist_head_components" template="Magento_Wishlist::js/components.phtml"/>
         </referenceBlock>
@@ -48,7 +49,7 @@
                                 <argument name="title" translate="true" xsi:type="string">Add to Cart</argument>
                             </arguments>
                         </block>
-
+                         
                         <block class="Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Actions" name="customer.wishlist.item.actions" template="Magento_Wishlist::item/column/actions.phtml" cacheable="false">
                             <arguments>
                                 <argument name="css_class" xsi:type="string">product-item-actions</argument>

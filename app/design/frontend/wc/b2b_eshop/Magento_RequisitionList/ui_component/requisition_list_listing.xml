@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">requisition_list_listing.requisition_list_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>requisition_list_listing_columns</spinner>
+        <deps>
+            <dep>requisition_list_listing.requisition_list_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="requisition_list_listing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <updateUrl path="requisition_list/ui/render"/>
+        </settings>
+        <dataProvider class="Magento\RequisitionList\Ui\DataProvider\DataProvider" name="requisition_list_listing_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <columns name="requisition_list_listing_columns" component="uiB2bListing">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="table_css_class" xsi:type="string">table ReqListTable</item>
+            </item>
+        </argument>
+        <settings>
+            <childDefaults>
+                <param name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">requisition_list_listing.requisition_list_listing.listing_top.bookmarks</item>
+                    <item name="root" xsi:type="string">columns.${ $.index }</item>
+                    <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                </param>
+            </childDefaults>
+            <storageConfig>
+                <namespace>current</namespace>
+                <provider>requisition_list_listing.requisition_list_listing.listing_top.bookmarks</provider>
+            </storageConfig>
+        </settings>
+        <column name="name" component="Magento_RequisitionList/js/grid/columns/text_multiline">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataFields" xsi:type="array">
+                        <item name="0" xsi:type="string">name</item>
+                        <item name="1" xsi:type="string">description</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Name</label>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+                <fieldClass>
+                    <class name="list-name-field">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="items" class="Magento\RequisitionList\Ui\Component\Listing\Column\ItemsCount">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Items</label>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+                <fieldClass>
+                    <class name="number-field">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dateFormat>L</dateFormat>
+                <dataType>date</dataType>
+                <label translate="true">Date</label>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+                <fieldClass>
+                    <class name="dateRange">true</class>
+                </fieldClass>
+            </settings>
+        </column> 
+        <actionsColumn name="action" class="Magento\RequisitionList\Ui\Component\Listing\Column\Actions">
+            <settings>
+                <label/>
+                <fieldClass>
+                    <class name="actions-field">true</class>
+                </fieldClass>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+    <container name="listing_top">
+        <paging name="listing_paging" component="uiB2bPaging">
+            <settings>
+                <selectProvider>requisition_list_listing.requisition_list_listing.requisition_list_listing_columns.ids</selectProvider>
+                <storageConfig>
+                    <namespace>current.paging</namespace>
+                    <provider>requisition_list_listing.requisition_list_listing.listing_top.bookmarks</provider>
+                </storageConfig>
+            </settings>
+        </paging>
+    </container>
+</listing>

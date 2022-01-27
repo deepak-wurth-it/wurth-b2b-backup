@@ -1,0 +1,85 @@
+<?php
+/**
+ * @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio
+ * @var $escaper Magento\Framework\Escaper
+ */
+$option = $block->getOption();
+$selections = $option->getSelections();
+$default = $option->getDefaultSelection();
+list($defaultQty, $canChangeQty) = $block->getDefaultValues();
+$qty = $defaultQty ?? 1;
+?>
+
+<div class="field option <?= /* @noEscape */ ($option->getRequired()) ? ' required': '' ?>">
+    <label class="label">
+        <span><?= $escaper->escapeHtml($option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <div class="nested options-list">
+            <?php if ($block->showSingle()): ?>
+                <span class="product-name"> <?= $escaper->escapeHtml($selections[0]->getName()) ?></span>
+                <input type="hidden"
+                    class="bundle-option-<?= (int)$option->getId() ?>  product bundle option"
+                    name="bundle_option[<?= (int)$option->getId() ?>]"
+                    value="<?= (int)$selections[0]->getSelectionId() ?>"
+                    id="bundle-option-<?= /* @noEscape */ (int)$option->getId() ?>-<?= (int)$selections[0]->getSelectionId() ?>"
+                    checked="checked"
+                />
+            <?php else: ?>
+                <?php if (!$option->getRequired()): ?>
+                    <div class="field choice">
+                        <input type="radio"
+                               class="radio product bundle option"
+                               id="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>"
+                               name="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                               data-selector="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                               <?= ($default && $default->isSalable())?'':' checked="checked" ' ?>
+                               value=""/>
+                        <label class="label" for="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>">
+                            <span><?= $escaper->escapeHtml(__('None')) ?></span>
+                        </label>
+                    </div>
+                <?php endif; ?>
+                <?php foreach ($selections as $selection): ?>
+                    <?php $selectionOptionId = $escaper->escapeHtmlAttr($option->getId())
+                        . '-'
+                        . $escaper->escapeHtmlAttr($selection->getSelectionId()); ?>
+                    <div class="field choice">
+                        <input type="radio"
+                               class="radio product bundle option change-container-classname"
+                               id="bundle-option-<?= /* @noEscape */ $selectionOptionId ?>"
+                               <?= /* @noEscape */ $option->getRequired()
+                                   ? 'data-validate="{\'validate-one-required-by-name\':true}"' : ''?>
+                               name="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                               data-selector="bundle_option[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                               data-option-id="<?= $escaper->escapeHtmlAttr($option->getId()) ?>"
+                               data-default-qty="<?= $escaper->escapeHtmlAttr($selection->getSelectionQty()) ?>"
+                               <?= /* @noEscape */ $block->isSelected($selection) ? ' checked="checked"' : '' ?>
+                               <?= /* @noEscape */ !$selection->isSaleable() ? ' disabled="disabled"' : '' ?>
+                               value="<?= $escaper->escapeHtmlAttr($selection->getSelectionId()) ?>"/>
+                        <label class="label"
+                               for="bundle-option-<?= /* @noEscape */ $selectionOptionId ?>">
+                            <span>
+                                <span class="product-name"> <?= $escaper->escapeHtml($selection->getName())  ?></span>
+                            </span>
+                            <br/>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+                <div id="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>-container"></div>
+            <?php endif; ?>
+            <div class="field qty qty-holder">
+                <div class="control">
+                    <input id="bundle-option-<?= $escaper->escapeHtmlAttr($option->getId()) ?>-qty-input"
+                           class="input-text
+                           qty <?= !$canChangeQty ? 'qty-disabled' : '' ?>
+                           qty-option-<?= /* @noEscape */ $escaper->escapeHtmlAttr($option->getId()) ?>"
+                           type="hidden"
+                           name="bundle_option_qty[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                           data-selector="bundle_option_qty[<?= $escaper->escapeHtmlAttr($option->getId()) ?>]"
+                           value="<?= $escaper->escapeHtmlAttr($qty) ?>"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

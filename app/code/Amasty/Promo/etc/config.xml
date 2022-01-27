@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ampromo>
+            <general>
+                <auto_add>1</auto_add>
+                <discount_include>0</discount_include>
+                <tax_include>0</tax_include>
+            </general>
+            <messages>
+                <gift_representation_mode>0</gift_representation_mode>
+                <cart_message>FREE!</cart_message>
+                <prefix>FREE - </prefix>
+                <add_message><![CDATA[Select your <a href="#" data-role="ampromo-popup-show">FREE GIFT</a>!]]></add_message>
+                <display_error_messages>1</display_error_messages>
+                <display_success_messages>1</display_success_messages>
+                <display_notification>0</display_notification>
+                <notification_text><![CDATA[You did not add any gift products to the cart. <a href="{url checkout/cart}#choose-gift">Check your available gifts!</a>]]></notification_text>
+            </messages>
+            <limitations>
+                <skip_special_price>0</skip_special_price>
+                <skip_special_price_configurable>0</skip_special_price_configurable>
+            </limitations>
+            <gift_images>
+                <gift_image_width>50</gift_image_width>
+                <gift_image_height>50</gift_image_height>
+                <attribute_header>name</attribute_header>
+                <attribute_description>description</attribute_description>
+            </gift_images>
+        </ampromo>
+    </default>
+</config>

@@ -1,0 +1,63 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Amasty\SalesRuleWizard\Block\Adminhtml\Steps\Initial */
+?>
+<div class="<?= /* @noEscape */ $block->getData('config/dataScope') ?>"  data-bind="scope: '<?= /* @noEscape */  $block->getComponentName()?>'" data-role="select-init-step">
+    <h2 class="steps-wizard-title"><?php echo $block->escapeHtml(
+            __('Step 1: Choose Scenario')
+        ); ?></h2>
+    <div class="steps-wizard-section">
+        <ul class="steps-wizard-section-list">
+            <!-- ko foreach: {data: scenarios, as: 'scenario'} -->
+            <li>
+                <div class="admin__field admin__field-option">
+                    <input type="radio"
+                           class="admin__control-radio"
+                           data-bind="
+    attr: {
+        id: scenario.value + '_radio',
+        value: scenario.value
+    },
+    checked: $parent.selectedScenario">
+                    <label data-bind="attr:{for: scenario.value + '_radio'}" class="admin__field-label">
+                        <span data-bind="text:scenario.label">
+                    </label>
+                </div>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= /* @noEscape */  $block->getComponentName()?>": {
+                        "component": "Amasty_SalesRuleWizard/js/steps/initial",
+                        "selectedType": "<?= /* @noEscape */  $block->getSelectedType()?>",
+                        "selectedScenario": "<?= /* @noEscape */  $block->getSelectedScenario()?>",
+                        "scenariosMap": <?= /* @noEscape */  $block->getRuleScenariosJson()?>
+                    }
+                }
+            }
+        }
+    }
+</script>
+<script>
+    <?php //do NOT delete prototype, it is for this.stepsNames.first() in wizard.open() ?>
+    require(['jquery', 'uiRegistry', 'underscore', 'Magento_Ui/js/lib/spinner', 'prototype'], function ($, registry, _, Spinner) {
+        registry.async([<?= /* @noEscape */ $block->getAllComponentsNames()?>])(function (wizard) {
+            var steps = _.rest(arguments);
+            _.each(steps, function (stepComponent) {
+                // register steps
+                wizard.initElement(stepComponent);
+            });
+            wizard.open();
+            Spinner.get('<?= $block->getParentComponentName() ?>').hide();
+        });
+    });
+</script>

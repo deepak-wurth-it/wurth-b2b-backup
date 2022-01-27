@@ -1,0 +1,19 @@
+<div class="admin__field admin__field-option">
+<!-- ko foreach: {data: options, as: 'option'} -->
+    <div>
+        <input type="radio"
+               class="admin__control-radio"
+               data-bind="
+    attr: {
+        id: $parent.uid + option.value,
+        value: option.value,
+        name: $parent.inputName,
+        'data-index': $parent.index
+    },
+    checked: $parent.value ">
+        <label data-bind="attr:{for: $parent.uid + option.value}" class="admin__field-label">
+            <span text="option.label"/>
+        </label>
+    </div>
+    <!-- /ko -->
+</div>
