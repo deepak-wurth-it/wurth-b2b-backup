@@ -1102,6 +1102,10 @@ select:not([disabled]):focus {
 	min-width: 160px;
 	cursor: pointer;
 	appearance: none;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    font-family: 'wuerthbook';
 }
 
 .sorter-options:after {}
@@ -2841,6 +2845,12 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	padding: 10px 20px;
 	font-size: 1.6rem;
 	margin-bottom: 20px;
+	margin-top: 20px;
+}
+.view-price {
+    font-family: 'wuerthbook';
+    font-size: 16px;
+    color: #000000;
 }
 
 .variation-buttom {
@@ -2855,6 +2865,45 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	margin-bottom: 20px;
 	min-height: 45px;
 	display: inline-block;
+}
+.productListingwrapper{
+	
+	.block.block-requisition-list.social-button {
+		display: none;
+	}
+	.wishlist.split.button .action.toggle{
+		display: none;	
+	}
+	.product-item-inner.notLog {
+		 margin-top: 0px;
+	}
+	.box-tocart {
+		margin-top: 10px;
+	}
+	.product-item-inner.logdIn {
+		margin-top: 95px;
+	}
+	
+}
+.product-items .wishlist.split.button > .action.split:before {
+	content: '';
+}
+.product-items .wishlist.split.button > .action.split{
+	background: url(../images/compare-wishlist.svg);
+	background-position: -32px -2px;
+	width: 34px;
+    height: 34px;
+    border-radius: 50%;
+	float: right;
+}
+.product-items .wishlist.split.button > .action.split:hover{
+	background: url(../images/compare-wishlist.svg);
+	background-position: -32px -32px;
+	
+	float: right;
+}
+.wishlist.split.button {
+    float: right;
 }
 
 .product-info-main .price-box .price-wrapper .price,
@@ -3656,7 +3705,6 @@ body {
 
 .PlpItemName {
 	color: @general_product_name_color;
-	margin: 0 0 20px 0;
 	font-family: 'wuerthbold';
 	text-align: left;
 	&:hover {
@@ -9816,7 +9864,7 @@ print {
 	button.action.primary.confirm.OrdSave {
 		float: left;
 		margin: -15px 0px 0px 0;
-		width: 55%;
+		width: auto;
 	}
 	.modal-popup .modal-content, .modal-popup .modal-footer {
 		padding-left: 20px;
