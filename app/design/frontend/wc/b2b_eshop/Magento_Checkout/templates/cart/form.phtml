@@ -100,8 +100,7 @@
       <span><?= $block->escapeHtml(__('Clear Shopping Cart')) ?></span>
       </button> -->
       <?php endif ?>
-      <div class="cart-act-icon">
-         <span class="dIcons myQuoto"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/editico.png'); ?>" /></span>
+      <div class="cart-act-icon">         
          <span class="dIcons"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/delico.png'); ?>" /></span>
       </div>
      <!-- <button type="submit"
@@ -121,5 +120,6 @@
 <script type="text/javascript">
 require(['jquery'], function($) {
   $(".block .block-requisition-list").prependTo(".cart-act-icon");  
+  $("#negotiable-quote-form").prependTo(".cart-act-icon"); 
 });
  </script> 

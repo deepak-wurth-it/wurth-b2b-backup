@@ -90,7 +90,7 @@ define([
 
             // init button for previous page
             if (this.options.prevPageNum) {
-                this.prevBtn = this._createButton(this.options.loadPrevText, this.options.prevPageNum, 'insertBefore');
+               //by amit this.prevBtn = this._createButton(this.options.loadPrevText, this.options.prevPageNum, 'insertBefore');
             }
         },
 
@@ -124,7 +124,7 @@ define([
             }
 
             if (this.options.prevPageNum) {
-                this.prevBtn = this._createButton(this.options.loadPrevText, this.options.prevPageNum, 'insertBefore');
+              // by amit  this.prevBtn = this._createButton(this.options.loadPrevText, this.options.prevPageNum, 'insertBefore');
             }
         },
 

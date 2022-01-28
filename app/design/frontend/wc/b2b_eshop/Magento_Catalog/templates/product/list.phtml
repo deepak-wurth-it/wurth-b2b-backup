@@ -45,6 +45,11 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VI
 $pos = $block->getPositioned();
 $product=false;
 ?>
+ <?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+    $logedIn = $customerSession->isLoggedIn();
+  ?>
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
 <?php if( $level != 5 ) { ?>
@@ -79,12 +84,16 @@ $product=false;
                                        href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
                                 </strong>
                                 <?php if ($level > 3 && $productCount > 1) { ?>
+                                  <?php if($customerSession->isLoggedIn()) { ?>
                                     <p class="price-box">
                                         <label>
                                             <span class="startFrom">Start from </span></span><span class="price">1,816.17 HRK</span>
                                     </p>
-                                    <p class="view-stock"><a href="#" class="view-stock">Please select single product to
-                                            view stock</a></p>
+                                    <p class="view-stock"><a href="#" class="view-stock"><?php echo __("Please select single product to
+                                            view stock"); ?> </a></p>
+                                     <?php } else { ?> 
+                                      <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
+                                      <?php } ?>    
                                     <p class="variation-box"><label><?php echo $productCount; ?>
                                             variations </label>
                                     </p>
@@ -154,11 +163,14 @@ $product=false;
                                             <?php echo $product->getName(); ?>
                                         </a>
                                     </strong>
+                                    <?php if($customerSession->isLoggedIn()) { ?>
                                     <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
                                     <span class="price" id="price_<?php echo $ProductCode; ?>"> </span>
                                     <span class="stock" id="stock_<?php echo $ProductCode; ?>"> </span>
-
-                                    <div class="product-item-inner">
+                                      <?php } else { ?>
+                                        <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
+                                        <?php } ?>
+                                    <div class="product-item-inner <?= (($logedIn ?'logdIn':'notLog')); ?>">
                                         <div class="product actions product-item-actions">
                                             <div class="actions-primary">
                                                 <?php if ($_product->isSaleable()):?>
@@ -271,24 +283,21 @@ $product=false;
             'jquery'
         ], function ($) {
             $('.quantity-plus').click(function () {
-                // $('.qty-default').val(Number($('.qty-default').val()) + 1);
                 var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
                 currentQTY = currentQTY + 1;
                 $(this).parent().parent().find(".qty-default").val(currentQTY);
             });
 
             $('.quantity-minus').click(function () {
-                // var value = Number($('.qty-default').val()) - 1;
                 var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
                 currentQTY = currentQTY - 1;
                 if (currentQTY > 0) {
                     $(this).parent().parent().find(".qty-default").val(currentQTY);
                 }
             });
-
-            
         });
     </script>
+   
 <?php } ?>
 
 <?php if($level == 5 ){ ?>

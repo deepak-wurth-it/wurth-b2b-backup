@@ -1102,6 +1102,10 @@ select:not([disabled]):focus {
 	min-width: 160px;
 	cursor: pointer;
 	appearance: none;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    font-family: 'wuerthbook';
 }
 
 .sorter-options:after {}
@@ -1682,7 +1686,12 @@ table.ReqListTable
 }
 
 //Order Template End By Amit
-
+// Remove breadcrumb last arrow from 1st level category
+.wcbcatalog-catalog-index{
+	.breadcrumbs .item:nth-child(2):after{
+		display:none;
+	}
+}
 //Order Template Cart Page Start By Amit
 .checkout-cart-index {
 	.textMsg {
@@ -1744,9 +1753,28 @@ table.ReqListTable
 	button.action.primary.confirm.OrdSave {
 		float: right;
 		margin: -70px 178px 0px 0px;
+	} 
+	//Order Template Cart Page End By Amit
+	// My Quote Icon css 
+	.cart-act-icon {
+		display: flex;
+		float: right;
+		align-items: center;
 	}
-}
-//Order Template Cart Page End By Amit
+	form#negotiable-quote-form {
+		margin: 0px 37px 0 0px;
+		border: none;
+	}
+	button.qutoButton.action {
+		height: 20px;
+		border: none;
+		text-decoration: none;
+		background: url(../images/editicon.png) right 6px top 3px;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	}
+} 
+	
 
 // Favorites Page Start By Amit
 .wishlist-index-index{
@@ -2841,6 +2869,12 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	padding: 10px 20px;
 	font-size: 1.6rem;
 	margin-bottom: 20px;
+	margin-top: 20px;
+}
+.view-price {
+    font-family: 'wuerthbook';
+    font-size: 16px;
+    color: #000000;
 }
 
 .variation-buttom {
@@ -2855,6 +2889,45 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	margin-bottom: 20px;
 	min-height: 45px;
 	display: inline-block;
+}
+.productListingwrapper{
+	
+	.block.block-requisition-list.social-button {
+		display: none;
+	}
+	.wishlist.split.button .action.toggle{
+		display: none;	
+	}
+	.product-item-inner.notLog {
+		 margin-top: 0px;
+	}
+	.box-tocart {
+		margin-top: 10px;
+	}
+	.product-item-inner.logdIn {
+		margin-top: 95px;
+	}
+	
+}
+.product-items .wishlist.split.button > .action.split:before {
+	content: '';
+}
+.product-items .wishlist.split.button > .action.split{
+	background: url(../images/compare-wishlist.svg);
+	background-position: -32px -2px;
+	width: 34px;
+    height: 34px;
+    border-radius: 50%;
+	float: right;
+}
+.product-items .wishlist.split.button > .action.split:hover{
+	background: url(../images/compare-wishlist.svg);
+	background-position: -32px -32px;
+	
+	float: right;
+}
+.wishlist.split.button {
+    float: right;
 }
 
 .product-info-main .price-box .price-wrapper .price,
@@ -3656,7 +3729,6 @@ body {
 
 .PlpItemName {
 	color: @general_product_name_color;
-	margin: 0 0 20px 0;
 	font-family: 'wuerthbold';
 	text-align: left;
 	&:hover {
@@ -9816,7 +9888,7 @@ print {
 	button.action.primary.confirm.OrdSave {
 		float: left;
 		margin: -15px 0px 0px 0;
-		width: 55%;
+		width: auto;
 	}
 	.modal-popup .modal-content, .modal-popup .modal-footer {
 		padding-left: 20px;
@@ -9841,11 +9913,9 @@ print {
 	}
 	.control {
 		width: 65%;
-	}
+	} 
+	//Order Template Cart Page End By Amit	
 }
-//Order Template Cart Page End By Amit
-
-
 }
 
 //---------------------------------------------------------	
