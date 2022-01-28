@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="checkout.cart.methods">
+            <block class="Magento\NegotiableQuote\Block\Checkout\Link" name="checkout.cart.methods.request.quote"
+                   ifconfig="btob/website_configuration/negotiablequote_active"
+                   template="Magento_NegotiableQuote::checkout/link.phtml" after="checkout.cart.form"/>
+        </referenceContainer>
+    </body>
+</page>

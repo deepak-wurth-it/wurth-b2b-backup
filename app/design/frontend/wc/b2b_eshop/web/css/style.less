@@ -1686,7 +1686,12 @@ table.ReqListTable
 }
 
 //Order Template End By Amit
-
+// Remove breadcrumb last arrow from 1st level category
+.wcbcatalog-catalog-index{
+	.breadcrumbs .item:nth-child(2):after{
+		display:none;
+	}
+}
 //Order Template Cart Page Start By Amit
 .checkout-cart-index {
 	.textMsg {
@@ -1748,9 +1753,28 @@ table.ReqListTable
 	button.action.primary.confirm.OrdSave {
 		float: right;
 		margin: -70px 178px 0px 0px;
+	} 
+	//Order Template Cart Page End By Amit
+	// My Quote Icon css 
+	.cart-act-icon {
+		display: flex;
+		float: right;
+		align-items: center;
+	}
+	form#negotiable-quote-form {
+		margin: 0px 37px 0 0px;
+		border: none;
+	}
+	button.qutoButton.action {
+		height: 20px;
+		border: none;
+		text-decoration: none;
+		background: url(../images/editico.png) right 6px top 3px;
+		background-repeat: no-repeat;
+		cursor: pointer;
 	}
 }
-//Order Template Cart Page End By Amit
+	
 
 // Favorites Page Start By Amit
 .wishlist-index-index{
@@ -9889,11 +9913,9 @@ print {
 	}
 	.control {
 		width: 65%;
-	}
+	} 
+	//Order Template Cart Page End By Amit	
 }
-//Order Template Cart Page End By Amit
-
-
 }
 
 //---------------------------------------------------------	
