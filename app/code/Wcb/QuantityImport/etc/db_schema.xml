@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+ 	<table name="quantity_import" resource="default" comment="Create table using declarative schema">
+ 		<column xsi:type="int" name="entity_id" padding="10" identity="true" unsigned="true" nullable="false" comment="Entity Id"/>
+ 		<column xsi:type="varchar" name="product_code" nullable="false" length="255" comment="Product Code"/>
+ 		<column xsi:type="varchar" name="quantity" nullable="false" length="255" comment="Quantity"/>
+ 		<constraint xsi:type="primary" referenceId="PRIMARY">
+ 			<column name="entity_id"/>
+ 		</constraint>
+ 	</table>
+</schema>
