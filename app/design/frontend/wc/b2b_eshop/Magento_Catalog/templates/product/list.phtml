@@ -361,7 +361,7 @@ $product=false;
     <span class="attrow">Item Name</span>
    <?php
 
-    if($firstProduct){
+    if($firstProduct->getSize()){
       foreach($firstProductExtraRow as $key=>$row) {
         if($key == 3){
           break;
