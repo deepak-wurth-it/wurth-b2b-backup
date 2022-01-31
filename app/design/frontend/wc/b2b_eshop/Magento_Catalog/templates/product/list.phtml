@@ -346,6 +346,7 @@ $product=false;
 </div>
 
 <!-- start-->
+
 <?php if(true===true){ ?>
 <div class="row attWrappFifth">
    <div class="col-md">
@@ -363,8 +364,14 @@ $product=false;
   </div>
 <?php if($currentCat->getProductCollection()->getSize() > 0 ){ ?>  
  <?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?> 
-<?php foreach($level5Collection as $product) { ?>  
-  <div class="accordion">
+ <div id="accordion" data-mage-init='{
+        "accordion":{
+            "active": false,
+            "collapsible": true,
+            "multipleCollapsible": true
+        }}'>
+ <?php foreach($level5Collection as $product) { ?>  
+  <div class="accordion" >
     <span class="attrow itemno"><?php echo $product->getSku(); ?></span>
     <span class="attrow itemname"><?php echo $product->getName(); ?></span>
     <span class="attrow pieces">2 PiECES</span>
@@ -391,7 +398,6 @@ $product=false;
 </div>
     <span class="attrow loginprice <?= (($logedIn ?'logdIn':'')); ?>"><?php if($customerSession->isLoggedIn()) { ?> 2,421.56 - 25% = 1,816.17 HRK/COM <div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> </div> <?php } else { ?> Please log in to see prices. <?php } ?></span>
     <span class="attrow bluecol">
-      <!-- <a href="http://m2.wc.b2b.com/test-product.html" class="carticon"></a> -->
       <div class="actions-primary">
       <?php if ($product->isSaleable()):?>
       <?php $postParams = $block->getAddToCartPostParams($product); ?>
@@ -412,16 +418,18 @@ $product=false;
                     title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
                     class="action tocart primary carticon"
                     disabled>
-               <!-- <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>-->
             </button>
         </form>
       </div>
       <?php endif;  ?>
     </span>
   </div>
+  <div data-role="collapsible">
+        <div class="expendRow" data-role="trigger"></div>
+    </div> 
+    <div data-role="content">
   
-  <div class="expendRow"></div>
-  <div class="panel">
+  <div class="paneldd">
     <div class="row">
       <div class="col-sm-4">
         <div class="container">
@@ -493,8 +501,10 @@ $product=false;
       </div>
     </div>
   </div>
+  </div>
 <?php } ?>
 <?php } ?>    
+</div>
 </div>
 </div>
 <?php } ?>
@@ -527,21 +537,6 @@ $product=false;
    });
         });
         // ]]>
-
-   var acc = document.getElementsByClassName("expendRow");
-   var i;   
-   for (i = 0; i < acc.length; i++) {
-     acc[i].addEventListener("click", function() {
-       this.classList.toggle("active");
-       var panel = this.nextElementSibling;
-       if (panel.style.maxHeight) {
-         panel.style.maxHeight = null;
-       } else {
-         panel.style.maxHeight = panel.scrollHeight + "px";
-       } 
-     });
-   }
-   
     </script>
       <script type="text/x-magento-init">
    {
