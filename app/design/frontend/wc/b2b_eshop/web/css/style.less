@@ -45,6 +45,10 @@ body {
 	font-display: block;
 }
 
+strong{
+	font-family: 'wuerthbold';
+}
+
 .lineheight0 {
 	line-height: 0;
 }
@@ -1669,6 +1673,55 @@ label.sorter-label {
 			}
 		}
 	}
+}
+
+//CMS pages
+
+[data-content-type='row'][data-appearance='contained']{
+	max-width:inherit;
+}
+
+.page-main-full-width{
+		margin-top:30px;
+		margin-bottom:50px;
+ 
+		.imgwidth100{
+		a{
+
+			img{
+				width:100%;
+			}
+		}
+		}
+
+		.columns{
+			margin-top:0;
+		}
+
+		h4{
+			margin:20px 0;
+		}
+		h3{
+			margin-bottom:30px;
+		}
+		hr{
+			margin:0;
+		}
+	}
+.cmsSubmenu{
+	background: #fff;
+	box-shadow: 0 3px 5px #bababa;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+	padding:20px 20px 10px 20px;
+}
+
+// Company CMS page and subpages
+.tvrtkaSubmenus{
+		padding-left:0;
+		margin-bottom:0;
+		li{
+			list-style:none;
+		}
 }
 
 //Order Template Start By Amit
@@ -8015,7 +8068,7 @@ print {
 	.block.category.event,
 	.top-container,
 	.page-main,
-	.container-inner {
+	.container-inner, .page-main-full-width {
 		padding-left: 60px;
 		padding-right: 60px;
 		max-width: 100%;
@@ -8182,7 +8235,7 @@ print {
 	.block.category.event,
 	.top-container,
 	.page-main,
-	.container-inner {
+	.container-inner, .page-main-full-width {
 		padding-left: 30px;
 		padding-right: 30px;
 	}
@@ -8311,6 +8364,9 @@ print {
 		margin: -70px 9px 0px 0px;
 	}
 
+}
+.page-main-full-width{
+	margin-bottom:20px;
 }
 }
 
