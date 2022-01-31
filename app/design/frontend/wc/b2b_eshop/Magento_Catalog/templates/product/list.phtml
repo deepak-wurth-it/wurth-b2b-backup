@@ -364,12 +364,7 @@ $product=false;
   </div>
 <?php if($currentCat->getProductCollection()->getSize() > 0 ){ ?>  
  <?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?> 
- <div id="accordion" data-mage-init='{
-        "accordion":{
-            "active": false,
-            "collapsible": true,
-            "multipleCollapsible": true
-        }}'>
+ <div id="element">
  <?php foreach($level5Collection as $product) { ?>  
   <div class="accordion" >
     <span class="attrow itemno"><?php echo $product->getSku(); ?></span>
@@ -509,8 +504,7 @@ $product=false;
 </div>
 <?php } ?>
 <!-- End --->
-
-    <script>
+<script>
     // <![CDATA[
         require([
             'jquery'
@@ -529,15 +523,15 @@ $product=false;
                     $('.page-layout-2columns-left .column.main').width("70%"); //to increase width of page  
                 }
             });
-            
-   $(".itemAdd").click(function() {
-       $('html,body').animate({
-           scrollTop: $(".execution").offset().top},
-           'slow');
-   });
+     
         });
         // ]]>
     </script>
+<script type="text/javascript">
+    require(['jquery', 'plp'], function($, customjs) {
+      customjs();
+    });
+</script>   
       <script type="text/x-magento-init">
    {
        "[data-role=tocart-form], .form.map.checkout": {
