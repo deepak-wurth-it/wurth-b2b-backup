@@ -15,16 +15,10 @@ use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
-use Magento\Catalog\Pricing\Price\FinalPrice;
 use Magento\Eav\Model\Entity\Collection\AbstractCollection;
-use Magento\Framework\App\ActionInterface;
-use Magento\Framework\App\Config\Element;
 use Magento\Framework\Data\Helper\PostHelper;
-use Magento\Framework\DataObject\IdentityInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Pricing\Render;
-use Magento\Framework\Url\Helper\Data;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface as LocaleDate;
+use Magento\Framework\Url\Helper\Data;
 
 /**
  * Product list
@@ -73,7 +67,6 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
     const XML_PATH_PRODUCT_PER_PAGE_ON_GRID = 'catalog/frontend/grid_per_page_values';
     const XML_PATH_PRODUCT_PER_PAGE_ON_GRID_DEFAULT_VALUE = 'catalog/frontend/grid_per_page';
 
-
     /**
      * @param Context $context
      * @param PostHelper $postDataHelper
@@ -83,18 +76,17 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
      * @param array $data
      */
     public function __construct(
-        \Magento\Catalog\Block\Product\Context             $context,
-        PostHelper                                         $postDataHelper,
-        Resolver                                           $layerResolver,
-        CategoryRepositoryInterface                        $categoryRepository,
-        Data                                               $urlHelper,
-        LocaleDate                                         $localeDate,
-        \Magento\Framework\Pricing\Helper\Data             $priceHelper,
-        \Magento\Catalog\Model\CategoryFactory             $categoryModelFactory,
+        \Magento\Catalog\Block\Product\Context $context,
+        PostHelper $postDataHelper,
+        Resolver $layerResolver,
+        CategoryRepositoryInterface $categoryRepository,
+        Data $urlHelper,
+        LocaleDate $localeDate,
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
+        \Magento\Catalog\Model\CategoryFactory $categoryModelFactory,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        array                                              $data = []
-    )
-    {
+        array $data = []
+    ) {
         $this->_catalogLayer = $layerResolver->get();
         $this->_postDataHelper = $postDataHelper;
         $this->categoryRepository = $categoryRepository;
@@ -114,7 +106,6 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
             $data
         );
     }
-
 
     public function getCategoryChildrenData($id = null)
     {
@@ -156,5 +147,35 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
         return $this->scopeConfig->getValue(self::XML_PATH_PRODUCT_PER_PAGE_ON_GRID_DEFAULT_VALUE, $storeScope);
     }
 
+    public function getExtraAttributeData($product)
+    {
+        $extraRow = [];
+        $temp = [];
+        $attributes = $product->getAttributes();
+        foreach ($attributes as $attribute) {
+
+            if (!$attribute->getIsVisibleOnFront()) {
+                continue;
+            }
+            $value = $attribute->getFrontend()->getValue($product);
+
+            if ($value) {
+                if (!is_array($attribute->getName()) && !is_array($value)) {
+                    $temp['name'] = $attribute->getStoreLabel();
+                    $temp['value'] = $attribute->getFrontend()->getValue($product);
+                    $extraRow[] = $temp;
+                    $temp = [];
+
+                }
+
+            }
+
+        }
+        // foreach($extraRow as $row) {
+        //     print_r($row);exit;
+        // }
+        // exit;
+        return $extraRow;
+    }
 
 }
