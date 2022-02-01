@@ -45,6 +45,10 @@ body {
 	font-display: block;
 }
 
+strong{
+	font-family: 'wuerthbold';
+}
+
 .lineheight0 {
 	line-height: 0;
 }
@@ -1102,6 +1106,10 @@ select:not([disabled]):focus {
 	min-width: 160px;
 	cursor: pointer;
 	appearance: none;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    font-family: 'wuerthbook';
 }
 
 .sorter-options:after {}
@@ -1667,6 +1675,55 @@ label.sorter-label {
 	}
 }
 
+//CMS pages
+
+[data-content-type='row'][data-appearance='contained']{
+	max-width:inherit;
+}
+
+.page-main-full-width{
+		margin-top:30px;
+		margin-bottom:50px;
+ 
+		.imgwidth100{
+		a{
+
+			img{
+				width:100%;
+			}
+		}
+		}
+
+		.columns{
+			margin-top:0;
+		}
+
+		h4{
+			margin:20px 0;
+		}
+		h3{
+			margin-bottom:30px;
+		}
+		hr{
+			margin:0;
+		}
+	}
+.cmsSubmenu{
+	background: #fff;
+	box-shadow: 0 3px 5px #bababa;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+	padding:20px 20px 10px 20px;
+}
+
+// Company CMS page and subpages
+.tvrtkaSubmenus{
+		padding-left:0;
+		margin-bottom:0;
+		li{
+			list-style:none;
+		}
+}
+
 //Order Template Start By Amit
 table.ReqListTable
 {
@@ -1682,7 +1739,12 @@ table.ReqListTable
 }
 
 //Order Template End By Amit
-
+// Remove breadcrumb last arrow from 1st level category
+.wcbcatalog-catalog-index{
+	.breadcrumbs .item:nth-child(2):after{
+		display:none;
+	}
+}
 //Order Template Cart Page Start By Amit
 .checkout-cart-index {
 	.textMsg {
@@ -1744,9 +1806,28 @@ table.ReqListTable
 	button.action.primary.confirm.OrdSave {
 		float: right;
 		margin: -70px 178px 0px 0px;
+	} 
+	//Order Template Cart Page End By Amit
+	// My Quote Icon css 
+	.cart-act-icon {
+		display: flex;
+		float: right;
+		align-items: center;
 	}
-}
-//Order Template Cart Page End By Amit
+	form#negotiable-quote-form {
+		margin: 0px 37px 0 0px;
+		border: none;
+	}
+	button.qutoButton.action {
+		height: 20px;
+		border: none;
+		text-decoration: none;
+		background: url(../images/editicon.png) right 6px top 3px;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	}
+} 
+	
 
 // Favorites Page Start By Amit
 .wishlist-index-index{
@@ -2841,6 +2922,12 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	padding: 10px 20px;
 	font-size: 1.6rem;
 	margin-bottom: 20px;
+	margin-top: 20px;
+}
+.view-price {
+    font-family: 'wuerthbook';
+    font-size: 16px;
+    color: #000000;
 }
 
 .variation-buttom {
@@ -2855,6 +2942,45 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	margin-bottom: 20px;
 	min-height: 45px;
 	display: inline-block;
+}
+.productListingwrapper{
+	
+	.block.block-requisition-list.social-button {
+		display: none;
+	}
+	.wishlist.split.button .action.toggle{
+		display: none;	
+	}
+	.product-item-inner.notLog {
+		 margin-top: 0px;
+	}
+	.box-tocart {
+		margin-top: 10px;
+	}
+	.product-item-inner.logdIn {
+		margin-top: 95px;
+	}
+	
+}
+.product-items .wishlist.split.button > .action.split:before {
+	content: '';
+}
+.product-items .wishlist.split.button > .action.split{
+	background: url(../images/compare-wishlist.svg);
+	background-position: -32px -2px;
+	width: 34px;
+    height: 34px;
+    border-radius: 50%;
+	float: right;
+}
+.product-items .wishlist.split.button > .action.split:hover{
+	background: url(../images/compare-wishlist.svg);
+	background-position: -32px -32px;
+	
+	float: right;
+}
+.wishlist.split.button {
+    float: right;
 }
 
 .product-info-main .price-box .price-wrapper .price,
@@ -3656,7 +3782,6 @@ body {
 
 .PlpItemName {
 	color: @general_product_name_color;
-	margin: 0 0 20px 0;
 	font-family: 'wuerthbold';
 	text-align: left;
 	&:hover {
@@ -7943,7 +8068,7 @@ print {
 	.block.category.event,
 	.top-container,
 	.page-main,
-	.container-inner {
+	.container-inner, .page-main-full-width {
 		padding-left: 60px;
 		padding-right: 60px;
 		max-width: 100%;
@@ -8110,7 +8235,7 @@ print {
 	.block.category.event,
 	.top-container,
 	.page-main,
-	.container-inner {
+	.container-inner, .page-main-full-width {
 		padding-left: 30px;
 		padding-right: 30px;
 	}
@@ -8239,6 +8364,9 @@ print {
 		margin: -70px 9px 0px 0px;
 	}
 
+}
+.page-main-full-width{
+	margin-bottom:20px;
 }
 }
 
@@ -9816,7 +9944,7 @@ print {
 	button.action.primary.confirm.OrdSave {
 		float: left;
 		margin: -15px 0px 0px 0;
-		width: 55%;
+		width: auto;
 	}
 	.modal-popup .modal-content, .modal-popup .modal-footer {
 		padding-left: 20px;
@@ -9841,11 +9969,9 @@ print {
 	}
 	.control {
 		width: 65%;
-	}
+	} 
+	//Order Template Cart Page End By Amit	
 }
-//Order Template Cart Page End By Amit
-
-
 }
 
 //---------------------------------------------------------	
