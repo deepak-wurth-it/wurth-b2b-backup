@@ -1,5 +1,4 @@
 <?php
-//var/www/html/wurth-croatia-m2-b2b/app/code/Wcb/QuantityImport/Model/Import/QuantityImport.php
 namespace Wcb\QuantityImport\Model\Import;
 
 use Exception;
@@ -12,6 +11,7 @@ use Magento\ImportExport\Model\Import\Entity\AbstractEntity;
 use Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregatorInterface;
 use Magento\ImportExport\Model\ResourceModel\Helper;
 use Magento\ImportExport\Model\ResourceModel\Import\Data;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
 
 /**
  * Class Courses
@@ -74,7 +74,8 @@ class QuantityImport extends AbstractEntity
         Data $importData,
         ResourceConnection $resource,
         Helper $resourceHelper,
-        ProcessingErrorAggregatorInterface $errorAggregator
+        ProcessingErrorAggregatorInterface $errorAggregator,
+        Collection $productCollection
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->_importExportData = $importExportData;
@@ -83,6 +84,7 @@ class QuantityImport extends AbstractEntity
         $this->resource = $resource;
         $this->connection = $resource->getConnection(ResourceConnection::DEFAULT_CONNECTION);
         $this->errorAggregator = $errorAggregator;
+        $this->productCollection = $productCollection;
         $this->initMessageTemplates();
     }
 
@@ -116,10 +118,11 @@ class QuantityImport extends AbstractEntity
      */
     public function validateRow(array $rowData, $rowNum): bool
     {
-        $name = $rowData['product_code'] ?? '';
+        $product_code = $rowData['product_code'] ?? '';
         $quantity = (int) $rowData['quantity'] ?? 0;
 
-        if (!$name) {
+        if( (!$product_code))
+        {
             $this->addRowError('NameIsRequired', $rowNum);
         }
 
@@ -143,7 +146,7 @@ class QuantityImport extends AbstractEntity
     {
         $this->addMessageTemplate(
             'NameIsRequired',
-            __('The code cannot be empty.')
+            __('The code is invalid or empty.')
         );
         $this->addMessageTemplate(
             'QuantityIsRequired',
@@ -160,6 +163,7 @@ class QuantityImport extends AbstractEntity
      */
     protected function _importData(): bool
     {
+
         switch ($this->getBehavior()) {
             case Import::BEHAVIOR_DELETE:
                 $this->deleteEntity();
@@ -212,7 +216,8 @@ class QuantityImport extends AbstractEntity
      */
     private function saveAndReplaceEntity()
     {
-        $behavior = $this->getBehavior();
+
+       $behavior = $this->getBehavior();
         $rows = [];
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $entityList = [];
@@ -262,11 +267,17 @@ class QuantityImport extends AbstractEntity
         if ($entityData) {
             $tableName = $this->connection->getTableName(static::TABLE);
             $rows = [];
-
             foreach ($entityData as $entityRows) {
                 foreach ($entityRows as $row) {
+                    $collection = $this->productCollection->addAttributeToSelect('*')
+                       ->addAttributeToFilter('product_code', ['eq'=> $row['product_code']])
+                       ->load();
+                      
                     $rows[] = $row;
                 }
+            }
+            if (($key = array_search("product_code", $rows)) !== false) {
+                unset($colors[$key]);
             }
 
             if ($rows) {
