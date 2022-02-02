@@ -14,10 +14,15 @@
 				</arguments>
 		   </block>		  
 		 </referenceContainer>
+
 		  <move element="category.view.container" destination="content" before="-"/>
 		 <move element="breadcrumbs" destination="page.top" before="-"/>
 		 <move element="page.main.title" destination="content" before="category.products"/>
         <referenceBlock name="catalog.leftnav" remove="true"/>
-
+        <referenceBlock name="category.products.list">
+			<action method="setTemplate">
+				<argument name="template" xsi:type="string">Wcb_Catalog::product/list_level_4.phtml</argument>
+			</action>
+		</referenceBlock>
     </body>
 </page>
