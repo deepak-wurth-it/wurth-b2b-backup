@@ -10,7 +10,11 @@
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
     $logedIn = $customerSession->isLoggedIn();
-  ?>
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$product_id = $product->getId();
+$test = $objectManager->create(\Wcb\QuantityImport\Model\QuantityImport::class);
+$collection= $test->getCollection()->addFieldToFilter('product_code', array('eq'=>$product->getProductCode()));
+?>
 
 <div class="static-content">
 
@@ -35,18 +39,13 @@
 <?php if($customerSession->isLoggedIn()) { ?><div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> <span class="itembox"> </span> <span class="deliveryday"></span><span> 1</span></div><?php } ?>
 
 <span class="hrline"></span>
+<?php foreach ($collection as $item) {?>
+          
 <div class="purchaseWrapp">
-    <span class="proqty">Purchase this product in 3 quantity</span> 
-    <span class="dodajwrap"><button type="submit" class="dodaj">Dodaj u kosaricu</button></span>
+    <span class="proqty">Purchase this product in <?php echo $item->getData('quantity');?> quantity</span> 
+    <span class="dodajwrap"><button  mydata="<?php echo $item->getData('quantity');?>" id='cusatc-<?php echo $item->getData('quantity');?> ' type="submit" class="dodaj">Dodaj u kosaricu</button></span>
 </div>
-<div class="purchaseWrapp">
-    <span class="proqty">Purchase this product in 6 quantity</span> 
-    <span class="dodajwrap"><button type="submit" class="dodaj">Dodaj u kosaricu</button></span>
-</div>
-<div class="purchaseWrapp">
-    <span class="proqty">Purchase this product in 9 quantity</span> 
-    <span class="dodajwrap"><button type="submit" class="dodaj">Dodaj u kosaricu</button></span>
-</div>
+<?php } ?>
 <span class="hrline"></span>
 <div class="col-md more-info-block">
 <h3>Need More Information?</h3>
@@ -93,3 +92,29 @@ var incrementMinus = buttonMinus.click(function() {
 });
 });
   </script>
+
+<script>
+    require(['jquery'],function($){
+        $('#cusatc').click(function(){
+            var productId =  '<?php echo $product_id; ?>';
+            var qty = $(this).attr("mydata");
+            var data = {product: productId, qty: qty};
+            var addToCartUrl = "<?php echo $block->getUrl('qtyimport/product/addToCart') ?>";
+            $.ajax({
+                url : addToCartUrl,
+                dataType : 'json',
+                type : 'POST',
+                showLoader: true,
+                data: data,
+                success : function(res)
+                {   
+                    console.log('Success');
+                },
+                error : function()
+                {
+                    console.log('error');
+                }
+            });
+        })
+    })
+</script>
