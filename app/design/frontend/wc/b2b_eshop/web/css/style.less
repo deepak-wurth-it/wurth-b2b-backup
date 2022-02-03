@@ -1704,6 +1704,7 @@ label.sorter-label {
 	box-shadow: 0 3px 5px #bababa;
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 	padding:20px 20px 10px 20px;
+	margin-top: 25px;
 }
 
 // Company CMS page and subpages
@@ -1715,6 +1716,71 @@ label.sorter-label {
 		}
 }
 
+//Request a quote start by Amit
+.negotiable_quote-quote-index{
+	.page-title-wrapper {
+		display: none;
+	}
+	.columnTitle {
+		width: 88%;
+	}
+	.myInquiry{
+		width: 124px;
+		height:24px;
+		background: #CC0000;
+		border-radius: 20px;
+		text-align: center;
+		font-family: 'wuerthbold';
+		color: #ffffff;
+		font-size: 14px;
+		cursor: pointer;
+		margin-right: 10px;
+	}
+	.quoteTitle{
+	  margin-bottom: 20px;
+	}
+	ol.collection {
+		margin: 0px;
+		padding: 0px;
+	}
+	ol > li {
+		margin-top: 0rem;
+		margin-bottom: 0rem;
+	}
+	
+	li {
+		list-style: none;
+	}
+	
+	.detbutton {
+		display: flex;
+		align-items: center;
+	}
+	.details {
+		width: 86px;
+		background: #CC0000;
+		border-radius: 20px;
+		text-align: center;
+		font-family: 'wuerthbold';
+		color:#ffffff;
+		font-size: 14px;
+		cursor: pointer;
+		margin-right:10px;
+	}
+	.addBasket {
+		width: 132px;
+		background: #0093DD;
+		border: 1px solid #0093DD;
+		border-radius: 20px;
+		font-family: 'wuerthbold';
+		font-style: normal;
+		font-size: 14px;
+		color: #FFFFFF;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+//Request a quote end by Amit
 //Order Template Start By Amit
 table.ReqListTable
 {
@@ -8359,6 +8425,54 @@ print {
 .page-main-full-width{
 	margin-bottom:20px;
 }
+
+//Request a quote start by Amit for view page
+.negotiable_quote-quote-index{
+	main#maincontent {
+		padding-top: 0px;
+	}
+}
+.collection-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+}
+.item.item-container {
+background: rgba(0, 147, 221, 0.12);
+ }
+
+.item {
+	border: 1px solid rgba(0, 147, 221, 0.12);
+	border-radius: 2px;
+	padding: 10px;
+}
+
+.collection-container>li:first-child {
+	display: none;
+}
+
+.attribute::before {
+	content: attr(data-name);
+}
+
+.attribute {
+	display: grid;
+	grid-template-columns: minmax(9em, 30%) 1fr;
+}
+.attribute.detbutton {
+	display: inline-block;
+	float: right;
+	padding-top: 5px;
+	width: 58%;
+}
+.details {
+margin-bottom: 10px;
+}
+.columnBut {
+margin-top: 10px;
+}
+//Request a quote end by Amit for view page
+
 }
 
 @media (min-width: 767px) {
@@ -8381,6 +8495,57 @@ print {
 	.header .col-logo {
 		width: 20%;
 	}
+//Request a quote start by Amit for view page
+// 	.item-container {
+// 		display: grid;
+// 		grid-template-columns: 2fr 4fr 6fr 3fr 3fr 3fr 3fr 3fr 7fr;
+// 		background: rgba(0, 147, 221, 0.12);
+// 		margin: 0px;
+// 		height: 72px;
+// 		align-items: center;
+// 		padding: 0 5px 0 5px;
+// 		font-family: 'wuerthbook';
+//   }
+  
+//   .item-sub-container {
+// 		display: grid;
+// 		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
+// 		background: #fff;
+// 		margin: 0px;
+// 		height: 72px;
+// 		align-items: center;
+// 		padding: 0 5px 0 5px;
+//   }
+  
+// 	  .attribute {        
+// 		  padding: 2px;
+// 		  text-overflow: ellipsis;
+// 	  }
+  
+// 	  .collection-container>.item-container:first-child {
+// 		  background-color: #ececec;
+// 		  font-family: 'wuerthbold';
+// 		  font-size: 14px;
+// 		  color: rgba(0, 0, 0, 0.87);
+// 	  }
+// 	  .collection-container>.item-sub-container:first-child {
+// 		  background-color: #fff;
+// 		  font-family: 'wuerthbold';
+// 		  font-size: 14px;
+// 		  color: rgba(0, 0, 0, 0.87);
+// 	  }
+  
+// 	  .item-container:hover {
+// 		  background-color: rgb(200, 227, 252);
+// 	  }
+// 	  .collection-container>.item-container:first-child .attribute {
+// 		  display: flex;
+// 		  align-items: center;
+// 		  text-overflow: initial;
+// 		  overflow: auto;
+// 		  white-space: normal;
+// 	  }
+	  //Request a quote end by Amit for view page
 }
 
 //--------------------- Part -9 Erro come black-----------------
@@ -8688,6 +8853,12 @@ print {
 			min-height: inherit;
 		}
 	}
+//Request a quote start by Amit for view page
+	.collection-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+	//Request a quote end by Amit for view page
 }
 
 @media (max-width: 767px) and (min-width: 481px) {
@@ -10091,4 +10262,125 @@ print {
 			}
 		}
 	}
+}
+
+
+@media (min-width: 769px) and (max-width:912px) {
+	//Request a quote start by Amit for view page
+	.item-container {
+		display: grid;
+		grid-template-columns: 3rem 7rem 9rem 8rem 8rem 7rem 7rem 7rem 17rem;
+		background: rgba(0, 147, 221, 0.12);
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0 5px 0 5px;
+		font-family: 'wuerthbook';
+  }
+  
+  .item-sub-container {
+		display: grid;
+		grid-template-columns: 3rem 7rem 12rem 14rem 9rem 8rem 9rem 8rem;
+		background: #fff;
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0px;
+  }
+  .negotiable_quote-quote-index .myInquiry {
+    margin-top: 10px;
+}
+  .negotiable_quote-quote-index .detbutton {
+    display: inline-grid;
+    align-items: center;
+}
+.negotiable_quote-quote-index .addBasket {
+    width: 117px;
+}
+	.details {
+		margin-bottom: 5px;
+	}
+  
+	  .attribute {        
+		  padding: 2px;
+		  text-overflow: ellipsis;
+	  }
+  
+	  .collection-container>.item-container:first-child {
+		  background-color: #ececec;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+	  .collection-container>.item-sub-container:first-child {
+		  background-color: #fff;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+  
+	  .item-container:hover {
+		  background-color: rgb(200, 227, 252);
+	  }
+	  .collection-container>.item-container:first-child .attribute {
+		  display: flex;
+		  align-items: center;
+		  text-overflow: initial;
+		  overflow: auto;
+		  white-space: normal;
+	  }
+	  //Request a quote end by Amit for view page
+}
+@media (min-width: 913px) {
+	//Request a quote start by Amit for view page
+	.item-container {
+		display: grid;
+		grid-template-columns: 2fr 4fr 6fr 3fr 3fr 3fr 3fr 3fr 7fr;
+		background: rgba(0, 147, 221, 0.12);
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0 5px 0 5px;
+		font-family: 'wuerthbook';
+  }
+  
+  .item-sub-container {
+		display: grid;
+		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
+		background: #fff;
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0 5px 0 5px;
+  }
+  
+	  .attribute {        
+		  padding: 2px;
+		  text-overflow: ellipsis;
+	  }
+  
+	  .collection-container>.item-container:first-child {
+		  background-color: #ececec;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+	  .collection-container>.item-sub-container:first-child {
+		  background-color: #fff;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+  
+	  .item-container:hover {
+		  background-color: rgb(200, 227, 252);
+	  }
+	  .collection-container>.item-container:first-child .attribute {
+		  display: flex;
+		  align-items: center;
+		  text-overflow: initial;
+		  overflow: auto;
+		  white-space: normal;
+	  }
+	  //Request a quote end by Amit for view page
 }
