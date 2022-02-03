@@ -10,7 +10,7 @@
     <body>
         <referenceContainer name="content">
          <block class="Magento\Framework\View\Element\Template" name="custom_list" template="Magento_NegotiableQuote::custom-list.phtml"  as='custom_list' before="-" /> 
-           <!--<uiComponent name="negotiable_quote_listing"/>-->
+           <!--<uiComponent name="negotiable_quote_listing"/>--> 
         </referenceContainer>
     </body>
 </page>

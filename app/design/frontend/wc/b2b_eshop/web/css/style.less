@@ -1704,6 +1704,7 @@ label.sorter-label {
 	box-shadow: 0 3px 5px #bababa;
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 	padding:20px 20px 10px 20px;
+	margin-top: 25px;
 }
 
 // Company CMS page and subpages
@@ -8461,8 +8462,8 @@ background: rgba(0, 147, 221, 0.12);
 .attribute.detbutton {
 	display: inline-block;
 	float: right;
-	padding: 5px;
-	width: 55%;
+	padding-top: 5px;
+	width: 58%;
 }
 .details {
 margin-bottom: 10px;
@@ -8495,55 +8496,55 @@ margin-top: 10px;
 		width: 20%;
 	}
 //Request a quote start by Amit for view page
-	.item-container {
-		display: grid;
-		grid-template-columns: 2fr 4fr 6fr 3fr 3fr 3fr 3fr 3fr 7fr;
-		background: rgba(0, 147, 221, 0.12);
-		margin: 0px;
-		height: 72px;
-		align-items: center;
-		padding: 0 5px 0 5px;
-		font-family: 'wuerthbook';
-  }
+// 	.item-container {
+// 		display: grid;
+// 		grid-template-columns: 2fr 4fr 6fr 3fr 3fr 3fr 3fr 3fr 7fr;
+// 		background: rgba(0, 147, 221, 0.12);
+// 		margin: 0px;
+// 		height: 72px;
+// 		align-items: center;
+// 		padding: 0 5px 0 5px;
+// 		font-family: 'wuerthbook';
+//   }
   
-  .item-sub-container {
-		display: grid;
-		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
-		background: #fff;
-		margin: 0px;
-		height: 72px;
-		align-items: center;
-		padding: 0 5px 0 5px;
-  }
+//   .item-sub-container {
+// 		display: grid;
+// 		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
+// 		background: #fff;
+// 		margin: 0px;
+// 		height: 72px;
+// 		align-items: center;
+// 		padding: 0 5px 0 5px;
+//   }
   
-	  .attribute {        
-		  padding: 2px;
-		  text-overflow: ellipsis;
-	  }
+// 	  .attribute {        
+// 		  padding: 2px;
+// 		  text-overflow: ellipsis;
+// 	  }
   
-	  .collection-container>.item-container:first-child {
-		  background-color: #ececec;
-		  font-family: 'wuerthbold';
-		  font-size: 14px;
-		  color: rgba(0, 0, 0, 0.87);
-	  }
-	  .collection-container>.item-sub-container:first-child {
-		  background-color: #fff;
-		  font-family: 'wuerthbold';
-		  font-size: 14px;
-		  color: rgba(0, 0, 0, 0.87);
-	  }
+// 	  .collection-container>.item-container:first-child {
+// 		  background-color: #ececec;
+// 		  font-family: 'wuerthbold';
+// 		  font-size: 14px;
+// 		  color: rgba(0, 0, 0, 0.87);
+// 	  }
+// 	  .collection-container>.item-sub-container:first-child {
+// 		  background-color: #fff;
+// 		  font-family: 'wuerthbold';
+// 		  font-size: 14px;
+// 		  color: rgba(0, 0, 0, 0.87);
+// 	  }
   
-	  .item-container:hover {
-		  background-color: rgb(200, 227, 252);
-	  }
-	  .collection-container>.item-container:first-child .attribute {
-		  display: flex;
-		  align-items: center;
-		  text-overflow: initial;
-		  overflow: auto;
-		  white-space: normal;
-	  }
+// 	  .item-container:hover {
+// 		  background-color: rgb(200, 227, 252);
+// 	  }
+// 	  .collection-container>.item-container:first-child .attribute {
+// 		  display: flex;
+// 		  align-items: center;
+// 		  text-overflow: initial;
+// 		  overflow: auto;
+// 		  white-space: normal;
+// 	  }
 	  //Request a quote end by Amit for view page
 }
 
@@ -10261,4 +10262,58 @@ print {
 			}
 		}
 	}
+}
+
+@media (min-width: 769px) {
+	//Request a quote start by Amit for view page
+	.item-container {
+		display: grid;
+		grid-template-columns: 2fr 4fr 6fr 3fr 3fr 3fr 3fr 3fr 7fr;
+		background: rgba(0, 147, 221, 0.12);
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0 5px 0 5px;
+		font-family: 'wuerthbook';
+  }
+  
+  .item-sub-container {
+		display: grid;
+		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
+		background: #fff;
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0 5px 0 5px;
+  }
+  
+	  .attribute {        
+		  padding: 2px;
+		  text-overflow: ellipsis;
+	  }
+  
+	  .collection-container>.item-container:first-child {
+		  background-color: #ececec;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+	  .collection-container>.item-sub-container:first-child {
+		  background-color: #fff;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+  
+	  .item-container:hover {
+		  background-color: rgb(200, 227, 252);
+	  }
+	  .collection-container>.item-container:first-child .attribute {
+		  display: flex;
+		  align-items: center;
+		  text-overflow: initial;
+		  overflow: auto;
+		  white-space: normal;
+	  }
+	  //Request a quote end by Amit for view page
 }
