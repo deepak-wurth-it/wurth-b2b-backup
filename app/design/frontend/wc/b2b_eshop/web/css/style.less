@@ -10264,7 +10264,74 @@ print {
 	}
 }
 
-@media (min-width: 769px) {
+
+@media (min-width: 769px) and (max-width:912px) {
+	//Request a quote start by Amit for view page
+	.item-container {
+		display: grid;
+		grid-template-columns: 3rem 7rem 9rem 8rem 8rem 7rem 7rem 7rem 17rem;
+		background: rgba(0, 147, 221, 0.12);
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0 5px 0 5px;
+		font-family: 'wuerthbook';
+  }
+  
+  .item-sub-container {
+		display: grid;
+		grid-template-columns: 3rem 7rem 12rem 14rem 9rem 8rem 9rem 8rem;
+		background: #fff;
+		margin: 0px;
+		height: 72px;
+		align-items: center;
+		padding: 0px;
+  }
+  .negotiable_quote-quote-index .myInquiry {
+    margin-top: 10px;
+}
+  .negotiable_quote-quote-index .detbutton {
+    display: inline-grid;
+    align-items: center;
+}
+.negotiable_quote-quote-index .addBasket {
+    width: 117px;
+}
+	.details {
+		margin-bottom: 5px;
+	}
+  
+	  .attribute {        
+		  padding: 2px;
+		  text-overflow: ellipsis;
+	  }
+  
+	  .collection-container>.item-container:first-child {
+		  background-color: #ececec;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+	  .collection-container>.item-sub-container:first-child {
+		  background-color: #fff;
+		  font-family: 'wuerthbold';
+		  font-size: 14px;
+		  color: rgba(0, 0, 0, 0.87);
+	  }
+  
+	  .item-container:hover {
+		  background-color: rgb(200, 227, 252);
+	  }
+	  .collection-container>.item-container:first-child .attribute {
+		  display: flex;
+		  align-items: center;
+		  text-overflow: initial;
+		  overflow: auto;
+		  white-space: normal;
+	  }
+	  //Request a quote end by Amit for view page
+}
+@media (min-width: 913px) {
 	//Request a quote start by Amit for view page
 	.item-container {
 		display: grid;
