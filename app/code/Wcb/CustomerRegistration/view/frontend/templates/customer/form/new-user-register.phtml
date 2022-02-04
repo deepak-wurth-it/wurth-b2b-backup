@@ -123,7 +123,7 @@
                             <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[postcode]" id="postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text v-validate" data-validate="{required:true}">
+                            <input type="text" name="company[postcode]" id="postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text  validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
                         </div>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                     <div class="field telephone _required">
                         <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
                         <div class="control">
-                            <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-number v-validate" type="text" data-validate="{required:true}">
+                            <input name="telephone" id="telephone" title="Phone" value="" class="in  validate-length minimum-length-11 maximum-length-20 validate-number v-validate" type="text" data-validate="{required:true}">
                         </div>
                     </div>
                 </div>
@@ -360,23 +360,20 @@
 
 }
 ?>
+
     <div class="field choice newsletterAcceptance">
         <label for="is_subscribed" class="label newsletter">
-            <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"
+            <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed" data-validate="{required:true}"
                 <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
-                   class="checkbox"/>
+                   class="checkbox  input-checkbox required-entry v-validate"/>
                    <span class="checkmark"> </span>
             
                 <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
             </label>
         </div>
-            <?php /* Extensions placeholder */ ?>
-            <?= $block->getChildHtml('customer.form.register.newsletter') ?>
-
-
         <div class="form-group _required ">
             <label for="privacy_policy" class="newsletter">
-            <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry">
+            <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry"  data-validate="{required:true}">
             <span class="checkmark"> </span>
             <?php echo 'Accept the privacy policy' ?> (<a href="javascript:void(0)" id="privacy-policy-ex"><?php echo 'privacy policy'; ?></a>)</label>
             </div>
@@ -438,6 +435,7 @@
                 $('#da_city').val(hq_city_val);
                 $('#da_street').val(hq_address_val);
                 $('#da_postcode').val(hq_zip_val);
+                $('#da_region').prop("disabled", true);
                 $('#da_city').prop("disabled", true);
                 $('#da_street').prop("disabled", true);
                 $('#da_postcode').prop("disabled", true);
@@ -446,6 +444,7 @@
                 $('#da_city').val('');
                 $('#da_street').val('');
                 $('#da_postcode').val('');
+                $('#da_region').prop("disabled", false);
                 $('#da_city').prop("disabled", false);
                 $('#da_street').prop("disabled", false);
                 $('#da_postcode').prop("disabled", false);
@@ -461,6 +460,7 @@
                 $('#ia_city').val(hq_city_val);
                 $('#ia_street').val(hq_address_val);
                 $('#ia_postcode').val(hq_zip_val);
+                $('#ia_region').prop("disabled", true);
                 $('#ia_city').prop("disabled", true);
                 $('#ia_street').prop("disabled", true);
                 $('#ia_postcode').prop("disabled", true);
@@ -469,6 +469,7 @@
                 $('#ia_city').val('');
                 $('#ia_street').val('');
                 $('#ia_postcode').val('');
+                $('#ia_region').prop("disabled", false);
                 $('#ia_city').prop("disabled", false);
                 $('#ia_street').prop("disabled", false);
                 $('#ia_postcode').prop("disabled", false);
@@ -582,7 +583,7 @@ require(['jquery'], function($) {
 <script type="text/javascript">
     require(["jquery"],function($) {
         $(document).ready(function(){
-            $('#save-button').prop('disabled', false);
+            $('#save-button').prop('disabled', true);
         $('#vat_tax_id').on('change keyup', function () {
             var tax_value = $("#vat_tax_id").val();
             var minlength = 11;
