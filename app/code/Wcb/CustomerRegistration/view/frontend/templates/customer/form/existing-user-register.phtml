@@ -157,15 +157,11 @@ $formData = $block->getFormData();
         <?php
             }
         ?>
-        </div>
-                     
+        </div>    
         <div class="field choice newsletterAcceptance">
             <label for="is_subscribed" class="label newsletter">
-            <input type="checkbox"
-                   name="is_subscribed"
-                   title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
-                   value="1"
-                   id="is_subscribed"
+            <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value=""  data-validate="{required:true}" 
+ id="is_subscribed"
                 <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
                    class="checkbox"/>
                    <span class="checkmark"> </span>
