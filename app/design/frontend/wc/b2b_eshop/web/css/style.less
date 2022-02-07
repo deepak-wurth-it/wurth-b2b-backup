@@ -1735,10 +1735,10 @@ label.sorter-label {
 		color: #ffffff;
 		font-size: 14px;
 		cursor: pointer;
-		margin-right: 10px;
 	}
 	.quoteTitle{
 	  margin-bottom: 20px;
+	  display:flex;
 	}
 	ol.collection {
 		margin: 0px;
@@ -4837,7 +4837,8 @@ a.action.print.hidden-print {
 	.col-md-6.social-block>ul {
 		display: flex;
 		list-style: none;
-		margin: 0px 0px 0px -47px;
+		margin: 0;
+		padding:0;
 	}
 	.col-md-6.social-block>ul>li {
 		margin: 0 0 0 5px;
@@ -4867,6 +4868,7 @@ a.action.print.hidden-print {
 		display: flex;
 		align-items: center;
 		color: @general_title_color;
+		border-bottom:none;
 	}
 	.pdpTab button:hover {
 		background-color: #ddd;
@@ -8444,52 +8446,7 @@ print {
 	margin-bottom:20px;
 }
 
-//Request a quote start by Amit for view page
-.negotiable_quote-quote-index{
-	main#maincontent {
-		padding-top: 0px;
-	}
-}
-.collection-container {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 20px;
-}
-.item.item-container {
-background: rgba(0, 147, 221, 0.12);
- }
 
-.item {
-	border: 1px solid rgba(0, 147, 221, 0.12);
-	border-radius: 2px;
-	padding: 10px;
-}
-
-.collection-container>li:first-child {
-	display: none;
-}
-
-.attribute::before {
-	content: attr(data-name);
-}
-
-.attribute {
-	display: grid;
-	grid-template-columns: minmax(9em, 30%) 1fr;
-}
-.attribute.detbutton {
-	display: inline-block;
-	float: right;
-	padding-top: 5px;
-	width: 58%;
-}
-.details {
-margin-bottom: 10px;
-}
-.columnBut {
-margin-top: 10px;
-}
-//Request a quote end by Amit for view page
 
 // My profile page start by amit
 .customer-account-index{
@@ -9647,7 +9604,7 @@ margin-top: 10px;
 		}
 		.product-actions {
 			position: absolute;
-			margin: 11px 0px 0px 272px;
+			margin: 11px 0px 0px 247px;
 			z-index: 1;
 		}
 		.comparebut {
@@ -9904,6 +9861,7 @@ margin-top: 10px;
 			display: flex;
 			align-items: center;
 			color: #000000;
+			border-bottom:none;
 		}
 		.pdpTab button:hover {
 			background-color: #ddd;
@@ -10264,71 +10222,54 @@ print {
 }
 
 
-@media (min-width: 769px) and (max-width:912px) {
+@media (max-width: 912px) {
 	//Request a quote start by Amit for view page
-	.item-container {
-		display: grid;
-		grid-template-columns: 3rem 7rem 9rem 8rem 8rem 7rem 7rem 7rem 17rem;
-		background: rgba(0, 147, 221, 0.12);
-		margin: 0px;
-		height: 72px;
-		align-items: center;
-		padding: 0 5px 0 5px;
-		font-family: 'wuerthbook';
-  }
-  
-  .item-sub-container {
-		display: grid;
-		grid-template-columns: 3rem 7rem 12rem 14rem 9rem 8rem 9rem 8rem;
-		background: #fff;
-		margin: 0px;
-		height: 72px;
-		align-items: center;
-		padding: 0px;
-  }
-  .negotiable_quote-quote-index .myInquiry {
-    margin-top: 10px;
-}
-  .negotiable_quote-quote-index .detbutton {
-    display: inline-grid;
-    align-items: center;
-}
-.negotiable_quote-quote-index .addBasket {
-    width: 117px;
-}
-	.details {
-		margin-bottom: 5px;
+	.negotiable_quote-quote-index .quoteTitle {
+		margin-bottom: 20px;
+		display: inherit;
 	}
-  
-	  .attribute {        
-		  padding: 2px;
-		  text-overflow: ellipsis;
-	  }
-  
-	  .collection-container>.item-container:first-child {
-		  background-color: #ececec;
-		  font-family: 'wuerthbold';
-		  font-size: 14px;
-		  color: rgba(0, 0, 0, 0.87);
-	  }
-	  .collection-container>.item-sub-container:first-child {
-		  background-color: #fff;
-		  font-family: 'wuerthbold';
-		  font-size: 14px;
-		  color: rgba(0, 0, 0, 0.87);
-	  }
-  
-	  .item-container:hover {
-		  background-color: rgb(200, 227, 252);
-	  }
-	  .collection-container>.item-container:first-child .attribute {
-		  display: flex;
-		  align-items: center;
-		  text-overflow: initial;
-		  overflow: auto;
-		  white-space: normal;
-	  }
-	  //Request a quote end by Amit for view page
+.negotiable_quote-quote-index{
+	main#maincontent {
+		padding-top: 0px;
+	}
+}
+.collection-container {
+	display: inherit;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+}
+.item.item-container {
+background: rgba(0, 147, 221, 0.12);
+ }
+
+.item {
+	border: 1px solid rgba(0, 147, 221, 0.12);
+	border-radius: 2px;
+	padding: 10px;
+}
+
+.collection-container>li:first-child {
+	display: none;
+}
+
+.attribute::before {
+	content: attr(data-name);
+}
+
+.attribute {
+	display: grid;
+	grid-template-columns: minmax(9em, 30%) 1fr;
+}
+.attribute.detbutton {	
+	padding-top: 10px;
+	width: 58%;
+}
+
+.columnBut {
+margin-top: 10px;
+}
+//Request a quote end by Amit for view page
+
 }
 @media (min-width: 913px) {
 	//Request a quote start by Amit for view page
@@ -10337,9 +10278,8 @@ print {
 		grid-template-columns: 2fr 4fr 6fr 3fr 3fr 3fr 3fr 3fr 7fr;
 		background: rgba(0, 147, 221, 0.12);
 		margin: 0px;
-		height: 72px;
 		align-items: center;
-		padding: 0 5px 0 5px;
+		padding: 10px 5px;
 		font-family: 'wuerthbook';
   }
   
@@ -10348,9 +10288,9 @@ print {
 		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
 		background: #fff;
 		margin: 0px;
-		height: 72px;
+		border-bottom:solid 1px rgba(0, 0, 0, 12%);
 		align-items: center;
-		padding: 0 5px 0 5px;
+		padding: 10px 5px;
   }
   
 	  .attribute {        
