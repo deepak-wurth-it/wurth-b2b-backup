@@ -2,6 +2,7 @@ var config = {
  map: {
          '*': {
                  'plp': 'js/plp',
+                 'pdp': 'js/pdp',
                  'checkoutjs' : 'Magento_Checkout/js/chekout',
              }
          },
