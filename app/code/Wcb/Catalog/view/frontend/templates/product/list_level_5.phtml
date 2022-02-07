@@ -64,15 +64,12 @@ $product=false;
   ?>
 
  <div class="row levelFive">
-   <div class="col-sm-6">
-      <div class="container">  
+   <div class="col-sm-6"> 
       <div class="thumbnail sliderThubnail">      
          <img src="http://m2.wc.b2b.com/media/catalog/product/cache/0dfee5ff3991729dd0bd32f4d3803aa6/1/2/1234785_1.jpg" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236"> 
       </div>
-      </div>
    </div>
    <div class="col-sm-6">
-      <div class="container">
          <div class="static-content">
              <div class="pHead">BUSILICE-ODVIJACI - AKUMULLATORSKI</div>
             <div class="pdAku">AKU BUSILICA ODVIJAC-ABS 12 COMPACT-2X2,O AH</div>
@@ -98,7 +95,6 @@ $product=false;
             </div>
          </div>
       </div>
-   </div>   
 </div>
 
 <!-- start-->
@@ -106,7 +102,6 @@ $product=false;
 <?php if($level5Collection->getSize() > 0 ){ ?>  
 <div class="row attWrappFifth">
    <div class="col-md">
-      <div class="container">
   <div class="execution">Executions</div>
   <div class="attTitle">
     <span class="attrow">Item No.</span>
@@ -197,7 +192,6 @@ $product=false;
   <div class="paneldd">
     <div class="row">
       <div class="col-sm-4">
-        <div class="container">
         <?php
           $productImage = $block->getImage($product, $imageDisplayArea);
           if ($pos != null) {
@@ -213,10 +207,8 @@ $product=false;
               tabindex="-1">
               <?= $productImage->toHtml() ?>
           </a>
-        </div>
       </div>
       <div class="col-sm-8">
-        <div class="container">
           <div class="pdpvarcont">Cordless drill screwdriver ABS 18 BASIC BOSHRBR-AKKU-(ABS 18 BASIC-75J) - 2X2, 0AH MASTER M-CUBE </div>
           <div class="pdpItemNo"><?php echo $product->getSku(); ?> Item No.</div>
           <span class="hrline"></span>
@@ -268,8 +260,6 @@ $product=false;
 <?php } ?>
 <?php } ?>    
 </div>
-</div>
-</div>
 <?php } ?>
 <!-- End --->
 <script>
@@ -281,16 +271,6 @@ $product=false;
             $('.sidebar').remove();
             $('.category-view').remove();
             $('.page-title-wrapper').remove();
-            $('.page-layout-2columns-left .column.main').width("100%"); //to increase width of page
-            
-            window.addEventListener('resize', function(event){
-             if ( $(window).width() > 990) {     
-                $('.page-layout-2columns-left .column.main').width("100%"); //to increase width of page
-                }
-                else {
-                    $('.page-layout-2columns-left .column.main').width("70%"); //to increase width of page  
-                }
-            });
      
         });
         // ]]>
