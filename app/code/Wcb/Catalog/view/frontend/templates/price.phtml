@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
+<?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+    $logedIn = $customerSession->isLoggedIn();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$product_id = $product->getId();
+$test = $objectManager->create(\Wcb\QuantityImport\Model\QuantityImport::class);
+$collection= $test->getCollection()->addFieldToFilter('product_code', array('eq'=>$product->getProductCode()));
+?>
+<div class="priceDisplay"><?php if($customerSession->isLoggedIn()) { ?>Price :   2,421.56 - 25% = 1,816.17 HRK/COM <span class="redStar"></span> <?php } else { ?> Price display for customers after registration <?php } ?></div>
+<div class="boxcontaner">
+      <div class="qty-field">
+        <div id="79-dec" class="decreaseQty icon-interface-minus"></div>
+        <input id="cart-79-qty" name="cart[79][qty]" data-cart-item-id="Test product" value="1" type="number" size="4" step="any" title="Qty" class="input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
+        <div id="79-upt" class="increaseQty icon-interface-plus"></div>
+      </div>
+      <div class="veCount">
+      Packaging 100
+      </div>  
+        <div class="pdvariants">
+          <button type="submit" class="itemAdd">Dodaj u kosaricu</button>
+        </div>     
+</div>
