@@ -6,10 +6,8 @@
 
 /** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
 ?>
-<div class="block block-dashboard-info myProfile">
+<section class="block block-dashboard-info myProfile">
     <div class="block-content">
-    <div class="container">
-  <div class="row">
     <div class="col-md addBox">
     <p><span class="textBold"><?= $block->escapeHtml($block->getName()) ?></span> </p>                              
 
@@ -57,16 +55,13 @@
     </div>
     <div class="col-md addBox">
         <div class="boxTitle">
-                <span><?= $block->escapeHtml(__('Sales representtative contact details')) ?></span>
+                <span class="SalesRep"><?= $block->escapeHtml(__('Sales representtative contact details')) ?></span>
         </div>
             <p><span class="textBold">Name: </span>Damir Pavlovic</p>
             <div class="emailBox"><span class="icon-wuerth-e-mail"> </span> Email: damir.pavlovic@gmail.com </div>
-    </div>
-  </div>
+    
 </div>
 <div class="seprator"></div>
-<div class="container last">
-    <div class="row">
         <div class="col-md-3 addBoxs">
         <div class="boxTitle"> Contact Center </div>
             <p class="textBold">Würth-Hrvatska doo ,</p>
@@ -78,7 +73,7 @@
         </div>
         <div class="col-md-9">
         <div class="boxTitle"> Welcome to contact center WÜRTH-HRVATSKA DOO</div>
-        <p class="textBluebold">Working hours contact center mon-fri: 8:00 - 16:00</p> 
+        <p class="textBluebold">Working hours contact center <br/> mon-fri: 8:00 - 16:00</p> 
         <div class="row"> 
             <div class="col-md-4"> 
                <div class="supportBox">
@@ -103,12 +98,10 @@
                    <div class="supportIcon"> <img src="<?php echo $this->getViewFileUrl('Magento_Customer::images/consult-3.svg'); ?>"> </div>
                    <div class="phoneDetails">
                        <p class="redColor">08004260</p>
-                       <p class="genText">Complaints, service and shipment status</p>
+                       <p class="genText last">Complaints, service and shipment status</p>
                   </div>
                 </div>   
             </div>
-        </div>
-    </div>
     
 </div>
     </div>                    
@@ -116,7 +109,7 @@
         
         <?php //echo $block->getChildHtml('additional_blocks'); ?>
     </div>
-</div>
+</section>
 <script type="text/javascript">
 require(['jquery'], function($) {
 $('#changePass').on('click', function(e){
