@@ -9,13 +9,9 @@
             <container name="content.row.product-info" htmlTag="div" htmlClass="product-info row">
             </container>
         </referenceContainer>
-        <!--<referenceContainer name="content">
-               <block class="Magento\Framework\View\Element\Template" name="pdp_title" template="Magento_Catalog::product/view/title.phtml" as='pdp_title' after="page.main.title" /> 
-           </referenceContainer>-->
         <referenceContainer name="content">
             <container name="productDetails" htmlTag="div" htmlClass="static-content">
                 <block class="Magento\Framework\View\Element\Template" name="page_title" template="Magento_Catalog::product/view/title.phtml"/>
-               <!--<block class="Magento\Framework\View\Element\Template" name="pdp_price" template="Magento_Catalog::product/view/price.phtml"/>-->
                 <block class="Magento\Catalog\Block\Product\View" name="soap_price_and_stock" template="Magento_Catalog::product/soap_price_and_stock.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_qty" template="Magento_Catalog::product/view/qty.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_stock" template="Magento_Catalog::product/view/stock.phtml"/>

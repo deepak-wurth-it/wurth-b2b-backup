@@ -28,6 +28,11 @@ $collection= $test->getCollection()->addFieldToFilter('product_code', array('eq'
           <button type="submit" class="itemAdd">Dodaj u kosaricu</button>
         </div>     
 </div>
+<script type="text/javascript">
+    require(['jquery', 'pdp'], function($, qtyincrement) {
+        qtyincrement();
+    });
+</script>  
 
 <script type="text/javascript">
 require(['jquery'], function($) {
