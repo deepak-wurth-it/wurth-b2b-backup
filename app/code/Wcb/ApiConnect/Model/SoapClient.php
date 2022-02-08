@@ -145,28 +145,29 @@ class SoapClient extends AbstractModel implements SoapClientInterface
 
         // xml post structure
 
-        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">
-    <soapenv:Header/>
-    <soapenv:Body>
-    <shop:GetItemEShopSalesPriceAndDisc>
-    <shop:customerNoP>110508</shop:customerNoP>
-    <shop:itemNoP>' . $itemNo . '</shop:itemNoP>
-    <shop:qtyOnSalesLineAsTxtP>1</shop:qtyOnSalesLineAsTxtP>
-    <shop:suggestedPriceAsTxtP>?</shop:suggestedPriceAsTxtP>
-    <shop:suggestedDiscountAsTxtP>?</shop:suggestedDiscountAsTxtP>
-    <shop:suggestedSalesPriceInclDiscAsTxtP>?</shop:suggestedSalesPriceInclDiscAsTxtP>
-    <shop:suggestedPriceTypeP>?</shop:suggestedPriceTypeP>
-    <shop:regularPriceAsTxtP>?</shop:regularPriceAsTxtP>
-    <shop:regularDiscountAsTxtP>?</shop:regularDiscountAsTxtP>
-    <shop:tAPriceLCYAsTxtP>?</shop:tAPriceLCYAsTxtP>
-    <shop:tADiscountAsTxtP>?</shop:tADiscountAsTxtP>
-    <shop:campaignPriceAsTxtP>?</shop:campaignPriceAsTxtP>
-    <shop:oVSPriceLCYAsTxtP>?</shop:oVSPriceLCYAsTxtP>
-    <shop:oVSDiscountAsTxtP>?</shop:oVSDiscountAsTxtP>
-    <shop:noteP>?</shop:noteP>
-    </shop:GetItemEShopSalesPriceAndDisc>
-    </soapenv:Body>
-    </soapenv:Envelope>'; // data from the form, e.g. some ID number
+        
+        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">';
+        $xml_post_string .= '<soapenv:Header/>';
+        $xml_post_string .= '<soapenv:Body>';
+        $xml_post_string .= '<shop:GetItemEShopSalesPriceAndDisc>';
+        $xml_post_string .= '<shop:customerNoP>110508</shop:customerNoP>';
+        $xml_post_string .= '<shop:itemNoP>' . $itemNo . '</shop:itemNoP>';
+        $xml_post_string .= '<shop:qtyOnSalesLineAsTxtP>1</shop:qtyOnSalesLineAsTxtP>';
+        $xml_post_string .= '<shop:suggestedPriceAsTxtP>?</shop:suggestedPriceAsTxtP>';
+        $xml_post_string .= '<shop:suggestedDiscountAsTxtP>?</shop:suggestedDiscountAsTxtP>';
+        $xml_post_string .= '<shop:suggestedSalesPriceInclDiscAsTxtP>?</shop:suggestedSalesPriceInclDiscAsTxtP>';
+        $xml_post_string .= '<shop:suggestedPriceTypeP>?</shop:suggestedPriceTypeP>';
+        $xml_post_string .= '<shop:regularPriceAsTxtP>?</shop:regularPriceAsTxtP>';
+        $xml_post_string .= '<shop:regularDiscountAsTxtP>?</shop:regularDiscountAsTxtP>';
+        $xml_post_string .= '<shop:tAPriceLCYAsTxtP>?</shop:tAPriceLCYAsTxtP>';
+        $xml_post_string .= '<shop:tADiscountAsTxtP>?</shop:tADiscountAsTxtP>';
+        $xml_post_string .= '<shop:campaignPriceAsTxtP>?</shop:campaignPriceAsTxtP>';
+        $xml_post_string .= '<shop:oVSPriceLCYAsTxtP>?</shop:oVSPriceLCYAsTxtP>';
+        $xml_post_string .= '<shop:oVSDiscountAsTxtP>?</shop:oVSDiscountAsTxtP>';
+        $xml_post_string .= '<shop:noteP>?</shop:noteP>';
+        $xml_post_string .= '</shop:GetItemEShopSalesPriceAndDisc>';
+        $xml_post_string .= '</soapenv:Body>';
+        $xml_post_string .= '</soapenv:Envelope>'; // data from the form, e.g. some ID number
         $response = $this->initCurl($xml_post_string);
         
         return $response;
@@ -239,7 +240,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         $response = curl_exec($ch);
         $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
 		$response = simplexml_load_string($response);
-       // print_r($response);exit;
+        //print_r($response);exit;
         return $response;
 
     }
