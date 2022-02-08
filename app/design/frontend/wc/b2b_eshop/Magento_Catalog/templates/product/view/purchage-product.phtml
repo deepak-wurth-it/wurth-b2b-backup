@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
+<?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+    $logedIn = $customerSession->isLoggedIn();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$product_id = $product->getId();
+$test = $objectManager->create(\Wcb\QuantityImport\Model\QuantityImport::class);
+$collection= $test->getCollection()->addFieldToFilter('product_code', array('eq'=>$product->getProductCode()));
+?>
+
+<?php foreach ($collection as $item) {?>
+<div class="purchaseWrapp">
+    <span class="proqty">Purchase this product in <?php echo $item->getData('quantity');?> quantity</span> 
+    <span class="dodajwrap"><button  mydata="<?php echo $item->getData('quantity');?>" id='cusatc-<?php echo $item->getData('quantity');?> ' type="submit" class="dodaj">Dodaj u kosaricu</button></span>
+</div>
+<?php } ?>
+<span class="hrline"></span>

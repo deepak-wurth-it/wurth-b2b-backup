@@ -15,7 +15,6 @@ $product_id = $product->getId();
 $test = $objectManager->create(\Wcb\QuantityImport\Model\QuantityImport::class);
 $collection= $test->getCollection()->addFieldToFilter('product_code', array('eq'=>$product->getProductCode()));
 ?>
-<div class="priceDisplay"><?php if($customerSession->isLoggedIn()) { ?>Price :   2,421.56 - 25% = 1,816.17 HRK/COM <span class="redStar"></span> <?php } else { ?> Price display for customers after registration <?php } ?></div>
 <div class="boxcontaner">
       <div class="qty-field">
         <div id="79-dec" class="decreaseQty icon-interface-minus"></div>
@@ -29,16 +28,12 @@ $collection= $test->getCollection()->addFieldToFilter('product_code', array('eq'
           <button type="submit" class="itemAdd">Dodaj u kosaricu</button>
         </div>     
 </div>
-<?php if($customerSession->isLoggedIn()) { ?><div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> <span class="itembox"> </span> <span class="deliveryday"></span><span> 1</span></div><?php } ?>
+<script type="text/javascript">
+    require(['jquery', 'pdp'], function($, qtyincrement) {
+        qtyincrement();
+    });
+</script>  
 
-<span class="hrline"></span>
-<?php foreach ($collection as $item) {?>
-<div class="purchaseWrapp">
-    <span class="proqty">Purchase this product in <?php echo $item->getData('quantity');?> quantity</span> 
-    <span class="dodajwrap"><button  mydata="<?php echo $item->getData('quantity');?>" id='cusatc-<?php echo $item->getData('quantity');?> ' type="submit" class="dodaj">Dodaj u kosaricu</button></span>
-</div>
-<?php } ?>
-<span class="hrline"></span>
 <script type="text/javascript">
 require(['jquery'], function($) {
     $(document).ready(function() {  

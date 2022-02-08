@@ -2,26 +2,26 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
 
-        <referenceContainer name="content">
+       <!--<referenceContainer name="content">
             <block class="Magento\Catalog\Block\Product\View" name="soap_price_and_stock" template="Magento_Catalog::product/soap_price_and_stock.phtml"/>
-        </referenceContainer>
+        </referenceContainer>-->
         <referenceContainer name="content">
             <container name="content.row.product-info" htmlTag="div" htmlClass="product-info row">
             </container>
         </referenceContainer>
-        <!--<referenceContainer name="content">
-               <block class="Magento\Framework\View\Element\Template" name="pdp_title" template="Magento_Catalog::product/view/title.phtml" as='pdp_title' after="page.main.title" /> 
-           </referenceContainer>-->
         <referenceContainer name="content">
-            <container name="productTitle" htmlTag="div" htmlClass="static-content">
+            <container name="productDetails" htmlTag="div" htmlClass="static-content">
                 <block class="Magento\Framework\View\Element\Template" name="page_title" template="Magento_Catalog::product/view/title.phtml"/>
-                <block class="Magento\Framework\View\Element\Template" name="pdp_price" template="Magento_Catalog::product/view/price.phtml"/>
+                <block class="Magento\Catalog\Block\Product\View" name="soap_price_and_stock" template="Magento_Catalog::product/soap_price_and_stock.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="pdp_qty" template="Magento_Catalog::product/view/qty.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="pdp_stock" template="Magento_Catalog::product/view/stock.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="pdp_purchage" template="Magento_Catalog::product/view/purchage-product.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_moreinfo" template="Magento_Catalog::product/view/more-info.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_reportbug" template="Magento_Catalog::product/view/report-bug.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_sociallink" template="Magento_Catalog::product/view/social-link.phtml"/>
             </container>
         </referenceContainer>
-        <move element="productTitle" destination="product.info.main" before="product.info.price" />
+        <move element="productDetails" destination="product.info.main" before="product.info.price" />
 
         <referenceContainer name="product.info.main" htmlClass="product-info-main col-md-5" />
         <referenceContainer name="product.info.media" htmlClass="product media col-md-7" />
