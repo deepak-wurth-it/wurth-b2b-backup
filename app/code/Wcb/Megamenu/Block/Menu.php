@@ -114,11 +114,26 @@ class Menu extends \Magento\Framework\View\Element\Template {
         }
         $html = "";
         if ($is_device == 'mobile') {
-            $html = '<li><a href="' . $link . '" class="' . $active . '"><span class="name">' . $blockData->getTitle() . '</span></a></li>';
+           // $html = '<li><a href="' . $link . '" class="' . $active . '"><span class="name">' . $blockData->getTitle() . '</span></a></li>';
         } else {
-            $html = '<div class="pt_menu nav-1" id="pt_cms">
-					<div class="parentMenu "><a href="' . $link . '" class="' . $active . '"><span>' . $blockData->getTitle() . '</span></a></div>
+            // static block added by Amit
+           $menuContent= $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId($blockData->getIdentifier())
+                ->toHtml();
+                
+                if($menuContent!=''){ 
+                    $submenustatus= "haschilds"; 
+                } else
+                 {
+                    $submenustatus= "pt_cms"; 
+                    }
+
+            $html = '<div class="pt_menu nav-1" id="' . $submenustatus . '">
+            <div style="display:none;" class="cmsPop popup '.$blockData->getIdentifier() .'"><div class="back-arrow tablinks allPagesBack">Back</div>'.$menuContent.'</div>
+					<div class="parentMenu '.$submenustatus.'"><a href="' . $link . '" class="withchilds '.$submenustatus.' ' . $active . '"><span>' . $blockData->getTitle() . '</span></a></div>
 				</div>';
+                
         }
         return $html;
     }
