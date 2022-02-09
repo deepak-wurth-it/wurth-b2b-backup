@@ -37,7 +37,7 @@ class GetItemEShopSalesPriceAndDisc extends \Magento\Framework\App\Action\Action
     }
 
     public function getSinglePrice($sku)
-    {   $sku = '001 512';
+    {   //$sku = '001 512';
         return $this->_soapApiClient->GetItemEShopSalesPriceAndDisc($sku);
 
     }
