@@ -8,24 +8,32 @@
 
 ?>
 
-<?php /** @var \Magento\Catalog\Block\Product\View $block */ ?>
+<?php /** @var \Magento\Catalog\Block\Product\View $block */?>
 
-<?php $_product = $block->getProduct(); ?>
-<?php $productCode = $_product->getProductCode(); ?>
+<?php $_product = $block->getProduct();?>
+<?php $productCode = $_product->getProductCode();?>
 
 <div>
-<div class="priceDisplay">Price :   2,421.56 - 25% = 1,816.17 HRK/COM <span class="redStar"></span> </div> 
-
-    <div><span id="price_pdp"><img src="<?= $block->getViewFileUrl('images/loader-h2.gif'); ?>"/></span><span id="price_format" style="display:none;">&nbsp;KN</span></div>
-   
+<div id="price_soap" style="display:none;" class="priceDisplay">
+        <span>Price:&nbsp;</span>
+        <span id="suggestedPriceAsTxtP"></span>
+        <span>-</span>
+        <span id="suggestedDiscountAsTxtP"></span>
+        <span>%</span>
+        <span>&nbsp;=&nbsp;</span>
+        <span id="suggestedSalesPriceInclDiscAsTxtP"></span>
+        <span>&nbsp;HRK/COM&nbsp;</span>
+        <span class="redStar"></span>
 </div>
-<script type="text/x-magento-init">
-    
-        {
-            "body" : {
-                    "pdp": {
-                            "pid": "<?php echo $productCode; ?>"
-                    }
-            }
-        }
+
+<div><span id="price_loader" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
+
+</div>
+<script>
+require(['pdp'], function(pdp) {
+               pdp.soapPrice("<?php echo $productCode ?>");
+            });
 </script>
+
+
+
