@@ -258,6 +258,14 @@
 					
 	
 		<!-- show, end mobile bar content -->
+		<!-- show cms start mobile bar content Amit -->
+		jQuery(".mobile-menu #haschilds .parentMenu a").attr('href', '#');
+		jQuery(".mobile-menu .cmsPop").css("display","block");
+		jQuery('.mobile-menu .cmsPop').removeClass('popup').addClass('mob-popup');
+		jQuery(".mobile-menu .pt_menu .haschilds").click(function(){			
+                  jQuery(this).closest("div").prev().addClass('onn');					 				 
+		                 });
+		<!-- show cms end mobile bar content Amit -->
 					
 				});
 		</script>
