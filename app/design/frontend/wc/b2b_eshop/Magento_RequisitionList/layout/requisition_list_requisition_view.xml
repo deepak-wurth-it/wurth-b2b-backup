@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="requisition_list"/>
+    <body>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceContainer name="content">
+        <block class="Magento\Framework\View\Element\Template" name="order_templates" template="Magento_RequisitionList::order-templates.phtml"  as='order_templates' before="-" /> 
+           <!-- <block class="Magento\RequisitionList\Block\Requisition\View\Items\Grid" name="requisition.items.grid"
+                   template="Magento_RequisitionList::requisition/view/items/grid.phtml">
+                <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.management"
+                       template="Magento_RequisitionList::requisition/view/management.phtml">
+                    <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.list.title"
+                           template="Magento_RequisitionList::requisition/actions/rename.phtml"/>
+                    <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.list.export"
+                           template="Magento_RequisitionList::requisition/actions/export.phtml"
+                   >
+                        <arguments>
+                            <argument name="view_model" xsi:type="object">Magento\RequisitionList\ViewModel\Export</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.list.print"
+                           template="Magento_RequisitionList::requisition/actions/print.phtml"/>
+                    <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.list.toolbar" as="toolbar"
+                           template="Magento_RequisitionList::requisition/view/items/toolbar.phtml">
+                        <container name="requisition.list.toolbar.massactions" as="massactions">
+                            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="massaction.remove"
+                                   template="Magento_RequisitionList::requisition/view/items/toolbar/massaction/remove.phtml"/>
+                            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="massaction.move"
+                                   template="Magento_RequisitionList::requisition/view/items/toolbar/massaction/move.phtml"/>
+                            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="massaction.copy"
+                                   template="Magento_RequisitionList::requisition/view/items/toolbar/massaction/copy.phtml"/>
+                        </container>
+                    </block>
+                </block>
+                <block class="Magento\RequisitionList\Block\Requisition\View\Item" name="requisition.list.item.view"
+                       template="Magento_RequisitionList::requisition/view/items/item.phtml">
+                    <block class="Magento\RequisitionList\Block\Requisition\Item\Options" name="requisition.list.item.options">
+                        <arguments>
+                            <argument name="downloadableViewModel" xsi:type="object">Magento\RequisitionList\ViewModel\Downloadable</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.items.buttons"
+                   template="Magento_RequisitionList::requisition/view/items/buttons.phtml"/>-->
+        </referenceContainer> 
+    </body>
+</page>
