@@ -30,11 +30,11 @@ class GetMultiProductPrice extends \Magento\Framework\App\Action\Action
 		$key = "";
 		$header = "";
 		$finalData = [];
-
-
+		
+		$skus= json_decode($skus);
 	
 		foreach($skus as $key=>$sku){
-			$dataString .= $sku['0'].';'.$sku['1'].PHP_EOL; 
+			$dataString .= '"'.$sku['0'].'"'.';'.'"'.$sku['1'].'"'.PHP_EOL; 
 			
 		}
 		$dataString = trim($dataString);
@@ -44,7 +44,7 @@ class GetMultiProductPrice extends \Magento\Framework\App\Action\Action
 		
 		 //$sku = $this->getRequest()->getPost('sku');
 		 $xmlData = $this->getMultiPrice($dataString);
-		
+		 //echo $xmlData;exit;
 			if($xmlData){
 			$data = $xmlData->SoapBody->GetMultiItemEShopSalesPriceAndDisc_Result->salesLinesCsvP;
 

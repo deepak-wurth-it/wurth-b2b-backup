@@ -31,9 +31,10 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		$header = "";
 		$finalData = [];
 
-	
+		$skus= json_decode($skus);
+		
 		foreach($skus as $key=>$sku){
-			$dataString .= $sku['0'].';'.$sku['1'].PHP_EOL; 
+			$dataString .= '"'.$sku['0'].'"'.';'.'"'.$sku['1'].'"'.PHP_EOL; 
 			
 		}
 		$dataString = trim($dataString);

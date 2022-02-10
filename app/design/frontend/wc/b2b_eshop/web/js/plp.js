@@ -1,43 +1,20 @@
 define([
-        "jquery",
-        "accordion",
-        "mage/url"
-    ],
-    function ($) {
-        "use strict";
+    "jquery",
+    "mage/url",
+    "accordion"
+], function ($,urlBuilder) {
+    "use strict";
+    return {
 
-        return function customjs() {
-
-            $("#element").accordion({
-                multipleCollapsible: true,
-                collapsible: true,
-                active: false,
-                animate: {
-                    duration: 400
-                }
-            });
-
-            $(".itemAdd").click(function () {
-                $('html,body').animate({
-                        scrollTop: $(".execution").offset().top
-                    },
-                    'slow');
-            });
-        }
-    },
-    function ($, urlBuilder) {
-        "use strict";
-        return function (config) {
-            //console.log(config);
+        GetMultiProductPrice : function (listPids) {
             var GetMultiProductPriceUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductPrice');
-            var GetMultiProductStockUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
 
             $.ajax({
 
                 type: "POST",
                 url: GetMultiProductPriceUrl,
                 data: {
-                    skus: config.listPids
+                    skus: listPids
                 },
                 cache: false,
                 async: false,
@@ -62,13 +39,15 @@ define([
                     }
                 }
             });
-
+        },
+        GetMultiProductStock: function (listPids) {
+            var GetMultiProductStockUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductStock');
 
             $.ajax({
                 type: "POST",
                 url: GetMultiProductStockUrl,
                 data: {
-                    skus: config.listPids
+                    skus: listPids
                 },
                 cache: false,
                 async: false,
@@ -92,6 +71,25 @@ define([
                     }
                 }
             });
-        };
+        },
+        customjs: function () {
 
-    });
+            $("#element").accordion({
+                multipleCollapsible: true,
+                collapsible: true,
+                active: false,
+                animate: {
+                    duration: 400
+                }
+            });
+
+            $(".itemAdd").click(function () {
+                $('html,body').animate({
+                        scrollTop: $(".execution").offset().top
+                    },
+                    'slow');
+            });
+        }
+    };
+
+});
