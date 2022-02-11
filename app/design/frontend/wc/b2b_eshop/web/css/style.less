@@ -5626,6 +5626,10 @@ div#reviews {
 			border: 0;
 			padding: 0;
 		}
+		.block .block-wishlist
+		{
+			display:none;
+		}
 	}
 }
 
@@ -10296,6 +10300,9 @@ print {
 		margin-bottom: 20px;
 		display: inherit;
 	} 
+	.boxContaner {
+		display: flex;
+	}
 
 .collection-container {
 	display: inherit;
@@ -10323,6 +10330,7 @@ background: rgba(0, 147, 221, 0.12);
 .attribute {
 	display: grid;
 	grid-template-columns: minmax(9em, 30%) 1fr;
+	padding-bottom: 10px;
 }
 .attribute.detbutton {	
 	padding-top: 10px;
@@ -10346,7 +10354,9 @@ margin-top: 10px;
 		margin-bottom: 20px;
 		display: inherit;
 	}
-
+	.boxContaner {
+		display: flex;
+	}
 .collection-container {
 	display: inherit;
 	grid-template-columns: 1fr 1fr;
@@ -10417,9 +10427,7 @@ margin-top: 10px;
 	color: #FFFFFF;
 	cursor:pointer;
 }
-.qtyPack{
-	display:flex;
-}
+
 .xpad {			
 	padding: 5px 6px 0 5px;
 	font-size: 16px;
@@ -10484,7 +10492,11 @@ margin-top: 10px;
 	}
 	  //Request a quote end by Amit for view page
 	  //Order Template start by Amit for view page
+	 
 	.orderTemplate{
+		.boxContaner {
+			display: flex;
+		}
 		ol.collection.collection-container {
 			padding: 0;
 			margin-top: 20px;
@@ -10569,15 +10581,13 @@ margin-top: 10px;
 			color: #FFFFFF;
 			cursor:pointer;
 		}
-		.qtyPack{
-			display:flex;
-		}
 		.xpad {			
 			padding: 5px 6px 0 5px;
 			font-size: 16px;
 			text-align: center;
 			color: rgba(0, 0, 0, 0.6);
 		}
+		
 
 		}
 
