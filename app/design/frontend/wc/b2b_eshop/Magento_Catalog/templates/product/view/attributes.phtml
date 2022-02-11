@@ -18,9 +18,9 @@
 ?>
 <div class="productDescription">
 <div class="pdpTab">
-  <button class="pdpTabnames" onclick="openCity(event, 'Description')" id="defaultOpens">Opis</button>
-  <button class="pdpTabnames" onclick="openCity(event, 'technicalInformation')">Tehnički podaci</button>
-  <button class="pdpTabnames" onclick="openCity(event, 'Documents')">Informacije o artiklu</button>
+  <button class="pdpTabnames" onclick="openTabs(event, 'Description')" id="defaultOpens">Opis</button>
+  <button class="pdpTabnames" onclick="openTabs(event, 'technicalInformation')">Tehnički podaci</button>
+  <button class="pdpTabnames" onclick="openTabs(event, 'Documents')">Informacije o artiklu</button>
 </div>
 
 <div id="Description" class="pdpTabcontentbox">
@@ -118,7 +118,7 @@
   </div>
 
 <script>
-function openCity(evt, pdpTabName) {
+function openTabs(evt, pdpTabName) {
   var i, pdpTabcontentbox, pdpTabnames;
   pdpTabcontentbox = document.getElementsByClassName("pdpTabcontentbox");
   for (i = 0; i < pdpTabcontentbox.length; i++) {
