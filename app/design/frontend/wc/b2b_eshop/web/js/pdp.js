@@ -3,15 +3,15 @@ define([
         "mage/url",
         "wcbglobal"
     ],
-    function ($, urlBuilder,wcbglobal) {
+    function ($, urlBuilder, wcbglobal) {
         "use strict";
-        
+
         return {
-            soapPrice: function(productCode) {
+            soapPrice: function (productCode) {
                 var GetItemEShopSalesPriceAndDisc = urlBuilder.build('/wcbcatalog/ajax/GetItemEShopSalesPriceAndDisc');
                 console.log(wcbglobal.isLogin());
                 $.ajax({
-        
+
                     type: "POST",
                     url: GetItemEShopSalesPriceAndDisc,
                     data: {
@@ -19,10 +19,10 @@ define([
                     },
                     cache: false,
                     async: false,
-                    success: function(result) {
+                    success: function (result) {
                         if (result.success) {
                             var finalResult = result.success;
-        
+
                             if (finalResult.suggestedPriceAsTxtP) {
                                 $('#suggestedPriceAsTxtP').html(finalResult.suggestedPriceAsTxtP);
                                 $('#suggestedDiscountAsTxtP').html(finalResult.suggestedDiscountAsTxtP);
@@ -34,40 +34,15 @@ define([
                                     display: "none"
                                 });
                             }
-        
+
                             console.log(result.success);
                         } else {
-        
+
                         }
                     }
-                });
-        
-            },
-        
-            qtyincrement: function() {
-                //alert();
-                $(document).ready(function() {
-                    var incrementPlus;
-                    var incrementMinus;
-                    var buttonPlus = $(".increaseQty");
-                    var buttonMinus = $(".decreaseQty");
-                    var incrementPlus = buttonPlus.click(function() {
-                        var $n = $(".qty")
-                        $n.val(Number($n.val()) + 1);
-                    });
-        
-                    var incrementMinus = buttonMinus.click(function() {
-                        var $n = $(".qty")
-                        var amount = Number($n.val());
-                        if (amount > 1) {
-                            $n.val(amount - 1);
-                        }
-                    });
-        
+
                 });
             }
-        
-        
         };
 
     });

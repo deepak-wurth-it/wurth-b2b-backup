@@ -139,7 +139,7 @@ $product=false;
     <span class="attrow vdc">18 V / DC</span>
     <div class="boxcontaner <?= (($logedIn ?'logdIn':'')); ?>">
     <span class="attrow <?= (($logedIn ?'logdIn':'')); ?>">
-      <div class="qty-field">
+      <div class="qty-field" data-mage-init='{"qtyIncrementWidget": {}}'>
         <div id="79-dec" class="decreaseQty icon-interface-minus"></div>
         <input id="cart-79-qty" name="cart[79][qty]" data-cart-item-id="Test product" value="1" type="number" size="4" step="any" title="Qty" class="input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
         <div id="79-upt" class="increaseQty icon-interface-plus"></div>
@@ -262,19 +262,6 @@ $product=false;
 </div>
 <?php } ?>
 <!-- End --->
-<script>
-    // <![CDATA[
-        require([
-            'jquery'
-        ], function ($) {
-            $('.sidebar-main').remove();
-            $('.sidebar').remove();
-            $('.category-view').remove();
-            $('.page-title-wrapper').remove();
-     
-        });
-        // ]]>
-    </script>
 <script type="text/javascript">
     require(['jquery', 'plp'], function($, plp) {
       plp.customjs();

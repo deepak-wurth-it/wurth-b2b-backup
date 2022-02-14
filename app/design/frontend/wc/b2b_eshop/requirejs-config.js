@@ -4,6 +4,8 @@ var config = {
                  'plp': 'js/plp',
                  'pdp': 'js/pdp',
                  'checkoutjs' : 'Magento_Checkout/js/chekout',
+                 'qtyIncrementWidget':'js/pdp-widget',
+                 'plpJsWidget':'js/plp-widget',
              }
          },
 paths: {

@@ -10,7 +10,11 @@
 	<referenceContainer name="columns">
             <container name="columns.main" htmlTag="div" htmlClass="column main col-md pdpWrapper" before="-" />
         </referenceContainer>
-
+ <referenceContainer name="content">
+     <referenceBlock name="sidebar.main" remove="true"/>
+     <referenceBlock name="sidebar.additional" remove="true"/>
+   </referenceContainer >
+   <referenceBlock name="page.main.title" display="false"/>
 		<referenceContainer name="div.sidebar.additional">
 			<block class="Magento\Cms\Block\Block" name="banner_left" after="recentproductslider">
 				<arguments>

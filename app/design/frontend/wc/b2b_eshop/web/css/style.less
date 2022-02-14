@@ -1168,6 +1168,7 @@ label.sorter-label {
 		}
 		strong {
 			color: @general_link_hover_color;
+			font-family:'wuerthbook'
 		}
 	}
 	.items {
@@ -4288,7 +4289,7 @@ a.action.print.hidden-print {
 	.emailBox {
 		font-family: 'wuerthbold';
 		font-size: 16px;
-		color: rgba(255, 255, 255, 0.87);
+		color: #ffffff;
 		height: 35px;
 		background: @general_price_color;
 		border-radius: 30px;
@@ -5571,6 +5572,9 @@ div#reviews {
 		border-radius: 5px;
 		padding-bottom: 100% !important;
 	}
+	img.product-image-photo.owl-lazy {
+		padding: 10px;
+	}
 	.slider-product-item-details {
 		text-align: center;
 	}
@@ -5626,7 +5630,14 @@ div#reviews {
 			border: 0;
 			padding: 0;
 		}
+		.block .block-wishlist
+		{
+			display:none;
+		}
 	}
+}
+.sidebar-additional .block-wishlist {
+    display: none;
 }
 
 .sidebar .block {
@@ -10296,6 +10307,9 @@ print {
 		margin-bottom: 20px;
 		display: inherit;
 	} 
+	.boxContaner {
+		display: flex;
+	}
 
 .collection-container {
 	display: inherit;
@@ -10323,6 +10337,7 @@ background: rgba(0, 147, 221, 0.12);
 .attribute {
 	display: grid;
 	grid-template-columns: minmax(9em, 30%) 1fr;
+	padding-bottom: 10px;
 }
 .attribute.detbutton {	
 	padding-top: 10px;
@@ -10346,7 +10361,9 @@ margin-top: 10px;
 		margin-bottom: 20px;
 		display: inherit;
 	}
-
+	.boxContaner {
+		display: flex;
+	}
 .collection-container {
 	display: inherit;
 	grid-template-columns: 1fr 1fr;
@@ -10417,9 +10434,7 @@ margin-top: 10px;
 	color: #FFFFFF;
 	cursor:pointer;
 }
-.qtyPack{
-	display:flex;
-}
+
 .xpad {			
 	padding: 5px 6px 0 5px;
 	font-size: 16px;
@@ -10484,7 +10499,11 @@ margin-top: 10px;
 	}
 	  //Request a quote end by Amit for view page
 	  //Order Template start by Amit for view page
+	 
 	.orderTemplate{
+		.boxContaner {
+			display: flex;
+		}
 		ol.collection.collection-container {
 			padding: 0;
 			margin-top: 20px;
@@ -10569,15 +10588,13 @@ margin-top: 10px;
 			color: #FFFFFF;
 			cursor:pointer;
 		}
-		.qtyPack{
-			display:flex;
-		}
 		.xpad {			
 			padding: 5px 6px 0 5px;
 			font-size: 16px;
 			text-align: center;
 			color: rgba(0, 0, 0, 0.6);
 		}
+		
 
 		}
 
