@@ -1,14 +1,15 @@
 define([
         "jquery",
-        "mage/url"
+        "mage/url",
+        "wcbglobal"
     ],
-    function ($, urlBuilder) {
+    function ($, urlBuilder,wcbglobal) {
         "use strict";
         
         return {
             soapPrice: function(productCode) {
                 var GetItemEShopSalesPriceAndDisc = urlBuilder.build('/wcbcatalog/ajax/GetItemEShopSalesPriceAndDisc');
-                //alert();
+                console.log(wcbglobal.isLogin());
                 $.ajax({
         
                     type: "POST",
