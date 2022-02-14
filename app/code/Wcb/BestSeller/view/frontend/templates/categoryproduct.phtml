@@ -83,7 +83,7 @@ require(['jquery', 'owlcarousel'], function($) {
 <?php
 if($pageIdentifier == 'cms_index_index') {
 ?>
-<div class="bestSellerWrap container-inner">
+<section class="bestSellerWrap container-inner">
 <h2><?php echo __("Best Sellers in Protupozarna zastita"); ?></h2>
 <?php
 if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
@@ -140,7 +140,7 @@ if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
         });
     </script>
 <?php endif; ?>
-    </div>
+    </section>
 <?php } elseif($pageIdentifier == "checkout_cart_index"){
 echo $this->getLayout()->createBlock("Wcb\BestSeller\Block\BestSellerProducts")->setTemplate("Wcb_BestSeller::recommanded-products.phtml")->toHtml();
 } ?>
