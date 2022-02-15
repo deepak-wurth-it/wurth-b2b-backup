@@ -12,7 +12,7 @@ $blockId = $block->getSliderId() . uniqid('-', false);
 $items = $block->getProductCollection();
 $offer = $block->getOffer();
 ?>
-<div class="recommandedProWrap container-inner">
+<section class="recommandedProWrap container-inner">
 <h2><?php echo __("Recommanded products"); ?></h2>
 <?php
 if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
@@ -116,5 +116,5 @@ require(['jquery', 'owlcarousel'], function($) {
         });
     </script>
 <?php endif; ?>
-    </div>
+    </section>
 
