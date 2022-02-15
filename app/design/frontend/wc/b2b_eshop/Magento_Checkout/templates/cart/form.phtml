@@ -47,7 +47,7 @@
    }'
    class="form form-cart chkcart">
    <?= $block->getBlockHtml('formkey') ?>
-   <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
+   <div class="cart table__wrap table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
       <?php if ($block->getPagerHtml()): ?>
       <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
          data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?>
@@ -58,12 +58,12 @@
          data-mage-init='{"shoppingCart":{"emptyCartButton": ".action.clear",
          "updateCartActionContainer": "#update_cart_action_container"}}'>
          <caption class="table-caption"><?= $block->escapeHtml(__('Shopping Cart Items')) ?></caption>
-         <thead>
+         <thead class="table__header">
             <tr>
                <td class="totItem" colspan="8" class="totItem">My Shopping bag (4 item) </td>
             </tr>
-            <tr class="itemFirst">
-               <th class="colitemphoto" scope="col"><span><?= $block->escapeHtml(__('Item code and name')) ?></span></th>
+            <tr class="itemFirst table__row">
+               <th class="colitemphoto" scope="col" ><span><?= $block->escapeHtml(__('Item code and name')) ?></span></th>
                <th class="itemprice" scope="col"><span><?= $block->escapeHtml(__('Quantity X pieces = total quantity')) ?></span></th>
                <th class="itemjed" scope="col"><span><?= $block->escapeHtml(__('Jed. measure')) ?></span></th>
                <th class="itempricetype" scope="col"><span><?= $block->escapeHtml(__('Price type')) ?></span></th>
