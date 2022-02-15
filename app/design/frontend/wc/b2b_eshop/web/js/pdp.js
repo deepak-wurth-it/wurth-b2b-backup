@@ -1,69 +1,48 @@
 define([
         "jquery",
-        "mage/url"
+        "mage/url",
+        "wcbglobal"
     ],
-
-    function ($) {
+    function ($, urlBuilder, wcbglobal) {
         "use strict";
 
-        return function qtyincrement() {
+        return {
+            soapPrice: function (productCode) {
+                var GetItemEShopSalesPriceAndDisc = urlBuilder.build('/wcbcatalog/ajax/GetItemEShopSalesPriceAndDisc');
+                console.log(wcbglobal.isLogin());
+                $.ajax({
 
-            $(document).ready(function() {  
-                var incrementPlus;
-                var incrementMinus;
-                var buttonPlus  = $(".increaseQty");
-                var buttonMinus = $(".decreaseQty");
-                var incrementPlus = buttonPlus.click(function() {
-                    var $n = $(".qty")
-                    $n.val(Number($n.val())+1 );
-                });
-                
-                var incrementMinus = buttonMinus.click(function() {
-                        var $n = $(".qty")
-                    var amount = Number($n.val());
-                    if (amount > 1) {
-                        $n.val(amount-1);
-                    }
-                });
-                
-                });
+                    type: "POST",
+                    url: GetItemEShopSalesPriceAndDisc,
+                    data: {
+                        skus: productCode
+                    },
+                    cache: false,
+                    async: false,
+                    success: function (result) {
+                        if (result.success) {
+                            var finalResult = result.success;
 
-           
-        }
-    },
+                            if (finalResult.suggestedPriceAsTxtP) {
+                                $('#suggestedPriceAsTxtP').html(finalResult.suggestedPriceAsTxtP);
+                                $('#suggestedDiscountAsTxtP').html(finalResult.suggestedDiscountAsTxtP);
+                                $('#suggestedSalesPriceInclDiscAsTxtP').html(finalResult.suggestedSalesPriceInclDiscAsTxtP);
+                                $("#price_soap").css({
+                                    display: "block"
+                                });
+                                $("#price_loader").css({
+                                    display: "none"
+                                });
+                            }
 
-    function ($, urlBuilder) {
-        "use strict";        
-        return function (config) {
-            //console.log(config);
-            var GetItemEShopSalesPriceAndDisc = urlBuilder.build('/wcbcatalog/ajax/GetItemEShopSalesPriceAndDisc');
+                            console.log(result.success);
+                        } else {
 
-            $.ajax({
-
-                type: "POST",
-                url: GetItemEShopSalesPriceAndDisc,
-                data: {
-                    skus: config.pid
-                },
-                cache: false,
-                async: false,
-                success: function (result) {
-                    if (result.success) {
-                        var finalResult = result.success;
-                        if(finalResult.suggestedPriceAsTxtP){
-                          $('#price_pdp').html(finalResult.suggestedPriceAsTxtP);
-                          $("#price_format").css({ display: "block" });
                         }
-
-                        console.log(result.success);
-                    } else {
-
                     }
-                }
-            });
 
-            
-
+                });
+            }
         };
 
     });
