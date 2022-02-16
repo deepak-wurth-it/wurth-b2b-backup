@@ -76,6 +76,8 @@ require(['jquery', 'owlcarousel'], function($) {
                 }
             }
         });
+        $('.owl-carouselrp').trigger('refresh.owl.carousel');
+        window.dispatchEvent(new Event('resize'));
     });
 });
         </script>
