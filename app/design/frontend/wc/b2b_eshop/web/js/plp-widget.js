@@ -15,7 +15,14 @@ define([
      },
 
      customJs: function () {
-        console.log('widget load on plp page');   
+       // console.log('widget load on plp page'); 
+       
+       $(".itemAdd").click(function () {
+        $('html,body').animate({
+                scrollTop: $(".execution").offset().top
+            },
+            'slow');
+    });     
     },
         });
  
