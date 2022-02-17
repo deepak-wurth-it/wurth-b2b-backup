@@ -71,25 +71,8 @@ define([
                     }
                 }
             });
-        },
-        customjs: function () {
-
-            $("#element").accordion({
-                multipleCollapsible: true,
-                collapsible: true,
-                active: false,
-                animate: {
-                    duration: 400
-                }
-            });
-
-            $(".itemAdd").click(function () {
-                $('html,body').animate({
-                        scrollTop: $(".execution").offset().top
-                    },
-                    'slow');
-            });
         }
+       
     };
 
 });

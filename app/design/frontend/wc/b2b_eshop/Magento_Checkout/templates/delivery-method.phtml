@@ -19,7 +19,7 @@
    <div class="click-collect">
        <div class="boxgroup">
             <label for="is_subscribed">
-            <input type="checkbox" name="is_subscribed" title="Click and Collect?" class="checkbox" checked="checked">
+            <input type="checkbox" name="is_subscribed" title="Click and Collect?" class="checkbox">
                    <span class="checkmark"> </span>
                 <span>Click and Collect?</span>
             </label>
@@ -46,3 +46,10 @@
     display: none;
 }
  </style>   
+ <script>
+    require(['jquery'],function($){
+        $('input.checkbox').on('change', function() {
+    $('input.checkbox').not(this).prop('checked', false);  
+});
+    })
+</script>

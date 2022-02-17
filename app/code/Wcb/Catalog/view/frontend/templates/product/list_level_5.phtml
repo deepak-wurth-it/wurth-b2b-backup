@@ -75,7 +75,7 @@ $product=false;
             <div class="pdAku">AKU BUSILICA ODVIJAC-ABS 12 COMPACT-2X2,O AH</div>
             <span class="hrline"></span>
             <div class="pdversion">Available in 2 version</div>
-            <div class="pdvariants"><button type="submit" class="itemAdd">Show variants</button></div>
+            <div class="pdvariants" ><button type="submit" class="itemAdd">Show variants</button></div>
             <span class="hrline"></span>
             <div class="col-md-6 more-info-block">
                <div class="moreInfo">Need More Information?</div>
@@ -125,7 +125,12 @@ $product=false;
   </div>
 <?php if($level5Collection->getSize() > 0 ){ ?>  
  <?php //$level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?> 
- <div id="element">
+ <div id="element" data-mage-init='{
+        "accordion":{
+            "active": false,
+            "collapsible": true,
+            "multipleCollapsible": true
+        }}'>
  <?php 
  
  foreach($level5Collection as $product) { 
@@ -262,11 +267,16 @@ $product=false;
 </div>
 <?php } ?>
 <!-- End --->
-<script type="text/javascript">
-    require(['jquery', 'plp'], function($, plp) {
-      plp.customjs();
-    });
-</script>  
+
+
+<script type="text/x-magento-init">
+    {
+        ".levelFive": {
+            "plpJsWidget": {
+            }
+        }
+    }
+</script>
  <script type="text/x-magento-init">
    {
        "[data-role=tocart-form], .form.map.checkout": {
