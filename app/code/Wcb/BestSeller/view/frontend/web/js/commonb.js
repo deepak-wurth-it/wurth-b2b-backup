@@ -1,5 +1,5 @@
 /**
- * Created By : Rohan Hapani
+ * Created By : Rohan Hapania
  */
 require(['jquery', 'owlcarousel'], function($) {
     $(document).ready(function() {
@@ -12,6 +12,8 @@ require(['jquery', 'owlcarousel'], function($) {
 		        "<span class='icon-interface-right'></span>"
 	        ],
 	        autoplay: true,
+			items : 1, // THIS IS IMPORTANT
+			responsiveClass:true,
 	        autoplayHoverPause: true,
 			pagination: false,
 	        responsive: {
@@ -26,5 +28,7 @@ require(['jquery', 'owlcarousel'], function($) {
 	            }
 	        }
 	    });
+		$('.owl-carousel').trigger('refresh.owl.carousel');
+        window.dispatchEvent(new Event('resize'));
     });
 });
