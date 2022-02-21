@@ -1,4 +1,118 @@
-<div class="quoteWrapper">
+<div class="my-inquiry">
+<div class="quoteTitle">
+  <div class="columnTitle"><h2> My Inquiry</h2></div>
+</div>
+
+<section id="elements"> 
+   <ol class="collection collection-container">
+      <li class="item item-container" >
+         <div class="attribute" data-name="Inquiry ID">Inquiry ID <span class="down-arrow"></span></div>
+         <div class="attribute" data-name="Date of Inquiry">Date of Inquiry <span class="down-arrow"></span></div>
+         <div class="attribute" data-name="Action">Action <span class="down-arrow"></span></div>        
+      </li>
+      <li class="item item-container" data-role="collapsible">
+         <div class="attribute" data-name="Inquiry ID">TTKA10280.</div>
+         <div class="attribute" data-name="Date of Inquiry">26.05.2021</div>
+         <div class="attribute">
+            <div class="details" data-role="trigger"> Details </div>
+         </div>
+      </li> 
+      <div class="resp-row-three" data-role="content">
+         <div class="row-three">
+            <ol class="collection collection-container">
+               <li class="item item-sub-container" >
+                     <div class="attribute" data-name="Item Image">Item Image</div>
+                     <div class="attribute" data-name="Item No">Item No</div>
+                     <div class="attribute" data-name="Item Name">Item Name</div>
+                     <div class="attribute" data-name="Quantity">Quantity</div>
+                     <div class="attribute" data-name="Date">Date</div>
+                     <div class="attribute" data-name="Comments">Comments</div>
+               </li>
+               <li class="item item-sub-container" data-role="collapsible">
+               <div class="attribute" data-name="Item Image">Images</div>
+                      <div class="attribute" data-name="Item No">TTKA10280</div>
+                      <div class="attribute" data-name="Item Name">REINFORCEMENT PLIERS WORM 280 mm HANDLE</div>
+                     <div class="attribute" data-name="Quantity">1</div>
+                     <div class="attribute" data-name="Date">26.05.2021</div>
+                     <div class="attribute" data-name="Comments">Aliquam vel suscipit sem. Mauris faucibus eget risus quis lobortis. Integer ligula lorem</div>
+               </li>
+               <li class="item item-sub-container" data-role="collapsible">
+               <div class="attribute" data-name="Item Image">Images</div>
+                      <div class="attribute" data-name="Item No">TTKA10280</div>
+                      <div class="attribute" data-name="Item Name">REINFORCEMENT PLIERS WORM 280 mm HANDLE</div>
+                     <div class="attribute" data-name="Quantity">1</div>
+                     <div class="attribute" data-name="Date">26.05.2021</div>
+                     <div class="attribute" data-name="Comments">Aliquam vel suscipit sem. Mauris faucibus eget risus quis lobortis. Integer ligula lorem</div>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="Inquiry ID">TTKA10888.</div>
+         <div class="attribute" data-name="Date of Inquiry">26.05.2022</div>
+         <div class="attribute">
+            <div class="details" data-role="trigger"> Details </div>
+         </div>
+      </li>
+      <div class="resp-row-three" data-role="content">
+         <div class="row-three">
+         <ol class="collection collection-container">
+               <li class="item item-sub-container" >
+               <div class="attribute" data-name="Item Image">Item Image</div>
+                     <div class="attribute" data-name="Item No">Item No</div>
+                     <div class="attribute" data-name="Item Name">Item Name</div>
+                     <div class="attribute" data-name="Quantity">Quantity</div>
+                     <div class="attribute" data-name="Date">Date</div>
+                     <div class="attribute" data-name="Comments">Comments</div>
+               </li>
+               <li class="item item-sub-container" data-role="collapsible">
+                      <div class="attribute" data-name="Item Image">Images</div>
+                      <div class="attribute" data-name="Item No">TTKA10280</div>
+                      <div class="attribute" data-name="Item Name">REINFORCEMENT PLIERS WORM 280 mm HANDLE</div>
+                     <div class="attribute" data-name="Quantity">100</div>
+                     <div class="attribute" data-name="Date">26.05.2021</div>
+                     <div class="attribute" data-name="Comments">Aliquam vel suscipit sem. Mauris faucibus eget risus quis lobortis. Integer ligula lorem</div>
+               </li>
+               <li class="item item-sub-container" data-role="collapsible">
+               <div class="attribute" data-name="Item Image">Images</div>
+                      <div class="attribute" data-name="Item No">TTKA10280</div>
+                      <div class="attribute" data-name="Item Name">REINFORCEMENT PLIERS WORM 280 mm HANDLE</div>
+                     <div class="attribute" data-name="Quantity">341</div>
+                     <div class="attribute" data-name="Date">26.05.2022</div>
+                     <div class="attribute" data-name="Comments">Aliquam vel suscipit sem. Mauris faucibus eget risus quis lobortis. Integer ligula lorem</div>
+               </li>
+               <li class="item item-sub-container" data-role="collapsible">
+               <div class="attribute" data-name="Item Image">Images</div>
+                      <div class="attribute" data-name="Item No">TTKA10244</div>
+                      <div class="attribute" data-name="Item Name">REINFORCEMENT PLIERS WORM 280 mm HANDLE</div>
+                     <div class="attribute" data-name="Quantity">500</div>
+                     <div class="attribute" data-name="Date">30.05.2021</div>
+                     <div class="attribute" data-name="Comments">Aliquam vel suscipit sem. Mauris faucibus eget risus quis lobortis. Integer ligula lorem</div>
+               </li>
+            </ol>
+         </div>
+      </div>
+   </ol>
+</section>
+</div>
+
+<script>
+   require([
+       'jquery',
+       'accordion'], function ($) {
+         $("#elements").accordion({
+       multipleCollapsible: true,
+       collapsible: true,
+       active: false,
+       animate: {
+           duration: 400
+       }
+   });
+   });
+</script>
+
+
+<!--<div class="quoteWrapper">
 <div class="quoteTitle">
   <div class="columnTitle"><h2>Currently valid offers for: Branch office (30793301) - zagreb</h2></div>
   <div class="columnBut"><div class="myInquiry"> My Inquiry </div></div>
@@ -6,10 +120,8 @@
 
 <section id="elements"> 
    <ol class="collection collection-container">
-      <!-- The first list item is the header of the table -->
       <li class="item item-container" >
          <div class="attribute" data-name="Rb. b">Rb. b</div>
-         <!-- Enclose semantically similar attributes as a div hierarchy -->
          <div class="attribute" data-name="Offer code">Offer code</div>
          <div class="attribute" data-name="The customer">The customer</div>
          <div class="attribute" data-name="Contact">Contact</div>
@@ -19,7 +131,6 @@
          <div class="attribute" data-name="Total sum">Total sum</div>
          <div class="attribute"></div>
       </li>
-      <!-- The rest of the items in the list are the actual data -->
       <li class="item item-container" data-role="collapsible">
          <div class="attribute" data-name="Rb. b">1</div>
          <div class="attribute" data-name="Offer code">PPO21-024551</div>
@@ -37,7 +148,6 @@
       <div class="resp-row-three" data-role="content">
          <div class="row-three">
             <ol class="collection collection-container">
-               <!-- The first list item is the header of the table -->
                <li class="item item-sub-container" >
                      <div class="attribute"></div>
                      <div class="attribute"></div>
@@ -48,7 +158,6 @@
                      <div class="attribute" data-name="Discount(%)">Discount(%)</div>
                      <div class="attribute" data-name="VPC after discount">VPC after discount</div>
                </li>
-               <!-- The rest of the items in the list are the actual data -->
                <li class="item item-sub-container" data-role="collapsible">
                      <div class="attribute">1</div>
                      <div class="attribute">Images</div>
@@ -69,7 +178,6 @@
                      <div class="attribute" data-name="Discount(%)">35.00</div>
                      <div class="attribute" data-name="VPC after discount">574,55 HRK</div>
                </li>
-               <!-- The rest of the items in the list are the actual data -->
             </ol>
          </div>
       </div>
@@ -90,7 +198,6 @@
       <div class="resp-row-three" data-role="content">
          <div class="row-three">
          <ol class="collection collection-container">
-               <!-- The first list item is the header of the table -->
                <li class="item item-sub-container" >
                      <div class="attribute"></div>
                      <div class="attribute"></div>
@@ -101,7 +208,6 @@
                      <div class="attribute" data-name="Discount(%)">Discount(%)</div>
                      <div class="attribute" data-name="VPC after discount">VPC after discount</div>
                </li>
-               <!-- The rest of the items in the list are the actual data -->
                <li class="item item-sub-container" data-role="collapsible">
                      <div class="attribute">1</div>
                      <div class="attribute">Images</div>
@@ -132,7 +238,6 @@
                      <div class="attribute" data-name="Discount(%)">55.00</div>
                      <div class="attribute" data-name="VPC after discount">374,55 HRK</div>
                </li>
-               <!-- The rest of the items in the list are the actual data -->
             </ol>
          </div>
       </div>
@@ -153,5 +258,4 @@
        }
    });
    });
-
-</script>
+</script> -->
