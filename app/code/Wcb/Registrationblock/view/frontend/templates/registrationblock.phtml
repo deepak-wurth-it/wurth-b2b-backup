@@ -1,4 +1,10 @@
 <?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+if(!$customerSession->isLoggedIn()) {
+  
 echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('registration-block')->toHtml();
+ // customer login action
+}
 ?>
 
