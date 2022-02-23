@@ -11,9 +11,10 @@
 // We should use strlen function because coupon code could be "0", converted to bool will lead to false
 $hasCouponCode = (bool) strlen($block->getCouponCode());
 ?>
-<div class="block discount">
+<div class="block discount" id="block-discount"
+     data-mage-init='{"collapsible":{"active": <?= $hasCouponCode ? 'true' : 'false' ?>, "openedState": "active", "saveState": false}}'>
     
-        <form id="discount-coupon-form"
+     <form id="discount-coupon-form"
               action="<?= $block->escapeUrl($block->getUrl('checkout/cart/couponPost')) ?>"
               method="post"
               data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
@@ -24,7 +25,8 @@ $hasCouponCode = (bool) strlen($block->getCouponCode());
                 <input type="hidden" name="remove" id="remove-coupon" value="0" />
                 <div class="field">
                     <label for="coupon_code" class="label"><span><?= $block->escapeHtml(__('Enter the discount code')) ?></span></label>
-                    <div class="controlWrapper">
+                   <div class="controlWrapper">
+                    <div class="control">
                         <input type="text"
                                class="input-text"
                                id="coupon_code"
@@ -35,26 +37,22 @@ $hasCouponCode = (bool) strlen($block->getCouponCode());
                                    disabled="disabled"
                                 <?php endif; ?>
                         />
-                    
-
-                    <div class="butWrapper">
+                    </div>
+                <div class="actions-toolbar= butWrapper">
                     <?php if (!$hasCouponCode) :?>
-                    <div class="butCont">
-                        <button class="butApply" type="button" value="<?= $block->escapeHtmlAttr(__('Apply Discount')) ?>">
+                    <div class="primary butCont">
+                        <button class="action apply primaryss butApply" type="button" value="<?= $block->escapeHtmlAttr(__('Apply Discount')) ?>">
                             <span><?= $block->escapeHtml(__('Apply')) ?></span>
                         </button>
                     </div>
                     <?php else :?>
                         <div class="primary">
-                            <button  type="button" class="action cancel primary" value="<?= $block->escapeHtmlAttr(__('Cancel Coupon')) ?>"><span><?= $block->escapeHtml(__('Cancel')) ?></span></button>
+                            <button  type="button" class="action cancel primary" value="<?= $block->escapeHtmlAttr(__('Cancel Coupon')) ?>"><span><?= $block->escapeHtml(__('Cancel Coupon')) ?></span></button>
                         </div>
                     <?php endif; ?>
                 </div>
-
-                </div>
-                </div>
-                
             </div>
+                    </div>
             <?php if (!$hasCouponCode) : ?>
                 <?= /* @noEscape */ $block->getChildHtml('captcha') ?>
             <?php endif; ?>

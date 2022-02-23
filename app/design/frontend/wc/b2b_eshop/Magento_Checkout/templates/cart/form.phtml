@@ -9,6 +9,7 @@
    // phpcs:disable Magento2.Templates.ThisInTemplate
    
    /**  @var $block \Magento\Checkout\Block\Cart\Grid */
+   $helper = $this->helper('\Magento\Checkout\Helper\Cart');
    ?>
 <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
@@ -60,7 +61,8 @@
          <caption class="table-caption"><?= $block->escapeHtml(__('Shopping Cart Items')) ?></caption>
          <thead class="table__header">
             <tr>
-               <td class="totItem" colspan="8" class="totItem">My Shopping bag (4 item) </td>
+               <td class="totItem" colspan="8" class="totItem">My Shopping bag (<?php echo $helper->getItemsCount(); ?> item) 
+ </td>
             </tr>
             <tr class="itemFirst table__row">
                <th class="colitemphoto" scope="col" ><span><?= $block->escapeHtml(__('Item code and name')) ?></span></th>
