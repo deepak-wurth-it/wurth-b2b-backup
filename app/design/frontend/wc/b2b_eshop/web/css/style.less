@@ -1734,6 +1734,8 @@ label.sorter-label {
 			font-family: 'wuerthbold';
 			font-size: 18px;
 			color: rgba(0, 0, 0, 0.87);
+			margin-top: 20px;
+            margin-bottom: 20px;
 		}
 }
 
@@ -9001,6 +9003,12 @@ print {
 		margin-left: 14px;
 		margin-top: 20px;
 	}
+
+	.sales-order-history{
+		.account .column.main .toolbar {
+			text-align: right;
+		}
+    }
 }
 
 @media (max-width: 767px) and (min-width: 481px) {
@@ -10524,84 +10532,145 @@ margin-top: 10px;
 // My Inquery (Request a quote end by Amit)
 
 // Tracking Order start by Amit
-.tracking-order {
-.collection-container {
-	display: inherit;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 20px;
-	padding:0;
-}
-.load-order button.action.primary {
-    width: 150px;
-    background: #CC0000;
-    border-radius: 50px;
-    border: none;
-    color: #ffffff;
-}
-.blue-box {
-	display: inline-block;
-	background: url(../images/blueBox.svg);
-	background-repeat: no-repeat;
-	height: 17px;
-	width: 21px;
-}
-.green-box {
-	display: inline-block;
-	background: url(../images/greenBox.svg);
-	background-repeat: no-repeat;
-	height: 17px;
-	width: 21px;
-}
-.red-box {
-	display: inline-block;
-	background: url(../images/redBox.svg);
-	background-repeat: no-repeat;
-	height: 17px;
-	width: 21px;
-}
-.attribute.follow-order {
-	font-family: 'wuerthbook';
-	font-size: 16px;
-	text-decoration-line: underline;
-}
-.attribute.follow-order a {
-	color: #0093DD;
-}
-.details-botton{
-	font-family: 'wuerthbold';
-	font-weight: bold;
-	font-size: 16px;
-}
-.details-botton a{
-	color: #CC0000;
-}
-.item.item-container {
-	background: ffffff;
-	list-style:none;
- }
-
-.item {
-	border-bottom: 1px solid rgba(0, 147, 221, 0.12);
-	border-radius: 2px;
-	padding: 10px;
+.sales-order-history main#maincontent{
+	padding-top:0px;
+	
 }
 
-.collection-container>li:first-child {
-	display: none;
-}
-
-.attribute::before {
-	content: attr(data-name);
-	font-family: 'wuerthbold';
-    font-size: 14px;
-}
-
-.attribute {
-	display: grid;
-	grid-template-columns: minmax(9em, 55%) 1fr;
-	padding-bottom: 10px;
-}
+.tracking-order {	
+	
+	.field-date .control .sub-label{
+		margin-top: -19px;
+        position: absolute;
 	}
+	.field-date .control input{
+		position: inherit;
+        width: 65%;
+	}
+	.field-date .control input{
+		position: relative;
+		float: none;
+	}
+	.account .column.main .toolbar {
+		text-align: right;
+	}
+
+	.mt-5 {
+		display: table;
+		width: 100%;
+	}
+
+	.text-contaner {
+		display: table-footer-group;
+	}
+	.top-pager-contaner{
+		display: table-header-group;
+	}
+	input#searchInput {
+		max-width: 75%;
+		float: right;
+	}
+	.toolbar {
+    text-align: right !important;
+	}
+		.input-box i {
+			position: absolute;
+			right: 13px;
+			top: 7px;
+			color: #ced4da
+		}
+
+	.collection-container {
+		display: inherit;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 20px;
+		padding:0;
+	}
+	.load-order button.action.primary {
+		width: 150px;
+		background: #CC0000;
+		border-radius: 50px;
+		border: none;
+		color: #ffffff;
+	}
+	.top-pager ul.items.pages-items {
+		display: none;
+	}
+	.bottom-pager .limiter {
+		display: none;
+	}
+	.bottom-pager ul.items.pages-items {
+		float: right;
+	}
+
+	.blue-box {
+		display: inline-block;
+		background: url(../images/blueBox.svg);
+		background-repeat: no-repeat;
+		height: 17px;
+		width: 21px;
+	}
+	.green-box {
+		display: inline-block;
+		background: url(../images/greenBox.svg);
+		background-repeat: no-repeat;
+		height: 17px;
+		width: 21px;
+	}
+	.red-box {
+		display: inline-block;
+		background: url(../images/redBox.svg);
+		background-repeat: no-repeat;
+		height: 17px;
+		width: 21px;
+	}
+	.attribute.follow-order {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		text-decoration-line: underline;
+	}
+	.attribute.follow-order a {
+		color: #0093DD;
+	}
+	.details-botton{
+		font-family: 'wuerthbold';
+		font-weight: bold;
+		font-size: 16px;
+	}
+	.details-botton a{
+		color: #CC0000;
+	}
+	.item.item-container {
+		background: ffffff;
+		list-style:none;
+	}
+
+	.item {
+		border-bottom: 1px solid rgba(0, 147, 221, 0.12);
+		border-radius: 2px;
+		padding: 10px;
+	}
+
+	.collection-container>li:first-child {
+		display: none;
+	}
+
+	.attribute::before {
+		content: attr(data-name);
+		font-family: 'wuerthbold';
+		font-size: 14px;
+	}
+
+	.attribute {
+		display: grid;
+		grid-template-columns: minmax(9em, 55%) 1fr;
+		padding-bottom: 10px;
+	}
+	.secondary a.action.back {
+		display: none;
+	}
+
+}
 // Tracking Order end by Amit
 
 //Order Template start by Amit for view page
@@ -10857,7 +10926,7 @@ margin-top: 10px;
 // My Inquery (Request a quote end by Amit)
 
 // Tracking Order end by Amit
-.tracking-order{
+.tracking-order{	
 	.item-container {
 			display: grid;
 			grid-template-columns: 1fr 1fr 3fr 2fr 2fr 2fr 2fr 2fr 2fr;
@@ -10877,9 +10946,84 @@ margin-top: 10px;
 	}
 	.field-date .control .sub-label {
 		width: auto;
+		padding: 0 10px 0px 0px;
 	}
 	.field-date .control button.ui-datepicker-trigger{
 		margin: -5px 0 0 0px;
+	}
+	.input-box {
+		position: relative
+	}
+	
+	
+	.input-box i {
+		position: absolute;
+		right: 13px;
+		top: 7px;
+		color: #ced4da
+	}
+	
+	.form-control {
+		height: 32px;
+		background-color: #ffffff;
+		z-index: 9999999;
+	}
+	
+	.form-control:focus {
+		background-color: #ffffff;
+		box-shadow: none;
+		border-color: #ccc;
+	}
+	.text-contaner {
+		margin: 0px 0px 0px 55%;
+        position: absolute;
+		z-index: 999999;
+	}
+	.col-md.top-pager-contaner {
+		padding: 0;
+	}
+	.top-pager ul.items.pages-items {
+		display: none;
+	}
+	.bottom-pager .limiter {
+		display: none;
+	}
+	.bottom-pager ul.items.pages-items {
+		float: right;
+	}
+	.bottom-pager p.toolbar-amount {
+		padding: 5px 0 0;
+		display: block;
+	}
+	.top-pager p.toolbar-amount {
+		padding: 5px 0 0;
+		display: block;
+	}
+	li.item.current {
+		width: 35px;
+		background: #0093DD;
+	}
+
+	.my-orders-search-advanced .field-50:nth-child(even) {
+		margin-left: -5%;
+		width: 32%;
+	}
+
+	.current .page span {
+		font-family:'wuerthbook';
+		color: #ffffff;
+	}
+	.pages .item {		
+		background: rgba(0, 0, 0, 0.08);
+		width: 35px;
+	}
+	li.item.pages-item-previous {
+		background: #ffffff;
+		width: 35px;
+	}
+	li.item.pages-item-next{
+		background: #ffffff;
+		width: 35px;
 	}
 		.down-arrow {
 			background: url(../images/down-arrow.svg);
@@ -10960,6 +11104,9 @@ margin-top: 10px;
 		  overflow: auto;
 		  white-space: normal;
 	  }
+	  .secondary a.action.back {
+		display: none;
+	}
 	}
 // Tracking Order end by Amit
 

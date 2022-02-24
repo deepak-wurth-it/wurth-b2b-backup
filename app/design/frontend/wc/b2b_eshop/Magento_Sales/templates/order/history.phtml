@@ -63,14 +63,22 @@
     <div class="message info empty"><span><?= $block->escapeHtml($block->getEmptyOrdersMessage()) ?></span></div>
 <?php endif ?> -->
 
-
-<?php if ($_orders && count($_orders)) : ?>
+<?php if ($_orders && count($_orders)) : ?>   
     <?php if ($block->getPagerHtml()) : ?>
-        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <div class="mt-5">
+        <div class="col-md-3  text-contaner">
+                <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>  
+        </div>
+    
+        <div class="col-md top-pager-contaner">
+             <div class="order-products-toolbar toolbar bottom top-pager"><?= $block->getPagerHtml() ?></div>
+      </div>
+    </div>
+        
     <?php endif ?>
 <div class="tracking-order-table">
-<section id="elements"> 
-   <ol class="collection collection-container">
+<div id="elements"> 
+   <ol class="collection collection-container" id="filter">
       <li class="item item-container" >
          <div class="attribute" data-name="Rb">Rb <span class="down-arrow"></span></div>
          <div class="attribute" data-name="Status">Status <span class="group-arrow"></span></div>
@@ -82,11 +90,14 @@
          <div class="attribute" data-name="Follow Order">Follow Order <span class="group-arrow"></span></div> 
          <div class="attribute"></div>           
       </li>
-      <?php foreach ($_orders as $_order) : ?>
+      <?php 
+      $i=0;
+      foreach ($_orders as $_order) : ?>
+      <?php $i++; ?>
       <li class="item item-container" data-role="collapsible">
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb')) ?>">1.</div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="green-box"></span></div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">Kristian Koenig </div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">Kristian Koenig_<?php echo $i; ?> </div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Date')) ?>"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Online shop number')) ?>">15986</div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"><?= $block->escapeHtml($_order->getRealOrderId()) ?></div>
@@ -105,13 +116,28 @@
      
      
    </ol>
-</section>
+ </div>
 </div>
 <?php if ($block->getPagerHtml()) : ?>
-        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+        <div class="order-products-toolbar toolbar bottom bottom-pager"><?= $block->getPagerHtml() ?></div>
     <?php endif ?>
 <?php else : ?>
     <div class="message info empty"><span><?= $block->escapeHtml($block->getEmptyOrdersMessage()) ?></span></div>
 <?php endif ?>
+
+<script>
+ require(['jquery', 'jquery/ui'], function($){ 
+     $('#searchInput').keyup(function(){
+    var searchText = $(this).val();
+  
+    $('ol > li').each(function(){
+        var currentLiText = $(this).text(),
+            showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
+            $(this).toggle(showCurrentLi);
+        
+    });     
+});
+ });
+</script>
 
 
