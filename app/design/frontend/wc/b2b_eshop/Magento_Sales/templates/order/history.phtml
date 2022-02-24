@@ -90,14 +90,11 @@
          <div class="attribute" data-name="Follow Order">Follow Order <span class="group-arrow"></span></div> 
          <div class="attribute"></div>           
       </li>
-      <?php 
-      $i=0;
-      foreach ($_orders as $_order) : ?>
-      <?php $i++; ?>
+      <?php  foreach ($_orders as $_order) : ?>
       <li class="item item-container" data-role="collapsible">
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb')) ?>">1.</div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="green-box"></span></div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">Kristian Koenig_<?php echo $i; ?> </div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">Kristian Koenig</div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Date')) ?>"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Online shop number')) ?>">15986</div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"><?= $block->escapeHtml($_order->getRealOrderId()) ?></div>
