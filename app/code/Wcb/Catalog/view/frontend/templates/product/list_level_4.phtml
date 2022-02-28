@@ -31,7 +31,7 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <?php $catId = $block->getLayer()->getCurrentCategory()->getId(); ?>
 <?php $catName = $block->getLayer()->getCurrentCategory()->getName(); ?>
 <?php $currentCat = $block->getLayer()->getCurrentCategory(); ?>
-<?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?> 
+<?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
 <?php $firstProduct =  $level5Collection->getFirstItem(); ?>
 <?php $firstProductExtraRow = $block->getExtraAttributeData($firstProduct); ?>
 <?php $subcategories = []; ?>
@@ -49,7 +49,7 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VI
 $pos = $block->getPositioned();
 $product=false;
 ?>
- <?php 
+ <?php
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
     $logedIn = $customerSession->isLoggedIn();
@@ -95,9 +95,9 @@ $product=false;
                                     </p>
                                     <p class="view-stock"><a href="#" class="view-stock"><?php echo __("Please select single product to
                                             view stock"); ?> </a></p>
-                                     <?php } else { ?> 
+                                     <?php } else { ?>
                                       <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
-                                      <?php } ?>    
+                                      <?php } ?>
                                     <p class="variation-box"><label><?php echo $productCount; ?>
                                             variations </label>
                                     </p>
@@ -115,24 +115,24 @@ $product=false;
                     </li>
                 <?php endif; ?>
                 <?php if (!$subcategory->hasChildren() &&  $productCount == 1): ?>
-                    <?php 
+                    <?php
 
-                       $products = $subcategory->getProductCollection()->addAttributeToSelect('*');    
+                       $products = $subcategory->getProductCollection()->addAttributeToSelect('*');
 
                     ?>
                     <?php foreach ($products as $_product): ?>
-                     
+
 
                         <?php  $ProductCode = $_product->getProductCode(); ?>
-                  
+
                         <?php $product = true; ?>
                         <li class="item product product-item">
                             <div class="product-item-info"
                                  id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
                                  data-container="product-<?= /* @noEscape */ $viewMode ?>">
                                 <?php if($ProductCode){ ?>
-                                <?php $pid[ $_product->getSku()][] = $ProductCode; ?> 
-                                <?php $pid[ $_product->getSku()][] = '1'; ?> 
+                                <?php $pid[ $_product->getSku()][] = $ProductCode; ?>
+                                <?php $pid[ $_product->getSku()][] = '1'; ?>
                                 <?php } ?>
 
                                 <?php
@@ -169,7 +169,24 @@ $product=false;
                                     </strong>
                                     <?php if($customerSession->isLoggedIn()) { ?>
                                     <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
-                                    <span class="price" id="price_<?php echo $ProductCode; ?>"> </span>
+
+                                    <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
+                                            <span>Price:&nbsp;</span>
+                                            <span class="price" id="suggestedPriceAsTxtP<?php echo $ProductCode; ?>"></span>
+                                            <span class="price" >-</span>
+                                            <span class="price" id="suggestedDiscountAsTxtP<?php echo $ProductCode; ?>"></span>
+                                            <span class="price" >%</span>
+                                            <span class="price" >&nbsp;=&nbsp;</span>
+                                            <span class="price" id="suggestedSalesPriceInclDiscAsTxtP<?php echo $ProductCode; ?>"></span>
+                                            <span class="price" >&nbsp;HRK/COM&nbsp;</span>
+                                            <span class="redStar"></span>
+                                    </div>
+
+                                    <div><span id="price_loader<?php echo $ProductCode; ?>" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
+
+
+
+
                                     <span class="stock" id="stock_<?php echo $ProductCode; ?>"> </span>
                                       <?php } else { ?>
                                         <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
@@ -265,12 +282,12 @@ $product=false;
            "catalogAddToCart": {
                "product_sku": "<?= $escaper->escapeJs($_product->getSku()) ?>"
            }
-           
+
        }
    }
 </script>
 <?php $pid_json = json_encode($pid) ?>
-<?php echo $pid_json ?>
+<?php //echo $pid_json ?>
     <script>
         require(['plp'], function(pdp) {
             pdp.GetMultiProductPrice('<?php echo $pid_json ?>');
@@ -297,6 +314,5 @@ $product=false;
             });
         });
     </script>
-   
-<?php } ?>
 
+<?php } ?>
