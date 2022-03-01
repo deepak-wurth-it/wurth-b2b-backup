@@ -1,0 +1,387 @@
+<div class="sales-history">
+<div class="sales-title"> 
+   Sales history 
+</div>
+<div class="filter-wrapper">
+   <div class="row">
+      <div class="col-md">
+         <label class="filter">Filter</label> 
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="row date-pad">
+            <div class="col-md-6 date-fr">
+               <label class="date-title">Date from:</label> 
+               <input type="text" class="input-date" id="date-from" placeholder="DD. MM. YYYY."  name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button>               
+            </div>
+            <div class="col-md-6">
+               <label class="date-titleto">To:</label> 
+               <input type="text" class="input-date" id="date-to" placeholder="DD. MM. YYYY." name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button> 
+            </div>
+         </div>
+         <div class="col-md-6 select-wrapper">
+            <select class="form-select">
+               <option selected>branch office (30793301 - ZAGREB)</option>
+               <option value="1">One</option>
+               <option value="2">Two</option>
+               <option value="3">Three</option>
+            </select>
+         </div>
+      </div>
+      <div class="col-md-6 pad-ord">
+         <label class="date-title"><span>Or</span> Orders placed in  </label>             
+         <button type="button" class="btn btn-months current">Last 6 months</button>
+         <button type="button" class="btn btn-months">Last 12 months</button>
+         <button type="button" class="btn btn-months">Last 24 months</button>
+      </div>
+   </div>
+</div>
+<div class="row filter-contaner">
+   <div class="col-md-7">
+      <p class="toolbar-amount">
+         <span class="toolbar-number">
+         Items 1 to 10 of 13 total                        </span>
+      </p>
+   </div>
+   <div class="col-md-3 tab-head">
+      <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
+   </div>
+   <div class="col-xs-3 tab-foot">
+      <div class="limiter">
+         <strong class="limiter-label">Show</strong>
+         <select id="limiter" class="limiter-options">
+            <option value="http://m2.wc.b2b.com/sales/order/history/?limit=10" selected="selected">
+               10                    
+            </option>
+            <option value="http://m2.wc.b2b.com/sales/order/history/?limit=20">
+               20                    
+            </option>
+            <option value="http://m2.wc.b2b.com/sales/order/history/?limit=50">
+               50                    
+            </option>
+         </select>
+         <span class="limiter-text">per page</span>
+      </div>
+   </div>
+</div>
+<div id="elements">
+<ol class="collection collection-container" id="filter">
+   <li class="item item-container" >
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><?= $block->escapeHtml(__('Picture')) ?><span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art')) ?>"><?= $block->escapeHtml(__('Br.art')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Description')) ?>"><?= $block->escapeHtml(__('Description')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('The cusomer')) ?>"><?= $block->escapeHtml(__('The cusomer')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Last order number')) ?>"><?= $block->escapeHtml(__('Last order number')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Last date of purchase')) ?>"><?= $block->escapeHtml(__('Last date of purchase')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('last purchased QTY')) ?>"><?= $block->escapeHtml(__('last purchased QTY')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" ></div>
+   </li>
+   <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art')) ?>">947 111</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Description')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('The cusomer')) ?>">KRISTIAN KOENIG (900453)</div>
+      <div class="attribute last-order" data-name="<?= $block->escapeHtml(__('Last order number')) ?>"><span>PP21-0127073</span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Last date of purchase')) ?>">08/27/2020</div>
+      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('last purchased QTY')) ?>">
+         <span>
+            <p> 40 </p>
+            <button type="button" class="repeat">Repeat</button>
+         </span>
+      </div>
+      <div class="attribute qty-order">
+         <span>
+            <p>
+            <div class="control-qty-cart">
+               <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+               <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+               <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+            </div>
+            </p>
+            <button type="button" class="add-to-basket">Add to basket</button>
+         </span>
+      </div>
+   </li>
+   <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art')) ?>">111 111</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Description')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('The cusomer')) ?>">KRISTIAN KOENIG (900453)</div>
+      <div class="attribute last-order" data-name="<?= $block->escapeHtml(__('Last order number')) ?>">PP21-0127073</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Last date of purchase')) ?>">08/27/2020</div>
+      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('last purchased QTY')) ?>">
+         <span>
+            <p> 400 </p>
+            <button type="button" class="repeat">Repeat</button>
+         </span>
+      </div>
+      <div class="attribute qty-order" data-mage-init='{"qtyIncrementWidget": {}}'>
+         <span>
+            <p>
+            <div class="control-qty-cart">
+               <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+               <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+               <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+            </div>
+            </p>
+            <button type="button" class="add-to-basket">Add to basket</button>
+         </span>
+      </div>
+   </li>
+   <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image-1</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art')) ?>">827 111</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Description')) ?>">CELL-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('The cusomer')) ?>">KRISTIAN KOENIG (900453)</div>
+      <div class="attribute last-order" data-name="<?= $block->escapeHtml(__('Last order number')) ?>">PP21-0127073</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Last date of purchase')) ?>">09/27/2020</div>
+      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('last purchased QTY')) ?>">
+         <span>
+            <p> 500 </p>
+            <button type="button" class="repeat">Repeat</button>
+         </span>
+      </div>
+      <div class="attribute qty-order">
+         <span>
+            <p>
+            <div class="control-qty-cart">
+               <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+               <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+               <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+            </div>
+            </p>
+            <button type="button" class="add-to-basket">Add to basket</button>
+         </span>
+      </div>
+   </li>
+</ol>
+<div class="pager">
+   <div class="limiter pull-right">
+      <strong class="limiter-label">Show</strong>
+      <select id="limiter" class="limiter-options">
+         <option value="http://m2.wc.b2b.com/sales/order/history/?limit=10" selected="selected">
+            10                    
+         </option>
+         <option value="http://m2.wc.b2b.com/sales/order/history/?limit=20">
+            20                    
+         </option>
+         <option value="http://m2.wc.b2b.com/sales/order/history/?limit=50">
+            50                    
+         </option>
+      </select>
+      <span class="limiter-text">per page</span>
+   </div>
+</div>
+<!-- modal popup content -->
+<div id="modal">
+   <div class="modal-body-content sales-history-popup">
+      <ol class="collection collection-container" id="filter">
+         <li class="item item-container" >
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>"><?= $block->escapeHtml(__('RB')) ?><span class="down-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><?= $block->escapeHtml(__('Picture')) ?> <span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product Name')) ?>"><?= $block->escapeHtml(__('Product Name')) ?> <span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product ID')) ?>"><?= $block->escapeHtml(__('Product ID')) ?> <span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY ordered')) ?>"><?= $block->escapeHtml(__('QTY ordered')) ?> <span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY delivered')) ?>"><?= $block->escapeHtml(__('QTY delivered')) ?> <span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Payment status')) ?>"><?= $block->escapeHtml(__('Payment status')) ?> <span class="group-arrow"></span></div>
+            <div class="attribute" ></div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>20</span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY delivered')) ?>">20</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Payment status')) ?>">Pending</div>
+            <div class="attribute qty-order">
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>20</span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY delivered')) ?>">20</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Payment status')) ?>">Pending</div>
+            <div class="attribute qty-order">
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>20</span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY delivered')) ?>">20</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Payment status')) ?>">Pending</div>
+            <div class="attribute qty-order">
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>20</span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY delivered')) ?>">20</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Payment status')) ?>">Pending</div>
+            <div class="attribute qty-order">
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>20</span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY delivered')) ?>">20</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Payment status')) ?>">Pending</div>
+            <div class="attribute qty-order">
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>">Image</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>20</span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('QTY delivered')) ?>">20</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Payment status')) ?>">Pending</div>
+            <div class="attribute qty-order">
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+      </ol>
+   </div>
+</div>
+<!-- modal popup content -->
+<script type="text/javascript">
+   require([
+       "jquery",
+       "Magento_Ui/js/modal/modal"
+   ],function($, modal) {
+   
+     var options = {
+               type: 'popup',
+               title: '',
+               modalClass: 'termsCodition',
+               responsive: false,
+               innerScroll: true,
+               title: 'Order number - PP21-0127073',
+               buttons: false
+           };
+   
+       var popup = modal(options, $('#modal'));
+       $(".last-order").click(function() {
+           $('#modal').modal('openModal');
+       });
+   });
+</script>
+<script>
+   require([
+     'jquery',
+     'mage/translate',
+     'mage/calendar'
+     ], function ($, $t) {
+       $('#date-from').calendar({
+         changeMonth: true,
+         changeYear: true,
+         showButtonPanel: true,
+         currentText: $t('Go Today'),
+         closeText: $t('Close'),
+         showWeek: true
+       });
+     })
+</script>
+<script>
+   require([
+     'jquery',
+     'mage/translate',
+     'mage/calendar'
+     ], function ($, $t) {
+       $('#date-to').calendar({
+         changeMonth: true,
+         changeYear: true,
+         showButtonPanel: true,
+         currentText: $t('Go Today'),
+         closeText: $t('Close'),
+         showWeek: true
+       });
+     })
+</script>
+<script>
+ require(['jquery', 'jquery/ui'], function($){ 
+     $('#searchInput').keyup(function(){
+    var searchText = $(this).val();
+  
+    $('ol > li').each(function(){
+        var currentLiText = $(this).text(),
+            showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
+            $(this).toggle(showCurrentLi);
+        
+    });     
+});
+ });
+</script>
