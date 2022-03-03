@@ -1,0 +1,201 @@
+<div class="confirm-orders">
+   <div class="row filter-contaner">
+      <div class="col-md-7">
+         <div class="sales-title"> 
+            <?php echo __("Confirm orders"); ?> 
+         </div>
+      </div>
+      <div class="col-md-3 tab-head">
+         <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
+      </div>
+      <div class="col-xs-3 tab-foot">
+         <div class="limiter">
+            <strong class="limiter-label">Show</strong>
+            <select id="limiter" class="limiter-options">
+               <option value="#" selected="selected">
+                  10                    
+               </option>
+               <option value="#">
+                  20                    
+               </option>
+               <option value="#">
+                  50                    
+               </option>
+            </select>
+            <span class="limiter-text">per page</span>
+         </div>
+      </div>
+   </div>
+   <div id="elements">
+      <ol class="collection collection-container" id="filter">
+         <li class="item item-container" >
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. orders')) ?>"><?= $block->escapeHtml(__('Br. orders')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Made an order')) ?>"><?= $block->escapeHtml(__('Made an order')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Amount without tax')) ?>"><?= $block->escapeHtml(__('Amount without tax')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><?= $block->escapeHtml(__('Status')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"><?= $block->escapeHtml(__('Internal order code')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Last modified date')) ?>"><?= $block->escapeHtml(__('Last modified date')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Comment')) ?>"><?= $block->escapeHtml(__('Comment')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Offer number')) ?>"><?= $block->escapeHtml(__('Offer number')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Action')) ?>"><?= $block->escapeHtml(__('Action')) ?></div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. orders')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Made an order')) ?>">Analytics Name Analytics Pre </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Amount without tax')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">380.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+           </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>">She’s not ready</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"> </div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Last modified date')) ?>">08.20.2021</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Comment')) ?>">comment texst </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Offer number')) ?>"> </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Action')) ?>" > <span class="action-bottoms">  <span class="delete-icon"></span> <span class="ok-icon"></span> <span class="list-icon"></span> </span></div>            
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. orders')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Made an order')) ?>">Analytics Name Analytics Pre </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Amount without tax')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">380.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>  
+                     </span>
+                  </div>
+               </span>
+           </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>">She’s not ready</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"> </div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Last modified date')) ?>">08.20.2021</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Comment')) ?>">comment texst </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Offer number')) ?>"> </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Action')) ?>" > delete</div>            
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. orders')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Made an order')) ?>">Analytics Name Analytics Pre </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Amount without tax')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">380.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+           </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>">She’s not ready</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"> </div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Last modified date')) ?>">08.20.2021</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Comment')) ?>">comment texst </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Offer number')) ?>"> </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Action')) ?>" > delete</div>            
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. orders')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Made an order')) ?>">Analytics Name Analytics Pre </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Amount without tax')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">380.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+           </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>">She’s not rady</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"> </div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Last modified date')) ?>">08.20.2021</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Comment')) ?>">comment texst </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Offer number')) ?>"> </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Action')) ?>" > delete</div>            
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. orders')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Made an order')) ?>">Analytics Name Analytics Pre </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Amount without tax')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">380.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+           </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>">She’s not rady</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"> </div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Last modified date')) ?>">08.20.2021</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Comment')) ?>">comment texst </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Offer number')) ?>"> </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Action')) ?>" > delete</div>            
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. orders')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Made an order')) ?>">Analytics Name Analytics Pre </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Amount without tax')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">380.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+           </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>">She’s not rady</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"> </div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Last modified date')) ?>">08.20.2021</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Comment')) ?>">comment texst </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Offer number')) ?>"> </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Action')) ?>" > delete</div>            
+         </li>
+      </ol>
+   </div>
+   <div class="pager">
+      <div class="limiter pull-right">
+         <strong class="limiter-label">Show</strong>
+         <select id="limiter" class="limiter-options">
+            <option value="#" selected="selected">
+               10                    
+            </option>
+            <option value="#">
+               20                    
+            </option>
+            <option value="#">
+               50                    
+            </option>
+         </select>
+         <span class="limiter-text">per page</span>
+      </div>
+   </div>
+</div>
+<script>
+   require(['jquery', 'jquery/ui'], function($){ 
+       $('#searchInput').keyup(function(){
+      var searchText = $(this).val();
+    
+      $('ol > li').each(function(){
+          var currentLiText = $(this).text(),
+              showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
+              $(this).toggle(showCurrentLi);
+          
+      });     
+   });
+   });
+</script>

@@ -1,0 +1,192 @@
+<div class="undelivered-lines">
+<div class="sales-title"> 
+<?php echo __("Undelivered lines"); ?> 
+</div>
+<div class="filter-wrapper">
+   <div class="row">
+      <div class="col-md">
+         <label class="filter">Filter</label> 
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="row date-pad">
+            <div class="col-md-6 date-fr">
+               <label class="date-title">Date from:</label> 
+               <input type="text" class="input-date" id="date-from" placeholder="DD. MM. YYYY."  name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button>               
+            </div>
+            <div class="col-md-6">
+               <label class="date-titleto">To:</label> 
+               <input type="text" class="input-date" id="date-to" placeholder="DD. MM. YYYY." name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button> 
+            </div>
+         </div>
+         <div class="col-md-10 select-wrapper">
+            <select class="form-select">
+               <option selected>branch office (30793301 - ZAGREB)</option>
+               <option value="1">One</option>
+               <option value="2">Two</option>
+               <option value="3">Three</option>
+            </select>
+         </div>
+         <div class="col-md-6 select-wrapper">
+              <button type="button" class="load-order">Load order</button>
+         </div>
+      </div>
+     
+   </div>
+</div>
+<div class="row filter-contaner">
+   <div class="col-md-7">
+      <p class="toolbar-amount">
+         <span class="toolbar-number">
+         Items 1 to 10 of 13 total                        </span>
+      </p>
+   </div>
+   <div class="col-md-3 tab-head">
+      <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
+   </div>
+   <div class="col-xs-3 tab-foot">
+      <div class="limiter">
+         <strong class="limiter-label">Show</strong>
+         <select id="limiter" class="limiter-options">
+            <option value="#" selected="selected">
+               10                    
+            </option>
+            <option value="#">
+               20                    
+            </option>
+            <option value="#">
+               50                    
+            </option>
+         </select>
+         <span class="limiter-text">per page</span>
+      </div>
+   </div>
+</div>
+<div id="elements">
+<ol class="collection collection-container" id="filter">
+   <li class="item item-container" >
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>"><?= $block->escapeHtml(__('Rb.')) ?><span class="down-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>"><?= $block->escapeHtml(__('Slika')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>"><?= $block->escapeHtml(__('Br.art.')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>"><?= $block->escapeHtml(__('Opis')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>"><?= $block->escapeHtml(__('Naruceno')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>"><?= $block->escapeHtml(__('Isporuceno')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>"><?= $block->escapeHtml(__('Br. narudzbe')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"><?= $block->escapeHtml(__('Expected delivery date')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>"><?= $block->escapeHtml(__('Datum narudzbe')) ?> <span class="group-arrow"></span></div>
+      <div class="attribute" ></div>
+   </li>
+   <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">1.</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
+      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
+      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
+   </li>
+   <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">2.</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
+      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
+      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
+   </li>
+   <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">3.</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
+      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
+      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
+   </li>
+   <li class="item item-container" data-role="collapsible">
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">4.</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
+      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
+      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
+      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
+   </li>
+</ol>
+<div class="pager">
+   <div class="limiter pull-right">
+      <strong class="limiter-label">Show</strong>
+      <select id="limiter" class="limiter-options">
+         <option value="#" selected="selected">
+            10                    
+         </option>
+         <option value="#">
+            20                    
+         </option>
+         <option value="#"> 
+            50                    
+         </option>
+      </select>
+      <span class="limiter-text">per page</span>
+   </div>
+</div>
+
+<script>
+   require([
+     'jquery',
+     'mage/translate',
+     'mage/calendar'
+     ], function ($, $t) {
+       $('#date-from').calendar({
+         changeMonth: true,
+         changeYear: true,
+         showButtonPanel: true,
+         currentText: $t('Go Today'),
+         closeText: $t('Close'),
+         showWeek: true
+       });
+     })
+</script>
+<script>
+   require([
+     'jquery',
+     'mage/translate',
+     'mage/calendar'
+     ], function ($, $t) {
+       $('#date-to').calendar({
+         changeMonth: true,
+         changeYear: true,
+         showButtonPanel: true,
+         currentText: $t('Go Today'),
+         closeText: $t('Close'),
+         showWeek: true
+       });
+     })
+</script>
+<script>
+ require(['jquery', 'jquery/ui'], function($){ 
+     $('#searchInput').keyup(function(){
+    var searchText = $(this).val();
+  
+    $('ol > li').each(function(){
+        var currentLiText = $(this).text(),
+            showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
+            $(this).toggle(showCurrentLi);
+        
+    });     
+});
+ });
+</script>
