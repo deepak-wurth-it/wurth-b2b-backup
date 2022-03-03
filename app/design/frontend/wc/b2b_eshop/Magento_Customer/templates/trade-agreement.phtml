@@ -1,0 +1,260 @@
+<div class="trade-agreement">
+   <div class="row filter-contaner">
+      <div class="col-md-7">
+         <div class="sales-title"> 
+            <?php echo __("Trade agreement"); ?> 
+         </div>
+      </div>
+      <div class="col-md-3 tab-head">
+         <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
+      </div>
+      <div class="col-xs-3 tab-foot">
+         <div class="limiter">
+            <strong class="limiter-label">Show</strong>
+            <select id="limiter" class="limiter-options">
+               <option value="#" selected="selected">
+                  10                    
+               </option>
+               <option value="#">
+                  20                    
+               </option>
+               <option value="#">
+                  50                    
+               </option>
+            </select>
+            <span class="limiter-text">per page</span>
+         </div>
+      </div>
+   </div>
+   <div id="elements">
+      <ol class="collection collection-container" id="filter">
+         <li class="item item-container" >
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item no.')) ?>"><?= $block->escapeHtml(__('Item no.')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><?= $block->escapeHtml(__('Picture')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item name')) ?>"><?= $block->escapeHtml(__('Item name')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid from')) ?>"><?= $block->escapeHtml(__('Valid from')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid until')) ?>"><?= $block->escapeHtml(__('Valid until')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Availability')) ?>"><?= $block->escapeHtml(__('Availability')) ?><span class="group-arrow"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('VPC')) ?>"><?= $block->escapeHtml(__('VPC')) ?></div>
+            <div class="attribute" ></div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item no.')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><span class="product-image"><img src="<?php echo $block->getViewFileUrl('Magento_Customer::images/product-image.svg'); ?>" /></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item name')) ?>">CUTTING PL.-A2-RAV-1MM-D125X22,23</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid from')) ?>">02.1.2022</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid until')) ?>">28.2.2022</div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Availability')) ?>"><span class="green-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('VPC')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">38.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+            </div>
+            <div class="attribute qty-order" >
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item no.')) ?>">554 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><span class="product-image"><img src="<?php echo $block->getViewFileUrl('Magento_Customer::images/product-image.svg'); ?>" /></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item name')) ?>">CUTTING PL.-A2-RAV-1MM-D125X22,23</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid from')) ?>">05.1.2022</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid until')) ?>">26.2.2022</div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Availability')) ?>"><span class="red-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('VPC')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">38.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>5.10</span></p>
+                        <p>Discount% <span>1.00</span></p>
+                     </span>
+                  </div>
+               </span>
+            </div>
+            <div class="attribute qty-order" >
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item no.')) ?>">666 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><span class="product-image"><img src="<?php echo $block->getViewFileUrl('Magento_Customer::images/product-image.svg'); ?>" /></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item name')) ?>">CUTTING PL.-A2-RAV-1MM-D125X22,23</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid from')) ?>">06.1.2022</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid until')) ?>">21.2.2022</div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Availability')) ?>"><span class="blue-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('VPC')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">60.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>8.10</span></p>
+                        <p>Discount% <span>3.00</span></p>
+                     </span>
+                  </div>
+               </span>
+            </div>
+            <div class="attribute qty-order" >
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item no.')) ?>">777 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><span class="product-image"><img src="<?php echo $block->getViewFileUrl('Magento_Customer::images/product-image.svg'); ?>" /></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item name')) ?>">CUTTING PL.-A2-RAV-1MM-D125X22,23</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid from')) ?>">02.1.2022</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid until')) ?>">28.2.2022</div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Availability')) ?>"><span class="green-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('VPC')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">99.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>48.10</span></p>
+                        <p>Discount% <span>3.00</span></p>
+                     </span>
+                  </div>
+               </span>
+            </div>
+            <div class="attribute qty-order" >
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item no.')) ?>">669 12340</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><span class="product-image"><img src="<?php echo $block->getViewFileUrl('Magento_Customer::images/product-image.svg'); ?>" /></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item name')) ?>">CUTTING PL.-A2-RAV-1MM-D125X22,23</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid from')) ?>">08.4.2022</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid until')) ?>">27.2.2022</div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Availability')) ?>"><span class="red-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('VPC')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">38.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>4.10</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+            </div>
+            <div class="attribute qty-order" >
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item no.')) ?>">669 131250</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Picture')) ?>"><span class="product-image"><img src="<?php echo $block->getViewFileUrl('Magento_Customer::images/product-image.svg'); ?>" /></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Item name')) ?>">CUTTING PL.-A2-RAV-1MM-D125X22,23</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid from')) ?>">02.1.2022</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Valid until')) ?>">28.2.2022</div>
+            <div class="attribute availability" data-name="<?= $block->escapeHtml(__('Availability')) ?>"><span class="green-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('VPC')) ?>">
+               <span>
+                  <div class="tooltip">
+                     <span class="vpc">49.00</span> <span class="toolkit-icon"></span>
+                     <span class="tooltiptext tooltip-bottom">
+                        <p> Price after discount <span>9.30</span></p>
+                        <p>Discount% <span>0.00</span></p>
+                     </span>
+                  </div>
+               </span>
+            </div>
+            <div class="attribute qty-order" >
+               <span>
+                  <p>
+                  <div class="control-qty-cart">
+                     <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                     <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                     <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                  </div>
+                  </p>
+                  <button type="button" class="add-to-basket">Add to basket</button>
+               </span>
+            </div>
+         </li>
+      </ol>
+   </div>
+   <div class="pager">
+      <div class="limiter pull-right">
+         <strong class="limiter-label">Show</strong>
+         <select id="limiter" class="limiter-options">
+            <option value="#" selected="selected">
+               10                    
+            </option>
+            <option value="#">
+               20                    
+            </option>
+            <option value="#">
+               50                    
+            </option>
+         </select>
+         <span class="limiter-text">per page</span>
+      </div>
+   </div>
+</div>
+<script>
+   require(['jquery', 'jquery/ui'], function($){ 
+       $('#searchInput').keyup(function(){
+      var searchText = $(this).val();
+    
+      $('ol > li').each(function(){
+          var currentLiText = $(this).text(),
+              showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
+              $(this).toggle(showCurrentLi);
+          
+      });     
+   });
+   });
+</script>

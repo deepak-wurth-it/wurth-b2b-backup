@@ -3607,6 +3607,12 @@ body {
 	}
 }
 
+	.cms-trade-agreement,.cms-confirm-order{
+			main#maincontent {
+				margin-top: 0px;
+			}
+	}
+
 //--------------------- part -4--------------
 // Content
 .cms-index-index .main-content {
@@ -11280,8 +11286,7 @@ margin-top: 10px;
 	} 
 
 	.item {
-		border-bottom: 1px solid rgba(0, 147, 221, 0.12);
-		border-radius: 2px;
+		border-bottom: 1px solid rgba(0, 0, 0, 12%);
 		padding: 10px;
 	}
 	.collection-container {
@@ -11313,11 +11318,395 @@ margin-top: 10px;
 
 }
 // Undelivered lines page end by Amit
+	// Trade agreement Page start by Amit
 
-  //checkout page table responsive end
+	.trade-agreement {	
+		.sales-title {
+			font-family: 'wuerthbold';
+			font-weight: bold;
+			font-size: 16px;
+			color: rgba(0, 0, 0, 0.87);
+			padding: 0px 0px 20px 0px;
+		}
+		button.add-to-basket {
+			background: #0093DD;
+			border: 1px solid #0093DD;
+			border-radius: 20px;
+			color: #ffffff;
+			height: 26px;		
+			font-family: 'wuerthbook';
+			font-size: 14px;
+			cursor: pointer;
+		}
+		
+		.control-qty-cart {
+			width: 100px;
+			border: 1px solid rgba(0, 0, 0, 12%);
+			border-radius: 4px;
+			padding: 2px 0px 0px 7px;
+            margin-bottom: 10px;
+		}
+		.col-md-3.tab-head {
+			display: table-footer-group;
+		}
+		.col-xs-3.tab-foot {
+			float: right;
+		}
+		.row.filter-contaner {
+			display: table;
+			margin: 20px 0px 10px 0px;
+			width: 100%;
+		}
+		.limiter {
+			margin-bottom: 20px;
+		}
+		.input-box {
+			width: 68%;
+			float: right;
+		}
+		
+		.input-box i {
+			position: absolute;
+			right: 10px;
+			top: 7px;
+			color: #ced4da;
+		}
+		.excel-icon {
+			background: url(../images/excel-icon.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			cursor: pointer;
+			padding: 0 0 0 24px;
+			display: inline-flex;
+			align-items: center;
+		}
+		.get-invoice {
+			color: #009EE0;
+		}
+		.attribute.last-order::before {
+			content: attr(data-name);
+			font-family: 'wuerthbold';
+			font-size: 14px;
+			color: rgba(0, 0, 0, 0.87);
+		}
+		.attribute.last-order {
+			font-family: 'wuerthbook';
+			font-size: 16px;
+			color: #0093DD;
+			cursor: pointer;
+		}
+		
+		
+		.item.item-container {
+			background: ffffff;
+			list-style:none;
+		} 
+
+		.item {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+			border-radius: 2px;
+			padding: 10px;
+		}
+		.collection-container {
+			display: grid;
+			grid-template-columns: 1fr;
+			padding: 0;
+		}
+		.collection-container>li:first-child {
+			display: none;
+		}
+
+		.attribute::before {
+			content: attr(data-name);
+			font-family: 'wuerthbold';
+			font-size: 14px;
+		}
+
+		.attribute {
+			display: grid;
+			grid-template-columns: minmax(9em, 55%) 1fr;
+			padding-bottom: 10px;
+		}
+		span.product-image {
+			width: 60px;
+			height: 52px;
+			padding: 2px;
+		}
+		.blue-box {
+			display: inline-block;
+			background: url(../images/blueBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.green-box {
+			display: inline-block;
+			background: url(../images/greenBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.red-box {
+			display: inline-block;
+			background: url(../images/redBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.toolkit-icon {
+			display: inline-block;
+			background: url(../images/toolkit-icon.svg);
+			background-repeat: no-repeat;
+			height: 12px;
+			width: 16px;
+		}
+		
+		.tooltip {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+		  }
+		  .vpc {
+			color: #0093DD;
+			text-decoration-line: underline;
+		}  
+		  .tooltip .tooltiptext {
+			visibility: hidden;
+			border-radius: 2px;
+			position: absolute;
+			z-index: 1;
+			top: 105%;
+			left: -44%;
+			margin-left: -60px;
+			background: #FFFFFF;
+			width: 220px;
+			height: 70px;
+			border: 1px solid rgba(0, 0, 0, 0.08);
+		  }
+		  
+		  .tooltip .tooltiptext::after {
+			content: "";
+			position: absolute;
+			bottom: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: outset;
+			border-color: transparent transparent #ccc transparent;
+		  }
+		  
+		  .tooltip:hover .tooltiptext {
+			visibility: visible;
+			padding: 10px;
+		  }
+		  span.tooltiptext.tooltip-bottom p {
+			font-family: 'wuerthbold';
+			font-size: 14px;
+		}
+		  span.tooltiptext.tooltip-bottom p span {
+			font-size: 14px;
+			font-family: 'wuerthbook';
+			float: right;
+		}
+	}
+	// Trade agreement Page end by Amit
+
+	// Confirm orders Page start by Amit
+
+	.confirm-orders {	
+		.sales-title {
+			font-family: 'wuerthbold';
+			font-weight: bold;
+			font-size: 16px;
+			color: rgba(0, 0, 0, 0.87);
+			padding: 0px 0px 20px 0px;
+		}
+		button.add-to-basket {
+			background: #0093DD;
+			border: 1px solid #0093DD;
+			border-radius: 20px;
+			color: #ffffff;
+			height: 26px;		
+			font-family: 'wuerthbook';
+			font-size: 14px;
+			cursor: pointer;
+		}
+		
+		.control-qty-cart {
+			width: 100px;
+			border: 1px solid rgba(0, 0, 0, 12%);
+			border-radius: 4px;
+			padding: 2px 0px 0px 7px;
+            margin-bottom: 10px;
+		}
+		.col-md-3.tab-head {
+			display: table-footer-group;
+		}
+		.col-xs-3.tab-foot {
+			float: right;
+		}
+		.row.filter-contaner {
+			display: table;
+			margin: 20px 0px 10px 0px;
+			width: 100%;
+		}
+		.limiter {
+			margin-bottom: 20px;
+		}
+		.input-box {
+			width: 68%;
+			float: right;
+		}
+		
+		.input-box i {
+			position: absolute;
+			right: 10px;
+			top: 7px;
+			color: #ced4da;
+		}
+		.excel-icon {
+			background: url(../images/excel-icon.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			cursor: pointer;
+			padding: 0 0 0 24px;
+			display: inline-flex;
+			align-items: center;
+		}
+		.get-invoice {
+			color: #009EE0;
+		}
+		.attribute.last-order::before {
+			content: attr(data-name);
+			font-family: 'wuerthbold';
+			font-size: 14px;
+			color: rgba(0, 0, 0, 0.87);
+		}
+		.attribute.last-order {
+			font-family: 'wuerthbook';
+			font-size: 16px;
+			color: #0093DD;
+			cursor: pointer;
+		}
+		
+		
+		.item.item-container {
+			background: ffffff;
+			list-style:none;
+		} 
+
+		.item {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+			border-radius: 2px;
+			padding: 10px;
+		}
+		.collection-container {
+			display: grid;
+			grid-template-columns: 1fr;
+			padding: 0;
+		}
+		.collection-container>li:first-child {
+			display: none;
+		}
+
+		.attribute::before {
+			content: attr(data-name);
+			font-family: 'wuerthbold';
+			font-size: 14px;
+		}
+
+		.attribute {
+			display: grid;
+			grid-template-columns: minmax(9em, 55%) 1fr;
+			padding-bottom: 10px;
+		}
+		span.product-image {
+			width: 60px;
+			height: 52px;
+			padding: 2px;
+		}
+		.blue-box {
+			display: inline-block;
+			background: url(../images/blueBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.green-box {
+			display: inline-block;
+			background: url(../images/greenBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.red-box {
+			display: inline-block;
+			background: url(../images/redBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.toolkit-icon {
+			display: inline-block;
+			background: url(../images/toolkit-icon.svg);
+			background-repeat: no-repeat;
+			height: 12px;
+			width: 16px;
+		}
+		
+		.tooltip {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+		  }
+		  .vpc {
+			color: #0093DD;
+			text-decoration-line: underline;
+		}  
+		  .tooltip .tooltiptext {
+			visibility: hidden;
+			border-radius: 2px;
+			position: absolute;
+			z-index: 1;
+			top: 105%;
+			left: -44%;
+			margin-left: -60px;
+			background: #FFFFFF;
+			width: 220px;
+			height: 70px;
+			border: 1px solid rgba(0, 0, 0, 0.08);
+		  }
+		  
+		  .tooltip .tooltiptext::after {
+			content: "";
+			position: absolute;
+			bottom: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: outset;
+			border-color: transparent transparent #ccc transparent;
+		  }
+		  
+		  .tooltip:hover .tooltiptext {
+			visibility: visible;
+			padding: 10px;
+		  }
+		  span.tooltiptext.tooltip-bottom p {
+			font-family: 'wuerthbold';
+			font-size: 14px;
+		}
+		  span.tooltiptext.tooltip-bottom p span {
+			font-size: 14px;
+			font-family: 'wuerthbook';
+			float: right;
+		}
+	}
+	// Confirm orders Page end by Amit
 
   
-}
+} // responsive end
+
 @media (min-width: 913px) {
 	//Request a quote start by Amit for view page
 	.quoteWrapper{
@@ -12179,7 +12568,7 @@ margin-top: 10px;
 		}
 	.row.date-pad {
 		margin-left: 0px;
-		width: 92%;
+		width: 100%;
 		}
 	.col-md-6.date-fr {
 		padding-right: 0px;
@@ -12187,6 +12576,364 @@ margin-top: 10px;
 		}
 	}
 // Undelivered Lines page end by Amit
+// Trade agreement page start by Amit
+.trade-agreement{	
+	.sales-title {
+		font-family: 'wuerthbold';
+		font-weight: bold;
+		font-size: 24px;
+		color: rgba(0, 0, 0, 0.87);
+		padding: 0px 0px 20px 0px;
+	}	
+	.financial-info {
+		font-family: 'wuerthbook';
+		font-size: 14px;
+		color: rgba(0, 0, 0, 0.87);
+		margin-top: 20px;
+	}
+	button.add-to-basket {
+		background: #0093DD;
+		border: 1px solid #0093DD;
+		border-radius: 20px;
+		color: #ffffff;
+		height: 26px;		
+		font-family: 'wuerthbook';
+		font-size: 14px;
+		cursor: pointer;
+	}
+	.attribute.qty-order {
+		text-align: center;
+	}
+	.control-qty-cart {
+		width: 100px;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		border-radius: 4px;
+		height: 35px;
+		padding: 1px;
+		margin: 0 0 10px 25px;
+	}
+	.item-container {
+		display: grid;
+		grid-template-columns: 13rem 13rem 22rem 13rem 12rem 12rem 12rem 16rem;
+		background: ffffff;
+		margin: 0px;
+		align-items: center;
+		padding: 10px 5px;
+		font-family: 'wuerthbook';
+		border-bottom: 1px solid #DEDEED;
+	}
+	.toolbar-amount {
+		padding: 5px 0 0;
+		display: block;
+	}
+	
+	.group-arrow {
+		background: url(../images/group-arrow.svg);
+		background-repeat: no-repeat;
+		height: 17px;
+		width: 20px;
+		margin: 0px 0px 0px 5px;
+		cursor:pointer;
+	}
+	.excel-icon {
+		background: url(../images/excel-icon.svg);
+		background-repeat: no-repeat;
+		background-repeat: no-repeat;
+		height: 17px;
+		cursor: pointer;
+		padding: 0 0 0 24px;
+		display: inline-flex;
+		align-items: center;
+	}
+	.get-invoice {
+		color: #009EE0;
+	}
+	.row.filter-contaner {
+		margin-top: 20px;
+	}
+	.input-box i {
+		position: absolute;
+		right: 26px;
+		top: 7px;
+		color: #ced4da;
+	}
+	
+  .attribute {        
+	  padding: 2px;
+	  text-overflow: ellipsis;
+  }
+.attribute.last-order {
+	font-family: 'wuerthbook';
+	font-size: 16px;
+	color: #0093DD;
+	cursor: pointer;
+}
+  ol.collection.collection-container {
+	padding: 0;
+	margin-top: 20px;
+}
+
+  .collection-container>.item-container:first-child {
+	  background-color: #ececec;
+	  font-family: 'wuerthbold';
+	  font-size: 14px;
+	  color: rgba(0, 0, 0, 0.87);
+  }	 
+
+  .collection-container>.item-container:first-child .attribute {
+	  display: flex;
+	  align-items: center;
+	  text-overflow: initial;
+	  overflow: auto;
+	  white-space: normal;
+  }
+  span.product-image {
+    width: 60px;
+    height: 52px;
+    padding: 2px;
+}
+  .availability{
+	text-align: center;
+  }
+  .blue-box {
+	display: inline-block;
+	background: url(../images/blueBox.svg);
+	background-repeat: no-repeat;
+	height: 14px;
+	width: 21px;
+}
+.green-box {
+	display: inline-block;
+	background: url(../images/greenBox.svg);
+	background-repeat: no-repeat;
+	height: 14px;
+	width: 21px;
+}
+.red-box {
+	display: inline-block;
+	background: url(../images/redBox.svg);
+	background-repeat: no-repeat;
+	height: 14px;
+	width: 21px;
+}
+.toolkit-icon {
+	display: inline-block;
+	background: url(../images/toolkit-icon.svg);
+	background-repeat: no-repeat;
+	height: 12px;
+	width: 16px;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+  }
+  .vpc {
+    color: #0093DD;
+    text-decoration-line: underline;
+}  
+  .tooltip .tooltiptext {
+	visibility: hidden;
+    border-radius: 2px;
+    position: absolute;
+    z-index: 1;
+    top: 105%;
+    left: -44%;
+    margin-left: -60px;
+    background: #FFFFFF;
+    width: 220px;
+    height: 70px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .tooltip .tooltiptext::after {
+	content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: outset;
+    border-color: transparent transparent #ccc transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+	padding: 10px;
+  }
+  span.tooltiptext.tooltip-bottom p {
+    font-family: 'wuerthbold';
+    font-size: 14px;
+}
+  span.tooltiptext.tooltip-bottom p span {
+    font-size: 14px;
+    font-family: 'wuerthbook';
+    float: right;
+}
+
+	}
+// Trade agreement page end by Amit
+		// Confirm orders page start by Amit
+		.confirm-orders{	
+			.sales-title {
+				font-family: 'wuerthbold';
+				font-weight: bold;
+				font-size: 24px;
+				color: rgba(0, 0, 0, 0.87);
+				padding: 0px 0px 20px 0px;
+			}	
+			
+			.item-container {
+				display: grid;
+				grid-template-columns: 12rem 13rem 12rem 12rem 12rem 12rem 12rem 12rem 16rem;
+				background: ffffff;
+				margin: 0px;
+				align-items: center;
+				padding: 10px 5px;
+				font-family: 'wuerthbook';
+				border-bottom: 1px solid #DEDEED;
+			}
+			.toolbar-amount {
+				padding: 5px 0 0;
+				display: block;
+			}
+			
+			.group-arrow {
+				background: url(../images/group-arrow.svg);
+				background-repeat: no-repeat;
+				height: 17px;
+				width: 20px;
+				margin: 0px 0px 0px 5px;
+				cursor:pointer;
+			}
+			
+			.delete-icon {
+				background: url(../images/delete-icon.svg);
+				background-repeat: no-repeat;
+				height: 21px;
+				width: 20px;
+				margin: 0px 0px 0px 5px;
+				cursor:pointer;
+				display: inline-block;
+			} 
+			.ok-icon {
+				background: url(../images/ok-icon.svg);
+				background-repeat: no-repeat;
+				height: 21px;
+				width: 20px;
+				margin: 0px 0px 0px 5px;
+				cursor:pointer;
+				display: inline-block;
+			}
+			.list-icon {
+				background: url(../images/list-icon.svg);
+				background-repeat: no-repeat;
+				height: 21px;
+				width: 20px;
+				margin: 0px 0px 0px 5px;
+				cursor:pointer;
+				display: inline-block;
+			}
+
+			.row.filter-contaner {
+				margin-top: 20px;
+			}
+			.input-box i {
+				position: absolute;
+				right: 26px;
+				top: 7px;
+				color: #ced4da;
+			}
+			
+		.attribute {        
+			padding: 2px;
+			text-overflow: ellipsis;
+		}
+		.attribute.last-order {
+			font-family: 'wuerthbook';
+			font-size: 16px;
+			color: #0093DD;
+			cursor: pointer;
+		}
+		ol.collection.collection-container {
+			padding: 0;
+			margin-top: 20px;
+		}
+
+		.collection-container>.item-container:first-child {
+			background-color: #ececec;
+			font-family: 'wuerthbold';
+			font-size: 14px;
+			color: rgba(0, 0, 0, 0.87);
+		}	 
+
+		.collection-container>.item-container:first-child .attribute {
+			display: flex;
+			align-items: center;
+			text-overflow: initial;
+			overflow: auto;
+			white-space: normal;
+		}
+		
+		.toolkit-icon {
+			display: inline-block;
+			background: url(../images/toolkit-icon.svg);
+			background-repeat: no-repeat;
+			height: 12px;
+			width: 16px;
+		}
+
+		.tooltip {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+		}
+		.vpc {
+			color: #0093DD;
+			text-decoration-line: underline;
+		}  
+		.tooltip .tooltiptext {
+			visibility: hidden;
+			border-radius: 2px;
+			position: absolute;
+			z-index: 1;
+			top: 105%;
+			left: -44%;
+			margin-left: -60px;
+			background: #FFFFFF;
+			width: 220px;
+			height: 70px;
+			border: 1px solid rgba(0, 0, 0, 0.08);
+		}
+		
+		.tooltip .tooltiptext::after {
+			content: "";
+			position: absolute;
+			bottom: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: outset;
+			border-color: transparent transparent #ccc transparent;
+		}
+		
+		.tooltip:hover .tooltiptext {
+			visibility: visible;
+			padding: 10px;
+		}
+		span.tooltiptext.tooltip-bottom p {
+			font-family: 'wuerthbold';
+			font-size: 14px;
+		}
+		span.tooltiptext.tooltip-bottom p span {
+			font-size: 14px;
+			font-family: 'wuerthbook';
+			float: right;
+		}
+
+	}
+		// Confirm orders page end by Amit
 
 } // Responsive braces
   
