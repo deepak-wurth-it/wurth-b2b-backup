@@ -1,0 +1,107 @@
+<?php if ($block->isEnable()): ?>
+    <?php if ($block->isThisPageEnable() && $block->isThisPositionEnable()): ?>
+        <div class="<?= $block->escapeHtml($block->getContainerClass($block->getDisplayType())) ?>">
+            <div class="a2a_kit <?= $block->escapeHtml($block->getDisplayType()) ?> <?= $block->escapeHtml($block->getButtonSize()) ?> <?= $block->escapeHtml($block->getStyle()) ?>">
+                <?php foreach ($block->getEnableService() as $enableService): ?>
+                        <a target="_blank" class="a2a_button_<?= $enableService ?> <?= $block->escapeHtml($block->getShareCounter()) ?>"></a>
+                <?php endforeach; ?>
+                <?php if ($block->isAddMoreShare()): ?>
+                    <a class="a2a_dd <?= $block->escapeHtml($block->getShareCounter()) ?>" href="https://www.addtoany.com/share"></a>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <script type="text/x-magento-init">
+        {
+            "*": {
+                "Sparsh_SocialShare/js/config": {
+                    "buttonColor": "<?= $block->isCustomColorIcon() ? $block->escapeHtml($block->getButtonColor()) : null ?>",
+                    "iconColor": "<?= $block->isCustomColorIcon() ? $block->escapeHtml($block->getIconColor()) : null ?>",
+                    "click": "<?= $block->escapeHtml($block->getMenuType()) ?>",
+                    "popUp": "<?= $block->escapeHtml($block->isThankYou()) ?>",
+                    "service": "<?= $block->escapeHtml($block->getNumberOfService()) ?>",
+                    "disable": "<?= $block->escapeHtml($block->getDisabledServices()) ?>"
+                }
+            }
+        }
+        </script>
+        <script language="JavaScript">
+        require([
+        'jquery'],function ($){
+            $(document).ready(function() {
+                $('.sp_social_share_widget, .nav-sections').mouseover(function () {
+                    $(this).css("z-index", "20")
+                });
+                $('.sp_social_share_widget, .nav-sections').mouseout(function () {
+                    $(this).css("z-index", "0");
+                 });
+            });
+        });
+        </script>
+        <style type="text/css">
+            span.a2a_count {
+                display: none;
+            }
+            .a2a_counter{
+                margin: 0 0 0 5px;
+                width: 45px;
+                height: 45px;
+                border: 1px solid rgba(0, 0, 0, 0.12);
+            }
+                <?php if ($block->isCustomColorIcon()):?>
+                    .a2a_svg, .a2a_count {
+                        border-radius: <?= $block->getBorderRadius() ?> !important;
+                    }
+                    .a2a_kit{
+                        <?= $block->getBackgroundColor() ?>
+                    }
+                    .a2a_default_style{
+                        border-radius: 6px;
+                        padding: 4px
+                    }
+                    .a2a_default_style a{
+                        padding: 4px
+                    }
+                <?php endif;?>
+                <?php if ($block->isDisplayInline()):?>
+                .sp_social_share_inline_widget, .sp_social_share_inline_widget_widget_under_cart {
+                    display: flex;
+                    padding-bottom: 15px;
+                }
+
+                .sp_social_share_inline_widget {
+                    justify-content: flex-end;
+                }
+
+                .sp_social_share_inline_widget_widget_under_cart {
+                    justify-content: flex-start;
+                }
+
+                <?php else: ?>
+                .sp_social_share_widget {
+                    <?php if ($block->isVerticalStyle($block->getStyle())): ?>
+                        <?= $block->getFloatMargin("top") ?>
+                    <?php endif;?>
+                    <?= $block->getPosition() ?>
+                    z-index: 10;
+                }
+
+                @media only screen and (min-width: 430px) {
+                    .navigation {
+                        z-index: 1;
+                    }
+                }
+
+                .footer-bottom .container .logo {
+                    z-index: 0;
+                }
+
+                <?php if (!$block->isVerticalStyle($block->getStyle())):?>
+                    .a2a_floating_style.a2a_default_style {
+                        <?= $block->getFloatMargin("bottom") ?>
+                    }
+                <?php endif;?>
+            <?php endif;?>
+        </style>
+    <?php endif; ?>
+<?php endif; ?>
