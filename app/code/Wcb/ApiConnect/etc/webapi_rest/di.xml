@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Wcb\ApiConnect\Api\GetMultiProductPriceInterface" type="Wcb\ApiConnect\Model\GetMultiProductPrice"/>
+	<preference for="Wcb\ApiConnect\Api\GetMultiProductStockInterface" type="Wcb\ApiConnect\Model\GetMultiProductStock"/>
+	<preference for="Wcb\ApiConnect\Api\SingalProductPriceInterface" type="Wcb\ApiConnect\Model\SingalProductPrice"/>
+	<preference for="Wcb\ApiConnect\Api\SingalProductStockInterface" type="Wcb\ApiConnect\Model\SingalProductStock"/>
+</config>

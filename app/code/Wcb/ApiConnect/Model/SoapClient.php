@@ -66,7 +66,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         return $this->setData(self::CONTENT, $content);
     }
 
-    
+
     public function getSoapUser()
     {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
@@ -91,7 +91,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
 
     }
 
-    
+
     public function GetMultiItemAvailabilityOnLocation($itemNo = null)
     {
 
@@ -112,7 +112,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         $xml_post_string = trim($xml_post_string);
         // data from the form, e.g. some ID number
         $response = $this->initCurl($xml_post_string);
-        
+
         return $response;
 
     }
@@ -135,7 +135,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         $xml_post_string .= '</soapenv:Envelope>';
         // data from the form, e.g. some ID number
         $response = $this->initCurl($xml_post_string);
-        
+
         return $response;
 
     }
@@ -145,7 +145,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
 
         // xml post structure
 
-        
+
         $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">';
         $xml_post_string .= '<soapenv:Header/>';
         $xml_post_string .= '<soapenv:Body>';
@@ -169,7 +169,7 @@ class SoapClient extends AbstractModel implements SoapClientInterface
         $xml_post_string .= '</soapenv:Body>';
         $xml_post_string .= '</soapenv:Envelope>'; // data from the form, e.g. some ID number
         $response = $this->initCurl($xml_post_string);
-        
+
         return $response;
 
     }
@@ -249,11 +249,72 @@ class SoapClient extends AbstractModel implements SoapClientInterface
 		$newHeader = [];
 		foreach($header as $value){
 			$newHeader[] = preg_replace( '/[^A-Za-z0-9\-]/', '',$value);
-		
+
 		}
 
 		return $newHeader;
 
 	}
+
+  public function csvstring_to_array($string, $separatorChar = ',', $enclosureChar = '"', $newlineChar = "\n") {
+    // @author: Klemen Nagode
+    $array = array();
+    $size = strlen($string);
+    $columnIndex = 0;
+    $rowIndex = 0;
+    $tempChar="";
+    $fieldValue="";
+    $isEnclosured = false;
+    for($i=0; $i<$size;$i++) {
+
+        $char = (string) $string[$i];
+        $addChar = "";
+
+        if($isEnclosured) {
+            if($char==$enclosureChar) {
+                $tempChar = (string) $string[$i+1];
+                if($i+1<$size && $tempChar==$enclosureChar){
+                    // escaped char
+                    $addChar=$char;
+                    $i++; // dont check next char
+                }else{
+                    $isEnclosured = false;
+                }
+            }else {
+                $addChar=$char;
+            }
+        }else {
+            if($char==$enclosureChar) {
+                $isEnclosured = true;
+            }else {
+
+                if($char==$separatorChar) {
+
+                    $array[$rowIndex][$columnIndex] = $fieldValue;
+                    $fieldValue="";
+
+                    $columnIndex++;
+                }elseif($char==$newlineChar) {
+                    echo $char;
+                    $array[$rowIndex][$columnIndex] = $fieldValue;
+                    $fieldValue="";
+                    $columnIndex=0;
+                    $rowIndex++;
+                }else {
+                    $addChar=$char;
+                }
+            }
+        }
+        if($addChar!=""){
+            $fieldValue.=$addChar;
+
+        }
+    }
+
+    if($fieldValue) { // save last field
+        $array[$rowIndex][$columnIndex] = $fieldValue;
+    }
+    return $array;
+}
 
 }
