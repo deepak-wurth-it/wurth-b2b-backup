@@ -1,0 +1,52 @@
+<?php
+$customer = $block->getCustomerData();
+$product = $block->getProduct();
+$isLoggedIn = ($block->isLoggedIn()) ? "true" : "false";
+?>
+<div id="report_bug_model" class="no-display">
+    <form id="report_bug_form">
+        <div class="field required">
+            <label class="label" for="errorlink"><span><?= /* @noEscape */ __("Error Link"); ?></span></label>
+            <div class="control">
+                <input type="text" id="error_link" name="error_link"
+                       value="<?= /* @noEscape */ $block->getCurrentPageUrl() ?>"
+                       title="<?= /* @noEscape */ __("Error Link"); ?> class="input-text" readonly>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="error_description">
+                <span><?= /* @noEscape */ __("Error Description"); ?></span>
+            </label>
+            <div class="control">
+                <textarea id="error_description" name="error_description"
+                          placeholder="<?= /* @noEscape */ __("Add error description"); ?>"></textarea>
+            </div>
+        </div>
+
+        <input type="hidden" name="customer_name" value="<?= /* @noEscape */ $customer->getName() ?>" />
+        <input type="hidden" name="customer_number" value="<?= /* @noEscape */ $customer->getId() ?>" />
+        <?php if ($product) { ?>
+            <input type="hidden" name="item_number" value="<?= /* @noEscape */ $product->getId() ?>" />
+            <input type="hidden" name="item_name" value="<?= /* @noEscape */ $product->getName() ?>" />
+        <?php } ?>
+    </form>
+</div>
+
+<div class="ask-login-model no-display" id="ask_login_model">
+    <span>
+        <?= /* @noEscape */ __("Please
+        <a href='" . $block->getLoginUrl() . "'>login</a>
+        to Webshop to report a bug") ?>
+    </span>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Wurth_Reportbug/js/reportbug": {
+                "is_logged_in": "<?= /* @noEscape */ $isLoggedIn ?>"
+            }
+        }
+    }
+</script>

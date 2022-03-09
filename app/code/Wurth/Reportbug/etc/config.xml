@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <report_bug_section>
+            <email>
+                <sender>general</sender>
+                <email_template>report_bug_section_email_email_template</email_template>
+            </email>
+        </report_bug_section>
+    </default>
+</config>

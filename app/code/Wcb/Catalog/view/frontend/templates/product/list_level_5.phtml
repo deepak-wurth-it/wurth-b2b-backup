@@ -31,7 +31,7 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <?php $catId = $block->getLayer()->getCurrentCategory()->getId(); ?>
 <?php $catName = $block->getLayer()->getCurrentCategory()->getName(); ?>
 <?php $currentCat = $block->getLayer()->getCurrentCategory(); ?>
-<?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?> 
+<?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
 <?php $firstProduct =  $level5Collection->getFirstItem(); ?>
 <?php $firstProductExtraRow = $block->getExtraAttributeData($firstProduct); ?>
 <?php $subcategories = []; ?>
@@ -48,7 +48,7 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VI
 $pos = $block->getPositioned();
 $product=false;
 ?>
- <?php 
+ <?php
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
     $logedIn = $customerSession->isLoggedIn();
@@ -57,16 +57,16 @@ $product=false;
 <!-- End For Product -->
 
 <?php if($level == 5 ){ ?>
-    <?php 
+    <?php
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
    $logedIn = $customerSession->isLoggedIn();
   ?>
 
  <div class="row levelFive">
-   <div class="col-sm-6"> 
-      <div class="thumbnail sliderThubnail">      
-         <img src="http://m2.wc.b2b.com/media/catalog/product/cache/0dfee5ff3991729dd0bd32f4d3803aa6/1/2/1234785_1.jpg" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236"> 
+   <div class="col-sm-6">
+      <div class="thumbnail sliderThubnail">
+         <img src="http://m2.wc.b2b.com/media/catalog/product/cache/0dfee5ff3991729dd0bd32f4d3803aa6/1/2/1234785_1.jpg" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236">
       </div>
    </div>
    <div class="col-sm-6">
@@ -85,13 +85,20 @@ $product=false;
             </div>
             <div class="pdrepbug"><button type="submit" class="itembug"><span class="icon-web-warning"></span> Report a bug</button></div>
             <div class="col-md-6 social-block">
-               <ul>
-                  <li><a href="#!" role="button"><span class="icon-whatsapp"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-call"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-linkdin"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-facebook"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-youtube"></span></a></li>
-               </ul>
+                <?php echo $block->getLayout()
+                    ->createBlock("Sparsh\SocialShare\Block\SocialShare")
+                    ->setTemplate("Sparsh_SocialShare::socialshare.phtml")
+                    ->setPage("category_page")
+                    ->setPosition("bottom_content")
+                    ->setType("inline")
+                    ->toHtml(); ?>
+                <!--<ul>
+                   <li><a href="#!" role="button"><span class="icon-whatsapp"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-call"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-linkdin"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-facebook"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-youtube"></span></a></li>
+                </ul>-->
             </div>
          </div>
       </div>
@@ -99,7 +106,7 @@ $product=false;
 
 <!-- start-->
 
-<?php if($level5Collection->getSize() > 0 ){ ?>  
+<?php if($level5Collection->getSize() > 0 ){ ?>
 <div class="row attWrappFifth">
    <div class="col-md">
   <div class="execution">Executions</div>
@@ -116,24 +123,24 @@ $product=false;
         echo "<span class='attrow'>".$row['name']."</span>";
       }
     }
-    
+
     ?>
-   
+
     <span class="attrow">Number </span>
     <span class="attrow">VE</span>
     <span class="attrow">Price PU</span>
   </div>
-<?php if($level5Collection->getSize() > 0 ){ ?>  
- <?php //$level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?> 
+<?php if($level5Collection->getSize() > 0 ){ ?>
+ <?php //$level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
  <div id="element" data-mage-init='{
         "accordion":{
             "active": false,
             "collapsible": true,
             "multipleCollapsible": true
         }}'>
- <?php 
- 
- foreach($level5Collection as $product) { 
+ <?php
+
+ foreach($level5Collection as $product) {
    //print_r(get_class_methods($product));exit;
 ?>
   <div class="accordion" >
@@ -191,9 +198,9 @@ $product=false;
   </div>
   <div data-role="collapsible">
         <div class="expendRow" data-role="trigger"></div>
-    </div> 
+    </div>
     <div data-role="content">
-  
+
   <div class="paneldd">
     <div class="row">
       <div class="col-sm-4">
@@ -229,17 +236,17 @@ $product=false;
             </ul>
           </div>
           <span class="hrline"></span>
-          <?php  
-        
+          <?php
+
           $extraRow = $block->getExtraAttributeData($product);
-          
-          if(!empty($extraRow)) { 
+
+          if(!empty($extraRow)) {
 
           ?>
           <div class="catTitle">Technical information</div>
           <table class="tables table-hovers">
             <tbody>
-              
+
               <?php  foreach($extraRow as $key=>$row) {
                 if($key == 5 ){
                   break;
@@ -249,10 +256,10 @@ $product=false;
                 <td><?php  echo @$row['name']; ?></td>
                 <td><?php  echo @$row['value']; ?></td>
               </tr>
-             <?php } ?> 
+             <?php } ?>
             </tbody>
           </table>
-          
+
           <div class="allprowrapp">
             <a target="_blank" href="<?php echo $product->getProductUrl(); ?>"><button type="submit" class="allpro"> See all product details</button></a>
           </div>
@@ -263,7 +270,7 @@ $product=false;
   </div>
   </div>
 <?php } ?>
-<?php } ?>    
+<?php } ?>
 </div>
 <?php } ?>
 <!-- End --->
@@ -281,9 +288,9 @@ $product=false;
    {
        "[data-role=tocart-form], .form.map.checkout": {
            "catalogAddToCart": {
-               "product_sku": "<?= $escaper->escapeJs($product->getSku()) ?>"
+               "product_sku": ""
            }
-           
+
        }
    }
 </script>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <shipping_product_section>
+            <general>
+                <cart_amount_limit>500</cart_amount_limit>
+                <product_code>250</product_code>
+            </general>
+        </shipping_product_section>
+    </default>
+</config>
