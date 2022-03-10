@@ -86,13 +86,20 @@ $product=false;
             </div>
             <div class="pdrepbug"><button type="submit" class="itembug"><span class="icon-web-warning"></span> Report a bug</button></div>
             <div class="col-md-6 social-block">
-               <ul>
-                  <li><a href="#!" role="button"><span class="icon-whatsapp"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-call"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-linkdin"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-facebook"></span></a></li>
-                  <li><a href="#!" role="button"><span class="icon-youtube"></span></a></li>
-               </ul>
+                <?php echo $block->getLayout()
+                    ->createBlock("Sparsh\SocialShare\Block\SocialShare")
+                    ->setTemplate("Sparsh_SocialShare::socialshare.phtml")
+                    ->setPage("category_page")
+                    ->setPosition("bottom_content")
+                    ->setType("inline")
+                    ->toHtml(); ?>
+                <!--<ul>
+                   <li><a href="#!" role="button"><span class="icon-whatsapp"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-call"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-linkdin"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-facebook"></span></a></li>
+                   <li><a href="#!" role="button"><span class="icon-youtube"></span></a></li>
+                </ul>-->
             </div>
          </div>
       </div>
@@ -132,6 +139,7 @@ $product=false;
             "collapsible": true,
             "multipleCollapsible": true
         }}'>
+
  <?php foreach($level5Collection as $product) { ?>
   <?php  $ProductCode = $product->getProductCode(); ?>
   <?php if($ProductCode){ ?>
@@ -166,7 +174,7 @@ $product=false;
 </div>
     <span class="attrow loginprice <?= (($logedIn ?'logdIn':'')); ?>"><?php if($customerSession->isLoggedIn()) { ?>
     <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
-    
+
     <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
             <span>Price:&nbsp;</span>
             <span class="price" id="suggestedPriceAsTxtP<?php echo $ProductCode; ?>"></span>
@@ -300,7 +308,7 @@ $product=false;
    {
        "[data-role=tocart-form], .form.map.checkout": {
            "catalogAddToCart": {
-               "product_sku": "<?= $escaper->escapeJs($product->getSku()) ?>"
+               "product_sku": ""
            }
 
        }

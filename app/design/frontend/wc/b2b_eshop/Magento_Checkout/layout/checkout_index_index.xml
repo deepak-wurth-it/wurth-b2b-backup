@@ -368,13 +368,13 @@
                                                                     <item name="title" xsi:type="string" translate="true">Cart Subtotal</item>
                                                                 </item>
                                                             </item>
-                                                            <item name="shipping" xsi:type="array">
+                                                            <!--<item name="shipping" xsi:type="array">
                                                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/shipping</item>
                                                                 <item name="config" xsi:type="array">
                                                                     <item name="title" xsi:type="string" translate="true">Shipping</item>
                                                                     <item name="notCalculatedMessage" xsi:type="string" translate="true">Not yet calculated</item>
                                                                 </item>
-                                                            </item>
+                                                            </item>-->
                                                             <item name="grand-total" xsi:type="array">
                                                                 <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/grand-total</item>
                                                                 <item name="config" xsi:type="array">
@@ -448,13 +448,13 @@
       <!--<referenceContainer name="top.links" remove="true"/>-->
         <referenceContainer name="top.search" remove="true"/>
         <!--<referenceContainer name="catalog.topnav" remove="true"/>-->
-       
+
     <!--<move element="catalog.topnav" destination="header-wrapper" after="top.search"/> -->
-    
+
       <!--  <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header container" before="main.content">
         </container>-->
        <!-- <container name="page.top" as="page_top" label="After Page Header" after="header.container" />-->
-       
+
   <!--<referenceContainer name="page.wrapper">
         <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="page-footer"/>
     </referenceContainer> -->
