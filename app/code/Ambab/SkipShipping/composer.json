@@ -1,0 +1,35 @@
+{
+ "name": "ambab/module-skipshipping",
+ "description": "Skip shipping extension",
+ "type": "magento2-module",
+ "version": "1.0.1",
+ "license": [
+   "OSL-3.0",
+   "AFL-3.0"
+ ],
+ "require": {
+   "magento/module-checkout": "100.4.*"
+ },
+ "keywords": [
+   "magento 2",
+   "ambab",
+   "skip shipping",
+   "skip shipping method"
+ ],
+ "authors": [
+   {
+     "name": "Ambab",
+     "email": "tech.support@ambab.com",
+     "homepage": "https://www.ambab.com",
+     "role": "Technical Support"
+   }
+ ],
+ "autoload": {
+   "files": [
+     "registration.php"
+   ],
+   "psr-4": {
+     "Ambab\\SkipShipping\\": ""
+   }
+ }
+}
