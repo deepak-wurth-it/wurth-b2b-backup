@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category  Wcb
+ * @package   Wcb_Store
+ * @author    Deepak Kumar <deepak.kumar.rai@wuerth-it.com>
+ * @copyright 2022 Wuerth-IT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+       <add id="Wcb::top_level" title="Wuerth" module="Wcb_StorePickup" sortOrder="30" resource="Magento_Backend::content"/>
+
+        <add id="Wcb_Store::manage_store" title="Manage Advertisements" translate="title" module="Wcb_Store" parent="Wcb::top_level" sortOrder="55" action="store"  resource="Wcb_Store::manage_store" />
+    </menu>
+</config>
