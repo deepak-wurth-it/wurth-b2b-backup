@@ -1,13 +1,15 @@
 
+<div id="cart-item-form-section">
+
 
 <?php
    /**
     * Copyright © Magento, Inc. All rights reserved.
     * See COPYING.txt for license details.
     */
-   
+
    // phpcs:disable Magento2.Templates.ThisInTemplate
-   
+
    /**  @var $block \Magento\Checkout\Block\Cart\Grid */
 
       $objmanager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -64,8 +66,8 @@
          <caption class="table-caption"><?= $block->escapeHtml(__('Shopping Cart Items')) ?></caption>
          <thead class="table__header">
             <tr>
-               <td class="totItem" colspan="8" class="totItem"><?= $block->escapeHtml(__('My Shopping bag')) ?> (<?php echo $qty = $quote->getItemsSummaryQty(); ?> <?php if ($qty <= 1) { echo 'item'; } else { echo 'items'; } ?>) 
-             
+               <td class="totItem" colspan="8" class="totItem"><?= $block->escapeHtml(__('My Shopping bag')) ?> (<?php echo $qty = $quote->getItemsSummaryQty(); ?> <?php if ($qty <= 1) { echo 'item'; } else { echo 'items'; } ?>)
+
  </td>
             </tr>
             <tr class="itemFirst table__row">
@@ -106,7 +108,7 @@
       <span><?= $block->escapeHtml(__('Clear Shopping Cart')) ?></span>
       </button> -->
       <?php endif ?>
-      <div class="cart-act-icon">         
+      <div class="cart-act-icon">
          <span class="dIcons"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/delico.png'); ?>" /></span>
       </div>
      <!-- <button type="submit"
@@ -116,7 +118,7 @@
          title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
          class="action update">
       <span><?= $block->escapeHtml(__('Update Shopping Cart')) ?></span>
-      </button>--> 
+      </button>-->
       <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
    </div>
 </form>
@@ -125,7 +127,8 @@
 
 <script type="text/javascript">
 require(['jquery'], function($) {
-  $(".block .block-requisition-list").prependTo(".cart-act-icon");  
-  $("#negotiable-quote-form").prependTo(".cart-act-icon"); 
+  $(".block .block-requisition-list").prependTo(".cart-act-icon");
+  $("#negotiable-quote-form").prependTo(".cart-act-icon");
 });
- </script> 
+ </script>
+</div>
