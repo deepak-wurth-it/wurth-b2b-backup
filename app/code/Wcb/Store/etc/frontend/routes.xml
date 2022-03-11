@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category  Wcb
+ * @package   Wcb_Store
+ * @author    Deepak Kumar <deepak.kumar.rai@wuerth-it.com>
+ * @copyright 2022 Wuerth-IT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="store" frontName="store">
+            <module name="Wcb_Store"/>
+        </route>
+    </router>
+</config>

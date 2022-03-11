@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ *
+ * @category  Wcb
+ * @package   Wcb_Store
+ * @author    Deepak Kumar <deepak.kumar.rai@wuerth-it.com>
+ * @copyright 2022 Wuerth-IT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="store_listing_data_source" xsi:type="string">Wcb\Store\Model\ResourceModel\Store\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Wcb\Store\Model\ResourceModel\Store\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wcb_store_pickup</argument>
+            <argument name="eventPrefix" xsi:type="string">store_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">store_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">>Wcb\Store\Model\ResourceModel\Store</argument>
+        </arguments>
+    </type>
+
+    <type name="Wcb\Store\Controller\Adminhtml\Store\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">StoreImageUpload</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="StoreImageUpload" type="Wcb\Store\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">storeimage</argument>
+            <argument name="basePath" xsi:type="string">storeimage</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="StoreGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="StoreGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">"Wcb\Store\Model\ResourceModel\Store\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">StoreGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+</config>
