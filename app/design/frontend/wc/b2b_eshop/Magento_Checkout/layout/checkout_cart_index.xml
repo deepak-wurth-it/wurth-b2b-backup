@@ -8,6 +8,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="checkout_cart_item_renderers"/>
     <body>  
+    <referenceBlock name="checkout.cart.upsell" remove="true"/>
+    <referenceBlock name="checkout.cart.crosssell" remove="true"/>
      <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>   
         <move element="cart.summary" destination="delivery-info" after="-" />
         <referenceBlock name="checkout.cart.coupon" remove="true"/>
@@ -16,6 +18,23 @@
       
         <referenceContainer name="page.messages">
             <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
+        </referenceContainer>
+		 <referenceContainer name="content.top">
+            <block class="Magento\AdvancedCheckout\Block\Customer\Sku" name="checkout.customer.sku"
+                   template="Magento_QuickOrder::widget/sku.phtml">
+                <action method="setIsTitleHidden">
+                    <argument name="value" xsi:type="string">true</argument>
+                </action>
+              <!--  <block class="Magento\Framework\View\Element\Template" name="checkout.customer.sku.quick_order_multipleskus" template="Magento_QuickOrder::multipleskus.phtml"/> -->
+                <block class="Magento\Framework\View\Element\Template" name="checkout.customer.sku.quick_order_advancedcheckout_file" template="Magento_QuickOrder::advancedcheckout/customer/file.phtml">
+                    <block class="Magento\QuickOrder\Block\Sample" name="quick_order_download_template_link">
+                        <arguments>
+                            <argument name="path" xsi:type="string">Magento_QuickOrder::download_template.csv</argument>
+                            <argument name="label" xsi:type="string" translate="true">Download Sample</argument>
+                        </arguments>
+                    </block>
+                </block> 
+            </block>
         </referenceContainer>
 
         <referenceContainer name="content">

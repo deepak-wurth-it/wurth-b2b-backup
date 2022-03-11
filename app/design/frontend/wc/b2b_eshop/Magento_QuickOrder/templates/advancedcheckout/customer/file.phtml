@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$fieldNameFile = \Magento\AdvancedCheckout\Model\Import::FIELD_NAME_SOURCE_FILE;
+$fieldImportedFlagFile = \Magento\AdvancedCheckout\Helper\Data::REQUEST_PARAMETER_SKU_FILE_IMPORTED_FLAG;
+$extErrorText = __(
+    'The file could not be uploaded because it is in the wrong format. Please select a CSV file to upload.'
+);
+?>
+<div class="field upload skus choose-excel">
+    
+    <div class="control" data-mage-init='{"fieldsetControls": {}, "fileChooser": {
+            "fileNameSelector": "[name=<?= $block->escapeJs($fieldNameFile) ?>]",
+            "fileNameIndicatorSelector": "[name=<?= $block->escapeJs($fieldImportedFlagFile) ?>]"
+            },
+            "quickOrderFile":{
+            "fileNameSelector": "[name=<?= $block->escapeJs($fieldNameFile) ?>]",
+            "extErrorText": "<?= $block->escapeHtml($extErrorText) ?>",
+            "urlSku":"<?= $block->escapeUrl($block->getUrl('quickorder/ajax/search')) ?>"
+            }}'>
+
+        <div class="upload-container">            
+            <input type="file" id="customer_sku_csv"  name="<?= $block->escapeHtmlAttr($fieldNameFile) ?>"><br>
+           <!-- <div class="file-upload"><?= $block->escapeHtml(__('Choose File')) ?></div>
+           <input id="customer_sku_csv" type="file" data-reset="true" class="action-upload" name="<?= $block->escapeHtmlAttr($fieldNameFile) ?>">-->
+        </div>
+
+        <div class="notes">
+            <p>
+                <?= $block->escapeHtml(__('File must be in .csv format and include "SKU" and "QTY" columns')); ?>
+                <?= $block->getChildHtml('quick_order_download_template_link') ?>
+            </p>
+        </div>
+
+        <div class="form-cart-button"><button type="submit" class="add-to-basket"><?= $block->escapeHtml(__('Add to Basket')) ?></button> </div>
+       
+    </div>
+</div>

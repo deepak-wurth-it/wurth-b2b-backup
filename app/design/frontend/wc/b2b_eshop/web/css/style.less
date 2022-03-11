@@ -1989,6 +1989,88 @@ table.ReqListTable
 		display:none;
 	}
 }
+
+// Quick order on Cart page start
+	.checkout-cart-index {
+		.fields.additional.deletable-item {
+			display: flex;
+		}
+		.fields.additional.deletable-item-title {
+			display: flex;
+		}
+		.column .block-addbysku .sku {
+			margin-right: 0;
+			padding-right: 20px;
+			width: 100%;
+		}
+		.box-items .field.qty.required {
+			border:none;
+			width:10%;
+			height:auto;
+		}
+		.column .block-addbysku .block-content .box{
+			width:90%;
+		}
+		input#id-items0qty {
+			width: 100%;
+		}
+		.column .block-addbysku .qty.autoqty {
+			width: 100%;
+		}
+		.column .block-addbysku .qty .qty {
+			width: 100%;
+		}
+		.column .block-addbysku .block-content .actions-toolbar .primary .action {
+			margin: 0 5px 10px 0px;
+		}
+		.action.upload-excel {
+			border: 1px solid rgba(0, 0, 0, 0.08);
+			font-family: 'wuerthbook';
+			font-size: 1.6rem;
+			color: rgba(0, 0, 0, 0.6);
+			text-align: center;
+			padding: 3px;
+			width: 150px;			
+			cursor: pointer;
+			display:flex;
+		}
+		.csv-icon {
+			margin: 5px 5px 0px 5px;
+		}
+		aside.modal-popup.open-file {
+			width: 50%;
+			margin: auto;
+		}
+		.open-file header.modal-header {
+			text-align: center;
+		}
+		div#open-file {
+			text-align: center;
+		}
+		.fieldset > .field:not(.choice) > .control {
+			width: 100%;
+			float: left;
+		}
+		.notes a {
+			color: #0093DD;
+		}
+		button.add-to-basket {
+			width: 160px;
+			background: #CC0000;
+			border-radius: 50px;
+			color: #ffffff;
+			margin: 0 0 20px 0px;
+		}
+		.upload-container input {
+			height: 45px;
+			padding: 10px;
+			width: 396px;
+		}
+		.widget.block.block-addbysku {
+			margin-bottom: 15px;
+		}
+	}
+// Quick order on Cart page end
 //Order Template Cart Page Start By Amit
 .checkout-cart-index {
 	.page-title-wrapper {
@@ -6330,14 +6412,12 @@ button#top-cart-btn-checkout:hover {
 
 .cartPageForm {
 	border: solid 1px rgba(0, 0, 0, 8%);
-	line-height: 42px;
-	padding: 0 0 7px 8px;
-	margin: 0 0 12px 0;
+	padding-top: 15px;
+	display:flex;
+	margin-bottom: 15px;
 	.cartitem {
-		font-family: 'wuerthbook';
+		font-family: 'wuerthbold';
 		color: #cc0000;
-		font-style: normal;
-		font-weight: bold;
 		font-size: 18px;
 		line-height: 160%;
 	}
@@ -6361,6 +6441,11 @@ button#top-cart-btn-checkout:hover {
 		height: 35px;
 		margin-top: 45px;
 	}
+	button.action.tocart.primary.itemAdd {
+		position: absolute;
+		top: 40px;
+	}
+	
 }
 
 .chkcart {
@@ -8924,6 +9009,81 @@ print {
 	
 }
 // My profile page end by amit
+// Quick order on Cart page start
+	.checkout-cart-index{
+		.cartPageForm {
+			display:block;
+		}
+		.fields.additional.deletable-item-title {
+			display: block;
+		}
+		.fields.additional.deletable-item {
+			display: block;
+		}
+		.checkout-cart-index .box-items .field.qty.required {
+			width: 100%;
+		}
+		.action.upload-excel {
+			border: 1px solid rgba(0, 0, 0, 0.08);
+			font-family: 'wuerthbook';
+			font-size: 1.6rem;
+			color: rgba(0, 0, 0, 0.6);
+			text-align: center;
+			padding: 3px;
+			width: 150px;			
+			cursor: pointer;
+		}
+		.column .block-addbysku .block-content .box {
+			width: 100%;
+		}
+		.control.full-width {
+			width: 100%;
+		}
+		.box-items .field.qty.required {
+			border: none;
+			width: 100%;
+		}
+
+		aside.modal-popup.open-file {
+			width: 100%;
+			margin: auto;
+		}
+		.upload-container input {
+			height: 45px;
+			padding: 10px;
+			width: 100%;
+		}
+		.hide-label{
+			display:none !important;
+		}
+		.column .block-addbysku .fieldset .fields, .checkout-cart-index .column .block-addbysku .fieldset .fields {
+			border:none;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+		}
+		.column .block-addbysku .deletable-item .label {
+			display: flex;
+			margin-right: 0px;
+		}
+		.column .block-addbysku .block-content .actions-toolbar .primary .action {
+			margin: 0px;
+			width: auto;
+		}
+		.box.box-items.col-sm-8 {
+			padding: 0 10px 0px 0px;
+		}
+		.control {
+			width: 100% !important;
+		}
+		.row.pull-right.but-con {
+			margin-bottom: 15px;
+		}
+		button.action.tocart.primary.itemAdd {
+			position: absolute;
+			top: -20px;
+		}
+	}
+	// Quick order on Cart page end
 
 
 }

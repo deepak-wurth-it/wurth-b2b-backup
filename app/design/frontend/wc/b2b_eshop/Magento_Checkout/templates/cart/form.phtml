@@ -16,32 +16,7 @@
    ?>
 <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
-<div class="cartPageForm">
-   <div class="row">
-      <div class="col-md-3">
-         <div class="form-group"> <label class="cartitem">Add itemes to cart</label> </div>
-      </div>
-      <div class="col-md-3">
-         <div class="form-group"> <label class="cartAmount">Item Code</label> <input id="form_name" type="text" name="name" class="form-control" placeholder=" " required="required" data-error="Item code is required."> </div>
-      </div>
-      <div class="col-md-3">
-         <div class="form-group"> <label class="cartAmount">Amount</label> <input id="form_lastname" type="text" name="surname" class="form-control" placeholder=" " required="required" data-error="Amount is required."> </div>
-      </div>
-      <div class="col-md-3">
-         <div class="form-group"> <label class="form-cart-button"></lable><button type="submit" class="itemAdd">Add</button> </div>
-      </div>
-   </div>
-</div>
-<div class="row pull-right">
-   <div class="col-md-12">
-      <div class="cpupfile">
-         <select>
-            <option value="xls" data-thumbnail="<?php echo $block->getViewFileUrl('Magento_Checkout::images/xlsico.png'); ?>"> Upload Exel File </option>
-            <option value="csv" style="background-image:url(<?php echo $block->getViewFileUrl('Magento_Checkout::images/xlsico.png'); ?>);"> Upload Exel File </option>
-         </select>
-      </div>
-   </div>
-</div>
+
 <form action="<?= $block->escapeUrl($block->getUrl('checkout/cart/updatePost')) ?>"
    method="post"
    id="form-validate"
