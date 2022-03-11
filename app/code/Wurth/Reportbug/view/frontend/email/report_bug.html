@@ -1,0 +1,35 @@
+<!--@subject {{trans "Report bug from %store_name" store_name=$store.getFrontendName()}} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p>
+    <span class="">{{trans "Hello Admin,"}} </span>
+</p>
+<table border="1">
+    <tr class="">
+        <td>{{trans "Customer Name"}}</td>
+        <td>{{var customer_name}}</td>
+    </tr>
+    <tr class="">
+        <td>{{trans "Customer Number"}}</td>
+        <td>{{var customer_number}}</td>
+    </tr>
+    <tr class="">
+        <td>{{trans "Item Name"}}</td>
+        <td>{{var item_name}}</td>
+    </tr>
+    <tr class="">
+        <td>{{trans "Item Number"}}</td>
+        <td>{{var item_number}}</td>
+    </tr>
+    <tr class="">
+        <td>{{trans "Error Link"}}</td>
+        <td>{{var link}}</td>
+    </tr>
+    <tr class="">
+        <td>{{trans "Error Description"}}</td>
+        <td>{{var error_description}}</td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

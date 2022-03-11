@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/wcb-apiconnect/getsingalproductprice" method="POST">
+		<service class="Wcb\ApiConnect\Api\SingalProductPriceInterface" method="callSingalProductPrice"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route url="/V1/wcb-apiconnect/getmultiproductprice" method="POST">
+		<service class="Wcb\ApiConnect\Api\GetMultiProductPriceInterface" method="callMultiProductPrice"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route url="/V1/wcb-apiconnect/getsingalproductstock" method="POST">
+		<service class="Wcb\ApiConnect\Api\SingalProductStockInterface" method="callSingalProductStock"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route url="/V1/wcb-apiconnect/getmultiproductstock" method="POST">
+		<service class="Wcb\ApiConnect\Api\GetMultiProductStockInterface" method="callGetMultiProductStock"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+</routes>

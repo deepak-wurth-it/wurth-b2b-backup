@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="sparsh" translate="label" sortOrder="500">
+            <label>Sparsh Extensions</label>
+        </tab>
+        <section id="sparshsocialshare" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Social Share</label>
+            <tab>sparsh</tab>
+            <resource>Sparsh_SocialShare::configuration</resource>
+            <group id="general" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="color_schema" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Color Schema</label>
+                    <source_model>Sparsh\SocialShare\Model\System\ColorSchema</source_model>
+                </field>
+                <field id="custom_button_color" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Button Color</label>
+                    <validate>jscolor {hash:true,refine:false}</validate>
+                    <depends>
+                        <field id="color_schema">custom</field>
+                    </depends>
+                </field>
+                <field id="custom_icon_color" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Icon Color</label>
+                    <validate>jscolor {hash:true,refine:true}</validate>
+                    <depends>
+                        <field id="color_schema">custom</field>
+                    </depends>
+                </field>
+                <field id="custom_background_color" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Icon Background Color</label>
+                    <validate>jscolor {hash:true,refine:false}</validate>
+                    <depends>
+                        <field id="color_schema">custom</field>
+                    </depends>
+                </field>
+                <field id="border_radius" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Icon Border Radius</label>
+                    <comment>Recommend to set less than 50%.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-0-50</validate>
+                    <depends>
+                        <field id="color_schema">custom</field>
+                    </depends>
+                </field>
+                <field id="share_counter" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Share Counter</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>This is possible to update only if social APIs are able to connect from your server.</comment>
+                </field>
+                <field id="thank_you" translate="label comment" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Thank You Popup</label>
+                    <comment>Thank you popup will be displayed after sharing.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <group id="socialoption" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Social Options</label>
+                    <field id="facebook" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Facebook</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="twitter" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Twitter</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="google_gmail" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Google Gmail</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="pinterest" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Pinterest</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="linkedin" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>LinkedIn</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="whatsapp" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Whatsapp</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="reddit" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Reddit</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="add_more_share" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>More Share</label>
+                    <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Choose Yes to allow to add more social share options.</comment>
+                    </field>
+                    <field id="display_menu" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Display Menu Type</label>
+                        <source_model>Sparsh\SocialShare\Model\System\DisplayMenuType</source_model>
+                        <comment>Choose menu type for more social share options popup.</comment>
+                    </field>
+                    <field id="full_menu" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Display Full</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Choose whether to display full menu or selected number of options on social share options popup.</comment>
+                        <depends>
+                            <field id="display_menu">click</field>
+                        </depends>
+                    </field>
+                    <field id="number_service" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Services Number to be include</label>
+                        <comment>Enter number of social share options to be shown in poupup.</comment>
+                        <validate>required-entry validate-digits validate-digits-range digits-range-1-400</validate>
+                        <depends>
+                            <field id="full_menu">0</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+            <group id="float" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Widget Configuration</label>
+                <field id="apply_for" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Apply For</label>
+                    <source_model>Sparsh\SocialShare\Model\System\FloatApply</source_model>
+                </field>
+                <field id="select_page" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <source_model>Sparsh\SocialShare\Model\System\FloatPages</source_model>
+                    <label>Show in Pages</label>
+                    <depends>
+                        <field id="apply_for">select_pages</field>
+                    </depends>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="cms_page" translate="label" type="multiselect" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <source_model>Sparsh\SocialShare\Model\System\CmsPages</source_model>
+                    <label>Show in CMS Page</label>
+                    <depends>
+                        <field id="apply_for">select_pages</field>
+                    </depends>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="style" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Style</label>
+                    <source_model>Sparsh\SocialShare\Model\System\Style</source_model>
+                </field>
+                <field id="position" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Position</label>
+                    <source_model>Sparsh\SocialShare\Model\System\FloatPosition</source_model>
+                </field>
+                <field id="margin_top" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Margin Top</label>
+                    <comment>Specify top margin between 0-1000. Default is 160px.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-0-1000</validate>
+                    <depends>
+                        <field id="style">vertical</field>
+                    </depends>
+                </field>
+                <field id="margin_bottom" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Margin Bottom</label>
+                    <comment>Specify bottom margin between 0-1000.Default is 0px.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-0-1000</validate>
+                    <depends>
+                        <field id="style">horizontal</field>
+                    </depends>
+                </field>
+                <field id="button_size" translate="label comment" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Button Size</label>
+                    <source_model>Sparsh\SocialShare\Model\System\ButtonSize</source_model>
+                    <comment>Recommended size is 32x32</comment>
+                </field>
+            </group>
+            <group id="inline" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Inline Widget Configuration</label>
+                <field id="apply_for" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Apply For</label>
+                    <source_model>Sparsh\SocialShare\Model\System\InlineApply</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="position" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Position</label>
+                    <source_model>Sparsh\SocialShare\Model\System\InlinePosition</source_model>
+                </field>
+                <field id="show_under_cart" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show under add to cart button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Choose Yes to show inline widget under Add To Cart button.</comment>
+                </field>
+                <field id="button_size" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Button Size</label>
+                    <source_model>Sparsh\SocialShare\Model\System\ButtonSize</source_model>
+                    <comment>Recommended size is 32x32</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

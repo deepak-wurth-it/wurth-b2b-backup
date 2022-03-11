@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <skipshipping>
+            <general>
+                <enable>0</enable>
+                <show_shipping_in_total>0</show_shipping_in_total>
+            </general>
+        </skipshipping>
+    </default>
+</config>

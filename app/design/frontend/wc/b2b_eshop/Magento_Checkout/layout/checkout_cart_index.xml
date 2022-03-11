@@ -11,11 +11,12 @@
     <referenceBlock name="checkout.cart.upsell" remove="true"/>
     <referenceBlock name="checkout.cart.crosssell" remove="true"/>
      <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>   
+
         <move element="cart.summary" destination="delivery-info" after="-" />
         <referenceBlock name="checkout.cart.coupon" remove="true"/>
         <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon2" as="coupon" template="Magento_Checkout::cart/coupon.phtml"/>
-        <move element="checkout.cart.coupon2" destination="cart.summary" before="checkout.cart.shipping"/>   
-      
+        <move element="checkout.cart.coupon2" destination="cart.summary" before="checkout.cart.shipping"/>
+
         <referenceContainer name="page.messages">
             <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
         </referenceContainer>
@@ -184,13 +185,13 @@
                                                                 <item name="template" xsi:type="string">Magento_Checkout/cart/totals/subtotal</item>
                                                             </item>
                                                         </item>
-                                                        <item name="shipping" xsi:type="array">
+                                                        <!--<item name="shipping" xsi:type="array">
                                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/totals/shipping</item>
                                                             <item name="config" xsi:type="array">
                                                                 <item name="title" xsi:type="string" translate="true">Shipping</item>
                                                                 <item name="template" xsi:type="string">Magento_Checkout/cart/totals/shipping</item>
                                                             </item>
-                                                        </item>
+                                                        </item>-->
                                                         <item name="grand-total" xsi:type="array">
                                                             <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/grand-total</item>
                                                             <item name="config" xsi:type="array">
@@ -240,6 +241,6 @@
                     </block>
                 </container>
             </block>
-        </referenceContainer>       
-    </body> 
+        </referenceContainer>
+    </body>
 </page>

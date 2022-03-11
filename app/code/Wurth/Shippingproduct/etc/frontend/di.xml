@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="add_remove_shipping_product"
+                type="Wurth\Shippingproduct\Plugin\Checkout\Model\Cart" sortOrder="10" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="set_shipping_product_is_virtual" type="Wurth\Shippingproduct\Plugin\SetShippingProductIsVirtual"/>
+    </type>
+</config>

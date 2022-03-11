@@ -3,18 +3,21 @@
     * Copyright © Magento, Inc. All rights reserved.
     * See COPYING.txt for license details.
     */
-   
+
    // phpcs:disable Magento2.Templates.ThisInTemplate
    // phpcs:disable Magento2.Files.LineLength.MaxExceeded
-   
+
    /** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
-   
+
    $_item = $block->getItem();
    $product = $_item->getProduct();
    $isVisibleProduct = $product->isVisibleInSiteVisibility();
    /** @var \Magento\Msrp\Helper\Data $helper */
    $helper = $this->helper(Magento\Msrp\Helper\Data::class);
    $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+   $shippingProductHelper = $helper = $this->helper(Wurth\Shippingproduct\Helper\Data::class);
+   $shippingProductCode = $shippingProductHelper->getShippingProductCode();
+   $removeHelper = $this->helper(Magento\Checkout\Helper\Cart::class);
    ?>
 <tbody class="cart item">
    <tr class="item-info table__row">
@@ -110,7 +113,7 @@
          <div class="imd-avilable">
             <span class="imd-van"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/Rectangle434.png'); ?>" /></span>
             <span class="imd-cart"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/cartico.png'); ?>" /></span>
-            <span class="imd-day">12-14</span> 
+            <span class="imd-day">12-14</span>
             <span class="imd-avlb">The quantity will be available for the displayed number of days</span>
          </div>
       </td>
@@ -128,25 +131,35 @@
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Price')) ?>">
                   <div class="colsubtotal">
                      <div class="cpdis"><span class="cpcross">145,66 HRK </span> <span class="cpper"> (-25%)</span></div>
-                     <span class="cpgprice">1816.17</span>  
+                     <span class="cpgprice">1816.17</span>
                   </div>
                </td>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Amount without VAT')) ?>">
-                  <span class="carmrp">2,401.88</span>                   
+                  <span class="carmrp">2,401.88</span>
                </td>
             </tr>
          </table>
       </td>
       <td class="toolDel" colspan="1">
-         <span class="dIcon"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/deleteico.png'); ?>" /></span>
+          <?php if ($shippingProductCode != $_item->getSku()) { ?>
+              <a href="#"
+                 title="<?= $block->escapeHtml(__('Remove item')) ?>"
+                 class="action action-delete"
+                 data-post='<?= /* @noEscape */ $removeHelper->getDeletePostJson($_item) ?>'>
+                  <span class="dIcon">
+                      <img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/deleteico.png'); ?>" />
+                  </span>
+              </a>
+
+          <?php } ?>
       </td>
    </tr>
 </tbody>
 <script type="text/javascript">
    require(["jquery"],function($){
-       $('#<?php echo $_item->getId();?>-upt, #<?php echo $_item->getId();?>-dec').on("click",function(){ 
+       $('#<?php echo $_item->getId();?>-upt, #<?php echo $_item->getId();?>-dec').on("click",function(){
            var $this = $(this);
-           var ctrl = ($(this).attr('id').replace('-upt','')).replace('-dec','');          
+           var ctrl = ($(this).attr('id').replace('-upt','')).replace('-dec','');
            var currentQty = $("#cart-"+ctrl+"-qty").val();
            if($this.hasClass('increaseQty')){
                var newAdd = parseInt(currentQty)+parseInt(1);
@@ -154,7 +167,7 @@
            }else{
                 if(currentQty>1){
                    var newAdd = parseInt(currentQty)-parseInt(1);
-                   $("#cart-"+ctrl+"-qty").val(newAdd); 
+                   $("#cart-"+ctrl+"-qty").val(newAdd);
                 }
            }
        });
