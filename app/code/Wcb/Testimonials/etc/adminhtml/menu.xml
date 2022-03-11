@@ -2,7 +2,7 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Backend/etc/menu.xsd">
     <menu>
-        <add id="wcb_testimonials::core" title="Testimonials" module="Wcb_Testimonials" sortOrder="30" resource="Wcb_Testimonials::sample"/>
+        <add id="wcb_testimonials::core" parent="Wcb_Base::menu" title="Testimonials" module="Wcb_Testimonials" sortOrder="30" resource="Wcb_Testimonials::sample"/>
         <add id="wcb_testimonials::test" title="Items" module="Wcb_Testimonials" sortOrder="10" parent="wcb_testimonials::core" action="wcb_testimonials/items/" resource="Wcb_Testimonials::items"/>
     </menu>
 </config>
