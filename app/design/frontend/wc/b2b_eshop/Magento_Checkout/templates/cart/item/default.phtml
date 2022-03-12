@@ -74,41 +74,47 @@
          </div>
       </td> 
       <td class="colqty data-name" data-th="<?= $block->escapeHtml(__('Qty')) ?>" data-name="<?= $block->escapeHtml(__('Quantity x pieces = total quantity')) ?>">
-         <div class="productFieldset">
-            <div class="qty-field-wrapper">
-               <div id="<?= /* @escapeNotVerified */
-                  $_item->getId() ?>-dec" class="decreaseQty icon-interface-minus">
-               </div>
-               <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
-                  name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
-                  data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                  value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
-                  type="number"
-                  size="4"
-                  step="any"
-                  title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
-                  class="input-text qty"
-                  data-validate="{required:true,'validate-greater-than-zero':true}"
-                  data-role="cart-item-qty"/>
-               <div id="<?= /* @escapeNotVerified */
-                  $_item->getId() ?>-upt" class="increaseQty icon-interface-plus"></div>
-            </div>
-            <div class="cpCount">
-               <select>
-                  <option> 120 PC</option>
-                  <option> 120 PC</option>
-                  <option> 120 PC</option>
-                  <option> 120 PC</option>
-               </select>
-            </div>
-            <div class="cpCount">
-               <select>
-                  <option> 100 </option>
-                  <option> 100 </option>
-                  <option> 100 </option>
-                  <option> 100 </option>
-               </select>
-            </div>
+          <?php if ($shippingProductCode != $_item->getSku()) { ?>
+              <div class="productFieldset">
+                    <div class="qty-field-wrapper">
+                       <div id="<?= /* @escapeNotVerified */
+                          $_item->getId() ?>-dec" class="decreaseQty icon-interface-minus" data-item-id="<?= /* @escapeNotVerified */
+                       $_item->getId() ?>">
+                       </div>
+                       <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
+                          name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                          data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                          value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                          type="number"
+                          size="4"
+                          step="any"
+                          title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                          class="input-text qty cart-item-qty-box"
+                          data-validate="{required:true,'validate-greater-than-zero':true}"
+                          data-role="cart-item-qty"
+                              data-item-id="<?= /* @escapeNotVerified */ $_item->getId() ?>"/>
+                       <div id="<?= /* @escapeNotVerified */
+                          $_item->getId() ?>-upt" class="increaseQty icon-interface-plus" data-item-id="<?= /* @escapeNotVerified */
+                       $_item->getId() ?>"></div>
+                    </div>
+
+                <div class="cpCount">
+                   <select>
+                      <option> 120 PC</option>
+                      <option> 120 PC</option>
+                      <option> 120 PC</option>
+                      <option> 120 PC</option>
+                   </select>
+                </div>
+                <div class="cpCount">
+                   <select>
+                      <option> 100 </option>
+                      <option> 100 </option>
+                      <option> 100 </option>
+                      <option> 100 </option>
+                   </select>
+                </div>
+
          </div>
          <div class="imd-avilable">
             <span class="imd-van"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/Rectangle434.png'); ?>" /></span>
@@ -116,14 +122,17 @@
             <span class="imd-day">12-14</span>
             <span class="imd-avlb">The quantity will be available for the displayed number of days</span>
          </div>
+          <?php } ?>
       </td>
       <td colspan="2">
+          <?php if ($shippingProductCode != $_item->getSku()) { ?>
          <table>
             <tr  class="seprator">
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Jed. measure')) ?>"> <span class="carmrp" >KOM</span> </td>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Price type')) ?>"> <span class="imd-cart"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/star-red.png'); ?>" /></span> </td>
             </tr>
          </table>
+          <?php } ?>
       </td>
       <td colspan="2">
          <table>
@@ -142,15 +151,9 @@
       </td>
       <td class="toolDel" colspan="1">
           <?php if ($shippingProductCode != $_item->getSku()) { ?>
-              <a href="#"
-                 title="<?= $block->escapeHtml(__('Remove item')) ?>"
-                 class="action action-delete"
-                 data-post='<?= /* @noEscape */ $removeHelper->getDeletePostJson($_item) ?>'>
-                  <span class="dIcon">
-                      <img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/deleteico.png'); ?>" />
-                  </span>
-              </a>
-
+              <span class="dIcon remove-cart-item" data-item-id="<?= $_item->getId(); ?>">
+                  <img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/deleteico.png'); ?>" />
+              </span>
           <?php } ?>
       </td>
    </tr>
