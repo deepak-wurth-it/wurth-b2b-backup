@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
+<?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
+
+<div class="col-md-6 social-block">
+<h3>Select a delivery method</h3>
+   <div class="select-delivery">
+            <label for="is_subscribed" class="label newsletter">
+            <input type="checkbox" name="is_subscribed" title="Select a delivery method" class="checkbox" checked="checked">
+                   <span class="checkmark"> </span>
+                <span>Select a delivery method</span>
+            </label>
+   </div>
+   <div class="click-collect">
+       <div class="boxgroup">
+            <label for="is_subscribed">
+            <input type="checkbox" name="is_subscribed" title="Click and Collect?" class="checkbox">
+                   <span class="checkmark"> </span>
+                <span>Click and Collect?</span>
+            </label>
+            <span class="textbox"> <input type="text"> </span>
+        </div>
+            <p class="text-content">It is possible to pick up goods that are available on site.</p>
+   </div>
+   <div class="card-body">                
+                <div class="card-img">
+                <img class="card-img-top" src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/wurth-office.svg'); ?>" />                   
+                </div>
+                <div class="card-content">
+                    <div class="title">WHOLESALE CENTER WÜRTH - OSIJEK</div>
+                    <p>Sv. Leopolda Mandića 111p 31 000 Osijek <span class="location"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/location.svg'); ?>" /> Location</span></p>
+                    <div class="info-contaner">
+                       <p> <span class="icon-com-phone-a"></span> <span class="iphone-outline"> Phone 0800 4260</span></p>
+                      <p> <span class="icon-wuerth-e-mail"></span> <span class="email-outline"> Email wuert@wuerth.com.hr</span></p>
+                   </div>
+                </div>              
+           </div>
+</div>
+<style>
+   div#mageplaza-productslider-block-after-content-cat-prod {
+    display: none;
+}
+ </style>   
+ <script>
+    require(['jquery'],function($){
+        $('input.checkbox').on('change', function() {
+    $('input.checkbox').not(this).prop('checked', false);  
+});
+    })
+</script>

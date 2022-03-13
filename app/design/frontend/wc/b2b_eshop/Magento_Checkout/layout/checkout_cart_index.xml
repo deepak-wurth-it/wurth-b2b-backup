@@ -9,7 +9,7 @@
     <update handle="checkout_cart_item_renderers"/>
     <body>
      <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>
-        <move element="cart.summary" destination="delivery-info" after="-" />
+        <!-- <move element="cart.summary" destination="delivery-info" after="-" /> -->
         <referenceBlock name="checkout.cart.coupon" remove="true"/>
         <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon2" as="coupon" template="Magento_Checkout::cart/coupon.phtml"/>
         <move element="checkout.cart.coupon2" destination="cart.summary" before="checkout.cart.shipping"/>
@@ -18,11 +18,11 @@
             <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
         </referenceContainer>
 
-        <referenceContainer name="content">
+        <!-- <referenceContainer name="content">
             <container name="delivery-info" htmlTag="div" htmlClass="delivery-info row">
              <block class="Magento\Framework\View\Element\Template" name="pdp_sociallink" template="Magento_Checkout::delivery-method.phtml"/>
             </container>
-        </referenceContainer>
+        </referenceContainer> -->
 
 
         <referenceContainer name="content">
