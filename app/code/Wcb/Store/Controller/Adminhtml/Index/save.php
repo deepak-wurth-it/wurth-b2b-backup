@@ -70,7 +70,11 @@ class Save extends \Magento\Backend\App\Action
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
-       
+
+         if($data['general']){
+           $data['region'] = $data['general']['region'];
+           //unset($data['general']);
+         }
         if ($data) {
             $id = $this->getRequest()->getParam('entity_id');
 
@@ -89,7 +93,7 @@ class Save extends \Magento\Backend\App\Action
                 return $resultRedirect->setPath('*/*/');
             }
 
-                       
+
             if (isset($data['image'][0]['name']) && isset($data['image'][0]['tmp_name'])) {
                 $data['image'] ='/storeimage/'.$data['image'][0]['name'];
             } elseif (isset($data['image'][0]['name']) && !isset($data['image'][0]['tmp_name'])) {
@@ -97,7 +101,7 @@ class Save extends \Magento\Backend\App\Action
             } else {
                 $data['image'] = null;
             }
-            
+
             $model->setData($data);
 
 
