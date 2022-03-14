@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Wurth\Landingpage\Api\LandingPageRepositoryInterface" type="Wurth\Landingpage\Model\LandingPageRepository"/>
+	<preference for="Wurth\Landingpage\Api\Data\LandingPageInterface" type="Wurth\Landingpage\Model\LandingPage"/>
+	<preference for="Wurth\Landingpage\Api\Data\LandingPageSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Wurth\Landingpage\Model\ResourceModel\LandingPage\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">landing_page</argument>
+			<argument name="resourceModel" xsi:type="string">Wurth\Landingpage\Model\ResourceModel\LandingPage\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="wurth_landingpage_landing_page_listing_data_source" xsi:type="string">Wurth\Landingpage\Model\ResourceModel\LandingPage\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">wurth_landingpage_landing_page_form.landing_page_form_data_source</item>
+		</item>
+		<item name="label" xsi:type="string" translate="true">General Information</item>
+		<item name="template" xsi:type="string">templates/form/collapsible</item>
+	</argument>
+	<settings>
+		<buttons>
+			<button name="back" class="Wurth\Landingpage\Block\Adminhtml\Landing\Page\Edit\BackButton"/>
+			<button name="delete" class="Wurth\Landingpage\Block\Adminhtml\Landing\Page\Edit\DeleteButton"/>
+			<button name="save" class="Wurth\Landingpage\Block\Adminhtml\Landing\Page\Edit\SaveButton"/>
+			<button name="save_and_continue" class="Wurth\Landingpage\Block\Adminhtml\Landing\Page\Edit\SaveAndContinueButton"/>
+		</buttons>
+		<namespace>wurth_landingpage_landing_page_form</namespace>
+		<dataScope>data</dataScope>
+		<deps>
+			<dep>wurth_landingpage_landing_page_form.landing_page_form_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="landing_page_form_data_source">
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+			</item>
+		</argument>
+		<settings>
+			<submitUrl path="*/*/save"/>
+		</settings>
+		<dataProvider name="landing_page_form_data_source" class="Wurth\Landingpage\Model\Landingpage\DataProvider">
+			<settings>
+				<requestFieldName>landing_page_id</requestFieldName>
+				<primaryFieldName>landing_page_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<fieldset name="general">
+		<settings>
+			<label>General</label>
+		</settings>
+        <field name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Title</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">title</item>
+                    <item name="dataScope" xsi:type="string">title</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="cms_page">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Wurth\Landingpage\Model\Config\Source\Cmspagelist</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CMS page</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">landing_page</item>
+                    <item name="dataScope" xsi:type="string">cms_page</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+	</fieldset>
+    <fieldset name="assign_product_grid">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Products</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+            </item>
+        </argument>
+        <container name="assign_products_container" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">170</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Wurth\Landingpage\Block\Adminhtml\AssignProducts</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

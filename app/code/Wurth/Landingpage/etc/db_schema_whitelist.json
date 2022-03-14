@@ -1,0 +1,14 @@
+{
+    "landing_page": {
+        "column": {
+            "landing_page_id": true,
+            "title": true,
+            "cms_page": true,
+            "product_id": true,
+            "entity_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
