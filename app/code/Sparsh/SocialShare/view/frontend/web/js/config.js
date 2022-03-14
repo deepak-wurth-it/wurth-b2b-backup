@@ -27,6 +27,7 @@ define([
             a2aJS += 'a2a_config.exclude_services = ["' + disabled + '"];';
             a2aJS += '</script>';
             a2a.append(a2aJS);
+            $(".a2a_counter").css("border", "1px solid rgba(0, 0, 0, 0.12)");
         }
     });
 });

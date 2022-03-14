@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-
+        <referenceBlock name="product.info.social" remove="true"/>
        <!--<referenceContainer name="content">
             <block class="Magento\Catalog\Block\Product\View" name="soap_price_and_stock" template="Magento_Catalog::product/soap_price_and_stock.phtml"/>
         </referenceContainer>-->
@@ -18,7 +18,7 @@
                 <block class="Magento\Framework\View\Element\Template" name="pdp_purchage" template="Magento_Catalog::product/view/purchage-product.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_moreinfo" template="Magento_Catalog::product/view/more-info.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_reportbug" template="Magento_Catalog::product/view/report-bug.phtml"/>
-                <block class="Magento\Framework\View\Element\Template" name="pdp_sociallink" template="Magento_Catalog::product/view/social-link.phtml"/>
+               <!--<block class="Magento\Framework\View\Element\Template" name="pdp_sociallink" template="Magento_Catalog::product/view/social-link.phtml"/>-->
             </container>
         </referenceContainer>
         <move element="productDetails" destination="product.info.main" before="product.info.price" />
@@ -38,6 +38,6 @@
         <referenceBlock name="view.addto.wishlist" remove="true"/>
         <referenceBlock name="view.addto.compare" remove="true"/>
         <move element="product.attributes" destination="content" after="-" />
-        <referenceBlock name="product.info.details" remove="true" />
+        <referenceBlock name="product.info.details" remove="true" />  
     </body>
 </page>

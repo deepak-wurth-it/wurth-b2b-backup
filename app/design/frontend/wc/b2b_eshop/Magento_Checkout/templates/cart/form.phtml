@@ -84,7 +84,9 @@
       </button> -->
       <?php endif ?>
       <div class="cart-act-icon">
-         <span class="dIcons"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/delico.png'); ?>" /></span>
+          <span class="dIcons remove-cart-item" data-item-id="all">
+             <img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/delico.png'); ?>" />
+         </span>
       </div>
      <!-- <button type="submit"
          name="update_cart_action"
