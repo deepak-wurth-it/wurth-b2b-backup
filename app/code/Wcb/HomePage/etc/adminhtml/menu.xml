@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
     <menu>
-        <add id="Wcb_HomePage::parent" title="HomePage Banner" module="Wcb_HomePage" sortOrder="20" resource="Wcb_HomePage::parent"/>
+        <add id="Wcb_HomePage::parent" parent="Wcb_Base::menu" title="HomePage Banner" module="Wcb_HomePage" sortOrder="20" resource="Wcb_HomePage::parent"/>
         <add id="Wcb_HomePage::index" title="Banner Settings" module="Wcb_HomePage" sortOrder="10" action="admin/system_config/edit/section/wurthcms" resource="Wcb_HomePage::index" parent="Wcb_HomePage::parent"/>
     </menu>
 </config>

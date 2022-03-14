@@ -100,57 +100,55 @@
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
                 <dataType>text</dataType>
-                <label translate="true">Name</label>
+                <label translate="true">Store Name</label>
+            </settings>
+        </field>
+        <field name="contact_name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">store</item>
+                    <item name="sortOrder" xsi:type="number">11</item>
+                    <item name="dataScope" xsi:type="string">contact_name</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Contact Name</label>
+            </settings>
+        </field>
+        <field name="contact_email" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">store</item>
+                    <item name="sortOrder" xsi:type="number">12</item>
+                    <item name="dataScope" xsi:type="string">contact_email</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Contact Email</label>
             </settings>
         </field>
 
-
-        <field name="city">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string">City</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">true</item>
-                    </item>
-                    <item name="source" xsi:type="string">store</item>
-                    <item name="dataScope" xsi:type="string">city</item>
-                </item>
-            </argument>
+        <field name="phone" formElement="input" sortOrder="13">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Phone</label>
+            </settings>
+        </field>
+        <field name="fax" formElement="input" sortOrder="14">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Fax</label>
+            </settings>
         </field>
 
-        <field name="state">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string">State</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">true</item>
-                    </item>
-                    <item name="source" xsi:type="string">store</item>
-                    <item name="dataScope" xsi:type="string">state</item>
-                </item>
-            </argument>
-        </field>
-
-        <field name="address">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string">Address</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="cols" xsi:type="number">15</item>
-                    <item name="rows" xsi:type="number">5</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">true</item>
-                    </item>
-                    <item name="source" xsi:type="string">store</item>
-                    <item name="dataScope" xsi:type="string">address</item>
-                </item>
-            </argument>
-        </field>
 
 
         <field name="image" formElement="fileUploader">
@@ -162,7 +160,7 @@
                     <item name="previewTmpl" xsi:type="string">Magento_Catalog/image-preview</item>
                     <item name="dataScope" xsi:type="string">image</item>
                     <item name="required" xsi:type="boolean">false</item>
-                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="sortOrder" xsi:type="number">15</item>
                     <item name="uploaderConfig" xsi:type="array">
                         <item name="url" xsi:type="url" path="store/store_image/upload"/>
                     </item>
@@ -177,5 +175,111 @@
                 </validation>
             </settings>
         </field>
+
+        <field name="country_id" formElement="select" sortOrder="20">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Country</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Directory\Model\Config\Source\Country"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="region_id"
+               component="Magento_InventoryAdminUi/js/form/element/region"
+               formElement="select" sortOrder="25">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">State/Province</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\InventoryAdminUi\Model\OptionSource\RegionSource"/>
+                        <filterBy>
+                            <field>country_id</field>
+                            <target>${ $.provider }:${ $.parentScope }.country_id</target>
+                        </filterBy>
+                        <customEntry>region</customEntry>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="region" formElement="input" sortOrder="30">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">State/Province</label>
+                <visible>false</visible>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="city" formElement="input" sortOrder="35">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">City</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <!-- <field name="street" formElement="input" sortOrder="40">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Street</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field> -->
+        <field name="postcode" formElement="input" sortOrder="45">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Postcode</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="address">
+              <argument name="data" xsi:type="array">
+                  <item name="config" xsi:type="array">
+                      <item name="label" xsi:type="string">Detail Address</item>
+                      <item name="dataType" xsi:type="string">text</item>
+                      <item name="formElement" xsi:type="string">textarea</item>
+                      <item name="cols" xsi:type="number">15</item>
+                      <item name="rows" xsi:type="number">5</item>
+                      <item name="sortOrder" xsi:type="number">50</item>
+                      <item name="validation" xsi:type="array">
+                          <item name="required-entry" xsi:type="boolean">true</item>
+                      </item>
+                      <item name="source" xsi:type="string">store</item>
+                      <item name="dataScope" xsi:type="string">address</item>
+                  </item>
+              </argument>
+          </field>
+          <field name="map_url">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Store Map Pointer Url</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="sortOrder" xsi:type="number">55</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="source" xsi:type="string">store</item>
+                        <item name="dataScope" xsi:type="string">map_url</item>
+                    </item>
+                </argument>
+            </field>
     </fieldset>
 </form>

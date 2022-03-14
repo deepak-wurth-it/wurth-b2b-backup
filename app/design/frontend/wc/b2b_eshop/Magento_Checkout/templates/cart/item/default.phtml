@@ -72,7 +72,7 @@
             <?= $addInfoBlock->setItem($_item)->toHtml() ?>
             <?php endif;?>
          </div>
-      </td>
+      </td> 
       <td class="colqty data-name" data-th="<?= $block->escapeHtml(__('Qty')) ?>" data-name="<?= $block->escapeHtml(__('Quantity x pieces = total quantity')) ?>">
           <?php if ($shippingProductCode != $_item->getSku()) { ?>
               <div class="productFieldset">
@@ -173,6 +173,22 @@
                    $("#cart-"+ctrl+"-qty").val(newAdd);
                 }
            }
+       });
+   });
+</script>
+<script type="text/javascript">
+   require(["jquery"], function ($) {
+       $('.increaseQty, .decreaseQty').on("click", function () {
+           let inputElem = $(this).parents('td').find('input');
+           let currentQty = inputElem.val();
+           if ($(this).hasClass('increaseQty')) {
+               inputElem.val(parseInt(currentQty) + parseInt(1));
+           } else {
+               if (currentQty > 1) {
+                   inputElem.val(parseInt(currentQty) - parseInt(1));
+               }
+           }
+           // $("#form-validate").submit();
        });
    });
 </script>

@@ -7,9 +7,11 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="checkout_cart_item_renderers"/>
-    <body>
-     <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>
-        <move element="cart.summary" destination="delivery-info" after="-" />
+   <body>   
+    <referenceBlock name="checkout.cart.upsell" remove="true"/>
+    <referenceBlock name="checkout.cart.crosssell" remove="true"/>
+     <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>   
+
         <referenceBlock name="checkout.cart.coupon" remove="true"/>
         <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon2" as="coupon" template="Magento_Checkout::cart/coupon.phtml"/>
         <move element="checkout.cart.coupon2" destination="cart.summary" before="checkout.cart.shipping"/>
@@ -17,12 +19,29 @@
         <referenceContainer name="page.messages">
             <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
         </referenceContainer>
+		 <referenceContainer name="content.top">
+            <block class="Magento\AdvancedCheckout\Block\Customer\Sku" name="checkout.customer.sku"
+                   template="Magento_QuickOrder::widget/sku.phtml">
+                <action method="setIsTitleHidden">
+                    <argument name="value" xsi:type="string">true</argument>
+                </action>
+              <!--  <block class="Magento\Framework\View\Element\Template" name="checkout.customer.sku.quick_order_multipleskus" template="Magento_QuickOrder::multipleskus.phtml"/> -->
+                <block class="Magento\Framework\View\Element\Template" name="checkout.customer.sku.quick_order_advancedcheckout_file" template="Magento_QuickOrder::advancedcheckout/customer/file.phtml">
+                    <block class="Magento\QuickOrder\Block\Sample" name="quick_order_download_template_link">
+                        <arguments>
+                            <argument name="path" xsi:type="string">Magento_QuickOrder::download_template.csv</argument>
+                            <argument name="label" xsi:type="string" translate="true">Download Sample</argument>
+                        </arguments>
+                    </block>
+                </block> 
+            </block>
+        </referenceContainer>
 
-        <referenceContainer name="content">
+        <!-- <referenceContainer name="content">
             <container name="delivery-info" htmlTag="div" htmlClass="delivery-info row">
              <block class="Magento\Framework\View\Element\Template" name="pdp_sociallink" template="Magento_Checkout::delivery-method.phtml"/>
             </container>
-        </referenceContainer>
+        </referenceContainer> -->
 
 
         <referenceContainer name="content">

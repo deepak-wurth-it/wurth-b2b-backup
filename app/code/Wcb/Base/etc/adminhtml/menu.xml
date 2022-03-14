@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category  Wcb
+ * @package   Wcb_Base
+ * @author    Deepak Kumar <deepak.kumar.rai@wuerth-it.com>
+ * @copyright 2022 Wuerth-IT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+       <add id="Wcb_Base::menu"
+            title="Wuerth"
+            module="Wcb_Base"
+            translate="title"
+            sortOrder="15"
+            resource="Wcb_Base::menu"/>
+   </menu>
+</config>
