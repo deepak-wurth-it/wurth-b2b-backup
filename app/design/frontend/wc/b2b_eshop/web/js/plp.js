@@ -2,11 +2,11 @@ define([
     "jquery",
     "mage/url",
     "accordion"
-], function ($,urlBuilder) {
+], function ($, urlBuilder) {
     "use strict";
     return {
 
-        GetMultiProductPrice : function (listPids) {
+        GetMultiProductPrice: function (listPids) {
             var GetMultiProductPriceUrl = urlBuilder.build('/wcbcatalog/ajax/GetMultiProductPrice');
 
             $.ajax({
@@ -21,16 +21,44 @@ define([
                 success: function (result) {
                     if (result.success) {
                         var i;
-                        var itemNo, price;
+                        var itemNo, price, suggestedPriceAsTxtP, suggestedDiscountAsTxtP, suggestedSalesPriceInclDiscAsTxtP;
                         var finalResult = result.success;
 
                         $(finalResult).each(function (index, element) {
-                            console.log(index, element);
                             itemNo = element['ItemNo'];
-                            console.log(itemNo);
-                            price = element['SuggestedPrice'];
-                            if (itemNo && price) {
-                                $('#price_'.itemNo).html(price);
+                            itemNo = itemNo.replace(/\s+/g, "");
+                            //itemNo = itemNo.replaceAll("^\"|\"$", "");
+                            if (itemNo) {
+
+                                suggestedPriceAsTxtP = element.SuggestedPrice;
+                               // console.log(suggestedPriceAsTxtP);
+                                //if (suggestedPriceAsTxtP) {
+
+                                   // suggestedPriceAsTxtP = suggestedPriceAsTxtP.replaceAll("^\"|\"$", "");
+                                //}
+
+
+                                suggestedDiscountAsTxtP = element.SuggestedDiscount;
+                                //if (suggestedDiscountAsTxtP) {
+
+                                   // suggestedDiscountAsTxtP = suggestedDiscountAsTxtP.replaceAll("^\"|\"$", "");
+                               // }
+
+                                suggestedSalesPriceInclDiscAsTxtP = element.SuggestedPriceInclDiscount;
+                               // if (suggestedSalesPriceInclDiscAsTxtP) {
+
+                                    //suggestedSalesPriceInclDiscAsTxtP = suggestedSalesPriceInclDiscAsTxtP.replaceAll("^\"|\"$", "");
+                                //}
+
+                                $('#suggestedPriceAsTxtP' + itemNo).html(suggestedPriceAsTxtP);
+                                $('#suggestedDiscountAsTxtP' + itemNo).html(suggestedDiscountAsTxtP);
+                                $('#suggestedSalesPriceInclDiscAsTxtP' + itemNo).html(suggestedSalesPriceInclDiscAsTxtP);
+                                $("#price_soap" + itemNo).css({
+                                    display: "block"
+                                });
+                                $("#price_loader" + itemNo).css({
+                                    display: "none"
+                                });
                             }
                         });
 
@@ -72,7 +100,7 @@ define([
                 }
             });
         }
-       
+
     };
 
 });
