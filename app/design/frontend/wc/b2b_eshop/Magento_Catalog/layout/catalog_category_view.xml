@@ -17,7 +17,7 @@
 		  <move element="category.view.container" destination="content" before="-"/>
 		 <move element="breadcrumbs" destination="page.top" before="-"/>
 		 <move element="page.main.title" destination="content" before="category.products"/>
-        <referenceBlock name="catalog.leftnav" remove="true"/>
+        <referenceBlock name="catalog.leftnav" remove="true"/> 
 
     </body>
 </page>

@@ -3384,6 +3384,9 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 }
 
 .catalog-product-view {
+	.action.requisition-list-button.toggle.change.cartReqBut.active {
+		display: none;
+	}
 	.product-info-main {
 		.page-title {
 			margin: 0 0 10px;
@@ -4862,10 +4865,7 @@ a.action.print.hidden-print {
 	}
 	.overview{
 		font-family:@headingfont;
-		font-size: 16px;
-		&:before{
-			content:"_";
-		}
+		font-size: 16px;		
 	}
 }
 
@@ -5806,6 +5806,7 @@ div#reviews {
 // Cat Level-5 Page end by amit
 //recommanded products start by amit
 .recommandedProWrap {
+	margin-top:30px;
 	.slider-product-item-info {
 		background: #FFFFFF;
 		border: 1px solid rgba(0, 0, 0, 0.08);
@@ -6514,6 +6515,7 @@ button#top-cart-btn-checkout:hover {
 		border-radius: 50px;
 		padding: 7px 4px 7px 9px;
 		float:right;
+		cursor: pointer;
 	}
 	.dIcons.myQuoto {
 		padding: 0 40px 0px 0px;
@@ -6524,6 +6526,10 @@ button#top-cart-btn-checkout:hover {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		padding: 0 5px 0px 5px;
+	}
+	.decreaseQty,.increaseQty {
+		cursor: pointer;
 	}
 	.cpCount {
 		width: auto;
@@ -8691,6 +8697,13 @@ print {
 			margin: 0 0 60px;
 		}
 	}
+	
+	.catalog-product-view.page-layout-1column {
+			.product.media {
+				margin: 0 0 0px;
+			}
+		}
+	
 	.cart-summary {
 		width: 30%;
 		background-color: #eee;
@@ -10239,6 +10252,7 @@ print {
 	}
 	// Cat Level-5 Page end by amit responsive
 	// pdp page start by amit
+	
 	.pdPage {
 		.product.media {
 			background: #FFFFFF;
@@ -13765,5 +13779,18 @@ margin-top: 10px;
 	}
 		// Order No page end by Amit
 
-} // Responsive braces
+		
+
+} // min-width 913px
   
+
+@media screen and (min-width:1300px) and (max-width:2000px) {
+	.row.text-center {
+		max-width: 81%;
+		margin: auto;
+		text-align: center;
+	}
+	.eshopOnlineprocess ul {
+		padding-left: 40px;
+	}
+}
