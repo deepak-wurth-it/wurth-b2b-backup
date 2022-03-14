@@ -18,14 +18,13 @@
 ?>
 <!----------------->
 <div class="productDescription">
-<div class="product data items"
-     data-mage-init='{"mage/tabs": {"openedState": "active", "animate": {"duration": 100}, "active": 0, "disabled": [], "disabledState": "disabled"}}'>
-   
-    <div class="item title" data-role="collapsible">
-        <a class="switch" data-toggle="trigger" href="#tab-newarrival">Opis</a>
-    </div>
-    <div id="tab-newarrival" class="item content" data-role="content">
-    <div id="DescriptionS" class="pdpTabcontentboxS">
+<div class="pdpTab">
+  <button class="pdpTabnames" onclick="openCity(event, 'Description')" id="defaultOpens">Opis</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'technicalInformation')">Tehnički podaci</button>
+  <button class="pdpTabnames" onclick="openCity(event, 'Documents')">Informacije o artiklu</button>
+</div>
+
+<div id="Description" class="pdpTabcontentbox">
   <h3>AKUMULATORSKI UDARNI ODVIJAČ ABS 18 POWER COMBI M-CUBE®</h3>
   <div class="videos"><iframe width="560" height="315" src="https://www.youtube.com/embed/Sh5SxQumpFM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
    <h3>AKUMULATORSKI UDARNI ODVIJAČ ABS 18 POWER COMBI M-CUBE®</h3>
@@ -88,36 +87,28 @@
   </div>
 
 </div>
-    </div>
-    <div class="item title" data-role="collapsible">
-        <a class="switch" data-toggle="trigger" href="#tab-wishlist">ehnički podaci</a>
-    </div>
-    <div id="tab-wishlist" class="item content" data-role="content">
-    <div id="technicalInformationkk" class="pdpTabcontentboxkk">
 
-<?php if ($_additional = $block->getAdditionalData()) :?>
-  <div class="additional-attributes-wrapper table-wrapper">
-      <table class="data table additional-attributes" id="product-attribute-specs-table">
-          <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
-          <tbody>
-          <?php foreach ($_additional as $_data) :?>
-              <tr>
-                  <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
-                  <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
-              </tr>
-          <?php endforeach; ?>
-          </tbody>
-      </table>
-  </div>
+<div id="technicalInformation" class="pdpTabcontentbox">
+
+  <?php if ($_additional = $block->getAdditionalData()) :?>
+    <div class="additional-attributes-wrapper table-wrapper">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+            <tbody>
+            <?php foreach ($_additional as $_data) :?>
+                <tr>
+                    <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+                    <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 <?php endif;?>
 </div>
-    </div> <!-- content-2 -->
 
-    <div class="item title" data-role="collapsible">
-        <a class="switch" data-toggle="trigger" href="#tab-reviews">Informacije o artiklu</a>
-    </div>
-    <div id="tab-reviews" class="item content" data-role="content">
-    <div class="heading">Prodduct Information</div>
+<div id="Documents" class="pdpTabcontentbox">
+<div class="heading">Prodduct Information</div>
 <div class="ulcontent">
       <ul>
            <li><span class="pdficon"></span> Catalogue page as PDF 1</li>
@@ -125,10 +116,26 @@
       </ul>
   </div>
 </div>
-    </div> <!-- content -3 -->
-   
-</div>
-</div>
+  </div>
+
+<script>
+function openCity(evt, pdpTabName) {
+  var i, pdpTabcontentbox, pdpTabnames;
+  pdpTabcontentbox = document.getElementsByClassName("pdpTabcontentbox");
+  for (i = 0; i < pdpTabcontentbox.length; i++) {
+    pdpTabcontentbox[i].style.display = "none";
+  }
+  pdpTabnames = document.getElementsByClassName("pdpTabnames");
+  for (i = 0; i < pdpTabnames.length; i++) {
+    pdpTabnames[i].className = pdpTabnames[i].className.replace(" active", "");
+  }
+  document.getElementById(pdpTabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpens").click();
+</script>
+
 <!----------------->
 
 
