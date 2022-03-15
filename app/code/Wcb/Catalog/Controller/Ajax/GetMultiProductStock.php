@@ -20,7 +20,7 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		return parent::__construct($context);
 	}
 
-	public function execute()
+	/*public function execute()
 	{ 
 		$skus = $this->getRequest()->getParam('skus');
 		
@@ -40,10 +40,10 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		$dataString = trim($dataString);
         //echo $dataString;exit;
 		 /** @var \Magento\Framework\Controller\Result\Json $result */
-		 $result = $this->resultJsonFactory->create();
+		 //$result = $this->resultJsonFactory->create();
 		
 		 //$sku = $this->getRequest()->getPost('sku');
-		 $xmlData = $this->getMultiStock($dataString);
+		/* $xmlData = $this->getMultiStock($dataString);
         if($xmlData){
 		 
 			$data = $xmlData->SoapBody->GetMultiItemAvailabilityOnLocation_Result->itemsCsvP;
@@ -69,10 +69,62 @@ class GetMultiProductStock extends \Magento\Framework\App\Action\Action
 		 $result->setData(array('success'=>$finalData));
          return $result;
 
+		}*/
+
+
+public function execute()
+	{
+
+		$skus = $this->getRequest()->getParam('skus');
+		
+		$sku = "";
+		$data = "";
+		$dataString = "";
+		$key = "";
+		$header = "";
+		$finalData = [];
+
+		$skus= json_decode($skus);
+		
+		foreach($skus as $key=>$sku){
+			$dataString .= '"'.$sku['0'].'"'.';'.'"'.$sku['1'].'"'.PHP_EOL; 
+			
 		}
 
+    $dataString = trim($dataString);
+
+     $result = $this->resultJsonFactory->create();
+     $xmlData = $this->getMultiStock($dataString);
+      if($xmlData){
+
+      $data = $xmlData->SoapBody->GetMultiItemAvailabilityOnLocation_Result->itemsCsvP;
+      $data = (string) $data;
+    
+      $data = $this->_soapApiClient->csvstring_to_array($data);
+
+      $header = reset($data);
+      $header = explode(';', $header[0]);
+
+      foreach($data as $key=>$row){
+        if(empty($row)){
+          continue;
+        }
+
+        if($key == 1){
+            $header =$this->_soapApiClient->trimMiddleWhiteSpaces($header);
+        }
+        $dataStage2 = explode(';', $row[0]);
 
 
+        if(count($header) === count($dataStage2) && $key != 0){
+            $finalData[] =  array_combine($header,$dataStage2);
+        }
+      }
+
+     }
+     $result->setData(array('success'=>$finalData));
+     return $result;
+		}
 
 	public function str_putcsv($data) {
         # Generate CSV data from array

@@ -16,7 +16,12 @@ class Data extends AbstractHelper
      * @var ScopeConfigInterface
      */
     protected $_scopeConfig;
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+     */
+    protected $_productCollectionFactory;
 
+    protected $_shippingProductSku;
     /**
      * Data constructor.
      * @param Context $context
@@ -24,8 +29,10 @@ class Data extends AbstractHelper
      */
     public function __construct(
         Context $context,
-        ScopeConfigInterface $scopeConfig
+        ScopeConfigInterface $scopeConfig,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
     ) {
+        $this->_productCollectionFactory = $productCollectionFactory;
         $this->_scopeConfig = $scopeConfig;
         parent::__construct($context);
     }
@@ -55,7 +62,15 @@ class Data extends AbstractHelper
         if ($shippingProductCode === '') {
             $shippingProductCode = "250";
         }
-        return $shippingProductCode;
+        if (!$this->_shippingProductSku) {
+            $product = $this->_productCollectionFactory->create()
+                ->addAttributeToFilter("product_code", ["eq" => $shippingProductCode])
+                ->getFirstItem();
+            if ($product->getId()) {
+                $this->_shippingProductSku = $product->getSku();
+            }
+        }
+        return $this->_shippingProductSku;
     }
 
     /**

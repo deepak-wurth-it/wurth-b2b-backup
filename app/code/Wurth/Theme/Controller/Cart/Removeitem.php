@@ -113,8 +113,12 @@ class Removeitem extends Action
     public function removeCartItemById($itemId)
     {
         try {
-            $this->cart->removeItem($itemId);
-            $this->cart->save();
+            if ($itemId == "all") {
+                $this->cart->truncate()->save();
+            } else {
+                $this->cart->removeItem($itemId);
+                $this->cart->save();
+            }
             $this->cart->getQuote()->setTriggerRecollect(1);
             $this->cart->getQuote()->collectTotals()->save();
             return true;

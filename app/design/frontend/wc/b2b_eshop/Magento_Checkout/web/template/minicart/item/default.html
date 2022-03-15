@@ -70,34 +70,35 @@
                     <!-- ko template: {name: getTemplate(), data: item.product_price, as: 'price'} --><!-- /ko -->
                 <!-- /ko -->
                 <!-- /ko -->
+                <!-- ko ifnot: is_shipping_product -->
+                    <div class="details-qty qty qtybox">
+                        <label class="label" data-bind="i18n: 'Qty', attr: {
+                        for: 'cart-item-'+item_id+'-qty'}"></label>
+                        <div class="minqtrbox">
+                        <div class="less icon-interface-minus"></div>
+                            <input data-bind="attr: {
+                            id: 'cart-item-'+item_id+'-qty',
+                            'data-cart-item': item_id,
+                            'data-item-qty': qty,
+                            'data-cart-item-id': product_sku
+                            }, value: qty"
+                            type="number"
+                            size="4"
+                            class="item-qty cart-item-qty">
 
-                <div class="details-qty qty qtybox">
-                    <label class="label" data-bind="i18n: 'Qty', attr: {
-                    for: 'cart-item-'+item_id+'-qty'}"></label>
-                    <div class="minqtrbox">
-                    <div class="less icon-interface-minus"></div>
-                        <input data-bind="attr: {
-                        id: 'cart-item-'+item_id+'-qty',
+                            <div class="more icon-interface-plus"></div>
+                        </div>
+                        <button data-bind="attr: {
+                        id: 'update-cart-item-'+item_id,
                         'data-cart-item': item_id,
-                        'data-item-qty': qty,
-                        'data-cart-item-id': product_sku
-                        }, value: qty"
-                        type="number"
-                        size="4"
-                        class="item-qty cart-item-qty">
-                    
-                        <div class="more icon-interface-plus"></div>
+                        title: $t('Update')
+                        }"
+                        class="update-cart-item"
+                        style="display: none">
+                            <span data-bind="i18n: 'Update'"></span>
+                        </button>
                     </div>
-                    <button data-bind="attr: {
-                    id: 'update-cart-item-'+item_id,
-                    'data-cart-item': item_id,
-                    title: $t('Update')
-                    }"
-                    class="update-cart-item"
-                    style="display: none">
-                        <span data-bind="i18n: 'Update'"></span>
-                    </button>
-                </div>
+                <!-- /ko -->
             </div>
 
             <div class="product actions">
@@ -108,12 +109,14 @@
                     </a>
                 </div>-->
                 <!-- /ko -->
-                <div class="secondary">
-                    <a href="#" data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
-                       class="action delete">
-                        <span data-bind="i18n: 'Remove'"></span>
-                    </a>
-                </div>
+                <!-- ko ifnot: is_shipping_product -->
+                    <div class="secondary">
+                        <a href="#" data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
+                           class="action delete">
+                            <span data-bind="i18n: 'Remove'"></span>
+                        </a>
+                    </div>
+                <!-- /ko -->
             </div>
         </div>
     </div>

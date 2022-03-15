@@ -8,7 +8,6 @@ define([
     'use strict';
     return Component.extend({
         initialize: function () {
-            debugger;
             this._super();
             this.increDecreQty();
             this.removeItem();
