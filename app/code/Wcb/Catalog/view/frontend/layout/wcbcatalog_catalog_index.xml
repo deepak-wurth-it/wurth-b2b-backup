@@ -26,5 +26,5 @@
     <referenceContainer name="content">
         <block class="Wcb\Catalog\Block\Category" name="wcbcategory_display" template="Wcb_Catalog::category.phtml" />
     </referenceContainer>
-    <referenceBlock name="multiple-wishlist_sidebar" remove="true" />
-</page>
+    <referenceBlock name="multiple-wishlist_sidebar" remove="true" />   
+</page> 
