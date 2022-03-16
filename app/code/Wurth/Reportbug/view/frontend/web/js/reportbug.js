@@ -17,6 +17,7 @@ define([
                     type: 'popup',
                     responsive: true,
                     innerScroll: true,
+                    modalClass: 'report-a-bug',
                     title: $.mage.__('Report Bug'),
                     buttons: [
                         {
