@@ -1,24 +1,33 @@
 <?php
 namespace Wcb\CustomerRegistration\Plugin;
+
+use Magento\Customer\Model\Session;
+
 class RedirectCustomUrl
 {
     public $_storeManager;
-  public function __construct(
-      \Magento\Store\Model\StoreManagerInterface $storeManager
-      
+    protected $session;
+    public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Controller\Result\RedirectFactory $resultRedirectFactory,
+        \Magento\Framework\App\Response\RedirectInterface $redirect,
+        Session $customerSession
     ) {
-      
-  $this->_storeManager=$storeManager;
+        $this->session = $customerSession;
+        $this->resultRedirectFactory = $resultRedirectFactory;
+        $this->_storeManager=$storeManager;
     }
 
     public function afterExecute(
         \Magento\Customer\Controller\Account\LoginPost $subject,
-        $result)
-    {
-
-       $customUrl= $this->_storeManager->getStore()->getBaseUrl();
-       // $customUrl = 'cms/index/index';
-        $result->setUrl($customUrl);
-		return $result;
+        $result
+    ) {
+        if ($this->session->isLoggedIn()) {
+            $baseUrl = $this->_storeManager->getStore()->getBaseUrl();
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $resultRedirect->setPath($baseUrl);
+            return $resultRedirect;
+        }
+        return $result;
     }
 }

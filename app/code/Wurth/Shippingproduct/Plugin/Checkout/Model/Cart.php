@@ -34,5 +34,6 @@ class Cart
     public function afterSave(\Magento\Checkout\Model\Cart $subject, $result)
     {
         $this->addRemoveShippingProduct->updateShippingProduct($subject->getQuote());
+        return $result;
     }
 }
