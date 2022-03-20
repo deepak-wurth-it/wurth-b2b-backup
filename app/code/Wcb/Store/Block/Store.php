@@ -19,7 +19,11 @@ use \Psr\Log\LoggerInterface;
 
 class Store extends Template {
 
-   
+	
+   /**
+    * @var array|\Magento\Checkout\Block\Checkout\LayoutProcessorInterface[]
+    */
+    protected $layoutProcessors;
     protected $collectionFactory;
     protected $storeManagerInterface;
 
@@ -32,7 +36,9 @@ class Store extends Template {
     Http $request, 
     Registry $registry, 
     Variable $CustomVariable,
-    LoggerInterface $logger
+    LoggerInterface $logger,
+    array $layoutProcessors = [],
+    array $data = []
             
     ) {
 
@@ -45,8 +51,17 @@ class Store extends Template {
         $this->catalogSession = $catalogSession;
         $this->storeManagerInterface = $StoreManagerInterface;
 
-        parent::__construct($context);
-    }
+        parent::__construct($context, $data);
+        $this->jsLayout = isset($data['jsLayout']) && is_array($data['jsLayout']) ? $data['jsLayout'] : [];
+        $this->layoutProcessors = $layoutProcessors;
+   }
+		public function getJsLayout()
+	   {
+		   foreach ($this->layoutProcessors as $processor) {
+			   $this->jsLayout = $processor->process($this->jsLayout);
+		   }
+		   return \Zend_Json::encode($this->jsLayout);
+	   }
 
     public function getActiveStore() {
         try {
@@ -73,6 +88,19 @@ class Store extends Template {
             $this->_logger->error('Issue in getActiveStore method ', ['message' => $e->getMessage()]);
         }
     }
+    
+    
+    public function getStores(){
+		     $stores = "";
+		
+		     $storesCollection = $this->collectionFactory->create()
+             //->addFieldToFilter('name')
+		     ->addFieldToFilter('status', 1);
+		     
+		    
+			return $storesCollection;
+		
+		}
 
     public function getMediaDirectoryUrl() {
 
@@ -83,3 +111,4 @@ class Store extends Template {
     }
 
 }
+
