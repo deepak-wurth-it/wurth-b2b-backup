@@ -2025,6 +2025,11 @@ table.ReqListTable
 
 // Quick order on Cart page start 
 	.checkout-cart-index {
+		.cart-container {
+			margin: 0px 0px 40px;
+			border-bottom: 1px solid rgba(0, 0, 0, 8%);
+			padding: 0 0 20px 0px;
+		}
 		.fields.additional.deletable-item {
 			display: flex;
 		}
@@ -2109,6 +2114,20 @@ table.ReqListTable
 	.page-title-wrapper {
 		margin-top: 30px;
 	}
+	.dIcons.remove-cart-item img {
+		margin: 6px 7px 0px 7px;
+	}
+	.dIcons.remove-cart-item {
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box;
+		border-radius: 4px;
+		height: 35px;
+		width: 35px;
+	}
+	.cart-empty {
+		display: none;
+	}
 	.cart.table-wrapper .items > .item {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 	}
@@ -2124,7 +2143,13 @@ table.ReqListTable
 .cart-container .block-requisition-list {
     display: block;
     float: right;
-    margin: -39px 26px 0px 0px;
+    margin: -35px 45px 0px 0px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 12%);
+    border-radius: 4px;
+    height: 35px;
+    width: 35px;
+    padding: 0px 0px 0px 3px;
 }
 .page-title-wrapper .block {
     display: none;
@@ -2140,7 +2165,7 @@ table.ReqListTable
 .requisition-list-action .action.toggle.active {
     display: inline-block;
     text-decoration: none;
-    background: url(../images/fileicon.png) right 3px top 10px;
+    background: url(../images/fileicon.png) right 0px top 6px;
     background-repeat: no-repeat;
     font-size: 0px;
 	cursor: pointer;
@@ -2180,8 +2205,13 @@ table.ReqListTable
 		align-items: center;
 	}
 	form#negotiable-quote-form {
-		margin: 0px 37px 0 0px;
-		border: none;
+		margin: 0px 55px 0 0px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 12%);
+		box-sizing: border-box;
+		border-radius: 4px;
+		height: 35px;
+		width: 35px;
 	}
 	button.qutoButton.action {
 		height: 20px;
@@ -2190,6 +2220,8 @@ table.ReqListTable
 		background: url(../images/editicon.png) right 6px top 3px;
 		background-repeat: no-repeat;
 		cursor: pointer;
+		padding: 0px 25px 1px 2px;
+        margin-top: 5px;
 	}
 } 
 
@@ -5912,19 +5944,16 @@ div#reviews {
 	}
 	.product.name.product-item-name {
 		font-family: 'wuerthbold';
-		font-style: normal;
-		font-weight: bold;
 		font-size: 16px;
 		line-height: 160%;
-		color: rgba(0, 0, 0, 0.8);
+		color: rgba(0, 0, 0, 8%);
+		min-height:52px;
 	}
 	.priceOnline {
 		font-family: 'wuerthbook';
-		font-style: normal;
-		font-weight: 300;
 		font-size: 16px;
-		line-height: 160%;
 		color: #000000;
+		margin-bottom: 5px;
 	}
 	.wishlistbut {
 		width: 34px;
@@ -6686,7 +6715,6 @@ button#top-cart-btn-checkout:hover {
 		top: 87px;
 		background: #FFFFFF;
 		border: 1px solid rgba(0, 0, 0, 0.12);
-		box-sizing: border-box;
 		border-radius: 4px;
 	}
 	button.butApply {
@@ -9099,6 +9127,9 @@ print {
 		.cartPageForm {
 			display:block;
 		}
+		.controlWrapper input#coupon_code {
+			width:100%;
+		}
 		.fields.additional.deletable-item-title {
 			display: block;
 		}
@@ -10797,16 +10828,20 @@ print {
 }
 // Favorites Page End By Amit
 //Order Template Cart Page Start By Amit
-.checkout-cart-index {
+.checkout-cart-index {	
+	.cart-container {
+		margin: 0px 0px 40px;
+		border-bottom: 1px solid rgba(0, 0, 0, 12%);
+		padding: 0 0 50px 0px;
+	}
 	.cart-container .block-requisition-list {
-		display: block;
-		float: right;
-		margin: -8px -58px 0px 0px;
-		width: 10px;
+		margin: 0px -77px 0px 0px;
+		width: 35px;
+		padding: 0 3px 0px 0px;
 	}
 	form#negotiable-quote-form {
-		margin: -2px 35px 4px 0px;
-		border: none;
+		margin: 0px 50px 0px 0px;
+		border: 1px solid rgba(0, 0, 0, 12%);
 	}
 	.checkout-cart-index button.qutoButton.action {
 		height: 24px;
@@ -10839,7 +10874,7 @@ print {
 		bottom: 20px;
 	}
 	.fieldset > .field > .label {
-		width: 43%;
+		width: 44%;
 	}
 	.control {
 		width: 65%;
@@ -11415,7 +11450,7 @@ margin-top: 10px;
 		border: 1px solid rgba(0, 0, 0, 0.08);
 		border-radius: 4px;
 		height: 35px;
-		padding: 5px;
+		padding: 1px 5px 0px 6px;
 		margin-bottom: 15px;
 	}
 	.input-box i {
@@ -12849,7 +12884,7 @@ margin-top: 10px;
 .sales-history{	
 	.item-container {
 			display: grid;
-			grid-template-columns: 11rem 14rem 21rem 13rem 12rem 15rem 11rem 16rem;
+			grid-template-columns: 10% 10% 19% 12% 12% 11% 11% 15%;
 			background: ffffff;
 			margin: 0px;
 			align-items: center;
@@ -12927,8 +12962,8 @@ margin-top: 10px;
 		border: 1px solid rgba(0, 0, 0, 0.08);
 		border-radius: 4px;
 		height: 35px;
-		padding: 1px;
-		margin: 0 0 10px 25px;
+		margin: auto;
+        margin-bottom: 5px;
 	}
 	  ol.collection.collection-container {
 		padding: 0;
@@ -13087,7 +13122,7 @@ margin-top: 10px;
 	}
 	.item-container {
 		display: grid;
-		grid-template-columns: 6rem 6rem 13rem 14rem 13rem 12rem 11rem 11rem 13rem 15rem;
+		grid-template-columns: 5% 5% 11% 13% 11% 11% 9% 10% 13% 12%;
 		background: ffffff;
 		margin: 0px;
 		align-items: center;
@@ -13223,7 +13258,7 @@ margin-top: 10px;
 	}
 	.item-container {
 		display: grid;
-		grid-template-columns: 5rem 10rem 12rem 14rem 10rem 11rem 16rem 13rem 10rem 12rem;
+		grid-template-columns: 4% 9% 11% 12% 9% 10% 14% 11% 9% 11%;
 		background: ffffff;
 		margin: 0px;
 		align-items: center;
@@ -13343,15 +13378,15 @@ margin-top: 10px;
 	}
 	.control-qty-cart {
 		width: 100px;
-		border: 1px solid rgba(0, 0, 0, 0.08);
+		border: 1px solid rgba(0, 0, 0, 12%);
 		border-radius: 4px;
 		height: 35px;
-		padding: 1px;
-		margin: 0 0 10px 25px;
+		margin: auto;
+        margin-bottom: 5px;
 	}
 	.item-container {
 		display: grid;
-		grid-template-columns: 13rem 13rem 22rem 13rem 12rem 12rem 12rem 16rem;
+		grid-template-columns: 12% 12% 20% 11% 11% 11% 11% 14%;
 		background: ffffff;
 		margin: 0px;
 		align-items: center;
