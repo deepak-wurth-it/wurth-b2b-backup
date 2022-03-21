@@ -1,7 +1,6 @@
 <?php
 
 use Wcb\BestSeller\Block\AbstractSlider;
-use Magento\Framework\App\Action\Action;
 
 /** @var AbstractSlider $block */
 $helper = $this->helper(\Wcb\BestSeller\Helper\Data::class);
@@ -17,37 +16,38 @@ $offer = $block->getOffer();
 $moduleName = $this->getRequest()->getModuleName();
 $controllerName = $this->getRequest()->getControllerName();
 $actionName = $this->getRequest()->getActionName();
-$pageIdentifier = $moduleName.'_'.$controllerName .'_'.$actionName;
+$pageIdentifier = $moduleName . '_' . $controllerName . '_' . $actionName;
 ?>
 <?php
-if($pageIdentifier == 'cms_index_index') {
-?>
+if ($pageIdentifier == 'cms_index_index') {
+    ?>
 <div class="carousel-wrap container-inner nowOffer">
-	<h2><?php echo __('Now offer on')?></h2>    
+	<h2><?php echo __('Now offer on') ?></h2>
     <div class="yourAction"><?php echo __('Your actions in June')?></div>
 	<div class="owl-theme owl-carouselrp">
-		<?php foreach($categoryitems as $category){ ?>
+		<?php foreach ($categoryitems as $category) { ?>
 			<div class="item">
                     <div class="product-grid">
                         <div class="product-image">
                             <a href="#" class="image">
                                 <img class="img-1" src="http://m2.wc.b2b.com/static/version1641270815/frontend/wc/b2b_eshop/hr_HR/Magento_Catalog/images/product/placeholder/small_image.jpg">
                             </a>
-                           
+
                         </div>
                         <div class="product-content">
                             <div class="productName"><a href="#">ZASTITNE RUKAVICE ZA MONTAZU</a></div>
                             <div class="onlineoff">Cijena za online kupovinu</div>
                         <div class="price">
-                            <span class="cpgprice">149, <sup>99</sup></span> 
+                            <span class="cpgprice">149, <sup>99</sup></span>
                             <span class="cpcross">199,<sup>99</sup> </span></div>
                         </div>
                     </div>
 		</div>
-    	<?php } ?> 
+    	<?php } ?>
 	</div>
 </div>
-<?php } ?>
+<?php
+} ?>
 <script type="text/javascript">
           /**
  * Created By : Rohan Hapani
@@ -83,12 +83,13 @@ require(['jquery', 'owlcarousel'], function($) {
         </script>
 
 <?php
-if($pageIdentifier == 'cms_index_index') {
-?>
-<section class="bestSellerWrap container-inner">
-<h2><?php echo __("Best Sellers in Protupozarna zastita"); ?></h2>
+if ($pageIdentifier == 'cms_index_index') {
+        ?>
+
 <?php
 if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
+    <section class="bestSellerWrap container-inner">
+        <h2><?php echo __("Best Sellers in Protupozarna zastita"); ?></h2>
     <div class="block-content mp-product-slider-content">
         <div class="bestSeller products-<?php echo /** @noEscape */  $mode ?> <?php echo /** @noEscape */  $mode ?>">
             <ol class="product-items widget-viewed-grid">
@@ -107,12 +108,12 @@ if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
                                        href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>">
                                         <?php echo $block->escapeHtml($_item->getName()) ?>
                                     </a>
-                                </strong>  
-                                <?php echo /** @noEscape */ $block->getProductDetailsHtml($_item) ?>                                                    
-                              
+                                </strong>
+                                <?php echo /** @noEscape */ $block->getProductDetailsHtml($_item) ?>
+
                             </div>
-                            
-                            <div class="price-off"> <?php echo $offer ?></div> 
+
+                            <div class="price-off"> <?php echo $offer ?></div>
                         </div>
                         <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>
                     <?php endforeach ?>
@@ -141,8 +142,10 @@ if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
             $(".custom-bpslider").insertBefore(".page-footer");
         });
     </script>
-<?php endif; ?>
     </section>
-<?php } elseif($pageIdentifier == "checkout_cart_index"){
-echo $this->getLayout()->createBlock("Wcb\BestSeller\Block\BestSellerProducts")->setTemplate("Wcb_BestSeller::recommanded-products.phtml")->toHtml();
-} ?>
+<?php endif; ?>
+
+<?php
+    } elseif ($pageIdentifier == "checkout_cart_index") {
+        echo $this->getLayout()->createBlock("Wcb\BestSeller\Block\BestSellerProducts")->setTemplate("Wcb_BestSeller::recommanded-products.phtml")->toHtml();
+    } ?>

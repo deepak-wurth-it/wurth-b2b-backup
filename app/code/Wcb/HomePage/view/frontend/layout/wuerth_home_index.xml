@@ -8,47 +8,48 @@
 	<referenceContainer name="main.content" htmlTag="main" htmlId="maincontent" htmlClass="page-main-Full-Width"/>
 		<referenceContainer name="content">
 			<!-- <block class="Wcb\HomePage\Block\HomePage" name="homepage" as="homepage" template="Wcb_HomePage::homepage.phtml"/> -->
-			<block class="Magento\Cms\Block\Block" name="cms-main-banner"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">cms-main-banner</argument> 
-				</arguments> 
+			<block class="Magento\Cms\Block\Block" name="cms-main-banner">
+				<arguments>
+					<argument name="block_id" xsi:type="string">cms-main-banner</argument>
+				</arguments>
 			</block>
-			<block class="Magento\Cms\Block\Block" name="cms-home-info-banner"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">cms-home-info-banner</argument> 
-				</arguments> 
-			</block> 
-			<block class="Magento\Cms\Block\Block" name="become-online-shop-customer"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">become-online-shop-customer</argument> 
-				</arguments> 
+			<block class="Magento\Cms\Block\Block" name="cms-home-info-banner">
+				<arguments>
+					<argument name="block_id" xsi:type="string">cms-home-info-banner</argument>
+				</arguments>
 			</block>
-			<block class="Magento\Cms\Block\Block" name="cms-home-offer-banners"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">cms-home-offer-banners</argument> 
-				</arguments> 
+			<block class="Magento\Cms\Block\Block" name="become-online-shop-customer">
+				<arguments>
+					<argument name="block_id" xsi:type="string">become-online-shop-customer</argument>
+				</arguments>
 			</block>
-			<block class="Magento\Cms\Block\Block" name="cms-home-content-banner"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">cms-home-content-banner</argument> 
-				</arguments> 
+			<block class="Magento\Cms\Block\Block" name="cms-home-offer-banners">
+				<arguments>
+					<argument name="block_id" xsi:type="string">cms-home-offer-banners</argument>
+				</arguments>
 			</block>
-			<block class="Magento\Cms\Block\Block" name="cms-home-info-content-banner"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">cms-home-info-content-banner</argument> 
-				</arguments> 
+			<block class="Magento\Cms\Block\Block" name="cms-home-content-banner">
+				<arguments>
+					<argument name="block_id" xsi:type="string">cms-home-content-banner</argument>
+				</arguments>
 			</block>
-			<block class="Magento\Cms\Block\Block" name="cms-home-wurth-features"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">cms-home-wurth-features</argument> 
-				</arguments> 
+            <block class="Magento\Framework\View\Element\Template" name="set-slider-position" />
+            <block class="Magento\Cms\Block\Block" name="cms-home-info-content-banner">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cms-home-info-content-banner</argument>
+                </arguments>
+            </block>
+			<block class="Magento\Cms\Block\Block" name="cms-home-wurth-features">
+				<arguments>
+					<argument name="block_id" xsi:type="string">cms-home-wurth-features</argument>
+				</arguments>
 			</block>
-			<block class="Magento\Cms\Block\Block" name="cms-home-info-card"> 
-				<arguments> 
-					<argument name="block_id" xsi:type="string">cms-home-info-card</argument> 
-				</arguments> 
+			<block class="Magento\Cms\Block\Block" name="cms-home-info-card">
+				<arguments>
+					<argument name="block_id" xsi:type="string">cms-home-info-card</argument>
+				</arguments>
 			</block>
-			 <block class="Wcb\Blog\Block\BlogListData" name="blog.bloglist" template="Wcb_Blog::list.phtml" cacheable="false"/>
+			<block class="Wcb\Blog\Block\BlogListData" name="blog.bloglist" template="Wcb_Blog::list.phtml" cacheable="false"/>
 			<block class="Wcb\Testimonials\Block\Testimonials" name="testimonials" as="testimonials" template="Wcb_Testimonials::testimonials.phtml"/>
 		</referenceContainer>
 	</body>

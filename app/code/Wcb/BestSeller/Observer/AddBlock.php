@@ -6,6 +6,7 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\View\Layout;
+use Wcb\BestSeller\Block\AbstractSlider;
 use Wcb\BestSeller\Helper\Data;
 use Wcb\BestSeller\Model\Config\Source\ProductType;
 
@@ -30,35 +31,40 @@ class AddBlock implements ObserverInterface
      */
     protected $productType;
 
+    protected $abstractSlider;
+
     /**
      * AddBlock constructor.
      *
      * @param RequestInterface $request
      * @param Data $helperData
      * @param ProductType $productType
+     * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
+     * @param AbstractSlider $abstractSlider
      */
     public function __construct(
         RequestInterface $request,
         Data $helperData,
-        ProductType $productType
+        ProductType $productType,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        AbstractSlider $abstractSlider
     ) {
         $this->request = $request;
         $this->helperData = $helperData;
         $this->productType = $productType;
+        $this->_productCollectionFactory = $productCollectionFactory;
+        $this->abstractSlider = $abstractSlider;
     }
 
-    public function searchForId($id, $array) {
+    public function searchForId($id, $array)
+    {
         foreach ($array as $key => $val) {
             if ($val['product_type'] === $id) {
                 return $key;
             }
         }
         return null;
-     }
-
-    /**
-     * @inheritdoc
-     */
+    }
     public function execute(Observer $observer)
     {
         if (!$this->helperData->isEnabled()) {
@@ -67,59 +73,117 @@ class AddBlock implements ObserverInterface
 
         $type = array_search($observer->getEvent()->getElementName(), [
             'content' => 'content',
-            'sidebar' => 'catalog.leftnav'
+            'sidebar' => 'catalog.leftnav',
+            'custom-position' => 'set-slider-position',
+            'footer-top' => 'footer-container'
         ]);
         if ($type !== false) {
             /** @var Layout $layout */
             $layout = $observer->getEvent()->getLayout();
             $fullActionName = $this->request->getFullActionName();
-            $output = $observer->getTransport()->getOutput();
-            
-            $sliders = $this->helperData->getActiveSliders();
-            $existsArray = [];
-            $checkKeys = ['category', 'best-seller'];
-            $removeKey = $skip = '';
-            $product_type = array_column($sliders->getData(), 'product_type');
 
-            if(empty(array_diff($checkKeys, $product_type))){
-                $skip = 1;
-                //$keyToFetch = $this->searchForId('category',$sliders);
-                foreach ($sliders as $key => $val) {
-                    if ($val['product_type'] === 'category') {
-                        //return $key;
-                        $slider = $val;
+            $output = $observer->getTransport()->getOutput();
+
+            // Store same page slider product collection ids
+
+            $productsAndCategory = [];
+            $categoriesIds = [];
+            $productsIds = [];
+            foreach ($this->helperData->getActiveSliders() as $slider) {
+                [$pageType, $location] = explode('.', $slider->getLocation());
+                if ($fullActionName == $pageType || $pageType == 'allpage') {
+                    if ($slider->getProductType() === "category") {
+                        $collectionData = $layout->createBlock($this->productType->getBlockMap($slider->getProductType()))
+                            ->setSlider($slider)
+                            ->getCategoryCollectionByIds();
+                        foreach ($collectionData as $_category) {
+                            if (in_array($_category["id"], $categoriesIds)) {
+                                continue;
+                            }
+                            $productsAndCategory[] = [
+                                "name" => $_category["name"],
+                                "image" => $_category["image"],
+                                "url" => $_category["url"],
+                                "offer" => $slider->getOffer(),
+                                "detail" => "",
+                                "type" => "category"
+                            ];
+                            $categoriesIds[] = $_category["id"];
+                        }
+                    } else {
+                        $collectionData = $layout->createBlock($this->productType->getBlockMap($slider->getProductType()))
+                            ->setSlider($slider)
+                            ->getProductCollection();
+                        foreach ($collectionData as $_product) {
+                            if (in_array($_product->getId(), $productsIds)) {
+                                continue;
+                            }
+                            $productsAndCategory[] = [
+                                "name" => $_product->getName(),
+                                "image" => $this->abstractSlider->getImage($_product, 'recently_viewed_products_grid_content_widget')->toHtml(),
+                                "url" => $this->abstractSlider->getProductUrl($_product),
+                                "offer" => $slider->getOffer(),
+                                "detail" => $this->abstractSlider->getProductDetailsHtml($_product),
+                            ];
+                            $productsIds[] = $_product->getId();
+                        }
                     }
                 }
-                [$pageType, $location] = explode('.', 'cms_index_index.content-bottom');
-                //$content = $layout->createBlock('Wcb\BestSeller\Block\CategoryProduct')->toHtml();
-                $content = $layout->createBlock('Wcb\BestSeller\Block\CategoryProduct')->setTemplate('Wcb_BestSeller::categoryproduct.phtml')->setSlider($slider)->toHtml();        
-                $output .= "<div class=\"custom-bpslider\" id=\"mageplaza-productslider-block-after-{$type}-cat-prod\">$content</div>";          
             }
 
-                foreach ($sliders as $slider) {
-                    [$pageType, $location] = explode('.', $slider->getLocation());
-                    $product_types = $slider->getProductType();
-                    if (($fullActionName == $pageType) || ($pageType == 'allpage')) {
-                        if($skip == 1 && in_array($product_types, $checkKeys)){
-                            continue;  
+            $existsSliderInPage = [];
+            foreach ($this->helperData->getActiveSliders() as $slider) {
+                [$pageType, $location] = explode('.', $slider->getLocation());
+
+                // Skip slider if already add in same page
+                if (in_array($fullActionName, $existsSliderInPage)) {
+                    continue;
+                }
+
+                if ($fullActionName == $pageType || $pageType == 'allpage') {
+                    $existsSliderInPage[] = $fullActionName;
+                    if (!empty($productsAndCategory)) {
+                        $sliderTitle = "";
+                        if ($fullActionName == 'cms_index_index' && $pageType != 'allpage') {
+                            $sliderTitle = __("Best Sellers in Protupozarna zastita");
                         }
+                        if ($fullActionName == 'wuerth_home_index' && $pageType != 'allpage') {
+                            $sliderTitle = __('Now offer on');
+                        }
+
+                        $content = $layout->createBlock($this->productType->getBlockMap($slider->getProductType()))
+                            ->setSlider($slider)
+                            ->setCustomTitle($sliderTitle)
+                            ->setCustomizeCollection($productsAndCategory)
+                            ->toHtml();
+                    } else {
                         $content = $layout->createBlock($this->productType->getBlockMap($slider->getProductType()))
                             ->setSlider($slider)
                             ->toHtml();
+                    }
 
-                        if (strpos($location, $type) !== false) {
-                            if (strpos($location, 'top') !== false) {
-                                $output = "<div class=\"custom-bpslider\" id=\"mageplaza-productslider-block-before-{$type}-{$slider->getId()}\">$content</div>" . $output;
-                            } else {
-                                $output .= "<div class=\"custom-bpslider\" id=\"mageplaza-productslider-block-after-{$type}-{$slider->getId()}\">$content</div>";
-                            }
+                    if (strpos($location, $type) !== false) {
+                        if (strpos($location, 'top') !== false) {
+                            $output = "<div id=\"mageplaza-productslider-block-before-{$type}-{$slider->getId()}\">$content</div>" . $output;
+                        } elseif (strpos($location, 'custom-position') !== false) {
+                            $output = "<div id=\"mageplaza-productslider-block-before-{$type}-{$slider->getId()}\">$content</div>" . $output;
+                        } else {
+                            $output .= "<div class=\"custom-bpslider\" id=\"mageplaza-productslider-block-after-{$type}-{$slider->getId()}\">$content</div>";
                         }
                     }
                 }
-            
+            }
             $observer->getTransport()->setOutput($output);
         }
 
         return $this;
+    }
+    public function getProductCollectionByIds($productIds)
+    {
+        $collection = $this->_productCollectionFactory->create()
+            ->addAttributeToSelect('*')
+            ->addAttributeToFilter('entity_id', ["in", $productIds]);
+
+        return $collection;
     }
 }
