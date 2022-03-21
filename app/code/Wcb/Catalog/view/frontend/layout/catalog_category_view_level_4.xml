@@ -13,7 +13,7 @@
 					<argument name="block_id" xsi:type="string">banner_left</argument>
 				</arguments>
 		   </block>		  
-		 </referenceContainer>
+		 </referenceContainer> 
 
 		  <move element="category.view.container" destination="content" before="-"/>
 		 <move element="breadcrumbs" destination="page.top" before="-"/>
