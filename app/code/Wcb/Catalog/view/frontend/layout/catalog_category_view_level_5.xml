@@ -13,7 +13,7 @@
  <referenceContainer name="content">
      <referenceBlock name="sidebar.main" remove="true"/>
      <referenceBlock name="sidebar.additional" remove="true"/>
-   </referenceContainer >
+   </referenceContainer > 
    <referenceBlock name="page.main.title" display="false"/>
 		<referenceContainer name="div.sidebar.additional">
 			<block class="Magento\Cms\Block\Block" name="banner_left" after="recentproductslider">

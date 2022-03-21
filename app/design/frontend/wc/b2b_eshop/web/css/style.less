@@ -1171,6 +1171,39 @@ label.sorter-label {
 	}
 }
 
+// pdp page
+.report-a-bug { 
+    button.primary.action {
+		font-size: 1.6rem;
+		color: #fff;
+		padding: 0 30px;
+		font-family: 'wuerthbold';
+		border: solid 1px #CC0000;
+		margin-right: 0px;
+		background: #CC0000;
+		border-radius: 50px;
+	}
+	
+	 label.label {
+		font-family: 'wuerthbold';
+		font-size: 1.6rem;
+	}
+	.control {
+		margin: 5px 0px 10px 0px;
+	}
+}  
+	span.a2a_svg.a2a_s__default svg path:hover {
+		filter: invert(0%) sepia(48%) saturate(2878%) brightness(104%) contrast(97%);
+	}
+	.report-a-bug.modal-popup.modal-slide .modal-footer {
+		border-top: none;
+		text-align: right;
+		padding-top: 0px;
+        margin-top: 0px;
+	}
+	// pdp page
+
+
 .breadcrumbs .item:not(:last-child):after {
 	content: '\f105';
 	font-size: 12px;
@@ -1992,6 +2025,11 @@ table.ReqListTable
 
 // Quick order on Cart page start 
 	.checkout-cart-index {
+		.cart-container {
+			margin: 0px 0px 40px;
+			border-bottom: 1px solid rgba(0, 0, 0, 8%);
+			padding: 0 0 20px 0px;
+		}
 		.fields.additional.deletable-item {
 			display: flex;
 		}
@@ -2076,6 +2114,20 @@ table.ReqListTable
 	.page-title-wrapper {
 		margin-top: 30px;
 	}
+	.dIcons.remove-cart-item img {
+		margin: 6px 7px 0px 7px;
+	}
+	.dIcons.remove-cart-item {
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-sizing: border-box;
+		border-radius: 4px;
+		height: 35px;
+		width: 35px;
+	}
+	.cart-empty {
+		display: none;
+	}
 	.cart.table-wrapper .items > .item {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 	}
@@ -2091,7 +2143,13 @@ table.ReqListTable
 .cart-container .block-requisition-list {
     display: block;
     float: right;
-    margin: -39px 26px 0px 0px;
+    margin: -35px 45px 0px 0px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 12%);
+    border-radius: 4px;
+    height: 35px;
+    width: 35px;
+    padding: 0px 0px 0px 3px;
 }
 .page-title-wrapper .block {
     display: none;
@@ -2107,7 +2165,7 @@ table.ReqListTable
 .requisition-list-action .action.toggle.active {
     display: inline-block;
     text-decoration: none;
-    background: url(../images/fileicon.png) right 3px top 10px;
+    background: url(../images/fileicon.png) right 0px top 6px;
     background-repeat: no-repeat;
     font-size: 0px;
 	cursor: pointer;
@@ -2147,8 +2205,13 @@ table.ReqListTable
 		align-items: center;
 	}
 	form#negotiable-quote-form {
-		margin: 0px 37px 0 0px;
-		border: none;
+		margin: 0px 55px 0 0px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 12%);
+		box-sizing: border-box;
+		border-radius: 4px;
+		height: 35px;
+		width: 35px;
 	}
 	button.qutoButton.action {
 		height: 20px;
@@ -2157,6 +2220,8 @@ table.ReqListTable
 		background: url(../images/editicon.png) right 6px top 3px;
 		background-repeat: no-repeat;
 		cursor: pointer;
+		padding: 0px 25px 1px 2px;
+        margin-top: 5px;
 	}
 } 
 
@@ -5218,11 +5283,13 @@ a.action.print.hidden-print {
 	.product.data.items {
 		text-align: left;
 	}
+
 	.pdpTab {
 		overflow: hidden;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 		background-color: @color-white-smoke;
 		display: flex;
+		margin-top: 30px;
 	}
 	.pdpTab button {
 		font-family: 'wuerthbook';
@@ -5400,6 +5467,9 @@ div#reviews {
 		color: #fff;
 		opacity: 1;
 	}
+	.more-info-block {
+		padding-left: 0px;
+	}
 	.moreInfo {
 		font-family: 'wuerthbold';
 		font-style: normal;
@@ -5449,16 +5519,16 @@ div#reviews {
 	}
 	button.itembug {
 		background: #FFFFFF;
-		border: 2px solid rgba(0, 0, 0, 0.08);
-		box-sizing: border-box;
+		border: 1px solid rgba(0, 0, 0, 8%);
 		border-radius: 50px;
 		font-family: 'wuerthbold';
-		font-style: normal;
-		font-weight: bold;
 		font-size: 16px;
-		letter-spacing: 0.02em;
 		color: #0093DD;
-		margin: 20px 14px 20px 11px;
+		margin: 20px 0px 20px 0px;
+	}
+	.social-block {
+		padding-left: 0px;
+		margin-left: -13px;
 	}
 	.icon-whatsapp {
 		width: 34px;
@@ -5540,44 +5610,53 @@ div#reviews {
 	}
 	.attTitle {
 		display: flex;
-		margin: 0 0 10px 15px;
+		align-items: center;
+		padding: 10px;
+		border: 1px solid rgba(0, 0, 0, 12%);
 	}
 	.attTitle .attrow {
 		font-family: 'wuerthbold';
-		font-style: normal;
-		font-weight: bold;
 		font-size: 16px;
 		line-height: 160%;
 		letter-spacing: 0.02em;
 		color: #000000;
-		width: 128px;
+		width: 12%;
 	}
 	.boxcontaner {
 		display: flex;
 	}
+	.price-box .price {
+		font-size: 14px;
+		margin: 0px;
+	}
+	.price-box {
+		font-size: 14px;
+		margin: 0px;
+	}
+	.price.line-breck:after{
+		content:"\a";
+		white-space: pre;
+	}
 
 	.expendRow:before {
 		float: right;
-		margin: -104px 6px -20px 5px;
+		margin: -75px 25px 0px 0px;
 		cursor: pointer;
 		content: '\f107';
 		color: #CC0000;
-		font-weight: bold;
-		margin-left: 5px;
 		font-family: 'FontAwesome';
 	}	
 
 	.accordion {
 		display: flex;
-		width: 100%;
 		background: rgba(222, 222, 222, 0.5);
-		padding: 18px;
+		padding: 10px 10px 0px 10px;
 		width: 100%;
-		border: none;
-		text-align: left;
-		outline: none;
-		font-size: 15px;
 		transition: 0.4s;
+		min-height: 100px;
+	}
+	.accordion:nth-of-type(even) {
+		background: #DEDEDE;
 	}
 	
 	.panel {
@@ -5592,8 +5671,6 @@ div#reviews {
 	}
 	.attrow.itemno {
 		font-family: 'wuerthbook';
-		font-style: normal;
-		font-weight: 300;
 		font-size: 16px;
 		line-height: 160%;
 		letter-spacing: 0.02em;
@@ -5601,21 +5678,16 @@ div#reviews {
 	}
 	.attrow {
 		font-family: 'wuerthbook';
-		font-style: normal;
-		font-weight: 300;
 		font-size: 16px;
 		line-height: 160%;
-		letter-spacing: 0.02em;
 		color: #000000;
-		width: 120px;
+		width: 12%;
 	}
 	.attrow .itemname {
 		width: 13%;
 	}
 	.attrow.loginprice {
 		font-family: 'wuerthbold';
-		font-style: normal;
-		font-weight: bold;
 		font-size: 14px;
 		line-height: 160%;
 		color: #CC0000;
@@ -5649,6 +5721,10 @@ div#reviews {
 		display: flex;
 		margin-top: 5px;
 	}
+	.itemboxwraper.logdIn.top{
+		position: absolute;
+        margin: 20px 0px 0px 48px;
+	}
 	.itembox {
 		display: inline-block;
 		background: url(../images/box.svg);
@@ -5656,7 +5732,6 @@ div#reviews {
 		height: 17px;
 		width: 21px;
 		align-items: center;
-		margin: 2px 5px 2px 32px;
 	}
 	.redbox {
 		display: inline-block;
@@ -5677,8 +5752,6 @@ div#reviews {
 	}
 	.deliveryday {
 		font-family: 'wuerthbook';
-		font-style: normal;
-		font-weight: 300;
 		font-size: 14px;
 		line-height: 110%;
 		display: flex;
@@ -5687,27 +5760,34 @@ div#reviews {
 		letter-spacing: 0.02em;
 		color: rgba(0, 0, 0, 0.87);
 	}
-	.attrow.bluecol {
+	.attrow.bluecol,.redcol {
 		background: #0093DD;
 		width: 45px;
 		height: 45px;
+		margin-top: 15px;
+	}
+	.attrow.vdc {
+		width: 9%;
+	}
+	.attrow.qtywrapp {
+		width: auto;
 	}
 	.qty-field {
 		position: inherit;
 		border: solid 1px rgba(0, 0, 0, 0.08);
 		border-radius: 4px;
-		width: 103px;
+		width: 100px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		background: #fff;
 	}
 	.veCount {
-		width: 100px;
+		width: 96px;
 		background: #FFFFFF;
 		border: 1px solid rgba(0, 0, 0, 0.08);
-		box-sizing: border-box;
 		border-radius: 4px;
+		margin: 0 15px 0 15px;
 	}
 	.pdp-thumbnail {
 		margin-top: 40px;
@@ -5717,8 +5797,6 @@ div#reviews {
 		width: 320px;
 		height: 104px;
 		font-family: 'wuerthbook';
-		font-style: normal;
-		font-weight: 300;
 		font-size: 16px;
 		line-height: 160%;
 		display: flex;
@@ -5786,20 +5864,42 @@ div#reviews {
 	}
 	.allprowrapp {
 		border: 1px solid #CC0000;
-		box-sizing: border-box;
 		border-radius: 50px;
 		width: 233px;
 		height: 45px;
+		margin-bottom: 20px;
+        margin-top: 20px;
 	}
 	button.allpro {
 		font-size: 16px;
 		line-height: 160%;
 		text-align: center;
-		letter-spacing: -0.02em;
 		color: #CC0000;
 		margin: 8px 0 0 19px;
 		border: none;
 		height: 30px;
+	}
+	button.allpro:hover {
+		background: #ffffff;
+	}
+	button.allpro:active {
+		background: #ffffff;
+	}
+	.action.primary{
+		border:none;
+	}
+	.action.primary:active{
+		background: url(../images/cart-icon.svg);
+		margin: 8px 0px 0px 3px;
+		background-repeat: no-repeat;
+	}
+	.action.primary:focus{
+		background: url(../images/cart-icon.svg);
+		margin: 8px 0px 0px 3px;
+		background-repeat: no-repeat;
+	}
+	.action.primary:hover{
+		border:none;
 	}
 }
 
@@ -5844,19 +5944,16 @@ div#reviews {
 	}
 	.product.name.product-item-name {
 		font-family: 'wuerthbold';
-		font-style: normal;
-		font-weight: bold;
 		font-size: 16px;
 		line-height: 160%;
-		color: rgba(0, 0, 0, 0.8);
+		color: rgba(0, 0, 0, 8%);
+		min-height:52px;
 	}
 	.priceOnline {
 		font-family: 'wuerthbook';
-		font-style: normal;
-		font-weight: 300;
 		font-size: 16px;
-		line-height: 160%;
 		color: #000000;
+		margin-bottom: 5px;
 	}
 	.wishlistbut {
 		width: 34px;
@@ -6618,7 +6715,6 @@ button#top-cart-btn-checkout:hover {
 		top: 87px;
 		background: #FFFFFF;
 		border: 1px solid rgba(0, 0, 0, 0.12);
-		box-sizing: border-box;
 		border-radius: 4px;
 	}
 	button.butApply {
@@ -8581,6 +8677,7 @@ print {
 			}
 		}
 	}
+	
 }
 
 //--------------------Part -3 --------------------
@@ -8701,6 +8798,9 @@ print {
 	.catalog-product-view.page-layout-1column {
 			.product.media {
 				margin: 0 0 0px;
+			}
+			.product-full-width-section {
+				padding: 0px;
 			}
 		}
 	
@@ -9026,6 +9126,9 @@ print {
 	.checkout-cart-index{
 		.cartPageForm {
 			display:block;
+		}
+		.controlWrapper input#coupon_code {
+			width:100%;
 		}
 		.fields.additional.deletable-item-title {
 			display: block;
@@ -9903,15 +10006,13 @@ print {
 		button.itembug {
 			background: #FFFFFF;
 			border: 1px solid rgba(0, 0, 0, 0.08);
-			box-sizing: border-box;
 			border-radius: 50px;
 			font-family: 'wuerthbold';
-			font-style: normal;
-			font-weight: bold;
-			font-size: 16px;
 			letter-spacing: 0.02em;
-			color: #0093DD;
-			margin: 20px 14px 20px 11px;
+		}
+		.sp_social_share_inline_widget {
+			justify-content: inherit;
+			margin-left:5px;
 		}
 		.col-md-6.social-block>ul {
 			display: flex;
@@ -9931,14 +10032,15 @@ print {
 	}
 	
 	.attWrappFifth {
-		margin-bottom: 60px;
-		margin-top: 30px;
+		margin-bottom: 30px;
+		margin-top: 5px;
 		.execution {
 			display: none;
 		}
 		.attTitle {
 			display: none;
 		}
+		
 		.attTitle .attrow {
 			font-family: 'wuerthbold';
 			font-style: normal;
@@ -9951,26 +10053,26 @@ print {
 		}
 		.expendRow:before {
 			float: right;
-			margin: -37px 11px 0px 0px;
+			margin: -45px 20px 0px 0px;
 			cursor: pointer;
 			content: '\f107';
 			color: #CC0000;
 			font-weight: bold;
 			margin-left: 5px;
 			font-family: 'FontAwesome';
+			position:relative;
 		}	
 		.accordion {
 			display: block;
 			width: 100%;
-			height: 208px;
+			min-height: 178px;
 			background: rgba(222, 222, 222, 0.5);
 			cursor: pointer;
-			padding: 18px;
-			border: none;
-			text-align: left;
-			outline: none;
-			font-size: 15px;
 			transition: 0.4s;
+			padding: 10px 10px 0px 10px;
+		}
+		.accordion.userlog {
+			min-height: 212px;
 		}
 		
 		.panel {
@@ -10032,7 +10134,6 @@ print {
 		}
 		.attrow.logdIn {
 			display: contents;
-			width: 165px;
 		}
 		.attrow .loginprice .logdIn {
 			font-family: 'wuerthbold';
@@ -10044,11 +10145,15 @@ print {
 			width: 100%;
 			display: contents;
 		}
+		.price.line-breck:after{
+			content:none;
+			white-space: pre;
+		}
 		.itemboxwraper.logdIn.top {
-			margin: 0px 0px 10px 0px !important;
+			margin: 0px 0px 10px 0px;
 			background: rgba(255, 255, 255, 0.6);
 			border: 1px solid rgba(0, 0, 0, 0.08);
-			box-sizing: border-box;
+			position:relative;
 		}
 		.itembox .logdIn .top {
 			display: inline-block;
@@ -10126,7 +10231,7 @@ print {
 			color: rgba(0, 0, 0, 0.87);
 		}
 		.veCount.logdIn {
-			margin: 0px;
+			margin: 0 20px 0 20px;
 		}
 		.veCount {
 			width: 100px;
@@ -10139,22 +10244,30 @@ print {
 			display: inline-block;
 			background: url(../images/cart-icon.svg);
 			margin: 6px 0px 0px 0px;
+			background-repeat: no-repeat;
 		}
 		.attrow.bluecol {
-			background: #CC0000 !important;
-			width: 45px !important;
-			height: 45px !important;
-			padding: 19px 6px 1px 3px;
+			background: #0093DD;
+			width: 45px;
+			height: 45px;
+			padding: 0px 0px 0px 5px;
+            position: absolute;
+			margin-top: 10px;
+		}
+		.attrow.redcol {
+			background: #CC0000;
+			width: 45px;
+			height: 45px;
+			padding: 0px 0px 0px 5px;
+            position: absolute;
+			margin-top: 10px;
 		}
 		.qty-field {
-			position: inherit;
 			border: solid 1px rgba(0, 0, 0, 0.08);
 			border-radius: 4px;
-			width: 103px;
 			display: flex;
-			justify-content: center;
-			align-items: center;
-			background: #fff;
+			background: #ffffff;
+			padding: 0 10px 0 10px;
 		}
 		.pdp-thumbnail {
 			margin-top: 40px;
@@ -10295,6 +10408,9 @@ print {
 		.comparebut:hover {
 			background: url(../images/compare-wishlist.svg) left -2px bottom -4px;
 		}
+		.page-title-wrapper.product {
+			margin-top: 20px;
+		}
 		.pdAku {
 			font-family: 'wuerthbook';
 			display: flex;
@@ -10327,23 +10443,22 @@ print {
 			position: inherit;
 			border: solid 1px rgba(0, 0, 0, 0.08);
 			border-radius: 4px;
-			width: 103px;
-			justify-content: center;
-			align-items: center;
 			background: #fff;
+			padding: 5px;
 		}
 		.veCount {
 			border: solid 1px rgba(0, 0, 0, 0.08);
 			border-radius: 4px;
-			width: 123px;
-			justify-content: center;
 			background: #fff;
 			letter-spacing: 0.02em;
 			color: rgb(0, 0, 0, 0.87);
-			height: 45px;
-			margin: auto;
-			align-items: center;
 			text-align: center;
+			margin: 0 0 0 10px;
+			padding: 5px;
+		}
+		.pdvariants {
+			height: 45px;
+			margin-left: 10px;
 		}
 		.purchaseWrapp {
 			display: flex;
@@ -10713,16 +10828,20 @@ print {
 }
 // Favorites Page End By Amit
 //Order Template Cart Page Start By Amit
-.checkout-cart-index {
+.checkout-cart-index {	
+	.cart-container {
+		margin: 0px 0px 40px;
+		border-bottom: 1px solid rgba(0, 0, 0, 12%);
+		padding: 0 0 50px 0px;
+	}
 	.cart-container .block-requisition-list {
-		display: block;
-		float: right;
-		margin: -8px -58px 0px 0px;
-		width: 10px;
+		margin: 0px -77px 0px 0px;
+		width: 35px;
+		padding: 0 3px 0px 0px;
 	}
 	form#negotiable-quote-form {
-		margin: -2px 35px 4px 0px;
-		border: none;
+		margin: 0px 50px 0px 0px;
+		border: 1px solid rgba(0, 0, 0, 12%);
 	}
 	.checkout-cart-index button.qutoButton.action {
 		height: 24px;
@@ -10755,7 +10874,7 @@ print {
 		bottom: 20px;
 	}
 	.fieldset > .field > .label {
-		width: 43%;
+		width: 44%;
 	}
 	.control {
 		width: 65%;
@@ -10894,6 +11013,7 @@ print {
 
 
 @media (max-width: 912px) {
+	
 	//Request a quote start by Amit for view page
 	.negotiable_quote-quote-index{
 		main#maincontent {
@@ -11330,7 +11450,7 @@ margin-top: 10px;
 		border: 1px solid rgba(0, 0, 0, 0.08);
 		border-radius: 4px;
 		height: 35px;
-		padding: 5px;
+		padding: 1px 5px 0px 6px;
 		margin-bottom: 15px;
 	}
 	.input-box i {
@@ -12764,7 +12884,7 @@ margin-top: 10px;
 .sales-history{	
 	.item-container {
 			display: grid;
-			grid-template-columns: 11rem 14rem 21rem 13rem 12rem 15rem 11rem 16rem;
+			grid-template-columns: 10% 10% 19% 12% 12% 11% 11% 15%;
 			background: ffffff;
 			margin: 0px;
 			align-items: center;
@@ -12842,8 +12962,8 @@ margin-top: 10px;
 		border: 1px solid rgba(0, 0, 0, 0.08);
 		border-radius: 4px;
 		height: 35px;
-		padding: 1px;
-		margin: 0 0 10px 25px;
+		margin: auto;
+        margin-bottom: 5px;
 	}
 	  ol.collection.collection-container {
 		padding: 0;
@@ -13002,7 +13122,7 @@ margin-top: 10px;
 	}
 	.item-container {
 		display: grid;
-		grid-template-columns: 6rem 6rem 13rem 14rem 13rem 12rem 11rem 11rem 13rem 15rem;
+		grid-template-columns: 5% 5% 11% 13% 11% 11% 9% 10% 13% 12%;
 		background: ffffff;
 		margin: 0px;
 		align-items: center;
@@ -13138,7 +13258,7 @@ margin-top: 10px;
 	}
 	.item-container {
 		display: grid;
-		grid-template-columns: 5rem 10rem 12rem 14rem 10rem 11rem 16rem 13rem 10rem 12rem;
+		grid-template-columns: 4% 9% 11% 12% 9% 10% 14% 11% 9% 11%;
 		background: ffffff;
 		margin: 0px;
 		align-items: center;
@@ -13258,15 +13378,15 @@ margin-top: 10px;
 	}
 	.control-qty-cart {
 		width: 100px;
-		border: 1px solid rgba(0, 0, 0, 0.08);
+		border: 1px solid rgba(0, 0, 0, 12%);
 		border-radius: 4px;
 		height: 35px;
-		padding: 1px;
-		margin: 0 0 10px 25px;
+		margin: auto;
+        margin-bottom: 5px;
 	}
 	.item-container {
 		display: grid;
-		grid-template-columns: 13rem 13rem 22rem 13rem 12rem 12rem 12rem 16rem;
+		grid-template-columns: 12% 12% 20% 11% 11% 11% 11% 14%;
 		background: ffffff;
 		margin: 0px;
 		align-items: center;

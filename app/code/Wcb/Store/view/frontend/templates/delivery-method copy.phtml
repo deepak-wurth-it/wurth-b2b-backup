@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
+<?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
+
+
+<div id="wcbstore-div" data-bind="scope:'wcbstore'">
+   <!-- ko template: getTemplate() --><!-- /ko -->
+   <script type="text/x-magento-init">
+       {
+           "#wcbstore-div": {
+               "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout();?>
+           }
+       }
+   </script>
+</div>
+<style>
+   div#mageplaza-productslider-block-after-content-cat-prod {
+    display: none;
+}
+ </style>   
+ <script>
+    require(['jquery'],function($){
+        $('input.checkbox').on('change', function() {
+    $('input.checkbox').not(this).prop('checked', false);  
+});
+    })
+</script>
