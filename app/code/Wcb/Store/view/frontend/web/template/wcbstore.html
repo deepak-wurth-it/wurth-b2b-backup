@@ -1,0 +1,46 @@
+<!--<div class="component-wrapper">
+    <div data-bind="text: 'Catalog Timer'"></div>
+    <div data-bind="text: myTimer, style: {color: randomColour}"></div>
+</div>-->
+
+<h3>Select a delivery method</h3>
+   <div class="select-delivery">
+            <label for="is_subscribed" class="label newsletter">
+            <input type="checkbox" name="is_subscribed" title="Select a delivery method" class="checkbox" checked="checked">
+                   <span class="checkmark"> </span>
+                <span>Select a delivery method</span>
+            </label>
+   </div>
+   <div class="click-collect">
+       <div class="boxgroup">
+            <label for="is_subscribed">
+            <input type="checkbox" name="is_subscribed" title="Click and Collect?" class="checkbox">
+                   <span class="checkmark"> </span>
+                <span>Click and Collect?</span>
+            </label>
+            <span class="textbox"> 
+              
+                <select id="stores" name="stores" data-bind="event:{change : storeChange}" >
+                    <option value="0">Choose an option</option>
+                    <!-- ko foreach: storeOption -->
+                    <option data-bind="text: name,
+                       attr: {'value': name }"></option>
+                    <!-- /ko -->
+                  </select>    
+            </span>
+        </div>
+            <p class="text-content">It is possible to pick up goods that are available on site.</p>
+   </div>
+   <div class="card-body">                
+                <div class="card-img">
+                <img class="card-img-top" src=" " />                   
+                </div>
+                <div class="card-content">
+                    <div class="title">WHOLESALE CENTER WÜRTH - OSIJEK</div>
+                    <p>Sv. Leopolda Mandića 111p 31 000 Osijek <span class="location"><img src=" " /> Location</span></p>
+                    <div class="info-contaner">
+                       <p> <span class="icon-com-phone-a"></span> <span class="iphone-outline"> Phone 0800 4260</span></p>
+                      <p> <span class="icon-wuerth-e-mail"></span> <span class="email-outline"> Email wuert@wuerth.com.hr</span></p>
+                   </div>
+        </div>              
+  </div>
