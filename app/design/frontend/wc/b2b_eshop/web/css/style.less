@@ -1734,23 +1734,76 @@ label.sorter-label {
 	display: inline-block;
 	background: url(../images/blueBox.svg);
 	background-repeat: no-repeat;
-	height: 17px;
+	height: 15px;
 	width: 21px;
 }
 .greenBox {
 	display: inline-block;
 	background: url(../images/greenBox.svg);
 	background-repeat: no-repeat;
-	height: 17px;
+	height: 15px;
 	width: 21px;
 }
 .redBox {
 	display: inline-block;
 	background: url(../images/redBox.svg);
 	background-repeat: no-repeat;
-	height: 17px;
+	height: 15px;
 	width: 21px;
 }
+.redVan {
+	display: inline-block;
+	background: url(../images/van.svg);
+	background-repeat: no-repeat;
+	height: 15px;
+	width: 21px;
+}
+.blueVan {
+	display: inline-block;
+	background: url(../images/blueVan.svg);
+	background-repeat: no-repeat;
+	height: 15px;
+	width: 21px;
+}
+
+.tooltip {
+	display: inline-block;
+	cursor: pointer;
+  }
+  
+  .tooltip .tooltiptext {
+	visibility: hidden;
+    position: absolute;
+    font-family: 'wuerthbook';
+    z-index: 1;
+    transition: opacity .6s;
+    padding: 5px;
+	top: -4%;
+    left: 11%;
+	background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 12%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 12%);
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .box .tooltiptext {
+	width:91%;
+	top:5%
+  } 
+  
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+  }
+  .wcb-contaner-group {
+	display: inline-flex;
+	align-items: center;	
+    margin-left: 20px;
+}
+.delivery-time {
+    font-family: 'wuerthbook';
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.87);
+}
+
 // Tracking order Page start by Amit
 .tracking-order{
 		.order-title {
@@ -2181,13 +2234,22 @@ table.ReqListTable
 	}
 	.action.primary {
 		font-size: 1.6rem;
-		color: #fff;
 		padding: 0 20px;
 		font-family: 'wuerthbold';
-		border: solid 1px #CC0000;
 		margin-right: 0px;
-		background: #CC0000;
 		border-radius: 50px;
+	}
+	button.action.primary.checkout {
+		background: #0093DD;
+		border-radius: 50px;
+		font-family: 'wuerthbook';
+		color: #FFFFFF;
+	}
+	button.action.primary.checkout:hover {
+		background: #0093DD;
+		border-radius: 50px;
+		font-family: 'wuerthbook';
+		color: #FFFFFF;
 	}
 	.field._required.ordForm {
 		float: left;
@@ -2957,10 +3019,12 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	.product-item-details {
 		p.view-stock {
 			text-align: left;
-			height: 45px;
 			display: block;
 		}
 	}
+}
+.product-item-inner.logdIn {
+    margin-top: 32px;
 }
 
 .related,
@@ -3366,7 +3430,7 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 
 // catalog-product-view 
 .view-stock a {
-	font-size: 16px;
+	font-size: 15px;
 	color: #3b93de;
 	text-decoration: underline;
 }
@@ -3377,7 +3441,9 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	padding: 10px 20px;
 	font-size: 1.6rem;
 	margin-bottom: 20px;
-	margin-top: 20px;
+}
+.variation-box.notLog {
+    margin-top: 20px;
 }
 .view-price {
     font-family: 'wuerthbook';
@@ -3411,9 +3477,6 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	}
 	.box-tocart {
 		margin-top: 10px;
-	}
-	.product-item-inner.logdIn {
-		margin-top: 95px;
 	}
 	
 }
@@ -5177,6 +5240,14 @@ a.action.print.hidden-print {
 		font-family: 'wuerthbold';
 		color: @general_price_color;
 	}
+	.itemwishbut a {
+		background: @color-white-smoke;
+		color: @general_price_color;
+	}
+	.icon-interface-heart:before {
+		content: "\eaf2";
+		margin-right: 5px;
+	}
 	.itembug {
 		background: @color-white-smoke;
 		border: 1px solid rgba(0, 0, 0, 0.12);
@@ -6014,6 +6085,10 @@ div#reviews {
 		font-weight: bold;
 		text-align: center;
 	}
+	.owl-item {
+		width: 165.5px !important;
+		margin-right: 27px !important;
+	}
 }
 
 .page-title {
@@ -6055,6 +6130,9 @@ div#reviews {
 	}
 }
 .sidebar-additional .block-wishlist {
+    display: none;
+}
+.sidebar-additional .block.block-reorder {
     display: none;
 }
 
@@ -6703,6 +6781,10 @@ button#top-cart-btn-checkout:hover {
 		display: flex;
 		align-items: center;
 		color: rgba(0, 0, 0, 0.6);
+	}
+	.itemprice.with-vat {
+		width: 13%;
+		padding: 0 0 8px 25px;
 	}
 } // cart page end
 // summery cart start on cart page by amit
@@ -8307,6 +8389,9 @@ ProductListingwrapper {
 	.imgWrapper {
 		margin-top: 60px;
 		margin-bottom: 60px;
+		text-align: center;
+	}
+	.text-center h3{
 		text-align: center;
 	}
 	ul {
@@ -13905,7 +13990,7 @@ margin-top: 10px;
   
 
 @media screen and (min-width:1300px) and (max-width:2000px) {
-	.row.text-center {
+	.row.text-center h3 {
 		max-width: 81%;
 		margin: auto;
 		text-align: center;
