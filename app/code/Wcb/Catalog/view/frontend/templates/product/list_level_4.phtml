@@ -98,7 +98,7 @@ $product=false;
                                      <?php } else { ?>
                                       <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
                                       <?php } ?>
-                                    <p class="variation-box"><label><?php echo $productCount; ?>
+                                    <p class="variation-box <?= (($logedIn ?'logdIn':'notLog')); ?>"><label><?php echo $productCount; ?>
                                             variations </label>
                                     </p>
                                     <p class="variation-buttom"><label><a href="<?= $subcategory->getUrl() ?>"> <?php echo  __("Show variations"); ?> </a></label></p>
@@ -171,15 +171,25 @@ $product=false;
                                     <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
 
                                     <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
-                                            <span>Price:&nbsp;</span>
+                                            <!-- <span>Price:&nbsp;</span>
                                             <span class="price" id="suggestedPriceAsTxtP<?php echo $ProductCode; ?>"></span>
                                             <span class="price" >-</span>
                                             <span class="price" id="suggestedDiscountAsTxtP<?php echo $ProductCode; ?>"></span>
                                             <span class="price" >%</span>
-                                            <span class="price" >&nbsp;=&nbsp;</span>
+                                            <span class="price" >&nbsp;=&nbsp;</span>-->
                                             <span class="price" id="suggestedSalesPriceInclDiscAsTxtP<?php echo $ProductCode; ?>"></span>
-                                            <span class="price" >&nbsp;HRK/COM&nbsp;</span>
-                                            <span class="redStar"></span>
+                                            <span class="price" >&nbsp;HRK&nbsp;</span>
+                                            <span class="wcb-contaner-group">
+                                                <div class="tooltip box redBox">
+                                                    <span class="tooltiptext">The item is not available immediately</span>
+                                                </div>
+                                                <div class="tooltip van redVan">
+                                                    <span class="tooltiptext">The quantity will be available for the displayed number of days</span>
+                                                </div>
+                                                <span class="delivery-time">12 -14</span>
+                                            </span>
+                                            
+
                                     </div>
 
                                     <div><span id="price_loader<?php echo $ProductCode; ?>" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
