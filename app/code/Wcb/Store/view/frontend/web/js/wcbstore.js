@@ -1,4 +1,4 @@
-define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,url) {
+define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,urlBuilder) {
     'use strict';
     var self;
     return Component.extend({
@@ -24,7 +24,7 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
             //console.log(self.stores_option);
             $.each(self.stores_option, function(key,val) {   
                 if(val['entity_id'] == value){
-                    var media = url.build('media');
+                    var media = urlBuilder.build('media');
                     var imgUrl = media+val['image'];
                     self.image(imgUrl);
                     self.store_name(val['name']);
@@ -32,7 +32,13 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
                     self.phone(val['phone']);
                     self.email(val['contact_email']);
                     self.map_url(val['map_url']);
-                    console.log(val);
+                    //var data = ko.toJSON(val);
+                    var data = val;
+                    var UpdateStorePickupUrl = urlBuilder.build('wcbstore/ajax/updatestorepickup');
+                    $.post(UpdateStorePickupUrl, data, function(returnedData) {
+						console.log(returnedData);
+						// This callback is executed if the post was successful     
+					})
                 }           
             });
             // this.selectedStore.subscribe(function(newValue) {
@@ -41,3 +47,5 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
          }
     });
 });
+
+
