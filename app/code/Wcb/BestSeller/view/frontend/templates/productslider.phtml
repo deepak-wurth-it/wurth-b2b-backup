@@ -1,7 +1,5 @@
 <?php
-
 use Wcb\BestSeller\Block\AbstractSlider;
-use Magento\Framework\App\Action\Action;
 
 /** @var AbstractSlider $block */
 $helper = $this->helper(\Wcb\BestSeller\Helper\Data::class);
@@ -10,71 +8,112 @@ $type = 'widget-product-grid';
 $title = $block->getTitle();
 $blockId = $block->getSliderId() . uniqid('-', false);
 $items = $block->getProductCollection();
-$offer = $block->getOffer();
+$itemsCount = $items->getSize();
+if ($block->getCustomizeCollection()) {
+    $items = $block->getCustomizeCollection();
+    $itemsCount = count($items);
+}
+if ($block->getCustomTitle()) {
+    $title = $block->getCustomTitle();
+}
+//$offer = $block->getOffer();
 $moduleName = $this->getRequest()->getModuleName();
 $controllerName = $this->getRequest()->getControllerName();
 $actionName = $this->getRequest()->getActionName();
-$pageIdentifier = $moduleName.'_'.$controllerName .'_'.$actionName;
-if($pageIdentifier == 'cms_index_index') {
-?>
-<section class="bestSellerWrap container-inner">
-<h2><?php echo __("Best Sellers in Protupozarna zastita"); ?></h2>
+$pageIdentifier = $moduleName . '_' . $controllerName . '_' . $actionName;
+
+//if ($pageIdentifier == 'cms_index_index') {
+    ?>
+
 <?php
-if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
-    <div class="block-content mp-product-slider-content">
-        <div class="bestSeller products-<?php echo /** @noEscape */  $mode ?> <?php echo /** @noEscape */  $mode ?>">
-            <ol class="product-items widget-viewed-grid">
-                <?php $iterator = 1; ?>
-                <div id="mp-list-items-<?php echo /** @noEscape */ $blockId ?>" class="owl-carousel owl-theme">
-                    <?php foreach ($items as $_item): ?>
-                        <?php echo ($iterator++ == 1) ? '<div class="item">' : '</div><div class="item">' ?>
-                        <div class="slider-product-item-info">
-                            <a href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>"
-                               class="product photo slider-product-item-photo">
-                                <?php echo $block->getImage($_item, 'recently_viewed_products_grid_content_widget')->toHtml(); ?>
-                            </a>
-                            <div class="product details slider-product-item-details">
-                                <strong class="product name product-item-name">
-                                    <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
-                                       href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>">
-                                        <?php echo $block->escapeHtml($_item->getName()) ?>
-                                    </a>
-                                </strong>  
-                                <?php echo /** @noEscape */ $block->getProductDetailsHtml($_item) ?>                                                    
-                              
+if ($block->getHelperData()->isEnabled() && $items && $itemsCount): ?>
+    <section class="bestSellerWrap container-inner">
+        <h2><?= $block->escapeHtml($title) ?></h2>
+        <div class="block-content mp-product-slider-content">
+            <div class="bestSeller products-<?php echo /** @noEscape */  $mode ?> <?php echo /** @noEscape */  $mode ?>">
+                <ol class="product-items widget-viewed-grid">
+                    <?php $iterator = 1; ?>
+                    <div id="mp-list-items-<?php echo /** @noEscape */ $blockId ?>" class="owl-carousel owl-theme">
+                        <?php foreach ($items as $_item): ?>
+                            <?php
+                                $name = isset($_item['name']) ? $_item['name'] : $_item->getName();
+                                $url = isset($_item['url']) ? $_item['url'] : $block->getProductUrl($_item);
+                                $image = isset($_item['image'])
+                                    ? $_item['image']
+                                    : $block->getImage($_item, 'recently_viewed_products_grid_content_widget')->toHtml();
+                                $offer = isset($_item['offer']) ? $_item['offer'] : '';
+                                $details = isset($_item['detail']) ? $_item['detail'] : $block->getProductDetailsHtml($_item);
+                                $type = isset($_item['type']) ? $_item['type'] : '';
+                            ?>
+
+                            <?php echo ($iterator++ == 1) ? '<div class="item">' : '</div><div class="item">' ?>
+                            <div class="slider-product-item-info">
+                                <a href="<?php echo $block->escapeUrl($url) ?>"
+                                   class="product photo slider-product-item-photo">
+
+                                    <?php if ($type != '') { ?>
+                                        <span class="">
+                                            <span class="product-image-wrapper">
+                                                <img class="product-image-photo owl-lazy"
+                                                     src="<?php echo $image; ?>"
+                                                     loading="lazy"
+                                                     width="240"
+                                                     height="350"
+                                                    >
+                                            </span>
+                                        </span>
+                                    <?php } else { echo $image; } ?>
+
+                                </a>
+                                <div class="product details slider-product-item-details">
+                                    <strong class="product name product-item-name">
+                                        <a title="<?php echo $block->escapeHtml($name) ?>"
+                                           href="<?php echo $block->escapeUrl($url) ?>">
+                                            <?php echo $block->escapeHtml($name) ?>
+                                        </a>
+                                    </strong>
+                                    <?php echo /** @noEscape */ $details ?>
+                                </div>
+                                <div class="price-off"> <?php echo $offer ?></div>
                             </div>
-                            
-                            <div class="price-off"> <?php echo $offer ?></div> 
-                        </div>
-                        <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>
-                    <?php endforeach ?>
-                </div>
-            </ol>
+                            <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>
+                        <?php endforeach ?>
+                    </div>
+                </ol>
+            </div>
+            <script type="text/javascript">
+                require([
+                    'jquery'
+                ], function ($) {
+                    var lazyLoad = <?php echo /** @noEscape */ $helper->getModuleConfig('slider_design')['lazyLoad']?>;
+                    if (lazyLoad === 1) {
+                        $('.slider-product-item-info .photo .product-image-photo').each(function (){
+                            var el = $(this);
+                            el.addClass('owl-lazy');
+                            el.attr('data-src',el.attr('src'));
+                        })
+                    }
+                });
+            </script>
+            <?php echo $block->getPagerHtml() ?>
         </div>
-        <script type="text/javascript">
-            require([
-                'jquery'
-            ], function ($) {
-                var lazyLoad = <?php echo /** @noEscape */ $helper->getModuleConfig('slider_design')['lazyLoad']?>;
-                if (lazyLoad === 1) {
-                    $('.slider-product-item-info .photo .product-image-photo').each(function (){
-                        var el = $(this);
-                        el.addClass('owl-lazy');
-                        el.attr('data-src',el.attr('src'));
-                    })
+        <script>
+            require(['jquery', 'owlcarousel'], function ($) {
+                $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
+                /*
+                if($(".custom-bpslider").length > 0){
+                    $(".custom-bpslider").insertBefore(".page-footer");
                 }
+                */
+                /*if($("section.cmsHomeContentBanner.container-inner").length > 0){
+                    $("section.cmsHomeContentBanner.container-inner").insertBefore(".page-footer");
+                }*/
             });
         </script>
-        <?php echo $block->getPagerHtml() ?>
-    </div>
-    <script>
-        require(['jquery', 'owlcarousel'], function ($) {
-            $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
-            $(".custom-bpslider").insertBefore(".page-footer");
-        });
-    </script>
-<?php endif; ?>
     </section>
-<?php } elseif($pageIdentifier == "checkout_cart_index"){
-echo $this->getLayout()->createBlock("Wcb\BestSeller\Block\BestSellerProducts")->setTemplate("Wcb_BestSeller::recommanded-products.phtml")->toHtml();
-} ?>
+<?php endif; ?>
+
+<?php
+/*} elseif ($pageIdentifier == "checkout_cart_index") {
+        echo $this->getLayout()->createBlock("Wcb\BestSeller\Block\BestSellerProducts")->setTemplate("Wcb_BestSeller::recommanded-products.phtml")->toHtml();
+    }*/ ?>
