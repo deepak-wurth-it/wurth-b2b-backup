@@ -110,5 +110,15 @@ class Store extends Template {
         return $media_dir;
     }
 
+    public function getStoresArray(){
+        $stores = [];
+        $item = [];
+        $item = $this->getStores()->toArray()['items'];
+        foreach( $item as $key=>$row){
+                $stores[] = (array)$row;
+        }
+        return $stores;
+    }
+
 }
 

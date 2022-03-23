@@ -4,9 +4,6 @@
  * See COPYING.txt for license details.
  */
 ?>
-<?php //echo "<pre>";print_r($block->getStores()->toArray()['items']);exit; ?>
-<?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
-<?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
 <div class="col-md-6 social-block" id="wcbstore-div" data-bind="scope:'wcbstore'">
 <!-- ko template: getTemplate() --><!-- /ko -->
 <script type="text/x-magento-init">
@@ -18,7 +15,7 @@
                         "component": "Wcb_Store/js/wcbstore",
                         "config": {
                                  "template" : "Wcb_Store/wcbstore",
-                                 "stores_option" : <?php echo json_encode($block->getStores()->toArray()['items']); ?>
+                                 "stores_option" : <?php echo json_encode($block->getStoresArray()); ?>
                                 }
                         
                     }
@@ -28,15 +25,5 @@
     }
 </script>
 </div>
-<style>
-   div#mageplaza-productslider-block-after-content-cat-prod {
-    display: none;
-}
- </style>   
- <script>
-    require(['jquery'],function($){
-        $('input.checkbox').on('change', function() {
-    $('input.checkbox').not(this).prop('checked', false);  
-});  
-    })
-</script>
+   
+
