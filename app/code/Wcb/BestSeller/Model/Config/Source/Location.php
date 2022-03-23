@@ -16,8 +16,11 @@ class Location implements ArrayInterface
     const ALLPAGE_SIDEBAR_BOTTOM = 'allpage.sidebar-bottom';
     const HOMEPAGE_CONTENT_TOP = 'cms_index_index.content-top';
     const HOMEPAGE_CONTENT_BOTTOM = 'cms_index_index.content-bottom';
-    const CMS_HOMEPAGE_CONTENT_TOP = 'wuerth_hom_index.content-top';
-    const CMS_HOMEPAGE_CONTENT_BOTTOM = 'wuerth_hom_index.content-bottom';
+    const HOMEPAGE_FOOTER_TOP = 'cms_index_index.footer-top';
+    const CMS_HOMEPAGE_CONTENT_TOP = 'wuerth_home_index.content-top';
+    const CMS_HOMEPAGE_CONTENT_BOTTOM = 'wuerth_home_index.content-bottom';
+    const CMS_HOMEPAGE_FOOTER_TOP = 'wuerth_home_index.footer-top';
+    const CMS_HOMEPAGE_CUSTOM = 'wuerth_home_index.custom-position';
     const CATEGORY_CONTENT_TOP = 'catalog_category_view.content-top';
     const CATEGORY_CONTENT_BOTTOM = 'catalog_category_view.content-bottom';
     const CATEGORY_SIDEBAR_TOP = 'catalog_category_view.sidebar-top';
@@ -66,6 +69,10 @@ class Location implements ArrayInterface
                     [
                         'label' => __('Bottom of content'),
                         'value' => self::HOMEPAGE_CONTENT_BOTTOM
+                    ],
+                    [
+                        'label' => __('Top of footer'),
+                        'value' => self::HOMEPAGE_FOOTER_TOP
                     ]
                 ]
             ],
@@ -79,6 +86,14 @@ class Location implements ArrayInterface
                     [
                         'label' => __('Bottom of content'),
                         'value' => self::CMS_HOMEPAGE_CONTENT_BOTTOM
+                    ],
+                    [
+                        'label' => __('Top of footer'),
+                        'value' => self::CMS_HOMEPAGE_FOOTER_TOP
+                    ],
+                    [
+                        'label' => __('Custom Position'),
+                        'value' => self::CMS_HOMEPAGE_CUSTOM
                     ]
                 ]
             ],

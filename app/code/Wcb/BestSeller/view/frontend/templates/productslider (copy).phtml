@@ -1,0 +1,80 @@
+<?php
+
+use Wcb\BestSeller\Block\AbstractSlider;
+use Magento\Framework\App\Action\Action;
+
+/** @var AbstractSlider $block */
+$helper = $this->helper(\Wcb\BestSeller\Helper\Data::class);
+$mode = 'grid';
+$type = 'widget-product-grid';
+$title = $block->getTitle();
+$blockId = $block->getSliderId() . uniqid('-', false);
+$items = $block->getProductCollection();
+$offer = $block->getOffer();
+$moduleName = $this->getRequest()->getModuleName();
+$controllerName = $this->getRequest()->getControllerName();
+$actionName = $this->getRequest()->getActionName();
+$pageIdentifier = $moduleName.'_'.$controllerName .'_'.$actionName;
+if($pageIdentifier == 'cms_index_index') {
+?>
+<section class="bestSellerWrap container-inner">
+<h2><?php echo __("Best Sellers in Protupozarna zastita"); ?></h2>
+<?php
+if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
+    <div class="block-content mp-product-slider-content">
+        <div class="bestSeller products-<?php echo /** @noEscape */  $mode ?> <?php echo /** @noEscape */  $mode ?>">
+            <ol class="product-items widget-viewed-grid">
+                <?php $iterator = 1; ?>
+                <div id="mp-list-items-<?php echo /** @noEscape */ $blockId ?>" class="owl-carousel owl-theme">
+                    <?php foreach ($items as $_item): ?>
+                        <?php echo ($iterator++ == 1) ? '<div class="item">' : '</div><div class="item">' ?>
+                        <div class="slider-product-item-info">
+                            <a href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                               class="product photo slider-product-item-photo">
+                                <?php echo $block->getImage($_item, 'recently_viewed_products_grid_content_widget')->toHtml(); ?>
+                            </a>
+                            <div class="product details slider-product-item-details">
+                                <strong class="product name product-item-name">
+                                    <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>">
+                                        <?php echo $block->escapeHtml($_item->getName()) ?>
+                                    </a>
+                                </strong>  
+                                <?php echo /** @noEscape */ $block->getProductDetailsHtml($_item) ?>                                                    
+                              
+                            </div>
+                            
+                            <div class="price-off"> <?php echo $offer ?></div> 
+                        </div>
+                        <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>
+                    <?php endforeach ?>
+                </div>
+            </ol>
+        </div>
+        <script type="text/javascript">
+            require([
+                'jquery'
+            ], function ($) {
+                var lazyLoad = <?php echo /** @noEscape */ $helper->getModuleConfig('slider_design')['lazyLoad']?>;
+                if (lazyLoad === 1) {
+                    $('.slider-product-item-info .photo .product-image-photo').each(function (){
+                        var el = $(this);
+                        el.addClass('owl-lazy');
+                        el.attr('data-src',el.attr('src'));
+                    })
+                }
+            });
+        </script>
+        <?php echo $block->getPagerHtml() ?>
+    </div>
+    <script>
+        require(['jquery', 'owlcarousel'], function ($) {
+            $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
+            $(".custom-bpslider").insertBefore(".page-footer");
+        });
+    </script>
+<?php endif; ?>
+    </section>
+<?php } elseif($pageIdentifier == "checkout_cart_index"){
+echo $this->getLayout()->createBlock("Wcb\BestSeller\Block\BestSellerProducts")->setTemplate("Wcb_BestSeller::recommanded-products.phtml")->toHtml();
+} ?>

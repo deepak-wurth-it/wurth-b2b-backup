@@ -68,6 +68,10 @@ class SliderLocation extends Column
                 $location['type'] = 'Home Page';
                 $location['location'] = 'Bottom of Content';
                 break;
+            case Location::HOMEPAGE_FOOTER_TOP:
+                $location['type'] = 'Home Page';
+                $location['location'] = 'Top of Footer';
+                break;
             case Location::CATEGORY_CONTENT_TOP:
                 $location['type'] = 'Category Page';
                 $location['location'] = 'Top of Content';
@@ -107,6 +111,14 @@ class SliderLocation extends Column
             case Location::CMS_HOMEPAGE_CONTENT_BOTTOM:
                 $location['type'] = 'CMS Home Page';
                 $location['location'] = 'Bottom of Content';
+                break;
+            case Location::CMS_HOMEPAGE_FOOTER_TOP:
+                $location['type'] = 'CMS Home Page';
+                $location['location'] = 'Top of Footer';
+                break;
+            case Location::CMS_HOMEPAGE_CUSTOM:
+                $location['type'] = 'CMS Home Page';
+                $location['location'] = 'Custom Position';
                 break;
         }
 

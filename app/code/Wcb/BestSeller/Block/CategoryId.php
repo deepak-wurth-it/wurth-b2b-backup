@@ -77,7 +77,7 @@ class CategoryId extends AbstractSlider
      *
      * @return $this|array
      */
-    public function getProductCollection()
+    /*public function getProductCollection()
     {
         $collection = $this->getCategoryCollection();
         // $productIds = $this->getProductIdsByCategory();
@@ -89,21 +89,55 @@ class CategoryId extends AbstractSlider
         // }
 
         return $collection;
-    }
-
-    public function getCategoryCollection()
+    }*/
+    public function getProductCollection()
     {
-        
+        $productIds = $this->getProductIdsByCategory();
+        $collection = [];
+        if (!empty($productIds)) {
+            $collection = $this->_productCollectionFactory->create()
+                ->addIdFilter(['in' => $productIds]);
+            $this->_addProductAttributesAndPrices($collection);
+        }
+
+        return $collection;
+    }
+    public function getCategoryCollectionByIds()
+    {
         $catIds = $this->getSliderCategoryIds();
 
+        $categoryData = [];
+        foreach ($catIds as $cat) {
+            $category = $this->_categoryFactory->create()->load($cat);
+
+            if ($category->getImageUrl()) {
+                $imageUrl = $this->getUrl() . $category->getImageUrl();
+            } else {
+                $imageUrl= $this->getViewFileUrl('Magento_Catalog::images/product/placeholder/thumbnail.jpg');
+            }
+
+            $categoryData[] = [
+                "id" => $category->getId(),
+                "name" => $category->getName(),
+                "image" => $imageUrl,
+                "url" => $category->getUrl(),
+            ];
+        }
+        /*echo "<pre>";
+        print_r($categoryData);
+        exit;*/
+        return $categoryData;
+    }
+    public function getCategoryCollection()
+    {
+        $catIds = $this->getSliderCategoryIds();
         if (is_array($catIds)) {
-            $productId = $categoryArray = [];
-            foreach($catIds as $cat)
-            {
+            $categoryArray = [];
+            foreach ($catIds as $cat) {
                 $getCategory = $this->_categoryFactory->create()->load($cat);
                 array_push($categoryArray, $getCategory);
             }
-            return array("categories" => $categoryArray);
+            return ["categories" => $categoryArray];
         }
     }
 
@@ -120,8 +154,7 @@ class CategoryId extends AbstractSlider
         if (is_array($catIds)) {
             $productId = [];
 
-            foreach($catIds as $cat)
-            {
+            foreach ($catIds as $cat) {
                 $collection = $this->_productCollectionFactory->create();
                 $category = $this->_categoryFactory->create()->load($cat);
                 $collection->addAttributeToSelect('*')->addCategoryFilter($category);
@@ -132,7 +165,7 @@ class CategoryId extends AbstractSlider
 
                 $productIds = array_merge($productIds, $productId);
             }
-        }else {
+        } else {
             $collection = $this->_productCollectionFactory->create();
             $category = $this->_categoryFactory->create()->load($catIds);
             $collection->addAttributeToSelect('*')->addCategoryFilter($category);
