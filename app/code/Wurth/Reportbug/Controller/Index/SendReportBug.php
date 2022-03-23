@@ -101,12 +101,12 @@ class SendReportBug extends Action
                 $this->messageManager->addSuccess($result['message']);
             } else {
                 $result['success'] = "false";
-                $result['message'] = __("Something went wrong please try again.");
+                $result['message'] = __("Something went wrong while sending email please try again.");
                 $this->messageManager->addError($result['message']);
             }
         } catch (Exception $e) {
             $result['success'] = "false";
-            $result['message'] = __("Something went wrong please try again.");
+            $result['message'] = __("Something went wrong please try again." . $e->getMessage());
             $this->messageManager->addError($result['message']);
         }
         $response->setData($result);

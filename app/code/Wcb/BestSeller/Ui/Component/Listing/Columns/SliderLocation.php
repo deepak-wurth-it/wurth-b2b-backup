@@ -24,8 +24,8 @@ class SliderLocation extends Column
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item[$this->getData('name')])) {
                     $data = $this->getLocation($item[$this->getData('name')]);
-                    $type = $data['type'];
-                    $location = $data['location'];
+                    $type = isset($data['type']) ? $data['type'] : "";
+                    $location = isset($data['location']) ? $data['location'] : "";
 
                     $item[$this->getData('name')] = '<b>' . $type . '</b></br>' . '<span>' . $location . '</span>';
                 }
