@@ -2076,6 +2076,19 @@ table.ReqListTable
 	}
 }
 
+	// Coupon Popup Start
+	.ampromo-items-content .ampromo-item:hover {
+		background: #ffffff;
+	}
+	.ampromo-items-content .ampromo-title {
+		margin: 0;
+		min-height: 40px;
+	}
+	.ampromo-items-content h2 {
+		margin-left: 35px;
+	}
+	// Coupon Popup End
+
 // Quick order on Cart page start 
 	.checkout-cart-index {
 		.cart-container {
@@ -8607,7 +8620,6 @@ print {
 		width: 33.33%;
 	}
 	.product-item-details a.product-item-link {
-		min-height: 69px;
 		display: block;
 	}
 }
@@ -9663,6 +9675,7 @@ print {
 			text-align: right;
 		}
     }
+	
 }
 
 @media (max-width: 767px) and (min-width: 481px) {
@@ -10874,98 +10887,109 @@ print {
 		  color: rgba(255, 255, 255, 0.87);  
 		 }
 	// Myaccount Navigation end by Amit
-// Terms & Condition PopUp Start By Amit
-.termsCodition{
-	footer.modal-footer {
-		align-items: center;
-		text-align: center;
+	// Terms & Condition PopUp Start By Amit
+	.termsCodition{
+		footer.modal-footer {
+			align-items: center;
+			text-align: center;
+		}
+		button.accept {
+			margin-bottom: 10px;
+		}
+		button.notAccept {
+			margin-top:10px;
+		}
 	}
-	button.accept {
-		margin-bottom: 10px;
+	// Terms & Condition PopUp End By Amit
+	// Favorites Page Start By Amit
+	.wishlist-index-index{
+		main#maincontent {
+			padding-top: 0px;
+		}
+		.account .column.main .toolbar {
+			text-align: left;
+		}
+		.pager {
+			display: flex;
+		}
+		.toolbar-amount {
+			width: 45%;
+			text-align: left;
+		}
+		.primary button.action.update {
+			width: fit-content;
+		}
+		.primary button.action.tocart {
+			width: fit-content;
+			margin: 0 0 10px 10px;
+		}
 	}
-	button.notAccept {
-		margin-top:10px;
+	// Favorites Page End By Amit
+	//Order Template Cart Page Start By Amit
+	.checkout-cart-index {	
+		.cart-container {
+			margin: 0px 0px 40px;
+			border-bottom: 1px solid rgba(0, 0, 0, 12%);
+			padding: 0 0 50px 0px;
+		}
+		.cart-container .block-requisition-list {
+			margin: 0px -77px 0px 0px;
+			width: 35px;
+			padding: 0 3px 0px 0px;
+		}
+		form#negotiable-quote-form {
+			margin: 0px 50px 0px 0px;
+			border: 1px solid rgba(0, 0, 0, 12%);
+		}
+		.checkout-cart-index button.qutoButton.action {
+			height: 24px;
+		}
+		.field._required.ordForm {
+			float: left;
+			width: 100%;
+		}
+		button.action.primary.confirm.OrdSave {
+			float: left;
+			margin: -15px 0px 0px 0;
+			width: auto;
+		}
+		.modal-popup .modal-content, .modal-popup .modal-footer {
+			padding-left: 20px;
+			padding-right: 20px;		
+		}
+		.modal-popup.modal-slide .modal-inner-wrap[class] {
+			background-color: #fff;
+			width: 100%;
+		}
+		.field._required.ordForm {
+			width: 100%;
+			display: flex;
+		}
+		.modal-popup.modal-slide {
+			left: 20px;
+			right: 20px;
+			top: 20px;
+			bottom: 20px;
+		}
+		.fieldset > .field > .label {
+			width: 44%;
+		}
+		.control {
+			width: 65%;
+		} 
+		//Order Template Cart Page End By Amit	
 	}
-}
-// Terms & Condition PopUp End By Amit
-// Favorites Page Start By Amit
-.wishlist-index-index{
-	main#maincontent {
-		padding-top: 0px;
-	}
-	.account .column.main .toolbar {
-		text-align: left;
-	}
-	.pager {
-		display: flex;
-	}
-	.toolbar-amount {
-		width: 45%;
-		text-align: left;
-	}
-	.primary button.action.update {
-		width: fit-content;
-	}
-	.primary button.action.tocart {
-		width: fit-content;
-		margin: 0 0 10px 10px;
-	}
-}
-// Favorites Page End By Amit
-//Order Template Cart Page Start By Amit
-.checkout-cart-index {	
-	.cart-container {
-		margin: 0px 0px 40px;
-		border-bottom: 1px solid rgba(0, 0, 0, 12%);
-		padding: 0 0 50px 0px;
-	}
-	.cart-container .block-requisition-list {
-		margin: 0px -77px 0px 0px;
-		width: 35px;
-		padding: 0 3px 0px 0px;
-	}
-	form#negotiable-quote-form {
-		margin: 0px 50px 0px 0px;
-		border: 1px solid rgba(0, 0, 0, 12%);
-	}
-	.checkout-cart-index button.qutoButton.action {
-		height: 24px;
-	}
-	.field._required.ordForm {
-		float: left;
-		width: 100%;
-	}
-	button.action.primary.confirm.OrdSave {
-		float: left;
-		margin: -15px 0px 0px 0;
-		width: auto;
-	}
-	.modal-popup .modal-content, .modal-popup .modal-footer {
-		padding-left: 20px;
-		padding-right: 20px;		
-	}
-	.modal-popup.modal-slide .modal-inner-wrap[class] {
-		background-color: #fff;
-		width: 100%;
-	}
-	 .field._required.ordForm {
-		width: 100%;
-		display: flex;
-	}
-	.modal-popup.modal-slide {
-		left: 20px;
-		right: 20px;
-		top: 20px;
-		bottom: 20px;
-	}
-	.fieldset > .field > .label {
-		width: 44%;
-	}
-	.control {
-		width: 65%;
-	} 
-	//Order Template Cart Page End By Amit	
-}
+		.product-item-inner.logdIn {
+			margin-top: -15px;
+		}
+
+		.ampromo-items-content h2 {
+			margin-left: 5px;
+			margin-top: 20px;
+		}
+
+
+
 }
 
 //---------------------------------------------------------	
@@ -12560,7 +12584,7 @@ margin-top: 10px;
 		}
 	}
 	// Order No Page end by Amit
-
+	
   
 } // responsive end
 
@@ -13997,5 +14021,14 @@ margin-top: 10px;
 	}
 	.eshopOnlineprocess ul {
 		padding-left: 40px;
+	}
+}
+
+@media screen and (min-width:768px) and (max-width:820px) {
+	.product-item-inner.logdIn {
+		margin-top: 39px;
+	}
+	.ampromo-items-content h2 {
+		margin-left: 0px;
 	}
 }
