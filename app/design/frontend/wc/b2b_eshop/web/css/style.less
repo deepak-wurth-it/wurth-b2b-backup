@@ -88,6 +88,11 @@ input[type="text"]:disabled {
 	opacity: 1;
 	border: none;
 }
+#da_region:disabled, #ia_region:disabled {
+    background: rgba(0, 0, 0, 8%);
+    opacity: 1;
+    border: none;
+}
 
 .field-error,
 div.mage-error[generated] {
@@ -1193,7 +1198,10 @@ label.sorter-label {
 	}
 }  
 	span.a2a_svg.a2a_s__default svg path:hover {
-		filter: invert(0%) sepia(48%) saturate(2878%) brightness(104%) contrast(97%);
+		fill: #CC0000;
+	}
+	.a2a_default_style {
+		padding: 0px;
 	}
 	.report-a-bug.modal-popup.modal-slide .modal-footer {
 		border-top: none;
@@ -2132,11 +2140,11 @@ table.ReqListTable
 			font-family: 'wuerthbook';
 			font-size: 1.6rem;
 			color: rgba(0, 0, 0, 0.6);
-			text-align: center;
 			padding: 3px;
 			width: 150px;			
 			cursor: pointer;
 			display:flex;
+			align-items: center;
 		}
 		.csv-icon {
 			margin: 5px 5px 0px 5px;
@@ -2179,6 +2187,9 @@ table.ReqListTable
 .checkout-cart-index {
 	.page-title-wrapper {
 		margin-top: 30px;
+	}
+	button.action.cancel.primary {
+		margin-left: 15px;
 	}
 	.dIcons.remove-cart-item img {
 		margin: 6px 7px 0px 7px;
@@ -4380,6 +4391,7 @@ a.action.print.hidden-print {
 	table-layout: auto;
 	border-collapse: inherit;
 	margin-top: 20px;
+	background: #ffffff;
 	.product-item-photo {
 		border-bottom: 1px solid #d1d1d1;
 		margin: 0 auto 0px;
@@ -5354,6 +5366,9 @@ a.action.print.hidden-print {
 		height: 45px;
 		border: 1px solid rgba(0, 0, 0, 0.12);
 	}
+	.sp_social_share_inline_widget_widget_under_cart {
+		margin-left: -7px;
+	}
 }
 
 #additional h2.product-section-title {
@@ -5603,7 +5618,7 @@ div#reviews {
 	}
 	button.itembug {
 		background: #FFFFFF;
-		border: 1px solid rgba(0, 0, 0, 8%);
+		border: 1px solid rgba(0, 0, 0, 12%);
 		border-radius: 50px;
 		font-family: 'wuerthbold';
 		font-size: 16px;
@@ -5612,7 +5627,8 @@ div#reviews {
 	}
 	.social-block {
 		padding-left: 0px;
-		margin-left: -13px;
+		margin-left: -9px;
+		float: left;
 	}
 	.icon-whatsapp {
 		width: 34px;
@@ -5984,6 +6000,9 @@ div#reviews {
 	}
 	.action.primary:hover{
 		border:none;
+	}
+	.product-image-wrapper {
+		margin-top: 15px;
 	}
 }
 
@@ -6574,6 +6593,12 @@ button#top-cart-btn-checkout:hover {
 }
 .location {
     color: #CC0000;
+    background: url(../images/geo.svg);
+    background-repeat: no-repeat;
+	padding: 0 0 0 16px;
+}
+.location span {
+    color: #CC0000;
 }
 .location img {
     margin: 0px 0px -4px 5px;
@@ -6581,6 +6606,7 @@ button#top-cart-btn-checkout:hover {
 .info-contaner {
     color: #CC0000;
 	font-family: 'wuerthbook';
+	margin-top: 15px;
 }
 .col-md-6.social-block {
     padding-right: 30px;
@@ -6798,6 +6824,10 @@ button#top-cart-btn-checkout:hover {
 	.itemprice.with-vat {
 		width: 13%;
 		padding: 0 0 8px 25px;
+	}
+	 .itemsubtotal.without-vat {
+		width: 13%;
+		padding: 0 0 8px 13px;
 	}
 } // cart page end
 // summery cart start on cart page by amit
@@ -9241,10 +9271,10 @@ print {
 			font-family: 'wuerthbook';
 			font-size: 1.6rem;
 			color: rgba(0, 0, 0, 0.6);
-			text-align: center;
 			padding: 3px;
 			width: 150px;			
 			cursor: pointer;
+			align-items: center;
 		}
 		.column .block-addbysku .block-content .box {
 			width: 100%;
@@ -9636,6 +9666,10 @@ print {
 	//Request a quote end by Amit for view page
 	.delivery-info {
 		  display: block;
+		  .boxgroup {
+			display: block;
+			margin: 10px;
+		}
 		.col-md-6.social-block {
            padding-right: 15px;
         }
@@ -10103,7 +10137,7 @@ print {
 		}
 		button.itembug {
 			background: #FFFFFF;
-			border: 1px solid rgba(0, 0, 0, 0.08);
+			border: 1px solid rgba(0, 0, 0, 12%);
 			border-radius: 50px;
 			font-family: 'wuerthbold';
 			letter-spacing: 0.02em;
@@ -10718,6 +10752,7 @@ print {
 			border: 1px solid rgba(0, 0, 0, 0.12);
 			box-sizing: border-box;
 		}
+		
 	}
 	#additional h2.product-section-title {
 		display: none;
