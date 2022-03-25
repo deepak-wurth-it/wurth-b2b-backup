@@ -1,15 +1,22 @@
 <div class="row">
     <div class="col-md-7">
-    <form class="form create account form-create-account newUserRegistration" action="<?= $escaper->escapeUrl($block->getUrl('excustomer/account/newcustomercreate')) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Please fill all Required Fields')) ?>"  onSubmit="return checkCaptcha() ;" data-mage-init='{"validation":{}}' >
+        <form class="form create account form-create-account newUserRegistration"
+              action="<?= $escaper->escapeUrl($block->getUrl('excustomer/account/newcustomercreate')) ?>" method="post"
+              id="form-validate" enctype="multipart/form-data" autocomplete="off"
+              data-hasrequired="<?= $block->escapeHtmlAttr(__('* Please fill all Required Fields')) ?>"
+              onSubmit="return checkCaptcha() ;" data-mage-init='{"validation":{}}'>
             <fieldset class="fieldset">
-                 <div class="formSections">
-                <legend class="legend"><span><?= $block->escapeHtmlAttr(__('About the company')) ?></span></legend>
+                <div class="formSections">
+                    <legend class="legend"><span><?= $block->escapeHtmlAttr(__('About the company')) ?></span></legend>
                     <div class="field vat-tax-id _required">
                         <label class="label" for="vat_tax_id">
                             <span><?= $block->escapeHtml(__('Company OIB')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[vat_tax_id]" id="vat_tax_id" value="" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text validate-length minimum-length-11 maximum-length-11 validate-number v-validate" data-validate="{required:true}">
+                            <input type="text" name="company[vat_tax_id]" id="vat_tax_id" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>"
+                                   class="input-text validate-length minimum-length-11 maximum-length-11 validate-number v-validate"
+                                   data-validate="{required:true}">
                         </div>
                     </div>
                     <p id="link-error"></p>
@@ -18,7 +25,9 @@
                             <span><?= $block->escapeHtml(__('Company Name')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[company_name]" id="company_name" value="" title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>" class="input-text v-validate" data-validate="{required:true}">
+                            <input type="text" name="company[company_name]" id="company_name" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>"
+                                   class="input-text v-validate" data-validate="{required:true}">
                         </div>
                     </div>
 
@@ -27,29 +36,32 @@
                             <span><?= $block->escapeHtml(__('Number of Employees')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[no_of_employees]" id="no_of_employees" value="" title="<?= $block->escapeHtmlAttr(__('Number of Employees')) ?>" class="input-text validate-number v-validate" data-validate="{required:true}">
+                            <input type="text" name="company[no_of_employees]" id="no_of_employees" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Number of Employees')) ?>"
+                                   class="input-text validate-number v-validate" data-validate="{required:true}">
                         </div>
                     </div>
 
-                    <?php 
+                    <?php
                     //Currently has the default magento customer groups, We can change later as per requirement.
-                        $blockObj= $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
-                        $customerGroups =  $blockObj->getCustomerGroups();
-                        $label = array_column($customerGroups, 'label');
-                        $value = array_column($customerGroups, 'value');
-                        $resultArray = array_combine($value, $label);
-                        unset($resultArray['0'], $resultArray['1'], $resultArray['2'], $resultArray['3']);
+                    $blockObj = $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
+                    $customerGroups = $blockObj->getCustomerGroups();
+                    $label = array_column($customerGroups, 'label');
+                    $value = array_column($customerGroups, 'value');
+                    $resultArray = array_combine($value, $label);
+                    unset($resultArray['0'], $resultArray['1'], $resultArray['2'], $resultArray['3']);
                     ?>
                     <div class="field company-division _required">
                         <label class="label" for="division">
                             <span><?= $block->escapeHtml(__('Division')) ?></span>
                         </label>
                         <div class="control">
-                            <select name='company[division]' class='form-control v-validate' data-validate="{required:true}">
-                            <option value=""><?php echo __("Please select Division")?></option>
-                            <?php foreach($resultArray as $key => $value){?>                                    
-                                <option value="<?php echo $key;?>"><?php echo $value ?></option>
-                            <?php }?>
+                            <select name='company[division]' class='form-control v-validate'
+                                    data-validate="{required:true}">
+                                <option value=""><?php echo __("Please select Division") ?></option>
+                                <?php foreach ($resultArray as $key => $value) { ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
@@ -59,24 +71,25 @@
                             <span><?= $block->escapeHtml(__('Activities')) ?></span>
                         </label>
                         <div class="control">
-                        <select name='company[activities]' class='form-control v-validate' data-validate="{required:true}">
-                            <option value=""><?php echo __("Please select Activities")?></option>
-                            <option value="<?php echo 'ds'?>"><?php echo 'Activity 1' ?></option>
-                        </select>
+                            <select name='company[activities]' class='form-control v-validate'
+                                    data-validate="{required:true}">
+                                <option value=""><?php echo __("Please select Activities") ?></option>
+                                <option value="<?php echo 'ds' ?>"><?php echo 'Activity 1' ?></option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                 <div class="formSections">
-        
-                    <legend class="legend"><?php echo __("Address")?></legend>
-        
+                <div class="formSections">
+
+                    <legend class="legend"><?php echo __("Address") ?></legend>
+
                     <div class="field company-country _required">
                         <label class="label" for="country">
                             <span><?= $block->escapeHtml(__('Country')) ?></span>
                         </label>
                         <div class="control">
-                        <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data');?>
-                        <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "country_id", $id = "country", $title = 'Country');?>
+                            <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data'); ?>
+                            <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "country_id", $id = "country", $title = 'Country'); ?>
                         </div>
                     </div>
 
@@ -85,7 +98,9 @@
                             <span><?= $block->escapeHtml(__('Address')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[street]" id="street" value=""                                title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text v-validate" data-validate="{required:true}">
+                            <input type="text" name="company[street]" id="street" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text v-validate"
+                                   data-validate="{required:true}">
                         </div>
                     </div>
 
@@ -94,7 +109,9 @@
                             <span><?= $block->escapeHtml(__('City')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[city]" id="city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text v-validate" data-validate="{required:true}">
+                            <input type="text" name="company[city]" id="city" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text v-validate"
+                                   data-validate="{required:true}">
                         </div>
                     </div>
 
@@ -103,17 +120,17 @@
                             <span><?= $block->escapeHtml(__('Region')) ?></span>
                         </label>
                         <div class="control">
-                        <?php 
+                            <?php
                             $blockObjs = $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
-                            $regions =  $blockObjs->getRegionsOfCountry('HR');         
+                            $regions = $blockObjs->getRegionsOfCountry('HR');
                             $regionLabel = array_column($regions, 'label');
                             $regionValue = array_column($regions, 'value');
                             $regionArray = array_combine($regionValue, $regionLabel);
                             ?>
                             <select class="form-control v-validate" name="region" id="region">
-                                <?php foreach($regionArray as $key => $value){?>                            
-                                    <option value="<?php echo $key;?>"><?php echo $value ?></option>
-                                <?php }?>
+                                <?php foreach ($regionArray as $key => $value) { ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
@@ -123,282 +140,335 @@
                             <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="company[postcode]" id="postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text  validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
+                            <input type="text" name="company[postcode]" id="postcode" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
+                                   class="input-text  validate-length minimum-length-5 maximum-length-6 validate-number v-validate"
+                                   data-validate="{required:true}">
                         </div>
                     </div>
                 </div>
 
-                 <div class="formSections">
-        
-                    <legend class="legend"><?php echo __("About the user")?></legend>
-       
+                <div class="formSections">
+
+                    <legend class="legend"><?php echo __("About the user") ?></legend>
+
                     <div class="field field-name-firstname _required">
-                        <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
+                        <label class="label" for="firstname"><span><?php echo __("First Name") ?></span></label>
                         <div class="control">
-                            <input type="text" id="firstname" name="firstname" value="" title="firstname" class="input-text v-validate" data-validate="{required:true}">
+                            <input type="text" id="firstname" name="firstname" value="" title="firstname"
+                                   class="input-text v-validate" data-validate="{required:true}">
                         </div>
                     </div>
 
                     <div class="field field-name-lastname _required">
-                        <label class="label" for="lastname"><span><?php echo __("Surname")?></span></label>
+                        <label class="label" for="lastname"><span><?php echo __("Surname") ?></span></label>
                         <div class="control">
-                            <input type="text" id="lastname" name="lastname" value="" title="surname" class="input-text v-validate" data-validate="{required:true}">
-                        </div>
-                    </div>
-                    
-                    <fieldset class="fieldset create account" data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>">
-                    <div class="field _required">
-                        <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
-                        <div class="control">
-                            <input type="email" name="email" autocomplete="email" id="email_address" value="" title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>" class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true}">
+                            <input type="text" id="lastname" name="lastname" value="" title="surname"
+                                   class="input-text v-validate" data-validate="{required:true}">
                         </div>
                     </div>
 
-                    <div class="field _required">
-                        <label for="confirm_email_address" class="label"><span><?= $escaper->escapeHtml(__('Confirm Email')) ?></span></label>
-                        <div class="control">
-                            <input type="email" name="confirm_email" autocomplete="email" id="confirm_email_address" value="" title="<?= $escaper->escapeHtmlAttr(__('Confirm Email')) ?>" class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true,equalTo:'#email_address'}">
-                        </div>
-                    </div>
+                    <fieldset class="fieldset create account"
+                              data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>">
+                        <div class="field _required">
+                            <label for="email_address"
+                                   class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+                            <div class="control">
+                                <input type="email" name="email" autocomplete="email" id="email_address" value=""
+                                       title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                                       class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}'
+                                       data-validate="{required:true, 'validate-email':true}">
+                                <div for="email_address" generated="true"
+                                     class="mage-error"
+                                     id="email_address_exist_error">
 
-                    <div class="field position _required">
-                        <label for="position" class="label">
-                            <span><?= $escaper->escapeHtml(__('Position in the Company')) ?></span>
-                        </label>
-                        <div class="control">
-                            <input type="text" name="position" title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>" id="position" class="input-text  v-validate" data-validate="{required:true}" autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div class="field password _required">
-                        <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
-                        <div class="control">
-                            <input type="password" name="password" id="password" title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>" class="input-text" data-password-min-length="<?= $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>" data-password-min-character-sets="<?= $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>" data-validate="{required:true, 'validate-customer-password':true}" autocomplete="off">
-                            <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
-                                <div id="password-strength-meter" class="password-strength-meter  v-validate">
-                                    <?= $escaper->escapeHtml(__('Password Strength')) ?>:
-                                    <span id="password-strength-meter-label" data-role="password-strength-meter-label">
-                                        <?= $escaper->escapeHtml(__('No Password')) ?>
-                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-      
-                    <div class="field confirmation _required">
-                        <label for="password-confirmation" class="label">
-                            <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
-                        </label>
-                        <div class="control">
-                            <input type="password" name="password_confirmation" title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>" id="password-confirmation" class="input-text v-validate" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+
+                        <div class="field _required">
+                            <label for="confirm_email_address"
+                                   class="label"><span><?= $escaper->escapeHtml(__('Confirm Email')) ?></span></label>
+                            <div class="control">
+                                <input type="email" name="confirm_email" autocomplete="email" id="confirm_email_address"
+                                       value="" title="<?= $escaper->escapeHtmlAttr(__('Confirm Email')) ?>"
+                                       class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}'
+                                       data-validate="{required:true, 'validate-email':true,equalTo:'#email_address'}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="field telephone _required">
-                        <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
-                        <div class="control">
-                            <input name="telephone" id="telephone" title="Phone" value="" class="in  validate-length minimum-length-11 maximum-length-20 validate-number v-validate" type="text" data-validate="{required:true}">
+
+                        <div class="field position _required">
+                            <label for="position" class="label">
+                                <span><?= $escaper->escapeHtml(__('Position in the Company')) ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" name="position"
+                                       title="<?= $escaper->escapeHtmlAttr(__('Position in the Company')) ?>"
+                                       id="position" class="input-text  v-validate" data-validate="{required:true}"
+                                       autocomplete="off">
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="field password _required">
+                            <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+                            <div class="control">
+                                <input type="password" name="password" id="password"
+                                       title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>" class="input-text"
+                                       data-password-min-length="<?= $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                                       data-password-min-character-sets="<?= $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+                                       data-validate="{required:true, 'validate-customer-password':true}"
+                                       autocomplete="off">
+                                <div id="password-strength-meter-container" data-role="password-strength-meter"
+                                     aria-live="polite">
+                                    <div id="password-strength-meter" class="password-strength-meter  v-validate">
+                                        <?= $escaper->escapeHtml(__('Password Strength')) ?>:
+                                        <span id="password-strength-meter-label"
+                                              data-role="password-strength-meter-label">
+                                        <?= $escaper->escapeHtml(__('No Password')) ?>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field confirmation _required">
+                            <label for="password-confirmation" class="label">
+                                <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="password" name="password_confirmation"
+                                       title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>"
+                                       id="password-confirmation" class="input-text v-validate"
+                                       data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="field telephone _required">
+                            <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
+                            <div class="control">
+                                <input name="telephone" id="telephone" title="Phone" value=""
+                                       class="in  validate-length minimum-length-11 maximum-length-20 validate-number v-validate"
+                                       type="text" data-validate="{required:true}">
+                            </div>
+                        </div>
                 </div>
 
-                 <div class="formSections">
-                    <legend class="legend"><?php echo __("Delivery Address")?></legend>
-        
+                <div class="formSections delivery-address-section">
+                    <legend class="legend"><?php echo __("Delivery Address") ?></legend>
+
                     <div class="field same_as_hq_address">
                         <div class="control">
-                            <input type="checkbox" name="daddress[da_same_as_hq_address]" id="da_same_as_hq_address" class="input-checkbox checkbox v-validate" value="1">
+                            <input type="checkbox" name="daddress[da_same_as_hq_address]" id="da_same_as_hq_address"
+                                   class="input-checkbox checkbox v-validate" value="1">
                             <label for="da_same_as_hq_address" class="label">
                                 <?= __('Same as Headquarters Address') ?>
                             </label>
                         </div>
                     </div>
-                <div class="field daddress-country _required">
-                    <label class="label" for="daddress_country">
-                        <span><?= $block->escapeHtml(__('Country')) ?></span>
-                    </label>
-                    <div class="control">
-                    <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data');?>
-                    <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "daddress[daddress_country]", $id = "daddress_country", $title = 'Country');?>
+                    <div class="field daddress-country _required">
+                        <label class="label" for="daddress_country">
+                            <span><?= $block->escapeHtml(__('Country')) ?></span>
+                        </label>
+                        <div class="control">
+                            <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data'); ?>
+                            <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "daddress[daddress_country]", $id = "daddress_country", $title = 'Country'); ?>
+                        </div>
+                    </div>
+
+                    <div class="field daddress-da-street _required">
+                        <label class="label" for="da_street">
+                            <span><?= $block->escapeHtml(__('Address')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="daddress[da_street]" id="da_street" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text v-validate"
+                                   data-validate="{required:true}">
+                        </div>
+                    </div>
+
+
+                    <div class="field da-city _required">
+                        <label class="label" for="da_city">
+                            <span><?= $block->escapeHtml(__('City')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="daddress[da_city]" id="da_city" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text v-validate"
+                                   data-validate="{required:true}">
+                        </div>
+                    </div>
+
+                    <div class="field daddress-region _required">
+                        <label class="label" for="region">
+                            <span><?= $block->escapeHtml(__('Region')) ?></span>
+                        </label>
+                        <div class="control">
+                            <?php
+                            $blockObjs = $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
+                            $regions = $blockObjs->getRegionsOfCountry('HR');
+                            $regionLabel = array_column($regions, 'label');
+                            $regionValue = array_column($regions, 'value');
+                            $regionArray = array_combine($regionValue, $regionLabel);
+                            ?>
+                            <select class="form-control" name="daddress[da_region]" id="da_region">
+                                <?php foreach ($regionArray as $key => $value) { ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field daddress-postcode _required">
+                        <label class="label" for="da_postcode">
+                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="daddress[da_postcode]" id="da_postcode" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
+                                   class="input-text validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
+                        </div>
                     </div>
                 </div>
 
-        <div class="field daddress-da-street _required">
-            <label class="label" for="da_street">
-                <span><?= $block->escapeHtml(__('Address')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="daddress[da_street]" id="da_street" value="" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text v-validate" data-validate="{required:true}">
-            </div>
-        </div>
+                <div class="formSections invoice-address-section">
+                    <legend class="legend"><?php echo __(" Invoice Address") ?></legend>
+                    <div class="field same_as_hq_address">
+                        <div class="control">
+                            <input type="checkbox" id="ia_same_as_hq_address" name="iaddress[ia_same_as_hq_address]"
+                                   class="input-checkbox checkbox" value="1">
+                            <label for="ia_same_as_hq_address" class="label">
+                                <?= __('Same as Headquarters Address') ?>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field ia-country _required">
+                        <label class="label" for="ia_country">
+                            <span><?= $block->escapeHtml(__('Country')) ?></span>
+                        </label>
+                        <div class="control">
+                            <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data'); ?>
 
+                            <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "iaddress[country]", $id = "iaddress[country]", $title = 'Country'); ?>
 
-        <div class="field da-city _required">
-            <label class="label" for="da_city">
-                <span><?= $block->escapeHtml(__('City')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="daddress[da_city]" id="da_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text v-validate" data-validate="{required:true}">
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-         <div class="field daddress-region _required">
-            <label class="label" for="region">
-                <span><?= $block->escapeHtml(__('Region')) ?></span>
-            </label>
-            <div class="control">
-            <?php 
-                $blockObjs = $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
-                $regions =  $blockObjs->getRegionsOfCountry('HR');         
-                $regionLabel = array_column($regions, 'label');
-                $regionValue = array_column($regions, 'value');
-                $regionArray = array_combine($regionValue, $regionLabel);
-                ?>
-                <select class="form-control" name="daddress[da_region]" id="da_region">
-                    <?php foreach($regionArray as $key => $value){?>                            
-                        <option value="<?php echo $key;?>"><?php echo $value ?></option>
-                    <?php }?>
-                </select>
-            </div>
-        </div>
-
-        <div class="field daddress-postcode _required">
-            <label class="label" for="da_postcode">
-                <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="daddress[da_postcode]" id="da_postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text validate-number v-validate" data-validate="{required:true}">
-            </div>
-        </div>
-    </div>
-
-     <div class="formSections">
-
-        <legend class="legend"><?php echo __(" Invoice Address")?></legend>
-        <div class="field same_as_hq_address">
-            <div class="control">
-                <input type="checkbox" id="ia_same_as_hq_address" name="iaddress[ia_same_as_hq_address]" class="input-checkbox checkbox" value="1">
-                <label for="ia_same_as_hq_address" class="label">
-                    <?= __('Same as Headquarters Address') ?>
-                </label>
-            </div>
-        </div>
-        <div class="field ia-country _required">
-            <label class="label" for="ia_country">
-                <span><?= $block->escapeHtml(__('Country')) ?></span>
-            </label>
-            <div class="control">
-            <?php $countryBlock = $block->getLayout()->createBlock('Magento\Directory\Block\Data');?>
-
-            <?= $countryBlock->getCountryHtmlSelect($defValue = "HR", $name = "iaddress[country]", $id = "iaddress[country]", $title = 'Country');?>
-
-            </div>
-        </div>
-
-        <div class="field company-street _required">
+                    <div class="field company-street _required">
                         <label class="label" for="ia_street">
                             <span><?= $block->escapeHtml(__('Address')) ?></span>
                         </label>
                         <div class="control">
-                            <input type="text" name="iaddress[ia_street]" id="ia_street" title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text v-validate" data-validate="{required:true}">
+                            <input type="text" name="iaddress[ia_street]" id="ia_street"
+                                   title="<?= $block->escapeHtmlAttr(__('Street')) ?>" class="input-text v-validate"
+                                   data-validate="{required:true}">
                         </div>
                     </div>
 
-        <div class="field iaddress-city _required">
-            <label class="label" for="ia_city">
-                <span><?= $block->escapeHtml(__('City')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="iaddress[ia_city]" id="ia_city" value="" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text v-validate" data-validate="{required:true}">
-            </div>
-        </div>
+                    <div class="field iaddress-city _required">
+                        <label class="label" for="ia_city">
+                            <span><?= $block->escapeHtml(__('City')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="iaddress[ia_city]" id="ia_city" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="input-text v-validate"
+                                   data-validate="{required:true}">
+                        </div>
+                    </div>
 
-        <div class="field iaddress-ia-region _required">
-            <label class="label" for="ia_region">
-                <span><?= $block->escapeHtml(__('Region')) ?></span>
-            </label>
-            <div class="control">
-            <?php 
-                $blockObjs = $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
-                $regions =  $blockObjs->getRegionsOfCountry('HR');         
-                $regionLabel = array_column($regions, 'label');
-                $regionValue = array_column($regions, 'value');
-                $regionArray = array_combine($regionValue, $regionLabel);
+                    <div class="field iaddress-ia-region _required">
+                        <label class="label" for="ia_region">
+                            <span><?= $block->escapeHtml(__('Region')) ?></span>
+                        </label>
+                        <div class="control">
+                            <?php
+                            $blockObjs = $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
+                            $regions = $blockObjs->getRegionsOfCountry('HR');
+                            $regionLabel = array_column($regions, 'label');
+                            $regionValue = array_column($regions, 'value');
+                            $regionArray = array_combine($regionValue, $regionLabel);
+                            ?>
+                            <select class="form-control v-validate" name="iaddress[ia_region]" id="ia_region">
+                                <?php foreach ($regionArray as $key => $value) { ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field daddress-postcode _required">
+                        <label class="label" for="ia_postcode">
+                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="iaddress[ia_postcode]" id="ia_postcode" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
+                                   class="input-text validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
+                        </div>
+                    </div>
+                </div>
+                <?php
+                $helper = $this->helper("Wcb\CustomerRegistration\Helper\Data");
+                $enabled = $helper->isNewUserEnabled();
+                $sitekey = $helper->getSiteKey();
+                $secretkey = $helper->getSecretKey();
+                if ($enabled) {
+                    ?>
+                    <div class="form-group required googleCaptcha">
+                        <div class="g-recaptcha required" id="recaptcha"
+                             data-sitekey="<?php echo $sitekey; ?>">
+                        </div>
+                        <div style="display:none" id="error-msg">
+                            <span><?php echo __('This is a required field.') ?></span>
+                        </div>
+                    </div>
+                    <?php
+
+                }
                 ?>
-                <select class="form-control v-validate" name="iaddress[ia_region]" id="ia_region">
-                    <?php foreach($regionArray as $key => $value){?>                            
-                        <option value="<?php echo $key;?>"><?php echo $value ?></option>
-                    <?php }?>
-                </select>
-            </div>
-        </div>
 
-        <div class="field daddress-postcode _required">
-            <label class="label" for="ia_postcode">
-                <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
-            </label>
-            <div class="control">
-                <input type="text" name="iaddress[ia_postcode]" id="ia_postcode" value="" title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>" class="input-text validate-number v-validate" data-validate="{required:true}">
-            </div>
-        </div>
+                <div class="field choice newsletterAcceptance">
+                    <label for="is_subscribed" class="label newsletter">
+                        <input type="checkbox" name="is_subscribed"
+                               title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1"
+                               id="is_subscribed" data-validate="{required:true}"
+                            <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
+                               class="checkbox  input-checkbox required-entry v-validate"/>
+                        <span class="checkmark"> </span>
+
+                        <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
+                    </label>
+                </div>
+                <div class="form-group _required ">
+                    <label for="privacy_policy" class="newsletter">
+                        <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1"
+                               title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry"
+                               data-validate="{required:true}">
+                        <span class="checkmark"> </span>
+                        <?php echo 'Accept the privacy policy' ?> (<a href="javascript:void(0)"
+                                                                      id="privacy-policy-ex"><?php echo 'privacy policy'; ?></a>)</label>
+                </div>
+
+
+                <input type="hidden" id="company_email" name="company_email" value="">
+
+                <div class="actions-toolbar">
+                    <button type="submit" class="action submit primary-button btn160" id="save-button" title="Save"
+                            disabled="disabled"><span><?= $block->
+                            escapeHtmlAttr(__('Save')) ?></span>
+                    </button>
+                </div>
+                <div id="popup-modal" style="display:none;">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-login')->toHtml(); ?>
+                </div>
+
+                <div id="popup-modal-signup" style="display:none;">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-newsletter')->toHtml(); ?>
+                </div>
+            </fieldset>
+
+        </form>
+
     </div>
-    <?php
-        $helper = $this->helper("Wcb\CustomerRegistration\Helper\Data");
-        $enabled = $helper->isNewUserEnabled();
-        $sitekey = $helper->getSiteKey();
-        $secretkey = $helper->getSecretKey();
-        if($enabled){
-    ?>
-    <div class="form-group required googleCaptcha">
-            <div class="g-recaptcha required" id="recaptcha"
-                data-sitekey="<?php echo $sitekey;?>">
-            </div>
-                <div style="display:none" id="error-msg">
-                <span><?php echo __('This is a required field.') ?></span>
-            </div>
-        </div>
-<?php
-
-}
-?>
-
-    <div class="field choice newsletterAcceptance">
-        <label for="is_subscribed" class="label newsletter">
-            <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed" data-validate="{required:true}"
-                <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
-                   class="checkbox  input-checkbox required-entry v-validate"/>
-                   <span class="checkmark"> </span>
-            
-                <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
-            </label>
-        </div>
-        <div class="form-group _required ">
-            <label for="privacy_policy" class="newsletter">
-            <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1" title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry"  data-validate="{required:true}">
-            <span class="checkmark"> </span>
-            <?php echo 'Accept the privacy policy' ?> (<a href="javascript:void(0)" id="privacy-policy-ex"><?php echo 'privacy policy'; ?></a>)</label>
-            </div>
-            
-    
-        <input type="hidden" id="company_email" name="company_email" value="">
-
-        <div class="actions-toolbar">
-                <button type="submit" class="action submit primary-button btn160" id="save-button" title="Save" disabled="disabled"><span><?= $block->
-                    escapeHtmlAttr(__('Save')) ?></span>
-                </button>
-        </div>
-        <div id="popup-modal" style="display:none;">
-            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-login')->toHtml();?>
-        </div>
-
-        <div id="popup-modal-signup" style="display:none;">
-            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-newsletter')->toHtml();?>
-        </div>
-    </fieldset>
-            
-    </form>
-
 </div>
-    </div>
 </div>
 <script>
     require([
@@ -408,73 +478,76 @@
         'use strict';
 
         $("#password").passwordStrengthIndicator({
-              "passwordStrengthMeterSelector":"[data-role=strength-meter]",
-              "passwordStrengthMeterLabelSelector":"[data-role=strength-meter-label]"
+            "passwordStrengthMeterSelector": "[data-role=strength-meter]",
+            "passwordStrengthMeterLabelSelector": "[data-role=strength-meter-label]"
         });
     });
 
-    require(['jquery'],function($) {
+    require(['jquery'], function ($) {
         $(document).ready(function () {
             $("#country").prop("disabled", true);
-            $('#confirm_email_address').change(function() {
+            $('#confirm_email_address').change(function () {
                 $('#company_email').val($(this).val());
             });
             $("#company_country").prop("disabled", true);
             $("#daddress_country").prop("disabled", true);
+            $("[name='iaddress[country]']").prop("disabled", true);
             $("#ia_country").prop("disabled", true);
             var da_ckbox = $('#da_same_as_hq_address');
             var ia_ckbox = $('#ia_same_as_hq_address');
-        $('#da_same_as_hq_address').on('click',function () {
-            if (da_ckbox.is(':checked')) {
-            var hq_region_val = $('#region').find(":selected").val();
-            var hq_city_val = $('#city').val();
-            var hq_address_val = $('#street').val();
-            var hq_zip_val = $('#postcode').val();
+            $('#da_same_as_hq_address').on('click', function () {
+                if (da_ckbox.is(':checked')) {
+                    $(".delivery-address-section").find("div.mage-error[generated]").hide();
+                    var hq_region_val = $('#region').find(":selected").val();
+                    var hq_city_val = $('#city').val();
+                    var hq_address_val = $('#street').val();
+                    var hq_zip_val = $('#postcode').val();
 
-                $('#da_region').val(hq_region_val).change();
-                $('#da_city').val(hq_city_val);
-                $('#da_street').val(hq_address_val);
-                $('#da_postcode').val(hq_zip_val);
-                $('#da_region').prop("disabled", true);
-                $('#da_city').prop("disabled", true);
-                $('#da_street').prop("disabled", true);
-                $('#da_postcode').prop("disabled", true);
-            } else {
-                $('#da_region').val('').change();
-                $('#da_city').val('');
-                $('#da_street').val('');
-                $('#da_postcode').val('');
-                $('#da_region').prop("disabled", false);
-                $('#da_city').prop("disabled", false);
-                $('#da_street').prop("disabled", false);
-                $('#da_postcode').prop("disabled", false);
-            }
-        });
-        $('#ia_same_as_hq_address').on('click',function () {
-            if (ia_ckbox.is(':checked')) {
-            var hq_region_val = $('#region').find(":selected").val();
-            var hq_city_val = $('#city').val();
-            var hq_address_val = $('#street').val();
-            var hq_zip_val = $('#postcode').val();
-                $('#ia_region').val(hq_region_val).change();
-                $('#ia_city').val(hq_city_val);
-                $('#ia_street').val(hq_address_val);
-                $('#ia_postcode').val(hq_zip_val);
-                $('#ia_region').prop("disabled", true);
-                $('#ia_city').prop("disabled", true);
-                $('#ia_street').prop("disabled", true);
-                $('#ia_postcode').prop("disabled", true);
-            } else {
-                $('#ia_region').val('').change();
-                $('#ia_city').val('');
-                $('#ia_street').val('');
-                $('#ia_postcode').val('');
-                $('#ia_region').prop("disabled", false);
-                $('#ia_city').prop("disabled", false);
-                $('#ia_street').prop("disabled", false);
-                $('#ia_postcode').prop("disabled", false);
-            }
-        });
+                    $('#da_region').val(hq_region_val).change();
+                    $('#da_city').val(hq_city_val);
+                    $('#da_street').val(hq_address_val);
+                    $('#da_postcode').val(hq_zip_val);
+                    $('#da_region').prop("disabled", true);
+                    $('#da_city').prop("disabled", true);
+                    $('#da_street').prop("disabled", true);
+                    $('#da_postcode').prop("disabled", true);
+                } else {
+                    $('#da_region').val('').change();
+                    $('#da_city').val('');
+                    $('#da_street').val('');
+                    $('#da_postcode').val('');
+                    $('#da_region').prop("disabled", false);
+                    $('#da_city').prop("disabled", false);
+                    $('#da_street').prop("disabled", false);
+                    $('#da_postcode').prop("disabled", false);
+                }
+            });
+            $('#ia_same_as_hq_address').on('click', function () {
+                if (ia_ckbox.is(':checked')) {
+                    $(".invoice-address-section").find("div.mage-error[generated]").hide();
+                    var hq_region_val = $('#region').find(":selected").val();
+                    var hq_city_val = $('#city').val();
+                    var hq_address_val = $('#street').val();
+                    var hq_zip_val = $('#postcode').val();
+                    $('#ia_region').val(hq_region_val).change();
+                    $('#ia_city').val(hq_city_val);
+                    $('#ia_street').val(hq_address_val);
+                    $('#ia_postcode').val(hq_zip_val);
+                    $('#ia_region').prop("disabled", true);
+                    $('#ia_city').prop("disabled", true);
+                    $('#ia_street').prop("disabled", true);
+                    $('#ia_postcode').prop("disabled", true);
+                } else {
+                    $('#ia_region').val('').change();
+                    $('#ia_city').val('');
+                    $('#ia_street').val('');
+                    $('#ia_postcode').val('');
+                    $('#ia_region').prop("disabled", false);
+                    $('#ia_city').prop("disabled", false);
+                    $('#ia_street').prop("disabled", false);
+                    $('#ia_postcode').prop("disabled", false);
+                }
+            });
         });
     });
 </script>
@@ -489,10 +562,13 @@
         "*": {
             "Magento_Customer/js/block-submit-on-send": {
                 "formId": "form-validate"
+            },
+            "Wcb_CustomerRegistration/js/register_common": {
             }
         },
-        ".v-validate": { "Wcb_CustomerRegistration/js/wuerth_reg": {} } 
+        ".v-validate": { "Wcb_CustomerRegistration/js/wuerth_reg": {} }
     }
+
 </script>
 <script>
     require(
@@ -500,8 +576,8 @@
             'jquery',
             'Magento_Ui/js/modal/modal'
         ],
-        function($, modal) {
-            $("#privacy-policy-ex").click(function(e){
+        function ($, modal) {
+            $("#privacy-policy-ex").click(function (e) {
                 var popup = modal(options, $('#popup-modal'));
                 $('#popup-modal').modal('openModal');
             });
@@ -523,8 +599,8 @@
             'jquery',
             'Magento_Ui/js/modal/modal'
         ],
-        function($, modal) {
-            $("#is_subscribed").click(function(e){
+        function ($, modal) {
+            $("#is_subscribed").click(function (e) {
                 var popup = modal(options, $('#popup-modal-signup'));
                 $('#popup-modal-signup').modal('openModal');
             });
@@ -539,73 +615,73 @@
                     text: $.mage.__('I accept'),
                     class: 'accept',
                     click: function () {
-                      if ($('#is_subscribed').is(
-                      ":checked")) {
-                    } else {                        
-                        $('#is_subscribed').attr('checked', 'checked');
-                    }
-                        this.closeModal();
-                    }
-                    
-                },
-                {
-                    text: $.mage.__('I do not accept'),
-                    class: 'notAccept',
-                    click: function () {
                         if ($('#is_subscribed').is(
-                      ":checked")) {
-                        $('#is_subscribed').removeAttr('checked');
-                    } else {                        
-                        $('#is_subscribed').removeAttr('checked');
-                    }
+                            ":checked")) {
+                        } else {
+                            $('#is_subscribed').attr('checked', 'checked');
+                        }
                         this.closeModal();
                     }
-                    
-                }]
+
+                },
+                    {
+                        text: $.mage.__('I do not accept'),
+                        class: 'notAccept',
+                        click: function () {
+                            if ($('#is_subscribed').is(
+                                ":checked")) {
+                                $('#is_subscribed').removeAttr('checked');
+                            } else {
+                                $('#is_subscribed').removeAttr('checked');
+                            }
+                            this.closeModal();
+                        }
+
+                    }]
             };
         }
     );
 </script>
 <script type="text/javascript">
-require(['jquery'], function($) {
-    
+    require(['jquery'], function ($) {
+
         $("#privacy_policy").click(function () {
             $("#save-button").attr("disabled", !this.checked);
         });
         $("#is_subscribed").click(function () {
             $('#is_subscribed').removeAttr('checked');
         });
-});
- </script> 
-<?php 
-    $ajaxurl = $block->getUrl('excustomer/account/verifycompany');
+    });
+</script>
+<?php
+$ajaxurl = $block->getUrl('excustomer/account/verifycompany');
 ?>
 <script type="text/javascript">
-    require(["jquery"],function($) {
-        $(document).ready(function(){
+    require(["jquery"], function ($) {
+        $(document).ready(function () {
             $('#save-button').prop('disabled', true);
-        $('#vat_tax_id').on('change keyup', function () {
-            var tax_value = $("#vat_tax_id").val();
-            var minlength = 11;
-            var customurl = "<?php echo $ajaxurl;?>";
-            if (tax_value.length >= minlength && tax_value != '' && $.isNumeric(tax_value)) {
-                $.ajax({
-                    url: customurl,
-                    type: "GET",
-                    data: {CompanyOib:tax_value},
-                    showLoader: true //use for display loader 
-                }).done(function (data) {
-                    // if (data.success != null) {
-                    //     $('#save-button').prop('disabled', false);
-                    // }                
-                    if (data.success == 'true') { 
-                        alert('gfhgff');
-                        $('#save-button').prop('disabled', true);
-                        $( "#link-error" ).append( "Company OIB already exists. Please enter valid company OIB." );  // set the message as html of span
-                    } 
-                    return true;
-                });
-            }
+            $('#vat_tax_id').on('change keyup', function () {
+                var tax_value = $("#vat_tax_id").val();
+                var minlength = 11;
+                var customurl = "<?php echo $ajaxurl;?>";
+                if (tax_value.length >= minlength && tax_value != '' && $.isNumeric(tax_value)) {
+                    $.ajax({
+                        url: customurl,
+                        type: "GET",
+                        data: {CompanyOib: tax_value},
+                        showLoader: true //use for display loader
+                    }).done(function (data) {
+                        // if (data.success != null) {
+                        //     $('#save-button').prop('disabled', false);
+                        // }
+                        if (data.success == 'true') {
+                            alert('gfhgff');
+                            $('#save-button').prop('disabled', true);
+                            $("#link-error").append("Company OIB already exists. Please enter valid company OIB.");  // set the message as html of span
+                        }
+                        return true;
+                    });
+                }
             });
         });
     });
@@ -617,8 +693,7 @@ require(['jquery'], function($) {
             jQuery('#error-msg').css('color', '#df280a');
             jQuery('#error-msg').css('font-size', 16);
             return false;
-        }
-        else {
+        } else {
             jQuery('#error-msg').css('display', 'none');
         }
     }
