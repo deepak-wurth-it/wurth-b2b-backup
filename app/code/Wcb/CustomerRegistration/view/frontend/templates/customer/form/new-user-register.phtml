@@ -17,9 +17,15 @@
                                    title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>"
                                    class="input-text validate-length minimum-length-11 maximum-length-11 validate-number v-validate"
                                    data-validate="{required:true}">
+                            <div for="vat_tax_id" generated="true"
+                                 class="mage-error"
+                                 id="link-error"
+                                 style="display: block;">
+
+                            </div>
                         </div>
                     </div>
-                    <p id="link-error"></p>
+                    <!--<p id="link-error"></p>-->
                     <div class="field company-name _required">
                         <label class="label" for="company_name">
                             <span><?= $block->escapeHtml(__('Company Name')) ?></span>
@@ -246,7 +252,7 @@
                             <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
                             <div class="control">
                                 <input name="telephone" id="telephone" title="Phone" value=""
-                                       class="in  validate-length minimum-length-11 maximum-length-20 validate-number v-validate"
+                                       class="in  validate-length minimum-length-11 maximum-length-20 validate-ponumber-custom v-validate"
                                        type="text" data-validate="{required:true}">
                             </div>
                         </div>
@@ -429,9 +435,9 @@
                     <label for="is_subscribed" class="label newsletter">
                         <input type="checkbox" name="is_subscribed"
                                title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1"
-                               id="is_subscribed" data-validate="{required:true}"
+                               id="is_subscribed"
                             <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
-                               class="checkbox  input-checkbox required-entry v-validate"/>
+                               class="checkbox input-checkbox v-validate"/>
                         <span class="checkmark"> </span>
 
                         <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
@@ -440,8 +446,7 @@
                 <div class="form-group _required ">
                     <label for="privacy_policy" class="newsletter">
                         <input type="checkbox" id="privacy_policy" name="privacy_policy" value="1"
-                               title="<?php echo 'Accept the privacy policy' ?>" class="checkbox required-entry"
-                               data-validate="{required:true}">
+                               title="<?php echo 'Accept the privacy policy' ?>" class="checkbox">
                         <span class="checkmark"> </span>
                         <?php echo 'Accept the privacy policy' ?> (<a href="javascript:void(0)"
                                                                       id="privacy-policy-ex"><?php echo 'privacy policy'; ?></a>)</label>
@@ -646,7 +651,12 @@
     require(['jquery'], function ($) {
 
         $("#privacy_policy").click(function () {
-            $("#save-button").attr("disabled", !this.checked);
+            if ($('#form-validate').valid()) {
+                $("#save-button").attr("disabled", !this.checked);
+            }else{
+                $("#save-button").attr("disabled", true);
+                return false;
+            }
         });
         $("#is_subscribed").click(function () {
             $('#is_subscribed').removeAttr('checked');
@@ -660,7 +670,7 @@ $ajaxurl = $block->getUrl('excustomer/account/verifycompany');
     require(["jquery"], function ($) {
         $(document).ready(function () {
             $('#save-button').prop('disabled', true);
-            $('#vat_tax_id').on('change keyup', function () {
+            $('#vat_tax_id').on('change', function () {
                 var tax_value = $("#vat_tax_id").val();
                 var minlength = 11;
                 var customurl = "<?php echo $ajaxurl;?>";
@@ -674,10 +684,10 @@ $ajaxurl = $block->getUrl('excustomer/account/verifycompany');
                         // if (data.success != null) {
                         //     $('#save-button').prop('disabled', false);
                         // }
-                        if (data.success == 'true') {
-                            alert('gfhgff');
+                        if (data.success == true) {
                             $('#save-button').prop('disabled', true);
-                            $("#link-error").append("Company OIB already exists. Please enter valid company OIB.");  // set the message as html of span
+                            $("#link-error").html("Company OIB already exists. Please enter valid company OIB.");  // set the message as html of span
+                            $("#link-error").show();
                         }
                         return true;
                     });

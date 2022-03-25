@@ -36,9 +36,17 @@ class VerifyCompany extends \Magento\Framework\App\Action\Action
             ]);
         } elseif ($companyOib != '') {
             $companyDetails = $this->getCompanyId($companyOib);
-
-            $cId = $companyDetails->getId();
-            $success = ($companyDetails->getCompanyName() !='') ? true : false;
+            if ($companyDetails) {
+                $cId = $companyDetails->getId();
+                $success = ($companyDetails->getCompanyName() !='') ? true : false;
+            } else {
+                return $resultJson->setData([
+                    'compid' => '',
+                    'cid' => '',
+                    'html' => '',
+                    'success' => ''
+                ]);
+            }
         }
 
         return $resultJson->setData([
