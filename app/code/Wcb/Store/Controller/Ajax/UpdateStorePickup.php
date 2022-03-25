@@ -6,24 +6,21 @@ namespace Wcb\Store\Controller\Ajax;
 
 class UpdateStorePickup extends \Magento\Framework\App\Action\Action
 {
-    protected $_pageFactory;
     protected $resultJsonFactory;
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Wcb\ApiConnect\Model\SoapClient $soapApiClient,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         \Wcb\Store\Model\AddStoreToQuote $addStoreToQuote
+
     ) {
-        $this->_pageFactory = $pageFactory;
-        $this->_soapApiClient = $soapApiClient;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->addStoreToQuote = $addStoreToQuote;
         return parent::__construct($context);
     }
 
     public function execute()
-    {   $data = true;
+    {   
+        $data = true;
 		$status = "";
 		$storeData = $this->getRequest()->getParams();
 		if($storeData){
@@ -37,8 +34,13 @@ class UpdateStorePickup extends \Magento\Framework\App\Action\Action
 			$data = false;
 		}
         $result = $this->resultJsonFactory->create();
-        $result->setData(array('success' => $data));
+        $result->setData(array('success' => $status));
         return $result;
+    }
+
+    public function getOrder($id)
+    {
+        return $this->orderRepository->get($id);
     }
 
 }
