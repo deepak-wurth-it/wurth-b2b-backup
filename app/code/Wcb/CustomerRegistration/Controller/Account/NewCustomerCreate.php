@@ -1,14 +1,15 @@
 <?php
 namespace Wcb\CustomerRegistration\Controller\Account;
 
-use Magento\Framework\Controller\ResultFactory; 
+use Magento\Framework\Controller\ResultFactory;
+
 class NewCustomerCreate extends \Magento\Framework\App\Action\Action
 {
-	protected $_pageFactory;
+    protected $_pageFactory;
 
-	public function __construct(
-		\Magento\Framework\App\Action\Context $context,
-		\Magento\Framework\View\Result\PageFactory $pageFactory,
+    public function __construct(
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Api\Data\AddressInterfaceFactory $dataAddressFactory,
@@ -16,9 +17,10 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         \Magento\Company\Api\CompanyRepositoryInterface $companyRepository,
         \Magento\Company\Api\Data\CompanyInterface $companyInterface,
         \Magento\Framework\Api\DataObjectHelper $objectHelper,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,    
-        array $data = []){
-		$this->_pageFactory = $pageFactory;
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        array $data = []
+    ) {
+        $this->_pageFactory = $pageFactory;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->dataAddressFactory = $dataAddressFactory;
@@ -28,18 +30,21 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         $this->objectHelper = $objectHelper;
         $this->customerRepository = $customerRepository;
         return parent::__construct($context);
-	}
+    }
 
-	public function execute()
-	{
+    public function execute()
+    {
         $data = $this->getRequest()->getPostValue();
+         /*echo "<pre>";
+         print_r($data);
+         exit;*/
         $this->createCustomer($data);
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $resultRedirect->setPath("customer/account/create");
         return $resultRedirect;
-	}
+    }
 
-        public function createCompany($request, $customerId)
+    public function createCompany($request, $customerId)
     {
         $companyRepo = $this->companyRepository;
         $companyObj = $this->companyInterface;
@@ -49,6 +54,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     "company_email" => $request['confirm_email'],
                     "email" => $request['confirm_email'],
                     "street" => $request['company']['street'],
+                    "vat_tax_id" => $request['company']['vat_tax_id'],
                     "city" => $request['company']['city'],
                     "country_id" => 'HR',
                     "region" => $request['region'],
@@ -66,7 +72,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                 ];
 
         $dataObj->populateWithArray($companyObj, $company, \Magento\Company\Api\Data\CompanyInterface::class);
-        
+
         $companyObj->setNumberOfEmployees($request['company']['no_of_employees']);
         $companyObj->setDivision($request['company']['division']);
         $companyObj->setActivities($request['company']['activities']);
@@ -76,14 +82,15 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
     /** Create customer
      *  Pass customer data as array
      */
-    public function createCustomer($data) {
+    public function createCustomer($data)
+    {
         $store = $this->storeManager->getStore();
         $storeId = $store->getStoreId();
         $websiteId = $this->storeManager->getStore()->getWebsiteId();
         $customer = $this->customerFactory->create();
         $customer->setWebsiteId($websiteId);
         $customer->loadByEmail($data['email']);// load customer by email to check if customer is availalbe or not
-        if(!$customer->getId()){
+        if (!$customer->getId()) {
             /* create customer */
             $customer->setWebsiteId($websiteId)
                     ->setStore($store)
@@ -92,26 +99,27 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     ->setPosition($data['position'])
                     ->setMobile($data['telephone'])
                     ->setPhone($data['telephone'])
-                    ->setCustomerCode($data['telephone'])
+                    ->setTaxvat($data['company']['vat_tax_id'])
+                    //->setCustomerCode($data['telephone'])
+                    ->setCustomerCode("")
                     ->setEmail($data['email'])
                     ->setPassword($data['password']);
             $customerSave = $customer->save();
             $companySave = $this->createCompany($data, $customer->getId());
             $customerId = $customer->getId();
-            if($customerId && $data['company']['division']){
-                $this->updateCustomerGroup($customerId, $data['company']['division']);    
+            if ($customerId && $data['company']['division']) {
+                $this->updateCustomerGroup($customerId, $data['company']['division']);
             }
-            if($customer && $companySave){
+            if ($customer && $companySave) {
                 $this->messageManager->addSuccess(__('Customer and Company created successfully.'));
             }
-            if (array_key_exists('daddress',$data)){
+            if (array_key_exists('daddress', $data)) {
                 $this->saveAddress($data, 'delivery', $customerId);
             }
-            
-            if (array_key_exists('iaddress',$data)){
+
+            if (array_key_exists('iaddress', $data)) {
                 $this->saveAddress($data, 'invoice', $customerId);
             }
-
         } else {
             $this->messageManager->addError(__('This User already exists. Please try to reset your PW and PW Link or contact your Sales Rep.'));
         }
@@ -123,14 +131,22 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
 
         $defaultCountryCode = 'HR';
         $sameAsHeadQuartersDelAd = $sameAsHeadQuartersInvAd = 0;
-        if($type === 'delivery'){
+        if ($type === 'delivery') {
             $addressToSave = 'daddress';
-            $sameAsHeadQuartersDelAd = ($data['daddress']['da_same_as_hq_address'])? 1 : 0;
+            $sameAsHeadQuartersDelAd = isset($data['daddress']['da_same_as_hq_address']) ? 1 : 0;
             $prefix = 'da_';
-        }elseif($type === 'invoice'){
+            if ($sameAsHeadQuartersDelAd == 1) {
+                $prefix = "";
+                $addressToSave = "company";
+            }
+        } elseif ($type === 'invoice') {
             $addressToSave = 'iaddress';
-            $sameAsHeadQuartersInvAd = ($data['iaddress']['ia_same_as_hq_address']) ? 1 : 0;
+            $sameAsHeadQuartersInvAd = isset($data['iaddress']['ia_same_as_hq_address']) ? 1 : 0;
             $prefix = 'ia_';
+            if ($sameAsHeadQuartersInvAd == 1) {
+                $prefix = "";
+                $addressToSave = "company";
+            }
         }
 
         /* save address as customer */
@@ -140,43 +156,46 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         $address->setTelephone($data['telephone']);
 
 //        $street[] = $data[$addressToSave]['street'];//pass street as array
-        $address->setStreet([$data[$addressToSave][$prefix.'street']]);
-        $address->setCity($data[$addressToSave][$prefix."city"]);
+        $address->setStreet([$data[$addressToSave][$prefix . 'street']]);
+        $address->setCity($data[$addressToSave][$prefix . "city"]);
+        $address->setPostcode($data[$addressToSave][$prefix . "postcode"]);
+        if ($prefix == "") {
+            $address->setRegionId($data["region"]);
+        } else {
+            $address->setRegionId($data[$addressToSave][$prefix . "region"]);
+        }
+
         $address->setCountryId($defaultCountryCode);
-        $address->setPostcode($data[$addressToSave][$prefix."postcode"]);
-        $address->setRegionId($data[$addressToSave][$prefix."region"]);
         $address->setIsDefaultShipping($sameAsHeadQuartersDelAd);
         $address->setIsDefaultBilling($sameAsHeadQuartersInvAd);
         $address->setCustomerId($cusId);
-        try
-        {
-            $this->addressRepository->save($address);  
-        }
-        catch (\Exception $e) {
+        try {
+            $this->addressRepository->save($address);
+        } catch (\Exception $e) {
             return __('Error in shipping/billing address.');
         }
     }
 
-     /**
-     * Save Customer group
-     * @param int $customerId
-     * @param int $groupId
-     * @return void
-     */
+    /**
+    * Save Customer group
+    * @param int $customerId
+    * @param int $groupId
+    * @return void
+    */
     public function updateCustomerGroup(int $customerId, int $groupId): void
     {
         $customer = $this->getCustomerById($customerId);
-        
+
         if ($customer) {
             try {
                 $customer->setGroupId($groupId);
                 $this->customerRepository->save($customer);
             } catch (LocalizedException $exception) {
-             $this->logger->error($exception);
+                $this->logger->error($exception);
             }
         }
     }
- 
+
     /**
      * Get Customer By Id
      * @param int $customerId
@@ -190,8 +209,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
             $customer = null;
             $this->logger->error($exception);
         }
- 
+
         return $customer;
-    }   
-    
+    }
 }

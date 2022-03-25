@@ -88,6 +88,11 @@ input[type="text"]:disabled {
 	opacity: 1;
 	border: none;
 }
+#da_region:disabled, #ia_region:disabled {
+    background: rgba(0, 0, 0, 8%);
+    opacity: 1;
+    border: none;
+}
 
 .field-error,
 div.mage-error[generated] {
@@ -1193,7 +1198,10 @@ label.sorter-label {
 	}
 }  
 	span.a2a_svg.a2a_s__default svg path:hover {
-		filter: invert(0%) sepia(48%) saturate(2878%) brightness(104%) contrast(97%);
+		fill: #CC0000;
+	}
+	.a2a_default_style {
+		padding: 0px;
 	}
 	.report-a-bug.modal-popup.modal-slide .modal-footer {
 		border-top: none;
@@ -2076,6 +2084,19 @@ table.ReqListTable
 	}
 }
 
+	// Coupon Popup Start
+	.ampromo-items-content .ampromo-item:hover {
+		background: #ffffff;
+	}
+	.ampromo-items-content .ampromo-title {
+		margin: 0;
+		min-height: 40px;
+	}
+	.ampromo-items-content h2 {
+		margin-left: 35px;
+	}
+	// Coupon Popup End
+
 // Quick order on Cart page start 
 	.checkout-cart-index {
 		.cart-container {
@@ -2119,11 +2140,11 @@ table.ReqListTable
 			font-family: 'wuerthbook';
 			font-size: 1.6rem;
 			color: rgba(0, 0, 0, 0.6);
-			text-align: center;
 			padding: 3px;
 			width: 150px;			
 			cursor: pointer;
 			display:flex;
+			align-items: center;
 		}
 		.csv-icon {
 			margin: 5px 5px 0px 5px;
@@ -2166,6 +2187,9 @@ table.ReqListTable
 .checkout-cart-index {
 	.page-title-wrapper {
 		margin-top: 30px;
+	}
+	button.action.cancel.primary {
+		margin-left: 15px;
 	}
 	.dIcons.remove-cart-item img {
 		margin: 6px 7px 0px 7px;
@@ -4367,6 +4391,7 @@ a.action.print.hidden-print {
 	table-layout: auto;
 	border-collapse: inherit;
 	margin-top: 20px;
+	background: #ffffff;
 	.product-item-photo {
 		border-bottom: 1px solid #d1d1d1;
 		margin: 0 auto 0px;
@@ -5341,6 +5366,9 @@ a.action.print.hidden-print {
 		height: 45px;
 		border: 1px solid rgba(0, 0, 0, 0.12);
 	}
+	.sp_social_share_inline_widget_widget_under_cart {
+		margin-left: -7px;
+	}
 }
 
 #additional h2.product-section-title {
@@ -5590,7 +5618,7 @@ div#reviews {
 	}
 	button.itembug {
 		background: #FFFFFF;
-		border: 1px solid rgba(0, 0, 0, 8%);
+		border: 1px solid rgba(0, 0, 0, 12%);
 		border-radius: 50px;
 		font-family: 'wuerthbold';
 		font-size: 16px;
@@ -5599,7 +5627,8 @@ div#reviews {
 	}
 	.social-block {
 		padding-left: 0px;
-		margin-left: -13px;
+		margin-left: -9px;
+		float: left;
 	}
 	.icon-whatsapp {
 		width: 34px;
@@ -5971,6 +6000,9 @@ div#reviews {
 	}
 	.action.primary:hover{
 		border:none;
+	}
+	.product-image-wrapper {
+		margin-top: 15px;
 	}
 }
 
@@ -6561,6 +6593,12 @@ button#top-cart-btn-checkout:hover {
 }
 .location {
     color: #CC0000;
+    background: url(../images/geo.svg);
+    background-repeat: no-repeat;
+	padding: 0 0 0 16px;
+}
+.location span {
+    color: #CC0000;
 }
 .location img {
     margin: 0px 0px -4px 5px;
@@ -6568,6 +6606,7 @@ button#top-cart-btn-checkout:hover {
 .info-contaner {
     color: #CC0000;
 	font-family: 'wuerthbook';
+	margin-top: 15px;
 }
 .col-md-6.social-block {
     padding-right: 30px;
@@ -6785,6 +6824,10 @@ button#top-cart-btn-checkout:hover {
 	.itemprice.with-vat {
 		width: 13%;
 		padding: 0 0 8px 25px;
+	}
+	 .itemsubtotal.without-vat {
+		width: 13%;
+		padding: 0 0 8px 13px;
 	}
 } // cart page end
 // summery cart start on cart page by amit
@@ -8607,7 +8650,6 @@ print {
 		width: 33.33%;
 	}
 	.product-item-details a.product-item-link {
-		min-height: 69px;
 		display: block;
 	}
 }
@@ -9229,10 +9271,10 @@ print {
 			font-family: 'wuerthbook';
 			font-size: 1.6rem;
 			color: rgba(0, 0, 0, 0.6);
-			text-align: center;
 			padding: 3px;
 			width: 150px;			
 			cursor: pointer;
+			align-items: center;
 		}
 		.column .block-addbysku .block-content .box {
 			width: 100%;
@@ -9624,6 +9666,10 @@ print {
 	//Request a quote end by Amit for view page
 	.delivery-info {
 		  display: block;
+		  .boxgroup {
+			display: block;
+			margin: 10px;
+		}
 		.col-md-6.social-block {
            padding-right: 15px;
         }
@@ -9663,6 +9709,7 @@ print {
 			text-align: right;
 		}
     }
+	
 }
 
 @media (max-width: 767px) and (min-width: 481px) {
@@ -10090,7 +10137,7 @@ print {
 		}
 		button.itembug {
 			background: #FFFFFF;
-			border: 1px solid rgba(0, 0, 0, 0.08);
+			border: 1px solid rgba(0, 0, 0, 12%);
 			border-radius: 50px;
 			font-family: 'wuerthbold';
 			letter-spacing: 0.02em;
@@ -10705,6 +10752,7 @@ print {
 			border: 1px solid rgba(0, 0, 0, 0.12);
 			box-sizing: border-box;
 		}
+		
 	}
 	#additional h2.product-section-title {
 		display: none;
@@ -10874,98 +10922,109 @@ print {
 		  color: rgba(255, 255, 255, 0.87);  
 		 }
 	// Myaccount Navigation end by Amit
-// Terms & Condition PopUp Start By Amit
-.termsCodition{
-	footer.modal-footer {
-		align-items: center;
-		text-align: center;
+	// Terms & Condition PopUp Start By Amit
+	.termsCodition{
+		footer.modal-footer {
+			align-items: center;
+			text-align: center;
+		}
+		button.accept {
+			margin-bottom: 10px;
+		}
+		button.notAccept {
+			margin-top:10px;
+		}
 	}
-	button.accept {
-		margin-bottom: 10px;
+	// Terms & Condition PopUp End By Amit
+	// Favorites Page Start By Amit
+	.wishlist-index-index{
+		main#maincontent {
+			padding-top: 0px;
+		}
+		.account .column.main .toolbar {
+			text-align: left;
+		}
+		.pager {
+			display: flex;
+		}
+		.toolbar-amount {
+			width: 45%;
+			text-align: left;
+		}
+		.primary button.action.update {
+			width: fit-content;
+		}
+		.primary button.action.tocart {
+			width: fit-content;
+			margin: 0 0 10px 10px;
+		}
 	}
-	button.notAccept {
-		margin-top:10px;
+	// Favorites Page End By Amit
+	//Order Template Cart Page Start By Amit
+	.checkout-cart-index {	
+		.cart-container {
+			margin: 0px 0px 40px;
+			border-bottom: 1px solid rgba(0, 0, 0, 12%);
+			padding: 0 0 50px 0px;
+		}
+		.cart-container .block-requisition-list {
+			margin: 0px -77px 0px 0px;
+			width: 35px;
+			padding: 0 3px 0px 0px;
+		}
+		form#negotiable-quote-form {
+			margin: 0px 50px 0px 0px;
+			border: 1px solid rgba(0, 0, 0, 12%);
+		}
+		.checkout-cart-index button.qutoButton.action {
+			height: 24px;
+		}
+		.field._required.ordForm {
+			float: left;
+			width: 100%;
+		}
+		button.action.primary.confirm.OrdSave {
+			float: left;
+			margin: -15px 0px 0px 0;
+			width: auto;
+		}
+		.modal-popup .modal-content, .modal-popup .modal-footer {
+			padding-left: 20px;
+			padding-right: 20px;		
+		}
+		.modal-popup.modal-slide .modal-inner-wrap[class] {
+			background-color: #fff;
+			width: 100%;
+		}
+		.field._required.ordForm {
+			width: 100%;
+			display: flex;
+		}
+		.modal-popup.modal-slide {
+			left: 20px;
+			right: 20px;
+			top: 20px;
+			bottom: 20px;
+		}
+		.fieldset > .field > .label {
+			width: 44%;
+		}
+		.control {
+			width: 65%;
+		} 
+		//Order Template Cart Page End By Amit	
 	}
-}
-// Terms & Condition PopUp End By Amit
-// Favorites Page Start By Amit
-.wishlist-index-index{
-	main#maincontent {
-		padding-top: 0px;
-	}
-	.account .column.main .toolbar {
-		text-align: left;
-	}
-	.pager {
-		display: flex;
-	}
-	.toolbar-amount {
-		width: 45%;
-		text-align: left;
-	}
-	.primary button.action.update {
-		width: fit-content;
-	}
-	.primary button.action.tocart {
-		width: fit-content;
-		margin: 0 0 10px 10px;
-	}
-}
-// Favorites Page End By Amit
-//Order Template Cart Page Start By Amit
-.checkout-cart-index {	
-	.cart-container {
-		margin: 0px 0px 40px;
-		border-bottom: 1px solid rgba(0, 0, 0, 12%);
-		padding: 0 0 50px 0px;
-	}
-	.cart-container .block-requisition-list {
-		margin: 0px -77px 0px 0px;
-		width: 35px;
-		padding: 0 3px 0px 0px;
-	}
-	form#negotiable-quote-form {
-		margin: 0px 50px 0px 0px;
-		border: 1px solid rgba(0, 0, 0, 12%);
-	}
-	.checkout-cart-index button.qutoButton.action {
-		height: 24px;
-	}
-	.field._required.ordForm {
-		float: left;
-		width: 100%;
-	}
-	button.action.primary.confirm.OrdSave {
-		float: left;
-		margin: -15px 0px 0px 0;
-		width: auto;
-	}
-	.modal-popup .modal-content, .modal-popup .modal-footer {
-		padding-left: 20px;
-		padding-right: 20px;		
-	}
-	.modal-popup.modal-slide .modal-inner-wrap[class] {
-		background-color: #fff;
-		width: 100%;
-	}
-	 .field._required.ordForm {
-		width: 100%;
-		display: flex;
-	}
-	.modal-popup.modal-slide {
-		left: 20px;
-		right: 20px;
-		top: 20px;
-		bottom: 20px;
-	}
-	.fieldset > .field > .label {
-		width: 44%;
-	}
-	.control {
-		width: 65%;
-	} 
-	//Order Template Cart Page End By Amit	
-}
+		.product-item-inner.logdIn {
+			margin-top: -15px;
+		}
+
+		.ampromo-items-content h2 {
+			margin-left: 5px;
+			margin-top: 20px;
+		}
+
+
+
 }
 
 //---------------------------------------------------------	
@@ -11260,7 +11319,7 @@ margin-top: 10px;
 	}
 	.load-order button.action.primary {
 		width: 150px;
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 50px;
 		border: none;
 		color: #ffffff;
@@ -11313,7 +11372,7 @@ margin-top: 10px;
 		color: #CC0000;
 	}
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11405,21 +11464,21 @@ margin-top: 10px;
 	margin-top: 10px;
 }
   .apply {
-	background: #0093DD;
+	background: @general_link_hover_color_cyan;
 	border-radius: 20px;			
 	text-align: center;
 	width:80px;
 	margin-right: 15px;
 }
   .show {
-	background: #CC0000;
+	background: @general_price_color;
 	border-radius: 20px;
 	text-align: center;			
 	width:78px;
 	margin-right: 15px;
 }
 .delete {
-	background: #CC0000;
+	background: @general_price_color;
 	border-radius: 20px;
 	text-align: center;			
 	width:83px;
@@ -11480,10 +11539,10 @@ margin-top: 10px;
 .sales-history {	
 
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}	
@@ -11501,10 +11560,10 @@ margin-top: 10px;
 		padding-right: 46px;
 	}
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @color-white-smoke;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -11553,13 +11612,13 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11608,16 +11667,16 @@ margin-top: 10px;
 .sales-history-popup {	
 
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}	
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
 		color: #ffffff;
 		height: 26px;		
@@ -11634,7 +11693,7 @@ margin-top: 10px;
 	}
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11682,13 +11741,12 @@ margin-top: 10px;
 .ios-overview {	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 16px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
 	}
 	table.table-content {
-		background: #FFFFFF;
+		background: @general_bg_color;
 		width: 100%;
 	}
 	table.table-content td {
@@ -11754,7 +11812,7 @@ margin-top: 10px;
 	
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11793,7 +11851,6 @@ margin-top: 10px;
 .undelivered-lines {	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 16px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
@@ -11803,10 +11860,10 @@ margin-top: 10px;
 		padding: 10px;
 	}
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}	
@@ -11824,19 +11881,19 @@ margin-top: 10px;
 		padding-right: 46px;
 	}
 	button.cancel-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
 		cursor: pointer;
 	}
 	button.load-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
-		color: #ffffff;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
+		color: @general_bg_color;
 		height: 45px;
 		font-family: 'wuerthbook';
 		font-size: 16px;
@@ -11883,13 +11940,13 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11931,16 +11988,15 @@ margin-top: 10px;
 	.trade-agreement {	
 		.sales-title {
 			font-family: 'wuerthbold';
-			font-weight: bold;
 			font-size: 16px;
 			color: rgba(0, 0, 0, 0.87);
 			padding: 0px 0px 20px 0px;
 		}
 		button.add-to-basket {
-			background: #0093DD;
-			border: 1px solid #0093DD;
+			background: @general_link_hover_color_cyan;
+			border: 1px solid @general_link_hover_color_cyan;
 			border-radius: 20px;
-			color: #ffffff;
+			color: @general_bg_color;
 			height: 26px;		
 			font-family: 'wuerthbook';
 			font-size: 14px;
@@ -12000,13 +12056,13 @@ margin-top: 10px;
 		.attribute.last-order {
 			font-family: 'wuerthbook';
 			font-size: 16px;
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			cursor: pointer;
 		}
 		
 		
 		.item.item-container {
-			background: ffffff;
+			background: @general_bg_color;
 			list-style:none;
 		} 
 
@@ -12075,7 +12131,7 @@ margin-top: 10px;
 			cursor: pointer;
 		  }
 		  .vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		  .tooltip .tooltiptext {
@@ -12086,7 +12142,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 220px;
 			height: 70px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
@@ -12124,16 +12180,15 @@ margin-top: 10px;
 	.confirm-orders {	
 		.sales-title {
 			font-family: 'wuerthbold';
-			font-weight: bold;
 			font-size: 16px;
 			color: rgba(0, 0, 0, 0.87);
 			padding: 0px 0px 20px 0px;
 		}
 		button.add-to-basket {
-			background: #0093DD;
-			border: 1px solid #0093DD;
+			background: @general_link_hover_color_cyan;
+			border: 1px solid @general_link_hover_color_cyan;
 			border-radius: 20px;
-			color: #ffffff;
+			color: @color-white-smoke;
 			height: 26px;		
 			font-family: 'wuerthbook';
 			font-size: 14px;
@@ -12193,13 +12248,13 @@ margin-top: 10px;
 		.attribute.last-order {
 			font-family: 'wuerthbook';
 			font-size: 16px;
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			cursor: pointer;
 		}
 		
 		
 		.item.item-container {
-			background: ffffff;
+			background: @general_bg_color;
 			list-style:none;
 		} 
 
@@ -12295,7 +12350,7 @@ margin-top: 10px;
 			cursor: pointer;
 		  }
 		  .vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		  .tooltip .tooltiptext {
@@ -12306,7 +12361,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 220px;
 			height: 70px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
@@ -12344,16 +12399,15 @@ margin-top: 10px;
 	.order-no {	
 		.sales-title {
 			font-family: 'wuerthbold';
-			font-weight: bold;
 			font-size: 16px;
 			color: rgba(0, 0, 0, 0.87);
 			padding: 0px 0px 20px 0px;
 		}
 		button.add-to-basket {
-			background: #0093DD;
-			border: 1px solid #0093DD;
+			background: @general_link_hover_color_cyan;
+			border: 1px solid @general_link_hover_color_cyan;
 			border-radius: 20px;
-			color: #ffffff;
+			color: @general_bg_color;
 			height: 26px;		
 			font-family: 'wuerthbook';
 			font-size: 14px;
@@ -12422,7 +12476,7 @@ margin-top: 10px;
 		
 		
 		.item.item-container {
-			background: ffffff;
+			background: @general_bg_color;
 			list-style:none;
 		} 
 
@@ -12518,7 +12572,7 @@ margin-top: 10px;
 			cursor: pointer;
 		  }
 		  .vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		  .tooltip .tooltiptext {
@@ -12529,7 +12583,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 220px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
 		  }
@@ -12560,7 +12614,7 @@ margin-top: 10px;
 		}
 	}
 	// Order No Page end by Amit
-
+	
   
 } // responsive end
 
@@ -12580,7 +12634,7 @@ margin-top: 10px;
   .item-sub-container {
 		display: grid;
 		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
-		background: #fff;
+		background: @general_bg_color;
 		margin: 0px;
 		border-bottom:solid 1px rgba(0, 0, 0, 12%);
 		align-items: center;
@@ -12599,7 +12653,7 @@ margin-top: 10px;
 		  color: rgba(0, 0, 0, 0.87);
 	  }
 	  .collection-container>.item-sub-container:first-child {
-		  background-color: #fff;
+		  background-color: @general_bg_color;
 		  font-family: 'wuerthbold';
 		  font-size: 14px;
 		  color: rgba(0, 0, 0, 0.87);
@@ -12642,7 +12696,7 @@ margin-top: 10px;
   .item-sub-container {
 		display: grid;
 		grid-template-columns: 3fr 3fr 7fr 2fr 3fr 6fr;
-		background: #fff;
+		background: @general_bg_color;
 		margin: 0px;
 		border-bottom:solid 1px rgba(0, 0, 0, 12%);
 		align-items: center;
@@ -12661,7 +12715,7 @@ margin-top: 10px;
 		  color: rgba(0, 0, 0, 0.87);
 	  }
 	  .collection-container>.item-sub-container:first-child {
-		  background-color: #fff;
+		  background-color: @general_bg_color;
 		  font-family: 'wuerthbold';
 		  font-size: 14px;
 		  color: rgba(0, 0, 0, 0.87);
@@ -12685,7 +12739,7 @@ margin-top: 10px;
 	.item-container {
 			display: grid;
 			grid-template-columns: 1fr 1fr 3fr 2fr 2fr 2fr 2fr 2fr 2fr;
-			background: ffffff;
+			background: @general_bg_color;
 			margin: 0px;
 			align-items: center;
 			padding: 10px 5px;
@@ -12694,10 +12748,10 @@ margin-top: 10px;
 	}
 	.load-order button.action.primary {
 		width: 150px;
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 50px;
 		border: none;
-		color: #ffffff;
+		color: @general_bg_color;
 	}
 	.field-date .control .sub-label {
 		width: auto;
@@ -12720,12 +12774,12 @@ margin-top: 10px;
 	
 	.form-control {
 		height: 32px;
-		background-color: #ffffff;
+		background-color: @general_bg_color;
 		z-index: 9999999;
 	}
 	
 	.form-control:focus {
-		background-color: #ffffff;
+		background-color: @general_bg_color;
 		box-shadow: none;
 		border-color: #ccc;
 	}
@@ -12756,7 +12810,7 @@ margin-top: 10px;
 	}
 	li.item.current {
 		width: 35px;
-		background: #0093DD;
+		background: @general_link_hover_color_cyan;
 	}
 
 	.my-orders-search-advanced .field-50:nth-child(even) {
@@ -12766,18 +12820,18 @@ margin-top: 10px;
 
 	.current .page span {
 		font-family:'wuerthbook';
-		color: #ffffff;
+		color: @general_bg_color;
 	}
 	.pages .item {		
 		background: rgba(0, 0, 0, 0.08);
 		width: 35px;
 	}
 	li.item.pages-item-previous {
-		background: #ffffff;
+		background: @general_bg_color;
 		width: 35px;
 	}
 	li.item.pages-item-next{
-		background: #ffffff;
+		background: @general_bg_color;
 		width: 35px;
 	}
 		.down-arrow {
@@ -12827,15 +12881,14 @@ margin-top: 10px;
 		text-decoration-line: underline;
 	}
 	.attribute.follow-order a {
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 	}
 	.details-botton{
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 16px;
 	}
 	.details-botton a{
-		color: #CC0000;
+		color: @general_price_color;
 	}
 	  ol.collection.collection-container {
 		padding: 0;
@@ -12889,7 +12942,7 @@ margin-top: 10px;
 	  .item-sub-container {
 			display: grid;
 			grid-template-columns: 1fr 1fr 4fr 1fr 4fr 3fr;
-			background: #fff;
+			background: @general_bg_color;
 			margin: 0px;
 			border-bottom:solid 1px rgba(0, 0, 0, 12%);
 			align-items: center;
@@ -12908,7 +12961,7 @@ margin-top: 10px;
 			  color: rgba(0, 0, 0, 0.87);
 		  }
 		  .collection-container>.item-sub-container:first-child {
-			  background-color: #fff;
+			  background-color: @general_bg_color;
 			  font-family: 'wuerthbold';
 			  font-size: 14px;
 			  color: rgba(0, 0, 0, 0.87);
@@ -12930,21 +12983,21 @@ margin-top: 10px;
 			align-items: center;
 		}
 		  .apply {
-			background: #0093DD;
+			background: @general_link_hover_color_cyan;
 			border-radius: 20px;			
 			text-align: center;
 			width:80px;
 			margin-right: 30px;
 		}
 		  .show {
-			background: #CC0000;
+			background: @general_price_color;
 			border-radius: 20px;
 			text-align: center;			
 			width:78px;
 			margin-right: 30px;
 		}
 		.delete {
-			background: #CC0000;
+			background: @general_price_color;
 			border-radius: 20px;
 			text-align: center;			
 			width:83px;
@@ -12953,7 +13006,7 @@ margin-top: 10px;
 		.show, .delete, .apply span {
 			font-family: 'wuerthbold';
 			font-size: 14px;
-			color: #FFFFFF;
+			color: @general_bg_color;
 			cursor:pointer;
 		}
 		.xpad {			
@@ -12970,7 +13023,7 @@ margin-top: 10px;
 	.item-container {
 			display: grid;
 			grid-template-columns: 10% 10% 19% 12% 12% 11% 11% 15%;
-			background: ffffff;
+			background: @general_bg_color;
 			margin: 0px;
 			align-items: center;
 			padding: 10px 5px;
@@ -13015,14 +13068,14 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}
@@ -13030,10 +13083,10 @@ margin-top: 10px;
 		text-align:center;
 	}	
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13092,7 +13145,7 @@ margin-top: 10px;
 	.item-container {
 			display: grid;
 			grid-template-columns: 6rem 10rem 16rem 10rem 8rem 12rem 10rem 16rem;
-			background: ffffff;
+			background: @general_bg_color;
 			margin: 0px;
 			align-items: center;
 			padding: 10px 5px;
@@ -13126,14 +13179,14 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}
@@ -13141,10 +13194,10 @@ margin-top: 10px;
 		text-align:center;
 	}	
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13188,15 +13241,13 @@ margin-top: 10px;
 .ios-overview{	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 24px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
 	}
 	table.table-content, tr, td {
-		background: #FFFFFF;
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		box-sizing: border-box;
+		background: @general_bg_color;
+		border: 1px solid rgba(0, 0, 0, 8%);
 		width: 50%;
 	}
 	.financial-info {
@@ -13208,9 +13259,8 @@ margin-top: 10px;
 	.item-container {
 		display: grid;
 		grid-template-columns: 5% 5% 11% 13% 11% 11% 9% 10% 13% 12%;
-		background: ffffff;
+		background: @general_bg_color;
 		margin: 0px;
-		align-items: center;
 		padding: 10px 5px;
 		font-family: 'wuerthbook';
 		border-bottom: 1px solid #DEDEED;
@@ -13249,7 +13299,7 @@ margin-top: 10px;
 .attribute.last-order {
 	font-family: 'wuerthbook';
 	font-size: 16px;
-	color: #0093DD;
+	color: @general_link_hover_color_cyan;
 	cursor: pointer;
 }
   ol.collection.collection-container {
@@ -13288,7 +13338,6 @@ margin-top: 10px;
 	}
 	.filter{
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 18px;
 		color: rgba(0, 0, 0, 0.87);
 	}
@@ -13306,22 +13355,21 @@ margin-top: 10px;
 		font-family: 'wuerthbook';
 		font-size: 16px;
 		border: 1px solid #DEDEDE;
-		box-sizing: border-box;
 		border-radius: 4px;
 		color: rgba(0, 0, 0, 0.87);
 		height:35px;
 	}
 	.btn-months:hover {
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 4px;
-		color:#ffffff;
+		color: @general_bg_color;
 	}
 	.btn-months.current{
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 4px;
-		color:#ffffff;
+		color: @general_bg_color;
 	}
 	input.input-date {
 		width: 127px;
@@ -13330,9 +13378,9 @@ margin-top: 10px;
 		padding: 10px 0px 20px 0px;
 	}
 	button.load-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
-		color: #ffffff;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
+		color: @general_bg_color;
 		height: 45px;
 		font-family: 'wuerthbook';
 		font-size: 16px;
@@ -13344,7 +13392,7 @@ margin-top: 10px;
 	.item-container {
 		display: grid;
 		grid-template-columns: 4% 9% 11% 12% 9% 10% 14% 11% 9% 11%;
-		background: ffffff;
+		background: @general_bg_color;
 		margin: 0px;
 		align-items: center;
 		padding: 10px 5px;
@@ -13388,10 +13436,10 @@ margin-top: 10px;
 	}
 
 	button.cancel-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13437,7 +13485,6 @@ margin-top: 10px;
 .trade-agreement{	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 24px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
@@ -13449,10 +13496,10 @@ margin-top: 10px;
 		margin-top: 20px;
 	}
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13472,7 +13519,7 @@ margin-top: 10px;
 	.item-container {
 		display: grid;
 		grid-template-columns: 12% 12% 20% 11% 11% 11% 11% 14%;
-		background: ffffff;
+		background: @general_bg_color;
 		margin: 0px;
 		align-items: center;
 		padding: 10px 5px;
@@ -13522,7 +13569,7 @@ margin-top: 10px;
 .attribute.last-order {
 	font-family: 'wuerthbook';
 	font-size: 16px;
-	color: #0093DD;
+	color: @general_link_hover_color_cyan;
 	cursor: pointer;
 }
   ol.collection.collection-container {
@@ -13587,7 +13634,7 @@ margin-top: 10px;
 	cursor: pointer;
   }
   .vpc {
-    color: #0093DD;
+    color: @general_link_hover_color_cyan;
     text-decoration-line: underline;
 }  
   .tooltip .tooltiptext {
@@ -13598,7 +13645,7 @@ margin-top: 10px;
     top: 105%;
     left: -44%;
     margin-left: -60px;
-    background: #FFFFFF;
+    background: @general_bg_color;
     width: 220px;
     height: 70px;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -13635,7 +13682,6 @@ margin-top: 10px;
 		.confirm-orders{	
 			.sales-title {
 				font-family: 'wuerthbold';
-				font-weight: bold;
 				font-size: 24px;
 				color: rgba(0, 0, 0, 0.87);
 				padding: 0px 0px 20px 0px;
@@ -13643,8 +13689,8 @@ margin-top: 10px;
 			
 			.item-container {
 				display: grid;
-				grid-template-columns: 12rem 13rem 12rem 12rem 12rem 12rem 12rem 12rem 16rem;
-				background: ffffff;
+				grid-template-columns: 11% 12% 11% 11% 11% 12% 10% 10% 12%;
+				background: @general_bg_color;
 				margin: 0px;
 				align-items: center;
 				padding: 10px 5px;
@@ -13795,7 +13841,6 @@ margin-top: 10px;
 		.order-no{	
 			.sales-title {
 				font-family: 'wuerthbold';
-				font-weight: bold;
 				font-size: 24px;
 				color: rgba(0, 0, 0, 0.87);
 				padding: 0px 0px 20px 0px;
@@ -13803,8 +13848,8 @@ margin-top: 10px;
 			
 			.item-container {
 				display: grid;
-				grid-template-columns: 10rem 14rem 19rem 12rem 15rem 10rem 14rem 11rem 8rem;
-				background: ffffff;
+				grid-template-columns: 9% 12% 17% 9% 14% 11% 13% 9% 7%;
+				background: @general_bg_color;
 				margin: 0px;
 				align-items: center;
 				padding: 10px 5px;
@@ -13903,8 +13948,11 @@ margin-top: 10px;
 		.attribute.last-order {
 			font-family: 'wuerthbook';
 			font-size: 16px;
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			cursor: pointer;
+		}
+		.attribute.without-tax {
+			width: 80%;
 		}
 		ol.collection.collection-container {
 			padding: 0;
@@ -13940,7 +13988,7 @@ margin-top: 10px;
 			cursor: pointer;
 		}
 		.vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		.tooltip .tooltiptext {
@@ -13951,7 +13999,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 240px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
 		}
@@ -13989,13 +14037,24 @@ margin-top: 10px;
 } // min-width 913px
   
 
-@media screen and (min-width:1300px) and (max-width:2000px) {
+@media screen and (min-width:1300px) and (max-width:2100px) {
 	.row.text-center h3 {
 		max-width: 81%;
 		margin: auto;
 		text-align: center;
 	}
 	.eshopOnlineprocess ul {
-		padding-left: 40px;
+		width: 68%;
+		margin: auto;
+		margin-top: 20px;
+	}
+}
+
+@media screen and (min-width:768px) and (max-width:820px) {
+	.product-item-inner.logdIn {
+		margin-top: 39px;
+	}
+	.ampromo-items-content h2 {
+		margin-left: 0px;
 	}
 }
