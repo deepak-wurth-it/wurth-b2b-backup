@@ -136,12 +136,12 @@ if ($block->getHelperData()->isEnabled() && $items && $items->getSize()): ?>
         </script>
         <?php echo $block->getPagerHtml() ?>
     </div>
-    <script>
-        require(['jquery', 'owlcarousel'], function ($) {
-            $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
-            $(".custom-bpslider").insertBefore(".page-footer");
-        });
-    </script>
+        <script>
+            require(['jquery', 'owlcarousel'], function ($) {
+                $('#mp-list-items-<?php echo /** @noEscape */ $blockId ?>').owlCarousel(<?php echo /** @noEscape */ $block->getAllOptions()?>);
+                $(".custom-bpslider").insertBefore(".page-footer");
+            });
+        </script>
     </section>
 <?php endif; ?>
 

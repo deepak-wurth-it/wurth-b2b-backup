@@ -2188,6 +2188,9 @@ table.ReqListTable
 	.page-title-wrapper {
 		margin-top: 30px;
 	}
+	.custom-bpslider{
+		display:none;
+	}
 	button.action.cancel.primary {
 		margin-left: 15px;
 	}
@@ -6119,7 +6122,7 @@ div#reviews {
 	}
 	.owl-item {
 		width: 165.5px !important;
-		margin-right: 27px !important;
+		margin-right: 30px !important;
 	}
 }
 
@@ -6951,7 +6954,7 @@ form#form-validate {
 			right: -35px;
 			text-align: center;
 			top: 2px;
-			width: 24px;
+			min-width: 24px;
 			margin: 0;
 			&.empty {
 				display: block;
@@ -11319,7 +11322,7 @@ margin-top: 10px;
 	}
 	.load-order button.action.primary {
 		width: 150px;
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 50px;
 		border: none;
 		color: #ffffff;
@@ -11372,7 +11375,7 @@ margin-top: 10px;
 		color: #CC0000;
 	}
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11464,21 +11467,21 @@ margin-top: 10px;
 	margin-top: 10px;
 }
   .apply {
-	background: #0093DD;
+	background: @general_link_hover_color_cyan;
 	border-radius: 20px;			
 	text-align: center;
 	width:80px;
 	margin-right: 15px;
 }
   .show {
-	background: #CC0000;
+	background: @general_price_color;
 	border-radius: 20px;
 	text-align: center;			
 	width:78px;
 	margin-right: 15px;
 }
 .delete {
-	background: #CC0000;
+	background: @general_price_color;
 	border-radius: 20px;
 	text-align: center;			
 	width:83px;
@@ -11539,10 +11542,10 @@ margin-top: 10px;
 .sales-history {	
 
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}	
@@ -11560,10 +11563,10 @@ margin-top: 10px;
 		padding-right: 46px;
 	}
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @color-white-smoke;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -11612,13 +11615,13 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11667,16 +11670,16 @@ margin-top: 10px;
 .sales-history-popup {	
 
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}	
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
 		color: #ffffff;
 		height: 26px;		
@@ -11693,7 +11696,7 @@ margin-top: 10px;
 	}
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11741,13 +11744,12 @@ margin-top: 10px;
 .ios-overview {	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 16px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
 	}
 	table.table-content {
-		background: #FFFFFF;
+		background: @general_bg_color;
 		width: 100%;
 	}
 	table.table-content td {
@@ -11813,7 +11815,7 @@ margin-top: 10px;
 	
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11852,7 +11854,6 @@ margin-top: 10px;
 .undelivered-lines {	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 16px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
@@ -11862,10 +11863,10 @@ margin-top: 10px;
 		padding: 10px;
 	}
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}	
@@ -11883,19 +11884,19 @@ margin-top: 10px;
 		padding-right: 46px;
 	}
 	button.cancel-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
 		cursor: pointer;
 	}
 	button.load-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
-		color: #ffffff;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
+		color: @general_bg_color;
 		height: 45px;
 		font-family: 'wuerthbook';
 		font-size: 16px;
@@ -11942,13 +11943,13 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	
 	
 	.item.item-container {
-		background: ffffff;
+		background: @general_bg_color;
 		list-style:none;
 	} 
 
@@ -11990,16 +11991,15 @@ margin-top: 10px;
 	.trade-agreement {	
 		.sales-title {
 			font-family: 'wuerthbold';
-			font-weight: bold;
 			font-size: 16px;
 			color: rgba(0, 0, 0, 0.87);
 			padding: 0px 0px 20px 0px;
 		}
 		button.add-to-basket {
-			background: #0093DD;
-			border: 1px solid #0093DD;
+			background: @general_link_hover_color_cyan;
+			border: 1px solid @general_link_hover_color_cyan;
 			border-radius: 20px;
-			color: #ffffff;
+			color: @general_bg_color;
 			height: 26px;		
 			font-family: 'wuerthbook';
 			font-size: 14px;
@@ -12059,13 +12059,13 @@ margin-top: 10px;
 		.attribute.last-order {
 			font-family: 'wuerthbook';
 			font-size: 16px;
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			cursor: pointer;
 		}
 		
 		
 		.item.item-container {
-			background: ffffff;
+			background: @general_bg_color;
 			list-style:none;
 		} 
 
@@ -12134,7 +12134,7 @@ margin-top: 10px;
 			cursor: pointer;
 		  }
 		  .vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		  .tooltip .tooltiptext {
@@ -12145,7 +12145,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 220px;
 			height: 70px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
@@ -12183,16 +12183,15 @@ margin-top: 10px;
 	.confirm-orders {	
 		.sales-title {
 			font-family: 'wuerthbold';
-			font-weight: bold;
 			font-size: 16px;
 			color: rgba(0, 0, 0, 0.87);
 			padding: 0px 0px 20px 0px;
 		}
 		button.add-to-basket {
-			background: #0093DD;
-			border: 1px solid #0093DD;
+			background: @general_link_hover_color_cyan;
+			border: 1px solid @general_link_hover_color_cyan;
 			border-radius: 20px;
-			color: #ffffff;
+			color: @color-white-smoke;
 			height: 26px;		
 			font-family: 'wuerthbook';
 			font-size: 14px;
@@ -12252,13 +12251,13 @@ margin-top: 10px;
 		.attribute.last-order {
 			font-family: 'wuerthbook';
 			font-size: 16px;
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			cursor: pointer;
 		}
 		
 		
 		.item.item-container {
-			background: ffffff;
+			background: @general_bg_color;
 			list-style:none;
 		} 
 
@@ -12354,7 +12353,7 @@ margin-top: 10px;
 			cursor: pointer;
 		  }
 		  .vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		  .tooltip .tooltiptext {
@@ -12365,7 +12364,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 220px;
 			height: 70px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
@@ -12403,16 +12402,15 @@ margin-top: 10px;
 	.order-no {	
 		.sales-title {
 			font-family: 'wuerthbold';
-			font-weight: bold;
 			font-size: 16px;
 			color: rgba(0, 0, 0, 0.87);
 			padding: 0px 0px 20px 0px;
 		}
 		button.add-to-basket {
-			background: #0093DD;
-			border: 1px solid #0093DD;
+			background: @general_link_hover_color_cyan;
+			border: 1px solid @general_link_hover_color_cyan;
 			border-radius: 20px;
-			color: #ffffff;
+			color: @general_bg_color;
 			height: 26px;		
 			font-family: 'wuerthbook';
 			font-size: 14px;
@@ -12481,7 +12479,7 @@ margin-top: 10px;
 		
 		
 		.item.item-container {
-			background: ffffff;
+			background: @general_bg_color;
 			list-style:none;
 		} 
 
@@ -12577,7 +12575,7 @@ margin-top: 10px;
 			cursor: pointer;
 		  }
 		  .vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		  .tooltip .tooltiptext {
@@ -12588,7 +12586,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 220px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
 		  }
@@ -12639,7 +12637,7 @@ margin-top: 10px;
   .item-sub-container {
 		display: grid;
 		grid-template-columns: 2fr 4fr 6fr 9fr 3fr 6fr 5fr 5fr;
-		background: #fff;
+		background: @general_bg_color;
 		margin: 0px;
 		border-bottom:solid 1px rgba(0, 0, 0, 12%);
 		align-items: center;
@@ -12658,7 +12656,7 @@ margin-top: 10px;
 		  color: rgba(0, 0, 0, 0.87);
 	  }
 	  .collection-container>.item-sub-container:first-child {
-		  background-color: #fff;
+		  background-color: @general_bg_color;
 		  font-family: 'wuerthbold';
 		  font-size: 14px;
 		  color: rgba(0, 0, 0, 0.87);
@@ -12701,7 +12699,7 @@ margin-top: 10px;
   .item-sub-container {
 		display: grid;
 		grid-template-columns: 3fr 3fr 7fr 2fr 3fr 6fr;
-		background: #fff;
+		background: @general_bg_color;
 		margin: 0px;
 		border-bottom:solid 1px rgba(0, 0, 0, 12%);
 		align-items: center;
@@ -12720,7 +12718,7 @@ margin-top: 10px;
 		  color: rgba(0, 0, 0, 0.87);
 	  }
 	  .collection-container>.item-sub-container:first-child {
-		  background-color: #fff;
+		  background-color: @general_bg_color;
 		  font-family: 'wuerthbold';
 		  font-size: 14px;
 		  color: rgba(0, 0, 0, 0.87);
@@ -12744,7 +12742,7 @@ margin-top: 10px;
 	.item-container {
 			display: grid;
 			grid-template-columns: 1fr 1fr 3fr 2fr 2fr 2fr 2fr 2fr 2fr;
-			background: ffffff;
+			background: @general_bg_color;
 			margin: 0px;
 			align-items: center;
 			padding: 10px 5px;
@@ -12753,10 +12751,10 @@ margin-top: 10px;
 	}
 	.load-order button.action.primary {
 		width: 150px;
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 50px;
 		border: none;
-		color: #ffffff;
+		color: @general_bg_color;
 	}
 	.field-date .control .sub-label {
 		width: auto;
@@ -12779,12 +12777,12 @@ margin-top: 10px;
 	
 	.form-control {
 		height: 32px;
-		background-color: #ffffff;
+		background-color: @general_bg_color;
 		z-index: 9999999;
 	}
 	
 	.form-control:focus {
-		background-color: #ffffff;
+		background-color: @general_bg_color;
 		box-shadow: none;
 		border-color: #ccc;
 	}
@@ -12815,7 +12813,7 @@ margin-top: 10px;
 	}
 	li.item.current {
 		width: 35px;
-		background: #0093DD;
+		background: @general_link_hover_color_cyan;
 	}
 
 	.my-orders-search-advanced .field-50:nth-child(even) {
@@ -12825,18 +12823,18 @@ margin-top: 10px;
 
 	.current .page span {
 		font-family:'wuerthbook';
-		color: #ffffff;
+		color: @general_bg_color;
 	}
 	.pages .item {		
 		background: rgba(0, 0, 0, 0.08);
 		width: 35px;
 	}
 	li.item.pages-item-previous {
-		background: #ffffff;
+		background: @general_bg_color;
 		width: 35px;
 	}
 	li.item.pages-item-next{
-		background: #ffffff;
+		background: @general_bg_color;
 		width: 35px;
 	}
 		.down-arrow {
@@ -12886,15 +12884,14 @@ margin-top: 10px;
 		text-decoration-line: underline;
 	}
 	.attribute.follow-order a {
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 	}
 	.details-botton{
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 16px;
 	}
 	.details-botton a{
-		color: #CC0000;
+		color: @general_price_color;
 	}
 	  ol.collection.collection-container {
 		padding: 0;
@@ -12948,7 +12945,7 @@ margin-top: 10px;
 	  .item-sub-container {
 			display: grid;
 			grid-template-columns: 1fr 1fr 4fr 1fr 4fr 3fr;
-			background: #fff;
+			background: @general_bg_color;
 			margin: 0px;
 			border-bottom:solid 1px rgba(0, 0, 0, 12%);
 			align-items: center;
@@ -12967,7 +12964,7 @@ margin-top: 10px;
 			  color: rgba(0, 0, 0, 0.87);
 		  }
 		  .collection-container>.item-sub-container:first-child {
-			  background-color: #fff;
+			  background-color: @general_bg_color;
 			  font-family: 'wuerthbold';
 			  font-size: 14px;
 			  color: rgba(0, 0, 0, 0.87);
@@ -12989,21 +12986,21 @@ margin-top: 10px;
 			align-items: center;
 		}
 		  .apply {
-			background: #0093DD;
+			background: @general_link_hover_color_cyan;
 			border-radius: 20px;			
 			text-align: center;
 			width:80px;
 			margin-right: 30px;
 		}
 		  .show {
-			background: #CC0000;
+			background: @general_price_color;
 			border-radius: 20px;
 			text-align: center;			
 			width:78px;
 			margin-right: 30px;
 		}
 		.delete {
-			background: #CC0000;
+			background: @general_price_color;
 			border-radius: 20px;
 			text-align: center;			
 			width:83px;
@@ -13012,7 +13009,7 @@ margin-top: 10px;
 		.show, .delete, .apply span {
 			font-family: 'wuerthbold';
 			font-size: 14px;
-			color: #FFFFFF;
+			color: @general_bg_color;
 			cursor:pointer;
 		}
 		.xpad {			
@@ -13029,7 +13026,7 @@ margin-top: 10px;
 	.item-container {
 			display: grid;
 			grid-template-columns: 10% 10% 19% 12% 12% 11% 11% 15%;
-			background: ffffff;
+			background: @general_bg_color;
 			margin: 0px;
 			align-items: center;
 			padding: 10px 5px;
@@ -13074,14 +13071,14 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}
@@ -13089,10 +13086,10 @@ margin-top: 10px;
 		text-align:center;
 	}	
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13151,7 +13148,7 @@ margin-top: 10px;
 	.item-container {
 			display: grid;
 			grid-template-columns: 6rem 10rem 16rem 10rem 8rem 12rem 10rem 16rem;
-			background: ffffff;
+			background: @general_bg_color;
 			margin: 0px;
 			align-items: center;
 			padding: 10px 5px;
@@ -13185,14 +13182,14 @@ margin-top: 10px;
 	.attribute.last-order {
 		font-family: 'wuerthbook';
 		font-size: 16px;
-		color: #0093DD;
+		color: @general_link_hover_color_cyan;
 		cursor: pointer;
 	}
 	button.repeat {
-		background: #CC0000;
+		background: @general_price_color;
 		border-radius: 20px;
 		height: 26px;
-		color: #ffffff;
+		color: @general_bg_color;
 		font-family: 'wuerthbook';
 		font-size: 14px;
 	}
@@ -13200,10 +13197,10 @@ margin-top: 10px;
 		text-align:center;
 	}	
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13247,15 +13244,13 @@ margin-top: 10px;
 .ios-overview{	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 24px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
 	}
 	table.table-content, tr, td {
-		background: #FFFFFF;
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		box-sizing: border-box;
+		background: @general_bg_color;
+		border: 1px solid rgba(0, 0, 0, 8%);
 		width: 50%;
 	}
 	.financial-info {
@@ -13267,9 +13262,8 @@ margin-top: 10px;
 	.item-container {
 		display: grid;
 		grid-template-columns: 5% 5% 11% 13% 11% 11% 9% 10% 13% 12%;
-		background: ffffff;
+		background: @general_bg_color;
 		margin: 0px;
-		align-items: center;
 		padding: 10px 5px;
 		font-family: 'wuerthbook';
 		border-bottom: 1px solid #DEDEED;
@@ -13308,7 +13302,7 @@ margin-top: 10px;
 .attribute.last-order {
 	font-family: 'wuerthbook';
 	font-size: 16px;
-	color: #0093DD;
+	color: @general_link_hover_color_cyan;
 	cursor: pointer;
 }
   ol.collection.collection-container {
@@ -13347,7 +13341,6 @@ margin-top: 10px;
 	}
 	.filter{
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 18px;
 		color: rgba(0, 0, 0, 0.87);
 	}
@@ -13365,22 +13358,21 @@ margin-top: 10px;
 		font-family: 'wuerthbook';
 		font-size: 16px;
 		border: 1px solid #DEDEDE;
-		box-sizing: border-box;
 		border-radius: 4px;
 		color: rgba(0, 0, 0, 0.87);
 		height:35px;
 	}
 	.btn-months:hover {
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 4px;
-		color:#ffffff;
+		color: @general_bg_color;
 	}
 	.btn-months.current{
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 4px;
-		color:#ffffff;
+		color: @general_bg_color;
 	}
 	input.input-date {
 		width: 127px;
@@ -13389,9 +13381,9 @@ margin-top: 10px;
 		padding: 10px 0px 20px 0px;
 	}
 	button.load-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
-		color: #ffffff;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
+		color: @general_bg_color;
 		height: 45px;
 		font-family: 'wuerthbook';
 		font-size: 16px;
@@ -13403,7 +13395,7 @@ margin-top: 10px;
 	.item-container {
 		display: grid;
 		grid-template-columns: 4% 9% 11% 12% 9% 10% 14% 11% 9% 11%;
-		background: ffffff;
+		background: @general_bg_color;
 		margin: 0px;
 		align-items: center;
 		padding: 10px 5px;
@@ -13447,10 +13439,10 @@ margin-top: 10px;
 	}
 
 	button.cancel-order {
-		background: #CC0000;
-		border: 1px solid #CC0000;
+		background: @general_price_color;
+		border: 1px solid @general_price_color;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13496,7 +13488,6 @@ margin-top: 10px;
 .trade-agreement{	
 	.sales-title {
 		font-family: 'wuerthbold';
-		font-weight: bold;
 		font-size: 24px;
 		color: rgba(0, 0, 0, 0.87);
 		padding: 0px 0px 20px 0px;
@@ -13508,10 +13499,10 @@ margin-top: 10px;
 		margin-top: 20px;
 	}
 	button.add-to-basket {
-		background: #0093DD;
-		border: 1px solid #0093DD;
+		background: @general_link_hover_color_cyan;
+		border: 1px solid @general_link_hover_color_cyan;
 		border-radius: 20px;
-		color: #ffffff;
+		color: @general_bg_color;
 		height: 26px;		
 		font-family: 'wuerthbook';
 		font-size: 14px;
@@ -13531,7 +13522,7 @@ margin-top: 10px;
 	.item-container {
 		display: grid;
 		grid-template-columns: 12% 12% 20% 11% 11% 11% 11% 14%;
-		background: ffffff;
+		background: @general_bg_color;
 		margin: 0px;
 		align-items: center;
 		padding: 10px 5px;
@@ -13581,7 +13572,7 @@ margin-top: 10px;
 .attribute.last-order {
 	font-family: 'wuerthbook';
 	font-size: 16px;
-	color: #0093DD;
+	color: @general_link_hover_color_cyan;
 	cursor: pointer;
 }
   ol.collection.collection-container {
@@ -13646,7 +13637,7 @@ margin-top: 10px;
 	cursor: pointer;
   }
   .vpc {
-    color: #0093DD;
+    color: @general_link_hover_color_cyan;
     text-decoration-line: underline;
 }  
   .tooltip .tooltiptext {
@@ -13657,7 +13648,7 @@ margin-top: 10px;
     top: 105%;
     left: -44%;
     margin-left: -60px;
-    background: #FFFFFF;
+    background: @general_bg_color;
     width: 220px;
     height: 70px;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -13694,7 +13685,6 @@ margin-top: 10px;
 		.confirm-orders{	
 			.sales-title {
 				font-family: 'wuerthbold';
-				font-weight: bold;
 				font-size: 24px;
 				color: rgba(0, 0, 0, 0.87);
 				padding: 0px 0px 20px 0px;
@@ -13702,8 +13692,8 @@ margin-top: 10px;
 			
 			.item-container {
 				display: grid;
-				grid-template-columns: 12rem 13rem 12rem 12rem 12rem 12rem 12rem 12rem 16rem;
-				background: ffffff;
+				grid-template-columns: 11% 12% 11% 11% 11% 12% 10% 10% 12%;
+				background: @general_bg_color;
 				margin: 0px;
 				align-items: center;
 				padding: 10px 5px;
@@ -13854,7 +13844,6 @@ margin-top: 10px;
 		.order-no{	
 			.sales-title {
 				font-family: 'wuerthbold';
-				font-weight: bold;
 				font-size: 24px;
 				color: rgba(0, 0, 0, 0.87);
 				padding: 0px 0px 20px 0px;
@@ -13862,8 +13851,8 @@ margin-top: 10px;
 			
 			.item-container {
 				display: grid;
-				grid-template-columns: 10rem 14rem 19rem 12rem 15rem 10rem 14rem 11rem 8rem;
-				background: ffffff;
+				grid-template-columns: 9% 12% 17% 9% 14% 11% 13% 9% 7%;
+				background: @general_bg_color;
 				margin: 0px;
 				align-items: center;
 				padding: 10px 5px;
@@ -13962,8 +13951,11 @@ margin-top: 10px;
 		.attribute.last-order {
 			font-family: 'wuerthbook';
 			font-size: 16px;
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			cursor: pointer;
+		}
+		.attribute.without-tax {
+			width: 80%;
 		}
 		ol.collection.collection-container {
 			padding: 0;
@@ -13999,7 +13991,7 @@ margin-top: 10px;
 			cursor: pointer;
 		}
 		.vpc {
-			color: #0093DD;
+			color: @general_link_hover_color_cyan;
 			text-decoration-line: underline;
 		}  
 		.tooltip .tooltiptext {
@@ -14010,7 +14002,7 @@ margin-top: 10px;
 			top: 105%;
 			left: -44%;
 			margin-left: -60px;
-			background: #FFFFFF;
+			background: @general_bg_color;
 			width: 240px;
 			border: 1px solid rgba(0, 0, 0, 0.08);
 		}
@@ -14048,14 +14040,19 @@ margin-top: 10px;
 } // min-width 913px
   
 
-@media screen and (min-width:1300px) and (max-width:2000px) {
+@media screen and (min-width:1300px) and (max-width:2100px) {
+	section.eshopOnlineprocess.container-inner {
+		max-width: 81%;
+	}
 	.row.text-center h3 {
 		max-width: 81%;
 		margin: auto;
 		text-align: center;
 	}
 	.eshopOnlineprocess ul {
-		padding-left: 40px;
+		width: 68%;
+		margin: auto;
+		margin-top: 20px;
 	}
 }
 
