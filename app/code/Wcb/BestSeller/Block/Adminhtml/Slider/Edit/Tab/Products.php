@@ -116,8 +116,17 @@ class Products extends Extended implements TabInterface
                 'header' => __('Product ID'),
                 'type' => 'number',
                 'index' => 'entity_id',
-                'header_css_class' => 'col-id',
-                'column_css_class' => 'col-id',
+                'header_css_class' => 'col-id no-display',
+                'column_css_class' => 'col-id no-display',
+            ]
+        );
+        $this->addColumn(
+            'product_code',
+            [
+                'header' => __('Product Code'),
+                'index' => 'product_code',
+                'header_css_class' => 'col-sku',
+                'column_css_class' => 'col-sku',
             ]
         );
         $this->addColumn(

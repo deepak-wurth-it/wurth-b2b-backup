@@ -165,6 +165,7 @@ class SendReportBug extends Action
             $return = true;
         } catch (Exception $exception) {
             $this->logger->critical($exception->getMessage());
+            $this->messageManager->addError($exception->getMessage());
             $return = false;
         }
         $this->inlineTranslation->resume();

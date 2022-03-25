@@ -148,7 +148,7 @@ class AddBlock implements ObserverInterface
                             $sliderTitle = __("Best Sellers in Protupozarna zastita");
                         }
                         if ($fullActionName == 'wuerth_home_index' && $pageType != 'allpage') {
-                            $sliderTitle = __('Now offer on');
+                            $sliderTitle = __('Now offer');
                         }
 
                         $content = $layout->createBlock($this->productType->getBlockMap($slider->getProductType()))
