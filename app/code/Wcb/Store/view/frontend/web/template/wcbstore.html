@@ -1,3 +1,4 @@
+<!-- ko if: storeOption -->
 <h3>Select a delivery method</h3>
    <div class="select-delivery">
             <label for="is_subscribed" class="label newsletter">
@@ -38,16 +39,22 @@
                 <img class="card-img-top" data-bind="attr:{src: image}" />                   
                 </div>
                 <div class="card-content">
-                    <div class="title" data-bind="text:store_name"></div>
+                 <div class="title" data-bind="text:store_name"></div>
                    <div class="store-address">
                     <span data-bind="text:address"></span> 
                     <span class="location"> <a  data-bind="attr: {href: map_url}" target="_blank"><span data-bind="i18n: 'Location'"></span></a></span> 
                 </div>
                    
                     <div class="info-contaner">
+                        <!-- ko if: phone -->
                        <p> <span class="icon-com-phone-a"></span> <span data-bind="i18n: 'Phone: '"> </span><span class="iphone-outline" data-bind="text:phone"></span></p>
+                       <!-- /ko -->
+                         <!-- ko if: email -->
                       <p> <span class="icon-wuerth-e-mail"></span> <span data-bind="i18n: 'Email: '"> </span><span class="email-outline" data-bind="text:email"></span></span></p>
-                   </div>
+                      <!-- /ko -->
+                    </div>
         </div>              
   </div>
 </div>
+
+<!-- /ko -->
