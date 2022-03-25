@@ -70,7 +70,7 @@ $formData = $block->getFormData();
         </div>
         <input type="hidden" name="success_url" value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>"/>
         <input type="hidden" name="error_url" value="<?= $block->escapeUrl($block->getErrorUrl()) ?>"/>
-      
+
 <div id="link-error"></div>
         <div class="field field-name-firstname _required">
             <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
@@ -100,7 +100,7 @@ $formData = $block->getFormData();
         </div>
     </div>
 </div>
-      
+
         <div class="field confirmation _required">
             <label for="password-confirmation" class="label">
                 <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
@@ -113,6 +113,11 @@ $formData = $block->getFormData();
             <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
             <div class="control">
                 <input type="email" name="email" autocomplete="email" id="email_address" value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>" title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>" class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true}">
+                <div for="email_address" generated="true"
+                     class="mage-error"
+                     id="email_address_exist_error">
+
+                </div>
             </div>
         </div>
 
@@ -122,7 +127,7 @@ $formData = $block->getFormData();
                 <input type="email" name="confirm_email" autocomplete="email" id="confirm_email_address" value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>" title="<?= $escaper->escapeHtmlAttr(__('Confirm Email')) ?>" class="input-text v-validate" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true,equalTo:'#email_address'}">
             </div>
         </div>
-        
+
         <div class="field name _required">
             <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
             <div class="control">
@@ -157,20 +162,20 @@ $formData = $block->getFormData();
         <?php
             }
         ?>
-        </div>    
+        </div>
         <div class="field choice newsletterAcceptance">
             <label for="is_subscribed" class="label newsletter">
-            <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value=""  data-validate="{required:true}" 
+            <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value=""  data-validate="{required:true}"
  id="is_subscribed"
                 <?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>
                    class="checkbox"/>
                    <span class="checkmark"> </span>
-            
+
                 <span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span>
             </label>
         </div>
             <?php /* Extensions placeholder */ ?>
-        
+
         <?= $block->getChildHtml('customer.form.register.newsletter') ?>
         <?= $block->getChildHtml('form.additional.info') ?>
 
@@ -193,7 +198,7 @@ $formData = $block->getFormData();
         <div id="popup-modal-signup" style="display:none;">
             <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('privacy-newsletter')->toHtml();?>
         </div>
-    </fieldset>    
+    </fieldset>
 </form>
 </div>
 <script type="text/x-magento-init">
@@ -260,7 +265,7 @@ function ($) {
                 var popup = modal(options, $('#popup-modal-signup'));
                 $('#popup-modal-signup').modal('openModal');
             });
-            
+
             var options = {
                 type: 'popup',
                 title: '',
@@ -277,12 +282,12 @@ function ($) {
                       if ($('#is_subscribed').is(
                       ":checked")) {
                        // alert("Check box in Checked");
-                    } else {                        
+                    } else {
                         $('#is_subscribed').attr('checked', 'checked');
                     }
                         this.closeModal();
                     }
-                    
+
                 },
                 {
                     text: $.mage.__('I do not accept'),
@@ -291,12 +296,12 @@ function ($) {
                         if ($('#is_subscribed').is(
                       ":checked")) {
                         $('#is_subscribed').removeAttr('checked');
-                    } else {                        
+                    } else {
                         $('#is_subscribed').removeAttr('checked');
                     }
                         this.closeModal();
                     }
-                    
+
                 },]
             };
         }
@@ -304,7 +309,7 @@ function ($) {
 </script>
 <script type="text/javascript">
 require(['jquery'], function($) {
-    
+
         $("#privacy_policy").click(function () {
             $("#confirm-reg").attr("disabled", !this.checked);
         });
@@ -312,9 +317,9 @@ require(['jquery'], function($) {
         $("#is_subscribed").click(function () {
             $('#is_subscribed').removeAttr('checked');
         });
-    
+
 });
- </script>  
+ </script>
 <?php
 $ajaxurl = $block->getUrl('excustomer/account/checkcompany');
 ?>
@@ -323,8 +328,9 @@ $ajaxurl = $block->getUrl('excustomer/account/checkcompany');
             "*": {
                 "Wcb_CustomerRegistration/js/companyoib": {
                     "AjaxUrl": "<?php echo $ajaxurl; ?>"
-                }
+                },
+                "Wcb_CustomerRegistration/js/register_common": {}
             },
-            ".v-validate": { "Wcb_CustomerRegistration/js/wuerth_reg": {} } 
+            ".v-validate": { "Wcb_CustomerRegistration/js/wuerth_reg": {} }
         }
 </script>

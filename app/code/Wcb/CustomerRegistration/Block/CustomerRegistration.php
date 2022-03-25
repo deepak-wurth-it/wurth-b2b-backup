@@ -6,7 +6,6 @@
 declare(strict_types=1);
 
 namespace Wcb\CustomerRegistration\Block;
-use \Magento\Directory\Model\RegionFactory;
 
 //use Magento\Customer\Model\ResourceModel\Group\Collection as CustomerGroup;
 
@@ -43,15 +42,16 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
         $customerGroups = $this->customerGroup->toOptionArray();
         return $customerGroups;
     }
-    
-    /** 
+
+    /**
      * Get the list of regions present in the given Country
      * Returns empty array if no regions available for Country
-     * 
+     *
      * @param String
      * @return Array/Void
     */
-    public function getRegionsOfCountry($countryCode) {
+    public function getRegionsOfCountry($countryCode)
+    {
         $regionCollection = $this->country->loadByCode($countryCode)->getRegions();
         $regions = $regionCollection->loadData()->toOptionArray(false);
         return $regions;
@@ -60,14 +60,15 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
     /** Create customer
      *  Pass customer data as array
      */
-    public function createCustomer($data) {
+    public function createCustomer($data)
+    {
         $store = $this->storeManager->getStore();
         $storeId = $store->getStoreId();
         $websiteId = $this->storeManager->getStore()->getWebsiteId();
         $customer = $this->customerFactory->create();
         $customer->setWebsiteId($websiteId);
         $customer->loadByEmail($data['customer']['email']);// load customer by email to check if customer is availalbe or not
-        if(!$customer->getId()){
+        if (!$customer->getId()) {
             /* create customer */
             $customer->setWebsiteId($websiteId)
                     ->setStore($store)
@@ -95,16 +96,13 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
             $address->setIsDefaultShipping(1);
             $address->setIsDefaultBilling(1);
             $address->setCustomerId($customer->getId());
-            try
-            {
-                $this->addressRepository->save($address);  
-            }
-            catch (\Exception $e) {
+            try {
+                $this->addressRepository->save($address);
+            } catch (\Exception $e) {
                 return __('Error in shipping/billing address.');
             }
         } else {
             return __('Customer is already exist!');
         }
     }
-    
 }
