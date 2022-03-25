@@ -1,7 +1,7 @@
 <h3>Select a delivery method</h3>
    <div class="select-delivery">
             <label for="is_subscribed" class="label newsletter">
-            <input type="checkbox" name="is_subscribed" title="Select a delivery method" class="checkbox" checked="checked">
+            <input type="checkbox" data-bind="checked: addShippingProduct, click: shippingProductAction" name="is_subscribed" title="Select a delivery method" class="checkbox" >
                    <span class="checkmark"> </span>
                 <span data-bind="i18n: 'Select a delivery method'"></span>
             </label>
@@ -9,12 +9,13 @@
    <div class="click-collect">
        <div class="boxgroup">
             <label for="is_subscribed">
-            <input type="checkbox" name="is_subscribed" title="Click and Collect?" class="checkbox">
+            <input type="checkbox" data-bind="checked: addStore , click: storeAction" name="is_subscribed" title="Click and Collect?" class="checkbox">
                    <span class="checkmark"> </span>
                 <span data-bind="i18n: 'Click and Collect?'"></span>
             </label>
             <span class="textbox"> 
-    <select class="select select-stores" name="stores" data-bind="
+
+    <select class="select select-stores" id="wcb_stores" name="stores" data-bind="
         options: storeOption,
         optionsText: 'name',
         optionsValue: 'entity_id',

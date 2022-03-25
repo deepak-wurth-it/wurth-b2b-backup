@@ -11,17 +11,21 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
         store_name:ko.observable(0),
         map_url:ko.observable(0),
         email:ko.observable(0),
+        addShippingProduct:ko.observable(true),
+        addStore:ko.observable(false),
+        storeActive : 0,
+        UpdateStorePickupUrl : urlBuilder.build('wcbstore/ajax/updatestorepickup'),
         initialize: function () {
             self = this;
             this._super();
             this.storeOption(self.stores_option);
-            $('#select-delivery input.checkbox').on('change', function() {
-                $('#select-delivery input.checkbox').not(this).prop('checked', false);  
-            }); 
+            this.shippingProductAction();
+            
         },
         storeChange: function(value) {
-            //console.log(value);
-            //console.log(self.stores_option);
+
+            var storeActive = this.storeActive;
+            var UpdateStorePickupUrl = this.UpdateStorePickupUrl;
             $.each(self.stores_option, function(key,val) {   
                 if(val['entity_id'] == value){
                     var media = urlBuilder.build('media');
@@ -34,16 +38,33 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
                     self.map_url(val['map_url']);
                     //var data = ko.toJSON(val);
                     var data = val;
-                    var UpdateStorePickupUrl = urlBuilder.build('wcbstore/ajax/updatestorepickup');
-                    $.post(UpdateStorePickupUrl, data, function(returnedData) {
-						console.log(returnedData);
-						// This callback is executed if the post was successful     
-					})
+                    var actionVal = parseInt('1');
+                    data['action'] = actionVal;
+                    if(storeActive){
+						$.post(UpdateStorePickupUrl, data, function(returnedData) {
+							//console.log(returnedData);
+						})
+				    } 
+                
                 }           
             });
-            // this.selectedStore.subscribe(function(newValue) {
-            //     console.log(newValue);
-            // });
+          
+         },
+         shippingProductAction: function() {
+            this.addStore(false);
+            var actionVal = parseInt('2');
+            this.storeActive = 0 ;
+            var data  = {"action":actionVal};
+            $.post(this.UpdateStorePickupUrl, data, function(returnedData) {
+                            //console.log(returnedData);
+              })
+            return true;
+         },
+         storeAction: function() {
+            this.storeActive = 1 ;
+            this.addShippingProduct(false);
+            $('.click-collect .select').trigger('change');
+            return true;
          }
     });
 });
