@@ -140,15 +140,8 @@ class Productgrid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'width' => '50px',
                 'index' => 'entity_id',
                 'type' => 'number',
-            ]
-        );
-        $this->addColumn(
-            'name',
-            [
-                'header' => __('Name'),
-                'index' => 'name',
-                'header_css_class' => 'col-type',
-                'column_css_class' => 'col-type',
+                'column_css_class'=>'no-display',
+                'header_css_class'=>'no-display'
             ]
         );
         $this->addColumn(
@@ -160,6 +153,16 @@ class Productgrid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'column_css_class' => 'col-sku',
             ]
         );
+        $this->addColumn(
+            'name',
+            [
+                'header' => __('Name'),
+                'index' => 'name',
+                'header_css_class' => 'col-type',
+                'column_css_class' => 'col-type',
+            ]
+        );
+
         $store = $this->_getStore();
         $this->addColumn(
             'position',
