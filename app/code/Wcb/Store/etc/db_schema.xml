@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Order">
+        <column xsi:type="varchar" name="pickup_store_id" nullable="true" length="32" comment="Pickup Store Id"/>
+        <column xsi:type="varchar" name="pickup_store_name" nullable="true" length="255" comment="Pickup Store Name"/>
+        <column xsi:type="varchar" name="pickup_store_email" nullable="true" length="255" comment="Pickup Store Email"/>
+        <column xsi:type="text" name="pickup_store_address" nullable="true"  comment="Pickup Store Address"/>
+    </table>
+
+    <table name="quote" resource="sales" engine="innodb" comment="Sales Order">
+        <column xsi:type="varchar" name="pickup_store_id" nullable="true" length="32" comment="Pickup Store Id"/>
+        <column xsi:type="varchar" name="pickup_store_name" nullable="true" length="255" comment="Pickup Store Name"/>
+        <column xsi:type="varchar" name="pickup_store_email" nullable="true" length="255" comment="Pickup Store Email"/>
+        <column xsi:type="text" name="pickup_store_address" nullable="true"  comment="Pickup Store Address"/>
+    </table>
+</schema>

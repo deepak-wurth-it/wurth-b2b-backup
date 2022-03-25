@@ -8,26 +8,42 @@ class AddStoreToQuote extends AbstractModel
 {
    
     public function __construct(
-        \Magento\Quote\Api\Data\CartInterface $quote,
-        \Magento\Checkout\Model\Session $checkoutSession  
+        \Magento\Checkout\Model\Session $checkoutSession,
+        \Magento\Quote\Model\QuoteRepository $quoteRepository
+
+  
     ) {
-       
-        $this->quote = $quote;
-        $this->checkoutSession = $checkoutSession;
+       $this->checkoutSession = $checkoutSession;
+       $this->quoteRepository = $quoteRepository;
+
     }
 
 
 
     public function setStore($store) {
-        $cartExtension = $this->getQuotes()->getExtensionAttributes();
-        if ($cartExtension) {
-            $cartExtension->setPickupStoreId($store['entity_id']);
-			$cartExtension->setPickupStoreName($store['name']);
-			$cartExtension->setPickupStoreEmail($store['contact_email']);
-			$cartExtension->setPickupStoreAddress($store['address']);
-			$this->quote->setExtensionAttributes($cartExtension);
-			return true;
-        }
+        $quote = $this->getQuotes();
+        $action =  $store['action'];
+        $quoteId = $quote->getId();
+        $quote = $this->quoteRepository->get($quoteId);
+        if ($quote && $action == 1 ) {
+            
+                $quote->setData('pickup_store_id',$store['entity_id']);
+				$quote->setData('pickup_store_name',$store['name']);
+				$quote->setData('pickup_store_email',$store['contact_email']);
+				$quote->setData('pickup_store_address',$store['address']);
+                $this->quoteRepository->save($quote);
+                return json_encode($store['address']);
+			return '1';
+        }else{
+			
+			    $quote->setData('pickup_store_id',"");
+				$quote->setData('pickup_store_name',"");
+				$quote->setData('pickup_store_email',"");
+				$quote->setData('pickup_store_address',"");
+                $this->quoteRepository->save($quote);
+                return '2';
+			
+		}
         return false;
        
     }

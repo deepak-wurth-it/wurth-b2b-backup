@@ -8,7 +8,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <container name="delivery-info" htmlTag="div" htmlClass="delivery-info row">
+            <container name="delivery-info" htmlTag="section" htmlClass="delivery-info row">
              <block class="Wcb\Store\Block\Store" name="cart_store_pickup"  template="Wcb_Store::delivery-method.phtml">
              <!-- <arguments>
                    <argument name="jsLayout" xsi:type="array">
