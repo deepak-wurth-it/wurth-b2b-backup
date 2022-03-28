@@ -61,5 +61,8 @@
             <argument name="filterPool" xsi:type="object" shared="false">StoreGridFilterPool</argument>
         </arguments>
     </virtualType>
+    <type name="Magento\User\Block\User\Edit\Tab\Main">
+        <plugin name="wcb_admin_user_form" type="Wcb\Store\Plugin\Block\User\Edit\Tab\Main" sortOrder="1"/>
+    </type>
 
 </config>
