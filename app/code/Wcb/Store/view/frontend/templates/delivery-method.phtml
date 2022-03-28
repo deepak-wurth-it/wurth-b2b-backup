@@ -5,9 +5,9 @@
  */
 ?>
 
+<div class="col-md-6 social-block">
 <?php if(!empty($block->getStoresArray())): ?>
-    
-<div class="col-md-6 social-block" id="wcbstore-div" data-bind="scope:'wcbstore'">
+    <div class="wcbstore-wrapper" id="wcbstore-div" data-bind="scope:'wcbstore'">
 <!-- ko template: getTemplate() --><!-- /ko -->
 <script type="text/x-magento-init">
     {
@@ -29,4 +29,5 @@
 </script>
 </div>
 <?php endif; ?>   
+</div>
 

@@ -9,11 +9,16 @@
 ?>
 
 <?php /** @var \Magento\Catalog\Block\Product\View $block */?>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+  ?>
 
 <?php $_product = $block->getProduct();?>
 <?php $productCode = $_product->getProductCode();?>
 
 <div>
+<?php if($customerSession->isLoggedIn()) { ?>
 <div id="price_soap" style="display:none;" class="priceDisplay">
         <span>Price:&nbsp;</span>
         <span id="suggestedPriceAsTxtP"></span>
@@ -27,6 +32,10 @@
 </div>
 
 <div><span id="price_loader" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
+
+<?php } else { ?>
+         <span class="view-price priceDisplay"> <?php echo __("Login to view price"); ?> </span>
+     <?php } ?>
 
 </div>
 <script>
