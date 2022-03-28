@@ -47,7 +47,7 @@ class AddBlock implements ObserverInterface
         Data $helperData,
         ProductType $productType,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
-        AbstractSlider $abstractSlider
+        \Magento\Catalog\Block\Product\AbstractProduct $abstractSlider
     ) {
         $this->request = $request;
         $this->helperData = $helperData;

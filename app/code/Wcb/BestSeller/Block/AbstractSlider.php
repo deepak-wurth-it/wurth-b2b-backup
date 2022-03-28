@@ -12,7 +12,6 @@ use Magento\Catalog\Pricing\Price\FinalPrice;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\Http\Context as HttpContext;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -76,6 +75,7 @@ abstract class AbstractSlider extends AbstractProduct implements BlockInterface,
      * @var LayoutFactory
      */
     private $layoutFactory;
+    protected $_priceCurrencyInterface;
 
     /**
      * AbstractSlider constructor.
@@ -90,6 +90,7 @@ abstract class AbstractSlider extends AbstractProduct implements BlockInterface,
      * @param Grouped $grouped
      * @param Configurable $configurable
      * @param LayoutFactory $layoutFactory
+     * @param PriceCurrencyInterface $priceCurrencyInterface
      * @param array $data
      */
     public function __construct(
@@ -103,6 +104,7 @@ abstract class AbstractSlider extends AbstractProduct implements BlockInterface,
         Grouped $grouped,
         Configurable $configurable,
         LayoutFactory $layoutFactory,
+        PriceCurrencyInterface $priceCurrencyInterface,
         array $data = []
     ) {
         $this->_productCollectionFactory = $productCollectionFactory;
@@ -114,7 +116,7 @@ abstract class AbstractSlider extends AbstractProduct implements BlockInterface,
         $this->grouped                   = $grouped;
         $this->configurable              = $configurable;
         $this->layoutFactory             = $layoutFactory;
-
+        $this->_priceCurrencyInterface = $priceCurrencyInterface;
         parent::__construct($context, $data);
     }
 
@@ -277,8 +279,7 @@ abstract class AbstractSlider extends AbstractProduct implements BlockInterface,
     private function getPriceCurrency()
     {
         if ($this->priceCurrency === null) {
-            $this->priceCurrency = ObjectManager::getInstance()
-                ->get(PriceCurrencyInterface::class);
+            $this->priceCurrency = $this->_priceCurrencyInterface;
         }
 
         return $this->priceCurrency;
@@ -335,7 +336,7 @@ abstract class AbstractSlider extends AbstractProduct implements BlockInterface,
 
         return '';
     }
-        /**
+    /**
      * Get Slider Description
      *
      * @return mixed|string
