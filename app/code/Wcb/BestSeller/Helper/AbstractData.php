@@ -245,7 +245,7 @@ class AbstractData extends AbstractHelper
     /**
      * @return JsonHelper|mixed
      */
-    public static function getJsonHelper()
+    public function getJsonHelper()
     {
         return $this->_jsonHelper;
     }
