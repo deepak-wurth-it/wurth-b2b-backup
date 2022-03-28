@@ -8,6 +8,7 @@
     <module name="Wcb_Store" setup_version="0.0.7" schema_version="0.0.7">
         <sequence>  
             <module name="Magento_Checkout" />
+            <module name="Magento_User" />
         </sequence>
     </module>
 </config>

@@ -65,4 +65,5 @@
         <plugin name="wcb_admin_user_form" type="Wcb\Store\Plugin\Block\User\Edit\Tab\Main" sortOrder="1"/>
     </type>
 
+
 </config>
