@@ -47,7 +47,7 @@ class AddBlock implements ObserverInterface
         Data $helperData,
         ProductType $productType,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
-        AbstractSlider $abstractSlider
+        \Magento\Catalog\Block\Product\AbstractProduct $abstractSlider
     ) {
         $this->request = $request;
         $this->helperData = $helperData;
@@ -145,7 +145,7 @@ class AddBlock implements ObserverInterface
                     if (!empty($productsAndCategory)) {
                         $sliderTitle = "";
                         if ($fullActionName == 'cms_index_index' && $pageType != 'allpage') {
-                            $sliderTitle = __("Best Sellers in Protupozarna zastita");
+                            $sliderTitle = __("Best Sellers");
                         }
                         if ($fullActionName == 'wuerth_home_index' && $pageType != 'allpage') {
                             $sliderTitle = __('Now offer');

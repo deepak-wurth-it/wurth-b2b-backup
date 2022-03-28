@@ -4,17 +4,18 @@ namespace Wcb\BestSeller\Helper;
 
 use Exception;
 use Magento\Backend\App\Config;
+use Magento\Backend\App\ConfigInterface;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\App\State;
 use Magento\Framework\Json\Helper\Data as JsonHelper;
-use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Zend\Serializer\Adapter\PhpSerialize;
+
 
 /**
  * Class AbstractData
@@ -23,7 +24,10 @@ use Magento\Store\Model\StoreManagerInterface;
 class AbstractData extends AbstractHelper
 {
     const CONFIG_MODULE_PATH = 'Wcb Bestseller Slider';
-
+    /**
+     * @var ConfigInterface
+     */
+    protected $_backendConfig;
     /**
      * @type array
      */
@@ -35,11 +39,6 @@ class AbstractData extends AbstractHelper
     protected $storeManager;
 
     /**
-     * @type ObjectManagerInterface
-     */
-    protected $objectManager;
-
-    /**
      * @var Config
      */
     protected $backendConfig;
@@ -48,22 +47,42 @@ class AbstractData extends AbstractHelper
      * @var array
      */
     protected $isArea = [];
+    protected $_urlInterface;
+    protected $_productMetadataInterface;
+    protected $_state;
+    protected $_phpSerialize;
+    protected $_jsonHelper;
 
     /**
      * AbstractData constructor.
      *
      * @param Context $context
-     * @param ObjectManagerInterface $objectManager
      * @param StoreManagerInterface $storeManager
+     * @param ConfigInterface $backendConfig
+     * @param UrlInterface $urlInterface
+     * @param ProductMetadataInterface $productMetadataInterface
+     * @param State $state
+     * @param PhpSerialize $phpSerialize
+     * @param JsonHelper $jsonHelper
      */
     public function __construct(
         Context $context,
-        ObjectManagerInterface $objectManager,
-        StoreManagerInterface $storeManager
-    ) {
-        $this->objectManager = $objectManager;
+        StoreManagerInterface $storeManager,
+        ConfigInterface $backendConfig,
+        UrlInterface $urlInterface,
+        ProductMetadataInterface $productMetadataInterface,
+        State $state,
+        PhpSerialize $phpSerialize,
+        JsonHelper $jsonHelper
+    )
+    {
         $this->storeManager = $storeManager;
-
+        $this->_backendConfig = $backendConfig;
+        $this->_urlInterface = $urlInterface;
+        $this->_productMetadataInterface = $productMetadataInterface;
+        $this->_state = $state;
+        $this->_phpSerialize = $phpSerialize;
+        $this->_jsonHelper = $jsonHelper;
         parent::__construct($context);
     }
 
@@ -91,19 +110,6 @@ class AbstractData extends AbstractHelper
     }
 
     /**
-     * @param string $field
-     * @param null $storeId
-     *
-     * @return mixed
-     */
-    public function getModuleConfig($field = '', $storeId = null)
-    {
-        $field = ($field !== '') ? '/' . $field : '';
-
-        return $this->getConfigValue(static::CONFIG_MODULE_PATH . $field, $storeId);
-    }
-
-    /**
      * @param $field
      * @param null $scopeValue
      * @param string $scopeType
@@ -115,13 +121,46 @@ class AbstractData extends AbstractHelper
         if ($scopeValue === null && !$this->isArea()) {
             /** @var Config $backendConfig */
             if (!$this->backendConfig) {
-                $this->backendConfig = $this->objectManager->get(\Magento\Backend\App\ConfigInterface::class);
+                $this->backendConfig = $this->_backendConfig;
             }
 
             return $this->backendConfig->getValue($field);
         }
 
         return $this->scopeConfig->getValue($field, $scopeType, $scopeValue);
+    }
+
+    /**
+     * @param string $area
+     *
+     * @return mixed
+     */
+    public function isArea($area = Area::AREA_FRONTEND)
+    {
+        if (!isset($this->isArea[$area])) {
+            /** @var State $state */
+            $state = $this->_state;
+            try {
+                $this->isArea[$area] = ($state->getAreaCode() == $area);
+            } catch (Exception $e) {
+                $this->isArea[$area] = false;
+            }
+        }
+
+        return $this->isArea[$area];
+    }
+
+    /**
+     * @param string $field
+     * @param null $storeId
+     *
+     * @return mixed
+     */
+    public function getModuleConfig($field = '', $storeId = null)
+    {
+        $field = ($field !== '') ? '/' . $field : '';
+
+        return $this->getConfigValue(static::CONFIG_MODULE_PATH . $field, $storeId);
     }
 
     /**
@@ -156,23 +195,7 @@ class AbstractData extends AbstractHelper
      */
     public function getCurrentUrl()
     {
-        $model = $this->objectManager->get(UrlInterface::class);
-
-        return $model->getCurrentUrl();
-    }
-
-    /**
-     * @param $ver
-     * @param string $operator
-     *
-     * @return mixed
-     */
-    public function versionCompare($ver, $operator = '>=')
-    {
-        $productMetadata = $this->objectManager->get(ProductMetadataInterface::class);
-        $version = $productMetadata->getVersion(); //will return the magento version
-
-        return version_compare($version, $ver, $operator);
+        return $this->_urlInterface->getCurrentUrl();
     }
 
     /**
@@ -190,17 +213,15 @@ class AbstractData extends AbstractHelper
     }
 
     /**
-     * @param $string
+     * @param $ver
+     * @param string $operator
      *
      * @return mixed
      */
-    public function unserialize($string)
+    public function versionCompare($ver, $operator = '>=')
     {
-        if ($this->versionCompare('2.2.0')) {
-            return self::jsonDecode($string);
-        }
-
-        return $this->getSerializeClass()->unserialize($string);
+        $version = $this->_productMetadataInterface->getVersion(); //will return the magento version
+        return version_compare($version, $ver, $operator);
     }
 
     /**
@@ -219,6 +240,36 @@ class AbstractData extends AbstractHelper
         }
 
         return $encodeValue;
+    }
+
+    /**
+     * @return JsonHelper|mixed
+     */
+    public function getJsonHelper()
+    {
+        return $this->_jsonHelper;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getSerializeClass()
+    {
+        return $this->_phpSerialize;
+    }
+
+    /**
+     * @param $string
+     *
+     * @return mixed
+     */
+    public function unserialize($string)
+    {
+        if ($this->versionCompare('2.2.0')) {
+            return self::jsonDecode($string);
+        }
+
+        return $this->getSerializeClass()->unserialize($string);
     }
 
     /**
@@ -248,63 +299,5 @@ class AbstractData extends AbstractHelper
     public function isAdmin()
     {
         return $this->isArea(Area::AREA_ADMINHTML);
-    }
-
-    /**
-     * @param string $area
-     *
-     * @return mixed
-     */
-    public function isArea($area = Area::AREA_FRONTEND)
-    {
-        if (!isset($this->isArea[$area])) {
-            /** @var State $state */
-            $state = $this->objectManager->get(\Magento\Framework\App\State::class);
-
-            try {
-                $this->isArea[$area] = ($state->getAreaCode() == $area);
-            } catch (Exception $e) {
-                $this->isArea[$area] = false;
-            }
-        }
-
-        return $this->isArea[$area];
-    }
-
-    /**
-     * @param $path
-     * @param array $arguments
-     *
-     * @return mixed
-     */
-    public function createObject($path, $arguments = [])
-    {
-        return $this->objectManager->create($path, $arguments);
-    }
-
-    /**
-     * @param $path
-     *
-     * @return mixed
-     */
-    public function getObject($path)
-    {
-        return $this->objectManager->get($path);
-    }
-
-    /**
-     * @return JsonHelper|mixed
-     */
-    public static function getJsonHelper()
-    {
-        return ObjectManager::getInstance()->get(JsonHelper::class);
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getSerializeClass()
-    {
-        return $this->objectManager->get('Zend_Serializer_Adapter_PhpSerialize');
     }
 }
