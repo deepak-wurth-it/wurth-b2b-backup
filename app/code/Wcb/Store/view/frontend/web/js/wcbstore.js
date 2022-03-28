@@ -13,7 +13,9 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
         email:ko.observable(0),
         addShippingProduct:ko.observable(true),
         addStore:ko.observable(false),
+        EnableDisableStore : ko.observable(false),
         storeActive : 0,
+        EnableDisableStore : ko.observable(false),
         UpdateStorePickupUrl : urlBuilder.build('wcbstore/ajax/updatestorepickup'),
         initialize: function () {
             self = this;
@@ -55,6 +57,7 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
             var actionVal = parseInt('2');
             this.storeActive = 0 ;
             var data  = {"action":actionVal};
+            this.EnableDisableStore(false);
             $.post(this.UpdateStorePickupUrl, data, function(returnedData) {
                             //console.log(returnedData);
               })
@@ -64,6 +67,7 @@ define(['jquery', 'uiComponent', 'ko','mage/url'], function ($, Component, ko,ur
             this.storeActive = 1 ;
             this.addShippingProduct(false);
             $('.click-collect .select').trigger('change');
+            this.EnableDisableStore(true);
             return true;
          }
     });
