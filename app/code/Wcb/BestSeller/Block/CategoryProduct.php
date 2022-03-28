@@ -8,6 +8,7 @@ use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Http\Context as HttpContext;
+use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Framework\Url\EncoderInterface;
 use Magento\Framework\View\LayoutFactory;
@@ -28,6 +29,7 @@ class CategoryProduct extends AbstractSlider
 
     protected $categoryId;
     protected $bestSellerProducts;
+
     /**
      * CategoryProduct constructor.
      *
@@ -42,6 +44,10 @@ class CategoryProduct extends AbstractSlider
      * @param Grouped $grouped
      * @param Configurable $configurable
      * @param LayoutFactory $layoutFactory
+     * @param PriceCurrencyInterface $priceCurrencyInterface
+     * @param \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollection
+     * @param \Wcb\BestSeller\Block\CategoryId $categoryId
+     * @param \Wcb\BestSeller\Block\BestSellerProducts $bestSellerProducts
      * @param array $data
      */
     public function __construct(
@@ -56,6 +62,7 @@ class CategoryProduct extends AbstractSlider
         Grouped $grouped,
         Configurable $configurable,
         LayoutFactory $layoutFactory,
+        PriceCurrencyInterface $priceCurrencyInterface,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollection,
         \Wcb\BestSeller\Block\CategoryId $categoryId,
         \Wcb\BestSeller\Block\BestSellerProducts $bestSellerProducts,
@@ -77,6 +84,7 @@ class CategoryProduct extends AbstractSlider
             $grouped,
             $configurable,
             $layoutFactory,
+            $priceCurrencyInterface,
             $data
         );
     }
