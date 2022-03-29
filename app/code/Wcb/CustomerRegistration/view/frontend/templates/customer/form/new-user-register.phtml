@@ -19,7 +19,7 @@
                                    data-validate="{required:true}">
                             <div for="vat_tax_id" generated="true"
                                  class="mage-error"
-                                 id="link-error"
+                                 id="link-error-oib"
                                  style="display: block;">
 
                             </div>
@@ -569,6 +569,7 @@
                 "formId": "form-validate"
             },
             "Wcb_CustomerRegistration/js/register_common": {
+                "is_new_customer": "true"
             }
         },
         ".v-validate": { "Wcb_CustomerRegistration/js/wuerth_reg": {} }
@@ -670,29 +671,6 @@ $ajaxurl = $block->getUrl('excustomer/account/verifycompany');
     require(["jquery"], function ($) {
         $(document).ready(function () {
             $('#save-button').prop('disabled', true);
-            $('#vat_tax_id').on('change', function () {
-                var tax_value = $("#vat_tax_id").val();
-                var minlength = 11;
-                var customurl = "<?php echo $ajaxurl;?>";
-                if (tax_value.length >= minlength && tax_value != '' && $.isNumeric(tax_value)) {
-                    $.ajax({
-                        url: customurl,
-                        type: "GET",
-                        data: {CompanyOib: tax_value},
-                        showLoader: true //use for display loader
-                    }).done(function (data) {
-                        // if (data.success != null) {
-                        //     $('#save-button').prop('disabled', false);
-                        // }
-                        if (data.success == true) {
-                            $('#save-button').prop('disabled', true);
-                            $("#link-error").html("Company OIB already exists. Please enter valid company OIB.");  // set the message as html of span
-                            $("#link-error").show();
-                        }
-                        return true;
-                    });
-                }
-            });
         });
     });
 </script>
