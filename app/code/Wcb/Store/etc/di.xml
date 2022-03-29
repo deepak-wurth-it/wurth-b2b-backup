@@ -61,9 +61,14 @@
             <argument name="filterPool" xsi:type="object" shared="false">StoreGridFilterPool</argument>
         </arguments>
     </virtualType>
-    <type name="Magento\User\Block\User\Edit\Tab\Main">
-        <plugin name="wcb_admin_user_form" type="Wcb\Store\Plugin\Block\User\Edit\Tab\Main" sortOrder="1"/>
+    <!-- <type name="Magento\User\Block\User\Edit\Tab\Main">
+        <plugin name="wcb_admin_user_form" type="Wcb\Store\Plugin\Block\User\Edit\Tab\Main" disabled="true" sortOrder="1"/>
+    </type> -->
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="sales_order_grid_collection" type="Wcb\Store\Plugin\SalesOrderGridCollectionPlugin" sortOrder="100" />
     </type>
 
+    <preference for="Magento\User\Block\User\Edit\Tab\Main" type="Wcb\Store\Block\User\Edit\Tab\Main" />
 
 </config>

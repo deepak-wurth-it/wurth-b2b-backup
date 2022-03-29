@@ -1,7 +1,7 @@
 <?php
 namespace Wcb\Store\Plugin\Block\User\Edit\Tab;
 
-class Main
+class Main 
 {
    
    
@@ -23,26 +23,32 @@ class Main
         \Closure $proceed
     )
     {
-
+        /** @var $model \Magento\User\Model\User */
+        $model = $subject->registry('permissions_user');
         $form = $subject->getForm();
-        $data =  $this->storeOption->getAllOptions();
-
-        
-        if (is_object($form) && $data) {
-            $fieldset = $form->addFieldset('admin_user_store', ['legend' => __('Stores')]);
+        $dataFrm =  $this->storeOption->toOptionArray();
+       // $fieldset =  $subject->getBaseFieldset();
+      
+        if (is_object($form) && $dataFrm) {
+            $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Stores')]);
             $fieldset->addField(
                 'pickup_store_id',
                 'select',
             [
                 'name' => 'pickup_store_id',
                 'label' => __('Pickup Stores'),
+                'id' => 'pickup_store_id',
                 'title' => __('Pickup Stores'),
-                'values' => $this->storeOption->getAllOptions(),
+                'values' => $this->storeOption->toOptionArray(),
                 'class' => 'select'
             ]
             );
             
-         $subject->setForm($form);
+            $data = $model->getData();
+            unset($data['password']);
+            unset($data[self::CURRENT_USER_PASSWORD_FIELD]);
+            $form->setValues($data);
+            $subject->setForm($form);
         }
 
         return $proceed();
