@@ -5418,20 +5418,18 @@ a.action.print.hidden-print {
 	}
 	.pdpTab button {
 		font-family: 'wuerthbook';
-		cursor: pointer;
-		display: flex;
 		align-items: center;
 		color: @general_title_color;
 		border-bottom:none;
+		width:196px;
 	}
-	.pdpTab button:hover {
-		background-color: #ddd;
+	button#defaultOpens {
+		width: 100px;
 	}
+	
 	.pdpTab button.active {
 		background: @general_link_hover_color_cyan;
 		color: @general_bg_color;
-		display: flex;
-		align-items: center;
 	}
 	.pdpTabcontentbox {
 		display: none;
@@ -6144,10 +6142,10 @@ div#reviews {
 		font-weight: bold;
 		text-align: center;
 	}
-	.owl-item {
-		width: 165.5px !important;
-		margin-right: 30px !important;
-	}
+	// .owl-item {
+	// 	width: 165.5px !important;
+	// 	margin-right: 30px !important;
+	// }
 }
 
 .page-title {
@@ -9427,7 +9425,7 @@ print {
 	// Best Seller Section
 	.bestSellerWrap {
 		h2 {
-			text-align: center;
+			text-align: left;
 		}
 		.product-image-wrapper {
 			border: 1px solid rgba(0, 0, 0, 8%);
