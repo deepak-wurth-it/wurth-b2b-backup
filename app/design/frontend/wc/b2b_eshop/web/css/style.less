@@ -2125,6 +2125,7 @@ table.ReqListTable
 		}
 		input#id-items0qty {
 			width: 100%;
+			text-align: left;
 		}
 		.column .block-addbysku .qty.autoqty {
 			width: 100%;
@@ -2183,6 +2184,25 @@ table.ReqListTable
 		}
 	}
 // Quick order on Cart page end
+
+	.popup-reorder-quote{
+		button.action.merge.primary {
+			background: #cc2121;
+			border-radius: 50px;
+			border: none;
+			color: #ffffff;
+		}
+		button.action.replace {
+			background: #434853;
+			border-radius: 50px;
+			border: none;
+			color: #ffffff;
+		}
+		button.action.cancel.secondary {
+			display: none;
+		}
+	}	
+
 //Order Template Cart Page Start By Amit
 .checkout-cart-index {
 	.page-title-wrapper {
@@ -5059,6 +5079,9 @@ a.action.print.hidden-print {
 .column.main.col-md.pdpWrapper {
     width: 100%;
 }
+.sp_social_share_inline_widget_widget_under_cart {
+	padding-bottom: 0px;
+}
 
 .pdPage {
 	.fotorama__thumb {
@@ -5981,6 +6004,7 @@ div#reviews {
 		margin: 8px 0 0 19px;
 		border: none;
 		height: 30px;
+		box-shadow: none;
 	}
 	button.allpro:hover {
 		background: #ffffff;
@@ -6555,40 +6579,35 @@ button#top-cart-btn-checkout:hover {
 .select-delivery {
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
-    height: 80px;
+    min-height: 45px;
     padding: 10px;
     margin-top: 20px;
 }
-.click-collect {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    margin-top: 20px;
+select#wcb_stores {
+    margin-top: 10px;
 }
 .boxgroup {
     display: inline-flex;
-    margin: 10px;
 }
-.textbox {
-    margin-left: 20px;
-}
+
 .text-content {
     font-family: 'wuerthbook';
     font-size: 16px;
     color: #0093DD;
-	margin-left: 20px;
 }
 .card-body {
     display: flex;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-	border-top: none;
+}
+.click-collect {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 .card-img {
     width: 50%;
-    padding: 20px 0px 0px 10px;
+    padding: 15px 15px 0px 0px;
 }
 .card-content {
     width: 50%;
-    padding: 20px 10px 10px 0px;
+    padding: 15px 10px 0px 15px;
 }
 .title {
     font-family: 'wuerthbold';
@@ -8990,16 +9009,15 @@ print {
 		display: flex;
 		.boxgroup {
 			display: grid;
-			margin: 10px;
 		}
 		
 		.card-img {
 			width: 100%;
-			padding: 20px;
+			padding: 10px 15px 0px 0px;
 		}
 		.card-content {
 			width: 100%;
-			padding: 20px;
+			padding: 10px 10px 0px 15px;
 		}
 	}
 
@@ -9672,27 +9690,23 @@ print {
 		  .boxgroup {
 			display: block;
 			margin: 10px;
+			margin-top: 0px;
 		}
 		.col-md-6.social-block {
            padding-right: 15px;
         }
 		.card-body {
 			display: grid;
-			border: 1px solid rgba(0, 0, 0, 0.08);
-			border-top: none;
 		}
 		.card-img {
 			width: 100%;
-			padding: 20px;
-			padding-bottom: 0px;
+			padding: 0px;
 		}
 		.card-content {
 			width: 100%;
-			padding: 20px;
+			padding: 0px;
 		}
-		.text-content {
-			margin-left: 10px;
-		}
+		
 		img.card-img-top {
 			width: 100%;
 		}
@@ -12789,7 +12803,7 @@ margin-top: 10px;
 	.text-contaner {
 		margin: 0px 0px 0px 55%;
         position: absolute;
-		z-index: 999999;
+		z-index: 444;
 	}
 	.col-md.top-pager-contaner {
 		padding: 0;
@@ -14049,11 +14063,7 @@ margin-top: 10px;
 		margin: auto;
 		text-align: center;
 	}
-	.eshopOnlineprocess ul {
-		width: 68%;
-		margin: auto;
-		margin-top: 20px;
-	}
+	
 }
 
 @media screen and (min-width:768px) and (max-width:820px) {

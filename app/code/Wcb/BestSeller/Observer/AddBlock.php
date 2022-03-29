@@ -145,7 +145,7 @@ class AddBlock implements ObserverInterface
                     if (!empty($productsAndCategory)) {
                         $sliderTitle = "";
                         if ($fullActionName == 'cms_index_index' && $pageType != 'allpage') {
-                            $sliderTitle = __("Best Sellers in Protupozarna zastita");
+                            $sliderTitle = __("Best Sellers");
                         }
                         if ($fullActionName == 'wuerth_home_index' && $pageType != 'allpage') {
                             $sliderTitle = __('Now offer');
