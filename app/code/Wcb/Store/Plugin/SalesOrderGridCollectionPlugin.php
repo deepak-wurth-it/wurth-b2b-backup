@@ -1,11 +1,11 @@
 <?php
 
-namespace Wcb\Store\Observer;
+namespace Wcb\Store\Plugin;
 
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Magento\Sales\Model\ResourceModel\Order\Grid\Collection as SalesOrderGridCollection;
 
-class SalesOrderGridCollectionObserver
+class SalesOrderGridCollectionPlugin
 {
     private $messageManager;
     private $collection;
@@ -28,15 +28,34 @@ class SalesOrderGridCollectionObserver
     ) {
         $result = $proceed($requestName);
         if ($requestName == 'sales_order_grid_data_source') {
-             $current_adminuser =   $this->adminSession->getUser()->getAclRole();
-             if(12 == $current_adminuser){
+            
+             $pickup_store_id =   $this->adminSession->getUser()->getData('pickup_store_id');
+            
+             if($pickup_store_id){
                   if ($result instanceof $this->collection) {
-                      $this->collection->addFieldToFilter('status', array('in' => array('pending')));
+                      $this->collection->addFieldToFilter('pickup_store_id', array('in' => array($pickup_store_id)));
                   }
               }
+
              return $this->collection;
         }
         return $result;
 
     }
+
+    // public function afterGetReport($subject, $collection, $requestName)
+    // {   
+    //     if ($requestName !== 'sales_order_grid_data_source') {
+    //         return $collection;
+    //     }
+
+    //          $pickup_store_id =   $this->adminSession->getUser()->getData('pickup_store_id');
+            
+    //          if($pickup_store_id){
+                 
+    //                 $collection->addFieldToFilter('pickup_store_id', array('in' => array($pickup_store_id)));
+    //           }
+
+    //     return $collection;
+    // }
 }

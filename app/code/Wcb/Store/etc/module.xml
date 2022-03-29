@@ -9,6 +9,7 @@
         <sequence>  
             <module name="Magento_Checkout" />
             <module name="Magento_User" />
+            <module name="Magento_Sales" />
         </sequence>
     </module>
 </config>
