@@ -7,6 +7,7 @@ use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Http\Context as HttpContext;
+use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Framework\Url\EncoderInterface;
 use Magento\Framework\View\LayoutFactory;
@@ -33,6 +34,7 @@ class CustomProducts extends AbstractSlider
      * @param Grouped $grouped
      * @param Configurable $configurable
      * @param LayoutFactory $layoutFactory
+     * @param PriceCurrencyInterface $priceCurrencyInterface
      * @param array $data
      */
     public function __construct(
@@ -46,6 +48,7 @@ class CustomProducts extends AbstractSlider
         Grouped $grouped,
         Configurable $configurable,
         LayoutFactory $layoutFactory,
+        PriceCurrencyInterface $priceCurrencyInterface,
         array $data = []
     ) {
 
@@ -60,6 +63,7 @@ class CustomProducts extends AbstractSlider
             $grouped,
             $configurable,
             $layoutFactory,
+            $priceCurrencyInterface,
             $data
         );
     }

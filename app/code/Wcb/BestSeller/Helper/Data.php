@@ -2,15 +2,19 @@
 
 namespace Wcb\BestSeller\Helper;
 
+use Magento\Backend\App\ConfigInterface;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Http\Context as HttpContext;
+use Magento\Framework\App\ProductMetadataInterface;
+use Magento\Framework\App\State;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Json\Helper\Data as JsonHelper;
 use Magento\Framework\Stdlib\DateTime\DateTime;
+use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use  Wcb\BestSeller\Helper\AbstractData;
 use Wcb\BestSeller\Model\ResourceModel\Slider\Collection;
 use Wcb\BestSeller\Model\SliderFactory;
+use Zend\Serializer\Adapter\PhpSerialize;
 use Zend_Serializer_Exception;
 
 /**
@@ -38,18 +42,27 @@ class Data extends AbstractData
 
     /**
      * Data constructor.
-     *
      * @param Context $context
-     * @param ObjectManagerInterface $objectManager
      * @param StoreManagerInterface $storeManager
+     * @param ConfigInterface $backendConfig
+     * @param UrlInterface $urlInterface
+     * @param ProductMetadataInterface $productMetadataInterface
+     * @param State $state
+     * @param PhpSerialize $phpSerialize
+     * @param JsonHelper $jsonHelper
      * @param DateTime $date
      * @param HttpContext $httpContext
      * @param SliderFactory $sliderFactory
      */
     public function __construct(
         Context $context,
-        ObjectManagerInterface $objectManager,
         StoreManagerInterface $storeManager,
+        ConfigInterface $backendConfig,
+        UrlInterface $urlInterface,
+        ProductMetadataInterface $productMetadataInterface,
+        State $state,
+        PhpSerialize $phpSerialize,
+        JsonHelper $jsonHelper,
         DateTime $date,
         HttpContext $httpContext,
         SliderFactory $sliderFactory
@@ -57,8 +70,7 @@ class Data extends AbstractData
         $this->date = $date;
         $this->httpContext = $httpContext;
         $this->sliderFactory = $sliderFactory;
-
-        parent::__construct($context, $objectManager, $storeManager);
+        parent::__construct($context, $storeManager, $backendConfig, $urlInterface, $productMetadataInterface, $state, $phpSerialize, $jsonHelper);
     }
 
     /**

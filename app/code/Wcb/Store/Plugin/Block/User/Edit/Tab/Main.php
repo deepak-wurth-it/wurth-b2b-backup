@@ -3,6 +3,16 @@ namespace Wcb\Store\Plugin\Block\User\Edit\Tab;
 
 class Main
 {
+   
+   
+   public function __construct(
+        \Wcb\Store\Block\Store $store,
+        \Wcb\Store\Model\StoreOption $storeOption
+    ) {
+        $this->store = $store;
+        $this->storeOption = $storeOption;
+    } 
+   
     /**
      * Get form HTML
      *
@@ -13,17 +23,21 @@ class Main
         \Closure $proceed
     )
     {
+
         $form = $subject->getForm();
-        if (is_object($form)) {
-            $fieldset = $form->addFieldset('admin_stores', ['legend' => __('Stores')]);
+        $data =  $this->storeOption->getAllOptions();
+
+        
+        if (is_object($form) && $data) {
+            $fieldset = $form->addFieldset('admin_user_store', ['legend' => __('Stores')]);
             $fieldset->addField(
-                'stores',
+                'pickup_store_id',
                 'select',
             [
-                'name' => 'stores',
+                'name' => 'pickup_store_id',
                 'label' => __('Pickup Stores'),
                 'title' => __('Pickup Stores'),
-                //'values' => $this->deployedLocales->getOptionLocales(),
+                'values' => $this->storeOption->getAllOptions(),
                 'class' => 'select'
             ]
             );
@@ -34,3 +48,4 @@ class Main
         return $proceed();
     }
 }
+
