@@ -12,9 +12,10 @@
 
    /**  @var $block \Magento\Checkout\Block\Cart\Grid */
 
-      $objmanager = \Magento\Framework\App\ObjectManager::getInstance();
-      $session =  $objmanager->get("Magento\Checkout\Model\Session");
-      $quote =$session->getQuote();
+      //$objmanager = \Magento\Framework\App\ObjectManager::getInstance();
+      //$session =  $objmanager->get("Magento\Checkout\Model\Session");
+      //$quote =$session->getQuote();
+      $counter = $this->helper('\Magento\Checkout\Helper\Cart'); 
    ?>
 <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
@@ -41,7 +42,7 @@
          <caption class="table-caption"><?= $block->escapeHtml(__('Shopping Cart Items')) ?></caption>
          <thead class="table__header">
             <tr>
-               <td class="totItem" colspan="8" class="totItem"><?= $block->escapeHtml(__('My Shopping bag')) ?> (<?php echo $qty = $quote->getItemsSummaryQty(); ?> <?php if ($qty <= 1) { echo 'item'; } else { echo 'items'; } ?>)
+               <td class="totItem" colspan="8" class="totItem"><?= $block->escapeHtml(__('My Shopping bag')) ?> (<?php //echo $qty = $quote->getItemsSummaryQty(); ?><?php echo $qty = $counter->getItemsCount(); ?> <?php if ($qty <= 1) { echo 'item'; } else { echo 'items'; } ?>)
 
  </td>
             </tr>

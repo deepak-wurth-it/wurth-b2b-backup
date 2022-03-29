@@ -1,5 +1,5 @@
 <!-- ko if: storeOption -->
-<h3>Select a delivery method</h3>
+<h3 data-bind="i18n: 'Select a delivery method'"></h3>
    <div class="select-delivery">
             <label for="is_subscribed" class="label newsletter">
             <input type="checkbox" data-bind="checked: addShippingProduct, click: shippingProductAction" name="is_subscribed" title="Select a delivery method" class="checkbox" >
@@ -13,9 +13,7 @@
            <span class="checkmark"> </span>
         <span data-bind="i18n: 'Click and Collect?'"></span>
     </label>
-   
-  </div>
-   <!-- main container store -->
+     <!-- main container store -->
   <div class ="boxgroup"  data-bind="visible: EnableDisableStore"> 
 
      <!-- Container 1-->
@@ -56,5 +54,8 @@
         </div>              
   </div>
 </div>
+   
+  </div>
+  
 
 <!-- /ko -->

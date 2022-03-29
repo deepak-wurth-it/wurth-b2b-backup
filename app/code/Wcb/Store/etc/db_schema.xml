@@ -14,4 +14,7 @@
         <column xsi:type="varchar" name="pickup_store_email" nullable="true" length="255" comment="Pickup Store Email"/>
         <column xsi:type="text" name="pickup_store_address" nullable="true"  comment="Pickup Store Address"/>
     </table>
+    <table name="admin_user" resource="default" engine="innodb" comment="Admin User Table">
+        <column xsi:type="smallint" name="pickup_store_id" unsigned="true" nullable="true" comment="Store Pickup Id"/>
+    </table>
 </schema>
