@@ -20,9 +20,14 @@ class StoreOption implements  ArrayInterface
         if($storesArray){
 
                 $result[] = [
-                    'value' => '',
+                    'value' => null,
                     'label' => 'Please Select store for pickup'
                 ];
+
+                // $result[] = [
+                //     'value' => '-1',
+                //     'label' => 'No store allotment'
+                // ];
                 
                 foreach ($storesArray as $row) {
                     $result[] = [
