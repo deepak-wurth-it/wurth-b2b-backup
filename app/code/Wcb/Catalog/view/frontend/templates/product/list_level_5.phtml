@@ -27,7 +27,6 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <!-- For Category -->
 <?php $level = $block->getLayer()->getCurrentCategory()->getLevel(); ?>
 
-<strong><?php echo "Category Level :".$level; ?></strong>
 <?php //die($level);?>
 <?php $ProductCount = $block->getLayer()->getCurrentCategory()->getProductCollection()->Count(); ?>
 <?php $catId = $block->getLayer()->getCurrentCategory()->getId(); ?>
