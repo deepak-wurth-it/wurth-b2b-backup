@@ -45,7 +45,9 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
         parent::__construct($context, $registry, $formFactory, $authSession, $localeLists, $data, $this->deployedLocales);
     }
 
-    /**
+
+
+     /**
      * Prepare form fields
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
@@ -53,7 +55,6 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
      */
     protected function _prepareForm()
     {
-        //die('test');
         /** @var $model \Magento\User\Model\User */
         $model = $this->_coreRegistry->registry('permissions_user');
 
@@ -107,9 +108,6 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
             ]
         );
 
-
-
-
         $baseFieldset->addField(
             'email',
             'text',
@@ -143,17 +141,19 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
                 'class' => 'select'
             ]
         );
+
         $baseFieldset->addField(
-                'pickup_store_id',
-                'select',
-            [
-                'name' => 'pickup_store_id',
-                'label' => __('Pickup Stores'),
-                'title' => __('Pickup Stores'),
-                'values' => $this->storeOption->getAllOptions(),
-                'class' => 'select'
-            ]
-            );
+            'pickup_store_id',
+            'select',
+        [
+            'name' => 'pickup_store_id',
+            'label' => __('Pickup Stores'),
+            'title' => __('Pickup Stores'),
+            'values' => $this->storeOption->toOptionArray(),
+            'class' => 'select'
+        ]
+        );
+
         if ($this->_authSession->getUser()->getId() != $model->getUserId()) {
             $baseFieldset->addField(
                 'is_active',
@@ -183,7 +183,7 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
                 'label' => __('Your Password'),
                 'id' => self::CURRENT_USER_PASSWORD_FIELD,
                 'title' => __('Your Password'),
-                'class' => 'input-text validate-current-password required-entry',
+                'class' => 'validate-current-password required-entry',
                 'required' => true
             ]
         );
@@ -198,5 +198,6 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
         //return parent::_prepareForm();
         return \Magento\Backend\Block\Widget\Form\Generic::_prepareForm();
     }
+
 
 }

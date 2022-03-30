@@ -39,7 +39,13 @@ $formData = $block->getFormData();
                 <span><?= $block->escapeHtml(__('Company OIB')) ?></span>
             </label>
             <div class="control">
-                <input type="text" name="company[vat_tax_id]" id="vat_tax_id" data-validate="{required:true}" title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>" class="input-text validate-length validate-number minimum-length-11 maximum-length-11 v-validate">
+                <input type="text" name="company[vat_tax_id]" id="vat_tax_id"
+                       data-validate="{required:true}"
+                       title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>"
+                       class="input-text validate-length validate-number minimum-length-11 maximum-length-11 v-validate">
+                <div for="vat_tax_id" generated="true"
+                     class="mage-error"
+                     id="link-error-oib"></div>
             </div>
         </div>
         <div class="field company-name _required">
@@ -71,7 +77,7 @@ $formData = $block->getFormData();
         <input type="hidden" name="success_url" value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>"/>
         <input type="hidden" name="error_url" value="<?= $block->escapeUrl($block->getErrorUrl()) ?>"/>
 
-<div id="link-error"></div>
+        <div id="link-error"></div>
         <div class="field field-name-firstname _required">
             <label class="label" for="firstname"><span><?php echo __("First Name")?></span></label>
             <div class="control">
@@ -212,6 +218,9 @@ $formData = $block->getFormData();
             },
             "Magento_Customer/js/block-submit-on-send": {
                 "formId": "form-validate"
+            },
+            "Wcb_CustomerRegistration/js/register_common": {
+                "is_new_customer": "false"
             }
         },
         ".field.password": {

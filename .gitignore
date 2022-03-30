@@ -25,3 +25,8 @@
 !/update/.htaccess
 !/README.md
 app/code/Magento/
+.DS_Store
+._.DS_Store
+._*
+._.DS_Store ._wc_b2b_m2_22_03_2022.sql ._wc_b2b_m2_22_03_2022.sql.gz
+._.DS_Store ._wc_b2b_m2_22_03_2022.sql ._wc_b2b_m2_22_03_2022.sql.gz

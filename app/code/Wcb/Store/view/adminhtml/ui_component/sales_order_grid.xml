@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="sales_order_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">false</item>
+                </param>
+            </childDefaults>
+        </settings>
+        <column name="pickup_store_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Store Id</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="pickup_store_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Store Name</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="pickup_store_email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Store Email</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="pickup_store_address">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Store Address</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>true</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>

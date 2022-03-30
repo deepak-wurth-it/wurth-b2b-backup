@@ -61,9 +61,24 @@
             <argument name="filterPool" xsi:type="object" shared="false">StoreGridFilterPool</argument>
         </arguments>
     </virtualType>
-    <type name="Magento\User\Block\User\Edit\Tab\Main">
-        <plugin name="wcb_admin_user_form" type="Wcb\Store\Plugin\Block\User\Edit\Tab\Main" sortOrder="1"/>
+    <!-- <type name="Magento\User\Block\User\Edit\Tab\Main">
+        <plugin name="wcb_admin_user_form" type="Wcb\Store\Plugin\Block\User\Edit\Tab\Main" disabled="true" sortOrder="1"/>
+    </type> -->
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="sales_order_grid_collection" type="Wcb\Store\Plugin\SalesOrderGridCollectionPlugin"  />
     </type>
 
+    <preference for="Magento\User\Block\User\Edit\Tab\Main" type="Wcb\Store\Block\User\Edit\Tab\Main" />
 
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid" type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="pickup_store_id" xsi:type="string">sales_order.pickup_store_id</item>
+                <item name="pickup_store_name" xsi:type="string">sales_order.pickup_store_name</item>
+                <item name="pickup_store_email" xsi:type="string">sales_order.pickup_store_email</item>
+                <item name="pickup_store_address" xsi:type="string">sales_order.pickup_store_address</item>
+            </argument>
+        </arguments>
+    </virtualType>
 </config>
