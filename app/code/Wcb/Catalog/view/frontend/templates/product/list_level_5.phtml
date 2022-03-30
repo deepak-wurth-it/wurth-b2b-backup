@@ -139,7 +139,7 @@
    <?php $pid[ $product->getSku()][] = $ProductCode; ?>
    <?php $pid[ $product->getSku()][] = '1'; ?>
    <?php } ?>
-   <div class="accordion <?= (($logedIn ?'userlog':'')); ?>" >
+   <div class="accordion <?= (($logedIn ?'userlog':'notlog')); ?>" >
       <span class="attrow itemno"><?php echo $product->getProductCode(); ?></span>
       <span class="attrow itemname"><?php echo $product->getName(); ?></span>
       <span class="attrow pieces">2 PiECES</span>
