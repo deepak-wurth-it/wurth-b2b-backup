@@ -12,8 +12,10 @@ $category = $block->getEnableCategory();
     $categoryFactory = $block->getCategoryName($categoryid);
     $categoryName = $categoryFactory->getName();
     $categoryUrl = $categoryFactory->getUrl();
-    $productCount = $categoryFactory->getProductCount();
-    if($productCount > 0){
+    $activeCount = $categorydata->getChildrenCategories()->addIsActiveFilter()->count();
+    $activeSize = $categorydata->getChildrenCategories()->addIsActiveFilter()->getSize();
+    $productCount = $categorydata->getProductCollection()->addAttributeToSelect('*')->count();
+    if($activeCount > 0 && $activeSize > 0 && $productCount > 0){
     ?>             
                <li class="category">
                <a class="category-link-show" href="<?php echo $categoryUrl; ?>" alt="<?php echo $categoryName; ?>"

@@ -539,19 +539,18 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $countChildren = 0;
         $ClassNoChildren = '';
         foreach ($children as $child) {
-            //echo "<pre>";print_r($child->getData());exit;
             // Categories having no child will not show in menu
-
-            $productCount = $child->getProductCount();
-  
-            if($productCount > 1){
-                continue;
-            }
-            $activeChildCat = $this->getActiveChildren($child, 0);
-            if ($activeChildCat) {
-                $countChildren++;
+            $activeCount = $child->getChildrenCategories()->addIsActiveFilter()->count();
+            $activeSize = $child->getChildrenCategories()->addIsActiveFilter()->getSize();
+            $productCount = $child->getProductCollection()->count();
+            if($activeCount > 0 && $activeSize >0  && $productCount > 0){
+                $activeChildCat = $this->getActiveChildren($child, 0);
+                if ($activeChildCat) {
+                    $countChildren++;
+                }
             }
         }
+        
         if ($countChildren == 0 && $columChunk == 1) {
             $ClassNoChildren = ' nochild';
         }
@@ -562,10 +561,13 @@ class Menu extends \Magento\Framework\View\Element\Template {
         foreach ($children as $child) {
           
             // Categories having no child will not show in menu
-            $productCount = $child->getProductCount();
-            if($productCount > 1){
-                continue;
-            }
+            $activeCount = $child->getChildrenCategories()->addIsActiveFilter()->count();
+            $activeSize = $child->getChildrenCategories()->addIsActiveFilter()->getSize();
+            $productCount = $child->getProductCollection()->count();
+            //echo $activeCount;
+            if($activeCount > 0 && $activeSize > 0 && $productCount > 0){
+                
+            
             if ($child->getIsActive()) {
                 // --- class for active category ---
                 $active = '';
@@ -599,6 +601,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
                     $html.= '</div>';
                 }
             }
+        }
         }
         $html.= '</div>';
         return $html;
