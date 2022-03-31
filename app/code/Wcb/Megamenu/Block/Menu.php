@@ -541,7 +541,10 @@ class Menu extends \Magento\Framework\View\Element\Template {
         foreach ($children as $child) {
             //echo "<pre>";print_r($child->getData());exit;
             // Categories having no child will not show in menu
-            if($child->getData('children_count') < 1){
+
+            $productCount = $child->getProductCount();
+  
+            if($productCount > 1){
                 continue;
             }
             $activeChildCat = $this->getActiveChildren($child, 0);
@@ -559,7 +562,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
         foreach ($children as $child) {
           
             // Categories having no child will not show in menu
-            if($child->getData('children_count') < 1){
+            $productCount = $child->getProductCount();
+            if($productCount > 1){
                 continue;
             }
             if ($child->getIsActive()) {
