@@ -539,6 +539,11 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $countChildren = 0;
         $ClassNoChildren = '';
         foreach ($children as $child) {
+            //echo "<pre>";print_r($child->getData());exit;
+            // Categories having no child will not show in menu
+            if($child->getData('children_count') < 1){
+                continue;
+            }
             $activeChildCat = $this->getActiveChildren($child, 0);
             if ($activeChildCat) {
                 $countChildren++;
@@ -552,7 +557,11 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $arr_catsid = ['']; //json_decode($is_link);
         //$arr_catsid = explode(',',$this->getConfig('is_link'));
         foreach ($children as $child) {
-            // echo "<pre>"; print_r($child->getData()); echo "</pre>";
+          
+            // Categories having no child will not show in menu
+            if($child->getData('children_count') < 1){
+                continue;
+            }
             if ($child->getIsActive()) {
                 // --- class for active category ---
                 $active = '';

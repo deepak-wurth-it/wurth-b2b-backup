@@ -15,7 +15,7 @@
         <column xsi:type="text" name="pickup_store_address" nullable="true"  comment="Pickup Store Address"/>
     </table>
     <table name="admin_user" resource="default" engine="innodb" comment="Admin User Table">
-        <column xsi:type="smallint" name="pickup_store_id" unsigned="true" nullable="true" comment="Store Pickup Id"/>
+        <column xsi:type="int" name="pickup_store_id"  nullable="true" comment="Store Pickup Id"/>
     </table>
 
     <table name="sales_order_grid" resource="default" engine="innodb" comment="Sales Order Grid">

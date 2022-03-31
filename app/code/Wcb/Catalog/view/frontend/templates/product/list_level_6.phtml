@@ -1,0 +1,321 @@
+<?php
+   /**
+    * Copyright © 2016 Magento. All rights reserved.
+    * See COPYING.txt for license details.
+    */
+   
+   use Magento\Framework\App\Action\Action;
+   
+   // @codingStandardsIgnoreFile
+   
+   ?>
+<?php
+   /**
+    * Product list template
+    *
+    * @var $block \Magento\Catalog\Block\Product\ListProduct
+    */
+   ?>
+<?php
+   /** @var \Magento\Catalog\Helper\Output $_helper */
+   $_helper = $_outputHelper = $block->getData('outputHelper');
+   
+   $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
+   
+   
+   ?>
+<!-- For Category -->
+<?php $level = $block->getLayer()->getCurrentCategory()->getLevel(); ?>
+<?php //die($level);?>
+<?php $ProductCount = $block->getLayer()->getCurrentCategory()->getProductCollection()->Count(); ?>
+<?php $catId = $block->getLayer()->getCurrentCategory()->getId(); ?>
+<?php $catName = $block->getLayer()->getCurrentCategory()->getName(); ?>
+<?php $currentCat = $block->getLayer()->getCurrentCategory(); ?>
+<?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
+<?php $firstProduct =  $level5Collection->getFirstItem(); ?>
+<?php $firstProductExtraRow = $block->getExtraAttributeData($firstProduct); ?>
+<?php $subcategories = []; ?>
+<?php $subcategories = $block->getCategoryChildrenData($catId); ?>
+<?php $pid = []; ?>
+<!-- End For Category -->
+<!-- For Product -->
+<?php
+   $viewMode = 'grid';
+   $pid= [];
+   $extraRow = "";
+   $imageDisplayArea = 'category_page_grid';
+   $showDescription = false;
+   $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+   $pos = $block->getPositioned();
+   $product=false;
+   ?>
+<?php
+   $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+   $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+   $logedIn = $customerSession->isLoggedIn();
+   ?>
+<!-- <div data-mage-init='{"plp":{}}' ></div> -->
+<!-- End For Product -->
+<?php if($level == 6 ){ ?>
+<?php
+   $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+   $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+   $logedIn = $customerSession->isLoggedIn();
+   ?>
+<div class="row levelFive">
+   <div class="col-sm-6">
+      <div class="thumbnail sliderThubnail">
+         <img src="http://m2.wc.b2b.com/media/catalog/product/cache/0dfee5ff3991729dd0bd32f4d3803aa6/1/2/1234785_1.jpg" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236">
+      </div>
+   </div>
+   <div class="col-sm-6">
+      <div class="static-content">
+         <div class="pHead">BUSILICE-ODVIJACI - AKUMULLATORSKI</div>
+         <div class="pdAku">AKU BUSILICA ODVIJAC-ABS 12 COMPACT-2X2,O AH</div>
+         <span class="hrline"></span>
+         <div class="pdversion">Available in 2 version</div>
+         <div class="pdvariants" ><button type="submit" class="itemAdd">Show variants</button></div>
+         <span class="hrline"></span>
+         <div class="more-info-block">
+            <div class="moreInfo">Need More Information?</div>
+            <span class="phoneEmail">Contact us by phone or email?</span>
+            <div><span class="icon-com-phone-a"></span> <span class="iphone-outline">Phone 0800 4260</span></div>
+            <div><span class="icon-wuerth-e-mail"></span><span class="email-outline">Email wuert@wuerth.com.hr</span></div>
+         </div>
+         <div class="pdrepbug"><button type="submit" class="itembug"><span class="icon-web-warning"></span> Report a bug</button></div>
+         <div class="social-block">
+            <?php echo $block->getLayout()
+               ->createBlock("Sparsh\SocialShare\Block\SocialShare")
+               ->setTemplate("Sparsh_SocialShare::socialshare.phtml")
+               ->setPage("category_page")
+               ->setPosition("bottom_content")
+               ->setType("inline")
+               ->toHtml(); ?>
+            <!--<ul>
+               <li><a href="#!" role="button"><span class="icon-whatsapp"></span></a></li>
+               <li><a href="#!" role="button"><span class="icon-call"></span></a></li>
+               <li><a href="#!" role="button"><span class="icon-linkdin"></span></a></li>
+               <li><a href="#!" role="button"><span class="icon-facebook"></span></a></li>
+               <li><a href="#!" role="button"><span class="icon-youtube"></span></a></li>
+               </ul>-->
+         </div>
+      </div>
+   </div>
+</div>
+<!-- start-->
+<?php if($level5Collection->getSize() > 0 ){ ?>
+<div class="row attWrappFifth">
+<div class="col-md">
+<div class="execution">Executions</div>
+<div class="attTitle">
+   <span class="attrow">Item No.</span>
+   <span class="attrow">Item Name</span>
+   <?php
+      if($firstProduct->getSize()){
+        foreach($firstProductExtraRow as $key=>$row) {
+          if($key == 3){
+            break;
+          }
+          echo "<span class='attrow'>".$row['name']."</span>";
+        }
+      }
+      
+      ?>
+   <span class="attrow">Number </span>
+   <span class="attrow">VE</span>
+   <span class="attrow">Price PU</span>
+</div>
+<?php if($level5Collection->getSize() > 0 ){ ?>
+<?php //$level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
+<div id="element" data-mage-init='{
+   "accordion":{
+   "active": false,
+   "collapsible": true,
+   "multipleCollapsible": true
+   }}'>
+   <?php foreach($level5Collection as $product) { ?>
+   <?php  $ProductCode = $product->getProductCode(); ?>
+   <?php if($ProductCode){ ?>
+   <?php $pid[ $product->getSku()][] = $ProductCode; ?>
+   <?php $pid[ $product->getSku()][] = '1'; ?>
+   <?php } ?>
+   <div class="accordion <?= (($logedIn ?'userlog':'')); ?>" >
+      <span class="attrow itemno"><?php echo $product->getProductCode(); ?></span>
+      <span class="attrow itemname"><?php echo $product->getName(); ?></span>
+      <span class="attrow pieces">2 PiECES</span>
+      <span class="attrow ah">2 Ah</span>
+      <span class="attrow vdc">18 V / DC</span>
+      <div class="boxcontaner <?= (($logedIn ?'logdIn':'')); ?>">
+         <span class="attrow qtywrapp <?= (($logedIn ?'logdIn':'')); ?>">
+            <div class="qty-field" >
+               <div id="79-dec" class="decreaseQty icon-interface-minus quantity-minus"></div>
+               <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="qty-default input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
+               <div id="79-upt" class="increaseQty icon-interface-plus quantity-plus"></div>
+            </div>
+         </span>
+         <span class="attrow pc <?= (($logedIn ?'logdIn':'')); ?>">
+            <div class="veCount <?= (($logedIn ?'logdIn':'')); ?>">
+               <select>
+                  <option> 100 PC </option>
+                  <option> 100 PC </option>
+                  <option> 100 PC </option>
+               </select>
+            </div>
+            <?php if($customerSession->isLoggedIn()) { ?> 
+            <div class="itemboxwraper <?= (($logedIn ?'logdIn top':'')); ?>"><span class="itembox <?= (($logedIn ?'logdIn top':'')); ?>"></span><span class="deliveryday <?= (($logedIn ?'logdIn top':'')); ?>">1</span> </div>
+            <?php } ?>
+         </span>
+      </div>
+      <span class="attrow loginprice <?= (($logedIn ?'logdIn':'')); ?>">
+         <?php if($customerSession->isLoggedIn()) { ?>
+         <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
+         <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
+            <span>Price:&nbsp;</span>
+            <span class="price" id="suggestedPriceAsTxtP<?php echo $ProductCode; ?>"></span>
+            <span class="price" >-</span>
+            <span class="price" id="suggestedDiscountAsTxtP<?php echo $ProductCode; ?>"></span>
+            <span class="price" >%</span>
+            <span class="price line-breck" >&nbsp;=&nbsp;</span>
+            <span class="price" id="suggestedSalesPriceInclDiscAsTxtP<?php echo $ProductCode; ?>"></span>
+            <span class="price" >&nbsp;HRK/COM&nbsp;</span>
+            <span class="redStar"></span>
+         </div>
+         <div><span id="price_loader<?php echo $ProductCode; ?>" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
+         <div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> </div>
+         <?php } else { ?> Please log in to see prices. <?php } ?>
+      </span>
+      <span class="attrow <?= (($logedIn ?'bluecol':'redcol')); ?>">
+         <div class="actions-primary">
+            <?php if ($product->isSaleable()):?>
+            <?php $postParams = $block->getAddToCartPostParams($product); ?>
+            <form data-role="tocart-form"
+               data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
+               action="<?= $escaper->escapeUrl($postParams['action']) ?>"
+               method="post">
+               <input type="hidden"
+                  name="product"
+                  value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+               <input type="hidden"
+                  name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                  value="<?=
+                     /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
+                     ?>">
+               <?= $block->getBlockHtml('formkey') ?>
+               <button type="submit"
+                  title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                  class="action tocart primary carticon"
+                  disabled>
+               </button>
+            </form>
+         </div>
+         <?php endif;  ?>
+      </span>
+   </div>
+   <div data-role="collapsible">
+      <div class="expendRow" data-role="trigger"></div>
+   </div>
+   <div data-role="content">
+      <div class="paneldd">
+         <div class="row">
+            <div class="col-sm-4">   
+               <?php
+                  $productImage = $block->getImage($product, $imageDisplayArea);
+                  if ($pos != null) {
+                      $position = 'left:' . $productImage->getWidth() . 'px;'
+                          . 'top:' . $productImage->getHeight() . 'px;';
+                  }
+                  ?>
+               <?php // Product Image ?>
+               <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>"
+                  class="pdp-thumbnail"
+                  width="304" height="236"
+                  alt=<?php echo $product->getName(); ?>
+                  tabindex="-1">
+               <?= $productImage->toHtml() ?>
+               </a>
+            </div>
+            <div class="col-sm-8">
+               <div class="pdpvarcont">Cordless drill screwdriver ABS 18 BASIC BOSHRBR-AKKU-(ABS 18 BASIC-75J) - 2X2, 0AH MASTER M-CUBE </div>
+               <div class="pdpItemNo"><?php echo $product->getSku(); ?> Item No.</div>
+               <span class="hrline"></span>
+               <div class="wurthCat">
+                  <div class="catTitle"> Wurth Catalog (2)</div>
+                  <ul>
+                     <li>
+                        <span class="pdficon"></span> Catalogue page as PDF1
+                     </li>
+                     <li>
+                        <span class="flipicon"></span> Flip Pdf
+                     </li>
+                  </ul>
+               </div>
+               <span class="hrline"></span>
+               <?php
+                  $extraRow = $block->getExtraAttributeData($product);
+                  if(!empty($extraRow)) {
+                  ?>
+               <div class="catTitle">Technical information</div>
+               <table class="tables table-hovers">
+                  <tbody>
+                     <?php  foreach($extraRow as $key=>$row) {
+                        if($key == 5 ){
+                          break;
+                        }
+                        ?>
+                     <tr>
+                        <td><?php  echo @$row['name']; ?></td>
+                        <td><?php  echo @$row['value']; ?></td>
+                     </tr>
+                     <?php } ?>
+                  </tbody>
+               </table>
+               <div class="allprowrapp">
+                  <a target="_blank" href="<?php echo $product->getProductUrl(); ?>"><button type="submit" class="allpro"> See all product details</button></a>
+               </div>
+               <?php } ?>
+            </div>
+         </div>
+      </div>
+      <!-- tabs content end --> 
+   </div>
+   <?php } ?>
+   <?php } ?>
+</div>
+<?php } ?>
+<!-- End --->
+<script type="text/x-magento-init">
+   {
+       ".levelFive": {
+           "plpJsWidget": {
+           }
+       }
+   }
+</script>
+<script type="text/x-magento-init">
+   {
+       "[data-role=tocart-form], .form.map.checkout": {
+           "catalogAddToCart": {
+               "product_sku": ""
+           }
+   
+       }
+   }
+</script>
+<?php if(!empty($pid)) {?>
+<?php $pid_json = json_encode($pid) ?>
+<script>
+   require(['plp'], function(pdp) {
+       pdp.GetMultiProductPrice('<?php echo $pid_json ?>');
+       pdp.GetMultiProductStock('<?php echo $pid_json ?>');
+   });
+</script>
+<?php } ?>
+<?php } ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Wcb_Catalog/js/qtyjs": {
+            }
+        }
+    }
+</script>

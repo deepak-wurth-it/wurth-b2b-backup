@@ -28,13 +28,14 @@ class SalesOrderGridCollectionPlugin
     ) {
         $result = $proceed($requestName);
         if ($requestName == 'sales_order_grid_data_source') {
-            
+             //print_r($this->adminSession->getUser()->getAclRole());exit;
              $pickup_store_id =   $this->adminSession->getUser()->getData('pickup_store_id');
-            
-             if($pickup_store_id){
-                  if ($result instanceof $this->collection) {
+          
+       
+             if(!empty($pickup_store_id) && $result instanceof $this->collection){
                       $this->collection->addFieldToFilter('pickup_store_id', array('in' => array($pickup_store_id)));
-                  }
+              }else{
+                    $this->collection->addFieldToFilter('pickup_store_id', ['null' => true]);
               }
 
              return $this->collection;
@@ -43,6 +44,7 @@ class SalesOrderGridCollectionPlugin
 
     }
 
+    //Backup code,Please do not remove
     // public function afterGetReport($subject, $collection, $requestName)
     // {   
     //     if ($requestName !== 'sales_order_grid_data_source') {
