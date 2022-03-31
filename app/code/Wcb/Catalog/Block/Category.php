@@ -26,9 +26,9 @@ class Category extends \Magento\Framework\View\Element\Template
     {
         $collection = $this->_categoryFactory->create()->getCollection()
                            ->addAttributeToSelect('*')
-                           -> addAttributeToFilter('level', 2)
-                           -> addAttributeToFilter('is_active',1)
-                           -> addAttributeToFilter('include_in_menu',1);
+                           ->addAttributeToFilter('level', 2)
+                           -> addAttributeToFilter('include_in_menu',1)
+                           ->addAttributeToFilter('is_active',1);
         return $collection ;
     }
 

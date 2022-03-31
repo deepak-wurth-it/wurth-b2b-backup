@@ -20,6 +20,7 @@ use Magento\Framework\App\Action\Action;
 $_outputHelper = $block->getData('outputHelper');
 ?>
 <?php
+//echo get_class($block);exit;
 $category = $block->getEnableCategory();
 ?>
          <div class="page-title-wrapper">
@@ -37,8 +38,12 @@ $category = $block->getEnableCategory();
     $categoryName = $categoryFactory->getName();
     $categoryUrl = $categoryFactory->getUrl();
     $_imgUrl = $categoryFactory->getImageUrl();
-    $productCount = $categoryFactory->getProductCount();
-    if($productCount > 0){
+    $activeCount = $categorydata->getChildrenCategories()->addIsActiveFilter()->count();
+    $activeSize = $categorydata->getChildrenCategories()->addIsActiveFilter()->getSize();
+    $productCount = $categorydata->getProductCollection()->addAttributeToSelect('*')->count();
+
+    if($activeCount > 0 && $activeSize > 0 && $productCount > 0){
+
     ?>
                <li class="item product product-item cat-item">
                   <div class="product-item-info">
@@ -57,7 +62,8 @@ $category = $block->getEnableCategory();
                      </div>
                   </div>
                </li>
-               <?php }endforeach; ?>      
+               <?php  } ?>
+               <?php endforeach; ?>      
                
               
            
