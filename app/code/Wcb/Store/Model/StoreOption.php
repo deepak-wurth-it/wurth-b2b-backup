@@ -2,9 +2,9 @@
 
 namespace Wcb\Store\Model;
 
-use Magento\Framework\Model\AbstractModel;
-
-class StoreOption extends AbstractModel
+//use Magento\Framework\Data\OptionSourceInterface;
+use \Magento\Framework\Option\ArrayInterface;
+class StoreOption implements  ArrayInterface
 {
     public $_options;
     public function __construct(
@@ -13,25 +13,32 @@ class StoreOption extends AbstractModel
         $this->store = $store;
     }
 
-
-    /**
-     * @return array
-     */
-    public function getAllOptions()
+    public function toOptionArray(): array
     {
+        $result = [];
         $storesArray =  $this->store->getStoresArray();
-        $option[] =  array('label'=>"Please Select store for pickup",'value'=>'');
-            if($storesArray){
-                foreach($storesArray as $row){
-                    $label = $row['name'];
-                    $value = $row['entity_id'];
-                    $option[] = array('label'=>$label,'value'=>$value);
-                }
-                $this->_options = $option;
-            }
-        return $this->_options;
-    }
+        if($storesArray){
 
+                $result[] = [
+                    'value' => null,
+                    'label' => 'Please Select store for pickup'
+                ];
+
+                // $result[] = [
+                //     'value' => '-1',
+                //     'label' => 'No store allotment'
+                // ];
+                
+                foreach ($storesArray as $row) {
+                    $result[] = [
+                        'value' => $row['entity_id'],
+                        'label' =>  $row['name']
+                    ];
+                }
+
+         }
+        return $result;
+    }
 
     
 }
