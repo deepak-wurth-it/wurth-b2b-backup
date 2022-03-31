@@ -66,7 +66,8 @@ $product=false;
             <?php foreach ($subcategories as $subcategory): ?>
                 <?php $productCount = $subcategory->getProductCollection()->getSize(); ?>
                 <?php $subcategory = $block->getCategoryData($subcategory->getId()); ?>
-                <?php if ($subcategory->hasChildren() || $productCount > 1): ?>
+                <?php //$subcategory->hasChildren() ?>
+                <?php if ($productCount > 1): ?>
                     <li class="item product product-item">
                         <div class="product-item-info">
                             <?php if ($_imgUrl = $subcategory->getImageUrl()): ?>

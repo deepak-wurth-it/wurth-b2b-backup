@@ -73,7 +73,7 @@
          <div class="pHead">BUSILICE-ODVIJACI - AKUMULLATORSKI</div>
          <div class="pdAku">AKU BUSILICA ODVIJAC-ABS 12 COMPACT-2X2,O AH</div>
          <span class="hrline"></span>
-         <div class="pdversion">Available in 2 version</div>
+         <div class="pdversion">Available in <?php echo  $ProductCount; ?> version</div>
          <div class="pdvariants" ><button type="submit" class="itemAdd">Show variants</button></div>
          <span class="hrline"></span>
          <div class="more-info-block">
@@ -140,7 +140,7 @@
    <?php $pid[ $product->getSku()][] = '1'; ?>
    <?php } ?>
    <div class="accordion <?= (($logedIn ?'userlog':'')); ?>" >
-      <span class="attrow itemno"><?php echo $product->getProductCode(); ?></span>
+      <span class="attrow itemno"><a href="<?php echo $product->getProductUrl(); ?>" target="_blank" ><?php echo $product->getProductCode(); ?></a></span>
       <span class="attrow itemname"><?php echo $product->getName(); ?></span>
       <span class="attrow pieces">2 PiECES</span>
       <span class="attrow ah">2 Ah</span>
