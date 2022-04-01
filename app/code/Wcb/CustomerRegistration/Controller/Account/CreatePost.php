@@ -190,9 +190,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                 // save data
                 $customer->save();
 
-                //$companyAttributes = $this->companyFactory->create();
-                //$companyAttributes->setCompanyId($companyId);
-                //$customer->getExtensionAttributes()->setCompanyAttributes($companyAttributes);
+                $companyAttributes = $this->companyFactory->create();
+                $companyAttributes->setCompanyId($companyId);
+                $customer->getExtensionAttributes()->setCompanyAttributes($companyAttributes);
 
                 $this->assignCompany($companyId, $customer->getId());
                 $this->messageManager->addSuccess(
