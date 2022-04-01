@@ -3,24 +3,22 @@ declare(strict_types=1);
 
 namespace Wcb\CustomerRegistration\Controller\Account;
 
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Exception\LocalizedException;
-use Magento\Company\Api\CompanyRepositoryInterface;
-
-use Magento\Framework\App\Action\Context;
-use Magento\Framework\View\Result\PageFactory;
-use Magento\Store\Model\StoreManagerInterface;
-use Magento\Customer\Model\CustomerFactory;
-use Magento\Customer\Model\AddressFactory;
-use Magento\Framework\Message\ManagerInterface;
 use Magento\Company\Api\CompanyManagementInterface;
-use Magento\Framework\Escaper;
-use Magento\Framework\UrlFactory;
+use Magento\Company\Api\CompanyRepositoryInterface;
+use Magento\Company\Api\Data\CompanyCustomerInterfaceFactory;
+use Magento\Customer\Model\AddressFactory;
+use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\Session;
-use Magento\Customer\Model\Registration;
-use Magento\Framework\Data\Form\FormKey\Validator;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ObjectManager;
- 
+use Magento\Framework\Data\Form\FormKey\Validator;
+use Magento\Framework\Escaper;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\UrlFactory;
+use Magento\Store\Model\StoreManagerInterface;
+
 class CreatePost extends \Magento\Framework\App\Action\Action
 {
     /**
@@ -62,16 +60,21 @@ class CreatePost extends \Magento\Framework\App\Action\Action
      * @var Magento\Framework\Data\Form\FormKey\Validator
      */
     private $formKeyValidator;
+    protected $companyFactory;
 
     /**
      * @param Context $context
      * @param StoreManagerInterface $storeManager
      * @param CustomerFactory $customerFactory
      * @param AddressFactory $addressFactory
+     * @param CompanyManagementInterface $companyMngRepository
+     * @param CompanyRepositoryInterface $companyRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param ManagerInterface $messageManager
      * @param Escaper $escaper
      * @param UrlFactory $urlFactory
      * @param Session $session
+     * @param CompanyCustomerInterfaceFactory $companyFactory
      * @param Validator $formKeyValidator
      */
     public function __construct(
@@ -86,9 +89,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         Escaper $escaper,
         UrlFactory $urlFactory,
         Session $session,
+        CompanyCustomerInterfaceFactory $companyFactory,
         Validator $formKeyValidator = null
-    )
-    {
+    ) {
         $this->storeManager     = $storeManager;
         $this->customerFactory  = $customerFactory;
         $this->addressFactory   = $addressFactory;
@@ -100,7 +103,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         $this->urlModel         = $urlFactory->create();
         $this->session          = $session;
         $this->formKeyValidator = $formKeyValidator ?: ObjectManager::getInstance()->get(Validator::class);
-        
+        $this->companyFactory = $companyFactory;
         // messageManager can also be set via $context
         // $this->messageManager   = $context->getMessageManager();
 
@@ -115,10 +118,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $postData = $this->getRequest()->getPost();
-
-        /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+        $companyId = $this->getCompanyId($postData['company']['vat_tax_id']);
         $resultRedirect = $this->resultRedirectFactory->create();
-        
+
         // check if the form is actually posted and has the proper form key
         if (!$this->getRequest()->isPost() || !$this->formKeyValidator->validate($this->getRequest())) {
             $url = $this->urlModel->getUrl('excustomer/account/create', ['_secure' => true]);
@@ -126,17 +128,19 @@ class CreatePost extends \Magento\Framework\App\Action\Action
             return $resultRedirect;
         }
         $websiteId  = $this->storeManager->getWebsite()->getWebsiteId();
-        
+
         $firstName = $postData['firstname'];
         $lastName = $postData['lastname'];
         $email = $postData['email'];
         $password = $postData['password'];
         $position = $postData['position'];
+        $telephone = $postData['telephone'];
+        $companyCode = $postData['company']['customer_code'];
 
         // instantiate customer object
         $customer = $this->customerFactory->create();
         $customer->setWebsiteId($websiteId);
-        
+
         // check if customer is already present
         // if customer is already present, then show error message
         // else create new customer
@@ -150,26 +154,46 @@ class CreatePost extends \Magento\Framework\App\Action\Action
             $this->messageManager->addError($message);
         } else {
             try {
+                $url = $this->urlModel->getUrl('excustomer/account/create', ['_secure' => true]);
+
+                $companyId = $this->getCompanyId($postData['company']['vat_tax_id']);
+                if (!$companyId) {
+                    $message = __(
+                        'Company OIB does not exists. Please enter valid company OIB.'
+                    );
+                    $this->messageManager->addError($message);
+                    $resultRedirect->setUrl($this->_redirect->success($url));
+                    return $resultRedirect;
+                }
                 // prepare customer data
-                $customer->setEmail($email); 
+                $customer->setEmail($email);
                 $customer->setFirstname($firstName);
                 $customer->setLastname($lastName);
                 $customer->setPosition($position);
-                $customer->setData('company_id', 1);
-                
+                $customer->setCompanyId($companyId);
+                $customer->setCustomerCode($companyCode);
+                $customer->setPhone($telephone);
+
+                /*$companyAttributes = $this->companyFactory->create();
+                $companyAttributes->setCompanyId($companyId);
+                $customer->getExtensionAttributes()->setCompanyAttributes($companyAttributes);*/
 
                 // set null to auto-generate password
-                $customer->setPassword($password); 
+                $customer->setPassword($password);
 
                 // set the customer as confirmed
                 // this is optional
                 // comment out this line if you want to send confirmation email
                 // to customer before finalizing his/her account creation
                 //$customer->setForceConfirmed(true);
-                
+
                 // save data
                 $customer->save();
-                $companyId = $this->getCompanyId($postData['company']['vat_tax_id']);
+
+                $companyAttributes = $this->companyFactory->create();
+                $companyAttributes->setCompanyId($companyId);
+                $customer->getExtensionAttributes()->setCompanyAttributes($companyAttributes);
+
                 $this->assignCompany($companyId, $customer->getId());
                 $this->messageManager->addSuccess(
                     __(
@@ -177,10 +201,8 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                         $email
                     )
                 );
-                
-                $url = $this->urlModel->getUrl('excustomer/account/create', ['_secure' => true]);
+
                 $resultRedirect->setUrl($this->_redirect->success($url));
-                
                 //$resultRedirect->setPath('*/*/');
                 return $resultRedirect;
             } catch (StateException $e) {
@@ -213,8 +235,8 @@ class CreatePost extends \Magento\Framework\App\Action\Action
     public function assignCompany($companyId, $customerId)
     {
         $company = null;
-        if($companyId && $customerId) {
-            $company = $this->companyMngRepository->assignCustomer($companyId,$customerId);
+        if ($companyId && $customerId) {
+            $company = $this->companyMngRepository->assignCustomer($companyId, $customerId);
         }
         return $company;
     }
@@ -242,4 +264,3 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         return $companyId;
     }
 }
-?>

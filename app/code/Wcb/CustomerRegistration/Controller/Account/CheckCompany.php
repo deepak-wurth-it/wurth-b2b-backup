@@ -1,102 +1,81 @@
 <?php
 namespace Wcb\CustomerRegistration\Controller\Account;
 
-use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Company\Api\CompanyRepositoryInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class CheckCompany extends \Magento\Framework\App\Action\Action
 {
- public function __construct(
-     \Magento\Framework\App\Action\Context $context,
-     \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
-     CompanyRepositoryInterface $companyRepository,
-     SearchCriteriaBuilder $searchCriteriaBuilder,
-     \Magento\Company\Api\CompanyManagementInterface $companyMngRepository,
-     \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
- ) {
-     parent::__construct($context);
-     $this->resultJsonFactory = $resultJsonFactory;
-     $this->companyRepository = $companyRepository;
-     $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-     $this->companyMngRepository = $companyMngRepository;
-     $this->customerRepositoryInterface = $customerRepositoryInterface;
- }
- 
- public function execute()
+    protected $companyCollection;
+
+    public function __construct(
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+        CompanyRepositoryInterface $companyRepository,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        \Magento\Company\Api\CompanyManagementInterface $companyMngRepository,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+        \Magento\Company\Model\ResourceModel\Company\CollectionFactory $companyCollection
+    ) {
+        parent::__construct($context);
+        $this->resultJsonFactory = $resultJsonFactory;
+        $this->companyRepository = $companyRepository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->companyMngRepository = $companyMngRepository;
+        $this->customerRepositoryInterface = $customerRepositoryInterface;
+        $this->companyCollection = $companyCollection;
+    }
+
+    public function execute()
     {
         $resultJson = $this->resultJsonFactory->create();
         $customerCode = $this->getRequest()->getParam('customer_code');
         $companyOib = $this->getRequest()->getParam('CompanyOib');
 
         //Check customer exists
-        $exists = $this->checkCustomerExists($customerCode);
-
-        if($customerCode =='' || $companyOib == '' || $exists == ''){
-            return $resultJson->setData([
-                'compid' => '',
-                'cid' => '',
-                'html' => '',
-                'success' => ''
-            ]);
-        }elseif($customerCode !='' &&  $companyOib != '' && $exists != ''){
-            $getCompanyId = $this->getCustomerCompany($customerCode);
-            $companyDetails = $this->getCompanyId($companyOib);
-    
-            $cId = $companyDetails->getId();
-            $success = ($companyDetails->getCompanyName() !='')?true:false;
+        $exists = $this->checkCompanyExists($companyOib, $customerCode);
+        $result = [];
+        if ($exists) {
+            $result["success"] = 'true';
+            $result["message"] = "";
+        } else {
+            $result["success"] = 'false';
+            $result["message"] = __("Customer is not linked. Please enter valid customer code");
         }
-        
-        return $resultJson->setData([
-            'compid' => $getCompanyId,
-            'cid' => $cId,
-            'html' => $companyDetails->getCompanyName(),
-            'success' => $success
-        ]);
-    }
 
-    public function getCustomerCompany($customerId)
-    {
-        $company = $this->companyMngRepository->getByCustomerId($customerId)->getId();
-        return $company;
+        return $resultJson->setData($result);
     }
-
-    /**
-     * @param string $companyTax
-     * @return mixed
-     * @throws LocalizedException
-     */
-    public function getCompanyId(string $companyTax)
+    public function checkCompanyExists($companyOib, $customerCode)
     {
-        $this->searchCriteriaBuilder->addFilter(
-            'vat_tax_id',
-            trim($companyTax)
-        );
-        $companyData = $this->companyRepository->getList(
-            $this->searchCriteriaBuilder->create()
-        )->getItems();
-        $companyDetails = null;
-        if ($companyData) {
-            foreach ($companyData as $company) {
-                $companyDetails = $company;//->getCompanyName();
+        $companies = $this->companyCollection->create()
+            ->addFieldToFilter("vat_tax_id", ["eq" => $companyOib])
+            ->getFirstItem();
+
+        $companyCodeExists = false;
+
+        if ($companies->getId()) {
+            $customer = $this->checkCustomerExist($companies->getSuperUserId());
+            if ($customer != '') {
+                if ($customer->getCustomAttribute("customer_code")) {
+                    $custCode = $customer
+                        ->getCustomAttribute("customer_code")
+                        ->getValue();
+                    if ($customerCode == $custCode) {
+                        $companyCodeExists = true;
+                    }
+                }
             }
         }
-        return $companyDetails;
+        return $companyCodeExists;
     }
-
-     /**
-     * Get customer by Id.
-     *
-     * @param int $customerId
-     *
-     * @return \Magento\Customer\Model\Data\Customer
-     */
-    public function checkCustomerExists($customerId)
+    public function checkCustomerExist($customerId)
     {
         try {
             return $this->customerRepositoryInterface->getById($customerId);
         } catch (\Exception $e) {
-            //$this->logger->critical($e);
+            var_dump($e->getMessage());
+            exit;
             return '';
-        }  
-    }     
+        }
+    }
 }

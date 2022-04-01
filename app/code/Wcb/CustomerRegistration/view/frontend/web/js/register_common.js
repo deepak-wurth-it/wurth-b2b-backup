@@ -50,12 +50,14 @@ define([
                         // for new customer
                         if (data.success == true && self.is_new_customer == "true") {
                             $('#save-button').prop('disabled', true);
+                            $("#vat_tax_id").val("");
                             $("#link-error-oib").html($.mage.__("Company OIB already exists. Please enter valid company OIB."));
                             $("#link-error-oib").show();
                         }
                         // For existing customer
                         if (data.success == false && self.is_new_customer == "false") {
                             $('#save-button').prop('disabled', true);
+                            $("#vat_tax_id").val("");
                             $("#link-error-oib").html($.mage.__("Company OIB does not exists. Please enter valid company OIB."));
                             $("#link-error-oib").show();
                         }
