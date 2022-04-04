@@ -21,7 +21,7 @@ define([
         $('html,body').animate({
                 scrollTop: $(".execution").offset().top - 200
             },
-            'slow');
+            'slow'); 
     });     
     },
         });

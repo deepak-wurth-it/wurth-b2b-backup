@@ -50,17 +50,14 @@
    $product=false;
    ?>
 <?php
-   $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-   $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-   $logedIn = $customerSession->isLoggedIn();
+   // login check helper
+   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
    ?>
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
 <?php if($level == 6 ){ ?>
-<?php
-   $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-   $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-   $logedIn = $customerSession->isLoggedIn();
+   <?php
+    $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
    ?>
 <div class="row levelFive">
    <div class="col-sm-6">
@@ -161,13 +158,13 @@
                   <option> 100 PC </option>
                </select>
             </div>
-            <?php if($customerSession->isLoggedIn()) { ?> 
+            <?php if($logedIn) { ?> 
             <div class="itemboxwraper <?= (($logedIn ?'logdIn top':'')); ?>"><span class="itembox <?= (($logedIn ?'logdIn top':'')); ?>"></span><span class="deliveryday <?= (($logedIn ?'logdIn top':'')); ?>">1</span> </div>
             <?php } ?>
          </span>
       </div>
       <span class="attrow loginprice <?= (($logedIn ?'logdIn':'')); ?>">
-         <?php if($customerSession->isLoggedIn()) { ?>
+         <?php if($logedIn) { ?>
          <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
          <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
             <span>Price:&nbsp;</span>
