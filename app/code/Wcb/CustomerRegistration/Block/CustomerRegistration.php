@@ -12,6 +12,7 @@ namespace Wcb\CustomerRegistration\Block;
 class CustomerRegistration extends \Magento\Framework\View\Element\Template
 {
     protected $_regionFactory;
+    protected $divisionCollection;
 
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
@@ -21,6 +22,7 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
         \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
         \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroup,
         \Magento\Directory\Model\Country $country,
+        \Wcb\CustomerRegistration\Model\ResourceModel\Division\CollectionFactory $divisionCollection,
         array $data = []
     ) {
         $this->storeManager = $storeManager;
@@ -29,6 +31,7 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
         $this->addressRepository = $addressRepository;
         $this->customerGroup = $customerGroup;
         $this->country = $country;
+        $this->divisionCollection = $divisionCollection;
         parent::__construct($context, $data);
     }
 
@@ -41,6 +44,17 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
     {
         $customerGroups = $this->customerGroup->toOptionArray();
         return $customerGroups;
+    }
+
+    public function getDivision()
+    {
+        return $this->divisionCollection->create()
+            ->addFieldToFilter("parent_branch", ["null" => true]);
+    }
+    public function getActivates()
+    {
+        return $this->divisionCollection->create()
+            ->addFieldToFilter("parent_branch", ["neq" => null]);
     }
 
     /**

@@ -1,0 +1,32 @@
+{
+    "quote_address": {
+        "column": {
+            "same_as_headquarters_address": true
+        }
+    },
+    "order_address": {
+        "column": {
+            "same_as_headquarters_address": true
+        }
+    },
+    "company": {
+        "column": {
+            "number_of_employees": true,
+            "division": true,
+            "activities": true
+        }
+    },
+    "division": {
+        "column": {
+            "id": true,
+            "branch_code": true,
+            "name": true,
+            "parent_branch": true,
+            "customer_group_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "DIVISION_CUSTOMER_GROUP_ID_CUSTOMER_GROUP_CUSTOMER_GROUP_ID": true
+        }
+    }
+}
