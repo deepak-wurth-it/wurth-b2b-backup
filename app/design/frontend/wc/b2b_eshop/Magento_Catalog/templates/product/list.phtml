@@ -35,7 +35,12 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <?php $firstProduct =  $level5Collection->getFirstItem(); ?>
 <?php $firstProductExtraRow = $block->getExtraAttributeData($firstProduct); ?>
 <?php $subcategories = []; ?>
-<?php $subcategories = $block->getCategoryChildrenData($catId); ?>
+<?php $subcategories = $block->getCategoryChildrenData($catId);
+//   echo "<pre>";
+//         print_r($subcategories->getData());
+//       //  print_r($subcategories->getData());
+//         exit;
+?>
 <!-- End For Category -->
 <!-- For Product -->
 <?php
@@ -49,15 +54,14 @@ $pos = $block->getPositioned();
 $product=false;
 ?>
  <?php 
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-    $logedIn = $customerSession->isLoggedIn();
+      // login check helper
+   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
   ?>
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
 <?php if( $level <  5 ) { ?>
 
-  <?= $block->getToolbarHtml() ?>
+   <?= $block->getToolbarHtml() ?>
     <?= $block->getAdditionalHtml() ?>
 
     <div class="products wrapper grid products-grid">

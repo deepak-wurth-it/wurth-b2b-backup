@@ -1812,6 +1812,14 @@ label.sorter-label {
     color: rgba(0, 0, 0, 0.87);
 }
 
+.boxcontaner,.productFieldset, .minqtrbox{
+	input:not([disabled]):focus {
+		outline: 0;
+		border:none;
+		box-shadow:none;
+	}
+}
+
 // Tracking order Page start by Amit
 .tracking-order{
 		.order-title {
@@ -4365,16 +4373,27 @@ body {
 }
 
 // compare page start by amit
-.catalog-product_compare-index .base {
-	font-family: 'wuerthbold';
-	font-style: normal;
-	font-weight: bold;
-	font-size: 28px;
-	line-height: 160%;
-	color: rgba(0, 0, 0, 0.87);
-	position: absolute;
-	top: 174px;
-}
+.catalog-product_compare-index {
+	.page-title-wrapper {
+		margin-top: 30px;
+	}
+	.base {
+		font-family: 'wuerthbold';
+		font-size: 28px;
+		color: rgba(0, 0, 0, 0.87);
+		position: sticky;
+		top: 174px;
+	}
+	h1.page-title {
+		margin: 0;
+	}
+	.message.info.empty {
+		margin: 0 0 60px;
+	}
+
+	
+
+ }
 
 .action-secondary.action-dismiss {
 	background: #434853;
@@ -4403,8 +4422,6 @@ body {
 
 a.action.print.hidden-print {
 	font-family: 'wuerthbold';
-	font-style: normal;
-	font-weight: bold;
 	font-size: 16px;
 	line-height: 160%;
 	color: #009EE0;
@@ -5114,7 +5131,7 @@ a.action.print.hidden-print {
 	}
 	.product-actions {
 		position: absolute;
-		margin: 14px 0px 0px 553px;
+		margin: 2% 0px 0px 81%;
 		z-index: 1;
 	}
 	.comparebut {
@@ -5222,12 +5239,12 @@ a.action.print.hidden-print {
 	}
 	.boxcontaner {
 		display: flex;
-		width: 100%;
+		width: 94%;
 	}
 	.qty-field {
 		border: solid 1px rgba(0, 0, 0, 0.08);
 		border-radius: 4px;
-		width: 103px;
+		width: 23%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -5236,7 +5253,7 @@ a.action.print.hidden-print {
 	.veCount {
 		border: solid 1px rgba(0, 0, 0, 0.08);
 		border-radius: 4px;
-		width: 123px;
+		width: 30%;
 		display: flex;
 		justify-content: center;
 		color: @general_text_color;
@@ -5425,6 +5442,11 @@ a.action.print.hidden-print {
 	}
 	button#defaultOpens {
 		width: 100px;
+	}
+	.pdpTab button:hover {
+		background: none;
+		border: 1px solid rgba(0, 0, 0, 8%);
+		border-bottom:none;
 	}
 	
 	.pdpTab button.active {
@@ -6122,7 +6144,7 @@ div#reviews {
 		padding: 10px;
 	}
 	.slider-product-item-details {
-		text-align: center;
+		text-align: center; 
 	}
 	.product-item-name {
 		a {
@@ -10021,12 +10043,9 @@ print {
 	}
 	a.action.print.hidden-print {
 		font-family: 'wuerthbold';
-		font-style: normal;
-		font-weight: bold;
 		font-size: 16px;
 		line-height: 160%;
 		color: #009EE0;
-		margin-top: 30px;
 		position: absolute;
 	}
 	.table-comparison {
