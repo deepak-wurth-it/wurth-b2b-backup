@@ -19,9 +19,9 @@ define([
        
        $(".itemAdd").click(function () {
         $('html,body').animate({
-                scrollTop: $(".execution").offset().top
+                scrollTop: $(".execution").offset().top - 200
             },
-            'slow');
+            'slow'); 
     });     
     },
         });

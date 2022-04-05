@@ -51,9 +51,8 @@ $pos = $block->getPositioned();
 $product=false;
 ?>
  <?php
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-    $logedIn = $customerSession->isLoggedIn();
+    // login check helper
+    $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
   ?>
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
@@ -90,7 +89,7 @@ $product=false;
                                        href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
                                 </strong>
                                 <?php if ($level > 4 && $productCount > 1) { ?>
-                                  <?php if($customerSession->isLoggedIn()) { ?>
+                                  <?php if($logedIn) { ?>
                                     <p class="price-box">
                                         <label>
                                             <span class="startFrom">Start from </span></span><span class="price">1,816.17 HRK</span>
@@ -169,7 +168,7 @@ $product=false;
                                             <?php echo $product->getName(); ?>
                                         </a>
                                     </strong>
-                                    <?php if($customerSession->isLoggedIn()) { ?>
+                                    <?php if($logedIn) { ?>
                                     <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
 
                                     <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">

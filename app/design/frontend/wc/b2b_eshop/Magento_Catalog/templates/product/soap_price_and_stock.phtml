@@ -9,16 +9,16 @@
 ?>
 
 <?php /** @var \Magento\Catalog\Block\Product\View $block */?>
-<?php
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+  <?php
+     // login check helper
+   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
   ?>
 
 <?php $_product = $block->getProduct();?>
 <?php $productCode = $_product->getProductCode();?>
 
 <div>
-<?php if($customerSession->isLoggedIn()) { ?>
+<?php if($logedIn) { ?>
 <div id="price_soap" style="display:none;" class="priceDisplay">
         <span>Price:&nbsp;</span>
         <span id="suggestedPriceAsTxtP"></span>
