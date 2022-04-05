@@ -6,6 +6,8 @@ namespace Wcb\CustomerRegistration\Controller\Account;
 use Magento\Company\Api\CompanyManagementInterface;
 use Magento\Company\Api\CompanyRepositoryInterface;
 use Magento\Company\Api\Data\CompanyCustomerInterfaceFactory;
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Api\Data\CustomerInterfaceFactory;
 use Magento\Customer\Model\AddressFactory;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\Session;
@@ -13,6 +15,7 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Data\Form\FormKey\Validator;
+use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Message\ManagerInterface;
@@ -61,6 +64,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
      */
     private $formKeyValidator;
     protected $companyFactory;
+    protected $customerInterfaceFactory;
+    protected $encryptorInterface;
+    protected $customerRepositoryInterface;
 
     /**
      * @param Context $context
@@ -75,6 +81,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
      * @param UrlFactory $urlFactory
      * @param Session $session
      * @param CompanyCustomerInterfaceFactory $companyFactory
+     * @param CustomerInterfaceFactory $customerInterfaceFactory
+     * @param EncryptorInterface $encryptorInterface
+     * @param CustomerRepositoryInterface $customerRepositoryInterface
      * @param Validator $formKeyValidator
      */
     public function __construct(
@@ -90,6 +99,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         UrlFactory $urlFactory,
         Session $session,
         CompanyCustomerInterfaceFactory $companyFactory,
+        CustomerInterfaceFactory $customerInterfaceFactory,
+        EncryptorInterface $encryptorInterface,
+        CustomerRepositoryInterface $customerRepositoryInterface,
         Validator $formKeyValidator = null
     ) {
         $this->storeManager     = $storeManager;
@@ -104,6 +116,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         $this->session          = $session;
         $this->formKeyValidator = $formKeyValidator ?: ObjectManager::getInstance()->get(Validator::class);
         $this->companyFactory = $companyFactory;
+        $this->customerInterfaceFactory = $customerInterfaceFactory;
+        $this->encryptorInterface = $encryptorInterface;
+        $this->customerRepositoryInterface = $customerRepositoryInterface;
         // messageManager can also be set via $context
         // $this->messageManager   = $context->getMessageManager();
 
@@ -165,34 +180,38 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     $resultRedirect->setUrl($this->_redirect->success($url));
                     return $resultRedirect;
                 }
-                // prepare customer data
+                //Save customer using repo
+                $customer = $this->customerInterfaceFactory->create();
+                $customer->setWebsiteId($websiteId);
                 $customer->setEmail($email);
+                $customer->setFirstname($firstName);
+                $customer->setLastname($lastName);
+
+                $hashedPassword = $this->encryptorInterface->getHash($password, true);
+                $this->customerRepositoryInterface->save($customer, $hashedPassword);
+
+                //After create customer save other attributes values
+                $customer = $this->customerFactory->create()
+                    ->setWebsiteId($websiteId)
+                    ->loadByEmail($email);
+
+                if ($customer->getId()) {
+                    $customer->setPosition($position);
+                    $customer->setCustomerCode($companyCode);
+                    $customer->setPhone($telephone);
+                    $customer->save();
+                }
+
+                // prepare customer data
+                /*$customer->setEmail($email);
                 $customer->setFirstname($firstName);
                 $customer->setLastname($lastName);
                 $customer->setPosition($position);
                 $customer->setCompanyId($companyId);
                 $customer->setCustomerCode($companyCode);
                 $customer->setPhone($telephone);
-
-                /*$companyAttributes = $this->companyFactory->create();
-                $companyAttributes->setCompanyId($companyId);
-                $customer->getExtensionAttributes()->setCompanyAttributes($companyAttributes);*/
-
-                // set null to auto-generate password
                 $customer->setPassword($password);
-
-                // set the customer as confirmed
-                // this is optional
-                // comment out this line if you want to send confirmation email
-                // to customer before finalizing his/her account creation
-                //$customer->setForceConfirmed(true);
-
-                // save data
-                $customer->save();
-
-                $companyAttributes = $this->companyFactory->create();
-                $companyAttributes->setCompanyId($companyId);
-                $customer->getExtensionAttributes()->setCompanyAttributes($companyAttributes);
+                $customer->save();*/
 
                 $this->assignCompany($companyId, $customer->getId());
                 $this->messageManager->addSuccess(
@@ -203,7 +222,6 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                 );
 
                 $resultRedirect->setUrl($this->_redirect->success($url));
-                //$resultRedirect->setPath('*/*/');
                 return $resultRedirect;
             } catch (StateException $e) {
                 $url = $this->urlModel->getUrl('customer/account/forgotpassword');
