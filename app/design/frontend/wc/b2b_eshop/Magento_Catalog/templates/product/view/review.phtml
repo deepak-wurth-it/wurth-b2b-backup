@@ -9,7 +9,9 @@
 <?php 
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-    $logedIn = $customerSession->isLoggedIn();
+   // $logedIn = $customerSession->isLoggedIn();
+    // login check helper
+   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
 $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
 $product_id = $product->getId();
 $test = $objectManager->create(\Wcb\QuantityImport\Model\QuantityImport::class);

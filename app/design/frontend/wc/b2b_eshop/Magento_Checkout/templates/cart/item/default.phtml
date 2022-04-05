@@ -18,7 +18,9 @@
    $shippingProductHelper = $helper = $this->helper(Wurth\Shippingproduct\Helper\Data::class);
    $shippingProductCode = $shippingProductHelper->getShippingProductCode();
    $removeHelper = $this->helper(Magento\Checkout\Helper\Cart::class);
-   ?>
+  // login check helper
+   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
+  ?>
 <tbody class="cart item">
    <tr class="item-info table__row">
       <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="colitem" >
@@ -117,10 +119,12 @@
 
          </div>
          <div class="imd-avilable">
+         <?php if($logedIn) { ?>
             <span class="imd-van"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/Rectangle434.png'); ?>" /></span>
             <span class="imd-cart"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/cartico.png'); ?>" /></span>
             <span class="imd-day">12-14</span>
             <span class="imd-avlb">The quantity will be available for the displayed number of days</span>
+            <?php } ?>
          </div>
           <?php } ?>
       </td>
@@ -139,12 +143,18 @@
             <tr>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Price')) ?>">
                   <div class="colsubtotal">
+                     <?php if($logedIn) { ?>
                      <div class="cpdis"><span class="cpcross">145,66 HRK </span> <span class="cpper"> (-25%)</span></div>
                      <span class="cpgprice">1816.17</span>
+                     <?php } else { ?>
+                        <span class="cpgprice">Login to view price</span>
+                        <?php } ?>
                   </div>
                </td>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Amount without VAT')) ?>">
-                  <span class="carmrp">2,401.88</span>
+               <?php if($logedIn) { ?>
+                 <span class="carmrp">2,401.88</span>
+                        <?php } ?>
                </td>
             </tr>
          </table>
