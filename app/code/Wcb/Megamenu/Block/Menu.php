@@ -225,10 +225,15 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $childs = $parent->getChildrenCategories()->addAttributeToSelect('name')->addAttributeToSort('name', 'ASC');
         if (count($childs)) {
             foreach ($childs as $child) {
-                if ($child->getIsActive()) {
-                    array_push($activeChildren, $child);
-                }
+                $activeCount = $child->getChildrenCategories()->addIsActiveFilter()->count();
+                $activeSize = $child->getChildrenCategories()->addIsActiveFilter()->getSize();
+                $productCount = $child->getProductCollection()->count();
+                if($activeCount > 0 && $activeSize >0  && $productCount > 0){
+                    if ($child->getIsActive()) {
+                        array_push($activeChildren, $child);
+                    }
             }
+          }
         }
         return $activeChildren;
     }
@@ -539,16 +544,17 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $countChildren = 0;
         $ClassNoChildren = '';
         foreach ($children as $child) {
+             //@checked this condition in getActiveChildren method,its not required , I ll remove after test
             // Categories having no child will not show in menu
-            $activeCount = $child->getChildrenCategories()->addIsActiveFilter()->count();
-            $activeSize = $child->getChildrenCategories()->addIsActiveFilter()->getSize();
-            $productCount = $child->getProductCollection()->count();
-            if($activeCount > 0 && $activeSize >0  && $productCount > 0){
+           // $activeCount = $child->getChildrenCategories()->addIsActiveFilter()->count();
+           // $activeSize = $child->getChildrenCategories()->addIsActiveFilter()->getSize();
+           // $productCount = $child->getProductCollection()->count();
+           // if($activeCount > 0 && $activeSize >0  && $productCount > 0){
                 $activeChildCat = $this->getActiveChildren($child, 0);
                 if ($activeChildCat) {
                     $countChildren++;
                 }
-            }
+           // }
         }
         
         if ($countChildren == 0 && $columChunk == 1) {
@@ -559,13 +565,13 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $arr_catsid = ['']; //json_decode($is_link);
         //$arr_catsid = explode(',',$this->getConfig('is_link'));
         foreach ($children as $child) {
-          
+             //@checked this condition in  getActiveChildren method,its not required , I ll remove after test
             // Categories having no child will not show in menu
-            $activeCount = $child->getChildrenCategories()->addIsActiveFilter()->count();
-            $activeSize = $child->getChildrenCategories()->addIsActiveFilter()->getSize();
-            $productCount = $child->getProductCollection()->count();
-            //echo $activeCount;
-            if($activeCount > 0 && $activeSize > 0 && $productCount > 0){
+            // $activeCount = $child->getChildrenCategories()->addIsActiveFilter()->count();
+            // $activeSize = $child->getChildrenCategories()->addIsActiveFilter()->getSize();
+            // $productCount = $child->getProductCollection()->count();
+            // //echo $activeCount;
+            // if($activeCount > 0 && $activeSize > 0 && $productCount > 0){
                 
             
             if ($child->getIsActive()) {
@@ -601,7 +607,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
                     $html.= '</div>';
                 }
             }
-        }
+        //}
         }
         $html.= '</div>';
         return $html;
