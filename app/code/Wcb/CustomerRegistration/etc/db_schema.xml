@@ -11,4 +11,17 @@
 		<column name="division" xsi:type="text" nullable="true"/>
 		<column name="activities" xsi:type="text" nullable="true"  />
 	</table>
+    <table name="division" resource="default" comment="division">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <column name="branch_code" nullable="true" xsi:type="text" comment="Branch Name"/>
+        <column name="name" nullable="true" xsi:type="text" comment="title"/>
+        <column name="parent_branch" nullable="true" xsi:type="int" comment="Parent Branch"/>
+        <column xsi:type="int" name="customer_group_id" unsigned="true" nullable="true" identity="false"/>
+        <constraint xsi:type="foreign" referenceId="DIVISION_CUSTOMER_GROUP_ID_CUSTOMER_GROUP_CUSTOMER_GROUP_ID" table="division"
+                    column="customer_group_id" referenceTable="customer_group" referenceColumn="customer_group_id"
+                    onDelete="SET NULL"/>
+    </table>
 </schema>

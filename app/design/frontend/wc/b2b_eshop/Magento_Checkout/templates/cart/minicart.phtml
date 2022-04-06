@@ -15,7 +15,13 @@
         <span class="counter qty empty"
               data-bind="css: { empty: !!getCartParam('summary_count') == false && !isLoading() },
                blockLoader: isLoading">
+                 <!-- ko if: getCartParam('summary_count') -->
                <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+             <!-- /ko -->
+              <!-- ko if: !getCartParam('summary_count')-->
+              <span class="counter-number">0</span>
+              <!-- /ko -->
+
             <span class="counter-label">
             <!-- ko if: getCartParam('summary_count') -->
                 <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
