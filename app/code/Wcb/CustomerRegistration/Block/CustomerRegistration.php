@@ -51,11 +51,6 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
         return $this->divisionCollection->create()
             ->addFieldToFilter("parent_branch", ["null" => true]);
     }
-    public function getActivates()
-    {
-        return $this->divisionCollection->create()
-            ->addFieldToFilter("parent_branch", ["neq" => null]);
-    }
 
     /**
      * Get the list of regions present in the given Country
