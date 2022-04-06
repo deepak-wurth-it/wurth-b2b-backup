@@ -19,10 +19,24 @@
 		 <move element="breadcrumbs" destination="page.top" before="-"/>
 		 <move element="page.main.title" destination="content" before="category.products"/>
         <referenceBlock name="catalog.leftnav" remove="true"/>
-        <referenceBlock name="category.products.list">
-			<action method="setTemplate">
-				<argument name="template" xsi:type="string">Wcb_Catalog::product/list_level_5.phtml</argument>
-			</action>
-		</referenceBlock>
+        <referenceBlock name="category.products">
+                <block class="Wcb\Catalog\Block\Product\ListProduct" name="category.products.list" as="product_list" template="Wcb_Catalog::product/list_level_5.phtml">
+                    <container name="category.product.list.additional" as="additional" />
+                    <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                        <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
+                    </block>
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+                        <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                               name="category.product.addto.compare" as="compare"
+                               template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                    </block>
+                    <block class="Wcb\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                        <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                    </block>
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                    </action>
+                </block>
+        </referenceBlock>
     </body>
 </page>
