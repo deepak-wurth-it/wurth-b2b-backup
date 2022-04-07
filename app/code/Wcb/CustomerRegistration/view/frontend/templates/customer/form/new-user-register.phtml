@@ -63,7 +63,7 @@
                                     data-validate="{required:true}">
                                 <option value=""><?php echo __("Please select Division") ?></option>
                                 <?php foreach ($divisions as $division) { ?>
-                                    <option value="<?= $division->getBranchCode() ?>" data-id="<?= $division->getId() ?>">
+                                    <option value="<?= $division->getCustomerGroupId() ?>" data-id="<?= $division->getId() ?>">
                                         <?php echo $division->getName(); ?>
                                     </option>
                                 <?php } ?>

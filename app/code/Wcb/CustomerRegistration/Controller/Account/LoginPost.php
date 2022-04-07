@@ -178,85 +178,84 @@ class LoginPost extends AbstractAccount implements CsrfAwareActionInterface, Htt
             'status'  => "false",
             'message' => "customer login"
         ];
-        if ($this->getRequest()->isPost()) {
-            $login = $this->getRequest()->getPost('login');
-            if (!empty($login['username']) && !empty($login['password'])) {
-                try {
-                    $customer = $this->customerAccountManagement->authenticate($login['username'], $login['password']);
-                    $this->session->setCustomerDataAsLoggedIn($customer);
-                    if ($this->getCookieManager()->getCookie('mage-cache-sessid')) {
-                        $metadata = $this->getCookieMetadataFactory()->createCookieMetadata();
-                        $metadata->setPath('/');
-                        $this->getCookieManager()->deleteCookie('mage-cache-sessid', $metadata);
-                    }
-                    $redirectUrl = $this->accountRedirect->getRedirectCookie();
-                    if (!$this->getScopeConfig()->getValue('customer/startup/redirect_dashboard') && $redirectUrl) {
-                        $this->accountRedirect->clearRedirectCookie();
-                        $redirectUrl = $this->_storeManager->getStore()->getBaseUrl();
 
-                        $resultData = [
-                            'status'  => "true",
-                            'message' => "customer login",
-                            'redirect_url' => $redirectUrl
-                        ];
-                    }
-                } catch (EmailNotConfirmedException $e) {
-                    $this->messageManager->addComplexErrorMessage(
-                        'confirmAccountErrorMessage',
-                        ['url' => $this->customerUrl->getEmailConfirmationUrl($login['username'])]
-                    );
+        $login = $this->getRequest()->getPost('login');
+        if (!empty($login['username']) && !empty($login['password'])) {
+            try {
+                $customer = $this->customerAccountManagement->authenticate($login['username'], $login['password']);
+                $this->session->setCustomerDataAsLoggedIn($customer);
+                if ($this->getCookieManager()->getCookie('mage-cache-sessid')) {
+                    $metadata = $this->getCookieMetadataFactory()->createCookieMetadata();
+                    $metadata->setPath('/');
+                    $this->getCookieManager()->deleteCookie('mage-cache-sessid', $metadata);
+                }
+                $redirectUrl = $this->accountRedirect->getRedirectCookie();
+                if (!$this->getScopeConfig()->getValue('customer/startup/redirect_dashboard') && $redirectUrl) {
+                    $this->accountRedirect->clearRedirectCookie();
+                    $redirectUrl = $this->_storeManager->getStore()->getBaseUrl();
+
+                }
+                $resultData = [
+                    'status'  => "true",
+                    'message' => "customer login",
+                    'redirect_url' => $redirectUrl
+                ];
+            } catch (EmailNotConfirmedException $e) {
+                $this->messageManager->addComplexErrorMessage(
+                    'confirmAccountErrorMessage',
+                    ['url' => $this->customerUrl->getEmailConfirmationUrl($login['username'])]
+                );
+                $this->session->setUsername($login['username']);
+                $resultData = [
+                        'status'  => "false",
+                        'message' => "",
+                        'redirect_url' => ""
+                    ];
+            } catch (AuthenticationException $e) {
+                $message = __(
+                    'The account sign-in was incorrect or your account is disabled temporarily. '
+                        . 'Please wait and try again later.'
+                );
+                $resultData = [
+                        'status'  => "false",
+                        'message' => "",
+                        'redirect_url' => ""
+                    ];
+            } catch (LocalizedException $e) {
+                $message = $e->getMessage();
+                $resultData = [
+                        'status'  => "false",
+                        'message' => "",
+                        'redirect_url' => ""
+                    ];
+            } catch (\Exception $e) {
+                // PA DSS violation: throwing or logging an exception here can disclose customer password
+                $this->messageManager->addErrorMessage(
+                    __('An unspecified error occurred. Please contact us for assistance.')
+                );
+                $resultData = [
+                        'status'  => "false",
+                        'message' => "",
+                        'redirect_url' => ""
+                    ];
+            } finally {
+                if (isset($message)) {
+                    $this->messageManager->addErrorMessage($message);
                     $this->session->setUsername($login['username']);
                     $resultData = [
-                        'status'  => "false",
-                        'message' => "",
-                        'redirect_url' => ""
-                    ];
-                } catch (AuthenticationException $e) {
-                    $message = __(
-                        'The account sign-in was incorrect or your account is disabled temporarily. '
-                        . 'Please wait and try again later.'
-                    );
-                    $resultData = [
-                        'status'  => "false",
-                        'message' => "",
-                        'redirect_url' => ""
-                    ];
-                } catch (LocalizedException $e) {
-                    $message = $e->getMessage();
-                    $resultData = [
-                        'status'  => "false",
-                        'message' => "",
-                        'redirect_url' => ""
-                    ];
-                } catch (\Exception $e) {
-                    // PA DSS violation: throwing or logging an exception here can disclose customer password
-                    $this->messageManager->addErrorMessage(
-                        __('An unspecified error occurred. Please contact us for assistance.')
-                    );
-                    $resultData = [
-                        'status'  => "false",
-                        'message' => "",
-                        'redirect_url' => ""
-                    ];
-                } finally {
-                    if (isset($message)) {
-                        $this->messageManager->addErrorMessage($message);
-                        $this->session->setUsername($login['username']);
-                        $resultData = [
                             'status'  => "false",
                             'message' => "",
                             'redirect_url' => ""
                         ];
-                    }
                 }
-            } else {
-                $this->messageManager->addErrorMessage(__('A login and a password are required.'));
-                $resultData = [
+            }
+        } else {
+            $this->messageManager->addErrorMessage(__('A login and a password are required.'));
+            $resultData = [
                     'status'  => "false",
                     'message' => "",
                     'redirect_url' => ""
                 ];
-            }
         }
 
         $response = $this->resultFactory
@@ -264,6 +263,5 @@ class LoginPost extends AbstractAccount implements CsrfAwareActionInterface, Htt
             ->setData($resultData);
 
         return $response;
-
     }
 }
