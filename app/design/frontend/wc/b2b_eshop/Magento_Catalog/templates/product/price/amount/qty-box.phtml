@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+ <div class="box-tocart">
+    <div class="fieldset productFieldset">
+    <div class="field qty">
+        <!-- <label class="label" for="qty"><span><?php /* @escapeNotVerified */
+        //echo __('Qty') ?></span></label> -->
+        <div class="control-qty-cart">
+            <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+            <input type="number" name="qty" id="qty" maxlength="12" value="1" title="<?php /* @escapeNotVerified */
+            echo __('Qty') ?>" class="qty-default input-text qty"
+                    data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+            />
+            <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+
+        </div>
+
+    </div>
+    <div class="pkgCount">
+        <select>
+            <option> 100 PC</option>
+            <option> 100 PC</option>
+            <option> 100 PC</option>
+            <option> 100 PC</option>
+        </select>
+    </div>
+    </div>
+</div>

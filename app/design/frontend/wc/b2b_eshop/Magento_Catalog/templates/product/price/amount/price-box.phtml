@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+$logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
+?>
+ <div id="price_soap70012101" style="display: block;" class="price-box"> 
+<?php if($logedIn) { ?>
+        <span class="price" id="suggestedSalesPriceInclDiscAsTxtP70012101">1722,2</span>
+        <span class="price">&nbsp;HRK&nbsp;</span>
+        <span class="wcb-contaner-group">
+            <div class="tooltip box redBox">
+                <span class="tooltiptext">The item is not available immediately</span>
+            </div>
+            <div class="tooltip van redVan">
+                <span class="tooltiptext">The quantity will be available for the displayed number of days</span>
+            </div>
+            <span class="delivery-time">12 -14</span>
+        </span>        
+<?php } else { ?>
+    <span class="view-price priceDisplay"> <?php echo __("Login to view price"); ?> </span>
+<?php } ?>   
+</div>
