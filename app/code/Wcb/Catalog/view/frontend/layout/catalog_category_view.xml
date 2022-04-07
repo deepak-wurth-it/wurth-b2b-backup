@@ -1,33 +1,14 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="columns">
-            <container name="columns.main" htmlTag="div" htmlClass="column main col-md pdpWrapper" before="-" />
-        </referenceContainer>
-        <referenceContainer name="content">
-            <referenceBlock name="sidebar.main" remove="true"/>
-            <referenceBlock name="sidebar.additional" remove="true"/>
-        </referenceContainer >
-        <referenceBlock name="page.main.title" display="false"/>
-        <referenceContainer name="div.sidebar.additional">
-            <block class="Magento\Cms\Block\Block" name="banner_left" after="recentproductslider">
-                <arguments>
-                    <argument name="block_id" xsi:type="string">banner_left</argument>
-                </arguments>
-            </block>
-        </referenceContainer>
-        <move element="category.view.container" destination="content" before="-"/>
-        <move element="breadcrumbs" destination="page.top" before="-"/>
-        <move element="page.main.title" destination="content" before="category.products"/>
-        <referenceBlock name="catalog.leftnav" remove="true"/>
         <referenceBlock name="category.products">
-            <block class="Wcb\Catalog\Block\Product\ListProduct" name="category.products.list" as="product_list" template="Wcb_Catalog::product/list_level_6.phtml">
+            <block class="Wcb\Catalog\Block\Product\ListProduct" name="category.products.list" as="product_list" template="Wcb_Catalog::product/category_list.phtml">
                 <container name="category.product.list.additional" as="additional" />
                 <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
                     <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
@@ -45,5 +26,17 @@
                 </action>
             </block>
         </referenceBlock>
+        <!--   Custom -->
+        <referenceContainer name="div.sidebar.additional">
+            <block class="Magento\Cms\Block\Block" name="banner_left" after="recentproductslider">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">banner_left</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <move element="category.view.container" destination="content" before="-"/>
+        <move element="breadcrumbs" destination="page.top" before="-"/>
+        <move element="page.main.title" destination="content" before="category.products"/>
+        <referenceBlock name="catalog.leftnav" remove="true"/>
     </body>
 </page>
