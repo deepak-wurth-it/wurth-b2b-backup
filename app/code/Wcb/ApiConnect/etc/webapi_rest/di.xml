@@ -4,4 +4,5 @@
 	<preference for="Wcb\ApiConnect\Api\GetMultiProductStockInterface" type="Wcb\ApiConnect\Model\GetMultiProductStock"/>
 	<preference for="Wcb\ApiConnect\Api\SingalProductPriceInterface" type="Wcb\ApiConnect\Model\SingalProductPrice"/>
 	<preference for="Wcb\ApiConnect\Api\SingalProductStockInterface" type="Wcb\ApiConnect\Model\SingalProductStock"/>
+    <preference for="Wcb\ApiConnect\Api\Homepage\HomepageManagementInterface" type="Wcb\ApiConnect\Model\Homepage\HomepageManagement" />
 </config>

@@ -196,9 +196,11 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     ->loadByEmail($email);
 
                 if ($customer->getId()) {
+                    $vatTaxId = isset($postData['company']['vat_tax_id']) ? $postData['company']['vat_tax_id'] : '';
                     $customer->setPosition($position);
                     $customer->setCustomerCode($companyCode);
                     $customer->setPhone($telephone);
+                    $customer->setTaxvat($vatTaxId);
                     $customer->save();
                 }
 
