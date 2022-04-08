@@ -1,0 +1,37 @@
+{
+    "wcb_bestseller_slider": {
+        "column": {
+            "slider_id": true,
+            "name": true,
+            "status": true,
+            "title": true,
+            "description": true,
+            "offer": true,
+            "header_two": true,
+            "store_ids": true,
+            "customer_group_ids": true,
+            "limit_number": true,
+            "location": true,
+            "time_cache": true,
+            "from_date": true,
+            "to_date": true,
+            "product_type": true,
+            "categories_ids": true,
+            "product_ids": true,
+            "display_additional": true,
+            "is_responsive": true,
+            "responsive_items": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WCB_BESTSELLER_SLIDER_SLIDER_ID": true,
+            "WCB_BESTSELLER_SLIDER_STATUS": true,
+            "WCB_BESTSELLER_SLIDER_FROM_DATE": true,
+            "WCB_BESTSELLER_SLIDER_TO_DATE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
