@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="page.main.title" destination="main" before="-" />
+        <referenceBlock name="search_suggestions" remove="true"/>
+        <referenceBlock name="search_recommendations" remove="true"/>
+           <referenceBlock name="catalogsearch.product.addto.requisition" remove="true"/>
+       <referenceBlock name="search_result_list">
+        <block class="Magento\Framework\View\Element\Template" name="search_price_box" template="Magento_Catalog::product/price/amount/price-box.phtml"/>
+             <block class="Magento\Framework\View\Element\Template" name="qty_box" template="Magento_Catalog::product/price/amount/qty-box.phtml"/>       
+         </referenceBlock>
+    </body>
+</page>

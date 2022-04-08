@@ -76,12 +76,14 @@ class Toolbar extends \Magento\Catalog\Block\Product\ProductList\Toolbar
      * @return $this
      */
     public function setCollection($collection)
-    {
+    {   $categoryId = '';
         $getGridDefaultProductValuePerPage = $this->getGridDefaultProductValuePerPage() ?? 4;
         $page = ($this->context->getRequest()->getParam('p')) ? $this->context->getRequest()->getParam('p') : 1;
         $pageSize = ($this->context->getRequest()->getParam('product_list_limit')) ? $this->context->getRequest()->getParam('product_list_limit') : $getGridDefaultProductValuePerPage;
 
-        $categoryId = $this->registry->registry('current_category')->getId();
+        if($this->registry->registry('current_category')){
+           $categoryId = $this->registry->registry('current_category')->getId();
+        }
         $categoryCollection = $this->categoryModelFactory->create()->load($categoryId)->getCollection();
         $categoryCollection->addAttributeToSelect('*')
             ->addFieldToFilter('parent_id', ['eq' => $categoryId]);
@@ -117,7 +119,6 @@ class Toolbar extends \Magento\Catalog\Block\Product\ProductList\Toolbar
                     break;
             }
         }
-
         return $this;
     }
 
