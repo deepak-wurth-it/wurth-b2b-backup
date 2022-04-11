@@ -35,9 +35,9 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
-         /*echo "<pre>";
-         print_r($data);
-         exit;*/
+        /*echo "<pre>";
+        print_r($data);
+        exit;*/
         $this->createCustomer($data);
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $resultRedirect->setPath("customer/account/create");
@@ -60,7 +60,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     "region" => $request['region'],
                     "region_id" => $request['region'],
                     "postcode" => $request['company']['postcode'],
-                    "telephone" => $request['telephone'],
+                    "telephone" => "+385" . $request['telephone'],
                     "super_user_id" => $customerId,
                     "position" => $request['position'],
                     "customer_group_id" => 1,
@@ -97,8 +97,8 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     ->setFirstname($data['firstname'])
                     ->setLastname($data['lastname'])
                     ->setPosition($data['position'])
-                    ->setMobile($data['telephone'])
-                    ->setPhone($data['telephone'])
+                    ->setMobile("+385" . $data['telephone'])
+                    ->setPhone("+385" . $data['telephone'])
                     ->setTaxvat($data['company']['vat_tax_id'])
                     //->setCustomerCode($data['telephone'])
                     ->setCustomerCode("")
@@ -153,7 +153,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         $address = $this->dataAddressFactory->create();
         $address->setFirstname($data['firstname']);
         $address->setLastname($data['lastname']);
-        $address->setTelephone($data['telephone']);
+        $address->setTelephone("+385" . $data['telephone']);
 
 //        $street[] = $data[$addressToSave]['street'];//pass street as array
         $address->setStreet([$data[$addressToSave][$prefix . 'street']]);

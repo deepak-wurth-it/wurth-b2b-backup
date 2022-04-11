@@ -29,6 +29,7 @@
                                id="email" type="email" class="input-text"
                                title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                                data-mage-init='{"mage/trim-input":{}}'
+                               data-msg-required="Neispravan unos."
                                data-validate="{required:true, 'validate-email':true}">
                     </div>
                 </div>
@@ -39,6 +40,7 @@
                             <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?>
                                class="input-text" id="pass"
                                title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+                               data-msg-required="Neispravan unos."
                                data-validate="{required:true}">
                     </div>
                 </div>
