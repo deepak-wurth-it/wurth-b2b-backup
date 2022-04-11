@@ -11,6 +11,8 @@ define([
             this.checkEmailAddressExists();
             this.customValidation();
             this.checkOib();
+            this.getActivates();
+            this.customerLogin();
         },
         checkEmailAddressExists: function () {
             $(document).on('change', '#email_address', function() {
@@ -79,6 +81,40 @@ define([
                 },
                 $.mage.__("Please enter valid phone number.")
             );
+        },
+        getActivates: function(){
+            $('#division').on('change', function () {
+                let division = $('option:selected', this).attr('data-id');
+                $.ajax({
+                    url: urlBuilder.build("excustomer/index/getactivates"),
+                    type: "POST",
+                    data: {division: division},
+                    showLoader: true
+                }).success(function (data) {
+                    $("#activates").html(data.option)
+                });
+            });
+        },
+        customerLogin: function(){
+            $('#login-form').on('submit', function () {
+                if(!$('#login-form').validation('isValid')){
+                    $("#send2").prop('disabled', false);
+                    return false;
+                }
+                $.ajax({
+                    url: urlBuilder.build("excustomer/account/loginpost"),
+                    type: "POST",
+                    data: $('#login-form').serialize(),
+                    showLoader: true
+                }).success(function (data) {
+                    $("#send2").prop('disabled', false);
+                    if(data.status == "true") {
+                        window.location.href = data.redirect_url;
+                    }
+                });
+                return false;
+            });
+
         }
     });
 });

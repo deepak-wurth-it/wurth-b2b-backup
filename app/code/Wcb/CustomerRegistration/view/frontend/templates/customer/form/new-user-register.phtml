@@ -51,22 +51,21 @@
                     <?php
                     //Currently has the default magento customer groups, We can change later as per requirement.
                     $blockObj = $block->getLayout()->createBlock('Wcb\CustomerRegistration\Block\CustomerRegistration');
-                    $customerGroups = $blockObj->getCustomerGroups();
-                    $label = array_column($customerGroups, 'label');
-                    $value = array_column($customerGroups, 'value');
-                    $resultArray = array_combine($value, $label);
-                    unset($resultArray['0'], $resultArray['1'], $resultArray['2'], $resultArray['3']);
+                    $divisions = $blockObj->getDivision();
+                    $activatesData = $blockObj->getActivates();
                     ?>
                     <div class="field company-division _required">
                         <label class="label" for="division">
                             <span><?= $block->escapeHtml(__('Division')) ?></span>
                         </label>
                         <div class="control">
-                            <select name='company[division]' class='form-control v-validate'
+                            <select name='company[division]' id="division" class='form-control v-validate'
                                     data-validate="{required:true}">
                                 <option value=""><?php echo __("Please select Division") ?></option>
-                                <?php foreach ($resultArray as $key => $value) { ?>
-                                    <option value="<?php echo $key; ?>"><?php echo $value ?></option>
+                                <?php foreach ($divisions as $division) { ?>
+                                    <option value="<?= $division->getCustomerGroupId() ?>" data-id="<?= $division->getId() ?>">
+                                        <?php echo $division->getName(); ?>
+                                    </option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -75,12 +74,11 @@
                     <div class="field company-activities _required">
                         <label class="label" for="activities">
                             <span><?= $block->escapeHtml(__('Activities')) ?></span>
-                        </label>
+                        </label>`
                         <div class="control">
-                            <select name='company[activities]' class='form-control v-validate'
+                            <select name='company[activities]' id="activates" class='form-control v-validate'
                                     data-validate="{required:true}">
                                 <option value=""><?php echo __("Please select Activities") ?></option>
-                                <option value="<?php echo 'ds' ?>"><?php echo 'Activity 1' ?></option>
                             </select>
                         </div>
                     </div>
@@ -427,7 +425,6 @@
                         </div>
                     </div>
                     <?php
-
                 }
                 ?>
 

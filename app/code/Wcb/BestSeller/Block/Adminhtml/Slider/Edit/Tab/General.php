@@ -145,6 +145,12 @@ class General extends Generic implements TabInterface
             'title' => __('Offer'),
             'required' => false,
         ]);
+        $fieldset->addField('header_two', 'text', [
+            'name' => 'header_two',
+            'label' => __('Header 2'),
+            'title' => __('Header 2'),
+            'required' => false,
+        ]);
 
         $fieldset->addField('location', 'select', [
             'name' => 'location',

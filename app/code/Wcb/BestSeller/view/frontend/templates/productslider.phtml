@@ -42,6 +42,7 @@ if ($block->getHelperData()->isEnabled() && $items && $itemsCount): ?>
                                     ? $_item['image']
                                     : $block->getImage($_item, 'recently_viewed_products_grid_content_widget')->toHtml();
                                 $offer = isset($_item['offer']) ? $_item['offer'] : '';
+                                $headerTwo = isset($_item['header_two']) ? $_item['header_two'] : '';
                                 $details = isset($_item['detail']) ? $_item['detail'] : $block->getProductDetailsHtml($_item);
                                 $type = isset($_item['type']) ? $_item['type'] : '';
                             ?>
@@ -74,6 +75,7 @@ if ($block->getHelperData()->isEnabled() && $items && $itemsCount): ?>
                                     </strong>
                                     <?php echo /** @noEscape */ $details ?>
                                 </div>
+                                <div class="price-off header-two"> <?php echo $headerTwo; ?></div>
                                 <div class="price-off"> <?php echo $offer ?></div>
                             </div>
                             <?php echo ($iterator === count($items) + 1) ? '</div>' : '' ?>

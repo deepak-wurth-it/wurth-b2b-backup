@@ -105,6 +105,7 @@ class AddBlock implements ObserverInterface
                                 "image" => $_category["image"],
                                 "url" => $_category["url"],
                                 "offer" => $slider->getOffer(),
+                                "header_two" => $slider->getHeaderTwo(),
                                 "detail" => "",
                                 "type" => "category"
                             ];
@@ -123,6 +124,7 @@ class AddBlock implements ObserverInterface
                                 "image" => $this->abstractSlider->getImage($_product, 'recently_viewed_products_grid_content_widget')->toHtml(),
                                 "url" => $this->abstractSlider->getProductUrl($_product),
                                 "offer" => $slider->getOffer(),
+                                "header_two" => $slider->getHeaderTwo(),
                                 "detail" => $this->abstractSlider->getProductDetailsHtml($_product),
                             ];
                             $productsIds[] = $_product->getId();

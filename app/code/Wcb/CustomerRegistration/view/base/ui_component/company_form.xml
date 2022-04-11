@@ -44,4 +44,17 @@
 			</settings>
 		</field>
 	</fieldset>
+    <fieldset name="information">
+        <field name="vat_tax_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">vat_tax_id</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Company OIB</label>
+            </settings>
+        </field>
+    </fieldset>
 </form>
