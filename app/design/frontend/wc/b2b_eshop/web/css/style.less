@@ -3647,6 +3647,9 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 		font-weight: normal;
 		border-bottom: solid 1px rgba(0, 0, 0, 0.12);
 	}
+	.product-item-inner-search {
+		display: flex;
+	}
 	.product-items .wishlist.split.button > .action.split{
 		background: url(../images/compare-wishlist.svg);
 		background-position: -32px -2px;
@@ -3666,6 +3669,54 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 	}
 	.wishlist.split.button .action.toggle{
 		display: none;	
+	}
+
+	.mst-nav__label .mst-nav__label-item a label {
+		width: 100%;
+	}
+	.filter-options .filter-options-title {
+		font-family: 'wuerthbold';
+		font-size: 1.6rem;
+		background-color: rgba(0, 0, 0, 0.12);
+		height: 35px;
+		padding: 10px;
+		cursor: pointer;
+	}
+	
+	.block-actions.filter-actions a {
+		font-family: 'Wuerthbook';
+		letter-spacing: 0.02em;
+		color: #CC0000;
+	}
+	li.item.mst-nav__state-filter {
+		font-family: 'wuerthbold';
+		font-size: 16px;
+		color: #009EE0;
+	}
+	.filter-value {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: #009EE0;
+	}
+	.filter-current .action.remove:before {
+		color: #009EE0;
+	}
+	.filter-options .filter-options-content {
+		border: 1px solid rgba(0, 0, 0, 12%);
+		padding: 10px;
+		margin-top: -10px;
+	}
+	.navigation-overlay._show {
+		text-align: center;
+		top: 0;
+		bottom: 0;
+	}
+	.navigation-overlay > i {
+		font-size: 8rem;
+	}
+	.mst-nav__horizontal-bar .filter-options {
+		display: block !important;
+		border-bottom: 1px solid #cccccc;
 	}
 }
 // Search page end
@@ -6276,6 +6327,12 @@ div#reviews {
 		font-size: 18px;
 		font-family: 'wuerthbold';
 		font-weight: bold;
+		text-align: center;
+	}
+	.price-off.header-two {
+		font-size: 18px;
+		font-family: 'wuerthbook';
+		font-weight: normal;
 		text-align: center;
 	}
 	// .owl-item {
