@@ -6,6 +6,7 @@ namespace Wcb\CustomerRegistration\Controller\Account;
 use Magento\Company\Api\CompanyManagementInterface;
 use Magento\Company\Api\CompanyRepositoryInterface;
 use Magento\Company\Api\Data\CompanyCustomerInterfaceFactory;
+use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterfaceFactory;
 use Magento\Customer\Model\AddressFactory;
@@ -201,6 +202,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     $customer->setCustomerCode($companyCode);
                     $customer->setPhone("+385" . $telephone);
                     $customer->setTaxvat($vatTaxId);
+                    $customer->setConfirmation(AccountManagementInterface::ACCOUNT_CONFIRMATION_REQUIRED);
                     $customer->save();
                 }
 
@@ -223,7 +225,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     )
                 );
 
-                $resultRedirect->setUrl($this->_redirect->success($url));
+                $resultRedirect->setPath("excustomer/account/success/", ['email' => $email]);
                 return $resultRedirect;
             } catch (StateException $e) {
                 $url = $this->urlModel->getUrl('customer/account/forgotpassword');

@@ -1,6 +1,7 @@
 <?php
 namespace Wcb\CustomerRegistration\Controller\Account;
 
+use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Framework\Controller\ResultFactory;
 
 class NewCustomerCreate extends \Magento\Framework\App\Action\Action
@@ -35,12 +36,10 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
-        /*echo "<pre>";
-        print_r($data);
-        exit;*/
+        $email = $data['confirm_email'];
         $this->createCustomer($data);
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $resultRedirect->setPath("customer/account/create");
+        $resultRedirect->setPath("excustomer/account/success/", ['email' => $email]);
         return $resultRedirect;
     }
 
@@ -103,7 +102,9 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     //->setCustomerCode($data['telephone'])
                     ->setCustomerCode("")
                     ->setEmail($data['email'])
+                    ->setConfirmation(AccountManagementInterface::ACCOUNT_CONFIRMATION_REQUIRED)
                     ->setPassword($data['password']);
+
             $customerSave = $customer->save();
             $companySave = $this->createCompany($data, $customer->getId());
             $customerId = $customer->getId();
