@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.122
- * @copyright Copyright (C) 2021 Mirasvit (https://mirasvit.com/)
+ * @version   1.3.3
+ * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -21,6 +21,7 @@ use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 use Mirasvit\Core\Model\NotificationFeedFactory;
 use Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\Module\Manager as ModuleManager;
 use Mirasvit\Core\Model\LicenseFactory;
 
 class OnActionPredispatchObserver implements ObserverInterface
@@ -43,6 +44,8 @@ class OnActionPredispatchObserver implements ObserverInterface
      * @var LicenseFactory
      */
     private $licenseFactory;
+    
+    private $moduleManager;
 
     /**
      * OnActionPredispatchObserver constructor.
@@ -53,11 +56,13 @@ class OnActionPredispatchObserver implements ObserverInterface
     public function __construct(
         NotificationFeedFactory $feedFactory,
         ManagerInterface $manager,
-        LicenseFactory $licenseFactory
+        LicenseFactory $licenseFactory,
+        ModuleManager $moduleManager
     ) {
         $this->feedFactory = $feedFactory;
         $this->manager = $manager;
         $this->licenseFactory = $licenseFactory;
+        $this->moduleManager = $moduleManager;
     }
 
     /**
@@ -81,7 +86,9 @@ class OnActionPredispatchObserver implements ObserverInterface
             }
         }
 
-        $feedModel = $this->feedFactory->create();
-        $feedModel->checkUpdate();
+        if ($this->moduleManager->isEnabled('Magento_AdminNotification')) {
+            $feedModel = $this->feedFactory->create();
+            $feedModel->checkUpdate();
+        }
     }
 }

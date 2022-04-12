@@ -1,0 +1,29 @@
+<?php
+
+use Mirasvit\Core\Service\SerializeService;
+
+/** @var \Mirasvit\Core\Ui\QuickDataBar\ScalarDataBlock $block */
+
+$scope = hash('sha256', $block->getNameInLayout());
+?>
+
+<div data-bind="scope: '<?= $scope ?>'">
+    <div class="mst-quickDataBar__dataBlock" data-bind="css: { _loading: loading() }">
+        <div class="dataBlockLabel"><?= $block->getLabel() ?></div>
+        <div class="dataBlockValue" data-bind="text: data().value"></div>
+    </div>
+</div>
+
+<script type="text/x-magento-init"><?= SerializeService::encode([
+        '*' => [
+            'Magento_Ui/js/core/app' => [
+                'components' => [
+                    $scope => [
+                        'component' => 'Mirasvit_Core/js/quickDataBar/dataBlock',
+                        'block'     => get_class($block),
+                        'updateURL' => $this->getUrl('mstcore/quickdatabar/load'),
+                    ],
+                ],
+            ],
+        ],
+    ]) ?></script>
