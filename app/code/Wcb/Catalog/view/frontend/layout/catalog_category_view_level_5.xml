@@ -26,6 +26,11 @@
                         <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
                     </block>
                     <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+                       
+                         <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="category.product.addto.wishlist" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+
                         <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
                                name="category.product.addto.compare" as="compare"
                                template="Magento_Catalog::product/list/addto/compare.phtml"/>
