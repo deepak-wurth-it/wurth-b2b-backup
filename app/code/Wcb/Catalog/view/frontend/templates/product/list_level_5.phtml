@@ -257,7 +257,7 @@ $product=false;
                                                 </button>
                                                 <div data-role="add-to-links" class="actions-secondary">
                                                     <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
-                                                        <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                                        <?php echo $addToBlock->setProduct($_product)->getChildHtml() ?>
                                                     <?php endif; ?>
                                                 </div>
                                             </div>

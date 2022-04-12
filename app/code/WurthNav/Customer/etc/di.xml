@@ -8,7 +8,12 @@
                 <item name="CustomerSyncCommand" xsi:type="object">WurthNav\Customer\Console\Command\CustomerSyncCommand</item>
             </argument>
         </arguments>
+
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="CustomerSyncFromNavCommand" xsi:type="object">WurthNav\Customer\Console\Command\CustomerSyncCommandFromNav</item>
+            </argument>
+        </arguments>
     </type>
 
 </config>
-
