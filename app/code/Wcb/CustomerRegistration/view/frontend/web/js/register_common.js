@@ -42,6 +42,7 @@ define([
                 var tax_value = $("#vat_tax_id").val();
                 var minlength = 11;
                 var customurl = urlBuilder.build("excustomer/account/verifycompany");
+                var exist_customer_url = urlBuilder.build("excustomer/account/create");
                 if (tax_value.length >= minlength && tax_value != '' && $.isNumeric(tax_value)) {
                     $.ajax({
                         url: customurl,
@@ -77,7 +78,7 @@ define([
             $.validator.addMethod(
                 "validate-ponumber-custom",
                 function(value, element) {
-                    return /^[- +()]*[0-9][- +()0-9]*$/i.test(value);
+                    return /^[1-9][0-9]*$/i.test(value);
                 },
                 $.mage.__("Please enter valid phone number.")
             );
@@ -97,6 +98,7 @@ define([
         },
         customerLogin: function(){
             $('#login-form').on('submit', function () {
+                $("#send2").prop('disabled', true);
                 if(!$('#login-form').validation('isValid')){
                     $("#send2").prop('disabled', false);
                     return false;
@@ -110,6 +112,9 @@ define([
                     $("#send2").prop('disabled', false);
                     if(data.status == "true") {
                         window.location.href = data.redirect_url;
+                    }
+                    if(data.status != "true") {
+                        $("#send2").prop('disabled', false);
                     }
                 });
                 return false;

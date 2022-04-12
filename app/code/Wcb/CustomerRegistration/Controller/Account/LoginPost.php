@@ -213,8 +213,7 @@ class LoginPost extends AbstractAccount implements CsrfAwareActionInterface, Htt
                     ];
             } catch (AuthenticationException $e) {
                 $message = __(
-                    'The account sign-in was incorrect or your account is disabled temporarily. '
-                        . 'Please wait and try again later.'
+                    'Neispravna e-mail adresa ili lozinka.'
                 );
                 $resultData = [
                         'status'  => "false",
@@ -250,7 +249,7 @@ class LoginPost extends AbstractAccount implements CsrfAwareActionInterface, Htt
                 }
             }
         } else {
-            $this->messageManager->addErrorMessage(__('A login and a password are required.'));
+            $this->messageManager->addErrorMessage(__('Neispravna e-mail adresa ili lozinka.'));
             $resultData = [
                     'status'  => "false",
                     'message' => "",

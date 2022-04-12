@@ -165,7 +165,7 @@ class HomepageManagement implements HomepageManagementInterface
         $sliderCollection = $this->bannerCollection
             ->create()
             ->addFieldToFilter('status', 1)
-            ->addFieldToFilter('display_pages', ["in" => "2"])
+            ->addFieldToFilter('display_pages', ["finset" => ["2"]])
             ->addFieldToFilter(
                 ['valid_to', 'valid_to'],
                 [['gteq' => $currentDate], ['null' => 'null']]
@@ -230,6 +230,9 @@ class HomepageManagement implements HomepageManagementInterface
         $categoriesIds = [];
         $productsIds = [];
         $fullActionName = "cms_index_index";
+        $storeId = $this->storeManager->getStore()->getId();
+        $this->appEmulation
+            ->startEnvironmentEmulation($storeId, Area::AREA_FRONTEND, true);
         foreach ($this->bestSellerHelper->getActiveSliders() as $slider) {
             [$pageType, $location] = explode('.', $slider->getLocation());
             if ($fullActionName == $pageType || $pageType == 'allpage') {
@@ -261,8 +264,7 @@ class HomepageManagement implements HomepageManagementInterface
                             continue;
                         }
                         $storeId = $this->storeManager->getStore()->getId();
-                        $this->appEmulation
-                            ->startEnvironmentEmulation($storeId, Area::AREA_FRONTEND, true);
+                        
                         $productsAndCategory[] = [
                             "name" => $_product->getName(),
                             "image" => $this->helperImage->init($_product, 'product_base_image')->getUrl(),
@@ -271,12 +273,13 @@ class HomepageManagement implements HomepageManagementInterface
                             "header_two" => $slider->getHeaderTwo(),
                             "detail" => $this->abstractProduct->getProductDetailsHtml($_product),
                         ];
-                        $this->appEmulation->stopEnvironmentEmulation();
+
                         $productsIds[] = $_product->getId();
                     }
                 }
             }
         }
+        $this->appEmulation->stopEnvironmentEmulation();
         return $productsAndCategory;
     }
 }
