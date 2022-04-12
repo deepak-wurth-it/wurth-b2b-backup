@@ -54,7 +54,8 @@ define([
                         if (data.success == true && self.is_new_customer == "true") {
                             $('#save-button').prop('disabled', true);
                             $("#vat_tax_id").val("");
-                            $("#link-error-oib").html($.mage.__("Company OIB already exists. Please enter valid company OIB."));
+
+                            $("#link-error-oib").html($.mage.__("Vaš OIB već postoji u bazi.Molimo da koristite registraciju za postoječe kupce na Vaš OIB već postoji u bazi.Molimo da koristite registraciju za postoječe kupce na <a href='"+exist_customer_url+"'>ovom linku</a>."));
                             $("#link-error-oib").show();
                         }
                         // For existing customer
