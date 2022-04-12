@@ -1,0 +1,16 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+?>
+<div class="mst-search__index">
+    <?= $block->getPager(); ?>
+    <ul>
+        <?php foreach ($block->getCollection() as $word): ?>
+            <li>
+                <a href="<?= $word->getUrl() ?>"><?= $word->getData('word'); ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <?= $block->getPager(); ?>
+</div>
+

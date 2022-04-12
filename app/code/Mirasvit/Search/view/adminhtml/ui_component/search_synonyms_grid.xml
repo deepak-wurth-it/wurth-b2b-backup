@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <buttons>
+            <button name="import">
+                <url path="search/synonym/import"/>
+                <class>secondary</class>
+                <label translate="true">Import Synonyms</label>
+            </button>
+        </buttons>
+    </settings>
+</listing>

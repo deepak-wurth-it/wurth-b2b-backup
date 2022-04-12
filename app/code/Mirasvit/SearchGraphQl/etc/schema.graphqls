@@ -1,0 +1,225 @@
+type Query {
+    search (
+        query: String
+    ): SearchResult @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\SearchResult")
+}
+
+type SearchResult {
+    catalogsearch_fulltext: SearchResultMagentoCatalogProduct
+    magento_catalog_category: SearchResultMagentoCatalogCategory
+    magento_cms_page: SearchResultMagentoCmsPage
+    magento_catalog_attribute:      SearchResultMagentoCatalogAttribute
+    magento_catalog_attribute_2:    SearchResultMagentoCatalogAttribute_2
+    magento_catalog_attribute_3:    SearchResultMagentoCatalogAttribute_3
+    magento_catalog_attribute_4:    SearchResultMagentoCatalogAttribute_4
+    magento_catalog_attribute_5:    SearchResultMagentoCatalogAttribute_5
+    mirasvit_kb_article:            SearchResultMirasvitKbArticle
+    external_wordpress_post:        SearchResultExternalWordpressPost
+    amasty_blog_post:               SearchResultAmastyBlogPost
+    amasty_faq_question:            SearchResultAmastyFaqQuestion
+    magefan_blog_post:              SearchResultMagefanBlogPost
+    mageplaza_blog_post:            SearchResultMageplazaBlogPost
+    aheadworks_blog_post:           SearchResultAheadworksBlogPost
+}
+
+type SearchResultMagentoCatalogProduct {
+    identifier: String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+        sort: ProductAttributeSortInput
+        filter: ProductAttributeFilterInput
+    ): [ProductInterface] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Catalog\\Product")
+}
+
+type SearchResultMagentoCatalogCategory {
+    identifier: String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [CategoryInterface] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Catalog\\Category")
+}
+
+type SearchResultMagentoCmsPage {
+    identifier: String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [CmsPage] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Cms\\Page")
+}
+
+type SearchResultMagentoCatalogAttribute {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AttributeOption] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Catalog\\Attribute")
+}
+
+type SearchResultMagentoCatalogAttribute_2 {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AttributeOption] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Catalog\\Attribute")
+}
+
+type SearchResultMagentoCatalogAttribute_3 {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AttributeOption] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Catalog\\Attribute")
+}
+
+type SearchResultMagentoCatalogAttribute_4 {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AttributeOption] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Catalog\\Attribute")
+}
+
+type SearchResultMagentoCatalogAttribute_5 {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AttributeOption] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magento\\Catalog\\Attribute")
+}
+
+type MirasvitKbArticle {
+    name: String
+    url: String
+}
+
+type SearchResultMirasvitKbArticle {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [MirasvitKbArticle] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Mirasvit\\Kb\\Article")
+}
+
+type ExternalWordpressPost {
+    name: String
+    url: String
+}
+
+type SearchResultExternalWordpressPost {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [ExternalWordpressPost] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\External\\Wordpress\\Post")
+}
+
+type AmastyBlogPost {
+    name: String
+    url: String
+}
+
+type SearchResultAmastyBlogPost {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AmastyBlogPost] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Amasty\\Blog\\Post")
+}
+
+type AmastyFaqQuestion {
+    name: String
+    url: String
+}
+
+type SearchResultAmastyFaqQuestion {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AmastyFaqQuestion] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Amasty\\Faq\\Question")
+}
+
+type MagefanBlogPost {
+    name: String
+    url: String
+}
+
+type SearchResultMagefanBlogPost {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [MagefanBlogPost] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Magefan\\Blog\\Post")
+}
+
+type MageplazaBlogPost {
+    name: String
+    url: String
+}
+
+type SearchResultMageplazaBlogPost {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [MageplazaBlogPost] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Mageplaza\\Blog\\Post")
+}
+
+type AheadworksBlogPost {
+    name: String
+    url: String
+}
+
+type SearchResultAheadworksBlogPost {
+    identifier:String
+    title: String
+    position: Int
+    size: Int
+    items(
+        pageSize: Int = 20
+        currentPage: Int = 1
+    ): [AheadworksBlogPost] @resolver(class: "Mirasvit\\SearchGraphQl\\Model\\Resolver\\Aheadworks\\Blog\\Post")
+}

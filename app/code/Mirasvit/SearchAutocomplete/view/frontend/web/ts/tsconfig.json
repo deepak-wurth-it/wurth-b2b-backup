@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "module": "esnext",
+    "target": "es6",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "pretty": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "strict": true,
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016",
+      "es2017",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    //    "./**/*.d.ts",
+    "./**/*.ts"
+  ]
+  //  "exclude": [
+  //    "node_modules",
+  //    "**/*.spec.ts"
+  //  ]
+}

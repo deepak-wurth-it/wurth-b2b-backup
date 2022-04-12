@@ -1,0 +1,8 @@
+Done.,Done.
+"Elasticsearch is running.","Elasticsearch is running."
+"Elasticsearch is not running.","Elasticsearch is not running."
+"Fast Mode","Fast Mode"
+"This option is available for Sphinx search and Elastic engines only.","This option is available for Sphinx search and Elastic engines only."
+"Autocomplete results with <br/> ""fast mode"" enabled are less accurate <br/> and may be slightly different than main search results. <br/>","Autocomplete results with <br/> ""fast mode"" enabled are less accurate <br/> and may be slightly different than main search results. <br/>"
+"Deletes all indexes available for current Elasticsearch connection.","Deletes all indexes available for current Elasticsearch connection."
+"Deletes all indexes by index prefix available for current Elasticsearch connection.","Deletes all indexes by index prefix available for current Elasticsearch connection."

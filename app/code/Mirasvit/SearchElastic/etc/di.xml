@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Elasticsearch\SearchAdapter\Query\Builder\Match" type="Mirasvit\SearchElastic\SearchAdapter\Query\Builder\MatchQuery"/>
+    <preference for="Magento\Elasticsearch\SearchAdapter\Query\Builder\MatchQuery" type="Mirasvit\SearchElastic\SearchAdapter\Query\Builder\MatchQuery"/>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\BatchDataMapper\DataMapperResolver">
+        <plugin name="mstSearchElasticEntityTypeToDataMapper" type="Mirasvit\SearchElastic\Plugin\EntityTypeToDataMapperPlugin"/>
+    </type>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\Elasticsearch">
+        <plugin name="mstSearchElasticPutScoreBoostBeforeAddDocs"
+            type="Mirasvit\SearchElastic\Plugin\PutScoreBoostBeforeAddDocsPlugin"/>
+    </type>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\Index\Builder">
+        <plugin name="mstAddAsciiFolding"
+            type="Mirasvit\SearchElastic\Plugin\AddAsciiFoldingPlugin"/>
+    </type>
+
+    <type name="Mirasvit\SearchAutocomplete\InstantProvider\ConfigMaker">
+        <arguments>
+            <argument name="makers" xsi:type="array">
+                <item name="elasticsearch7" xsi:type="object">Mirasvit\SearchElastic\InstantProvider\ConfigProvider</item>
+                <item name="elasticsearch6" xsi:type="object">Mirasvit\SearchElastic\InstantProvider\ConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

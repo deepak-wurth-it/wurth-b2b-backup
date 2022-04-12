@@ -1,0 +1,66 @@
+& when (@media-common = true) {
+    .mst-search__index {
+        ul {
+            list-style:    none;
+            margin-bottom: 10px;
+            padding-left:  0;
+
+            li {
+                .lib-clearfix();
+
+                margin: 2rem 0;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .mst-search__index-title {
+                    font-size:   1.5rem;
+                    font-weight: 600;
+
+                    > a {
+                        color: #333333;
+                    }
+
+                    > span {
+                        color: #aaaaaa;
+                    }
+
+                    &._crumbs {
+                        a {
+                            &:after {
+                                content:          "";
+                                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' class='h-auto pos-relative mh-4 css-10v800z'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+                                display:          inline-block;
+                                width:            13px;
+                                height:           13px;
+                                margin:           -2px 5px;
+                            }
+
+                            &:last-child {
+                                &:after {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .mst-search__index-content {
+                    color:  #666666;
+                    margin: .5rem 0 0 0;
+                }
+
+                .mst-search__index-image {
+                    margin-right: 2rem;
+                    float:        left;
+
+                    > img {
+                        max-width:  5rem;
+                        max-height: 5rem;
+                    }
+                }
+            }
+        }
+    }
+}

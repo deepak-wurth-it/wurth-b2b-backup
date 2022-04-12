@@ -1,0 +1,51 @@
+<div class="report__toolbar page-main-actions">
+    <!-- ko foreach: elems -->
+    <section>
+        <!-- ko ifnot: $data.displayArea -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </section>
+    <!-- /ko -->
+
+
+    <!-- ko if: dimensions.length > 1 && dimensions.length < 8 -->
+    <section class="report__btn-group" data-bind="foreach: dimensions"><button data-bind="{
+            text: label,
+            click: $parent.onGroupBy,
+            css: {_active: ($parent.dimension() == column)}
+            }" class="report__btn"></button></section>
+    <!-- /ko -->​
+
+    <!-- ko if: dimensions.length >= 8 -->
+    <section class="admin__action-dropdown-wrap admin__action-dropdown-right reports__dropdown"
+         data-bind="collapsible">
+        <button
+                class="admin__action-dropdown"
+                type="button"
+                data-bind="toggleCollapsible, css: {_active: $collapsible.opened}"
+                aria-haspopup="true">
+                <span class="admin__action-dropdown-text">Attribute<span data-bind="text: dimensionLabel"></span></span>
+        </button>
+
+        <ul class="admin__action-dropdown-menu">
+            <!-- ko foreach: { data: dimensions, as: 'dimension' } -->
+            <li>
+                <span data-bind="text: dimension.label, click: $parent.onGroupBy"></span>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </section>
+    <!-- /ko -->​
+
+    <!-- ko foreach: getRegion('left') -->
+    <section>
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </section>
+    <!-- /ko -->
+
+    <!-- ko foreach: getRegion('right') -->
+    <section class="right">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </section>
+    <!-- /ko -->
+</div>

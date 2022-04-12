@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="componentType" xsi:type="string">form</item>
+        </item>
+    </argument>
+
+    <fieldset name="attribute">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Attribute</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="componentType" xsi:type="string">fieldset</item>
+            </item>
+        </argument>
+
+        <field name="properties.attribute">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Mirasvit\Search\Index\Magento\Catalog\Attribute\Source</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Attribute</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">false</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="notice" xsi:type="string" translate="true">Available attributes only with the option "Visible in Advanced Search" equal "Yes"</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <block name="require.js" class="Magento\Backend\Block\Page\RequireJs" template="Mirasvit_Search::js.phtml">
+            <block name="require.js.orig" class="Magento\Backend\Block\Page\RequireJs" template="Magento_Backend::page/js/require_js.phtml"/>
+        </block>
+
+        <referenceContainer name="content">
+            <uiComponent name="search_index_form" />
+        </referenceContainer>
+    </body>
+</page>

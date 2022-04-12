@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--        <attribute name="class" value="page-products"/>-->
+
+        <!--blackbird content manager block-->
+        <!--        <referenceBlock name="search.content.result" remove="true"/>-->
+        <!--  -->
+        <!-- if no results find the following file
+        /Mageplaza/AjaxLayer/view/frontend/layout/catalogsearch_result_index.xml
+        comment the following rows
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="layer.category.products" template="Mageplaza_AjaxLayer::products.phtml"/>
+        </referenceContainer>
+        and
+        <move element="search.result" destination="layer.category.products"/> -->
+        <!--  -->
+        <move element="search.result" destination="mst.search.result" as="catalogsearch_fulltext"/>
+        <!--        <referenceBlock name="search.result" display="false"/>-->
+        <!--        <referenceBlock name="layer.category.products" remove="true"/>-->
+
+        <referenceContainer name="content">
+            <block class="Mirasvit\Search\Block\Result" name="mst.search.result" template="result.phtml">
+                <block class="Magento\Cms\Block\Block" name="mst.search.no_results" as="search.no_results">
+                    <action method="setBlockId">
+                        <argument name="blockId" xsi:type="string">no-results</argument>
+                    </action>
+                </block>
+
+                <block class="Mirasvit\Search\Block\Index\Magento\Catalog\Category" name="magento_catalog_category" template="index/magento/catalog/category.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="external_wordpress_post" template="index/external/wordpress/post.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager" name="pager" as="pager" cacheable="false"/>
+                </block>
+                <block class="Mirasvit\Search\Block\Index\Base" name="magento_cms_page" template="index/magento/cms/page.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="ves_blog_post" template="index/ves/blog/post.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="ves_brand_brand" template="index/ves/brand/brand.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="magento_catalog_attribute" template="index/magento/catalog/attribute.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="aheadworks_blog_post" template="index/aheadworks/blog/post.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="amasty_faq_question" template="index/amasty/faq/question.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="amasty_blog_post" template="index/amasty/blog/post.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="blackbird_contentmanager_content" template="index/blackbird/contentmanager/content.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="fishpig_glossary_word" template="index/fishpig/glossary/word.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="mirasvit_blog_post" template="index/mirasvit/blog/post.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="mirasvit_kb_article" template="index/mirasvit/kb/article.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="mirasvit_gry_registry" template="index/mirasvit/gry/registry.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="magefan_blog_post" template="index/magefan/blog/post.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Base" name="mageplaza_blog_post" template="index/mageplaza/blog/post.phtml"/>
+                <block class="Mirasvit\Search\Block\Index\Mirasvit\Brand\Page" name="mirasvit_brand_page" template="index/mirasvit/brand/page.phtml"/>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="search_recommendations" template="Mirasvit_Search::misc/recommendations.phtml"/>
+    </body>
+</page>

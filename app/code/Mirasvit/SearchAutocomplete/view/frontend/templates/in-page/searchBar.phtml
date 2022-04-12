@@ -1,0 +1,6 @@
+<?php
+/** @var \Mirasvit\SearchAutocomplete\Block\Injection $block */
+?>
+<form method="get" action="<?= $block->getUrl('catalogsearch/result') ?>">
+    <input type="search" name="q" data-bind="value: props.query, valueUpdate: 'input'" autocomplete="off" placeholder="<?= __('Search entire store here') ?>"/>
+</form>

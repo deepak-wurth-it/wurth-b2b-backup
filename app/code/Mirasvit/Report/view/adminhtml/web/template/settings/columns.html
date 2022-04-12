@@ -1,0 +1,44 @@
+<section class="columns">
+    <div class="messages">
+        <div class="message message-notice message-notice">
+            <!-- ko i18n: -->These settings control the columns available for report. After saving you may choose new columns for display under the columns dropdown.<!-- /ko -->
+        </div>
+    </div>
+
+    <input type="text" class="admin__control-text search-input" data-bind="value: searchColumn,
+        valueUpdate: 'afterkeydown',
+        attr: {placeholder: $t('Search by Columns')}"
+    >
+
+    <table class="report-settings__table">
+        <thead>
+            <tr>
+                <th data-bind="i18n: 'Active'"></th>
+                <th data-bind="i18n: 'Title'"></th>
+                <th data-bind="i18n: 'Table'"></th>
+                <th data-bind="i18n: 'Type'"></th>
+                <th data-bind="i18n: 'Aggregator'"></th>
+            </tr>
+        </thead>
+
+        <tbody each="data: findColumns(), as: 'column'">
+            <tr class="report-settings__column" click="$parent.toggle" data-bind="css: {active: column.active}">
+                <td>
+                    <input data-form-part="report_settings_form" type="checkbox"
+                           data-bind="checked: column.active, click: function() { return true },
+                            value: column.value, disable: column.disabled, clickBubble: false,
+                            attr: {name: 'columns[' + column.value + ']'}">
+                </td>
+                <td class="column-label">
+                    <i class="fa"
+                       data-bind="css: {'fa-eye': !column.filter_only, 'fa-filter': column.filter_only}">
+                    </i>
+                    <code text="column.label"/>
+                </td>
+                <td><code text="column.table"/></td>
+                <td><type text="column.type"/></td>
+                <td><aggregator text="column.aggregator"/></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

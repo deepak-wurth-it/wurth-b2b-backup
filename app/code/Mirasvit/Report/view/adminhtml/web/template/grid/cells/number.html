@@ -1,0 +1,10 @@
+<div class="data-grid-cell-content report__grid-cell-number">
+    <span class="value" data-bind="html: $col.getLabel($row())"></span>
+    <span class="comparison" data-bind="html: $col.getComparisonLabel($row())"></span>
+
+    <span class="diff" data-bind="html: $col.getDiffLabel($row()), css: $col.getDiffSign($row())"></span>
+
+    <div class="report__grid-percent-line" data-bind="visible: sorting && $col.getPercent($row())">
+        <div class="report__grid-percent-line-i" data-bind="style: {width: $col.getPercent($row()) + '%'}"></div>
+    </div>
+</div>

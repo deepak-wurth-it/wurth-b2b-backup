@@ -1,0 +1,14 @@
+"Not logged in","არ ხართ შესული სიტემაში"
+"Report: %1","ანგარიში: %1"
+"Report %1 is not defined.","ანგარიში %1 არ არის განსაზღვრული."
+Actions,მოქმედებები
+"Invalid component type ""%1"", class %2 does not exists.","არასწორი კომპონენტის ტიპი &quot;%1&quot;, კლასი %2 არ არსებობს."
+"All Store Views","ყველა მაღაზიის ნახვა"
+Back,უკან
+Delete,წაშლა
+"Are you sure you want to do this?","ნამდვილად გსურთ ამის გაკეთება?"
+Save,გადარჩენა
+"Save & Continue","შენახვა და გაგრძელება"
+"Save & Send","შენახვა და გაგზავნა"
+Edit,რედაქტირება
+"Delete email?","ელ-ფოსტის წაშლა?"

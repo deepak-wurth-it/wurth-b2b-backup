@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <search>
+            <advanced>
+                <wildcard>infix</wildcard>
+                <match_mode>and</match_mode>
+            </advanced>
+            <feature>
+                <noroute_to_search>0</noroute_to_search>
+                <terms_highlighting>1</terms_highlighting>
+                <google_sitelinks>1</google_sitelinks>
+                <redirect_on_single_result>0</redirect_on_single_result>
+            </feature>
+        </search>
+    </default>
+</config>
