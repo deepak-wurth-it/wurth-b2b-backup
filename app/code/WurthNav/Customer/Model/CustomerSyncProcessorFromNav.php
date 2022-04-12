@@ -11,7 +11,6 @@ use WurthNav\Customer\Model\ResourceModel\ShopContactFactory as ResourceShopCont
 
 use Psr\Log\LoggerInterface;
 use WurthNav\Customer\Model\CustomersFactory as NavCustomers;
-use Magento\Directory\Model\ResourceModel\Region\CollectionFactory;
 
 
 /**
@@ -40,7 +39,6 @@ class CustomerSyncProcessorFromNav
         \Magento\Company\Api\CompanyRepositoryInterface $companyRepository,
         \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
-        CollectionFactory $collectionFactory,
         NavCustomers $navCustomers,
         LoggerInterface $logger
     ) {
@@ -61,7 +59,6 @@ class CustomerSyncProcessorFromNav
         $this->navCustomers = $navCustomers;
         $this->addressDataFactory = $addressDataFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->collectionFactory = $collectionFactory;
     }
     /**
      * @param array $fixtures
@@ -214,16 +211,5 @@ class CustomerSyncProcessorFromNav
         return $address;
     }
 
-    /**
-     * @param string $region
-     * @return string[]
-     */
-    public function getRegionCode(string $region): array
-    {
-        $regionCode = $this->collectionFactory->create()
-            ->addRegionNameFilter($region)
-            ->getFirstItem();
-            //->toArray();
-        return $regionCode;
-    }
+    
 }
