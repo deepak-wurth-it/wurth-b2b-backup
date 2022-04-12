@@ -15,7 +15,7 @@
                         <div class="control">
                             <input type="text" name="company[vat_tax_id]" id="vat_tax_id" value=""
                                    title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>"
-                                   class="input-text validate-length minimum-length-11 maximum-length-11 validate-number v-validate"
+                                   class="input-text validate-number validate-length minimum-length-11 maximum-length-11 v-validate"
                                    data-validate="{required:true}">
                             <div for="vat_tax_id" generated="true"
                                  class="mage-error"
@@ -63,7 +63,7 @@
                                     data-validate="{required:true}">
                                 <option value=""><?php echo __("Please select Division") ?></option>
                                 <?php foreach ($divisions as $division) { ?>
-                                    <option value="<?= $division->getCustomerGroupId() ?>" data-id="<?= $division->getId() ?>">
+                                    <option value="<?= $division->getName() ?>" data-id="<?= $division->getId() ?>">
                                         <?php echo $division->getName(); ?>
                                     </option>
                                 <?php } ?>
@@ -119,6 +119,18 @@
                         </div>
                     </div>
 
+                    <div class="field company-postcode _required">
+                        <label class="label" for="postcode">
+                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="company[postcode]" id="postcode" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
+                                   class="input-text  validate-length minimum-length-5 maximum-length-6 validate-number v-validate"
+                                   data-validate="{required:true}">
+                        </div>
+                    </div>
+
                     <div class="field company-region _required">
                         <label class="label" for="region">
                             <span><?= $block->escapeHtml(__('Region')) ?></span>
@@ -139,17 +151,6 @@
                         </div>
                     </div>
 
-                    <div class="field company-postcode _required">
-                        <label class="label" for="postcode">
-                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
-                        </label>
-                        <div class="control">
-                            <input type="text" name="company[postcode]" id="postcode" value=""
-                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
-                                   class="input-text  validate-length minimum-length-5 maximum-length-6 validate-number v-validate"
-                                   data-validate="{required:true}">
-                        </div>
-                    </div>
                 </div>
 
                 <div class="formSections">
@@ -249,8 +250,9 @@
                         <div class="field telephone _required">
                             <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
                             <div class="control">
+                                <input name="phone_code" title="Phone Code" type="text" value="+385" readonly>
                                 <input name="telephone" id="telephone" title="Phone" value=""
-                                       class="in  validate-length minimum-length-11 maximum-length-20 validate-ponumber-custom v-validate"
+                                       class="in validate-ponumber-custom validate-length minimum-length-10 maximum-length-20 v-validate"
                                        type="text" data-validate="{required:true}">
                             </div>
                         </div>
@@ -301,6 +303,17 @@
                         </div>
                     </div>
 
+                    <div class="field daddress-postcode _required">
+                        <label class="label" for="da_postcode">
+                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="daddress[da_postcode]" id="da_postcode" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
+                                   class="input-text validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
+                        </div>
+                    </div>
+
                     <div class="field daddress-region _required">
                         <label class="label" for="region">
                             <span><?= $block->escapeHtml(__('Region')) ?></span>
@@ -318,17 +331,6 @@
                                     <option value="<?php echo $key; ?>"><?php echo $value ?></option>
                                 <?php } ?>
                             </select>
-                        </div>
-                    </div>
-
-                    <div class="field daddress-postcode _required">
-                        <label class="label" for="da_postcode">
-                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
-                        </label>
-                        <div class="control">
-                            <input type="text" name="daddress[da_postcode]" id="da_postcode" value=""
-                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
-                                   class="input-text validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
                         </div>
                     </div>
                 </div>
@@ -378,6 +380,17 @@
                         </div>
                     </div>
 
+                    <div class="field daddress-postcode _required">
+                        <label class="label" for="ia_postcode">
+                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="iaddress[ia_postcode]" id="ia_postcode" value=""
+                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
+                                   class="input-text validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
+                        </div>
+                    </div>
+
                     <div class="field iaddress-ia-region _required">
                         <label class="label" for="ia_region">
                             <span><?= $block->escapeHtml(__('Region')) ?></span>
@@ -395,17 +408,6 @@
                                     <option value="<?php echo $key; ?>"><?php echo $value ?></option>
                                 <?php } ?>
                             </select>
-                        </div>
-                    </div>
-
-                    <div class="field daddress-postcode _required">
-                        <label class="label" for="ia_postcode">
-                            <span><?= $block->escapeHtml(__('Zipcode')) ?></span>
-                        </label>
-                        <div class="control">
-                            <input type="text" name="iaddress[ia_postcode]" id="ia_postcode" value=""
-                                   title="<?= $block->escapeHtmlAttr(__('Zipcode')) ?>"
-                                   class="input-text validate-length minimum-length-5 maximum-length-6 validate-number v-validate" data-validate="{required:true}">
                         </div>
                     </div>
                 </div>

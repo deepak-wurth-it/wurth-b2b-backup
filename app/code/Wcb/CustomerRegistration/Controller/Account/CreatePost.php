@@ -199,7 +199,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     $vatTaxId = isset($postData['company']['vat_tax_id']) ? $postData['company']['vat_tax_id'] : '';
                     $customer->setPosition($position);
                     $customer->setCustomerCode($companyCode);
-                    $customer->setPhone($telephone);
+                    $customer->setPhone("+385" . $telephone);
                     $customer->setTaxvat($vatTaxId);
                     $customer->save();
                 }

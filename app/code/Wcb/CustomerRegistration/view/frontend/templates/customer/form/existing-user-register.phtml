@@ -42,7 +42,7 @@ $formData = $block->getFormData();
                 <input type="text" name="company[vat_tax_id]" id="vat_tax_id"
                        data-validate="{required:true}"
                        title="<?= $block->escapeHtmlAttr(__('Company OIB')) ?>"
-                       class="input-text validate-length validate-number minimum-length-11 maximum-length-11 v-validate">
+                       class="input-text validate-number validate-length minimum-length-11 maximum-length-11 v-validate">
                 <div for="vat_tax_id" generated="true"
                      class="mage-error"
                      id="link-error-oib"></div>
@@ -141,7 +141,8 @@ $formData = $block->getFormData();
         <div class="field name _required">
             <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
             <div class="control">
-                <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-length minimum-length-11 maximum-length-20 validate-ponumber-custom v-validate"
+                <input name="phone_code" title="Phone Code" type="text" value="+385" readonly>
+                <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-ponumber-custom validate-length minimum-length-10 maximum-length-20 v-validate"
                         type="text" data-validate="{required:true}">
             </div>
         </div>
