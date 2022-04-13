@@ -46,7 +46,7 @@ class GetActivates extends Action
             $activatesData =  $this->getActivates($division);
             if ($activatesData->count() > 0) {
                 foreach ($activatesData as $activates) {
-                    $optionHtml .= "<option value='" . $activates->getBranchCode() . "'>";
+                    $optionHtml .= "<option value='" . $activates->getName() . "'>";
                     $optionHtml .= $activates->getName();
                     $optionHtml .= "</option>";
                 }

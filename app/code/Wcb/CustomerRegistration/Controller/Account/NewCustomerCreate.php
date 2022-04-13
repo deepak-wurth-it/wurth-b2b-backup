@@ -3,10 +3,12 @@ namespace Wcb\CustomerRegistration\Controller\Account;
 
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Framework\Controller\ResultFactory;
+use Wcb\CustomerRegistration\Model\ResourceModel\Division\CollectionFactory as DivisionCollection;
 
 class NewCustomerCreate extends \Magento\Framework\App\Action\Action
 {
     protected $_pageFactory;
+    protected $divisionCollection;
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -19,6 +21,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         \Magento\Company\Api\Data\CompanyInterface $companyInterface,
         \Magento\Framework\Api\DataObjectHelper $objectHelper,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        DivisionCollection $divisionCollection,
         array $data = []
     ) {
         $this->_pageFactory = $pageFactory;
@@ -30,6 +33,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         $this->companyInterface = $companyInterface;
         $this->objectHelper = $objectHelper;
         $this->customerRepository = $customerRepository;
+        $this->divisionCollection = $divisionCollection;
         return parent::__construct($context);
     }
 
@@ -37,9 +41,13 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
     {
         $data = $this->getRequest()->getPostValue();
         $email = $data['confirm_email'];
-        $this->createCustomer($data);
+        $customerCreate = $this->createCustomer($data);
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $resultRedirect->setPath("excustomer/account/success/", ['email' => $email]);
+        if ($customerCreate) {
+            $resultRedirect->setPath("excustomer/account/success/", ['email' => $email]);
+        } else {
+            $resultRedirect->setPath("customer/account/create/");
+        }
         return $resultRedirect;
     }
 
@@ -64,20 +72,30 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     "position" => $request['position'],
                     "customer_group_id" => 1,
                     "number_of_employees" => $request['company']['no_of_employees'],
-                    "division" => $request['company']['division'],
+                    "division" => $this->getDivisionNameByGroupId($request['company']['division']),
                     "activities" => $request['company']['activities'],
                     "firstname" => $request['firstname'],
-                    "lastname" => $request['lastname'],
+                    "lastname" => $request['lastname']
                 ];
 
         $dataObj->populateWithArray($companyObj, $company, \Magento\Company\Api\Data\CompanyInterface::class);
 
         $companyObj->setNumberOfEmployees($request['company']['no_of_employees']);
-        $companyObj->setDivision($request['company']['division']);
+        $companyObj->setDivision($this->getDivisionNameByGroupId($request['company']['division']));
         $companyObj->setActivities($request['company']['activities']);
         return $companyRepo->save($companyObj);
     }
-
+    public function getDivisionNameByGroupId($groupId)
+    {
+        $divisionData = $this->divisionCollection->create()
+            ->addFieldToFilter("customer_group_id", ["eq" => $groupId])
+            ->getFirstItem();
+        $divisionName = "";
+        if ($divisionData->getId()) {
+            $divisionName = $divisionData->getName();
+        }
+        return $divisionName;
+    }
     /** Create customer
      *  Pass customer data as array
      */
@@ -121,8 +139,10 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
             if (array_key_exists('iaddress', $data)) {
                 $this->saveAddress($data, 'invoice', $customerId);
             }
+            return true;
         } else {
             $this->messageManager->addError(__('This User already exists. Please try to reset your PW and PW Link or contact your Sales Rep.'));
+            return false;
         }
     }
 
