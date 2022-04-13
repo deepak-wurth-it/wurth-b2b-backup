@@ -1,0 +1,22 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+
+/** @var \Amasty\Faq\Block\Lists\QuestionsList $list */
+$list = $this->getLayout()->createBlock('Amasty\Faq\Block\Lists\QuestionsList');
+?>
+<div class="mst-search__index mst-search__index-amasty-faq-question">
+    <ul>
+        <?php /** @var \Amasty\Faq\Model\Question $q */ ?>
+        <?php foreach ($block->getCollection() as $q): ?>
+            <li>
+                <div class="mst-search__index-title">
+                    <a href="<?= $list->getQuestionLink($q) ?>">
+                        <?= $q->getTitle() ?></a>
+                </div>
+                <div class="mst-search__index-content">
+                    <?= $this->truncate($q->getShortAnswer()) ?>
+                </div>
+            </li>
+        <?php endforeach ?>
+</div>

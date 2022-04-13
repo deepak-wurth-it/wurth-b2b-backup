@@ -1,0 +1,44 @@
+<div class="search__component-attributes" data-bind="visible: attributes().length">
+    <table class="admin__control-table">
+        <thead>
+        <tr>
+            <th class="col-default">Attribute</th>
+            <th class="col-default">Weight</th>
+            <th class="col-delete"></th>
+        </tr>
+        </thead>
+
+        <tbody data-bind="foreach: weights">
+        <tr>
+            <td class="col-default">
+                <span data-bind="scope: guid, mageInit: $parent.attributesSelect($data)">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </span>
+            </td>
+            <td class="col-default">
+                <select data-bind="options: $parent.weightSource, optionsText: 'label', optionsValue: 'value', value: weight"
+                        class="admin__control-select"></select>
+            </td>
+            <td class="col-delete">
+                <button type="button" class="scalable" data-bind="click: $parent.handleDelete">
+                    <span><i class="fa fa-fw fa-close"></i> Delete</span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <th colspan="3" class="col-actions-add">
+                <button type="button" class="scalable" data-bind="click: handleAdd">
+                    <span><i class="fa fa-fw fa-plus"></i> Add Attribute</span>
+                </button>
+                <p style="float:right">1 - minimum weight, 10 - maximum weight</p>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="search__component-attributes" data-bind="visible: !attributes().length">
+    <div class="message">Please select search index type</div>
+</div>

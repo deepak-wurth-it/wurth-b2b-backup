@@ -1,0 +1,22 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="mirasvit_search_score_rule_product" class="Mirasvit\Search\Model\ScoreRule\Indexer\MviewAction" group="indexer">
+        <subscriptions>
+            <table name="catalog_product_entity" entity_column="entity_id"/>
+            <table name="catalog_product_entity_int" entity_column="entity_id"/>
+            <table name="catalog_product_entity_decimal" entity_column="entity_id"/>
+            <table name="catalog_product_entity_text" entity_column="entity_id"/>
+            <table name="catalog_product_entity_varchar" entity_column="entity_id"/>
+            <table name="catalog_product_entity_datetime" entity_column="entity_id"/>
+
+            <table name="catalog_category_entity" entity_column="entity_id"/>
+            <table name="catalog_category_entity_datetime" entity_column="entity_id"/>
+            <table name="catalog_category_entity_decimal" entity_column="entity_id"/>
+            <table name="catalog_category_entity_int" entity_column="entity_id"/>
+            <table name="catalog_category_entity_text" entity_column="entity_id"/>
+            <table name="catalog_category_entity_varchar" entity_column="entity_id"/>
+
+            <table name="catalog_category_product" entity_column="product_id"/>
+        </subscriptions>
+    </view>
+</config>

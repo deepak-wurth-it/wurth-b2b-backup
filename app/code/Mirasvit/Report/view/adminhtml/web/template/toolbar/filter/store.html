@@ -1,0 +1,18 @@
+<div class="admin__action-dropdown-wrap report__toolbar-store reports__dropdown"
+        data-bind="collapsible">
+    <button
+            class="admin__action-dropdown"
+            type="button"
+            data-bind="toggleCollapsible, css: {_active: $collapsible.opened}"
+            aria-haspopup="true">
+        <span class="admin__action-dropdown-text" data-bind="text: current"></span>
+    </button>
+
+    <ul class="admin__action-dropdown-menu">
+        <!-- ko foreach: { data: stores, as: 'store' } -->
+        <li data-bind="css: store.type">
+            <span data-bind="text: store.label, click: $parent.onChangeStore"></span>
+        </li>
+        <!-- /ko -->
+    </ul>
+</div>

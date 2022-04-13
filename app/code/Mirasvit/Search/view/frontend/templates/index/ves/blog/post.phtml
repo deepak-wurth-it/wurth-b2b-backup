@@ -1,0 +1,33 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+
+use Ves\Blog\Model\Post;
+
+$helper = $this->helper("Ves\Blog\Helper\Data");
+?>
+<div class="mst-search__index mst-search__index-ves-blog-post">
+    <?= $block->getPager() ?>
+
+    <?php /** @var Post $post */ ?>
+    <?php
+    foreach ($block->getCollection() as $post): ?>
+        <div class="ves-post post-item">
+            <h3 class="post-title">
+                <a href="<?= $post->getUrl() ?>"><?= $post->getTitle() ?></a>
+            </h3>
+
+            <div class="post-summary">
+                <?= $helper->subString($post->getShortContent(), 255) ?>
+            </div>
+
+            <div class="post-readmore">
+                <a href="<?= $post->getUrl() ?>" title="<?= $post->getTitle() ?>"><?php
+                    echo __('Read more') ?></a>
+            </div>
+        </div>
+        <?php endforeach ?>
+
+    <?= $block->getPager() ?>
+</div>
+

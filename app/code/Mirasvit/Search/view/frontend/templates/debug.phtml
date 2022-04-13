@@ -1,0 +1,37 @@
+<?php
+/** @var \Mirasvit\Search\Block\Debug $block */
+
+$results = [];
+?>
+<div class="mst-search-debug">
+    <table>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        <?php foreach ($block->getPreparedLogs() as $key => $log): ?>
+            <tr>
+                <td><?= $key ?></td>
+                <td>
+                    <?php if (strlen($log) > 0 && in_array($log[0], ['{', '['])): ?>
+                        <pre><?= json_encode(json_decode($log), JSON_PRETTY_PRINT) ?></pre>
+                    <?php else: ?>
+                        <pre><?= $log ?></pre>
+                    <?php endif ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+    </table>
+</div>
+<style>
+    .mst-search-debug {
+        display: block;
+        background: #f9faff;
+    }
+
+    .mst-search-debug pre {
+        font-size: 10px;
+        white-space: pre-wrap;
+    }
+
+</style>

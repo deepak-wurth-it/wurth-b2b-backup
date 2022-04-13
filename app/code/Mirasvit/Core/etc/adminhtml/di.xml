@@ -28,6 +28,10 @@
         <plugin name="Mirasvit_Core:suggester" type="Mirasvit\Core\Plugin\Backend\SuggesterPlugin"/>
     </type>
 
+    <type name="Magento\Cron\Model\ResourceModel\Schedule\Collection">
+        <plugin name="mstSetIdFieldNameToScheduleCollection" type="\Mirasvit\Core\Plugin\Backend\GetIdFieldNameScheduleCollectionPlugin"/>
+    </type>
+
     <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
         <arguments>
             <argument name="configurationsMap" xsi:type="array">

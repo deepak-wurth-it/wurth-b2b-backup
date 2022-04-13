@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Mirasvit\Core\Block\Adminhtml\Menu">
+        <arguments>
+            <argument name="menu" xsi:type="array">
+                <item name="search" xsi:type="object">Mirasvit\Search\Block\Adminhtml\Menu</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="uiConfigurationDomMerger" type="Magento\Framework\View\Element\UiComponent\Config\DomMerger">
+        <arguments>
+            <argument name="schema" xsi:type="string">urn:magento:module:Magento_Ui:etc/ui_configuration.xsd</argument>
+            <argument name="contextXPath" xsi:type="array">
+                <item name="ui_context" xsi:type="string">/</item>
+            </argument>
+            <argument name="idAttributes" xsi:type="array">
+                <item name="attribute_name" xsi:type="string">name</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Mirasvit\Search\Ui\Index\Form\DataProvider">
+        <arguments>
+            <argument name="domMerger" xsi:type="object">uiConfigurationDomMerger</argument>
+        </arguments>
+    </type>
+</config>

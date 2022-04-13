@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+$queryText = $block->getQueryText();
+$splitQueryText = preg_split('/\s/', $queryText);
+$splitOriginalText = preg_split('/\s/', $block->getOriginalQuery());?>
+<?php if ($block->getFallbackText()) : ?>
+    <p class="message notice">
+        <?= __("Your search request '<strong>%1</strong>' did not match any products.", $block->getOriginalQuery()) ?>
+        <br>
+        <?= __('Showing results using some of your search terms') ?>
+        <?php if (array_diff($splitQueryText, $splitOriginalText) == $splitQueryText) :?>
+            '<strong><?= $block->highlight($block->getOriginalQuery(), $queryText, 'strike') ?>
+             <?= $queryText ?></strong>'
+        <?php else : ?>
+            '<strong><?= $block->highlight($block->getOriginalQuery(), $queryText, 'strike') ?></strong>'
+        <?php endif ?>
+    </p>
+<?php elseif ($block->getMisspellText()) : ?>
+    <p class="message notice">
+        <?= __("Your search request '<strong>%1</strong>' did not match any products.", $block->getOriginalQuery()) ?>
+        <?= __("Did you mean:") ?>&nbsp;
+        '<strong><a href="<?= $block->getQueryUrl($queryText) ?>"><?= $queryText ?></a></strong>'
+    </p>
+<?php endif ?>

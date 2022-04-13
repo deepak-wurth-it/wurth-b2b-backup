@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\SearchResultApplier" type="Mirasvit\Search\Model\ResourceModel\SearchResultApplier"/>
+
+    <type name="Mirasvit\Search\Block\Result">
+        <plugin name="mstSearchSingleResult" type="Mirasvit\Search\Plugin\Frontend\RedirectOnSingleRulePlugin"/>
+    </type>
+
+    <type name="Magento\Framework\App\Response\HttpInterface">
+        <plugin name="mstSearchNoRoute" type="Mirasvit\Search\Plugin\Frontend\NoRoutePlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Search\SearchEngineInterface">
+        <plugin name="emptySearchQueryPlugin" type="Mirasvit\Search\Plugin\EmptySearchQueryPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="mstAppendDebugBlockPlugin" type="Mirasvit\Search\Plugin\Frontend\AppendDebugBlockPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Search\AdapterInterface">
+        <plugin name="mstSearchScoreRuleApply" type="Mirasvit\Search\Plugin\Frontend\ScoreRuleApplyPlugin"/>
+    </type>
+
+    <type name="Magento\Search\Model\ResourceModel\Query">
+        <plugin name="mstPreventNoRouteQuerySavePlugin" type="Mirasvit\Search\Plugin\Frontend\PreventNoRouteQuerySavePlugin"/>
+    </type>
+
+    <type name="Magento\Search\Model\ResourceModel\Query">
+        <plugin name="mstBotDetectorPlugin" type="Mirasvit\Search\Plugin\Frontend\BotDetectorPlugin"/>
+    </type>
+
+</config>

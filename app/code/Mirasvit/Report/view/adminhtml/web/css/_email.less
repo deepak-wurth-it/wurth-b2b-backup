@@ -1,0 +1,114 @@
+@font-family__base: 'Open Sans';
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    background-color: #fff;
+    font-family: @font-family__base;
+    font-size: 13px;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 100%;
+    padding: 20px;
+}
+
+.main {
+    width: 100%;
+}
+
+h1 {
+    margin-top: 0;
+    color: #514943;
+}
+
+h2 {
+    color: #41362f;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+
+    small {
+        color: #857d78;
+    }
+}
+
+.mst-report__email {
+    width: 100%;
+
+    .block-wrapper {
+        border: 1px solid #dbdbdb;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+
+    .interval {
+        text-align: right;
+        color: #857d78;
+        margin-bottom: 5px;
+        font-size: 11px;
+    }
+
+    .table-wrapper {
+        overflow-x: scroll;
+        max-width: 600px;
+        margin: 0 auto;
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+
+            tr {
+                th, td {
+                    white-space: nowrap;
+                    padding: 10px;
+                    display: table-cell;
+                    font-size: 12px;
+                    text-align: left;
+                }
+
+                th {
+                    background-color: rgb(81, 73, 67);
+                    border: 1px solid rgb(138, 131, 127);
+                    padding: 10px;
+                    color: #fff;
+                }
+
+                td {
+                    padding: 8px 10px;
+                    border-left: 1px solid rgb(214, 214, 214);
+                    border-right: 1px solid rgb(214, 214, 214);
+                }
+            }
+        }
+    }
+
+    .value-wrapper {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #41362f;
+
+        &.comparison {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #41362f;
+
+            .positive {
+                color: #26a332;
+            }
+
+            .negative {
+                color: #e61118;
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+<?php
+
+use Mirasvit\Core\Service\SerializeService;
+
+/** @var \Mirasvit\Core\Ui\QuickDataBar\SparklineDataBlock $block */
+
+$scope = hash('sha256', $block->getNameInLayout());
+?>
+<div data-bind="scope: '<?= $scope ?>'">
+    <div class="mst-quickDataBar__dataBlock _sparklineBlock" data-bind="css: { _loading: loading() }, click: handleClick">
+        <div class="dataBlockLabel"><?= $block->getLabel() ?></div>
+        <div class="dataBlockValue" data-bind="text: data().value"></div>
+
+        <div class="dataBlockSparkline">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 224 50" height="50" width="224">
+                <defs>
+                    <linearGradient id="sparkline" x1="0%" x2="0%" y1="100%" y2="0%" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#4A66FA" stop-opacity="1"></stop>
+                        <stop offset="85%" stop-color="#3672bb" stop-opacity="1"></stop>
+                        <stop offset="100%" stop-color="#4b92e5" stop-opacity="1"></stop>
+                    </linearGradient>
+                </defs>
+                <g>
+                    <!-- ko foreach: { data: buildSparkline(data().sparkline), as: 'value' } -->
+                    <rect width="5" height="80" rx="2" fill="url(#sparkline)" data-bind="style:{transform: 'translate(' + value.x + ',' + value.y + ')'}"></rect>
+                    <!-- /ko -->
+                </g>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init"><?= SerializeService::encode([
+        '*' => [
+            'Magento_Ui/js/core/app' => [
+                'components' => [
+                    $scope => [
+                        'component' => 'Mirasvit_Core/js/quickDataBar/dataBlock',
+                        'block'     => get_class($block),
+                        'updateURL' => $this->getUrl('mstcore/quickdatabar/load'),
+                    ],
+                ],
+            ],
+        ],
+    ]) ?></script>

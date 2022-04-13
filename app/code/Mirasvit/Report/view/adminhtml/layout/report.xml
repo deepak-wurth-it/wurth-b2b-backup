@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="mst__report-ui"/>
+
+        <referenceContainer name="content">
+            <block name="mst_report.schema_js" class="Mirasvit\Report\Ui\SchemaDataProvider"/>
+            <block name="mst_report.config_js" class="Mirasvit\Report\Ui\ConfigDataProvider"/>
+            <block name="mst_report.report_js" class="Mirasvit\Report\Ui\ReportDataProvider"/>
+            <block name="mst_report.block" class="Mirasvit\Report\Ui\Report\Block\ReportBlock"/>
+        </referenceContainer>
+    </body>
+</page>

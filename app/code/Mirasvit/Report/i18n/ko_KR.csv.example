@@ -1,0 +1,14 @@
+"Not logged in","로그인하지 않았습니다"
+"Report: %1","신고 : %1"
+"Report %1 is not defined.","보고서 %1이 (가) 정의되지 않았습니다."
+Actions,행위
+"Invalid component type ""%1"", class %2 does not exists.","잘못된 구성 요소 유형 &quot;%1&quot;, 클래스 %2이 (가) 없습니다."
+"All Store Views","모든 스토어 조회수"
+Back,뒤로
+Delete,지우다
+"Are you sure you want to do this?","이 작업을 수행 하시겠습니까?"
+Save,구하다
+"Save & Continue","저장하고 계속하기"
+"Save & Send","저장하고 보내기"
+Edit,편집하다
+"Delete email?","이메일을 삭제 하시겠습니까?"

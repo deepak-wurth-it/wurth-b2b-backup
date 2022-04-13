@@ -1,0 +1,77 @@
+<?php
+/** @var \Mirasvit\SearchAutocomplete\Block\Injection $block */
+
+use Mirasvit\SearchAutocomplete\Model\ConfigProvider;
+
+$config = $block->getJsConfig();
+?>
+<?php if ($block->getAutocompleteLayout() == ConfigProvider::LAYOUT_IN_PAGE): ?>
+    <?php
+    $templates = [
+        'Mirasvit_SearchAutocomplete::in-page/page.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/itemList.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/indexList.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/sidebar.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/stat.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/searchBar.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/index/magento_catalog_product.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/index/magento_catalog_category.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/index/magento_cms_page.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/index/mirasvit_brand_page.phtml',
+        'Mirasvit_SearchAutocomplete::in-page/index/magefan_blog_post.phtml',
+    ]
+    ?>
+    <?php foreach ($templates as $template): ?>
+        <?= $block->getTemplateScript($template) ?>
+    <?php endforeach ?>
+
+    <script>
+        require([
+                'jquery',
+                'Mirasvit_SearchAutocomplete/js/in-page',
+            ], function ($, InPage) {
+                var selector = 'input#search, input#mobile_search, .minisearch input[type="text"]';
+
+                $(document).ready(function () {
+                    $('#search_mini_form').prop("minSearchLength", 10000);
+
+                    const $input = $(selector);
+
+                    $input.each(function (index, searchInput) {
+                        new InPage($(searchInput), <?=\Zend_Json::encode($config)?>);
+                    });
+                });
+            }
+        );
+    </script>
+<?php else: ?>
+    <script>
+        require([
+                'jquery',
+                'Mirasvit_SearchAutocomplete/js/autocomplete',
+                'Mirasvit_SearchAutocomplete/js/typeahead',
+            ], function ($, autocomplete, typeahead) {
+                var selector = 'input#search, input#mobile_search, .minisearch input[type="text"]';
+
+                $(document).ready(function () {
+                    $('#search_mini_form').prop("minSearchLength", 10000);
+
+                    const $input = $(selector);
+
+                    $input.each(function (index, searchInput) {
+                        <?php if ($config['isTypeaheadEnabled']): ?>
+                        new typeahead($(searchInput)).init(<?=\Zend_Json::encode($config)?>);
+                        <?php endif ?>
+                        new autocomplete($(searchInput)).init(<?=\Zend_Json::encode($config)?>);
+                    });
+                });
+            }
+        );
+    </script>
+
+    <?= $block->fetchView($block->getTemplateFile('Mirasvit_SearchAutocomplete::injection_templates.phtml')) ?>
+<?php endif ?>
+
+<?php if ($block->getCssStyles() != ''): ?>
+    <style><?= $block->getCssStyles() ?></style>
+<?php endif ?>

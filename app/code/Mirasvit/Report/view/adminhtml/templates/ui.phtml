@@ -1,0 +1,65 @@
+<?php
+/** @var \Mirasvit\Report\Ui\Report\Block\ReportBlock $block */
+?>
+<style>
+    .spinner {
+        position: fixed;
+        left: calc(50% - 5rem);
+        top: calc(50% - 5rem);
+    }
+
+    .mstPolaris-Spinner--colorTeal {
+        -webkit-filter: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(2838%) hue-rotate(130deg) brightness(92%) contrast(87%);
+        filter: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(2838%) hue-rotate(130deg) brightness(92%) contrast(87%);
+    }
+
+    .mstPolaris-Spinner--sizeLarge {
+        height: 4.4rem;
+        width: 4.4rem;
+    }
+
+    .mstPolaris-Spinner {
+        animation: mstPolaris-Spinner--loading 500ms linear infinite;
+        color: transparent;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes mstPolaris-Spinner--loading {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .page-main-actions {
+        display: none;
+    }
+</style>
+
+<div id="root">
+    <div class="spinner">
+        <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNDQgNDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE1LjU0MiAxLjQ4N0EyMS41MDcgMjEuNTA3IDAgMDAuNSAyMmMwIDExLjg3NCA5LjYyNiAyMS41IDIxLjUgMjEuNSA5Ljg0NyAwIDE4LjM2NC02LjY3NSAyMC44MDktMTYuMDcyYTEuNSAxLjUgMCAwMC0yLjkwNC0uNzU2QzM3LjgwMyAzNC43NTUgMzAuNDczIDQwLjUgMjIgNDAuNSAxMS43ODMgNDAuNSAzLjUgMzIuMjE3IDMuNSAyMmMwLTguMTM3IDUuMy0xNS4yNDcgMTIuOTQyLTE3LjY1YTEuNSAxLjUgMCAxMC0uOS0yLjg2M3oiIGZpbGw9IiM5MTlFQUIiLz48L3N2Zz4K" alt="" class="mstPolaris-Spinner mstPolaris-Spinner--colorTeal mstPolaris-Spinner--sizeLarge" draggable="false">
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" media="all" href="<?= $block->getCssUrl() ?>"/>
+<script src="<?= $block->getVendorJsUrl() ?>" async></script>
+<script src="<?= $block->getAppJsUrl() ?>" async></script>
+
+<script>
+    require(['jquery'], function ($) {
+        function reportDemo() {
+            $('.notices-wrapper, .notifications-counter, #menu-mirasvit-core-menu').remove();
+            $('canvas').css('height', '200px');
+        }
+
+        window.reportDemo = reportDemo
+    });
+</script>

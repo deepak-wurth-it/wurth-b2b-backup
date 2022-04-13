@@ -1,0 +1,30 @@
+Search,Search
+"Landing Pages","Landing Pages"
+"This page no longer exists.","This page no longer exists."
+"You have deleted the page.","You have deleted the page."
+"New Page","New Page"
+"You have saved the page.","You have saved the page."
+Back,Back
+"Delete Page","Delete Page"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+Reset,Reset
+"Save and Continue Edit","Save and Continue Edit"
+"Save Page","Save Page"
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
+"Are you sure you want to delete a ""${ $.$data.title }"" record?","Are you sure you want to delete a ""${ $.$data.title }"" record?"
+"General Information","General Information"
+"Query Text","Query Text"
+"URL Key","URL Key"
+"Key for url ""https://example/shoes/all/"" is ""shoes/all""","Key for url ""https://example/shoes/all/"" is ""shoes/all"""
+Active,Active
+"Store View","Store View"
+"Page Title","Page Title"
+"Meta Keywords","Meta Keywords"
+"Meta Description","Meta Description"
+"Layout Update XML","Layout Update XML"
+"Add New Page","Add New Page"
+ID,ID
+Title,Title
+Status,Status

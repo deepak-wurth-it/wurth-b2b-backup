@@ -1,0 +1,122 @@
+<?php
+/** @var \Mirasvit\Report\Block\Adminhtml\Email\Edit\Renderer\Blocks $block */
+$dateService = $block->getDateService();
+?>
+<fieldset class="fieldset">
+    <legend class="legend"><span><?= __('Blocks') ?></span></legend>
+    <div id="manage-options-panel">
+        <table class="admin__control-table" width="100%">
+            <thead>
+            <tr id="attribute-options-table">
+                <th class="col-default" nowrap="nowrap"><?= __('Block') ?></th>
+                <th class="col-default" nowrap="nowrap"><?= __('Time Range') ?></th>
+                <th class="col-default" nowrap="nowrap"><?= __('Rows Limit') ?></th>
+                <th class="col-delete" nowrap="nowrap">&nbsp;</th>
+                <th class="col-default" nowrap="nowrap">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody data-role="options-container"></tbody>
+            <tfoot>
+            <th colspan="5" class="col-actions-add">
+                <button id="add_new_option_button" type="button" class="scalable add">
+                    <span><?= __('Add Block') ?></span>
+                </button>
+            </th>
+            </tfoot>
+        </table>
+    </div>
+    <script id="row-template" type="text/x-magento-template">
+        <tr>
+            <td class="col-default">
+                <select name="blocks[<%- data.idx %>][identifier]" class="required-option" data-role="attribute">
+                        <?php foreach ($block->getAllBlocks() as $group => $groupData): ?>
+                            <optgroup label="<?= ("Reports" === $group) ? $group : "DASHBOARD: ".$group ?>">
+                            <?php foreach ($groupData as $identifier => $data): ?>
+                                <option value="<?= $identifier ?>" <% if (data.identifier == '<?= $identifier ?>') { %>selected=true<% } %>>
+                                <?= $data['name'] ?>
+                                </option>
+                            <?php endforeach ?>
+                            </optgroup>
+                        <?php endforeach ?>
+                </select>
+            </td>
+            <td class="col-default">
+                <select name="blocks[<%- data.idx %>][time_range]" class="required-option">
+                    <?php foreach ($dateService->getIntervals(true, true) as $code => $label): ?>
+                        <option value="<?= $code ?>" <% if (data.timeRange == '<?= $code ?>') { %>selected=true<% } %>>
+                        <?= $label ?>
+                        </option>
+                    <?php endforeach ?>
+                </select>
+            </td>
+            <td class="col-default">
+                <input type="text" name="blocks[<%- data.idx %>][limit]" class="required-option" size="5"
+                       value="<%- data.limit %>"/>
+            </td>
+            <td class="col-delete">
+                <input type="hidden" class="delete-flag" name="blocks[<%- data.idx %>][delete]" value=""/>
+
+                <button title="<?= __('Delete') ?>" type="button" class="scalable delete delete-option">
+                    <span><?= __('Delete') ?></span>
+                </button>
+            </td>
+            <td width="100%"></td>
+        </tr>
+    </script>
+    <script>
+        require([
+            'jquery',
+            'mage/template',
+            'jquery/ui'
+        ], function ($, mageTemplate) {
+            var blocks = {
+                idx: 1,
+
+                add: function (identifier, timeRange, limit) {
+                    this.template = mageTemplate('#row-template');
+
+                    if (identifier == undefined) {
+                        data = {
+                            'idx':        blocks.idx,
+                            'identifier': '',
+                            'timeRange':  'month',
+                            'limit':      0
+                        };
+                    } else {
+                        data = {
+                            'idx':        blocks.idx,
+                            'identifier': identifier,
+                            'timeRange':  timeRange,
+                            'limit':      limit
+                        };
+                    }
+
+                    $('[data-role=options-container]').append(this.template({data: data}));
+
+                    blocks.idx++;
+                },
+
+                remove: function (event) {
+                    var tr = $(event.currentTarget).closest('tr');
+                    tr.remove();
+                }
+            };
+
+            $('#add_new_option_button').on('click', function () {
+                blocks.add();
+            });
+
+            $('#manage-options-panel').on('click', '.delete-option', function (e) {
+                blocks.remove(e);
+            });
+
+            <?php if (is_array($block->getBlocks())): ?>
+            <?php foreach ($block->getBlocks() as $block): ?>
+            blocks.add('<?= $block['identifier'] ?>', '<?= $block['time_range'] ?>', '<?= $block['limit'] ?>');
+            <?php endforeach ?>
+            <?php endif ?>
+
+            window.blocks = blocks;
+        });
+    </script>
+</fieldset>

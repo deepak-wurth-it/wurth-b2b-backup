@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../module-report/src/ReportApi/etc/mst_report.xsd">
+
+    <table name="mst_search_report_log">
+
+        <pk name="log_id" label="Searches"/>
+
+        <column name="created_at" label="Date" type="date"/>
+
+        <column name="results" label="Number of Results" type="number"/>
+
+        <column name="unique_searches" label="Unique Searches" fields="query" type="qty"
+                expr="COUNT(DISTINCT(%1))"/>
+
+        <column name="users" label="Users" fields="session" expr="COUNT(DISTINCT(%1))" type="qty"/>
+
+        <column name="engagement" label="Engagement" fields="clicks"
+                type="percent" expr="ROUND(SUM(case when %1>0 then 1 else null end) * 100 / COUNT(log_id), 1)"/>
+
+        <column name="query" label="Query" expr="%1"/>
+
+        <column name="misspell_query" label="Misspell query" expr="%1"/>
+
+        <column name="fallback_query" label="Fallback query" expr="%1"/>
+    </table>
+</config>

@@ -1,0 +1,14 @@
+<script>
+    require(['jquery'], function ($) {
+    	$(document).ready(function($){
+    		setTimeout(function() {
+				if ($('#search_engine_engine').length > 0 && $('#search_engine_engine option:selected').val() == 'sphinx' &&
+						$('#search_engine_restart').length == 0 && $('#search_engine_clear').length == 0) {
+
+			        $('#row_search_engine_config').show();
+			        $('#search_engine_config').show();
+			    }
+			}, 1000);
+    	});
+    });
+</script>

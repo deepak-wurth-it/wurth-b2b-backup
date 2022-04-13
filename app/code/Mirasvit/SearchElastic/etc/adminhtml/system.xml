@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="search">
+            <group id="engine">
+                <label>Search Engine Configuration</label>
+
+                <field id="es_status" translate="label comment tooltip" type="text" sortOrder="70" showInDefault="1">
+                    <button_label>Check Status</button_label>
+                    <frontend_model>Mirasvit\SearchElastic\Block\Adminhtml\Config\Form\Field\Command\Status</frontend_model>
+                    <depends>
+                        <field id="engine" separator=",">elasticsearch7,elasticsearch6,elasticsearch5</field>
+                    </depends>
+                </field>
+
+                <field id="es_reset" translate="label comment tooltip" type="text" sortOrder="85" showInDefault="1">
+                    <button_label>Delete Indexes</button_label>
+                    <comment><![CDATA[Deletes all indexes available for current Elasticsearch connection.]]></comment>
+                    <frontend_model>Mirasvit\SearchElastic\Block\Adminhtml\Config\Form\Field\Command\Reset</frontend_model>
+                    <depends>
+                        <field id="engine" separator=",">elasticsearch7,elasticsearch6,elasticsearch5</field>
+                    </depends>
+                </field>
+
+                <field id="es_reset_store" translate="label comment tooltip" type="text" sortOrder="85" showInDefault="1">
+                    <button_label>Delete Store Indexes</button_label>
+                    <comment><![CDATA[Deletes all indexes by index prefix available for current Elasticsearch connection.]]></comment>
+                    <frontend_model>Mirasvit\SearchElastic\Block\Adminhtml\Config\Form\Field\Command\ResetStore</frontend_model>
+                    <depends>
+                        <field id="engine" separator=",">elasticsearch7,elasticsearch6,elasticsearch5</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+
+        <section id="searchautocomplete">
+            <group id="general">
+                <field id="fast_mode" translate="label comment tooltip" type="select" sortOrder="25"
+                       showInDefault="1">
+                    <label>Fast Mode</label>
+                    <tooltip><![CDATA[Autocomplete results with <br/> "fast mode" enabled are less accurate <br/> and may be slightly different than main search results. <br/>]]></tooltip>
+                    <comment><![CDATA[This option is available for Sphinx search and Elastic engines only.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

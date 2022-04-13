@@ -1,0 +1,39 @@
+"Not logged in","Not logged in"
+"Email Notifications","Email Notifications"
+"The email report has been deleted.","The email report has been deleted."
+"This email report no longer exists.","This email report no longer exists."
+"This email no longer exists.","This email no longer exists."
+"Edit Email ""%1""","Edit Email ""%1"""
+"New Email Report","New Email Report"
+"You have saved the email report.","You have saved the email report."
+"This report no longer exists.","This report no longer exists."
+"Report columns saved.","Report columns saved."
+"Report: %1","Report: %1"
+Back,Back
+Delete,Delete
+"Are you sure you want to do this?","Are you sure you want to do this?"
+Save,Save
+"Save & Continue","Save & Continue"
+"Save & Send","Save & Send"
+Edit,Edit
+"Delete email?","Delete email?"
+Blocks,Blocks
+Block,Block
+"Time Range","Time Range"
+"Rows Limit","Rows Limit"
+"Add Block","Add Block"
+"We couldn't find any records.","We couldn't find any records."
+Active,Active
+Title,Title
+Table,Table
+Type,Type
+Aggregator,Aggregator
+"General Information","General Information"
+"Attach each block as a separate CSV report","Attach each block as a separate CSV report"
+Subject,Subject
+Recipient,Recipient
+Schedule,Schedule
+"Add New Email","Add New Email"
+ID,ID
+Status,Status
+"Last Sent At","Last Sent At"

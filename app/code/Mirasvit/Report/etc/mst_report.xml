@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../module-report-api/src/ReportApi/etc/mst_report.xsd">
+
+    <table name="sales_order" label="Orders" group="Sales" connection="sales">
+        <pk name="entity_id" label="Order"/>
+        <fk name="customer_id" label="Customer" table="customer_entity"/>
+        <fk name="billing_address_id" table="sales_order_address"/>
+        <fk name="shipping_address_id" table="sales_order_address"/>
+        <fk name="quote_id" table="quote"/>
+        <!--<fk name="quote_address_id" table="quote_address" />-->
+
+        <column name="status" label="Status" type="select" options="Mirasvit\Report\Config\Source\Sales\OrderStatus"/>
+
+        <column name="customer_group_id" label="Customer Group" type="select" options="Mirasvit\Report\Config\Source\Customer\Group"/>
+
+        <column name="shipping_method" label="Shipping Method" type="select" options="Mirasvit\Report\Config\Source\Sales\ShippingMethod"/>
+
+        <column name="created_at" label="Purchased On" type="date"/>
+
+        <column name="store_id" label="Store" type="store"/>
+
+        <column name="increment_id" label="Order #" uniq="1"/>
+
+        <column name="customer_firstname" label="First Name"/>
+
+        <column name="customer_lastname" label="Last Name"/>
+
+        <column name="customer_email" label="Email"/>
+
+        <column name="customer_name" label="Customer name" fields="customer_firstname,customer_lastname" expr="CONCAT_WS(' ', %1, %2)"/>
+
+        <column name="customer_taxvat" label="Tax / Vat"/>
+        <column name="coupon_code" label="Coupon Code"/>
+        <column name="customer_note" label="Customer Note"/>
+
+        <column name="total_qty_ordered" label="Qty Ordered" type="number"/>
+
+        <column name="discount_amount" label="Discount" fields="base_discount_amount,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="shipping_amount" label="Shipping" fields="base_shipping_amount,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="tax_amount" label="Tax" fields="base_tax_amount,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="shipping_tax_amount" label="Shipping Tax" fields="base_shipping_tax_amount,base_to_global_rate" expr="%1 * IF(%2 > 0, %2, 1)" type="money"/>
+
+        <column name="tax_refunded" label="Tax Refunded" fields="base_tax_refunded,base_to_global_rate" expr="%1 * IF(%2 > 0, %2, 1)" type="money"/>
+
+        <column name="total_invoiced" label="Invoiced" fields="base_total_invoiced,base_to_global_rate" expr="%1 * IF(%2 > 0, %2, 1)" type="money"/>
+
+        <column name="total_refunded" label="Refunded" fields="base_total_refunded,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="total_invoiced_cost" label="Invoiced Cost" fields="base_total_invoiced_cost,base_to_global_rate" expr="%1 * IF(%2 > 0, %2, 1)" type="money"/>
+
+        <column name="subtotal" label="Subtotal" fields="base_subtotal,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="grand_total" label="Grand Total" fields="base_grand_total,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="coupon_rule_name" label="Cart Price Rule"/>
+    </table>
+
+    <table name="sales_order_item" label="Order Items" group="Sales" connection="sales">
+        <pk name="item_id"/>
+        <fk name="order_id" table="sales_order"/>
+        <fk name="quote_item_id" table="quote_item" uniq="1"/>
+        <fk name="product_id" table="catalog_product_entity" label="Product ID"/>
+
+        <column name="created_at" label="Purchased On" type="date"/>
+
+        <column name="store_id" label="Store" type="store"/>
+
+        <column name="qty_backordered" label="Qty Backordered" type="number"/>
+
+        <column name="qty_canceled" label="Qty Canceled" type="number"/>
+
+        <column name="qty_invoiced" label="Qty Invoiced" type="number"/>
+
+        <column name="qty_ordered" label="Qty Ordered" type="number"/>
+
+        <column name="qty_refunded" label="Qty Refunded" type="number"/>
+
+        <column name="qty_shipped" label="Qty Shipped" type="number"/>
+
+        <column name="cost" label="Cost" fields="base_cost,qty_ordered" type="money" expr="(%1 * %2) * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+
+        <column name="price" label="Price" fields="base_price" type="money" expr="%1 * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+
+        <column name="tax_amount" label="Tax" fields="base_tax_amount" type="money" expr="%1 * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+
+        <column name="tax_invoiced" label="Tax Invoiced" fields="base_tax_invoiced" type="money" expr="%1 * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+
+        <column name="discount_amount" label="Discount" fields="base_discount_amount" type="money" expr="%1 * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+
+        <column name="amount_refunded" label="Refunded" fields="base_amount_refunded" type="money" expr="%1 * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+
+        <column name="row_total" label="Total" fields="base_row_total" type="money" expr="%1 * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+
+        <column name="row_invoiced" label="Invoiced" fields="base_row_invoiced" type="money" expr="%1 * IF(sales_order.base_to_global_rate > 0, sales_order.base_to_global_rate, 1)" tables="sales_order"/>
+    </table>
+
+    <table name="sales_order_payment" label="Order Payments" group="Sales" connection="sales">
+        <pk name="entity_id"/>
+        <fk name="parent_id" table="sales_order" uniq="1"/>
+
+        <column name="method" label="Payment Method" type="select" options="Mirasvit\Report\Config\Source\Sales\PaymentMethod"/>
+    </table>
+
+    <table name="sales_payment_transaction" label="Payment Transactions" group="Sales" connection="sales">
+        <pk name="transaction_id" label="Transaction ID"/>
+        <fk name="order_id" table="sales_order" uniq="1"/>
+
+        <column name="txn_type" label="TXN Type"/>
+        <column name="is_closed" label="Is Closed"/>
+        <column name="additional_information" label="Additional Information"/>
+        <column name="created_at" label="Created At" type="date"/>
+    </table>
+
+    <table name="sales_order_tax" label="Order Taxes" group="Sales" connection="sales">
+        <pk name="tax_id" label="Tax ID"/>
+        <fk name="order_id" table="sales_order" uniq="1"/>
+
+        <column name="code" label="Tax Code"/>
+        <column name="title" label="Tax Title"/>
+        <column name="percent" label="Tax Percent" type="percent"/>
+        <column name="base_amount" label="Tax Amount" type="money"/>
+    </table>
+
+    <table name="sales_order_address" label="Order Addresses" group="Sales" connection="sales">
+        <pk name="entity_id"/>
+        <fk name="parent_id" table="sales_order"/>
+
+        <column name="region_id" label="Region ID"/>
+        <column name="fax" label="Fax"/>
+        <column name="region" label="Region"/>
+        <column name="postcode" label="Postcode"/>
+        <column name="street" label="Street"/>
+        <column name="city" label="City"/>
+        <column name="telephone" label="Telephone"/>
+        <column name="country" label="Country" fields="country_id" type="country" options="Mirasvit\Report\Config\Source\Directory\Country"/>
+        <column name="company" label="Company"/>
+
+        <column name="created_at" label="Created At" type="date" tables="sales_order" fields="sales_order.created_at"/>
+    </table>
+
+    <table name="quote" label="Quotes" group="Sales" connection="checkout">
+        <pk name="entity_id" label="Cart"/>
+        <fk name="customer_id" table="customer_entity"/>
+
+        <column name="store_id" label="Store" type="store"/>
+
+        <column name="created_at" label="Created At" type="date"/>
+
+        <column name="updated_at" label="Updated At" type="date"/>
+
+        <column name="customer_group_id" label="Customer Group" type="select" options="Mirasvit\Report\Config\Source\Customer\Group"/>
+
+        <column name="is_active" label="Is Active"/>
+
+        <column name="items_qty" label="Items Qty" type="number"/>
+
+        <column name="grand_total" label="Grand Total" fields="base_grand_total,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="subtotal" label="Subtotal" fields="base_subtotal,base_to_global_rate" type="money" expr="%1 * IF(%2 > 0, %2, 1)"/>
+
+        <column name="customer_email" label="Email"/>
+
+        <column name="customer_name" label="Customer name" fields="customer_firstname,customer_lastname" expr="CONCAT_WS(' ', %1, %2)"/>
+
+        <column name="remote_ip" label="Remote IP" type="html"/>
+
+        <column name="applied_rule_ids" label="Applied Rule" type="select" options="Mirasvit\Report\Config\Source\Sales\SalesRule"/>
+
+        <column name="coupon_code" label="Coupon Code"/>
+    </table>
+
+    <table name="quote_item" label="Quote Items" group="Sales" connection="checkout">
+        <pk name="item_id"/>
+        <fk name="quote_id" table="quote"/>
+        <fk name="product_id" table="catalog_product_entity"/>
+
+        <column name="qty" label="Qty" type="number"/>
+
+        <column name="cost" label="Total Cost" fields="base_cost,qty" type="money" expr="(%1 * %2) * IF(quote.base_to_global_rate > 0, quote.base_to_global_rate, 1)" tables="quote"/>
+
+        <column name="price" label="Price" fields="base_price" type="money" expr="%1 * IF(quote.base_to_global_rate > 0, quote.base_to_global_rate, 1)" tables="quote"/>
+
+        <column name="row_total" label="Total" fields="base_row_total" type="money" expr="%1 * IF(quote.base_to_global_rate > 0, quote.base_to_global_rate, 1)" tables="quote"/>
+
+        <column name="tax_amount" label="Tax Amount" fields="base_tax_amount" type="money" expr="%1 * IF(quote.base_to_global_rate > 0, quote.base_to_global_rate, 1)" tables="quote"/>
+
+        <column name="discount_amount" label="Discount Amount" fields="base_discount_amount" type="money" expr="%1 * IF(quote.base_to_global_rate > 0, quote.base_to_global_rate, 1)" tables="quote"/>
+    </table>
+
+    <table name="cataloginventory_stock_item" group="Products" label="Stock Items">
+        <pk name="item_id"/>
+        <fk name="product_id" table="catalog_product_entity" uniq="1"/>
+
+        <column name="qty" label="Stock Qty" type="number"/>
+        <column name="notify_stock_qty" label="Notify Stock Qty" type="number"/>
+    </table>
+
+    <table name="sales_invoice" group="Sales" connection="sales" label="Invoices">
+        <pk name="entity_id"/>
+        <fk name="order_id" table="sales_order" uniq="1"/>
+        <fk name="billing_address_id" table="sales_order_address"/>
+
+        <column name="increment_id" label="Invoice #"/>
+    </table>
+
+    <table name="catalog_category_product">
+        <fk name="category_id" table="catalog_category_entity"/>
+        <fk name="product_id" table="catalog_product_entity"/>
+    </table>
+
+    <eavTable name="customer_entity" label="Customers" group="Customers" type="customer">
+        <pk name="entity_id" label="Customer ID"/>
+        <fk name="default_billing" table="customer_address_entity"/>
+
+        <column name="email" label="Email" uniq="1"/>
+        <column name="group_id" label="Group" type="select" options="Mirasvit\Report\Config\Source\Customer\Group"/>
+    </eavTable>
+
+    <eavTable name="customer_address_entity" label="Customer Addresses" group="Customers" type="customer_address">
+        <pk name="entity_id"/>
+    </eavTable>
+
+    <eavTable name="catalog_product_entity" label="Products" group="Products" type="catalog_product">
+        <pk name="entity_id" label="Product ID"/>
+
+        <column name="sku" label="SKU" uniq="1"/>
+        <column name="type_id" label="Product Type" type="select" options="Mirasvit\Report\Config\Source\Catalog\ProductType"/>
+        <column name="attribute_set_id" label="Attribute Set" type="select" options="Mirasvit\Report\Config\Source\Catalog\AttributeSet"/>
+        <column name="attribute" label="Attribute" fields="entity_id"/>
+    </eavTable>
+
+    <eavTable name="catalog_category_entity" label="Categories" group="Categories" type="catalog_category">
+        <pk name="entity_id" label="Category ID"/>
+    </eavTable>
+
+    <relation name="quote_item-catalog_product_entity" type="1n">
+        <leftTable>quote_item</leftTable>
+        <rightTable>catalog_product_entity</rightTable>
+        <condition>%1.product_id=%2.entity_id AND %1.parent_item_id IS NULL</condition>
+    </relation>
+
+    <relation name="sales_order_item-catalog_product_entity" type="1n">
+        <leftTable>sales_order_item</leftTable>
+        <rightTable>catalog_product_entity</rightTable>
+        <condition>%1.product_id=%2.entity_id</condition>
+    </relation>
+</config>

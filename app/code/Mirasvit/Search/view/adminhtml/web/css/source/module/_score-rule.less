@@ -1,0 +1,57 @@
+.search-scorerule__form-conditions,
+.search-scorerule__form-post-conditions {
+    float: left;
+    width: 50%;
+    padding: 1.5rem;
+
+    .fieldset-wrapper-title {
+        display: none;
+    }
+}
+
+.search-scorerule__listing-conditions {
+    max-width: 50rem;
+
+    .data-grid-cell-content {
+        white-space: pre;
+        border: 1px dashed #d6d6d6;
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+}
+
+.search-scorerule__listing-score-title {
+    .data-grid-cell-content {
+        > div {
+            margin-left: 1rem;
+            padding: .5rem;
+            border-radius: 2px;
+            text-align: right;
+            display: inline-block;
+            float: right;
+            min-width: 5rem;
+            color: #fff;
+
+            &.plus {
+                background: #8BC34A;
+            }
+
+            &.minus {
+                background: #ff1503;
+            }
+
+            > span, > i {
+                display: inline-block;
+            }
+
+            > span {
+            }
+
+            > i {
+                margin-left: 0.5rem;
+                font-style: normal;
+                font-weight: bold;
+            }
+        }
+    }
+}

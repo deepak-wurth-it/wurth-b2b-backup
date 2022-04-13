@@ -63,7 +63,7 @@
                                     data-validate="{required:true}">
                                 <option value=""><?php echo __("Please select Division") ?></option>
                                 <?php foreach ($divisions as $division) { ?>
-                                    <option value="<?= $division->getName() ?>" data-id="<?= $division->getId() ?>">
+                                    <option value="<?= $division->getCustomerGroupId() ?>" data-id="<?= $division->getId() ?>">
                                         <?php echo $division->getName(); ?>
                                     </option>
                                 <?php } ?>
@@ -143,7 +143,7 @@
                             $regionValue = array_column($regions, 'value');
                             $regionArray = array_combine($regionValue, $regionLabel);
                             ?>
-                            <select class="form-control v-validate" name="region" id="region">
+                            <select class="form-control v-validate" name="region" id="region" data-validate="{required:true}">
                                 <?php foreach ($regionArray as $key => $value) { ?>
                                     <option value="<?php echo $key; ?>"><?php echo $value ?></option>
                                 <?php } ?>
@@ -326,7 +326,7 @@
                             $regionValue = array_column($regions, 'value');
                             $regionArray = array_combine($regionValue, $regionLabel);
                             ?>
-                            <select class="form-control" name="daddress[da_region]" id="da_region">
+                            <select class="form-control" name="daddress[da_region]" id="da_region" data-validate="{required:true}">
                                 <?php foreach ($regionArray as $key => $value) { ?>
                                     <option value="<?php echo $key; ?>"><?php echo $value ?></option>
                                 <?php } ?>
@@ -403,7 +403,7 @@
                             $regionValue = array_column($regions, 'value');
                             $regionArray = array_combine($regionValue, $regionLabel);
                             ?>
-                            <select class="form-control v-validate" name="iaddress[ia_region]" id="ia_region">
+                            <select class="form-control v-validate" name="iaddress[ia_region]" id="ia_region" data-validate="{required:true}">
                                 <?php foreach ($regionArray as $key => $value) { ?>
                                     <option value="<?php echo $key; ?>"><?php echo $value ?></option>
                                 <?php } ?>

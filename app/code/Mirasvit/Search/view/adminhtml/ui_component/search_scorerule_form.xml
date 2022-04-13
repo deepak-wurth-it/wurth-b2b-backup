@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">search_scorerule_form.search_scorerule_form_data_source</item>
+            <item name="deps" xsi:type="string">search_scorerule_form.search_scorerule_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">search_scorerule_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Mirasvit\Search\Ui\ScoreRule\Form\Control\BackButton</item>
+            <item name="delete" xsi:type="string">Mirasvit\Search\Ui\ScoreRule\Form\Control\DeleteButton</item>
+            <item name="save" xsi:type="string">Mirasvit\Search\Ui\ScoreRule\Form\Control\SaveButton</item>
+            <item name="save_and_apply" xsi:type="string">Mirasvit\Search\Ui\ScoreRule\Form\Control\SaveAndApplyButton</item>
+            <item name="save_and_continue" xsi:type="string">Mirasvit\Search\Ui\ScoreRule\Form\Control\SaveAndContinueButton</item>
+        </item>
+    </argument>
+    <dataSource name="search_scorerule_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Mirasvit\Search\Ui\ScoreRule\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">search_scorerule_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">rule_id</argument>
+            <argument name="requestFieldName" xsi:type="string">rule_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="search/scoreRule/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string"/>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <field name="rule_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Title</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="is_active">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="label" xsi:type="string" translate="true">Active</item>
+                    <item name="dataScope" xsi:type="string">is_active</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Conditions are applicable for attributes with "Use for Promo Rule Conditions" option enabled only</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+
+        <container name="date">
+            <argument name="data" xsi:type="array">
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/group</item>
+                    <item name="additionalClasses" xsi:type="string">admin__control-grouped-date</item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+
+            <field name="active_from">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Active</item>
+                        <item name="addbefore" xsi:type="string" translate="true">from</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">date</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="validate-date" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+
+            <field name="active_to">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">To</item>
+                        <item name="addbefore" xsi:type="string" translate="true">to</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">date</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="validate-date" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+        </container>
+
+        <field name="store_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Store\Ui\Component\Listing\Column\Store\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Store</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <container name="score_factor_container">
+            <argument name="data" xsi:type="array">
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/group</item>
+                    <item name="additionalClasses" xsi:type="string">search-scorerule__form-score-factor</item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+
+            <field name="score_factor_type">
+                <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">Mirasvit\Search\Ui\ScoreRule\Source\ScoreFactorType</item>
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Score Factor</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+
+            <field name="score_factor">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">string</item>
+                        <item name="placeholder" xsi:type="string">2</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+
+            <field name="score_factor_unit">
+                <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">Mirasvit\Search\Ui\ScoreRule\Source\ScoreFactorUnit</item>
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+
+            <field name="score_factor_relatively">
+                <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">Mirasvit\Search\Ui\ScoreRule\Source\ScoreFactorRelatively</item>
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="tooltip" xsi:type="array">
+                            <item name="description" xsi:type="string" translate="true"> After the initial search, all products have a score between 0...100 points. The score depends on the relevance to the search query. You can change it here.</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+        </container>
+    </fieldset>
+
+    <fieldset name="conditions_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Conditions</item>
+                <item name="additionalClasses" xsi:type="string">search-scorerule__form-conditions</item>
+            </item>
+        </argument>
+        <container name="conditions">
+            <htmlContent name="conditions_html">
+                <argument name="block" xsi:type="object">Mirasvit\Search\Ui\ScoreRule\Form\Block\Conditions</argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="showSpinner" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+
+    <fieldset name="post_conditions_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Post Conditions</item>
+                <item name="additionalClasses" xsi:type="string">search-scorerule__form-post-conditions</item>
+            </item>
+        </argument>
+
+        <container name="post_conditions">
+            <htmlContent name="post_conditions_html">
+                <argument name="block" xsi:type="object">Mirasvit\Search\Ui\ScoreRule\Form\Block\PostConditions</argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="showSpinner" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>
