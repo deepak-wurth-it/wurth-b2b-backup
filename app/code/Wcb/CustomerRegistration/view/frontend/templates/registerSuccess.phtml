@@ -1,13 +1,13 @@
 <?php
-$confirmationLink = $block->getConfirmationLink();
-?>
+   $confirmationLink = $block->getConfirmationLink();
+   ?>
 <div class="register-success">
-    <div class="image"></div>
-    <p><?= __("You must confirm your account."); ?></p>
-    <p>
-        <?= __(sprintf(
-    "Please check your email for the confirmation link or <a href='%s'>click here</a> for a new link.",
-    $confirmationLink
-)); ?>
-    </p>
+   <span class="success-image">
+   <img src=" <?php echo $block->getViewFileUrl('Wcb_CustomerRegistration::images/success-image-group.svg'); ?>" />
+   </sapn>
+   <h2><?= __("You must confirm your account."); ?></h2>
+   <p> <?= __(sprintf("Please check your email for the confirmation link or <a href='%s'><span> click here </span> </a> for a new link.",
+      $confirmationLink
+      )); ?>
+   </p>
 </div>
