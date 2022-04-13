@@ -190,16 +190,18 @@
         }
     }
 
-    .admin__page-nav-item:last-child {
-        span {
-            &:after {
-                background:    #ec5302;
-                color:         #ffffff;
-                padding:       1px 10px;
-                position:      absolute;
-                right:         10px;
-                border-radius: 1px;
-                font-size:     12px;
+    .admin__page-nav-item {
+        &._last {
+            span {
+                &:after {
+                    background: #ec5302;
+                    color: #ffffff;
+                    padding: 1px 10px;
+                    position: absolute;
+                    right: 10px;
+                    border-radius: 1px;
+                    font-size: 12px;
+                }
             }
         }
     }

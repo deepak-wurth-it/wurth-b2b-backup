@@ -1,0 +1,29 @@
+<?php
+
+use Mirasvit\Core\Service\SerializeService;
+
+/** @var \Mirasvit\Core\Ui\QuickDataBar\DataBar $block */
+?>
+
+<div data-bind="scope: 'mstQuickDataBar'">
+    <div class="mst-quickDataBar" data-bind="css: { _ready: isReady() }">
+        <div class="mst-quickDataBar-container">
+            <div class="mst-quickDataBar__dateRange">
+                <select data-bind="options: dateRangeList, optionsText: 'label', optionsValue: 'value', value: dateRange"></select>
+            </div>
+
+            <?= $block->getChildHtml() ?>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init"><?= SerializeService::encode([
+        '*' => [
+            'Magento_Ui/js/core/app' => [
+                'components' => [
+                    'mstQuickDataBar' => [
+                        'component' => 'Mirasvit_Core/js/quickDataBar/dataBar',
+                    ],
+                ],
+            ],
+        ],
+    ]) ?></script>

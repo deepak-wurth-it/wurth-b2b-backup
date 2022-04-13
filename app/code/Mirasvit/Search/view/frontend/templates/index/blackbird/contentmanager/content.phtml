@@ -1,0 +1,19 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+
+?>
+<div class="mst-search__index mst-search__index-blackbird_contentmanager_content">
+    <ul>
+        <?php /** @var \Blackbird\ContentManager\Model\Content $content */ ?>
+        <?php foreach ($block->getCollection() as $content): ?>
+            <li>
+                <div class="mst-search__index-title">
+                    <a href="<?= $content->getLinkUrl() ?>"><?= $content->getTitle() ?></a>
+                </div>
+                <div class="mst-search__index-content">
+                    <?= $this->truncate($content->getShortContent()) ?>
+                </div>
+            </li>
+        <?php endforeach ?>
+</div>

@@ -1,0 +1,14 @@
+"Not logged in","No estàs autenticat"
+"Report: %1","Informe: %1"
+"Report %1 is not defined.","L&#39;informe %1 no està definit."
+Actions,Accions
+"Invalid component type ""%1"", class %2 does not exists.","El tipus de component &quot;%1&quot; no és vàlid; la classe %2 no existeix."
+"All Store Views","Totes les vistes de la botiga"
+Back,Esquena
+Delete,Suprimeix
+"Are you sure you want to do this?","Estàs segur que vols fer això?"
+Save,Desa
+"Save & Continue","Desa i continua"
+"Save & Send","Desa i envia"
+Edit,Edita
+"Delete email?","Vols suprimir el correu electrònic?"

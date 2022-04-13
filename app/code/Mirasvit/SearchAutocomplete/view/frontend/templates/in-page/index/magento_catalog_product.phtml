@@ -1,0 +1,38 @@
+<div class="mstInPage__item magento_catalog_product">
+    <!-- ko if: image -->
+    <div class="mst__product-image">
+        <a rel="noreferrer" data-bind="attr: {href: url}">
+            <img data-bind="attr: {src: image}"/>
+        </a>
+    </div>
+    <!-- /ko -->
+
+    <div class="mst__product-meta">
+
+        <a rel="noreferrer" class="mst__title" data-bind="html: name, attr: {href: url}, highlight"/>
+
+        <!-- ko if: sku -->
+        <div class="mst__sku" data-bind="text: sku, highlight"></div>
+        <!-- /ko -->
+
+        <!-- ko if: description -->
+        <div class="mst__description" data-bind="text: description, highlight"></div>
+        <!-- /ko -->
+
+        <!-- ko if: rating -->
+        <div class="mst__rating" data-bind="html: rating"></div>
+        <!-- /ko -->
+
+        <div class="mst__product-cart">
+            <div class="to-cart" data-bind="visible: cart.visible" style="margin-right: 10px;">
+                <a class="action primary" data-bind="attr: { href: cart.url }">
+                    <span data-bind="html: cart.label"></span>
+                </a>
+            </div>
+
+            <div class="store">
+                <div data-bind="html: price" class="price"></div>
+            </div>
+        </div>
+    </div>
+</div>

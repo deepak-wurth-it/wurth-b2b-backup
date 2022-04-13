@@ -1,0 +1,37 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Mirasvit\Misspell\Api\AdapterInterface" type="Mirasvit\Misspell\Model\ConfigProvider"/>
+
+    <type name="Magento\Indexer\Model\Config\Data">
+        <plugin name="mstMisspellIndexerConfig" type="Mirasvit\Misspell\Plugin\IndexerConfigDataPlugin"/>
+    </type>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\Index\Builder">
+        <plugin name="mstMisspellAddSuggestAnalyzers" type="Mirasvit\Misspell\Plugin\AddSuggestAnalyzersPlugin"/>
+    </type>
+
+    <type name="Mirasvit\Misspell\Api\AdapterInterface">
+        <arguments>
+            <argument name="adapters" xsi:type="array">
+                <item name="mysql2" xsi:type="string">Mirasvit\Misspell\Adapter\Mysql\MysqlAdapter</item>
+                <item name="elasticsearch7" xsi:type="string">Mirasvit\Misspell\Adapter\Elasticsearch\ElasticsearchAdapter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Mirasvit\Core\Service\ValidationService">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="misspell" xsi:type="object">Mirasvit\Misspell\Service\ValidationService</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\FieldMapperInterface">
+        <arguments>
+            <argument name="fieldMappers" xsi:type="array">
+                <item name="mst_misspell_index" xsi:type="string">Mirasvit\Misspell\Adapter\Elasticsearch\GenericFieldMapper</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

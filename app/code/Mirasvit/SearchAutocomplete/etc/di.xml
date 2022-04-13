@@ -1,0 +1,83 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--    <preference for="Mirasvit\SearchAutocomplete\Api\Repository\IndexRepositoryInterface"-->
+    <!--                type="Mirasvit\SearchAutocomplete\Repository\IndexRepository"/>-->
+
+    <!--    <preference for="Mirasvit\SearchAutocomplete\Api\Service\CategoryProductInterface"-->
+    <!--                type="Mirasvit\SearchAutocomplete\Service\CategoryProductService"/>-->
+
+    <!--    <type name="Mirasvit\SearchAutocomplete\Api\Repository\IndexRepositoryInterface">-->
+    <!--        <arguments>-->
+    <!--            <argument name="indexProviders" xsi:type="array">-->
+    <!--                <item name="main" xsi:type="object">Mirasvit\SearchAutocomplete\Model\IndexProvider</item>-->
+    <!--            </argument>-->
+
+    <!--            <argument name="instances" xsi:type="array">-->
+    <!--                <item name="catalogsearch_fulltext" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Product</item>-->
+    <!--                <item name="magento_catalog_category" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Category</item>-->
+    <!--                <item name="magento_cms_page" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Cms\Page</item>-->
+    <!--                <item name="magento_search_query" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Search\Query</item>-->
+    <!--                <item name="magento_catalog_categoryproduct" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\CategoryProduct</item>-->
+    <!--                <item name="external_wordpress_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\External\Wordpress\Post</item>-->
+    <!--                <item name="mirasvit_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Mirasvit\Blog\Post</item>-->
+    <!--                <item name="mirasvit_kb_article" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Mirasvit\Kb\Article</item>-->
+    <!--                <item name="mirasvit_gry_registry" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Mirasvit\Gry\Registry</item>-->
+    <!--                <item name="magento_catalog_attribute" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Attribute</item>-->
+    <!--                <item name="mageplaza_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Mageplaza\Blog\Post</item>-->
+    <!--                <item name="ves_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Ves\Blog\Post</item>-->
+    <!--                <item name="magefan_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magefan\Blog\Post</item>-->
+    <!--                <item name="amasty_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Amasty\Blog\Post</item>-->
+    <!--                <item name="aheadworks_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Aheadworks\Blog\Post</item>-->
+    <!--                <item name="fishpig_glossary_word" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Fishpig\Glossary\Word</item>-->
+    <!--                <item name="blackbird_contentmanager_content" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Blackbird\ContentManager\Content</item>-->
+    <!--            </argument>-->
+    <!--        </arguments>-->
+    <!--    </type>-->
+
+    <!--    <type name="Mirasvit\Search\Index\Magento\Catalog\Category\Index">-->
+    <!--        <arguments>-->
+    <!--            <argument name="dataMappers" xsi:type="array">-->
+    <!--                <item name="engine-elastic-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Category</item>-->
+    <!--                <item name="engine-sphinx-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Category</item>-->
+    <!--            </argument>-->
+    <!--        </arguments>-->
+    <!--    </type>-->
+
+    <!--    <type name="Mirasvit\Search\Index\Magento\Cms\Page\Index">-->
+    <!--        <arguments>-->
+    <!--            <argument name="dataMappers" xsi:type="array">-->
+    <!--                <item name="engine-elastic-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Cms\Page</item>-->
+    <!--                <item name="engine-sphinx-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Cms\Page</item>-->
+    <!--            </argument>-->
+    <!--        </arguments>-->
+    <!--    </type>-->
+
+    <!--    <type name="Mirasvit\Search\Index\Magento\Catalog\Product\Index">-->
+    <!--        <arguments>-->
+    <!--            <argument name="dataMappers" xsi:type="array">-->
+    <!--                <item name="engine-elastic-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Product</item>-->
+    <!--                <item name="engine-sphinx-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Product</item>-->
+    <!--            </argument>-->
+    <!--        </arguments>-->
+    <!--    </type>-->
+
+    <!--    <type name="Mirasvit\Search\Index\Amasty\Blog\Post\Index">-->
+    <!--        <arguments>-->
+    <!--            <argument name="dataMappers" xsi:type="array">-->
+    <!--                <item name="engine-elastic-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Amasty\Blog\Post</item>-->
+    <!--                <item name="engine-sphinx-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Amasty\Blog\Post</item>-->
+    <!--            </argument>-->
+    <!--        </arguments>-->
+    <!--    </type>-->
+
+    <!--Missing required argument $debugHintsPath of Magento\Developer\Model\TemplateEngine\Plugin\DebugHints.-->
+    <type name="Magento\Developer\Model\TemplateEngine\Plugin\DebugHints">
+        <arguments>
+            <argument name="debugHintsPath" xsi:type="string">dev/debug/template_hints_storefront</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\BatchDataMapperInterface">
+        <plugin name="mstAddInstantDataOnReindex" type="Mirasvit\SearchAutocomplete\Plugin\AddInstantDataOnReindexPlugin"/>
+    </type>
+</config>

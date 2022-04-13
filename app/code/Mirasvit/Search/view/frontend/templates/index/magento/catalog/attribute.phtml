@@ -1,0 +1,21 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+
+$collection = $this->getCollection();
+$attr       = $block->getIndex()->getProperty('attribute');
+?>
+<div class="mst-search__index mst-search__index-magento-catalog-attribute">
+    <ul>
+        <?php foreach ($collection as $item): ?>
+
+            <li>
+                <div class="mst-search__index-title">
+                    <a href="<?= $block->getUrl('catalogsearch/advanced/result', ['_query' => ["{$attr}[]" => $item->getValue()]]) ?>">
+                        <?= $item->getLabel() ?>
+                    </a>
+                </div>
+            </li>
+        <?php endforeach ?>
+    </ul>
+</div>

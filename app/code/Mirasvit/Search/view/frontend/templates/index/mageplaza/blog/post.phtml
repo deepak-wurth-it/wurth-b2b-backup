@@ -1,0 +1,23 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+?>
+<div class="mst-search__index mst-search__index-ves-blog-post">
+    <?= $block->getPager() ?>
+
+    <?php /** @var \Mageplaza\Blog\Model\Post $post */ ?>
+    <?php foreach ($block->getCollection() as $post): ?>
+        <div class="mageplaza-post post-item">
+            <h3 class="post-title">
+                <a href="<?= $post->getUrl() ?>"><?= $post->getName() ?></a>
+            </h3>
+
+            <div class="post-summary">
+                <?= $post->getShortDescription() ?>
+            </div>
+        </div>
+    <?php endforeach ?>
+
+    <?= $block->getPager() ?>
+</div>
+

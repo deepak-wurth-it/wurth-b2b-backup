@@ -1,0 +1,14 @@
+"Not logged in","Ei kirjautuneena"
+"Report: %1","Raportti: %1"
+"Report %1 is not defined.","Raporttia %1 ei ole määritelty."
+Actions,Toimet
+"Invalid component type ""%1"", class %2 does not exists.","Virheellinen komponenttityyppi &quot;%1&quot;, luokka %2 ei ole olemassa."
+"All Store Views","Kaikki myymälänäkymät"
+Back,Takaisin
+Delete,Poistaa
+"Are you sure you want to do this?","Haluatko varmasti tehdä tämän?"
+Save,Tallentaa
+"Save & Continue","Tallenna &amp; jatka"
+"Save & Send","Tallenna ja lähetä"
+Edit,Muokata
+"Delete email?","Poista sähköpostia?"

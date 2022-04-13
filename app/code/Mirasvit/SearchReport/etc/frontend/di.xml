@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Search\Api\SearchInterface">
+        <plugin name="searchReport" type="Mirasvit\SearchReport\Plugin\SearchPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\App\Response\Http">
+        <plugin name="searchReport" type="Mirasvit\SearchReport\Plugin\ResponsePlugin"/>
+    </type>
+</config>

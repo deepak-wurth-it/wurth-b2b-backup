@@ -1,0 +1,23 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+?>
+<div class="mst-search__index mst-search__index-ves-brand_brand">
+    <?= $block->getPager() ?>
+    <ul>
+        <?php
+        foreach ($block->getCollection() as $brand) : ?>
+            <li>
+                <div class="mst-search__index-title">
+                    <a href="<?= $brand->getUrl() ?>">
+                        <?= $brand->getName() ?>
+                    </a>
+                </div>
+                <div class="mst-search__index-content">
+                    <?= $this->truncate($brand->getDescription()) ?>
+                </div>
+            </li>
+            <?php endforeach ?>
+    </ul>
+    <?= $block->getPager() ?>
+</div>

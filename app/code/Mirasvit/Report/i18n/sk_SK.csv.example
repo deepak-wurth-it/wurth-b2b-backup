@@ -1,0 +1,14 @@
+"Not logged in",Neprihlásený
+"Report: %1","Správa: %1"
+"Report %1 is not defined.","Správa %1 nie je definovaná."
+Actions,Akcia
+"Invalid component type ""%1"", class %2 does not exists.","Neplatný typ komponentu &quot;%1&quot;, trieda %2 neexistuje."
+"All Store Views","Všetky zobrazenia obchodu"
+Back,Späť
+Delete,Vymazať
+"Are you sure you want to do this?","Naozaj chcete to urobiť?"
+Save,Uložiť
+"Save & Continue","Uložiť &amp; Pokračovať"
+"Save & Send","Uložiť a odoslať"
+Edit,Editovať
+"Delete email?","Odstrániť e-mail?"

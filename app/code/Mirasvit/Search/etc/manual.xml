@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../module-core/src/Core/etc/manual.xsd">
+
+    <link action="search_index_index" title="Learn more about Search Indexes" url="https://mirasvit.com/docs/module-search-ultimate/current"/>
+
+    <link action="search_index_edit" title="Learn more about Search Indexes" url="https://mirasvit.com/docs/module-search-ultimate/current"/>
+
+    <!-- Configuration -->
+    <link action="system_config_search" title="Learn more about Search configuration" url="https://mirasvit.com/docs/module-search-ultimate/current"/>
+</config>

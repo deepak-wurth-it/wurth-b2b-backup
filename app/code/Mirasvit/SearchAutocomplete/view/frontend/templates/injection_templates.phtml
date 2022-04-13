@@ -1,0 +1,181 @@
+<script id="searchAutocompletePlaceholder" type="text/x-custom-template">
+    <div class="mst-searchautocomplete__autocomplete">
+        <div class="mst-searchautocomplete__spinner">
+            <div class="spinner-item spinner-item-1"></div>
+            <div class="spinner-item spinner-item-2"></div>
+            <div class="spinner-item spinner-item-3"></div>
+            <div class="spinner-item spinner-item-4"></div>
+        </div>
+
+        <div class="mst-searchautocomplete__close">&times;</div>
+    </div>
+</script>
+
+<script id="searchAutocompleteWrapper" type="text/x-custom-template">
+    <div class="mst-searchautocomplete__wrapper">
+        <div data-bind="visible: result().noResults == false">
+            <div data-bind="foreach: { data: result().indexes, as: 'index' }">
+                <div data-bind="visible: index.totalItems, attr: {class: 'mst-searchautocomplete__index ' + index.identifier}">
+                    <div class="mst-searchautocomplete__index-title">
+                        <span data-bind="text: index.title"></span>
+                        <span data-bind="visible: index.isShowTotals">
+                            (<span data-bind="text: index.totalItems"></span>)
+                        </span>
+                    </div>
+
+                    <ul data-bind="foreach: { data: index.items, as: 'item' }">
+                        <li data-bind="
+                            template: { name:index.identifier, data: item },
+                            attr: {class: 'mst-searchautocomplete__item ' + index.identifier},
+                            event: { mouseover: $parents[1].onMouseOver, mouseout: $parents[1].onMouseOut, mousedown: $parents[1].onClick },
+                            css: {_active: $data.isActive}">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mst-searchautocomplete__show-all" data-bind="visible: result().urlAll && result().totalItems > 0">
+                <a data-bind="attr: { href: result().urlAll }">
+                    <span data-bind="text: result().textAll"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mst-searchautocomplete__empty-result" data-bind="visible: result().noResults == true && !loading()">
+            <span data-bind="text: result().textEmpty"></span>
+        </div>
+    </div>
+</script>
+
+<script id="popular" type="text/x-custom-template">
+    <a class="title" data-bind="text: query"></a>
+</script>
+
+<script id="magento_search_query" type="text/x-custom-template">
+    <a class="title" data-bind="text: query_text, attr: {href: url}, highlight"></a> <span class="num_results" data-bind="text: num_results"></span>
+</script>
+
+<script id="magento_catalog_product" type="text/x-custom-template">
+    <!-- ko if: image -->
+    <a rel="noreferrer" data-bind="attr: {href: url}">
+        <div class="mst-product-image-wrapper"><img data-bind="attr: {src: image}"/></div>
+    </a>
+    <!-- /ko -->
+
+    <div class="meta">
+        <div class="title">
+            <a rel="noreferrer" data-bind="html: name, attr: {href: url}, highlight"></a>
+
+            <!-- ko if: sku -->
+            <span class="sku" data-bind="text: sku, highlight"></span>
+            <!-- /ko -->
+        </div>
+
+        <!-- ko if: description -->
+        <div class="description" data-bind="text: description, highlight"></div>
+        <!-- /ko -->
+
+        <!-- ko if: rating -->
+        <div data-bind="html: rating"></div>
+        <!-- /ko -->
+
+        <!-- ko if: stock_status -->
+        <span class="stock_status" data-bind="text: stock_status, processStockStatus"></span>
+        <!-- /ko -->
+
+        <div class="to-cart" data-bind="visible: cart.visible">
+            <a class="action primary" data-bind="attr: { href: cart.url }">
+                <span data-bind="html: cart.label"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="store">
+        <div data-bind="html: price" class="price"></div>
+    </div>
+</script>
+
+<script id="magento_catalog_categoryproduct" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magento_catalog_category" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magento_cms_page" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magento_catalog_attribute" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magento_catalog_attribute_2" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magento_catalog_attribute_3" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magento_catalog_attribute_4" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magento_catalog_attribute_5" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="mirasvit_kb_article" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="external_wordpress_post" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="amasty_blog_post" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="amasty_faq_question" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="magefan_blog_post" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="mageplaza_blog_post" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="aheadworks_blog_post" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="mirasvit_blog_post" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="mirasvit_gry_registry" type="text/x-custom-template">
+    <a class="title" data-bind="text: title, attr: {href: url}, highlight"></a>
+    <p data-bind="text: name, highlight"></p>
+</script>
+
+<script id="ves_blog_post" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="fishpig_glossary_word" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="blackbird_contentmanager_content" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+
+<script id="mirasvit_brand_page" type="text/x-custom-template">
+    <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>

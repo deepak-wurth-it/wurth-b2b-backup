@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mirasvit_SearchReport::search_report" title="Reports"
+             module="Mirasvit_SearchReport" sortOrder="40" parent="Mirasvit_Search::search"
+             action="searchReport/report/view/report/search_report_volume" resource="Mirasvit_SearchReport::search_report"/>
+
+    </menu>
+</config>

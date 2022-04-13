@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.122
- * @copyright Copyright (C) 2021 Mirasvit (https://mirasvit.com/)
+ * @version   1.3.3
+ * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -19,6 +19,7 @@
 namespace Mirasvit\Core\Plugin\Backend\Framework\App\FrontController;
 
 
+use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\App\RequestInterface;
 use Mirasvit\Core\Api\Service\CronServiceInterface;
 
@@ -27,14 +28,18 @@ class CronCheckerPlugin
     /** @var \Mirasvit\Core\Service\CronService */
     private $cronService;
 
+    private $session;
+
     /**
      * CronCheckerPlugin constructor.
      * @param CronServiceInterface $cronService
      */
     public function __construct(
-        CronServiceInterface $cronService
+        CronServiceInterface $cronService,
+        Session $session
     ){
         $this->cronService = $cronService;
+        $this->session     = $session;
     }
 
     /**
@@ -46,7 +51,11 @@ class CronCheckerPlugin
         /** @var \Magento\Framework\App\Request\Http $request */
         $moduleName = $request->getControllerModule();
 
-        if (strpos($moduleName, 'Mirasvit_') !== false && $this->shouldDisplayStatus($request)) {
+        if (
+            strpos($moduleName, 'Mirasvit_') !== false
+            && $this->shouldDisplayStatus($request)
+            && $this->session->isLoggedIn()
+        ) {
             $this->cronService->outputCronStatus($moduleName);
         }
     }

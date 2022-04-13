@@ -1,0 +1,20 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+
+?>
+<div class="mst-search__index mst-search__index-amasty-blog-post">
+    <ul>
+        <?php /** @var \Amasty\Blog\Model\Posts $post */ ?>
+        <?php foreach ($block->getCollection() as $post): ?>
+        <?php $url = $post->getPostUrl() ? $post->getPostUrl() : $post->getUrl(); ?>
+            <li>
+                <div class="mst-search__index-title">
+                    <a href="<?= $url ?>"><?= $post->getTitle() ?></a>
+                </div>
+                <div class="mst-search__index-content">
+                    <?= $this->truncate($post->getShortContent()) ?>
+                </div>
+            </li>
+        <?php endforeach ?>
+</div>

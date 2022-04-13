@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="adminhtml_catalog_product_form_prepare_excluded_field_list">
+        <observer name="mst.search.search_weight" instance="Mirasvit\Search\Observer\RemoveSearchWeightFromMassUpdateObserver"/>
+    </event>
+</config>

@@ -1,0 +1,14 @@
+"Not logged in","Pas connecté"
+"Report: %1","Rapport: %1"
+"Report %1 is not defined.","Le rapport %1 n&#39;est pas défini."
+Actions,Actes
+"Invalid component type ""%1"", class %2 does not exists.","Le type de composant &quot;%1&quot; n&#39;est pas valide, la classe %2 n&#39;existe pas."
+"All Store Views","Toutes les vues du magasin"
+Back,Arrière
+Delete,Effacer
+"Are you sure you want to do this?","Es-tu sûr de vouloir faire ça?"
+Save,Sauvegarder
+"Save & Continue","Enregistrer continuer"
+"Save & Send","Enregistrer et envoyer"
+Edit,Modifier
+"Delete email?","Supprimer l&#39;email?"

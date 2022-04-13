@@ -1,0 +1,58 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+?>
+<div class="mst-search__index mst-search__index-mirasvit-gry-registry giftr-result products-grid">
+    <?= $block->getPager() ?>
+    <ul class="registry-list product-items">
+        <?php /** @var \Mirasvit\Giftr\Model\Registry $registry */ ?>
+        <?php foreach ($block->getCollection() as $registry): ?>
+            <li class="item product-item">
+                <div class="product-item-info">
+                    <a class="product-item-photo registry-image" href="<?= $registry->getViewUrl() ?>">
+                        <img src="<?= $registry->getImageUrl(230, 135) ?>"
+                             alt="<?= $registry->getName() ?>"/>
+                    </a>
+
+                    <strong class="product-item-name registry-name">
+                        <a href="<?= $registry->getViewUrl() ?>"
+                           title="<?= $registry->getName() ?>">
+                            <?= $registry->getName() ?>
+                        </a>
+                    </strong>
+
+                    <div class="info">
+                        <p class="registrant-name"><b><?= __('Registrant') ?>:</b>
+                            <?= __('%1 %2', $registry->getFirstname(), $registry->getLastname()) ?>
+                        </p>
+                        <?php if ($registry->getCoFirstname()): ?>
+                            <p class="registrant-name"><b><?= __('Co-Registrant') ?>:</b>
+                                <?= __('%1 %2', $registry->getCoFirstname(), $registry->getCoLastname()) ?>
+                            </p>
+                        <?php endif ?>
+
+                        <?php if ($registry->getEventAt()): ?>
+                            <p class="event-date"><b><?= __('Event Date') ?>:</b>
+                                <?= $block->formatDate($registry->getEventAt()) ?>
+                            </p>
+                        <?php endif ?>
+
+                        <?php if ($registry->getLocation()): ?>
+                            <p class="location"><b><?= __('Location') ?>:</b>
+                                <?= $registry->getLocation() ?>
+                            </p>
+                        <?php endif ?>
+                    </div>
+
+                    <div class="product-item-inner">
+                        <?php if ($registry->hasDescription()): ?>
+                            <div class="description"><?= $registry->getDescription() ?></div>
+                        <?php endif ?>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach ?>
+    </ul>
+    <?= $block->getPager() ?>
+</div>
+

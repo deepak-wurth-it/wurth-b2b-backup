@@ -1,0 +1,99 @@
+.mst-quickDataBar {
+    @bg:           #373330;
+    @height:       70px;
+
+    background:    @bg;
+    height:        @height;
+    width:         100%;
+    border-radius: 3px;
+    overflow:      hidden;
+    margin-bottom: 3rem;
+    color:         #ffffff;
+
+    .mst-quickDataBar-container {
+        display:     none;
+        align-items: center;
+        height:      @height;
+
+        > div {
+            border-right: 1px solid rgba(0, 0, 0, 0.5);
+            height:       100%;
+            position:     relative;
+            flex-grow:    1;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+
+        .mst-quickDataBar__dateRange {
+            display:     flex;
+            align-items: center;
+            flex-grow:   0;
+            padding:     10px 15px;
+
+            select {
+                background: @bg;
+                border:     none;
+            }
+        }
+    }
+
+    &._ready {
+        .mst-quickDataBar-container {
+            display: flex;
+        }
+    }
+}
+
+.mst-quickDataBar__dataBlock {
+    flex-grow: 1;
+    padding:   10px 15px;
+
+    &._loading {
+        .dataBlockValue {
+            height:        20px;
+            width:         80px;
+            background:    #ffffff;
+            border-radius: 3px;
+            opacity:       0.2;
+            color:         transparent;
+        }
+
+        .dataBlockSparkline {
+            opacity: 0.3;
+        }
+    }
+
+    .dataBlockLabel {
+        margin-bottom: 10px;
+        opacity:       0.8;
+        position:      relative;
+        z-index:       3;
+    }
+
+    .dataBlockValue {
+        font-weight: 600;
+        font-size:   110%;
+        position:    relative;
+        z-index:     3;
+    }
+
+    .dataBlockSparkline {
+        height:   50px;
+        width:    224px;
+        position: absolute;
+        right:    0;
+        bottom:   0;
+        opacity:  0.8;
+        z-index:  2;
+    }
+
+    &._sparklineBlock {
+        cursor: pointer;
+
+        &:hover {
+            background: #222120;
+        }
+    }
+}

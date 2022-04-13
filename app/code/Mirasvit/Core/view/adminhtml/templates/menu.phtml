@@ -25,7 +25,8 @@
                 <?php continue; endif; ?>
 
             <li>
-                <a href="<?php echo $item->getUrl() ?>">
+                <?php $target = $item->getTarget() ? 'target="' . $item->getTarget() . '"' : ''; ?>
+                <a href="<?php echo $item->getUrl() ?>" <?= $target ?> >
                     <?php echo $block->escapeHtml($item->getTitle()) ?>
                 </a>
 

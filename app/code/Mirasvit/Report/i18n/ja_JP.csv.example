@@ -1,0 +1,14 @@
+"Not logged in",ログインしていない
+"Report: %1",レポート：%1
+"Report %1 is not defined.",レポート%1は定義されていません。
+Actions,行動
+"Invalid component type ""%1"", class %2 does not exists.","無効なコンポーネントタイプ &quot;%1&quot;、クラス%2は存在しません。"
+"All Store Views",すべてのストアビュー
+Back,バック
+Delete,削除
+"Are you sure you want to do this?",これをやりたいですか？
+Save,セーブ
+"Save & Continue",保存して続行
+"Save & Send",保存して送信
+Edit,編集
+"Delete email?",メールを削除しますか？

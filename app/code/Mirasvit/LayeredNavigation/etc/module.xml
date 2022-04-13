@@ -6,6 +6,7 @@
             <module name="Magento_Catalog" />
             <module name="Magento_LayeredNavigation" />
             <module name="Mirasvit_Core" />
+            <module name="Smile_ElasticsuiteCatalog" />
             <module name="Mirasvit_SeoFilter" />
         </sequence>
     </module>

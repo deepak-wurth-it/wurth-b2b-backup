@@ -1,100 +1,185 @@
 <!--
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 -->
-<!--@subject {{trans "Welcome to %store_name" store_name=$store.getFrontendName()}} @-->
+<!--@subject {{trans "Welcome to %store_name" store_name=$store.frontend_name}} @-->
 <!--@vars {
-"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var store.frontend_name":"Store Name",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL",
+"var this.getUrl($store,'customer/account/createPassword/',[_query:[id:$customer.id,token:$customer.rp_token],_nosid:1])":"Password Reset URL",
 "var customer.email":"Customer Email",
 "var customer.name":"Customer Name"
 } @-->
 
 {{template config_path="design/email/header_template"}}
+                <p style='text-align: center;'> <strong>Registracija novog korisnika: {company}. Datum: {date}</strong></p><br /> <br />
+ <table width="900">
+                    <tr>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Osnovni podaci</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>OIB tvrtke: </td>
+                                        <td>{company_id} </td>
+                                    </tr>
 
-<p class="greeting">{{trans "%name," name=$customer.name}}</p>
-<p>{{trans "Welcome to %store_name." store_name=$store.getFrontendName()}}</p>
-<p>
-    {{trans
-        'To sign in to our site, use these credentials during checkout or on the <a href="%customer_url">My Account</a> page:'
+                                    <tr>
+                                        <td>Adresa sjedišta:</td>
+                                        <td>{address} </td>
+                                    </tr>
 
-        customer_url=$this.getUrl($store,'customer/account/',[_nosid:1])
-    |raw}}
-</p>
-<table class="email-credentials">
-    <tr>
-        <th>{{trans "Email:"}}</th>
-        <td>{{var customer.email}}</td>
-    </tr>
-    <tr>
-        <th>{{trans "Password:"}}</th>
-        <td><em>{{trans "Password you set when creating account"}}</em></td>
-    </tr>
-</table>
-<p>
-    {{trans
-        'Forgot your account password? Click <a href="%reset_url">here</a> to reset it.'
+                                    <tr>
+                                        <td>Broj pošte: </td>
+                                        <td>{postal_code} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-mail: </td>
+                                        <td>{{var customer.email}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pozicija u poduzeću: </td>
+                                        <td>{positionin_company} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;' colspan='2'></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Naziv tvrtke: </td>
+                                        <td>{company} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mjesto: </td>
+                                        <td>{place} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kontakt osoba: </td>
+                                        <td>{contact_person} </td>
+                                    </tr>
 
-        reset_url="$this.getUrl($store,'customer/account/createPassword/',[_query:[id:$customer.id,token:$customer.rp_token],_nosid:1])"
-    |raw}}
-</p>
-<br />
-<p>{{trans "When you sign in to your account, you will be able to:"}}</p>
-<table class="email-features">
-    <tr>
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <img src="{{view url='Magento_Customer/images/icn_checkout.png'}}" height="30" width="30" alt="{{trans 'Quick Checkout'}}" />
-                    </td>
-                    <td>
-                        <h3>{{trans "Proceed through checkout faster"}}</h3>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <img src="{{view url='Magento_Customer/images/icn_status.png'}}" height="30" width="30" alt="{{trans 'Order Status'}}" />
-                    </td>
-                    <td>
-                        <h3>{{trans "Check the status of orders"}}</h3>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <img src="{{view url='Magento_Customer/images/icn_address.png'}}" height="30" width="30" alt="{{trans 'Manage Addresses'}}" />
-                    </td>
-                    <td>
-                        <h3>{{trans "Store alternative addresses"}}</h3>
-                        <p>{{trans "For shipping to multiple family members and friends"}}</p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <img src="{{view url='Magento_Customer/images/icn_history.png'}}" height="30" width="30" alt="{{trans 'Order History'}}" />
-                    </td>
-                    <td>
-                        <h3>{{trans "View past orders"}}</h3>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+                                    <tr>
+                                        <td>Telefon:</td>
+                                        <td>{phone} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
 
+                <p style="clear: both;"> </p>
+
+                <table width="900">
+                    <tr>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Divizija</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Divizija:</td>
+                                        <td>{division} </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Branša</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Branša:</td>
+                                        <td>{branch} </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <p style="clear: both;"> </p>
+
+                <table width="900">
+                    <tr>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Adresa za isporuku</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ulica i broj:</td>
+                                        <td>{delivery_address} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mjesto: </td>
+                                        <td>{delivery_place} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mjesto: </td>
+                                        <td>{delivery_postal_code} </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Adresa za fakturu</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ulica i broj:</td>
+                                        <td>{invoice_address} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mjesto: </td>
+                                        <td>{invoice_place} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mjesto: </td>
+                                        <td>{invoice_postal_code} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <p style="clear: both;"> </p>
+
+                <table width="900">
+                    <tr>
+                        <td style="width: 100%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;'><strong>Želim dobijati Newsletter</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{newsletter} </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
 {{template config_path="design/email/footer_template"}}

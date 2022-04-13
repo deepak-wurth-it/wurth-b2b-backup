@@ -1,0 +1,14 @@
+"Not logged in","Не сте влезли"
+"Report: %1","Доклад: %1"
+"Report %1 is not defined.","Отчетът %1 не е дефиниран."
+Actions,Мерки
+"Invalid component type ""%1"", class %2 does not exists.","Невалиден тип компонент &quot;%1&quot;, клас %2 не съществува."
+"All Store Views","Всички изгледи на магазина"
+Back,Обратно
+Delete,Изтрий
+"Are you sure you want to do this?","Наистина ли искате да направите това?"
+Save,Запази
+"Save & Continue","Запазване и продължаване"
+"Save & Send","Запазване и изпращане"
+Edit,Редактиране
+"Delete email?","Да изтриете ли имейл?"
