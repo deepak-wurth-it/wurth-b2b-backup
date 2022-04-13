@@ -14,17 +14,17 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class SalesOrderSyncCommand extends Command
+class SalesOrderSyncToNavCommand extends Command
 {
 
 
     public function __construct(
-        \WurthNav\Sales\Model\SalesShipmentLineSyncProcessor $salesShipmentLineSyncProcessor,
+        \WurthNav\Sales\Model\SalesOrderSyncToNavProcessor $salesOrderSyncToNavProcessor,
         \Magento\Framework\App\State $state
 
     ) {
         
-        $this->salesShipmentLineSyncProcessor = $salesShipmentLineSyncProcessor;
+        $this->salesOrderSyncToNavProcessor = $salesOrderSyncToNavProcessor;
         $this->state = $state;
         parent::__construct();
 
@@ -36,8 +36,8 @@ class SalesOrderSyncCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('nav:sales:shipment:sync')
-            ->setDescription('Sales Shipment Line Sync');
+        $this->setName('nav:sales:order:sync')
+            ->setDescription('Sales Order Sync Magento to ERP');
 
         parent::configure();
     }
@@ -53,7 +53,7 @@ class SalesOrderSyncCommand extends Command
         try {
             $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_FRONTEND);
            
-            $this->salesShipmentLineSyncProcessor->install();
+            $this->salesOrderSyncToNavProcessor->install();
         } catch (\Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
