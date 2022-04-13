@@ -6,7 +6,10 @@
 
 /** @var \Magento\Framework\View\Element\Template $block */
 ?>
+<div class="row">
+    <div class="col-md-6">
 <form action="" method="post" id="form-validate" class="form send confirmation" data-mage-init='{"validation":{}}'>
+<div class="form-sections">
     <fieldset class="fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
         <p class="field note"><?= $block->escapeHtml(__('Please enter your email below and we will send you the confirmation link.')) ?></p>
         <div class="field email required">
@@ -18,10 +21,14 @@
     </fieldset>
     <div class="actions-toolbar">
         <div class="primary">
-            <button type="submit" class="action send primary"><span><?= $block->escapeHtml(__('Send confirmation link')) ?></span></button>
+            <button type="submit" class="action send primary primary-button"><span><?= $block->escapeHtml(__('Send confirmation link')) ?></span></button>
         </div>
         <div class="secondary">
             <a href="<?= $block->escapeUrl($block->getLoginUrl()) ?>" class="action back"><span><?= $block->escapeHtml(__('Back to Sign In')) ?></span></a>
         </div>
     </div>
+
+</div>
 </form>
+</div>
+</div>

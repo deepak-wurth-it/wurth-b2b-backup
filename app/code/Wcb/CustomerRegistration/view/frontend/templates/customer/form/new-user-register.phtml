@@ -249,11 +249,15 @@
                         </div>
                         <div class="field telephone _required">
                             <label class="label" for="telephone"><span><?= $block->escapeHtmlAttr(__('Phone')) ?></span></label>
-                            <div class="control">
-                                <input name="phone_code" title="Phone Code" type="text" value="+385" readonly>
-                                <input name="telephone" id="telephone" title="Phone" value=""
+                            <div class="control phone-wrapper">
+                                <div class="phone-code">
+                                   <input name="phone_code" title="Phone Code" type="text" value="+385" readonly>
+                                </div>
+                                <div class="col-md-10 telephone-filed">
+                                     <input name="telephone" id="telephone" title="Phone" value=""
                                        class="in validate-ponumber-custom validate-length minimum-length-10 maximum-length-20 v-validate"
                                        type="text" data-validate="{required:true}">
+                                </div>
                             </div>
                         </div>
                 </div>

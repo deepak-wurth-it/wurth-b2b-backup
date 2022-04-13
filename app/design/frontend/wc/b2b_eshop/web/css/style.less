@@ -168,6 +168,9 @@ a:hover.primary-button {
 input[type="text"],input[type="password"].mage-error {
     border: 1px solid #CC0000;
 }
+input.mage-error, select.mage-error, textarea.mage-error {
+	border: 1px solid #CC0000;
+}
 
 section,
 .registration-bg,
@@ -1922,6 +1925,22 @@ label.sorter-label {
 	}
 }
 
+// Registration Sucess page start by Amit
+.register-success {
+    text-align: center;
+    margin: auto;
+	margin-top:100px;
+	margin-bottom:100px;
+	a span {
+		color: #0093DD;
+		text-decoration: underline;
+	}
+	h2 {
+		margin: 10px;
+	}
+}
+// Registration Sucess page end by Amit
+
 // Tracking order Page start by Amit
 .tracking-order{
 		.order-title {
@@ -2710,7 +2729,7 @@ table.ReqListTable
 
 // Terms & Condition PopUp End By Amit
 // New Customer registration 
-.newUserRegistration, .exUserregistration{
+.newUserRegistration, .exUserregistration, .customer-account-confirmation{
 	.fieldset{
 	margin-bottom:0;
 	}
@@ -2766,11 +2785,11 @@ table.ReqListTable
 		margin-bottom:20px;
 	}
 
-		.actions-toolbar{
-	.primary-button{
-		margin-top:10px;
-	}
-}
+	.actions-toolbar{
+		.primary-button{
+			margin-top:10px;
+		}
+    }
 
 	.newsletter {
 		display: block;
@@ -2843,6 +2862,21 @@ table.ReqListTable
 
 	}
 
+	.control.phone-wrapper {
+		display: flex;
+	}
+	.col-md-10.telephone-filed {
+		padding-right: 0px;
+	}
+	input[type="text"].mage-error, 
+	input[type="password"].mage-error, 
+	input[type="tel"].mage-error, 
+	input[type="number"].mage-error, 
+	input[type="email"].mage-error {
+		font-family: 'wuerthbook';
+		border: solid 1px #CC0000;
+	}
+
 }
 
 	.formSections{
@@ -2851,6 +2885,18 @@ table.ReqListTable
 		margin-bottom:20px;
 	}
 }
+
+	.customer-account-confirmation{
+		.columns {
+			margin-top: 20px;
+		}
+		.form-sections{
+			margin-bottom: 60px;
+		}
+		.actions-toolbar {
+			margin-top: 10px;
+		}
+	}
 
 .newUserRegistration {
 	.actions-toolbar {
@@ -2894,11 +2940,13 @@ table.ReqListTable
 	display: none;
 }
 
-.customer-account-create .page-title-wrapper {
+.customer-account-create, .customer-account-confirmation {
+.page-title-wrapper {
 	margin-top: 30px;
 	.page-title {
 		margin: 0;
 	}
+}
 }
 
 .form#form-validate {}
@@ -9423,20 +9471,20 @@ print {
 
 
 	//Order Template Cart Page Start By Amit
-.checkout-cart-index {
-	.field._required.ordForm {
-		float: left;
-		display: flex;
-	}
-	button.action.primary.confirm.OrdSave {
-		float: right;
-		margin: -70px 9px 0px 0px;
-	}
+	.checkout-cart-index {
+		.field._required.ordForm {
+			float: left;
+			display: flex;
+		}
+		button.action.primary.confirm.OrdSave {
+			float: right;
+			margin: -70px 9px 0px 0px;
+		}
 
-}
-.page-main-full-width{
-	margin-bottom:20px;
-}
+	}
+	.page-main-full-width{
+		margin-bottom:20px;
+	}
 
 
 
@@ -9549,6 +9597,10 @@ print {
 		}
 	}
 	// Quick order on Cart page end
+	
+	.customer-account-confirmation .form-sections {
+		margin-bottom: 30px;
+	}
 
 
 }
