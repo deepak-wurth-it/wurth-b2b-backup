@@ -1,0 +1,15 @@
+<div class="report__chart-wrap" style="position: relative;">
+    <div style="height: 400px; width: 100%; overflow: hidden; position: relative;">
+        <canvas id="chart_canvas" class="report__chart" style="height: 400px" height="400px"></canvas>
+        <div id="geo_div" style="height: 400px;display: none;"></div>
+        <div id="map_div" style="height: 400px;display: none;" ></div>
+    </div>
+
+    <div class="report__chart-legend" style="position: absolute;right: 15px; top: -78px;">
+        <div class="report-chart__type report__btn-group" data-bind="foreach: typeSwitcher">
+            <button type="button" class="report__btn"
+                    data-bind="click: $parent.setChartType, css: { _active: $data == $parent.chartType }">
+                <i data-bind="attr: { class: 'fa fa-' + $data + '-chart' }"></i></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div id="mst-searchautocomplete-in-page" class="mstInPage__container" data-bind="css: { _visible: visible }">
+    <div class="mstInPage__backdrop" data-bind="click: hide"></div>
+    <div class="mstInPage__wrapper">
+
+        <div class="mstInPage__header" data-bind="css: {_loading: loading() }">
+            <!-- ko template: { name: 'mstInPage__searchBar', data: searchBarView } --><!-- /ko -->
+            <!-- ko template: { name: 'mstInPage__indexList', data: indexListView } --><!-- /ko -->
+
+            <div class="mstInPage__close" data-bind="click: hide"></div>
+        </div>
+
+        <!-- ko if: isEmpty() -->
+        <div class="mstInPage__content _empty">
+        </div>
+        <!-- /ko -->
+
+        <!-- ko ifnot: isEmpty() -->
+        <div class="mstInPage__content">
+            <!-- ko template: { name: 'mstInPage__sidebar', data: sidebarView } --><!-- /ko -->
+
+            <div class="mstInPage__main">
+                <div data-bind="template: { name: 'mstInPage__stat' }"></div>
+                <!-- ko template: { name: 'mstInPage__itemList', data: itemListView } --><!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

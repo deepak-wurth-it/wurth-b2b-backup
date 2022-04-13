@@ -1,0 +1,14 @@
+"Not logged in","Ei ole sisse logitud"
+"Report: %1","Raport: %1"
+"Report %1 is not defined.","Aruanne %1 ei ole määratletud."
+Actions,Toimingud
+"Invalid component type ""%1"", class %2 does not exists.","Kehtetu komponendi tüüp &quot;%1&quot;, klass %2 ei ole olemas."
+"All Store Views","Kõik poe vaated"
+Back,Tagasi
+Delete,Kustuta
+"Are you sure you want to do this?","Kas olete kindel, et soovite seda teha?"
+Save,Salvesta
+"Save & Continue","Salvesta ja jätkake"
+"Save & Send","Salvesta ja saatke"
+Edit,Muuda
+"Delete email?","Kustuta meil?"

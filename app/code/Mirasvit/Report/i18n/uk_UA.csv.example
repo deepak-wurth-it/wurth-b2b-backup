@@ -1,0 +1,14 @@
+"Not logged in","Ви не авторизовані"
+"Report: %1","Звіт: %1"
+"Report %1 is not defined.","Звіт %1 не визначено."
+Actions,Дії
+"Invalid component type ""%1"", class %2 does not exists.","Недійсний тип компонента &quot;%1&quot;, клас %2 не існує."
+"All Store Views","Усі перегляди в магазині"
+Back,Назад
+Delete,Видалити
+"Are you sure you want to do this?","Ви впевнені, що хочете це зробити?"
+Save,Зберегти
+"Save & Continue","Зберегти та продовжити"
+"Save & Send","Зберегти та надіслати"
+Edit,Редагувати
+"Delete email?","Видалити електронну пошту?"

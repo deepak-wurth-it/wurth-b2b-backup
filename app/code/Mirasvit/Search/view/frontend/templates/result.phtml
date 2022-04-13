@@ -1,0 +1,106 @@
+<?php
+/** @var \Mirasvit\Search\Block\Result $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$indexes            = $block->getIndexes();
+$tabsThreshold      = $block->getTabsThreshold();
+$lessThanMinIndexes = [];
+$tabsCnt            = 0;
+$totalCnt           = 0;
+$currentHtml        = $block->getCurrentContent();
+$currentHtml        = $block->getCurrentIndexSize() == 0 ? '': $currentHtml;
+$productIndex       = false;
+?>
+<ul class="mst-search__result-tabs">
+    <?php foreach ($indexes as $index):
+        if ($index->getIdentifier() == 'catalogsearch_fulltext') {
+            $productIndex = $index;
+        }
+
+        $collection = $block->getSearchCollection($index);
+        $size       = $collection->getSize();
+        $totalCnt   += $size;
+
+        \Mirasvit\Search\Service\DebugService::log($index->getIdentifier(), 'index_identifier');
+
+        if ($size == 0) {
+            continue;
+        }
+
+        if ($size < $tabsThreshold && $index->getIdentifier() != 'catalogsearch_fulltext') {
+            $lessThanMinIndexes[] = $index;
+            continue;
+        }
+
+        if (empty($currentHtml) ) {
+            $currentHtml = $block->getContentBlock($index)->toHtml();
+        }
+
+        $tabsCnt++;
+        if ($index->getTitle() == $block->getCurrentIndex()->getTitle()
+            && $index->getStoreId() == $block->getCurrentIndex()->getStoreId()): ?>
+            <li>
+                <a class="active" href="#">
+                    <?= __($index->getTitle()) ?>
+                </a>
+            </li>
+        <?php else: ?>
+            <li>
+                <a href="<?= $block->getIndexUrl($index) ?>">
+                    <?= __($index->getTitle()) ?> (<?= $size ?>)
+                </a>
+            </li>
+        <?php endif ?>
+    <?php endforeach ?>
+</ul>
+
+<?php if ($tabsCnt <= 1): ?>
+    <style>
+        .mst-search__result-tabs {
+            display: none
+        }
+    </style>
+<?php endif ?>
+
+<?php if ($block->getCurrentIndex()->getIdentifier() == 'catalogsearch_fulltext' && $block->getCurrentIndexSize() > 0): ?>
+    <?php if (!empty($lessThanMinIndexes) && $block->getSearchCollection($block->getCurrentIndex())->getCurPage() == 1): ?>
+        <div>
+            <?php foreach ($lessThanMinIndexes as $index): ?>
+                <div class="mst-search__result-index">
+                    <div class="mst-search__result-index-title">
+                        <?= __($index->getTitle()) ?>
+                    </div>
+
+                    <?= $block->getContentBlock($index)->toHtml() ?>
+                </div>
+            <?php endforeach ?>
+        </div>
+    <?php endif ?>
+
+    <?php if ($block->getCurrentIndexSize() > 0 || $totalCnt == 0): ?>
+        <?= $currentHtml ?>
+    <?php endif ?>
+<?php else : ?>
+    <?= $currentHtml ?>
+<?php endif ?>
+
+<?php if ($totalCnt == 0): ?>
+    <?= $block->getContentBlock($productIndex)->toHtml(); ?>
+    <?= $block->getLayout()->getBlock("mst.search.no_results")->toHtml(); ?>
+<?php endif ?>
+
+<?php if ($block->getCurrentIndexSize() == 0 && $tabsCnt > 1): ?>
+    <div class="message notice">
+        <div><?= __('Please select other tab to see more results') ?></div>
+    </div>
+<?php endif ?>
+
+<?php if ($block->isHighlightingEnabled()): ?>
+<script type="text/javascript">
+    require(['jquery', 'Mirasvit_Search/js/highlight'], function ($, highlight) {
+        let query = '<?= $escaper->escapeUrl($block->getRequest()->getParam('q'))?>';
+        highlight($('.search.results .product-item-link, .mst-search__index a, .mst-search__index .mst-search__index-content'),
+            query, 'mst-search__highlight');
+    });
+</script>
+<?php endif; ?>

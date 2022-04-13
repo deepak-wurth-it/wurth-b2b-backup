@@ -1,0 +1,6 @@
+<div data-bind="foreach: { data: indexes(), as: 'index' }" class="mstInPage__indexList">
+    <div class="mstInPage__index" data-bind="click: $parent.selectIndex, css: {_active: $parent.isActive(index), _empty: index.items.length == 0 }">
+        <span data-bind="text: index.title"></span>
+        <i data-bind="visible: index.isShowTotals, text: index.totalItems"></i>
+    </div>
+</div>

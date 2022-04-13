@@ -1,0 +1,14 @@
+"Not logged in",ไม่ได้ลงชื่อเข้าใช้
+"Report: %1","รายงาน: %1"
+"Report %1 is not defined.","รายงาน %1 ไม่ได้กำหนดไว้"
+Actions,การปฏิบัติ
+"Invalid component type ""%1"", class %2 does not exists.","ประเภทคอมโพเนนต์ไม่ถูกต้อง &quot;%1&quot; ไม่มีคลาส %2"
+"All Store Views",มุมมองร้านค้าทั้งหมด
+Back,กลับ
+Delete,ลบ
+"Are you sure you want to do this?",คุณแน่ใจหรือไม่ว่าต้องการทำเช่นนี้?
+Save,บันทึก
+"Save & Continue",บันทึกและดำเนินการต่อ
+"Save & Send",บันทึกและส่ง
+Edit,แก้ไข
+"Delete email?",ลบอีเมลหรือไม่?

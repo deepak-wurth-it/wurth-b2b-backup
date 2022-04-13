@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_postdispatch_catalogsearch">
+        <observer name="mstMisspellCatalogSearch" instance="Mirasvit\Misspell\Observer\OnCatalogSearchObserver" />
+    </event>
+    <event name="controller_action_postdispatch_searchautocomplete_ajax_suggest">
+        <observer name="mstMisspellAjaxSuggest" instance="Mirasvit\Misspell\Observer\OnAjaxSuggestObserver" />
+    </event>
+</config>

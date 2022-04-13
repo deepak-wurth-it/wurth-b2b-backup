@@ -1,0 +1,45 @@
+<div class="report__email-blocks">
+    <table class="admin__control-table">
+        <thead>
+        <tr>
+            <th class="col-default">Block</th>
+            <th class="col-default">Date Interval</th>
+            <th class="col-default">Limit</th>
+            <th class="col-delete">&nbsp;</th>
+        </tr>
+        </thead>
+
+        <tbody data-bind="foreach: blocks">
+        <tr>
+            <td class="col-default">
+                <span data-bind="scope: guid + 'report', mageInit: $parent.reportSelect($data)">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </span>
+            </td>
+            <td class="col-default">
+                <span data-bind="scope: guid + 'range', mageInit: $parent.rangeSelect($data)">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </span>
+            </td>
+            <td class="col-default">
+                <input type="text" class="admin__control-text" data-bind="value: $data.limit" />
+            </td>
+            <td class="col-delete">
+                <button type="button" class="scalable" data-bind="click: $parent.handleDelete">
+                    <span><i class="fa fa-fw fa-close"></i> Delete</span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <th colspan="4" class="col-actions-add">
+                <button type="button" class="scalable" data-bind="click: handleAdd">
+                    <span><i class="fa fa-fw fa-plus"></i> Add Block</span>
+                </button>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+</div>

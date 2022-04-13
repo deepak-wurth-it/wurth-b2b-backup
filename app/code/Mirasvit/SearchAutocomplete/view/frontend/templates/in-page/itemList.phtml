@@ -1,0 +1,11 @@
+<!-- ko if: items().length > 0 -->
+<div data-bind="foreach: { data: items, as: 'item' }, attr: {class: 'mstInPage__itemList ' + props.activeIndex()}">
+    <div data-bind="template: { name: 'mstInPage__' + $parent.props.activeIndex(), data: item }, attr: {class: 'mstInPage__item ' + $parent.props.activeIndex()}"></div>
+</div>
+<!-- /ko -->
+
+<!-- ko ifnot: items().length > 0 -->
+<div class="mstInPage__itemList _empty">
+    Your search returned no results.
+</div>
+<!-- /ko -->

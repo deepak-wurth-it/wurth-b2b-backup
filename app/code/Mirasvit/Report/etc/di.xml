@@ -1,0 +1,120 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Mirasvit\Report\Api\Data\EmailInterface" type="Mirasvit\Report\Model\Email"/>
+    <preference for="Mirasvit\Report\Api\Data\StateInterface" type="Mirasvit\Report\Model\State"/>
+
+    <preference for="Mirasvit\Report\Api\Service\DateServiceInterface" type="Mirasvit\Report\Service\DateService"/>
+    <preference for="Mirasvit\Report\Api\Service\EmailServiceInterface" type="Mirasvit\Report\Service\EmailService"/>
+    <preference for="Mirasvit\Report\Api\Service\ColumnManagerInterface" type="Mirasvit\Report\Service\ColumnManager"/>
+    <preference for="Mirasvit\Report\Api\Service\CastingServiceInterface" type="Mirasvit\Report\Service\CastingService"/>
+
+    <preference for="Mirasvit\Report\Api\Repository\ReportRepositoryInterface" type="Mirasvit\Report\Repository\ReportRepository"/>
+    <preference for="Mirasvit\Report\Api\Repository\EmailRepositoryInterface" type="Mirasvit\Report\Repository\EmailRepository"/>
+    <preference for="Mirasvit\Report\Api\Repository\WebApiRepositoryInterface" type="Mirasvit\Report\Repository\WebApiRepository"/>
+
+    <preference for="Mirasvit\Report\Model\Mail\Template\TransportBuilderInterface" type="Mirasvit\Report\Model\Mail\Template\TransportBuilder" />
+
+    <type name="Mirasvit\Report\Api\Repository\EmailRepositoryInterface">
+        <arguments>
+            <argument name="repositoryPool" xsi:type="array">
+                <item name="reports" xsi:type="string">Mirasvit\Report\Repository\Email\DefaultRepository</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--Console Commands-->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="mstReportTest" xsi:type="object">Mirasvit\Report\Console\Command\TestCommand</item>
+                <item name="mstReportInfo" xsi:type="object">Mirasvit\Report\Console\Command\InfoCommand</item>
+                <item name="mstReportCron" xsi:type="object">Mirasvit\Report\Console\Command\CronCommand</item>
+                <item name="mstReportExport" xsi:type="object">Mirasvit\Report\Console\Command\ExportCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--Entity Manager-->
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mirasvit\Report\Api\Data\EmailInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\Report\Api\Data\EmailInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\Report\Api\Data\EmailInterface::ID</item>
+                </item>
+                <item name="Mirasvit\Report\Api\Data\StateInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\Report\Api\Data\StateInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\Report\Api\Data\StateInterface::ID</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Mirasvit\Report\Api\Data\EmailInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\Report\Api\Data\StateInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--UI-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="report_email_listing_data_source" xsi:type="string">Mirasvit\Report\Model\ResourceModel\Email\Grid</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--ReportApi definitions-->
+    <preference for="Mirasvit\ReportApi\Api\SchemaInterface" type="Mirasvit\ReportApi\Config\Schema"/>
+
+    <preference for="Mirasvit\ReportApi\Api\RequestInterface" type="Mirasvit\ReportApi\Processor\Request"/>
+    <preference for="Mirasvit\ReportApi\Api\RequestBuilderInterface" type="Mirasvit\ReportApi\Processor\RequestBuilder"/>
+
+    <preference for="Mirasvit\ReportApi\Api\ResponseInterface" type="Mirasvit\ReportApi\Processor\Response"/>
+
+    <preference for="Mirasvit\ReportApi\Api\Processor\RequestFilterInterface" type="Mirasvit\ReportApi\Processor\RequestFilter"/>
+    <preference for="Mirasvit\ReportApi\Api\Processor\RequestSortOrderInterface" type="Mirasvit\ReportApi\Processor\RequestSortOrder"/>
+
+    <preference for="Mirasvit\ReportApi\Api\Service\TableServiceInterface" type="Mirasvit\ReportApi\Service\TableService"/>
+    <preference for="Mirasvit\ReportApi\Api\Service\ColumnServiceInterface" type="Mirasvit\ReportApi\Service\ColumnService"/>
+
+    <!--Column Types && Aggregation -->
+    <type name="Mirasvit\ReportApi\Api\SchemaInterface">
+        <arguments>
+            <argument name="type" xsi:type="array">
+                <item name="pk" xsi:type="string">Mirasvit\ReportApi\Config\Type\Pk</item>
+                <item name="fk" xsi:type="string">Mirasvit\ReportApi\Config\Type\Fk</item>
+                <item name="money" xsi:type="string">Mirasvit\ReportApi\Config\Type\Money</item>
+                <item name="qty" xsi:type="string">Mirasvit\ReportApi\Config\Type\Qty</item>
+                <item name="number" xsi:type="string">Mirasvit\ReportApi\Config\Type\Number</item>
+                <item name="date" xsi:type="string">Mirasvit\ReportApi\Config\Type\Date</item>
+                <item name="string" xsi:type="string">Mirasvit\ReportApi\Config\Type\Str</item>
+                <item name="select" xsi:type="string">Mirasvit\ReportApi\Config\Type\Select</item>
+                <item name="percent" xsi:type="string">Mirasvit\ReportApi\Config\Type\Percent</item>
+                <item name="html" xsi:type="string">Mirasvit\ReportApi\Config\Type\Html</item>
+                <item name="country" xsi:type="string">Mirasvit\ReportApi\Config\Type\Country</item>
+                <item name="store" xsi:type="string">Mirasvit\ReportApi\Config\Type\Store</item>
+                <item name="serialized" xsi:type="string">Mirasvit\ReportApi\Config\Type\Serialized</item>
+            </argument>
+            <argument name="aggregator" xsi:type="array">
+                <item name="none" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\None</item>
+                <item name="sum" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Sum</item>
+                <item name="avg" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Avg</item>
+                <item name="cnt" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Count</item>
+                <item name="hour" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Hour</item>
+                <item name="day" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Day</item>
+                <item name="week" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Week</item>
+                <item name="month" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Month</item>
+                <item name="quarter" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Quarter</item>
+                <item name="year" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Year</item>
+                <item name="day_of_week" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\DayOfWeek</item>
+                <item name="concat" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\Concat</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

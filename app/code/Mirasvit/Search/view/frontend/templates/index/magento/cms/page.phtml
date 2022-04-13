@@ -1,0 +1,32 @@
+<?php
+/** @var \Mirasvit\Search\Block\Index\Base $block */
+
+/** @var \Magento\Cms\Helper\Page $pageHelper */
+$pageHelper     = $this->helper('Magento\Cms\Helper\Page');
+$filterProvider = $block->getObjectManager()->create('Magento\Cms\Model\Template\FilterProvider');
+?>
+<div class="mst-search__index mst-search__index-magento-cms-page">
+    <?= $block->getPager() ?>
+    <ul>
+        <?php /** @var \Magento\Cms\Api\Data\PageInterface $page */ ?>
+        <?php foreach ($block->getCollection() as $page) : ?>
+            <li>
+                <div class="mst-search__index-title">
+                    <a href="<?= $pageHelper->getPageUrl($page->getIdentifier()) ?>">
+                        <?= $page->getTitle() ?>
+                    </a>
+                </div>
+                <div class="mst-search__index-content">
+                    <?= $block->truncate(
+                        $block->stripTags(
+                            $filterProvider->getPageFilter()->filter(
+                                $page->getContent()
+                            )
+                        )
+                    ) ?>
+                </div>
+            </li>
+        <?php endforeach ?>
+    </ul>
+    <?= $block->getPager() ?>
+</div>

@@ -1,0 +1,5 @@
+<div class="mstInPage__stat" data-bind="css: { _loading: $root.loading() } ">
+    <!-- ko if: $root.time() > 0 -->
+    <span data-bind="text: $root.result().totalItems"></span> results found in <span data-bind="text: $root.time()"></span> seconds
+    <!-- /ko -->
+</div>

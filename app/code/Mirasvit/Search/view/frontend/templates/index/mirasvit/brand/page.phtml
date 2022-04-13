@@ -1,0 +1,23 @@
+<?php
+//@codingStandardsIgnoreFile
+/** @var \Mirasvit\Search\Block\Index\Mirasvit\Brand\Page $block */
+?>
+<div class="mst-search__index mst-search__index-external-wordpress-post">
+    <?= $block->getPager() ?>
+    <ul class="brand__post-list">
+        <?php /** @var \Mirasvit\Brand\Model\BrandPage $brand */ ?>
+        <?php foreach ($block->getCollection() as $brand):?>
+            <li>
+                <div class="mst-search__index-title">
+                    <a href="<?= $block->getBrandUrl($brand) ?>">
+                        <?= $brand->getBrandTitle() ?>
+                    </a>
+                </div>
+                <div class="mst-search__index-content">
+                    <?= $block->truncate($block->stripTags($brand->getBrandDescription())) ?>
+                </div>
+            </li>
+        <?php endforeach ?>
+    </ul>
+    <?= $block->getPager() ?>
+</div>

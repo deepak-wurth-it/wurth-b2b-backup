@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="table" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="eavTable" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="relation" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="relation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="leftTable"/>
+                <xs:element type="xs:string" name="rightTable"/>
+                <xs:element type="xs:string" name="condition"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="relationTypeDeclaration" name="type" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="relationTypeDeclaration">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="11"/>
+            <xs:enumeration value="1n"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="eavTable">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="pk" minOccurs="0"/>
+                <xs:element ref="fk" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="column" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="label"/>
+            <xs:attribute type="xs:string" name="group"/>
+            <xs:attribute type="xs:string" name="type" use="required"/>
+            <xs:attribute type="connectionDeclaration" name="connection"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="table">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="pk" minOccurs="0"/>
+                <xs:element ref="fk" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="column" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="group"/>
+            <xs:attribute type="xs:string" name="label"/>
+            <xs:attribute type="connectionDeclaration" name="connection"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="connectionDeclaration">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="sales"/>
+            <xs:enumeration value="checkout"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="column">
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="label" use="required"/>
+            <xs:attribute type="columnTypeDeclaration" name="type"/>
+            <xs:attribute type="columnUniqDeclaration" name="uniq"/>
+            <xs:attribute type="columnFieldsDeclaration" name="fields"/>
+            <xs:attribute type="xs:string" name="options"/>
+            <xs:attribute type="xs:string" name="expr"/>
+            <xs:attribute type="xs:string" name="tables"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="fk">
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="label"/>
+            <xs:attribute type="xs:string" name="table" use="required"/>
+            <xs:attribute type="columnUniqDeclaration" name="uniq"/>
+            <xs:attribute type="xs:string" name="options"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="pk">
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="label"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="columnFieldsDeclaration">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z0-9_,.]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="columnTypeDeclaration">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="pk|fk|number|percent|money|html|date|select|country|store|qty|serialized|Mirasvit.*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="columnUniqDeclaration">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

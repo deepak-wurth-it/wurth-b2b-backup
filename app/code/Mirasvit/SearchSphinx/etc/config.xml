@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <search>
+            <engine>
+                <host>localhost</host>
+                <port>9315</port>
+                <bin_path>searchd</bin_path>
+                <same_server>1</same_server>
+                <auto_restart>1</auto_restart>
+            </engine>
+        </search>
+    </default>
+</config>

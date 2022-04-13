@@ -1,0 +1,14 @@
+<div class="mstInPage__sidebar">
+    <div class="mstInPage__bucketList">
+        <div data-bind="foreach: { data: buckets(), as: 'bucket' }">
+            <div class="mstInPage__bucket">
+                <strong data-bind="text: bucket.label"></strong>
+                <div class="mstInPage__bucketItemList" data-bind="foreach: { data: bucket.buckets, as: 'item' }">
+                    <div class="mstInPage__bucketItem" data-bind="{ click: item.select, css: { _active: item.isActive } }">
+                        <span data-bind="text: item.label"></span><i><span data-bind="text: item.count"></span></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

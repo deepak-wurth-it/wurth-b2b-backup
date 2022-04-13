@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mirasvit_SearchLanding::search_landing_page" title="Manage Landing Pages"
+             module="Mirasvit_SearchLanding" sortOrder="35" parent="Mirasvit_Search::search"
+             action="search_landing/page" resource="Mirasvit_SearchLanding::search_landing_page"/>
+    </menu>
+</config>

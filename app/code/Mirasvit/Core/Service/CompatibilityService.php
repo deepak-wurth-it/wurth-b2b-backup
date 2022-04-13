@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.122
- * @copyright Copyright (C) 2021 Mirasvit (https://mirasvit.com/)
+ * @version   1.3.3
+ * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -22,6 +22,8 @@ use Magento\Framework\App\ObjectManager;
 
 class CompatibilityService
 {
+    private static $version;
+
     /**
      * @return bool
      */
@@ -53,19 +55,22 @@ class CompatibilityService
      */
     public static function getVersion()
     {
-        /** @var CacheInterface $cache */
-        $cache   = self::getObjectManager()->get(CacheInterface::class);
-        $version = $cache->load(__CLASS__);
+        if (empty(self::$version)) {
+            /** @var CacheInterface $cache */
+            $cache   = self::getObjectManager()->get(CacheInterface::class);
+            $version = $cache->load(__CLASS__);
 
-        if (!$version) {
-            /** @var \Magento\Framework\App\ProductMetadata $metadata */
-            $metadata = self::getObjectManager()->get('Magento\Framework\App\ProductMetadata');
+            if (!$version) {
+                /** @var \Magento\Framework\App\ProductMetadata $metadata */
+                $metadata = self::getObjectManager()->get('Magento\Framework\App\ProductMetadata');
 
-            $version = $metadata->getVersion();
-            $cache->save($version, __CLASS__);
+                $version = $metadata->getVersion();
+                $cache->save($version, __CLASS__);
+            }
+            self::$version = $version;
         }
 
-        return $version;
+        return self::$version;
     }
 
     /**

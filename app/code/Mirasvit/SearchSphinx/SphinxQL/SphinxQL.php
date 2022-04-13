@@ -1,0 +1,1352 @@
+<?php
+/**
+ * Mirasvit
+ *
+ * This source file is subject to the Mirasvit Software License, which is available at https://mirasvit.com/license/.
+ * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
+ * If you wish to customize this module for your needs.
+ * Please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category  Mirasvit
+ * @package   mirasvit/module-search-ultimate
+ * @version   2.0.56
+ * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
+ */
+
+
+
+namespace Mirasvit\SearchSphinx\SphinxQL;
+
+use Mirasvit\SearchSphinx\SphinxQL\Drivers\ConnectionInterface;
+use Mirasvit\SearchSphinx\SphinxQL\Exception\SphinxQLException;
+use Mirasvit\SearchSphinx\SphinxQL\Drivers\MultiResultSetInterface;
+use Mirasvit\SearchSphinx\SphinxQL\Drivers\ResultSetInterface;
+
+/**
+ * Query Builder class for SphinxQL statements.
+ * @SuppressWarnings(PHPMD)
+ * @codingStandardsIgnoreFile
+ */
+class SphinxQL
+{
+    /**
+     * A non-static connection for the current SphinxQL object
+     *
+     * @var ConnectionInterface
+     */
+    protected $connection;
+    /**
+     * The last result object.
+     *
+     * @var array
+     */
+    protected $last_result;
+    /**
+     * The last compiled query.
+     *
+     * @var string
+     */
+    protected $last_compiled;
+    /**
+     * The last chosen method (select, insert, replace, update, delete).
+     *
+     * @var string
+     */
+    protected $type;
+    /**
+     * An SQL query that is not yet executed or "compiled"
+     *
+     * @var string
+     */
+    protected $query;
+    /**
+     * Array of select elements that will be comma separated.
+     *
+     * @var array
+     */
+    protected $select = [];
+    /**
+     * From in SphinxQL is the list of indexes that will be used
+     *
+     * @var array
+     */
+    protected $from = [];
+    /**
+     * The list of where and parenthesis, must be inserted in order
+     *
+     * @var array
+     */
+    protected $where = [];
+    /**
+     * The list of matches for the MATCH function in SphinxQL
+     *
+     * @var array
+     */
+    protected $match = [];
+    /**
+     * GROUP BY array to be comma separated
+     *
+     * @var array
+     */
+    protected $group_by = [];
+    /**
+     * When not null changes 'GROUP BY' to 'GROUP N BY'
+     *
+     * @var null|int
+     */
+    protected $group_n_by;
+    /**
+     * ORDER BY array
+     *
+     * @var array
+     */
+    protected $within_group_order_by = [];
+    /**
+     * The list of where and parenthesis, must be inserted in order
+     *
+     * @var array
+     */
+    protected $having = [];
+    /**
+     * ORDER BY array
+     *
+     * @var array
+     */
+    protected $order_by = [];
+    /**
+     * When not null it adds an offset
+     *
+     * @var null|int
+     */
+    protected $offset;
+    /**
+     * When not null it adds a limit
+     *
+     * @var null|int
+     */
+    protected $limit;
+    /**
+     * Value of INTO query for INSERT or REPLACE
+     *
+     * @var null|string
+     */
+    protected $into;
+    /**
+     * Array of columns for INSERT or REPLACE
+     *
+     * @var array
+     */
+    protected $columns = [];
+    /**
+     * Array OF ARRAYS of values for INSERT or REPLACE
+     *
+     * @var array
+     */
+    protected $values = [];
+    /**
+     * Array arrays containing column and value for SET in UPDATE
+     *
+     * @var array
+     */
+    protected $set = [];
+    /**
+     * Array of OPTION specific to SphinxQL
+     *
+     * @var array
+     */
+    protected $options = [];
+    /**
+     * Array of FACETs
+     *
+     * @var Facet[]
+     */
+    protected $facets = [];
+    /**
+     * The reference to the object that queued itself and created this object
+     *
+     * @var null|SphinxQL
+     */
+    protected $queue_prev;
+    /**
+     * An array of escaped characters for escapeMatch()
+     * @var array
+     */
+    protected $escape_full_chars = [
+        '\\' => '\\\\',
+        '('  => '\(',
+        ')'  => '\)',
+        '|'  => '\|',
+        '-'  => '\-',
+        '!'  => '\!',
+        '@'  => '\@',
+        '~'  => '\~',
+        '"'  => '\"',
+        '&'  => '\&',
+        '/'  => '\/',
+        '^'  => '\^',
+        '$'  => '\$',
+        '='  => '\=',
+        '<'  => '\<',
+    ];
+    /**
+     * An array of escaped characters for fullEscapeMatch()
+     * @var array
+     */
+    protected $escape_half_chars = [
+        '\\' => '\\\\',
+        '('  => '\(',
+        ')'  => '\)',
+        '!'  => '\!',
+        '@'  => '\@',
+        '~'  => '\~',
+        '&'  => '\&',
+        '/'  => '\/',
+        '^'  => '\^',
+        '$'  => '\$',
+        '='  => '\=',
+        '<'  => '\<',
+    ];
+
+    /**
+     * @param ConnectionInterface|null $connection
+     */
+    public function __construct(ConnectionInterface $connection = null)
+    {
+        $this->connection = $connection;
+    }
+
+    /**
+     * Returns the currently attached connection
+     *
+     * @returns ConnectionInterface
+     * @return ConnectionInterface|null
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+
+    /**
+     * Avoids having the expressions escaped
+     *
+     * Examples:
+     *    $query->where('time', '>', SphinxQL::expr('CURRENT_TIMESTAMP'));
+     *    // WHERE time > CURRENT_TIMESTAMP
+     *
+     * @param string $string The string to keep unaltered
+     *
+     * @return Expression The new Expression
+     * @todo make non static
+     */
+    public static function expr($string = '')
+    {
+        return new Expression($string);
+    }
+
+    /**
+     * Runs the query built
+     *
+     * @return ResultSetInterface The result of the query
+     */
+    public function execute()
+    {
+        // pass the object so execute compiles it by itself
+        return $this->last_result = $this->getConnection()->query($this->compile()->getCompiled());
+    }
+
+    /**
+     * Executes a batch of queued queries
+     *
+     * @return MultiResultSetInterface The array of results
+     * @throws SphinxQLException In case no query is in queue
+     */
+    public function executeBatch()
+    {
+        if (count($this->getQueue()) == 0) {
+            throw new SphinxQLException('There is no Queue present to execute.');
+        }
+        $queue = [];
+        foreach ($this->getQueue() as $query) {
+            $queue[] = $query->compile()->getCompiled();
+        }
+
+        return $this->last_result = $this->getConnection()->multiQuery($queue);
+    }
+
+    /**
+     * Enqueues the current object and returns a new one or the supplied one
+     *
+     * @param SphinxQL|null $next
+     *
+     * @return SphinxQL A new SphinxQL object with the current object referenced
+     */
+    public function enqueue(SphinxQL $next = null)
+    {
+        if ($next === null) {
+            $next = new static($this->getConnection());
+        }
+        $next->setQueuePrev($this);
+        return $next;
+    }
+
+    /**
+     * Returns the ordered array of enqueued objects
+     *
+     * @return SphinxQL[] The ordered array of enqueued objects
+     */
+    public function getQueue()
+    {
+        $queue = [];
+        $curr = $this;
+        do {
+            if ($curr->type != null) {
+                $queue[] = $curr;
+            }
+        } while ($curr = $curr->getQueuePrev());
+        return array_reverse($queue);
+    }
+
+    /**
+     * Gets the enqueued object
+     *
+     * @return SphinxQL|null
+     */
+    public function getQueuePrev()
+    {
+        return $this->queue_prev;
+    }
+
+    /**
+     * Sets the reference to the enqueued object
+     *
+     * @param SphinxQL $query The object to set as previous
+     *
+     * @return $this
+     */
+    public function setQueuePrev($query)
+    {
+        $this->queue_prev = $query;
+        return $this;
+    }
+
+    /**
+     * Returns the result of the last query
+     *
+     * @return array The result of the last query
+     */
+    public function getResult()
+    {
+        return $this->last_result;
+    }
+
+    /**
+     * Returns the latest compiled query
+     *
+     * @return string The last compiled query
+     */
+    public function getCompiled()
+    {
+        return $this->last_compiled;
+    }
+
+    /**
+     * Begins transaction
+     */
+    public function transactionBegin()
+    {
+        $this->getConnection()->query('BEGIN');
+    }
+
+    /**
+     * Commits transaction
+     */
+    public function transactionCommit()
+    {
+        $this->getConnection()->query('COMMIT');
+    }
+
+    /**
+     * Rollbacks transaction
+     */
+    public function transactionRollback()
+    {
+        $this->getConnection()->query('ROLLBACK');
+    }
+
+    /**
+     * Runs the compile function
+     *
+     * @return $this
+     */
+    public function compile()
+    {
+        switch ($this->type) {
+            case 'select':
+                $this->compileSelect();
+                break;
+            case 'insert':
+            case 'replace':
+                $this->compileInsert();
+                break;
+            case 'update':
+                $this->compileUpdate();
+                break;
+            case 'delete':
+                $this->compileDelete();
+                break;
+            case 'query':
+                $this->compileQuery();
+                break;
+        }
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function compileQuery()
+    {
+        $this->last_compiled = $this->query;
+        return $this;
+    }
+
+    /**
+     * Compiles the MATCH part of the queries
+     * Used by: SELECT, DELETE, UPDATE
+     *
+     * @return string The compiled MATCH
+     */
+    public function compileMatch()
+    {
+        $query = '';
+        if (!empty($this->match)) {
+            $query .= 'WHERE MATCH(';
+            $matched = [];
+            foreach ($this->match as $match) {
+                $pre = '';
+                if ($match['column'] instanceof \Closure) {
+                    $sub = new MatchQuery($this);
+                    call_user_func($match['column'], $sub);
+                    $pre .= $sub->compile()->getCompiled();
+                } elseif ($match['column'] instanceof MatchQuery) {
+                    $pre .= $match['column']->compile()->getCompiled();
+                } elseif (empty($match['column'])) {
+                    $pre .= '';
+                } elseif (is_array($match['column'])) {
+                    $pre .= '@(' . implode(',', $match['column']) . ') ';
+                } else {
+                    $pre .= '@' . $match['column'] . ' ';
+                }
+                if ($match['half']) {
+                    $pre .= $this->halfEscapeMatch($match['value']);
+                } else {
+                    $pre .= $this->escapeMatch($match['value']);
+                }
+                if ($pre !== '') {
+                    $matched[] = '(' . $pre . ')';
+                }
+            }
+            $matched = implode(' ', $matched);
+            $query .= $this->getConnection()->escape(trim($matched)) . ') ';
+        }
+        return $query;
+    }
+
+    /**
+     * Compiles the WHERE part of the queries
+     * It interacts with the MATCH() and of course isn't usable stand-alone
+     * Used by: SELECT, DELETE, UPDATE
+     *
+     * @return string The compiled WHERE
+     */
+    public function compileWhere()
+    {
+        $query = '';
+        if (empty($this->match) && !empty($this->where)) {
+            $query .= 'WHERE ';
+        }
+        if (!empty($this->where)) {
+            foreach ($this->where as $key => $where) {
+                if ($key > 0 || !empty($this->match)) {
+                    $query .= 'AND ';
+                }
+                $query .= $this->compileFilterCondition($where);
+            }
+        }
+        return $query;
+    }
+
+    /**
+     * @param array $filter
+     *
+     * @return string
+     */
+    public function compileFilterCondition($filter)
+    {
+        $query = '';
+        if (!empty($filter)) {
+            if (strtoupper($filter['operator']) === 'BETWEEN') {
+                $query .= $filter['column'];
+                $query .= ' BETWEEN ';
+                $query .= $this->getConnection()->quote($filter['value'][0]) . ' AND '
+                    . $this->getConnection()->quote($filter['value'][1]) . ' ';
+            } else {
+                // id can't be quoted!
+                if ($filter['column'] === 'id') {
+                    $query .= 'id ';
+                } else {
+                    $query .= $filter['column'] . ' ';
+                }
+                if (in_array(strtoupper($filter['operator']), ['IN', 'NOT IN'], true)) {
+                    $query .= strtoupper($filter['operator']) . ' (' . implode(', ', $this->getConnection()->quoteArr($filter['value'])) . ') ';
+                } else {
+                    $query .= $filter['operator'] . ' ' . $this->getConnection()->quote($filter['value']) . ' ';
+                }
+            }
+        }
+        return $query;
+    }
+
+    /**
+     * Compiles the statements for SELECT
+     *
+     * @return $this
+     */
+    public function compileSelect()
+    {
+        $query = '';
+        if ($this->type == 'select') {
+            $query .= 'SELECT ';
+            if (!empty($this->select)) {
+                $query .= implode(', ', $this->select) . ' ';
+            } else {
+                $query .= '* ';
+            }
+        }
+        if (!empty($this->from)) {
+            if ($this->from instanceof \Closure) {
+                $sub = new static($this->getConnection());
+                call_user_func($this->from, $sub);
+                $query .= 'FROM (' . $sub->compile()->getCompiled() . ') ';
+            } elseif ($this->from instanceof SphinxQL) {
+                $query .= 'FROM (' . $this->from->compile()->getCompiled() . ') ';
+            } else {
+                $query .= 'FROM ' . implode(', ', $this->from) . ' ';
+            }
+        }
+        $query .= $this->compileMatch() . $this->compileWhere();
+        if (!empty($this->group_by)) {
+            $query .= 'GROUP ';
+            if ($this->group_n_by !== null) {
+                $query .= $this->group_n_by . ' ';
+            }
+            $query .= 'BY ' . implode(', ', $this->group_by) . ' ';
+        }
+        if (!empty($this->within_group_order_by)) {
+            $query .= 'WITHIN GROUP ORDER BY ';
+            $order_arr = [];
+            foreach ($this->within_group_order_by as $order) {
+                $order_sub = $order['column'] . ' ';
+                if ($order['direction'] !== null) {
+                    $order_sub .= ((strtolower($order['direction']) === 'desc') ? 'DESC' : 'ASC');
+                }
+                $order_arr[] = $order_sub;
+            }
+            $query .= implode(', ', $order_arr) . ' ';
+        }
+        if (!empty($this->having)) {
+            $query .= 'HAVING ' . $this->compileFilterCondition($this->having);
+        }
+        if (!empty($this->order_by)) {
+            $query .= 'ORDER BY ';
+            $order_arr = [];
+            foreach ($this->order_by as $order) {
+                $order_sub = $order['column'] . ' ';
+                if ($order['direction'] !== null) {
+                    $order_sub .= ((strtolower($order['direction']) === 'desc') ? 'DESC' : 'ASC');
+                }
+                $order_arr[] = $order_sub;
+            }
+            $query .= implode(', ', $order_arr) . ' ';
+        }
+        if ($this->limit !== null || $this->offset !== null) {
+            if ($this->offset === null) {
+                $this->offset = 0;
+            }
+            if ($this->limit === null) {
+                $this->limit = 9999999999999;
+            }
+            $query .= 'LIMIT ' . ((int)$this->offset) . ', ' . ((int)$this->limit) . ' ';
+        }
+        if (!empty($this->options)) {
+            $options = [];
+            foreach ($this->options as $option) {
+                if ($option['value'] instanceof Expression) {
+                    $option['value'] = $option['value']->value();
+                } elseif (is_array($option['value'])) {
+                    array_walk(
+                        $option['value'],
+                        function (&$val, $key) {
+                            $val = $key . '=' . $val;
+                        }
+                    );
+                    $option['value'] = '(' . implode(', ', $option['value']) . ')';
+                } else {
+                    $option['value'] = $this->getConnection()->quote($option['value']);
+                }
+                $options[] = $option['name'] . ' = ' . $option['value'];
+            }
+            $query .= 'OPTION ' . implode(', ', $options) . ' ';
+        }
+        if (!empty($this->facets)) {
+            $facets = [];
+            foreach ($this->facets as $facet) {
+                // dynamically set the own SphinxQL connection if the Facet doesn't own one
+                if ($facet->getConnection() === null) {
+                    $facet->setConnection($this->getConnection());
+                    $facets[] = $facet->getFacet();
+                    // go back to the status quo for reuse
+                    $facet->setConnection();
+                } else {
+                    $facets[] = $facet->getFacet();
+                }
+            }
+            $query .= implode(' ', $facets);
+        }
+        $query = trim($query);
+        $this->last_compiled = $query;
+        return $this;
+    }
+
+    /**
+     * Compiles the statements for INSERT or REPLACE
+     *
+     * @return $this
+     */
+    public function compileInsert()
+    {
+        if ($this->type == 'insert') {
+            $query = 'INSERT ';
+        } else {
+            $query = 'REPLACE ';
+        }
+        if ($this->into !== null) {
+            $query .= 'INTO ' . $this->into . ' ';
+        }
+        if (!empty($this->columns)) {
+            $query .= '(' . implode(', ', $this->columns) . ') ';
+        }
+        if (!empty($this->values)) {
+            $query .= 'VALUES ';
+            $query_sub = [];
+            foreach ($this->values as $value) {
+                $query_sub[] = '(' . implode(', ', $this->getConnection()->quoteArr($value)) . ')';
+            }
+            $query .= implode(', ', $query_sub);
+        }
+        $query = trim($query);
+        $this->last_compiled = $query;
+        return $this;
+    }
+
+    /**
+     * Compiles the statements for UPDATE
+     *
+     * @return $this
+     */
+    public function compileUpdate()
+    {
+        $query = 'UPDATE ';
+        if ($this->into !== null) {
+            $query .= $this->into . ' ';
+        }
+        if (!empty($this->set)) {
+            $query .= 'SET ';
+            $query_sub = [];
+            foreach ($this->set as $column => $value) {
+                // MVA support
+                if (is_array($value)) {
+                    $query_sub[] = $column
+                        . ' = (' . implode(', ', $this->getConnection()->quoteArr($value)) . ')';
+                } else {
+                    $query_sub[] = $column
+                        . ' = ' . $this->getConnection()->quote($value);
+                }
+            }
+            $query .= implode(', ', $query_sub) . ' ';
+        }
+        $query .= $this->compileMatch() . $this->compileWhere();
+        $query = trim($query);
+        $this->last_compiled = $query;
+        return $this;
+    }
+
+    /**
+     * Compiles the statements for DELETE
+     *
+     * @return $this
+     */
+    public function compileDelete()
+    {
+        $query = 'DELETE ';
+        if (!empty($this->from)) {
+            $query .= 'FROM ' . $this->from[0] . ' ';
+        }
+        if (!empty($this->where)) {
+            $query .= $this->compileWhere();
+        }
+        $query = trim($query);
+        $this->last_compiled = $query;
+        return $this;
+    }
+
+    /**
+     * Sets a query to be executed
+     *
+     * @param string $sql A SphinxQL query to execute
+     *
+     * @return $this
+     */
+    public function query($sql)
+    {
+        $this->type = 'query';
+        $this->query = $sql;
+        return $this;
+    }
+
+    /**
+     * Select the columns
+     *
+     * Gets the arguments passed as $sphinxql->select('one', 'two')
+     * Using it without arguments equals to having '*' as argument
+     * Using it with array maps values as column names
+     *
+     * Examples:
+     *    $query->select('title');
+     *    // SELECT title
+     *
+     *    $query->select('title', 'author', 'date');
+     *    // SELECT title, author, date
+     *
+     *    $query->select(['id', 'title']);
+     *    // SELECT id, title
+     *
+     * @param array|string $columns Array or multiple string arguments containing column names
+     *
+     * @return $this
+     */
+    public function select($columns = null)
+    {
+        $this->reset();
+        $this->type = 'select';
+        if (is_array($columns)) {
+            $this->select = $columns;
+        } else {
+            $this->select = \func_get_args();
+        }
+        return $this;
+    }
+
+    /**
+     * Alters which arguments to select
+     *
+     * Query is assumed to be in SELECT mode
+     * See select() for usage
+     *
+     * @param array|string $columns Array or multiple string arguments containing column names
+     *
+     * @return $this
+     */
+    public function setSelect($columns = null)
+    {
+        if (is_array($columns)) {
+            $this->select = $columns;
+        } else {
+            $this->select = \func_get_args();
+        }
+        return $this;
+    }
+
+    /**
+     * Get the columns staged to select
+     *
+     * @return array
+     */
+    public function getSelect()
+    {
+        return $this->select;
+    }
+
+    /**
+     * Activates the INSERT mode
+     *
+     * @return $this
+     */
+    public function insert()
+    {
+        $this->reset();
+        $this->type = 'insert';
+        return $this;
+    }
+
+    /**
+     * Activates the REPLACE mode
+     *
+     * @return $this
+     */
+    public function replace()
+    {
+        $this->reset();
+        $this->type = 'replace';
+        return $this;
+    }
+
+    /**
+     * Activates the UPDATE mode
+     *
+     * @param string $index The index to update into
+     *
+     * @return $this
+     */
+    public function update($index)
+    {
+        $this->reset();
+        $this->type = 'update';
+        $this->into($index);
+        return $this;
+    }
+
+    /**
+     * Activates the DELETE mode
+     *
+     * @return $this
+     */
+    public function delete()
+    {
+        $this->reset();
+        $this->type = 'delete';
+        return $this;
+    }
+
+    /**
+     * FROM clause (Sphinx-specific since it works with multiple indexes)
+     * func_get_args()-enabled
+     *
+     * @param array $array An array of indexes to use
+     *
+     * @return $this
+     */
+    public function from($array = null)
+    {
+        if (is_string($array)) {
+            $this->from = \func_get_args();
+        }
+        if (is_array($array) || $array instanceof \Closure || $array instanceof SphinxQL) {
+            $this->from = $array;
+        }
+        return $this;
+    }
+
+    /**
+     * MATCH clause (Sphinx-specific)
+     *
+     * @param mixed $column The column name (can be array, string, Closure, or Match)
+     * @param string $value The value
+     * @param bool $half Exclude ", |, - control characters from being escaped
+     *
+     * @return $this
+     */
+    public function match($column, $value = null, $half = false)
+    {
+        if ($column === '*' || (is_array($column) && in_array('*', $column))) {
+            $column = [];
+        }
+        $this->match[] = ['column' => $column, 'value' => $value, 'half' => $half];
+        return $this;
+    }
+
+    /**
+     * WHERE clause
+     *
+     * Examples:
+     *    $query->where('column', 'value');
+     *    // WHERE column = 'value'
+     *
+     *    $query->where('column', '=', 'value');
+     *    // WHERE column = 'value'
+     *
+     *    $query->where('column', '>=', 'value')
+     *    // WHERE column >= 'value'
+     *
+     *    $query->where('column', 'IN', array('value1', 'value2', 'value3'));
+     *    // WHERE column IN ('value1', 'value2', 'value3')
+     *
+     *    $query->where('column', 'BETWEEN', array('value1', 'value2'))
+     *    // WHERE column BETWEEN 'value1' AND 'value2'
+     *    // WHERE example BETWEEN 10 AND 100
+     *
+     * @param string $column The column name
+     * @param Expression|string|null|bool|array|int|float $operator The operator to use (if value is not null, you can
+     *      use only string)
+     * @param Expression|string|null|bool|array|int|float $value The value to check against
+     *
+     * @return $this
+     */
+    public function where($column, $operator, $value = null)
+    {
+        if ($value === null) {
+            $value = $operator;
+            $operator = '=';
+        }
+        $this->where[] = [
+            'column'   => $column,
+            'operator' => $operator,
+            'value'    => $value,
+        ];
+        return $this;
+    }
+
+    /**
+     * GROUP BY clause
+     * Adds to the previously added columns
+     *
+     * @param string $column A column to group by
+     *
+     * @return $this
+     */
+    public function groupBy($column)
+    {
+        $this->group_by[] = $column;
+        return $this;
+    }
+
+    /**
+     * GROUP N BY clause (SphinxQL-specific)
+     * Changes 'GROUP BY' into 'GROUP N BY'
+     *
+     * @param int $n Number of items per group
+     *
+     * @return $this
+     */
+    public function groupNBy($n)
+    {
+        $this->group_n_by = (int)$n;
+        return $this;
+    }
+
+    /**
+     * WITHIN GROUP ORDER BY clause (SphinxQL-specific)
+     * Adds to the previously added columns
+     * Works just like a classic ORDER BY
+     *
+     * @param string $column The column to group by
+     * @param string $direction The group by direction (asc/desc)
+     *
+     * @return $this
+     */
+    public function withinGroupOrderBy($column, $direction = null)
+    {
+        $this->within_group_order_by[] = ['column' => $column, 'direction' => $direction];
+        return $this;
+    }
+
+    /**
+     * HAVING clause
+     *
+     * Examples:
+     *    $sq->having('column', 'value');
+     *    // HAVING column = 'value'
+     *
+     *    $sq->having('column', '=', 'value');
+     *    // HAVING column = 'value'
+     *
+     *    $sq->having('column', '>=', 'value')
+     *    // HAVING column >= 'value'
+     *
+     *    $sq->having('column', 'IN', array('value1', 'value2', 'value3'));
+     *    // HAVING column IN ('value1', 'value2', 'value3')
+     *
+     *    $sq->having('column', 'BETWEEN', array('value1', 'value2'))
+     *    // HAVING column BETWEEN 'value1' AND 'value2'
+     *    // HAVING example BETWEEN 10 AND 100
+     *
+     * @param string $column The column name
+     * @param string $operator The operator to use
+     * @param string $value The value to check against
+     *
+     * @return $this
+     */
+    public function having($column, $operator, $value = null)
+    {
+        if ($value === null) {
+            $value = $operator;
+            $operator = '=';
+        }
+        $this->having = [
+            'column'   => $column,
+            'operator' => $operator,
+            'value'    => $value,
+        ];
+        return $this;
+    }
+
+    /**
+     * ORDER BY clause
+     * Adds to the previously added columns
+     *
+     * @param string $column The column to order on
+     * @param string $direction The ordering direction (asc/desc)
+     *
+     * @return $this
+     */
+    public function orderBy($column, $direction = null)
+    {
+        $this->order_by[] = ['column' => $column, 'direction' => $direction];
+        return $this;
+    }
+
+    /**
+     * LIMIT clause
+     * Supports also LIMIT offset, limit
+     *
+     * @param int $offset Offset if $limit is specified, else limit
+     * @param null|int $limit The limit to set, null for no limit
+     *
+     * @return $this
+     */
+    public function limit($offset, $limit = null)
+    {
+        if ($limit === null) {
+            $this->limit = (int)$offset;
+            return $this;
+        }
+        $this->offset($offset);
+        $this->limit = (int)$limit;
+        return $this;
+    }
+
+    /**
+     * OFFSET clause
+     *
+     * @param int $offset The offset
+     *
+     * @return $this
+     */
+    public function offset($offset)
+    {
+        $this->offset = (int)$offset;
+        return $this;
+    }
+
+    /**
+     * OPTION clause (SphinxQL-specific)
+     * Used by: SELECT
+     *
+     * @param string $name Option name
+     * @param Expression|array|string|int|bool|float|null $value Option value
+     *
+     * @return $this
+     */
+    public function option($name, $value)
+    {
+        $this->options[] = ['name' => $name, 'value' => $value];
+        return $this;
+    }
+
+    /**
+     * INTO clause
+     * Used by: INSERT, REPLACE
+     *
+     * @param string $index The index to insert/replace into
+     *
+     * @return $this
+     */
+    public function into($index)
+    {
+        $this->into = $index;
+        return $this;
+    }
+
+    /**
+     * Set columns
+     * Used in: INSERT, REPLACE
+     * func_get_args()-enabled
+     *
+     * @param array $array The array of columns
+     *
+     * @return $this
+     */
+    public function columns($array = [])
+    {
+        if (is_array($array)) {
+            $this->columns = $array;
+        } else {
+            $this->columns = \func_get_args();
+        }
+        return $this;
+    }
+
+    /**
+     * Set VALUES
+     * Used in: INSERT, REPLACE
+     * func_get_args()-enabled
+     *
+     * @param array $array The array of values matching the columns from $this->columns()
+     *
+     * @return $this
+     */
+    public function values($array)
+    {
+        if (is_array($array)) {
+            $this->values[] = $array;
+        } else {
+            $this->values[] = \func_get_args();
+        }
+        return $this;
+    }
+
+    /**
+     * Set column and relative value
+     * Used in: INSERT, REPLACE
+     *
+     * @param string $column The column name
+     * @param string $value The value
+     *
+     * @return $this
+     */
+    public function value($column, $value)
+    {
+        if ($this->type === 'insert' || $this->type === 'replace') {
+            $this->columns[] = $column;
+            $this->values[0][] = $value;
+        } else {
+            $this->set[$column] = $value;
+        }
+        return $this;
+    }
+
+    /**
+     * Allows passing an array with the key as column and value as value
+     * Used in: INSERT, REPLACE, UPDATE
+     *
+     * @param array $array Array of key-values
+     *
+     * @return $this
+     */
+    public function set($array)
+    {
+        if ($this->columns === array_keys($array)) {
+            $this->values($array);
+        } else {
+            foreach ($array as $key => $item) {
+                $this->value($key, $item);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Allows passing an array with the key as column and value as value
+     * Used in: INSERT, REPLACE, UPDATE
+     *
+     * @param Facet $facet
+     *
+     * @return $this
+     */
+    public function facet($facet)
+    {
+        $this->facets[] = $facet;
+        return $this;
+    }
+
+    /**
+     * Sets the characters used for escapeMatch().
+     *
+     * @param array $array The array of characters to escape
+     *
+     * @return $this
+     */
+    public function setFullEscapeChars($array = [])
+    {
+        if (!empty($array)) {
+            $this->escape_full_chars = $this->compileEscapeChars($array);
+        }
+        return $this;
+    }
+
+    /**
+     * Sets the characters used for halfEscapeMatch().
+     *
+     * @param array $array The array of characters to escape
+     *
+     * @return $this
+     */
+    public function setHalfEscapeChars($array = [])
+    {
+        if (!empty($array)) {
+            $this->escape_half_chars = $this->compileEscapeChars($array);
+        }
+        return $this;
+    }
+
+    /**
+     * Compiles an array containing the characters and escaped characters into a key/value configuration.
+     *
+     * @param array $array The array of characters to escape
+     *
+     * @return array An array of the characters and it's escaped counterpart
+     */
+    public function compileEscapeChars($array = [])
+    {
+        $result = [];
+        foreach ($array as $character) {
+            $result[$character] = '\\' . $character;
+        }
+        return $result;
+    }
+
+    /**
+     * Escapes the query for the MATCH() function
+     *
+     * @param string $string The string to escape for the MATCH
+     *
+     * @return string The escaped string
+     */
+    public function escapeMatch($string)
+    {
+        if ($string instanceof Expression) {
+            return $string->value();
+        }
+        return mb_strtolower(str_replace(array_keys($this->escape_full_chars), array_values($this->escape_full_chars), $string), 'utf8');
+    }
+
+    /**
+     * Escapes the query for the MATCH() function
+     * Allows some of the control characters to pass through for use with a search field: -, |, "
+     * It also does some tricks to wrap/unwrap within " the string and prevents errors
+     *
+     * @param string $string The string to escape for the MATCH
+     *
+     * @return string The escaped string
+     */
+    public function halfEscapeMatch($string)
+    {
+        if ($string instanceof Expression) {
+            return $string->value();
+        }
+        $string = str_replace(array_keys($this->escape_half_chars), array_values($this->escape_half_chars), $string);
+        // this manages to lower the error rate by a lot
+        if (mb_substr_count($string, '"', 'utf8') % 2 !== 0) {
+            $string .= '"';
+        }
+        $string = preg_replace('/-[\s-]*-/u', '-', $string);
+        $from_to_preg = [
+            '/([-|])\s*$/u'        => '\\\\\1',
+            '/\|[\s|]*\|/u'        => '|',
+            '/(\S+)-(\S+)/u'       => '\1\-\2',
+            '/(\S+)\s+-\s+(\S+)/u' => '\1 \- \2',
+        ];
+        $string = mb_strtolower(preg_replace(array_keys($from_to_preg), array_values($from_to_preg), $string), 'utf8');
+        return $string;
+    }
+
+    /**
+     * Clears the existing query build for new query when using the same SphinxQL instance.
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->query = null;
+        $this->select = [];
+        $this->from = [];
+        $this->where = [];
+        $this->match = [];
+        $this->group_by = [];
+        $this->group_n_by = null;
+        $this->within_group_order_by = [];
+        $this->having = [];
+        $this->order_by = [];
+        $this->offset = null;
+        $this->limit = null;
+        $this->into = null;
+        $this->columns = [];
+        $this->values = [];
+        $this->set = [];
+        $this->options = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetWhere()
+    {
+        $this->where = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetMatch()
+    {
+        $this->match = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetGroupBy()
+    {
+        $this->group_by = [];
+        $this->group_n_by = null;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetWithinGroupOrderBy()
+    {
+        $this->within_group_order_by = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetFacets()
+    {
+        $this->facets = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetHaving()
+    {
+        $this->having = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetOrderBy()
+    {
+        $this->order_by = [];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetOptions()
+    {
+        $this->options = [];
+        return $this;
+    }
+}

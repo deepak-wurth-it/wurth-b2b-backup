@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.122
- * @copyright Copyright (C) 2021 Mirasvit (https://mirasvit.com/)
+ * @version   1.3.3
+ * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -76,8 +76,8 @@ class SuggesterPlugin
             'type'          => 'text',
             'sortOrder'     => '100000',
             'showInDefault' => '1',
-            'showInWebsite' => '1',
-            'showInStore'   => '1',
+            'showInWebsite' => '0',
+            'showInStore'   => '0',
             'label'         => $suggestion['label'],
             'children'      => [
                 'label' => [
@@ -86,8 +86,8 @@ class SuggesterPlugin
                     'type'           => 'label',
                     'frontend_model' => SuggesterField::class,
                     'showInDefault'  => '1',
-                    'showInWebsite'  => '1',
-                    'showInStore'    => '1',
+                    'showInWebsite'  => '0',
+                    'showInStore'    => '0',
                     'comment'        => $suggestion['text'],
                     '_elementType'   => 'field',
                 ],

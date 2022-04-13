@@ -1,0 +1,26 @@
+<div class="report__toolbar-filter-date">
+    <div type="text" class="admin__control-text"
+         data-bind="daterangepicker: {
+                    storageFrom: from,
+                    storageTo: to,
+                    storageCompareFrom: compareFrom,
+                    storageCompareTo: compareTo,
+                    storageComparisonEnabled: comparisonEnabled,
+                    options: {
+                        ranges: intervals,
+                        values: {
+                            dr1from: from(),
+                            dr1to: to(),
+                            dr2from: compareFrom(),
+                            dr2to: compareTo(),
+                            comparisonEnabled: comparisonEnabled(),
+                        },
+                        date: [from(), to()],
+                        locale: {
+                            months: locale.months.wide,
+                            monthsShort: locale.months.abbreviated,
+                            daysMin: locale.days.abbreviated
+                        }
+                    }
+               }"></div>
+</div>

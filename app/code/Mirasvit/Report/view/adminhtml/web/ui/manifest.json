@@ -1,0 +1,5 @@
+{
+  "app.js": "app.min.js",
+  "app.css": "app.min.css",
+  "vendor.js": "vendor.min.js"
+}

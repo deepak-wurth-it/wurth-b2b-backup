@@ -12,6 +12,7 @@ use WurthNav\Customer\Model\ResourceModel\ShopContactFactory as ResourceShopCont
 use Psr\Log\LoggerInterface;
 use WurthNav\Customer\Model\CustomersFactory as NavCustomers;
 
+
 /**
  * Setup sample attributes
  *
@@ -59,7 +60,6 @@ class CustomerSyncProcessorFromNav
         $this->addressDataFactory = $addressDataFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
-
     /**
      * @param array $fixtures
      * @throws \Exception
@@ -86,100 +86,85 @@ class CustomerSyncProcessorFromNav
                     $webSiteId = $this->storeManager->getStore()->getWebsiteId();
                     $storeId = $this->storeManager->getStore()->getStoreId();;
                     $email =  $navCustomer->getData('Email');
-
+                    $email = trim($email);
                     /****************  save customer **********************/
-
+                    $customerRepoObject = $this->customerRepository->get($email,$webSiteId);
                     $CustomerModel = $this->customerFactory->create();
                     $CustomerModel->setWebsiteId($webSiteId);
                     $CustomerModel->loadByEmail($email);
                     $customerId = $CustomerModel->getId();
                     $firstName = $CustomerModel->getFirstname();
                     $lastName = $CustomerModel->getLastname();
-
-                    if ($customerId) {
-                        //Extracting Data
-                        //$CustomerModel->setStore($storeId);
-
+                    if ($customerRepoObject) {
+                      
                         $Email = $navCustomer->getData('Email');
                         if ($Email) {
-                            $CustomerModel->setEmail($Email);
+                            $customerRepoObject->setEmail($Email);
                         }
-
                         $Phone = $navCustomer->getData('Phone');
                         if ($Phone) {
-                            $CustomerModel->setMobile($Phone);
-                        }
-
-                        $Phone = $navCustomer->getData('Phone');
-                        if ($Phone) {
-                            $CustomerModel->setPhone($Phone);
+                            $customerRepoObject->setCustomAttribute('phone',$Phone);
                         }
 
                         $CustomerCode = $navCustomer->getData('CustomerCode');
 
                         if ($CustomerCode) {
-                            $CustomerModel->setCustomerCode($CustomerCode);
+                            $customerRepoObject->setCustomAttribute('customer_code',$CustomerCode);
                         }
 
-                        $Name = $navCustomer->getData('Name');
-                        if ($Name) {
-                            //$CustomerModel->setName($Name);
-                        }
+                        $this->customerRepository->save($customerRepoObject);
 
-                        $Disabled = $navCustomer->getData('Disabled');
-                        if ($Disabled) {
-                            $CustomerModel->setIsActive($Disabled);
-                        }
-
-
-                        $saved = $CustomerModel->save();
-                        if ($saved->getId()) {
-                            $status[] = $saved->getId();
-                        }
                     }
 
 
+                    // $Disabled = $navCustomer->getData('Disabled');
+                    // if ($Disabled) {
+                    //     $CustomerModel->setIsActive($Disabled);
+                    // }
 
 
-
-                    /********************** Save Address  ********************/
-                    $billingAddressId = $CustomerModel->getDefaultBilling();
-                    if ($billingAddressId) {
-                        $billingAddress = $this->addressRepository->getById($billingAddressId);
-                        $billingAddress = $this->accountManagement->getDefaultBillingAddress($customerId);
-                        $regionName = $billingAddress->getRegion();
-                        $regionId = $billingAddress->getRegionId();
-                        $countryId = $billingAddress->getCountryId();
-                        // Saving Address
+                    /********************** Update Address  ********************/
+                    $shippingAddress = $this->getDefaultShippingAddress($customerId);
+                   if ($shippingAddress) {
+                        $shippingId =  $shippingAddress->getId();
                         $street = $navCustomer->getData('Address');
                         $PostalCode = $navCustomer->getData('PostalCode');
                         $City = $navCustomer->getData('City');
                         $Phone = $navCustomer->getData('Phone');
-
-                        $address = $this->addressDataFactory->create();
-                        $address->setFirstname($firstName)
+                        $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
+    
+                        $region = $shippingAddress->getRegion();
+                        $regionId = $shippingAddress->getRegionId();
+                        $countryId = $shippingAddress->getCountryId();
+                        $shippingAddress->setCustomerId($customerId)
+                            ->setId($shippingId)
+                            ->setFirstname($firstName)
                             ->setLastname($lastName)
                             ->setCountryId($countryId)
                             ->setRegionId($regionId)
-                            ->setRegion($regionName)
+                            ->setRegion($region)
                             ->setCity($City)
                             ->setPostcode($PostalCode)
-                            ->setCustomerId($customerId)
                             ->setStreet([$street])
-                            ->setTelephone($Phone);
+                            ->setTelephone($Phone)
+                            ->setIsDefaultShipping(true);
+                            if($BillToCustomerNo){
+                                //$shippingAddress->setIsDefaultBilling(true);
+                            }
 
-                        $savedAddress = $this->addressRepository->save($address);
-
-                        if ($savedAddress->getId()) {
-                            $status[] = $savedAddress->getId();
+                            $address = $this->addressRepository->save($shippingAddress);
+                            if ($address->getId()) {
+                                $status[] = $address->getId();
+                            }
                         }
-                    }
+                    
+                   
 
                     /********************* company data  ***********************/
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
-                    //$company->setSalesRepresentativeId($SalespersonCode);
+                    $company->setSalesRepresentativeId($SalespersonCode);
                     $BranchCode = $navCustomer->getData('BranchCode');
                     $company->setDivision($BranchCode);
                     $savedCompany = $this->companyRepository->save($company);
@@ -196,8 +181,8 @@ class CustomerSyncProcessorFromNav
                         $status[] = $savedCompany->getId();
                     }
                     if (count($status) == 3) {
-                        $navCustomer->setData('Synchronized', '0');
-                        $navCustomer->save();
+                        //$navCustomer->setData('Synchronized', '0');
+                        //$navCustomer->save();
                     }
                 } catch (\Exception $e) {
                     $this->logger->critical($e->getMessage());
@@ -225,4 +210,6 @@ class CustomerSyncProcessorFromNav
         }
         return $address;
     }
+
+    
 }

@@ -1,0 +1,38 @@
+.search__status-wrapper {
+    text-align: center;
+
+    .status {
+        display: inline-block;
+        white-space: nowrap;
+        font-size: 11px;
+        border-radius: 2px;
+        padding: 3px 10px;
+        color: #fff;
+        font-weight: bold;
+        text-transform: capitalize;
+        min-width: 15rem;
+
+        &.ready {
+            background: #53d056;
+        }
+        &.disabled {
+            background: #d6d6d6;
+        }
+        &.reindex {
+            background: #ff0101;
+        }
+    }
+}
+
+.search__component-attributes {
+    .admin__field-label {
+        display: none;
+    }
+    button {
+        white-space: nowrap;
+    }
+
+    .admin__action-multiselect-wrap {
+        min-width: 30rem;
+    }
+}
