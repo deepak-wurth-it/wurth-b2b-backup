@@ -19,48 +19,33 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <style type="text/css">
-        {{var template_styles|raw}}
-
-        {{css file="css/email.css"}}
-    </style>
 </head>
 <body>
-{{inlinecss file="css/email-inline.css"}}
+    <!-- Header Start ak -->
+      <div style="max-width: 850px; margin:auto; background:#fff;">
+         <table style="width: 100%; margin:auto; border: 1px solid rgba(0, 0, 0, 8%);">
+         <tr>
+            <td>
+               <table style="width: 100%; margin:auto;" cellspacing="0" cellpadding="0" >
+                  <tr>
+                     <td>
+                        <table style="width: 95%; padding: 20px;margin: auto;margin-top: 11px;">
+                           <tr >
+                              <td style="display:flex;">
+                                 <div style="text-align: left;"><img src="http://wuerth.com.hr/img/layout/logo.gif" alt="Wurth Logo" /></div>
+                                 <div style="text-align: center; margin:auto;">
+                                    <p style='text-align: center; font-size:28px; margin: 0;'>
+                                       <strong>WÜRTH HR - ONLINE SHOP</strong>
+                                    </p>
+                                    <p style='font-size:24px; margin: 0px;'><strong>Registracija novi kupac</strong></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
+                  </tr>
 
-
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td align="center">
-                <p style='text-align: center;'><strong>WÜRTH HR - ONLINE SHOP</strong><br /><br /><strong>Registracija novi kupac<br /></strong></p>
-                <br />
-
-<!-- Begin wrapper table -->
-<table class="wrapper" width="100%">
-    <tr>
-        <td class="wrapper-inner" align="center">
-            <table class="main" align="center">
-                <tr>
-                    <td class="header">
-                        <a class="logo" href="{{store url=""}}">
-                            <img
-                                {{if logo_width}}
-                                    width="{{var logo_width}}"
-                                {{else}}
-                                    width="180"
-                                {{/if}}
-
-                                {{if logo_height}}
-                                    height="{{var logo_height}}"
-                                {{/if}}
-
-                                src="{{var logo_url}}"
-                                alt="{{var logo_alt}}"
-                                border="0"
-                            />
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="main-content">
-                    <!-- Begin Content -->
+                  <!-- Header End -->
