@@ -2,6 +2,7 @@
 namespace Wcb\QuantityImport\Model\Import;
 
 use Exception;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Json\Helper\Data as JsonHelper;
@@ -11,7 +12,6 @@ use Magento\ImportExport\Model\Import\Entity\AbstractEntity;
 use Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregatorInterface;
 use Magento\ImportExport\Model\ResourceModel\Helper;
 use Magento\ImportExport\Model\ResourceModel\Import\Data;
-use Magento\Catalog\Model\ResourceModel\Product\Collection;
 
 /**
  * Class Courses
@@ -20,7 +20,7 @@ class QuantityImport extends AbstractEntity
 {
     const ENTITY_CODE = 'quantity_import';
     const TABLE = 'quantity_import';
-    const ENTITY_ID_COLUMN = 'entity_id';
+    const ENTITY_ID_COLUMN = 'product_code';
 
     /**
      * If we should check column names
@@ -36,14 +36,13 @@ class QuantityImport extends AbstractEntity
      * Permanent entity columns.
      */
     protected $_permanentAttributes = [
-        'entity_id',
+        'product_code',
     ];
 
     /**
      * Valid column names
      */
     protected $validColumnNames = [
-        'entity_id',
         'product_code',
         'quantity',
     ];
@@ -121,8 +120,7 @@ class QuantityImport extends AbstractEntity
         $product_code = $rowData['product_code'] ?? '';
         $quantity = (int) $rowData['quantity'] ?? 0;
 
-        if( (!$product_code))
-        {
+        if ((!$product_code)) {
             $this->addRowError('NameIsRequired', $rowNum);
         }
 
@@ -163,7 +161,6 @@ class QuantityImport extends AbstractEntity
      */
     protected function _importData(): bool
     {
-
         switch ($this->getBehavior()) {
             case Import::BEHAVIOR_DELETE:
                 $this->deleteEntity();
@@ -216,8 +213,7 @@ class QuantityImport extends AbstractEntity
      */
     private function saveAndReplaceEntity()
     {
-
-       $behavior = $this->getBehavior();
+        $behavior = $this->getBehavior();
         $rows = [];
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $entityList = [];
@@ -272,7 +268,7 @@ class QuantityImport extends AbstractEntity
                     $collection = $this->productCollection->addAttributeToSelect('*')
                        ->addAttributeToFilter('product_code', ['eq'=> $row['product_code']])
                        ->load();
-                      
+
                     $rows[] = $row;
                 }
             }
