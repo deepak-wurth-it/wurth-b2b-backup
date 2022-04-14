@@ -1,0 +1,64 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Please confirm your %store_name account" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var this.getUrl($store,'customer/account/confirm/',[_query:[id:$customer.id,key:$customer.confirmation,back_url:$back_url],_nosid:1])":"Account Confirmation URL",
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+
+{{template config_path="design/email/header_template"}}
+                <p style='text-align: center;'> <strong>Aktivacija korisničkog računa Würth Online Shop<br /></strong></p> <br />
+
+<table width="900">
+                    <tr>
+                        <td style="width: 100%;">
+                            Poštovani,
+                            <br /><br />
+                            zahvaljujemo se na Vašem povjerenju i prijavi u Würth Online Shop.
+                            <br /><br />
+                            Molim potvrdite Vašu e-mail adresu klikom na ovaj link: <span style="font-size:larger"><b><a href="{{var this.getUrl($store,'customer/account/confirm/',[_query:[id:$customer.id,key:$customer.confirmation,back_url:$back_url],_nosid:1])}}" target="_blank">{{trans "Confirm Your Account"}}</a></b></span>
+                            <br /><br />
+                            Adresa online shopa je - <a href="{{config path="web/secure/base_url"}}">eshop.wuerth.com.hr</a>
+                            <br /><br />
+                            Ukoliko imate pitanja, prijedloge ili želite prijaviti greške u sustavu, molimo kontaktirajte nas na mail:  <a href="mailto:webshop@wuerth.com.hr">webshop@wuerth.com.hr</a>. Potrebna nam je Vaša povratna informacija.
+                            <br /><br />
+                            Vaš tim,
+                            <br /><br />
+                            Würth-Hrvatska
+                        </td>
+                        
+                    </tr>
+                </table>
+
+{{template config_path="design/email/footer_template"}}
+
+
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "%name," name=$customer.name}}</p>
+<p>{{trans "You must confirm your %customer_email email before you can sign in (link is only valid once):" customer_email=$customer.email}}</p>
+
+<table class="button" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td>
+            <table class="inner-wrapper" border="0" cellspacing="0" cellpadding="0" align="center">
+                <tr>
+                    <td align="center">
+                        <a href="{{var this.getUrl($store,'customer/account/confirm/',[_query:[id:$customer.id,key:$customer.confirmation,back_url:$back_url],_nosid:1])}}" target="_blank">{{trans "Confirm Your Account"}}</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

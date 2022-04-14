@@ -8,6 +8,12 @@
                 <item name="SalesOrderSyncCommand" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderSyncCommand</item>
             </argument>
         </arguments>
+        
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="SalesOrderSyncToNavCommand" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderSyncToNavCommand</item>
+            </argument>
+        </arguments>
     </type>
 
 </config>
