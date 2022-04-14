@@ -54,31 +54,6 @@ $_product = $block->getProduct();
                 </div>
         </div>
 </form>
-<script>
-    require(['jquery'],function($){
-        $('#cusatc').click(function(){
-            var productId =  '<?php echo $product_id; ?>';
-            var qty = $(this).attr("mydata");
-            var data = {product: productId, qty: qty};
-            var addToCartUrl = "<?php echo $block->getUrl('qtyimport/product/addToCart') ?>";
-            $.ajax({
-                url : addToCartUrl,
-                dataType : 'json',
-                type : 'POST',
-                showLoader: true,
-                data: data,
-                success : function(res)
-                {
-                    console.log('Success');
-                },
-                error : function()
-                {
-                    console.log('error');
-                }
-            });
-        })
-    })
-</script>
 <script type="text/x-magento-init">
     {
         "#product_addtocart_form": {
