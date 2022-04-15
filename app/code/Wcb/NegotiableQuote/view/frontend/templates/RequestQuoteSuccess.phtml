@@ -1,0 +1,13 @@
+<?php
+   $confirmationLink = $block->getQuoteUrl();
+   ?>
+<div class="register-success">
+   <span class="success-image">
+    <img src=" <?php echo $block->getViewFileUrl('Wcb_CustomerRegistration::images/success-image-group.svg'); ?>" />
+   </span>
+   <h2><?= __("Quote was successfully created."); ?></h2>
+   <p> <?= __(sprintf("Please check your quote <a href='%s'><span> click here </span> </a>.",
+      $confirmationLink
+      )); ?>
+   </p>
+</div>
