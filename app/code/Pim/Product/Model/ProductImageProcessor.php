@@ -111,11 +111,13 @@ class ProductImageProcessor
                     }
                 }
           
-              
+               if ($i == 500) {
+                    $i=0;
+					$this->reindexByKey($indexLists);
+                }
                 $i++;
             }
         }
-        $this->reindexByKey($indexLists);
     }
 
     public function getImageImportLogger($log)
