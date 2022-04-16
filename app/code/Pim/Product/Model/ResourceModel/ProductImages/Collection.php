@@ -23,14 +23,30 @@ class Collection extends AbstractCollection
 
          $this->getSelect()
              ->from(['main_table' => $this->getMainTable()])
-            ->joinLeft(
-                ["pic" => $this->getTable("pictures")],
-                'main_table.PictureId =  pic.Id'
+            // ->joinLeft(
+            //     ["pic" => $this->getTable("pictures")],
+            //     'main_table.PictureId =  pic.Id',
+            //     ["main_id" => 'main_table.Id']
+            //)
+            
+             ->joinLeft(
+                array('pic' => $this->getTable('pictures')),
+                'main_table.PictureId = pic.Id',
+                [
+                    'Path' => 'pic.Path',
+                    'ThumbnailPath' => 'pic.ThumbnailPath'
+                    //"main_id" => 'main_table.Id'
+                    //'*'
+                ]
+
             )
              ->distinct(true)
              ->where("main_table.ChannelId = 2")
              ->where("main_table.Active  = 1")
-             ->order('main_table.Id');
+             ->where("main_table.UpdateRequired  = 1")
+             ->where("pic.UpdateRequired  = 1")
+             ->where("pic.Active  = 1")
+             ->order('main_table.Id ASC');
 
         
         return $this;
