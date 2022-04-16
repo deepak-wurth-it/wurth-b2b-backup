@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="product">
         <job name="pim_import_images_in_product" instance="Wcb\Cron\Cron\ImportImages" method="execute">
-            <schedule>0 */1 * * *</schedule>
+            <schedule>*/30 * * * *</schedule>
         </job>
     </group>
 </config>
