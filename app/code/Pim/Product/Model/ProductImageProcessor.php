@@ -113,7 +113,7 @@ class ProductImageProcessor
           
                if ($i == 500) {
                     $i=0;
-					$this->reindexByKey($indexLists);
+		    $this->reindexByKey($indexLists);
                 }
                 $i++;
             }
