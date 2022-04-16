@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:BlogTreat_CustomCron:etc/cron_groups.xsd">
-    <group id="product">
+    <group id="pim">
         <schedule_generate_every>1</schedule_generate_every>
         <schedule_ahead_for>4</schedule_ahead_for>
         <schedule_lifetime>2</schedule_lifetime>
