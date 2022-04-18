@@ -1,12 +1,18 @@
 <?php
+
 namespace Wcb\QuantityImport\Controller\Product;
 
+use Exception;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Checkout\Model\Cart;
+use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
- 
-use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\App\RequestInterface;
-  
-class AddToCart extends \Magento\Framework\App\Action\Action
+use Magento\Framework\App\ResponseFactory;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\View\Result\PageFactory;
+use Psr\Log\LoggerInterface;
+
+class AddToCart extends Action
 {
     protected $_resultPageFactory;
     protected $_cart;
@@ -14,41 +20,59 @@ class AddToCart extends \Magento\Framework\App\Action\Action
     protected $_url;
     protected $_responseFactory;
     protected $_logger;
- 
- 
+    protected $resultJsonFactory;
+    protected $messageManager;
+
     public function __construct(
         Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Checkout\Model\Cart $cart,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepositoryInterface,
-        \Magento\Framework\App\ResponseFactory $responseFactory,
-        \Psr\Log\LoggerInterface $logger
-        )
-    {
+        PageFactory $resultPageFactory,
+        Cart $cart,
+        ProductRepositoryInterface $productRepositoryInterface,
+        ResponseFactory $responseFactory,
+        LoggerInterface $logger,
+        JsonFactory $resultJsonFactory,
+        \Magento\Framework\Message\ManagerInterface $messageManager
+    ) {
         $this->_resultPageFactory = $resultPageFactory;
         $this->_cart = $cart;
         $this->_productRepositoryInterface = $productRepositoryInterface;
         $this->_responseFactory = $responseFactory;
         $this->_url = $context->getUrl();
         $this->_logger = $logger;
+        $this->resultJsonFactory = $resultJsonFactory;
+        $this->messageManager = $messageManager;
         parent::__construct($context);
     }
- 
+
     public function execute()
     {
-        $productid = $this->getRequest()->getParam('product');
-        $qty = $this->getRequest()->getParam('qty');
-        $_product = $this->_productRepositoryInterface->getById($productid);
-        $options = $_product->getOptions();
- 
-        $params = array (
-            'product' => $_product->getId(),
-            'qty' => $qty,
-            'price' => $_product->getPrice()
-        );
- 
-       $this->_cart->addProduct($_product, $params);
-       $this->_cart->save();
+        $result = [];
+        try {
+            $productid = $this->getRequest()->getParam('product');
+            $qty = $this->getRequest()->getParam('qty');
+            $_product = $this->_productRepositoryInterface->getById($productid);
+            $options = $_product->getOptions();
+
+            $params = [
+                'product' => $_product->getId(),
+                'qty' => $qty,
+                //'price' => $_product->getPrice()
+            ];
+
+            $this->_cart->addProduct($_product, $params);
+            $this->_cart->save();
+            $message = __(sprintf("You added %s to your shopping cart.", $_product->getName()));
+            $result['success'] = true;
+            $result['message'] = $message;
+            $this->messageManager->addSuccess($message);
+
+        } catch (Exception $e) {
+            $result['success'] = false;
+            $result['message'] = __($e->getMessage());
+            $this->messageManager->addError(__($e->getMessage()));
+        }
+
+        $resultJson = $this->resultJsonFactory->create();
+        return $resultJson->setData($result);
     }
- 
 }

@@ -28,5 +28,18 @@
 		 <column name="customer_code" nullable="true" xsi:type="varchar" length="55" comment="ERP Customer Code"/>
 		 <column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
 		 <column name="order_sync_status_nav"  xsi:type="int" unsigned="false" nullable="false" default="0" comment="Order Sync Status to ERP"/>
+		 <column name="delivery_address_code" nullable="true" xsi:type="varchar" length="10" comment="it displays delivery address code Linkage with dboCustomerDeliveryAddress"/>
+		 <column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
+		 <column name="cost_center" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
+		 <column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
+   </table>
+   
+   <table name="sales_order_item" resource="default" engine="innodb" comment="Sales Order Table">
+		 <column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
+		 <column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
+		 <column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
+		 <column name="promised_delivery_date" nullable="true" xsi:type="varchar" length="200" comment="Order is placed for Delivery or Store Number "/>
+
    </table>
 </schema>
+
