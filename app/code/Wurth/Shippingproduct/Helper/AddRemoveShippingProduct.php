@@ -11,6 +11,7 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Data\Form\FormKey;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Registry;
 use Psr\Log\LoggerInterface;
 
 class AddRemoveShippingProduct extends AbstractHelper
@@ -39,6 +40,10 @@ class AddRemoveShippingProduct extends AbstractHelper
      * @var LoggerInterface
      */
     protected $logger;
+    /**
+     * @var Registry
+     */
+    protected $registry;
 
     /**
      * AddRemoveShippingProduct constructor.
@@ -49,6 +54,7 @@ class AddRemoveShippingProduct extends AbstractHelper
      * @param ProductRepositoryInterface $productRepository
      * @param Session $checkoutSession
      * @param LoggerInterface $logger
+     * @param Registry $registry
      */
     public function __construct(
         Context $context,
@@ -57,7 +63,8 @@ class AddRemoveShippingProduct extends AbstractHelper
         Cart $cart,
         ProductRepositoryInterface $productRepository,
         Session $checkoutSession,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        Registry $registry
     ) {
         $this->formKey = $formKey;
         $this->cart = $cart;
@@ -65,6 +72,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $this->productRepository = $productRepository;
         $this->checkoutSession = $checkoutSession;
         $this->logger = $logger;
+        $this->registry = $registry;
         parent::__construct($context);
     }
 
@@ -77,6 +85,11 @@ class AddRemoveShippingProduct extends AbstractHelper
      */
     public function updateShippingProduct($quote = '')
     {
+        $skipPlugin = $this->registry->registry('skip_plugin');
+        if ($skipPlugin === 'true') {
+            return;
+        }
+
         if ($quote === '') {
             $quote = $this->checkoutSession->getQuote();
         }
