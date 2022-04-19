@@ -13,7 +13,7 @@
 "var customer.name":"Customer Name"
 } @-->
 {{template config_path="design/email/header_template"}} 
-<p style='font-size:24px; margin: 0px;'><strong>Aktivacija korisničkog računa Würth Online Shop</strong></p>
+<p style='font-size:24px; margin: 0px;'><strong>Registracija novog korisnika: {company}. Datum: {date}</strong></p>
    </div>
 </td>
 </tr>
@@ -24,30 +24,7 @@
    <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
 </tr>
  <!-- Content Start-->
-                <!-- <tr>
-                     <td>
-                        <table style="width: 95%; margin: auto; margin-top: 20px;">
-                           <tr>
-                              <td>       
-                                Poštovani,
-                                <br /><br />
-                                zahvaljujemo se na Vašem povjerenju i prijavi u Würth Online Shop.
-                                <br /><br />
-                                Molim potvrdite Vašu e-mail adresu klikom na ovaj link: <span style="font-size:12px"><b><a href="{{var this.getUrl($store,'customer/account/confirm/',[_query:[id:$customer.id,key:$customer.confirmation,back_url:$back_url],_nosid:1])}}" target="_blank">{{trans "Confirm Your Account"}}</a></b></span>
-                                <br /><br />
-                                Adresa online shopa je - <a href="{{config path="web/secure/base_url"}}">eshop.wuerth.com.hr</a>
-                                <br /><br />
-                                Ukoliko imate pitanja, prijedloge ili želite prijaviti greške u sustavu, molimo kontaktirajte nas na mail:  <a href="mailto:webshop@wuerth.com.hr">webshop@wuerth.com.hr</a>. Potrebna nam je Vaša povratna informacija.
-                                <br /><br />
-                                Vaš tim,
-                                <br /><br />
-                                Würth-Hrvatska ddd
-                              </td>
-                           </tr>
-                        </table>
-                     </td>
-                  </tr> -->
-                <!-- New user registration content start-->
+               
                   <tr>
                     <table style="width: 95%; margin: auto; margin-top: 20px;">
                         <tr>
@@ -111,7 +88,6 @@
                         </tr>
                     </table>
     
-                    <p style="clear: both;">&nbsp;</p>
     
                     <table style="width: 95%; margin: auto; margin-top: 20px;">
                         <tr>
@@ -147,7 +123,6 @@
                             </td>
                         </tr>
                     </table>
-                    <p style="clear: both;">&nbsp;</p>
     
                     <table style="width: 95%; margin: auto; margin-top: 20px;">
                         <tr>
@@ -195,9 +170,7 @@
                                 </table>
                             </td>
                         </tr>
-                    </table>
-    
-                    <p style="clear: both;">&nbsp;</p>
+                    </table>    
     
                     <table style="width: 95%; margin: auto; margin-top: 20px;">
                         <tr>
@@ -217,9 +190,5 @@
                         </tr>
                     </table>
                  </tr>
-<!-- New user registration content end-->              
+<!-- content end-->              
 {{template config_path="design/email/footer_template"}}
-
-
-
-
