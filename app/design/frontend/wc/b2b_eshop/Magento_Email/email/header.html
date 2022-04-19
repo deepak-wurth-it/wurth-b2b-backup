@@ -20,6 +20,37 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
+<style>
+   table, td, div, h1, p {
+     font-family: Arial, sans-serif;
+   }
+   @media screen and (max-width: 530px) {
+     .unsub {
+       display: block;
+     }
+     .e-logo{
+      text-align: center;  
+      margin-bottom: 10px;
+     }
+     .footer-content{
+        display:grid;
+        text-align: left;
+     }
+     .footer-content td{
+        display:flex;
+        text-align: left;
+     }
+   }
+   @media screen and (min-width: 531px) {
+      .unsub {
+       display: flex;
+     }
+     .e-logo{
+      text-align: left; 
+      margin-bottom: 10px; 
+     }
+   }
+ </style>
 <body>
     <!-- Header Start ak -->
       <div style="max-width: 850px; margin:auto; background:#fff;">
@@ -31,21 +62,12 @@
                      <td>
                         <table style="width: 95%; padding: 20px;margin: auto;margin-top: 11px;">
                            <tr >
-                              <td style="display:flex;">
-                                 <div style="text-align: left;"><img src="http://wuerth.com.hr/img/layout/logo.gif" alt="Wurth Logo" /></div>
+                              <td style="display: flex;">
+                                 <p class="e-logo" style="text-align: left;"><img src="http://wuerth.com.hr/img/layout/logo.gif" alt="Wurth Logo" class="elogos" /></p>
                                  <div style="text-align: center; margin:auto;">
                                     <p style='text-align: center; font-size:28px; margin: 0;'>
                                        <strong>WÜRTH HR - ONLINE SHOP</strong>
                                     </p>
-                                    <p style='font-size:24px; margin: 0px;'><strong>Registracija novi kupac</strong></p>
-                                 </div>
-                              </td>
-                           </tr>
-                        </table>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
-                  </tr>
+                                  
 
                   <!-- Header End -->
