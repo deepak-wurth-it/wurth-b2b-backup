@@ -15,7 +15,7 @@
       //$objmanager = \Magento\Framework\App\ObjectManager::getInstance();
       //$session =  $objmanager->get("Magento\Checkout\Model\Session");
       //$quote =$session->getQuote();
-      $counter = $this->helper('\Magento\Checkout\Helper\Cart'); 
+      $counter = $this->helper('\Magento\Checkout\Helper\Cart');
    ?>
 <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
@@ -107,6 +107,7 @@
 require(['jquery'], function($) {
   $(".block .block-requisition-list").prependTo(".cart-act-icon");
   $("#negotiable-quote-form").prependTo(".cart-act-icon");
+  $("#negotiable-quote-form").show();
 });
  </script>
 </div>
