@@ -8,5 +8,5 @@
 <?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
 <?php $sku = $block->getProduct()->getSku();?>
 <div class="col-md">
- <span class="package-box-pdp"><label>Package :</label><?php echo $this->getPackageBox($sku);?></span>
+ <span class="package-box-pdp"><label>Package :</label><?php echo floatval($this->getPackageBox($sku));?></span>
 </div>

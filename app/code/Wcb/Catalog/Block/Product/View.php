@@ -71,9 +71,9 @@ class View extends BaseView
 
     public function getPackageBox($sku){
 
-        $pimProduct =  $this->pimProductFactory->create->load($sku);
+        $pimProduct =  $this->pimProductFactory->create()->load($sku);
         if($pimProduct){
-          return $pimProduct->getPackageBox();
+          return $pimProduct->getData('PackageBox');
         }
     }
 }
