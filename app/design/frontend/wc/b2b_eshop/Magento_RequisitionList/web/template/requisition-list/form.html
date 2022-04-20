@@ -6,13 +6,14 @@
 -->
 <form method="post">
     <input type="hidden" data-bind="value: value().product_data" name="product_data">
-    <fieldset class="fieldset">
+    <fieldset class="fieldset order-template-popup">
         <span class="textMsg" data-bind="i18n: 'You can also save the contents of the basket as an order template by specifying the name and confirming by clicking on Save template. You can use the order template when creating new orders.'"> </span>
         <div class="field _required ordForm">
+            <div class="label-group">
             <label for="requisition-list-name" class="label requisition-label">
                 <span data-bind="i18n: 'Order Template'"></span>
             </label>
-            <div class="control">
+            <div class="control requisition-list-name">
                 <input class="input-text maximum-length-40"
                         name="name"
                         id="requisition-list-name"
@@ -20,26 +21,21 @@
                         data-validate='{"required": true, "validate-length": true}'
                         type="text">
             </div>
+        </div>
             <div class="field checkbox">
-                <div class="control">
-                    <input type="checkbox" name="specific_qty" id="specific_qty" checked/>
+                <div class="control order-template-checkobox">
+                    
+                    <label for="specific_qty" class="label specific_qty">
+                        <input type="checkbox" name="specific_qty" id="specific_qty" checked/>
+                        <span class="truemark"></span>
+                        <span data-bind="i18n: 'Do you want to save the specified quantities in the template?'"></span>
+                        
+                    </label>
                 </div>
-                <label for="specific_qty" class="label specific_qty">
-                    <span data-bind="i18n: 'Do you want to save the specified quantities in the template?'"></span>
-                </label>
+                
             </div>
 
         </div>
-       <!--<div class="field textarea">
-            <label for="requisition-list-description" class="label requisition-label">
-                <span data-bind="i18n: 'Description'"></span>
-            </label>
-            <div class="control">
-                <textarea name="description"
-                          maxlength="255"
-                          id="requisition-list-description"
-                          data-bind="value: value().description"></textarea>
-            </div>
-        </div>-->
+        
     </fieldset>
 </form>
