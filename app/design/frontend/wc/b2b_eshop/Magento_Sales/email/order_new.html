@@ -1,0 +1,240 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Your %store_name order confirmation" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order_data.email_customer_note|escape|nl2br":"Email Order Note",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$order area=\"frontend\"":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var shipping_msg":"Shipping message",
+"var created_at_formatted":"Order Created At (datetime)",
+"var store.frontend_name":"Store Frontend Name",
+"var store_phone":"Store Phone",
+"var store_email":"Store Email",
+"var store_hours":"Store Hours",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL",
+"var order_data.is_not_virtual":"Order Type",
+"var order":"Order",
+"var order_id": "Order DB Id",
+"var order_data.customer_name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}} 
+<p style='font-size:24px; margin: 0px;'><strong> {{trans 'Narudžba br: <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}.   {{trans 'Datum: <span class="no-link">%created_at</span>' created_at=$created_at_formatted |raw}}</strong></p>
+   </div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+   <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
+</tr>
+ <!-- Content Start-->
+               
+                  <tr>
+
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                    <tr>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Adresa za fakturu - BILL TO ADDRESS</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kupac:&nbsp;</td>
+                                        <td>{{customer_no}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Naziv kupca:&nbsp;</td>
+                                        <td>{{company}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ulica i broj:</td>
+                                        <td>{{address}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Po&scaron;tanski broj:&nbsp;</td>
+                                        <td>{{postal_code}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mjesto:&nbsp;</td>
+                                        <td>{{place}}&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="width: 50%;">
+                            <table border='0'>
+                                <tbody>
+                                    <tr>
+                                        <td style='color: #cc0000;' colspan='2'><strong>Adresa za isporuku - DELIVERY ADRESS </strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Naziv kupca:</td>
+                                        <td>&nbsp;{{company_1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ulica i broj:</td>
+                                        <td>{{address_1}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Po&scaron;tanski broj:</td>
+                                        <td>{{postal_code_1}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mjesto:</td>
+                                        <td>{{place_1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telefon:</td>
+                                        <td>{{phone}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-mail:ORDERED BY MAIL &nbsp;</td>
+                                        <td>{{email}}&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Naru&#269;itelj: ORDERED BY NAME</td>
+                                        <td>{{ordered_by}}&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br />
+                            <span style="font-weight: bold;">Napomena: COMMENT</span> {{order_comment}}
+                        </td>
+                    </tr>
+					<tr>
+                        <td>
+                            <br />
+                            <span style="font-weight: bold;">Način plaćanja:</span> {{payment_type}}
+                        </td>
+                    </tr>
+                </table>
+                {{layout handle="sales_email_order_items" order_id=$order_id area="frontend"}}
+               <!--<table style=' border:1px solid #dedede; width: 95%; margin: auto; margin-top: 20px;'>
+                    <caption style='font-size: small; color: #fff;background-color: #cc0000;'><span><strong>NARU&#268;ENI ARTIKLI (cijene izražene u HRK)</strong></span></caption>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Redni broj</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Šifra artikla</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Opis</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Kol.</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Pak.</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">JM</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:7%">Jedinična cijena</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:7%">Popust &#37;</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:10%">
+                                Jed. cijena s
+                                uklj. popustom
+                            </td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:10%">Iznos bez poreza</td>
+                        </tr>
+                        {{layout handle="sales_email_order_items" order_id=$order_id area="frontend"}}
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">Ukupno HRK bez PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td style='text-align: right;'>{{total_no_tax}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">25% PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td style='text-align: right;'>{{total_tax}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">Ukupno HRK sa PDV-om&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td style='text-align: right;'>{{total}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">JM: Jedinica mjere; KOM = cijena je za 1 komad, C = cijena je za 100 komada</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+
+                 </tr>
+<!-- content end-->              
+{{template config_path="design/email/footer_template"}}
+
+<!-- {{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%customer_name," customer_name=$order_data.customer_name}}</p>
+            <p>
+                {{trans "Thank you for your order from %store_name." store_name=$store.frontend_name}}
+                {{trans "Once your package ships we will send you a tracking number."}}
+                {{trans 'You can check the status of your order by <a href="%account_url">logging into your account</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
+            </p>
+            <p>
+                {{trans 'If you have questions about your order, you can email us at <a href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}.
+                {{depend store_hours}}
+                    {{trans 'Our hours are <span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+                {{/depend}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <h1>{{trans 'Your Order <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}</h1>
+            <p>{{trans 'Placed on <span class="no-link">%created_at</span>' created_at=$created_at_formatted |raw}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{depend order_data.email_customer_note}}
+            <table class="message-info">
+                <tr>
+                    <td>
+                        {{var order_data.email_customer_note|escape|nl2br}}
+                    </td>
+                </tr>
+            </table>
+            {{/depend}}
+            <table class="order-details">
+                <tr>
+                    <td class="address-details">
+                        <h3>{{trans "Billing Info"}}</h3>
+                        <p>{{var formattedBillingAddress|raw}}</p>
+                    </td>
+                    {{depend order_data.is_not_virtual}}
+                    <td class="address-details">
+                        <h3>{{trans "Shipping Info"}}</h3>
+                        <p>{{var formattedShippingAddress|raw}}</p>
+                    </td>
+                    {{/depend}}
+                </tr>
+                <tr>
+                    <td class="method-info">
+                        <h3>{{trans "Payment Method"}}</h3>
+                        {{var payment_html|raw}}
+                    </td>
+                    {{depend order_data.is_not_virtual}}
+                    <td class="method-info">
+                        <h3>{{trans "Shipping Method"}}</h3>
+                        <p>{{var order.shipping_description}}</p>
+                        {{if shipping_msg}}
+                        <p>{{var shipping_msg}}</p>
+                        {{/if}}
+                    </td>
+                    {{/depend}}
+                </tr>
+            </table>
+            {{layout handle="sales_email_order_items" order_id=$order_id area="frontend"}}
+        </td>
+    </tr>
+</table> 
+{{template config_path="design/email/footer_template"}} -->
