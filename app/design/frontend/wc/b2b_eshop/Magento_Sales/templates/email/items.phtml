@@ -1,0 +1,128 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items */
+?>
+
+<?php $_order = $block->getOrder() ?>
+<?php if ($_order) : ?>
+    <?php $_items = $_order->getAllItems(); ?>
+    <table style=' border:1px solid #dedede; width: 95%; margin: auto; margin-top: 20px;'>
+                    <caption style='font-size: small; color: #fff;background-color: #cc0000;'><span><strong>NARU&#268;ENI ARTIKLI (cijene izražene u HRK)</strong></span></caption>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Redni broj</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Šifra artikla</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Opis</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Kol.</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Pak.</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">JM</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:7%">Jedinična cijena</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:7%">Popust &#37;</td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:10%">
+                                Jed. cijena s
+                                uklj. popustom
+                            </td>
+                            <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;width:10%">Iznos bez poreza</td>
+                        </tr>
+                       
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">Ukupno HRK bez PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td style='text-align: right;'>{{total_no_tax}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">25% PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td style='text-align: right;'>{{total_tax}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">Ukupno HRK sa PDV-om&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td style='text-align: right;'>{{total}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">JM: Jedinica mjere; KOM = cijena je za 1 komad, C = cijena je za 100 komada</td>
+                        </tr>
+                        <tr>
+                            <td colspan='9' style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+    <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)
+            ->isMessagesAllowed('order', $_order, $_order->getStore())
+        && $_order->getGiftMessageId()
+    ) : ?>
+        <?php $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)
+            ->getGiftMessage($_order->getGiftMessageId()); ?>
+        <?php if ($_giftMessage) : ?>
+            <br />
+            <table class="message-gift">
+                <tr>
+                    <td>
+                        <h3><?= $block->escapeHtml(__('Gift Message for this Order')) ?></h3>
+                        <strong><?= $block->escapeHtml(__('From:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                        <br /><strong><?= $block->escapeHtml(__('To:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br /><strong><?= $block->escapeHtml(__('Message:')) ?></strong>
+                        <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                    </td>
+                </tr>
+            </table>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php /* ?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_order) : ?>
+    <?php $_items = $_order->getAllItems(); ?>
+    <table class="email-items">
+        <thead>
+            <tr>
+                <th class="item-info">
+                    <?= $block->escapeHtml(__('Items')) ?>
+                </th>
+                <th class="item-qty">
+                    <?= $block->escapeHtml(__('Qty')) ?>
+                </th>
+                <th class="item-price">
+                    <?= $block->escapeHtml(__('Price')) ?>
+                </th>
+            </tr>
+        </thead>
+        <?php foreach ($_items as $_item) : ?>
+            <?php if (!$_item->getParentItem()) : ?>
+                <tbody>
+                    <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <tfoot class="order-totals">
+            <?= $block->getChildHtml('order_totals') ?>
+        </tfoot>
+    </table>
+    <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)
+            ->isMessagesAllowed('order', $_order, $_order->getStore())
+        && $_order->getGiftMessageId()
+    ) : ?>
+        <?php $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)
+            ->getGiftMessage($_order->getGiftMessageId()); ?>
+        <?php if ($_giftMessage) : ?>
+            <br />
+            <table class="message-gift">
+                <tr>
+                    <td>
+                        <h3><?= $block->escapeHtml(__('Gift Message for this Order')) ?></h3>
+                        <strong><?= $block->escapeHtml(__('From:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                        <br /><strong><?= $block->escapeHtml(__('To:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br /><strong><?= $block->escapeHtml(__('Message:')) ?></strong>
+                        <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                    </td>
+                </tr>
+            </table>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?> 
+<?php */ ?>
