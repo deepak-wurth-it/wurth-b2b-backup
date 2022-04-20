@@ -74,10 +74,13 @@
          <div class="pdvariants" ><button type="submit" class="itemAdd">Show variants</button></div>
          <span class="hrline"></span>
          <div class="more-info-block">
-            <div class="moreInfo">Need More Information?</div>
+         <?php 
+             echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('pdp-page-more-info-block')->toHtml();
+          ?>
+           <!-- <div class="moreInfo">Need More Information?</div>
             <span class="phoneEmail">Contact us by phone or email?</span>
             <div><span class="icon-com-phone-a"></span> <span class="iphone-outline">Phone <a href="tel:0800 4260">0800 4260</a></span></div>
-            <div><span class="icon-wuerth-e-mail"></span><span class="email-outline">Email <a href ="mailto:wuert@wuerth.com.hr">wuert@wuerth.com.hr</a></span></div>
+            <div><span class="icon-wuerth-e-mail"></span><span class="email-outline">Email <a href ="mailto:wuert@wuerth.com.hr">wuert@wuerth.com.hr</a></span></div> -->
          </div>
          <div class="pdrepbug"><button type="submit" class="itembug"><span class="icon-web-warning"></span> Report a bug</button></div>
          <div class="social-block">
