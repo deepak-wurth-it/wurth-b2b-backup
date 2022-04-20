@@ -9,10 +9,10 @@ namespace Wcb\Catalog\Block\Product;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Category;
 use \Pim\Product\Model\ProductFactory as PimProductFactory;
+use Magento\Catalog\Block\Product\View as BaseView;
 
 
-
-class View extends \Magento\Catalog\Block\Product\View
+class View extends BaseView
 {
     /**
      * @param Context $context
