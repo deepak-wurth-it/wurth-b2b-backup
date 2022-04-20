@@ -20,7 +20,16 @@
                         data-validate='{"required": true, "validate-length": true}'
                         type="text">
             </div>
-        </div> 
+            <div class="field checkbox">
+                <div class="control">
+                    <input type="checkbox" name="specific_qty" id="specific_qty" checked/>
+                </div>
+                <label for="specific_qty" class="label specific_qty">
+                    <span data-bind="i18n: 'Do you want to save the specified quantities in the template?'"></span>
+                </label>
+            </div>
+
+        </div>
        <!--<div class="field textarea">
             <label for="requisition-list-description" class="label requisition-label">
                 <span data-bind="i18n: 'Description'"></span>
