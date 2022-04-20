@@ -13,6 +13,7 @@
 
 <?php
 $images = $block->getGalleryImages()->getItems();
+
 $mainImage = current(array_filter($images, function ($img) use ($block) {
     return $block->isMainImage($img);
 }));

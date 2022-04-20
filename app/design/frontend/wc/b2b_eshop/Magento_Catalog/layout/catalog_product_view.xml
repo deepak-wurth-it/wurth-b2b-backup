@@ -16,6 +16,8 @@
                 <block class="Magento\Catalog\Block\Product\View" name="pdp_qty" template="Magento_Catalog::product/view/qty.phtml"/>
                 <block class="Magento\Framework\View\Element\Template" name="pdp_stock" template="Magento_Catalog::product/view/stock.phtml"/>
                 <block class="Wcb\QuantityImport\Block\ImportQty" name="pdp_purchage" template="Magento_Catalog::product/view/purchage-product.phtml"/>
+                <block class="\Wcb\Catalog\Block\Product\View" name="package_box" template="Magento_Catalog::product/view/package_box.phtml"/>
+
                 <block class="Magento\Framework\View\Element\Template" name="pdp_moreinfo" template="Magento_Catalog::product/view/more-info.phtml"/>
                 <block class="Magento\Catalog\Block\Product\View" name="pdp_reportbug" template="Magento_Catalog::product/view/report-bug.phtml"/>
                <!--<block class="Magento\Framework\View\Element\Template" name="pdp_sociallink" template="Magento_Catalog::product/view/social-link.phtml"/>-->
