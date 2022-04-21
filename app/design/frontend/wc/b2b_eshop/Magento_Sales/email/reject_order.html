@@ -1,0 +1,149 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Reset your %store_name password" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var customer.name":"Customer Name",
+"var this.getUrl($store,'customer/account/createPassword/',[_query:[token:$customer.rp_token],_nosid:1])":"Reset Password URL"
+} @-->
+
+{{template config_path="design/email/header_template"}} 
+<p style='font-size:24px; margin: 0px;'><strong>Narud&#382;ba br: {{order_number}}. Datum: {{date}}</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+   <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
+</tr>
+ <!-- Content Start-->
+                  <tr>
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                            <tr>
+                                <td align="center">
+                                    <p style='text-align: center;'><strong>WÜRTH HR - ONLINE SHOP</strong><br /><br /><strong>Narud&#382;ba br: {{order_number}}. Datum: {{date}}<br /></strong></p>
+                                    <br />
+                                    <table width="900">
+                                        <tr>
+                                            <td style="width: 50%;">
+                                                <table border='0'>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Adresa za fakturu - BILL TO ADDRESS</strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Kupac:&nbsp;</td>
+                                                            <td>{{customer_no}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Naziv kupca:&nbsp;</td>
+                                                            <td>{{company}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ulica i broj:</td>
+                                                            <td>{{address}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Po&scaron;tanski broj:&nbsp;</td>
+                                                            <td>{{postal_code}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mjesto:&nbsp;</td>
+                                                            <td>{{place}}&nbsp;</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td style="width: 50%;">
+                                                <table border='0'>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style='color: #cc0000;' colspan='2'><strong>Adresa za isporuku - DELIVERY ADRESS </strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Naziv kupca:</td>
+                                                            <td>&nbsp;{{company_1}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ulica i broj:</td>
+                                                            <td>{{address_1}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Po&scaron;tanski broj:</td>
+                                                            <td>{{postal_code_1}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mjesto:</td>
+                                                            <td>{{place_1}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Telefon:</td>
+                                                            <td>{{phone}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>E-mail:ORDERED BY MAIL &nbsp;</td>
+                                                            <td>{{email}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Naru&#269;itelj: ORDERED BY NAME</td>
+                                                            <td>{{ordered_by}}&nbsp;</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <br />
+                                                <span style="font-weight: bold;">Razlog odbijanja:</span> {{reject_reason}}
+                                                <br />
+                                                <span style="font-weight: bold;">Rejected by user:</span> {{User Name}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                    
+                    
+                    
+                                    <p style="clear: both;">&nbsp;</p>
+                                    <table width="900" style=' border:1px solid #dedede;'>
+                                        <caption style='font-size: small; color: #fff;background-color: #cc0000;'><span><strong>NARU&#268;ENI ARTIKLI (cijene izražene u HRK)</strong></span></caption>
+                                        <tbody>
+                                            <tr>
+                                                <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Redni broj</td>
+                                                <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Šifra artikla</td>
+                                                <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Opis</td>
+                                                <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Kol.</td>
+                                                <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Pak.</td>
+                                                <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Cijena/JM</td>
+                                                <td style="border: 1px solid #dedede; color:#cc0000; font-weight: bold;">Iznos bez poreza</td>
+                                            </tr>
+                                              {{PRODUCT_LIST}}
+                                            <tr>
+                                                <td colspan='6' style="font-weight: bold;">Ukupno HRK bez PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                <td style='text-align: right;'>{{total_no_tax}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='6' style="font-weight: bold;">25% PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                <td style='text-align: right;'>{{total_tax}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='6' style="font-weight: bold;">Ukupno HRK sa PDV-om&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                <td style='text-align: right;'>{{total}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='7' style="font-weight: bold;">JM: Jedinica mjere; KOM = cijena je za 1 komad, C = cijena je za 100 komada</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='7' style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                  </tr>
+                 <!-- End Content -->                   
+{{template config_path="design/email/footer_template"}}
