@@ -20,37 +20,6 @@
     <!-- ko template: getTemplate() --><!-- /ko -->
 <!--/ko-->
 <div class="opc-wrapper chkoutpage">
-    <div class="control-add">
-       <div class="company-address">
-          <div class="addtit">Company address</div>
-          <div class="addCont"> 
-              <table>
-                <tr>
-                    <td class="colname">Name</td>
-                    <td class="coldet">Kristian Koeing</td>
-                </tr>
-                <tr>
-                    <td class="colname">Address</td>
-                      <td class="coldet">Ante Kovica 23</td>
-                </tr>
-                <tr>
-                    <td class="colname">City</td>
-                    <td class="coldet">10299/ Haristina bradoverd</td>
-                </tr>
-              </table>
-            
-          </div>
-       </div>
-    </div>
-    <div class="control-add">
-       <div class="company-address">
-          <div class="addtit">Delivery Details</div>
-          <div class="addBox"> 
-             <input type="checkbox" id="delivery" name="delivery" value="Delivery">  <span class="coldet">Delivery complite order</span>		
-          </div>
-       </div>
-    </div>
-
     <ol class="opc" id="checkoutSteps">
     <!-- ko foreach: getRegion('steps') -->
         <!-- ko template: getTemplate() --><!-- /ko -->
