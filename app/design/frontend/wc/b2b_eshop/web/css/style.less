@@ -1207,6 +1207,9 @@ label.sorter-label {
 			display: inline-block;
 		}
 	}
+	.message.success {
+		margin: 0px;
+	}
 }
 
 // pdp page
@@ -2311,6 +2314,29 @@ table.ReqListTable
 		.widget.block.block-addbysku {
 			margin-bottom: 15px;
 		}
+		
+	}
+
+	.order-template-popup{
+		.label-group {
+			display: flex;
+			align-items: center;
+		}
+		.control.requisition-list-name {
+			width: 74%;
+		}
+		button.action.primary.confirm.OrdSave {
+			float: right;
+			margin: -92px 178px 0px 0px;
+		}
+		label.label.requisition-label {
+			margin-right: 4%;
+		}
+		label.label.requisition-label::after {
+			content: '*';
+			color: #e02b27;
+			font-size: 1.2rem;
+		}
 	}
 // Quick order on Cart page end
 
@@ -2433,10 +2459,94 @@ table.ReqListTable
 	}
 	button.action.primary.confirm.OrdSave {
 		float: right;
-		margin: -70px 178px 0px 0px;
+		margin: -111px 200px 0px 0px;
+		background: #CC0000;
+		border-radius: 50px;
+		border: 1px solid #CC0000;
+		color: #fff;
+		height:35px;
 	} 
+	.control.order-template-checkobox {
+		margin-top: 10px;
+	}
+
+	/* The container */
+.specific_qty {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 16px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .specific_qty input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .truemark {
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: solid 1px rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .specific_qty:hover input ~ .truemark {
+	background-color: #fff;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .specific_qty input:checked ~ .truemark {
+	background-color: #bac405;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .truemark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .specific_qty input:checked ~ .truemark:after {
+	display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .specific_qty .truemark:after {
+	left: 7px;
+	top: 4px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  }
 	//Order Template Cart Page End By Amit
 	// My Quote Icon css 
+		#negotiable-quote-popup{
+			.fieldset > .field:not(.choice) > .label {
+				padding: 0px;
+				text-align: left;
+			}
+		}
+
 	.cart-act-icon {
 		display: flex;
 		float: right;
@@ -8933,6 +9043,22 @@ print {
 
 //-----------------------------------------------------------------
 @media only screen and (max-width: 992px) {
+
+	.checkout-cart-index {
+		.field._required.ordForm {
+			float: left;
+			display: block;
+		}
+		button.action.primary.confirm.OrdSave {
+			float: right;
+			margin: -70px 9px 0px 0px;
+		}
+		.order-template-popup .label-group {
+			display: block;
+		}	
+
+	}
+	
 	.link-hover {
 		display: none !important;
 	} // to hide account icon
@@ -9275,6 +9401,12 @@ print {
 			padding: 10px 10px 0px 15px;
 		}
 	}
+	#negotiable-quote-popup{
+		.fieldset > .field:not(.choice) > .label {
+			padding: 0px;
+			text-align: left;
+		}
+	}
 
 }
 
@@ -9477,15 +9609,19 @@ print {
 
 
 	//Order Template Cart Page Start By Amit
+	
 	.checkout-cart-index {
 		.field._required.ordForm {
 			float: left;
-			display: flex;
+			display: block;
 		}
 		button.action.primary.confirm.OrdSave {
 			float: right;
 			margin: -70px 9px 0px 0px;
 		}
+		.order-template-popup .label-group {
+			display: block;
+		}	
 
 	}
 	.page-main-full-width{
@@ -11261,7 +11397,7 @@ print {
 		}
 		button.action.primary.confirm.OrdSave {
 			float: left;
-			margin: -15px 0px 0px 0;
+			margin: -40px 0px 0px 0;
 			width: auto;
 		}
 		.modal-popup .modal-content, .modal-popup .modal-footer {
@@ -11274,7 +11410,7 @@ print {
 		}
 		.field._required.ordForm {
 			width: 100%;
-			display: flex;
+			display: block;
 		}
 		.modal-popup.modal-slide {
 			left: 20px;
@@ -11530,7 +11666,10 @@ background: rgba(0, 147, 221, 0.12);
 	grid-template-columns: minmax(9em, 55%) 1fr;
 	padding-bottom: 10px;
 }
-
+.attribute img {
+    width: 60px;
+    padding: 5px;
+}
 
 .columnBut {
 margin-top: 10px;
@@ -12952,11 +13091,11 @@ margin-top: 10px;
 .my-inquiry{
 	.item-container {
 		display: grid;
-		grid-template-columns: 6fr 6fr 2fr;
+		grid-template-columns: 29% 29% 29% 13%;
 		background: rgba(0, 147, 221, 0.12);
 		margin: 0px;
 		align-items: center;
-		padding: 10px 5px;
+		padding: 10px 10px;
 		font-family: 'wuerthbook';
 		border-bottom: 1px solid #DEDEED;
   }
@@ -12971,18 +13110,22 @@ margin-top: 10px;
   
   .item-sub-container {
 		display: grid;
-		grid-template-columns: 3fr 3fr 7fr 2fr 3fr 6fr;
+		grid-template-columns: 20% 20% 25% 20% 15%;
 		background: @general_bg_color;
 		margin: 0px;
 		border-bottom:solid 1px rgba(0, 0, 0, 12%);
 		align-items: center;
-		padding: 10px 5px;
+		padding: 10px 10px;
   }
   
 	  .attribute {        
 		  padding: 2px;
 		  text-overflow: ellipsis;
 	  }
+	  .attribute img {
+		width: 70px;
+		padding: 5px;
+	}
   
 	  .collection-container>.item-container:first-child {
 		  background-color: #ececec;
