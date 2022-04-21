@@ -1,0 +1,194 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Please confirm your %store_name account" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var this.getUrl($store,'customer/account/confirm/',[_query:[id:$customer.id,key:$customer.confirmation,back_url:$back_url],_nosid:1])":"Account Confirmation URL",
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+{{template config_path="design/email/header_template"}} 
+<p style='font-size:24px; margin: 0px;'><strong>Registracija novog korisnika: {company}. Datum: {date}</strong></p>
+   </div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+   <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
+</tr>
+ <!-- Content Start-->
+               
+                  <tr>
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                        <tr>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Osnovni podaci</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>OIB tvrtke:&nbsp;</td>
+                                            <td>{company_id}&nbsp;</td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Adresa sjedišta:</td>
+                                            <td>{address}&nbsp;</td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Broj pošte:&nbsp;</td>
+                                            <td>{postal_code}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>E-mail:&nbsp;</td>
+                                            <td>{email}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pozicija u poduzeću:&nbsp;</td>
+                                            <td>{positionin_company}&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;' colspan='2'></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Naziv tvrtke:&nbsp;</td>
+                                            <td>{company}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mjesto:&nbsp;</td>
+                                            <td>{place}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kontakt osoba:&nbsp;</td>
+                                            <td>{contact_person}&nbsp;</td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Telefon:</td>
+                                            <td>{phone}&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+    
+    
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                        <tr>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Divizija</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Divizija:</td>
+                                            <td>{division}&nbsp;</td>
+                                        </tr>
+    
+    
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Branša</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Branša:</td>
+                                            <td>{branch}&nbsp;</td>
+                                        </tr>
+    
+    
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+    
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                        <tr>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Adresa za isporuku</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ulica i broj:</td>
+                                            <td>{delivery_address}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mjesto:&nbsp;</td>
+                                            <td>{delivery_place}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mjesto:&nbsp;</td>
+                                            <td>{delivery_postal_code}&nbsp;</td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Adresa za fakturu</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ulica i broj:</td>
+                                            <td>{invoice_address}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mjesto:&nbsp;</td>
+                                            <td>{invoice_place}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mjesto:&nbsp;</td>
+                                            <td>{invoice_postal_code}&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>    
+    
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                        <tr>
+                            <td style="width: 100%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;'><strong>Želim dobijati Newsletter</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{newsletter}&nbsp;</td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                 </tr>
+<!-- content end-->              
+{{template config_path="design/email/footer_template"}}
