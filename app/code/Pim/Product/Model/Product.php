@@ -31,6 +31,13 @@ class Product extends \Magento\Framework\Model\AbstractModel{
         $this->_init(\Pim\Product\Model\ResourceModel\Product::class);
     }
 
+    public function getPimProductLoadedCollection($productCode){
+        return $productCode;exit;
+    }
+
+    public function getPimProductDetailsByCode($productCode){
+        return $productCode;
+    }
    
 }
 
