@@ -1,0 +1,144 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Your %store_name order confirmation" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order_data.email_customer_note|escape|nl2br":"Email Order Note",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$order area=\"frontend\"":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var shipping_msg":"Shipping message",
+"var created_at_formatted":"Order Created At (datetime)",
+"var store.frontend_name":"Store Frontend Name",
+"var store_phone":"Store Phone",
+"var store_email":"Store Email",
+"var store_hours":"Store Hours",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL",
+"var order_data.is_not_virtual":"Order Type",
+"var order":"Order",
+"var order_id": "Order DB Id",
+"var order_data.customer_name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}} 
+<p style='font-size:24px; margin: 0px;'><strong> {{trans 'Narudžba br: <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}.   {{trans 'Datum: <span class="no-link">%created_at</span>' created_at=$created_at_formatted |raw}}</strong></p>
+   </div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+   <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
+</tr>
+ <!-- Content Start-->
+               
+                  <tr>
+
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                        <tr>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                     <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000; text-align: left;' colspan='2'><strong>Adresa za fakturu - BILL TO ADDRESS</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kupac:&nbsp;</td>
+                                            <td>{{customer_no}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Naziv kupca:&nbsp;</td>
+                                            <td>{{company}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ulica i broj:</td>
+                                            <td>{{address}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Po&scaron;tanski broj:&nbsp;</td>
+                                            <td>{{postal_code}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mjesto:&nbsp;</td>
+                                            <td>{{place}}&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 50%;">
+                                <table border='0'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='color: #cc0000;' colspan='2'><strong>Adresa za isporuku - DELIVERY ADRESS </strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Naziv kupca:</td>
+                                            <td>&nbsp;{{company_1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ulica i broj:</td>
+                                            <td>{{address_1}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Po&scaron;tanski broj:</td>
+                                            <td>{{postal_code_1}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mjesto:</td>
+                                            <td>{{place_1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Telefon:</td>
+                                            <td>{{phone}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>E-mail:ORDERED BY MAIL &nbsp;</td>
+                                            <td>{{email}}&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Naru&#269;itelj: ORDERED BY NAME</td>
+                                            <td>{{ordered_by}}&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                                <span style="font-weight: bold;">Napomena:</span> {{order_comment}}
+                            </td>
+                        </tr>
+                    </table>
+    
+                    <table width="900">
+                        <tr>
+                            <td style="width: 100%;">
+                                Poštovani,
+                                <br /><br />
+                                zahvaljujemo se na Vašem upitu.
+                                <br /><br />
+                                Ponuda će biti poslana u što kraćem mogućem roku.
+                                <br /><br />
+                                Ukoliko imate dodatnih pitanja molimo kontaktirajte nas na mail:  <a href="mailto:webshop@wuerth.com.hr">webshop@wuerth.com.hr</a>. 
+                                <br /><br />
+                                Vaš tim,
+                                <br /><br />
+                                Würth-Hrvatska
+                            </td>
+                            
+                        </tr>
+                    </table>              
+
+                 </tr>
+<!-- content end-->              
+{{template config_path="design/email/footer_template"}}
+
+
