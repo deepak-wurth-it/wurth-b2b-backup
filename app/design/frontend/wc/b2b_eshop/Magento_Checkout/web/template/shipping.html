@@ -5,13 +5,12 @@
  */
 -->
 <li id="shipping" class="checkout-shipping-address" data-bind="fadeVisible: visible()">
-    <div class="step-title" translate="'Alternate delivery address'" data-role="title" />
-    <div class="del-message" translate="'Below you can choose one of the offered delivery address  or enter a new one'" data-role="text" />
     <div id="checkout-step-shipping"
          class="step-content"
          data-role="content">
 
         <each if="!quoteIsVirtual" args="getRegion('customer-email')" render="" />
+        <each args="getRegion('company-detail')" render="" />
         <each args="getRegion('address-list')" render="" />
         <each args="getRegion('address-list-additional-addresses')" render="" />
 
@@ -31,7 +30,6 @@
         </if>
 
         <each args="getRegion('before-form')" render="" />
-
         <!-- Inline address form -->
         <render if="isFormInline" args="shippingFormTemplate" />
     </div>
