@@ -141,7 +141,7 @@ class ProductProcessor
                         $this->product->setData('abc_group_code',$item->getData('AbcGroupCode'));
                         $this->product->setData('inventory_item_category_code',$item->getData('InventoryItemCategoryCode'));
                         $this->product->setData('minimum_sales_unit_quantity',$item->getData('MinimumSalesUnitQuantity'));
-                        $this->product->setData('successor_product_code','');
+                        $this->product->setData('successor_product_code',$item->getData('SuccessorProductCode'));
                         $this->product->setData('palette_quantity',$item->getData('PaletteQuantity'));
                         $this->product->setData('package_box',$item->getData('PackageBox'));
                         $this->product->setData('short_name',$item->getData('ShortName'));
