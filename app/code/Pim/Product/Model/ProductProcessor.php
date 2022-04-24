@@ -73,7 +73,10 @@ class ProductProcessor
      */
     public function install()
     {
+		$log = '';
         $this->product = '';
+        $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
+
         $objPimProduct = $this->pimProductFactory->create();
         $collection = $objPimProduct->getCollection()
             ->addFieldToFilter('Status', ['eq' => '1']);
@@ -95,9 +98,9 @@ class ProductProcessor
 
                     if ($isProductExist && is_object($isProductExist)) {
                         $this->product = $isProductExist;
-                        echo 'Product Updated =>>'.$isProductExist->getId().PHP_EOL;
+                        $log =  'Product Updated =>>'.$isProductExist->getId().PHP_EOL;
                     }else{
-                        echo 'Product Created =>>'.PHP_EOL;
+                        $log =  'Product Created =>>'.PHP_EOL;
                     }
                     echo 'Start Product Id '.$pimProductId.PHP_EOL;
                     if ($pimProductId && $name) {
@@ -160,7 +163,7 @@ class ProductProcessor
 							
 							 $this->productRepository->save($this->product);
                             //$this->product->save();
-                            echo 'End Product Id '.$pimProductId.PHP_EOL;
+                            $log .= 'End Product Id '.$pimProductId.PHP_EOL;
 
 
                         } catch (\Exception $e) {
@@ -170,7 +173,7 @@ class ProductProcessor
                         }
                         if ($this->product->getId()) {
                             $this->updatePimProductRow($item);
-                            echo 'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
+                            $log .=  'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
                         }
 
                     }
@@ -180,9 +183,13 @@ class ProductProcessor
                 $x++;
                 if ($x == 500) {
                     $x=0;
-                    $this->reindexAll();
+                
+                $this->reindexByKey($indexLists);
+
                     //break;
                 }
+               $this->getProductImportLogger($log);
+
             }
 
         }
@@ -480,6 +487,24 @@ class ProductProcessor
     private function reindexAll(){
         echo 'Full Reindex started .....'.PHP_EOL;
         foreach (array_keys($this->config->getIndexers()) as $indexerId) {
+            $indexer = $this->indexerFactory->create()->load($indexerId);
+            $indexer->reindexAll();
+        }
+        echo 'Full Reindex Done.'.PHP_EOL;;
+    }
+    
+   public function getProductImportLogger($log)
+    {
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/product_import.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info($log);
+    }
+    
+
+    private function reindexByKey($indexLists){
+        echo 'Full Reindex started .....'.PHP_EOL;
+        foreach ($indexLists as $indexerId) {
             $indexer = $this->indexerFactory->create()->load($indexerId);
             $indexer->reindexAll();
         }
