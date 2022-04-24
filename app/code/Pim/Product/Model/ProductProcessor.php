@@ -60,7 +60,7 @@ class ProductProcessor
         $this->pimProductFactory = $pimProductFactory;
         $this->productFactory = $productFactory;
         $this->productRepository = $productRepository;
-        $this->stockRegistry = $stockRegistry;
+        $this->stockRectsCategoriesFagistry = $stockRegistry;
         $this->pimProductsCategoriesFactory = $pimProductsCategoriesFactory;
         $this->logger = $logger;
         $this->indexerFactory = $indexerFactory;
@@ -76,14 +76,13 @@ class ProductProcessor
         $this->product = '';
         $objPimProduct = $this->pimProductFactory->create();
         $collection = $objPimProduct->getCollection()
-            ->addFieldToFilter('Status', ['eq' => '1'])
-            ->addFieldToFilter('magento_sync_status', [['eq' => '0'],['null' => true]]);
+            ->addFieldToFilter('Status', ['eq' => '1']);
+            //->addFieldToFilter('magento_sync_status', [['eq' => '0'],['null' => true]]);
 
         $x = 0;
         if ($collection->getSize() && $collection->count()) {
 
             foreach ($collection as $item) {
-
                 $this->product = $this->productFactory->create();
 
                 try {
@@ -92,6 +91,7 @@ class ProductProcessor
                     $pimProductId = $this->getPimProductId($item);
                     $magentoCategoryId = $this->setMagentoCategoryIds($item);
                     $isProductExist = $this->product->load($this->product->getIdBySku($pimProductId));
+               
 
                     if ($isProductExist && is_object($isProductExist)) {
                         $this->product = $isProductExist;
@@ -101,6 +101,7 @@ class ProductProcessor
                     }
                     echo 'Start Product Id '.$pimProductId.PHP_EOL;
                     if ($pimProductId && $name) {
+
                         $this->product->setName($name);
                         $this->setProductSku($item);
                         $this->setPimProductWeight($item);
@@ -126,9 +127,39 @@ class ProductProcessor
                         $this->setPimStockData($item);
                         $this->setQuantityAndStockStatus($item);
                         $this->setProductCode($item);
+                        $this->product->setDescription($item->getData('LongDescription'));
+                        $this->product->setMetaDescription($item->getData('MetaDescription'));
+                        $this->product->setMetaKeyword($item->getData('MetaKeywords'));
+                        $this->product->setMetaTitle($item->getData('MetaKeywords'));
+
+                        //Setting Custom Attributes
+                        //echo $item->getData('BaseUnitOfMeasureId');exit;
+                        $this->product->setBaseUnitOfMeasureId('ererer');
+                        $this->product->setData('base_unit_of_measure_id',$item->getData('BaseUnitOfMeasureId'));
+                        $this->product->setData('vendor_id',$item->getData('VendorId'));
+                        $this->product->setData('sales_unit_of_measure_id',$item->getData('SalesUnitOfMeasureId'));
+                        $this->product->setData('abc_group_code',$item->getData('AbcGroupCode'));
+                        $this->product->setData('inventory_item_category_code',$item->getData('InventoryItemCategoryCode'));
+                        $this->product->setData('minimum_sales_unit_quantity',$item->getData('MinimumSalesUnitQuantity'));
+                        $this->product->setData('successor_product_code','');
+                        $this->product->setData('palette_quantity',$item->getData('PaletteQuantity'));
+                        $this->product->setData('package_box',$item->getData('PackageBox'));
+                        $this->product->setData('short_name',$item->getData('ShortName'));
+                        $this->product->setData('vendor_item_no',$item->getData('VendorItemNo'));
+                        $this->product->setData('synonyms',$item->getData('Synonyms'));
+                        $this->product->setData('usage',$item->getData('Synonyms'));
+                        $this->product->setData('instructions',$item->getData('Instructions'));
+                        $this->product->setData('seo_page_name',$item->getData('SeoPageName'));
+                        $this->product->setData('alternative_name',$item->getData('AlternativeName'));
+                        
+
+
+
                         //print_r(($this->product->getDescription()));exit;
                         try {
-                            $this->product->save();
+							
+							 $this->productRepository->save($this->product);
+                            //$this->product->save();
                             echo 'End Product Id '.$pimProductId.PHP_EOL;
 
 
@@ -205,7 +236,7 @@ class ProductProcessor
 
     public function setPimProductShortDescription($item)
     {
-
+			
         $shortDesc = $item->getData('ShortDescription') ? $item->getData('ShortDescription') : '';
 
         if ($shortDesc &&  $this->product) {
@@ -413,6 +444,7 @@ class ProductProcessor
 
     public function updatePimProductRow($item){
         if($this->product && $item){
+			$item->setData('ExternalId',$this->product->getId());
             $item->setData('magento_sync_status','1');
             $item->setData('magento_product_id',$this->product->getId());
             $item->save();
