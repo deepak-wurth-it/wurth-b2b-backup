@@ -1,0 +1,37 @@
+<div class="company-detail">
+    <div class="control-add">
+        <div class="company-address">
+            <div class="addtit" data-bind="i18n: 'Company address'"></div>
+            <div class="addCont">
+                <table>
+                    <tr>
+                        <td class="colname" data-bind="i18n: 'Name'"></td>
+                        <td class="coldet" data-bind="text: company_name"></td>
+                    </tr>
+                    <tr>
+                        <td class="colname" data-bind="i18n: 'Address'"></td>
+                        <td class="coldet" data-bind="text: company_address"></td>
+                    </tr>
+                    <tr>
+                        <td class="colname" data-bind="i18n: 'City'"></td>
+                        <td class="coldet" data-bind="text: company_city"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="control-add">
+        <div class="company-address">
+            <div class="addtit" data-bind="i18n: 'Delivery Details'"></div>
+            <div class="addBox">
+                <input type="checkbox" id="delivery" name="delivery" value="Delivery">
+                <span class="coldet" data-bind="i18n: 'Delivery complite order'"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="address-info">
+    <div class="step-title" translate="'Alternate delivery address'" data-role="title"/>
+    <div class="del-message" translate="'Below you can choose one of the offered delivery address  or enter a new one'"
+         data-role="text"/>
+</div>
