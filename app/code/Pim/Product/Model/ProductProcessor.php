@@ -161,8 +161,8 @@ class ProductProcessor
                         //print_r(($this->product->getDescription()));exit;
                         try {
 							
-							 $this->productRepository->save($this->product);
-                            //$this->product->save();
+			    //$this->productRepository->save($this->product);
+                            $this->product->save();
                             $log .= 'End Product Id '.$pimProductId.PHP_EOL;
 
 
