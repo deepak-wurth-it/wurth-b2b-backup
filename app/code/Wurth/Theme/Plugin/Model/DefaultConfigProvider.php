@@ -48,6 +48,7 @@ class DefaultConfigProvider
                     $newAddress = array_merge($newAddress, $this->getCustomerAddress($_customer));
                 }
             }
+            $newAddress = $this->sortAddressByAddressCode($newAddress);
             $newAddress = $this->changeDefaultShippingAddress($newAddress, $billingAddressId);
             $result['customerData']['addresses'] = $newAddress;
         }
@@ -71,20 +72,46 @@ class DefaultConfigProvider
         $customerOriginAddresses = $customer->getAddresses();
         $customerAddresses = [];
         foreach ($customerOriginAddresses as $address) {
-            $customerAddresses[$address->getId()] = $this->customerAddressDataFormatter->prepareAddress($address);
+            $addressData = $this->customerAddressDataFormatter->prepareAddress($address);
+            //Set address_code as a key and value
+            if (isset($addressData['custom_attributes']['address_code'])) {
+                $addressData['address_code'] = $addressData['custom_attributes']['address_code']['value'];
+            } else {
+                $addressData['address_code'] = '00';
+            }
+            $customerAddresses[$address->getId()] = $addressData;
         }
         return $customerAddresses;
+    }
+    public function sortAddressByAddressCode($newAddress)
+    {
+        $addressesCode = [];
+        foreach ($newAddress as $key => $val) {
+            if (!isset($val['address_code'])) {
+                continue;
+            }
+            $addressesCode[$key] = $val['address_code'];
+        }
+        array_multisort($addressesCode, SORT_ASC, $newAddress);
+        return $newAddress;
     }
     public function changeDefaultShippingAddress($newAddress, $billingAddressId)
     {
         $updateAddress = [];
-        foreach ($newAddress as $_address) {
+        $currentPosition = "";
+        foreach ($newAddress as $key => $_address) {
             if ($billingAddressId === $_address['id']) {
                 $_address["default_shipping"] = 1;
+                $currentPosition = $key;
             } else {
                 $_address["default_shipping"] = '';
             }
             $updateAddress[] = $_address;
+        }
+        // Set default shipping address position at first position
+        if ($currentPosition != '') {
+            $out = array_splice($updateAddress, $currentPosition, 1);
+            array_splice($updateAddress, 0, 0, $out);
         }
         return $updateAddress;
     }
