@@ -10,3 +10,12 @@
 <div class="col-md">
  <span class="package-box-pdp"><label>Package :</label><?php echo floatval($this->getPackageBox($sku));?></span>
 </div>
+<!-- Please use blubox, bluevan, redbox, redvan class to change box color-->
+<?php
+  // login check helper
+   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
+ ?>
+<?php if($logedIn) { ?>
+<div class="itemboxwrapp"><span class="bluebox"></span><span class="bluevan"></span><span class="deliveryday">10-14</span> <span class="itembox"> </span> <span class="deliveryday"></span><span> 1</span> </div>
+<?php } ?>
+<span class="hrline"></span>
