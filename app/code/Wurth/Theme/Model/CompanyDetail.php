@@ -85,7 +85,7 @@ class CompanyDetail implements ConfigProviderInterface
                     $customerCode = $customer->getCustomAttribute("customer_code")->getValue();
                 }
 
-                $companyName .= "(" . $customerCode . ")";
+                $companyName .= " (" . $customerCode . ")";
                 $addressData = [];
                 $addressData['name'] = $companyName;
                 $addressData['city'] = $billingAddress->getCity();

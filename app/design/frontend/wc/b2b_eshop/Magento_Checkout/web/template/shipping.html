@@ -17,16 +17,31 @@
         <!-- Address form pop up -->
         <if args="!isFormInline">
             <span class="new-address-popup">
-                <button type="button"
+                <!--<button type="button"
                         class="action action-show-popup"
                         click="showFormPopUp"
                         visible="!isNewAddressAdded()">
-                    <span translate="'New Address'" />
+                    <span translate="'Add new address'" />
+                </button>-->
+                <button type="button"
+                        class="action action-show-popup"
+                        click="showNewAddressForm"
+                        visible="!isNewAddressAdded() && !showAddressForm()">
+                    <span translate="'Add new address'" />
                 </button>
             </span>
             <div id="opc-new-shipping-address"
-                 visible="isFormPopUpVisible()"
+                 visible="showAddressForm"
                  render="shippingFormTemplate" />
+            <button type="button"
+                    class="action"
+                    click="saveNewAddress"
+                    visible="showAddressForm">
+                <span translate="'Save Address'" />
+            </button>
+            <!--<div id="opc-new-shipping-address"
+                 visible="isFormPopUpVisible()"
+                 render="shippingFormTemplate" />-->
         </if>
 
         <each args="getRegion('before-form')" render="" />
@@ -38,36 +53,36 @@
 <!--Other Data-->
 <div class="controlother">
     <div class="company-address">
-       <div class="othtit">Other data:</div>
-       <div class="addCont">
-           <table>
-             <tr>
-                 <td class="colname">Email (Order Confirmation):</td>
-                 <td class="coldet"><input type="email" class="form-control" id="inputEmail3" placeholder="Kristin.koening@wuerth.com.hr"></td>
-             </tr>
-             <tr>
-                 <td class="colname">Internal order number:</td>
-                   <td class="coldet"><input type="text" class="form-control" id="inputPassword3" placeholder=" "></td>
-             </tr>
-             <tr>
-                 <td class="colname">Remarks:</td>
-                 <td class="coldet"><textarea class="form-control" id="textAreaExample1" rows="2"></textarea>
-                    <div class="maxdis">Maximum character limit:100</div></td>
-             </tr>
-             <tr>
-                <td class="colname" colspan="2"><input class="forcheck" type="checkbox">
-                    <span class="formtemrs">
+        <div class="othtit">Other data:</div>
+        <div class="addCont">
+            <table>
+                <tr>
+                    <td class="colname">Email (Order Confirmation):</td>
+                    <td class="coldet"><input type="email" class="form-control" id="inputEmail3" placeholder="Kristin.koening@wuerth.com.hr"></td>
+                </tr>
+                <tr>
+                    <td class="colname">Internal order number:</td>
+                    <td class="coldet"><input type="text" class="form-control" id="inputPassword3" placeholder=" "></td>
+                </tr>
+                <tr>
+                    <td class="colname">Remarks:</td>
+                    <td class="coldet"><textarea class="form-control" id="textAreaExample1" rows="2"></textarea>
+                        <div class="maxdis">Maximum character limit:100</div></td>
+                </tr>
+                <tr>
+                    <td class="colname" colspan="2"><input class="forcheck" type="checkbox">
+                        <span class="formtemrs">
                       I accept the terms of sale through the online store (General terms)
                     </span>
-                    <button type="submit" class="sendOrder">Send the order</button>
-                </td>
-            </tr>
-           </table>
+                        <button type="submit" class="sendOrder">Send the order</button>
+                    </td>
+                </tr>
+            </table>
 
-       </div>
+        </div>
     </div>
- </div>
-  <!-- Other Data End-->
+</div>
+<!-- Other Data End-->
 
 <!--Shipping method template-->
 <li id="opc-shipping_method"
