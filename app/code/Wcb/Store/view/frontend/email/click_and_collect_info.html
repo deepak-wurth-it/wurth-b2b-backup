@@ -1,0 +1,49 @@
+﻿<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Reset your %store_name password" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var customer.name":"Customer Name",
+"var this.getUrl($store,'customer/account/createPassword/',[_query:[token:$customer.rp_token],_nosid:1])":"Reset Password URL"
+} @-->
+
+{{template config_path="design/email/header_template"}} 
+<p style='font-size:24px; margin: 0px;'><strong>Registracija novi kupac</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+   <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
+</tr>
+ <!-- Content Start-->
+                  <tr>
+                     <table style="width: 95%; margin: auto; margin-top: 20px;">
+                        <tr>
+                            <td style="width: 100%;">
+                                Poštovani,
+                                <br /><br />
+                                Kupac {{cust_no}} napravio je Click and Collect narudžbu za Shop {{shop_name}}.
+                                <br /><br />
+                                Prijavite se na portal (link for login) i provjerite/odobrite narudžbu.
+                                <br /><br />
+                                Link upute: {{instructions_how_to_aprove}}
+                                Podaci za prijavu: {{shop_login_data}]
+                                <br /><br />
+                                <br /><br />
+                                Vaš tim,
+                                <br /><br />
+                                Würth-Hrvatska
+                            </td>
+                            
+                        </tr>
+                    </table>
+                  </tr>
+                 <!-- End Content -->                   
+{{template config_path="design/email/footer_template"}}

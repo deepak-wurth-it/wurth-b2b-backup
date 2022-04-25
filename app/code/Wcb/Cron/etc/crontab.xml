@@ -6,9 +6,15 @@
         </job>
     </group>
 
-    <group id="pim">
+    <!--<group id="pim">
         <job instance="Wcb\Cron\Cron\TestCron" method="execute" name="test_cron">
                  <schedule>* * * * *</schedule>
          </job>
+    </group>-->
+    
+    <group id="pim">
+        <job name="pim_import_update_product" instance="Wcb\Cron\Cron\ImportPimProducts" method="execute">
+            <schedule>*/30 * * * *</schedule>
+        </job>
     </group>
 </config>
