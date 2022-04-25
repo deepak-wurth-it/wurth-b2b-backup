@@ -310,6 +310,32 @@ class UpgradeData implements UpgradeDataInterface
 					'group' => 'Product Details'
 
 				]
+				'product_bar_code' => [
+
+					'type' => 'text',
+					'label' => 'Product Bar Code',
+					'backend' => '',
+					'frontend' => '',
+					'label' => 'Product Bar Code',
+					'input' => 'text',
+					'class' => '',
+					'source' => '',
+					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+					'visible' => true,
+					'required' => false,
+					'user_defined' => false,
+					'default' => '',
+					'searchable' => false,
+					'filterable' => false,
+					'comparable' => false,
+					'visible_on_front' => false,
+					'used_in_product_listing' => true,
+					'unique' => false,
+					'apply_to' => '',
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
+
+				]
 			];
 
 			foreach ($attributesInfoP1 as $attributeCode => $attributeParams) {

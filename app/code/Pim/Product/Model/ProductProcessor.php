@@ -50,7 +50,10 @@ class ProductProcessor
         \Pim\Category\Model\PimProductsCategoriesFactory     $pimProductsCategoriesFactory,
         LoggerInterface $logger,
         \Magento\Indexer\Model\IndexerFactory $indexerFactory,
-        \Magento\Framework\Indexer\ConfigInterface $config
+        \Magento\Framework\Indexer\ConfigInterface $config,
+        \Pim\Product\Model\ProductPdf $productPdf,
+        \Pim\Product\Model\ProductBarCode $productBarCode
+
 
 
     )
@@ -64,6 +67,10 @@ class ProductProcessor
         $this->pimProductsCategoriesFactory = $pimProductsCategoriesFactory;
         $this->logger = $logger;
         $this->indexerFactory = $indexerFactory;
+        $this->productPdf = $productPdf;
+        $this->productBarCode = $productBarCode;
+
+
         $this->config = $config;
     }
 
@@ -78,6 +85,8 @@ class ProductProcessor
         $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
         $objPimProduct = $this->pimProductFactory->create();
+        $connection = $objPimProduct->getResource()->getConnection();
+
         $collection = $objPimProduct->getCollection()
             ->addFieldToFilter('Status', ['eq' => '1']);
             //->addFieldToFilter('magento_sync_status', [['eq' => '0'],['null' => true]]);
@@ -94,7 +103,6 @@ class ProductProcessor
                     $pimProductId = $this->getPimProductId($item);
                     $magentoCategoryId = $this->setMagentoCategoryIds($item);
                     $isProductExist = $this->product->load($this->product->getIdBySku($pimProductId));
-               
 
                     if ($isProductExist && is_object($isProductExist)) {
                         $this->product = $isProductExist;
@@ -102,7 +110,7 @@ class ProductProcessor
                     }else{
                         $log =  'Product Created =>>'.PHP_EOL;
                     }
-                    echo 'Start Product Id '.$pimProductId.PHP_EOL;
+                    $log .='Start Product Id '.$pimProductId.PHP_EOL;
                     if ($pimProductId && $name) {
 
                         $this->product->setName($name);
@@ -158,6 +166,13 @@ class ProductProcessor
 
 
 
+						/******************* Adding PDF to Product ***********************************/
+						
+						
+						
+						/****************** Adding Barc code to Product ******************************/ 
+
+
                         //print_r(($this->product->getDescription()));exit;
                         try {
 							
@@ -188,6 +203,7 @@ class ProductProcessor
 
                     //break;
                 }
+               echo  $log;
                $this->getProductImportLogger($log);
 
             }
