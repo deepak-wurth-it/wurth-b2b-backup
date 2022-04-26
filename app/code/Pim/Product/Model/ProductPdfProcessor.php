@@ -85,12 +85,12 @@ class ProductPdfProcessor
         $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
         $objPimPdfProduct = $this->productPdfFactory->create();
-        $connectionPimPdf = $objPimProduct->getResource()->getConnection();
+        $connectionPimPdf = $objPimPdfProduct->getResource()->getConnection();
 
         $collectionPimPdf = $objPimPdfProduct->getCollection();
 
         $x = 0;
-        if ($collection->getSize() && $collection->count()) {
+        if ($collectionPimPdf->getSize() && $collectionPimPdf->count()) {
 
             foreach ($collectionPimPdf as $item) {
 			try {
