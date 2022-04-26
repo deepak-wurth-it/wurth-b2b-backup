@@ -94,11 +94,19 @@ class ProductPdfProcessor
 
             foreach ($collectionPimPdf as $item) {
 			try {
+				
 				$sku = $item->getData('ProductId');
 				$pdfUrl = $item->getData('Path');
+				$productObj =$this->productFactory->create();
+				if(!$productObj->getIdBySku($sku)) {
+					continue;   
+				}
+				
+				
                 $this->product =$this->productRepository->get($sku);
+                
 				if ($sku && $this->product->getId()) {
-
+							
                         $this->product->setData('product_pdf_path',$pdfUrl);
 					try {
 							
