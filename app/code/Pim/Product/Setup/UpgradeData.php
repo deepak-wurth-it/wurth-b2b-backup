@@ -309,7 +309,7 @@ class UpgradeData implements UpgradeDataInterface
 					'attribute_set' => 'Default',
 					'group' => 'Product Details'
 
-				]
+				],
 				'product_bar_code' => [
 
 					'type' => 'text',
