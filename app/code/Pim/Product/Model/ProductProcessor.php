@@ -50,7 +50,10 @@ class ProductProcessor
         \Pim\Category\Model\PimProductsCategoriesFactory     $pimProductsCategoriesFactory,
         LoggerInterface $logger,
         \Magento\Indexer\Model\IndexerFactory $indexerFactory,
-        \Magento\Framework\Indexer\ConfigInterface $config
+        \Magento\Framework\Indexer\ConfigInterface $config,
+        \Pim\Product\Model\ProductPdf $productPdf,
+        \Pim\Product\Model\ProductBarCode $productBarCode
+
 
 
     )
@@ -60,10 +63,14 @@ class ProductProcessor
         $this->pimProductFactory = $pimProductFactory;
         $this->productFactory = $productFactory;
         $this->productRepository = $productRepository;
-        $this->stockRegistry = $stockRegistry;
+        $this->stockRectsCategoriesFagistry = $stockRegistry;
         $this->pimProductsCategoriesFactory = $pimProductsCategoriesFactory;
         $this->logger = $logger;
         $this->indexerFactory = $indexerFactory;
+        $this->productPdf = $productPdf;
+        $this->productBarCode = $productBarCode;
+
+
         $this->config = $config;
     }
 
@@ -73,17 +80,21 @@ class ProductProcessor
      */
     public function install()
     {
+		$log = '';
         $this->product = '';
+        $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
+
         $objPimProduct = $this->pimProductFactory->create();
+        $connection = $objPimProduct->getResource()->getConnection();
+
         $collection = $objPimProduct->getCollection()
-            ->addFieldToFilter('Status', ['eq' => '1'])
-            ->addFieldToFilter('magento_sync_status', [['eq' => '0'],['null' => true]]);
+            ->addFieldToFilter('Status', ['eq' => '1']);
+            //->addFieldToFilter('magento_sync_status', [['eq' => '0'],['null' => true]]);
 
         $x = 0;
         if ($collection->getSize() && $collection->count()) {
 
             foreach ($collection as $item) {
-
                 $this->product = $this->productFactory->create();
 
                 try {
@@ -95,12 +106,13 @@ class ProductProcessor
 
                     if ($isProductExist && is_object($isProductExist)) {
                         $this->product = $isProductExist;
-                        echo 'Product Updated =>>'.$isProductExist->getId().PHP_EOL;
+                        $log =  'Product Updated =>>'.$isProductExist->getId().PHP_EOL;
                     }else{
-                        echo 'Product Created =>>'.PHP_EOL;
+                        $log =  'Product Created =>>'.PHP_EOL;
                     }
-                    echo 'Start Product Id '.$pimProductId.PHP_EOL;
+                    $log .='Start Product Id '.$pimProductId.PHP_EOL;
                     if ($pimProductId && $name) {
+
                         $this->product->setName($name);
                         $this->setProductSku($item);
                         $this->setPimProductWeight($item);
@@ -126,10 +138,47 @@ class ProductProcessor
                         $this->setPimStockData($item);
                         $this->setQuantityAndStockStatus($item);
                         $this->setProductCode($item);
+                        $this->product->setDescription($item->getData('LongDescription'));
+                        $this->product->setMetaDescription($item->getData('MetaDescription'));
+                        $this->product->setMetaKeyword($item->getData('MetaKeywords'));
+                        $this->product->setMetaTitle($item->getData('MetaKeywords'));
+
+                        //Setting Custom Attributes
+                        //echo $item->getData('BaseUnitOfMeasureId');exit;
+                        $this->product->setBaseUnitOfMeasureId('ererer');
+                        $this->product->setData('base_unit_of_measure_id',$item->getData('BaseUnitOfMeasureId'));
+                        $this->product->setData('vendor_id',$item->getData('VendorId'));
+                        $this->product->setData('sales_unit_of_measure_id',$item->getData('SalesUnitOfMeasureId'));
+                        $this->product->setData('abc_group_code',$item->getData('AbcGroupCode'));
+                        $this->product->setData('inventory_item_category_code',$item->getData('InventoryItemCategoryCode'));
+                        $this->product->setData('minimum_sales_unit_quantity',$item->getData('MinimumSalesUnitQuantity'));
+                        $this->product->setData('successor_product_code',$item->getData('SuccessorProductCode'));
+                        $this->product->setData('palette_quantity',$item->getData('PaletteQuantity'));
+                        $this->product->setData('package_box',$item->getData('PackageBox'));
+                        $this->product->setData('short_name',$item->getData('ShortName'));
+                        $this->product->setData('vendor_item_no',$item->getData('VendorItemNo'));
+                        $this->product->setData('synonyms',$item->getData('Synonyms'));
+                        $this->product->setData('usage',$item->getData('Synonyms'));
+                        $this->product->setData('instructions',$item->getData('Instructions'));
+                        $this->product->setData('seo_page_name',$item->getData('SeoPageName'));
+                        $this->product->setData('alternative_name',$item->getData('AlternativeName'));
+                        
+
+
+
+						/******************* Adding PDF to Product ***********************************/
+						
+						
+						
+						/****************** Adding Barc code to Product ******************************/ 
+
+
                         //print_r(($this->product->getDescription()));exit;
                         try {
+							
+			    //$this->productRepository->save($this->product);
                             $this->product->save();
-                            echo 'End Product Id '.$pimProductId.PHP_EOL;
+                            $log .= 'End Product Id '.$pimProductId.PHP_EOL;
 
 
                         } catch (\Exception $e) {
@@ -139,7 +188,7 @@ class ProductProcessor
                         }
                         if ($this->product->getId()) {
                             $this->updatePimProductRow($item);
-                            echo 'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
+                            $log .=  'Created Product For Pim Code  ' . $pimProductId . PHP_EOL;
                         }
 
                     }
@@ -149,9 +198,14 @@ class ProductProcessor
                 $x++;
                 if ($x == 500) {
                     $x=0;
-                    $this->reindexAll();
+                
+                $this->reindexByKey($indexLists);
+
                     //break;
                 }
+               echo  $log;
+               $this->getProductImportLogger($log);
+
             }
 
         }
@@ -205,7 +259,7 @@ class ProductProcessor
 
     public function setPimProductShortDescription($item)
     {
-
+			
         $shortDesc = $item->getData('ShortDescription') ? $item->getData('ShortDescription') : '';
 
         if ($shortDesc &&  $this->product) {
@@ -413,6 +467,7 @@ class ProductProcessor
 
     public function updatePimProductRow($item){
         if($this->product && $item){
+			$item->setData('ExternalId',$this->product->getId());
             $item->setData('magento_sync_status','1');
             $item->setData('magento_product_id',$this->product->getId());
             $item->save();
@@ -448,6 +503,24 @@ class ProductProcessor
     private function reindexAll(){
         echo 'Full Reindex started .....'.PHP_EOL;
         foreach (array_keys($this->config->getIndexers()) as $indexerId) {
+            $indexer = $this->indexerFactory->create()->load($indexerId);
+            $indexer->reindexAll();
+        }
+        echo 'Full Reindex Done.'.PHP_EOL;;
+    }
+    
+   public function getProductImportLogger($log)
+    {
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/product_import.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info($log);
+    }
+    
+
+    private function reindexByKey($indexLists){
+        echo 'Full Reindex started .....'.PHP_EOL;
+        foreach ($indexLists as $indexerId) {
             $indexer = $this->indexerFactory->create()->load($indexerId);
             $indexer->reindexAll();
         }

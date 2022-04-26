@@ -20,8 +20,8 @@ define(
                 let companyDetail = window.checkoutConfig.company_detail;
                 if (companyDetail) {
                     this.company_name = companyDetail.name;
-                    this.company_address = companyDetail.street.join(",");
-                    this.company_city = companyDetail.postcode + "/" + companyDetail.city;
+                    this.company_address = companyDetail.street.join(", ");
+                    this.company_city = companyDetail.postcode + "/ " + companyDetail.city;
                 }
                 return this;
             }

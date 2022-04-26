@@ -66,6 +66,7 @@ define([
         },
         visible: ko.observable(!quote.isVirtual()),
         errorValidationMessage: ko.observable(false),
+        showAddressForm: ko.observable(false),
         isCustomerLoggedIn: customer.isLoggedIn,
         isFormPopUpVisible: formPopUpState.isVisible,
         isFormInline: addressList().length === 0,
@@ -73,8 +74,8 @@ define([
         saveInAddressBook: 1,
         quoteIsVirtual: quote.isVirtual(),
 
-        /** 
-         * SkipSipping Method 
+        /**
+         * SkipSipping Method
          *
         **/
         shippingCount:0,
@@ -93,19 +94,19 @@ define([
                 fieldsetName = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
 
             this._super();
-            this.shippingCount = this.moduleEnabled ? 1 : 0; // set shipping count for validation 
+            this.shippingCount = this.moduleEnabled ? 1 : 0; // set shipping count for validation
 
-            /** 
+            /**
              * set weather to show shipping title on checkout or not
              *
-            **/    
-            if(this.moduleEnabled){ 
+            **/
+            if(this.moduleEnabled){
                 this.shippingRates.subscribe(function (rates) {
                     if(rates.length > 1){
                         self.showShippingTitle(true);
                     }else{
                         self.showShippingTitle(false);
-                    } 
+                    }
                 });
             }
 
@@ -380,6 +381,9 @@ define([
             if (this.source.get('shippingAddress.custom_attributes')) {
                 this.source.trigger('shippingAddress.custom_attributes.data.validate');
             }
+        },
+        showNewAddressForm: function(){
+            this.showAddressForm(true);
         }
     });
 });

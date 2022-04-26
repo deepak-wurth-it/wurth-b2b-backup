@@ -15,21 +15,47 @@ class Collection extends AbstractCollection
         $this->_map['fields']['Id'] = 'main_table.Id';
     }
 
-//     protected function _initSelect()
-//     {
-//
-//          $this->getSelect()
-//              ->from(['main_table' => $this->getMainTable()])
-//              ->join(
-//                  array("pav" => "productsattributevalues"),
-//                  "main_table.Id = pav.ProductId",
-//                  array("ProductId" => "pav.ProductId")
-//              )
-//              ->distinct(true)
-//              ->where("pav.AttributeValueId is not null")
-//              ->order('main_table.Id');
-//          //echo  $this->getSelect()->__toString();
-//          //exit;
-//         return $this;
-//     }
+
+    protected function _initSelect()
+    {
+
+        $this->getSelect()
+            ->from(['main_table' => $this->getMainTable()])
+            ->where("main_table.Active  = 1")
+            ->where("main_table.UpdateRequired  = 1")
+            ->joinRight(
+                array('pdt' => $this->getTable('productdetails')),
+                'main_table.Id = pdt.ProductId',
+               [
+                    'ShortDescription' => 'pdt.ShortDescription',
+                    'LongDescription' => 'pdt.LongDescription',
+                    'Usage' => 'pdt.Usage',
+                    'Instructions' => 'pdt.Instructions',
+                    'SeoPageName' => 'pdt.SeoPageName',
+                    'MetaTitle' => 'pdt.MetaTitle',
+                    'MetaKeywords' => 'pdt.MetaKeywords',
+                    'MetaDescription' => 'pdt.MetaDescription',
+                    'AlternativeName' => 'pdt.AlternativeName'
+                ]
+
+            )
+            //->where("pdt.UpdateRequired  = 1")
+            ->where("pdt.ChannelId = 2")
+            ->where("pdt.Active  = 1")
+            // ->joinLeft(
+            //     array('bcd' => $this->getTable('barcodes')),
+            //     'main_table.Id = bcd.ProductId',
+            //     [
+            //         'Code' => 'bcd.Code'
+            //     ]
+
+            // )
+            //->where("bcd.UpdateRequired  = 1")
+            //->where("bcd.Active  = 1")
+            ->order('main_table.Id ASC')
+            ->distinct(true);
+
+                    //echo  $this->getSelect();exit;
+        return $this;
+    }
 }
