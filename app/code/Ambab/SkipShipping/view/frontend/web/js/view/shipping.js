@@ -237,15 +237,18 @@ define([
             if (!this.source.get('params.invalid')) {
                 addressData = this.source.get('shippingAddress');
                 // if user clicked the checkbox, its value is true or false. Need to convert.
-                addressData['save_in_address_book'] = this.saveInAddressBook ? 1 : 0;
+                addressData['country_id'] = "HR";
+                addressData['save_in_address_book'] = 0;//this.saveInAddressBook ? 1 : 0;
 
                 // New address must be selected as a shipping address
                 newShippingAddress = createShippingAddress(addressData);
                 selectShippingAddress(newShippingAddress);
                 checkoutData.setSelectedShippingAddress(newShippingAddress.getKey());
                 checkoutData.setNewCustomerShippingAddress($.extend(true, {}, addressData));
-                this.getPopUp().closeModal();
-                this.isNewAddressAdded(true);
+                //this.getPopUp().closeModal();
+                this.isNewAddressAdded(false);
+                this.showAddressForm(false);
+                this.setShippingInformation();
             }
         },
 
@@ -275,6 +278,10 @@ define([
          * Set shipping information handler
          */
         setShippingInformation: function () {
+            if(this.showAddressForm()){
+                this.saveNewAddress();
+                return;
+            }
             if (this.validateShippingInformation()) {
                 quote.billingAddress(null);
                 checkoutDataResolver.resolveBillingAddress();
@@ -384,6 +391,9 @@ define([
         },
         showNewAddressForm: function(){
             this.showAddressForm(true);
+        },
+        cancelNewAddress: function(){
+            this.showAddressForm(false);
         }
     });
 });
