@@ -9,6 +9,7 @@ namespace Pim\Category\Model;
 
 use Magento\Framework\ObjectManagerInterface;
 use Psr\Log\LoggerInterface;
+
 class CategoryImageProcessor
 {
     const PIM_CATEGORIES_TABLE = 'categories';
@@ -36,17 +37,16 @@ class CategoryImageProcessor
         \Magento\Store\Model\StoreManagerInterface       $storeManager,
         \Pim\Category\Model\PimCategoryFactory           $pimCategoryFactory,
         \Pim\Category\Model\PimCategoryImagesFactory      $pimCategoryImagesFactory,
-		\Magento\Catalog\Model\CategoryRepository        $categoryRepository,
-		\Pim\Category\Model\ResourceModel\PimCategoryImages $categoryImagesResource,
-		\Magento\Indexer\Model\IndexerFactory $indexerFactory,
-		\Pim\Category\Model\ImportImageServiceCategory  $importImageServiceCategory,
+        \Magento\Catalog\Model\CategoryRepository        $categoryRepository,
+        \Pim\Category\Model\ResourceModel\PimCategoryImages $categoryImagesResource,
+        \Magento\Indexer\Model\IndexerFactory $indexerFactory,
+        \Pim\Category\Model\ImportImageServiceCategory  $importImageServiceCategory,
 
 
         LoggerInterface $logger
 
 
-    )
-    {
+    ) {
         $this->categoryFactory = $categoryFactory;
         $this->resourceConnection = $resourceConnection;
         $this->categoryRepositoryInterface = $categoryRepositoryInterface;
@@ -67,29 +67,33 @@ class CategoryImageProcessor
     }
 
 
-     /**
+    /**
      * @param array $fixtures
      * @throws \Exception
      */
     public function install()
     {
         $this->category = $this->categoryFactory->create();
-        $categoryCollection = $this->category->getCollection();
+        $categoryCollection = $this->category->getCollection()
+            ->setOrder('entity_id', 'ASC');
+
         $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
-       
-      
+
+
         if ($categoryCollection->getSize() && $categoryCollection->count()) {
             $i = 0;
             foreach ($categoryCollection as $key => $category) {
-
-                $time_start = microtime(true); 
+                //print_r(get_class_methods($this->category));
+                //exit;
+                $time_start = microtime(true);
                 $catId = $category->getId();
+
                 $pimCatId = $category->getData('pim_category_id');
-				if($pimCatId <= 0){
-					continue;
-				}
-				
-				
+                if ($pimCatId <= 0) {
+                    continue;
+                }
+
+
                 $pimCategoryImageObject = $this->pimCategoryImagesFactory->create();
                 $categoryImagesObject = $pimCategoryImageObject->getCollection()
                     ->addFieldToFilter('CategoryId', $pimCatId);
@@ -97,40 +101,35 @@ class CategoryImageProcessor
                     foreach ($categoryImagesObject as $images) {
 
                         try {
-                            $imageUrl = $images->getData('Path');
-                            if ($imageUrl) {
 
-                            $this->importImageServiceCategory->execute($category, $imageUrl, $visible = true, $imageType = ['image', 'small_image']);
-                            }
-                            $ThumbnailPath = $images->getData('ThumbnailPath');
-                             if ($ThumbnailPath) {
-                               $this->importImageServiceCategory->execute($category, $ThumbnailPath, $visible = true, $imageType = ['thumbnail']);
-                             }
-                            $id = $images->getId();
-                           // echo $imageUrl;
-                            //echo $category->getImageUrl();exit;
-                            $this->categoryImagesResource->updateByQuery($id);
+                        $imageUrl = $images->getData('Path');
+                        if ($imageUrl) {
+                            $this->importImageServiceCategory->execute($category, $imageUrl, $visible = true, $imageType = ['image', 'small_image', 'thumbnail']);
+                        }
+
+                        $id = $images->getId();
+
+                        $this->categoryImagesResource->updateByQuery($id);
                         } catch (\Exception $e) {
-                            $this->logger->info(print_r($e->getMessage(), true));
+                          $this->logger->info(print_r($e->getMessage(), true));
                         }
                     }
                     $this->categoryRepository->save($category);
+                    if ($i == 500) {
+                        $i = 0;
+                        $this->reindexByKey($indexLists);
+                    }
                     $categoryImagePath = $category->getImageUrl();
                     if ($categoryImagePath && $imageUrl) {
                         $time_end = microtime(true);
                         $log  = "Category  Id : " . $catId . " Image Path " . $categoryImagePath . PHP_EOL;
-                        $log  .= "Category took ". number_format(microtime(true) - $time_start, 2). " seconds.".PHP_EOL;
-                        $log  .= "Download images from ".$imageUrl. " Done".PHP_EOL;
+                        $log  .= "Category took " . number_format(microtime(true) - $time_start, 2) . " seconds." . PHP_EOL;
+                        $log  .= "Download images from " . $imageUrl . " Done" . PHP_EOL;
                         $this->getImageImportLogger($log);
                         echo $log;
+                        $i++;
                     }
                 }
-          
-               if ($i == 500) {
-                    $i=0;
-		    $this->reindexByKey($indexLists);
-                }
-                $i++;
             }
         }
     }
@@ -143,7 +142,7 @@ class CategoryImageProcessor
         $logger->info($log);
     }
 
- 
+
 
     /**
      * Regenerate all index
@@ -151,12 +150,13 @@ class CategoryImageProcessor
      * @return void
      * @throws \Exception
      */
-    private function reindexByKey($indexLists){
-        echo 'Full Reindex started .....'.PHP_EOL;
+    private function reindexByKey($indexLists)
+    {
+        echo 'Full Reindex started .....' . PHP_EOL;
         foreach ($indexLists as $indexerId) {
             $indexer = $this->indexerFactory->create()->load($indexerId);
             $indexer->reindexAll();
         }
-        echo 'Full Reindex Done.'.PHP_EOL;;
+        echo 'Full Reindex Done.' . PHP_EOL;;
     }
 }

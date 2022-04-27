@@ -151,7 +151,11 @@ define([
                 });
                 shippingRatesValidator.initFields(fieldsetName);
             });
-
+           if(window.checkoutConfig.quoteData.pickup_store_id && window.checkoutConfig.quoteData.pickup_store_id != ''){
+               this.addStorePickupAddress();
+               this.isFormInline = false;// hide new address form
+               this.isNewAddressAdded(true);
+           }
             return this;
         },
 
@@ -250,6 +254,35 @@ define([
                 this.showAddressForm(false);
                 this.setShippingInformation();
             }
+        },
+
+        addStorePickupAddress: function () {
+            var addressData,
+                newShippingAddress;
+
+            addressData = {};
+            addressData['prefix'] = '';
+            addressData['company'] = '';
+            addressData['city'] = window.checkoutConfig.customerData.pickup_store.city;
+            addressData['country_id'] = window.checkoutConfig.customerData.pickup_store.country_id;
+            addressData['firstname'] = window.checkoutConfig.customerData.pickup_store.name;
+            addressData['lastname'] = '';
+            addressData['postcode'] = window.checkoutConfig.customerData.pickup_store.postcode;
+            addressData['region'] = window.checkoutConfig.customerData.pickup_store.region;
+            addressData['region_id'] = window.checkoutConfig.customerData.pickup_store.region_id;
+            addressData['street'] = [
+                window.checkoutConfig.customerData.pickup_store.address
+            ];
+            addressData['telephone'] = window.checkoutConfig.customerData.pickup_store.phone;
+            addressData['default_shipping'] = 1;
+            addressData['save_in_address_book'] = 0;
+            addressData['pickup_store_address'] = 1;
+
+            // New address must be selected as a shipping address
+            newShippingAddress = createShippingAddress(addressData);
+            selectShippingAddress(newShippingAddress);
+            checkoutData.setSelectedShippingAddress(newShippingAddress.getKey());
+            checkoutData.setNewCustomerShippingAddress($.extend(true, {}, addressData));
         },
 
         /**
