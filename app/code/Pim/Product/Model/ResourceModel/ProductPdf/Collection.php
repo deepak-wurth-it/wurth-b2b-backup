@@ -33,6 +33,7 @@ class Collection extends AbstractCollection
 			->where("main_table.ChannelId  = 2")
 			->where("main_table.UpdateRequired  = 1")
 			->where("main_table.Active  = 1")
+			->where("main_table.IsMainPdf  = 1")
 			->where("pdf.Active  = 1")
 			->where("pdf.UpdateRequired  = 1")
 			->order('main_table.Id ASC')

@@ -46,7 +46,7 @@ class ProductAttributeValueProcessor
      */
     public function install()
     {
-
+		$log = '';
         $mageProduct = $this->productFactory->create();
         $collection = $mageProduct->getCollection()
             ->addAttributeToFilter('status', ['eq' => \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED])
@@ -74,7 +74,7 @@ class ProductAttributeValueProcessor
                //print_r($collectionB->getData());exit;
                 if ($collectionB->getSize() && $collectionB->count()) {
                     foreach ($collectionB as $item) {
-                        echo 'START Update Binding Product Attribute with sku =>' .$sku.PHP_EOL;
+                        $log =  'START Update Binding Product Attribute with sku =>' .$sku.PHP_EOL;
                        $AttributeId =  $item->getData('AttributeId');
                        $Value =  $item->getData('Value');
                        $product = $this->productRepository->get($sku);
@@ -98,12 +98,22 @@ class ProductAttributeValueProcessor
 
 
                         }
-                        echo 'END Update Binding Product Attribute with sku =>' .$sku.PHP_EOL;
+                        $log .= 'END Update Binding Product Attribute with sku =>' .$sku.PHP_EOL;
+                        $this->getAttributeValueUpdateLogger($log);
+                        echo $log;
                     }
                 }
                 //die($attribute_id.'----'.$Value);
             }
 
         }
+    }
+    
+    public function getAttributeValueUpdateLogger($log)
+    {
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/image_import.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info($log);
     }
 }

@@ -90,7 +90,6 @@ class ProductBarCodeProcessor
         $collectionPimBarCode = $objPimBarCodeProduct->getCollection()
           ->addFieldToFilter('Active', ['eq' => '1'])
           ->addFieldToFilter('UpdateRequired', ['eq' => '1']);
-          //echo $collectionPimBarCode->getSelect();exit;
           
 
         $x = 0;
@@ -103,21 +102,29 @@ class ProductBarCodeProcessor
 
 					$sku = $item->getData('ProductId');
 					$code = $item->getData('Code');
-					if(empty($sku) && empty($code)){
-						continue;
-				    }
-                    $this->product =$this->productRepository->get($sku);
-                    
-                    
+					
+					$productObj =$this->productFactory->create();
+					if(!$productObj->getIdBySku($sku)) {
+						continue;   
+					}
+					
+                    $this->product = $this->productRepository->get($sku);
+                   
+                   
                     if ($this->product->getId() && $sku && $code) {
 
-                        $this->product->setData('product_bar_code',$code);
+                       
 					try {
 							
+							$this->product->setData('product_bar_code',$code);
 							$this->productRepository->save($this->product);
                             $log = 'Updated Product Bar Code of sku'.$sku.PHP_EOL;
+                            
+                           
                             $item->setData('UpdateRequired','0');
                             $item->save();
+                            
+                          
 
                         } catch (\Exception $e) {
                             echo $e->getMessage().PHP_EOL;
