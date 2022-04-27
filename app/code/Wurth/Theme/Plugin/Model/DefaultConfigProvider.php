@@ -7,6 +7,7 @@ use Magento\Customer\Model\Address\CustomerAddressDataFormatter;
 use Magento\Customer\Model\Address\CustomerAddressDataProvider;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\Session as CustomerSession;
+use Wcb\Store\Model\StoreFactory;
 
 class DefaultConfigProvider
 {
@@ -20,18 +21,26 @@ class DefaultConfigProvider
 
     protected $customerAddressDataFormatter;
 
+    protected $checkoutSession;
+
+    protected $storeFactory;
+
     public function __construct(
         CustomerRepository $customerRepository,
         CustomerSession $customerSession,
         CustomerFactory $customerFactory,
         CustomerAddressDataProvider $customerAddressData,
-        CustomerAddressDataFormatter $customerAddressDataFormatter
+        CustomerAddressDataFormatter $customerAddressDataFormatter,
+        \Magento\Checkout\Model\Session $checkoutSession,
+        storeFactory $storeFactory
     ) {
         $this->customerRepository = $customerRepository;
         $this->customerSession = $customerSession;
         $this->customerFactory = $customerFactory;
         $this->customerAddressData = $customerAddressData;
         $this->customerAddressDataFormatter = $customerAddressDataFormatter;
+        $this->checkoutSession = $checkoutSession;
+        $this->storeFactory = $storeFactory;
     }
 
     public function afterGetConfig($subject, $result)
@@ -50,6 +59,15 @@ class DefaultConfigProvider
             }
             $newAddress = $this->sortAddressByAddressCode($newAddress);
             $newAddress = $this->changeDefaultShippingAddress($newAddress, $billingAddressId);
+            $isClickAndCollect = $this->checkClickAndCollect();
+
+            //Set store pickup data
+            $result['customerData']['pickup_store'] = '';
+            if ($isClickAndCollect) {
+                $newAddress = [];
+                $result['customerData']['pickup_store'] = $isClickAndCollect;
+            }
+
             $result['customerData']['addresses'] = $newAddress;
         }
         return $result;
@@ -114,5 +132,16 @@ class DefaultConfigProvider
             array_splice($updateAddress, 0, 0, $out);
         }
         return $updateAddress;
+    }
+    public function checkClickAndCollect()
+    {
+        $quote = $this->checkoutSession->getQuote();
+        if ($quote->getPickupStoreId()) {
+            $pickUpStore = $this->storeFactory->create()->load($quote->getPickupStoreId());
+            if ($pickUpStore->getId()) {
+                return $pickUpStore->getData();
+            }
+        }
+        return false;
     }
 }
