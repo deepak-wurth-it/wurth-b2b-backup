@@ -67,6 +67,7 @@ define([
         visible: ko.observable(!quote.isVirtual()),
         errorValidationMessage: ko.observable(false),
         showAddressForm: ko.observable(false),
+        showAddNewAddressButton: ko.observable(true),
         isCustomerLoggedIn: customer.isLoggedIn,
         isFormPopUpVisible: formPopUpState.isVisible,
         isFormInline: addressList().length === 0,
@@ -96,6 +97,9 @@ define([
             this._super();
             this.shippingCount = this.moduleEnabled ? 1 : 0; // set shipping count for validation
 
+             // Remove new address first
+             checkoutData.setNewCustomerShippingAddress(null);
+             
             /**
              * set weather to show shipping title on checkout or not
              *
@@ -151,11 +155,14 @@ define([
                 });
                 shippingRatesValidator.initFields(fieldsetName);
             });
-           if(window.checkoutConfig.quoteData.pickup_store_id && window.checkoutConfig.quoteData.pickup_store_id != ''){
-               this.addStorePickupAddress();
-               this.isFormInline = false;// hide new address form
-               this.isNewAddressAdded(true);
-           }
+             if(window.checkoutConfig.quoteData.pickup_store_id && window.checkoutConfig.quoteData.pickup_store_id != ''){
+                 this.addStorePickupAddress();
+                 this.isFormInline = false;// hide new address form
+                 this.isNewAddressAdded(true);
+                 this.showAddNewAddressButton(false);
+             }else{
+                 checkoutData.setNewCustomerShippingAddress(null);
+             }
             return this;
         },
 
