@@ -1,5 +1,5 @@
 <?php
-namespace Wcb\Cron\Cron;
+namespace Wcb\Cron\Test;
 class TestCron
 {
        public function execute()

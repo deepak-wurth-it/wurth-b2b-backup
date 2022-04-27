@@ -85,20 +85,28 @@ class ProductPdfProcessor
         $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
         $objPimPdfProduct = $this->productPdfFactory->create();
-        $connectionPimPdf = $objPimProduct->getResource()->getConnection();
+        $connectionPimPdf = $objPimPdfProduct->getResource()->getConnection();
 
         $collectionPimPdf = $objPimPdfProduct->getCollection();
 
         $x = 0;
-        if ($collection->getSize() && $collection->count()) {
+        if ($collectionPimPdf->getSize() && $collectionPimPdf->count()) {
 
             foreach ($collectionPimPdf as $item) {
 			try {
+				
 				$sku = $item->getData('ProductId');
 				$pdfUrl = $item->getData('Path');
+				$productObj =$this->productFactory->create();
+				if(!$productObj->getIdBySku($sku)) {
+					continue;   
+				}
+				
+				
                 $this->product =$this->productRepository->get($sku);
+                
 				if ($sku && $this->product->getId()) {
-
+							
                         $this->product->setData('product_pdf_path',$pdfUrl);
 					try {
 							

@@ -1,20 +1,46 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+   
+   <!-- Every Hour Once -->
+
     <group id="pim">
-        <job name="pim_import_images_in_product" instance="Wcb\Cron\Cron\ImportImages" method="execute">
-            <schedule>*/30 * * * *</schedule>
+        <job name="pim_import_images_in_product" instance="Wcb\Cron\PimCron\ImportImages" method="execute">
+            <schedule>0 * * * *</schedule>
         </job>
     </group>
+    
+    <!-- Every 3 Hours  Once-->
+    <group id="pim">
+        <job name="pim_import_update_product" instance="Wcb\Cron\PimCron\ImportPimProducts" method="execute">
+            <schedule>0 */3 * * *</schedule>
+        </job>
+    </group>
+    
+     <!-- Every Hour Once -->
 
-    <!--<group id="pim">
-        <job instance="Wcb\Cron\Cron\TestCron" method="execute" name="test_cron">
+     <group id="pim">
+        <job name="pim_product_pdf" instance="Wcb\Cron\PimCron\UpdateProductPdf" method="execute">
+            <schedule>0 * * * *</schedule>
+        </job>
+    </group>
+    
+    <!-- Every Day Once -->
+     <group id="pim">
+        <job name="pim_product_bar_code" instance="Wcb\Cron\PimCron\UpdateProductBarCode" method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
+    </group>
+    
+    <!-- Every Hour Once -->
+     <group id="pim">
+        <job name="pim_category_images" instance="Wcb\Cron\PimCron\ImportCategoryImages" method="execute">
+            <schedule>0 * * * *</schedule>
+        </job>
+    </group>
+    
+<!--<group id="pim">
+        <job instance="Wcb\Cron\Test\TestCron" method="execute" name="test_cron">
                  <schedule>* * * * *</schedule>
          </job>
     </group>-->
-    
-    <group id="pim">
-        <job name="pim_import_update_product" instance="Wcb\Cron\Cron\ImportPimProducts" method="execute">
-            <schedule>*/30 * * * *</schedule>
-        </job>
-    </group>
 </config>

@@ -85,11 +85,11 @@ class ProductImageProcessor
                             $imageUrl = $images->getData('Path');
                             if ($imageUrl) {
 
-                            $this->importImageService->execute($product, $imageUrl, $visible = true, $imageType = ['image']);
+                            $this->importImageService->execute($product, $imageUrl, $visible = true, $imageType = ['small_image','image']);
                             }
                             $ThumbnailPath = $images->getData('ThumbnailPath');
                              if ($ThumbnailPath) {
-                               $this->importImageService->execute($product, $ThumbnailPath, $visible = true, $imageType = ['small_image', 'thumbnail']);
+                               $this->importImageService->execute($product, $ThumbnailPath, $visible = true, $imageType = ['thumbnail']);
                              }
                             $id = $images->getId();
                             //print_r($images->getData());

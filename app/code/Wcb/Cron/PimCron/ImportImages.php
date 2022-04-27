@@ -8,7 +8,7 @@
  * @copyright 2022 - 2023 Wuerth IT
  */
 
-namespace Wcb\Cron\Cron;
+namespace Wcb\Cron\PimCron;
 
 
 

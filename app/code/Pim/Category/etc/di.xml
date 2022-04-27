@@ -6,6 +6,8 @@
             <argument name="commands" xsi:type="array">
                 <item name="ImportCategoriesCommand" xsi:type="object">Pim\Category\Console\Command\CategoriesCommand</item>
                 <item name="ProductCategoriesCommand" xsi:type="object">Pim\Category\Console\Command\ProductCategoriesCommand</item>
+                <item name="ImportCategoryImages" xsi:type="object">Pim\Category\Console\Command\ImportCategoryImagesCommand</item>
+
             </argument>
         </arguments>
     </type>
