@@ -50,16 +50,18 @@ class ImportImageServiceCategory
     {   
         /** @var string $tmpDir */
         $tmpDir = $this->getMediaDirTmpDir();
+        
+        $imageName = baseName($imageUrl);
         /** create folder if it is not exists */
         $this->file->checkAndCreateFolder($tmpDir);
         /** @var string $newFileName */
-        $newFileName = $tmpDir . baseName($imageUrl);
+        $newFileName = $tmpDir . $imageName;
         /** read file from URL and copy it to the new destination */
         $result = $this->file->read($imageUrl, $newFileName);
         if ($result) {
             /** add saved file to the $categoryobj gallery */
             //$imageType = array('image', 'small_image', 'thumbnail');
-            $categoryobj->setImage($newFileName, $imageType,$visible, false); // make sure image will be in pub/media/catalog/category/
+            $categoryobj->setImage($imageName, $imageType,$visible, false); // make sure image will be in pub/media/catalog/category/
 
         }
         return $result;
