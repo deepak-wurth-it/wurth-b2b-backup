@@ -11,4 +11,8 @@
     <type name="Magento\Checkout\Model\DefaultConfigProvider">
         <plugin name="change_address_list" type="Wurth\Theme\Plugin\Model\DefaultConfigProvider" />
     </type>
+
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="checkout_lbl_change" type="Wurth\Theme\Plugin\LayoutProcessor" sortOrder="1"/>
+    </type>
 </config>

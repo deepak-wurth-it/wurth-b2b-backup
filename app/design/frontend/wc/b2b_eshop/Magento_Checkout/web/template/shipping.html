@@ -30,15 +30,20 @@
                     <span translate="'Add new address'" />
                 </button>
             </span>
+
+            <div class="address-form-header" visible="showAddressForm()">
+                <span data-bind="i18n: 'Add new delivery address'"></span>
+                <button type="button"
+                        class="action"
+                        click="cancelNewAddress">
+                    <span translate="'Cancel'" />
+                </button>
+            </div>
+
             <div id="opc-new-shipping-address"
                  visible="showAddressForm"
                  render="shippingFormTemplate" />
-            <button type="button"
-                    class="action"
-                    click="saveNewAddress"
-                    visible="showAddressForm">
-                <span translate="'Save Address'" />
-            </button>
+
             <!--<div id="opc-new-shipping-address"
                  visible="isFormPopUpVisible()"
                  render="shippingFormTemplate" />-->
