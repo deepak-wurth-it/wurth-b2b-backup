@@ -200,13 +200,13 @@ $xml_post_string .= '<shop:requestedQtyAsTxtP>1</shop:requestedQtyAsTxtP>';
 $xml_post_string .= '<shop:availableQtyAsTxtP>?</shop:availableQtyAsTxtP>';
 $xml_post_string .= '<shop:userIdP>?</shop:userIdP>';
 $xml_post_string .= '<shop:availabilityStatusP>?</shop:availabilityStatusP>';
-$xml_post_string .= '<shop:availabilityOnDateP>28/05/2022</shop:availabilityOnDate>';
+$xml_post_string .= '<shop:availabilityOnDateP>?</shop:availabilityOnDateP>';
 $xml_post_string .= '</shop:GetItemAvailabilityOnLocationEShop>';
 $xml_post_string .= '</soapenv:Body>';
 $xml_post_string .= '</soapenv:Envelope>';
-echo trim($xml_post_string);exit;
+//echo trim($xml_post_string);exit;
         $response = $this->initCurl($xml_post_string);
-print_r($response);exit;
+//print_r($response);exit;
         return $response;
 
     }
