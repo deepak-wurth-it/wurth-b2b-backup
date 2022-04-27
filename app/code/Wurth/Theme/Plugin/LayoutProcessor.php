@@ -32,13 +32,13 @@ class LayoutProcessor
         $street = $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']
         ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']['street'];
 
-        if (isset($street['children'][0])) {
-            $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']
-            ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']['street']['children'][0]['visible'] = 0;
-        }
         if (isset($street['children'][1])) {
             $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']
             ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']['street']['children'][1]['visible'] = 0;
+        }
+        if (isset($street['children'][2])) {
+            $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']
+            ['children']['shippingAddress']['children']['shipping-address-fieldset']['children']['street']['children'][2]['visible'] = 0;
         }
 
         $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']

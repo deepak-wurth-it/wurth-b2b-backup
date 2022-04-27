@@ -1,10 +1,11 @@
 <?php
-   
+
 namespace Pim\Category\Model;
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Io\File;
+
 /**
  * Class ImportImageService
  * assign images to products by image URL
@@ -47,10 +48,10 @@ class ImportImageServiceCategory
      * @return bool
      */
     public function execute($categoryobj, $imageUrl, $visible = true, $imageType = [])
-    {   
+    {
         /** @var string $tmpDir */
         $tmpDir = $this->getMediaDirTmpDir();
-        
+
         $imageName = baseName($imageUrl);
         /** create folder if it is not exists */
         $this->file->checkAndCreateFolder($tmpDir);
@@ -61,7 +62,7 @@ class ImportImageServiceCategory
         if ($result) {
             /** add saved file to the $categoryobj gallery */
             //$imageType = array('image', 'small_image', 'thumbnail');
-            $categoryobj->setImage($imageName, $imageType,$visible, false); // make sure image will be in pub/media/catalog/category/
+            $categoryobj->setImage($imageName, $imageType, $visible, false); // make sure image will be in pub/media/catalog/category/
 
         }
         return $result;
@@ -74,7 +75,6 @@ class ImportImageServiceCategory
      */
     protected function getMediaDirTmpDir()
     {
-        return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'catalog/category'. DIRECTORY_SEPARATOR ;
+        return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'catalog/category' . DIRECTORY_SEPARATOR;
     }
 }
-
