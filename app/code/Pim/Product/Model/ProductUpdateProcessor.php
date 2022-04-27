@@ -88,11 +88,12 @@ class ProductUpdateProcessor
                 //echo $collection->getSize();exit;
                  $sku = $item->getData('Id');
                  
-                 if(!$sku){
-
-                    continue;
-
-                 }
+                 $productObj =$this->productFactory->create();
+					if(!$productObj->getIdBySku($sku)) {
+						continue;   
+				 }
+                 
+                
                 $this->product = $this->productFactory->create();
                 $this->product->load($this->product->getIdBySku($sku));
 

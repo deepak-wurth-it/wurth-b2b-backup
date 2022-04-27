@@ -175,10 +175,10 @@ class SoapClient extends AbstractModel implements SoapClientInterface
     }
 
     public function GetItemAvailabilityOnLocation($itemNo = null)
-    {
+    {  //echo $itemNo;exit;
 
         // xml post structure
-        $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">
+       /* $xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">
         <soapenv:Header/>
         <soapenv:Body>
            <shop:GetItemAvailabilityOnLocation>
@@ -188,10 +188,25 @@ class SoapClient extends AbstractModel implements SoapClientInterface
               <shop:itemDefaultVendorNoP>800001</shop:itemDefaultVendorNoP>
            </shop:GetItemAvailabilityOnLocation>
         </soapenv:Body>
-     </soapenv:Envelope>'; // data from the form, e.g. some ID number
-
+     </soapenv:Envelope>';*/ // data from the form, e.g. some ID number
+     
+$xml_post_string = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="urn:microsoft-dynamics-schemas/codeunit/ShopSync">';
+$xml_post_string .= '<soapenv:Header/>';
+$xml_post_string .= '<soapenv:Body>';
+$xml_post_string .= '<shop:GetItemAvailabilityOnLocationEShop>';
+$xml_post_string .= '<shop:itemNoP>' . $itemNo . '</shop:itemNoP>';
+$xml_post_string .= '<shop:locationCodeP>100</shop:locationCodeP>';
+$xml_post_string .= '<shop:requestedQtyAsTxtP>1</shop:requestedQtyAsTxtP>';
+$xml_post_string .= '<shop:availableQtyAsTxtP>?</shop:availableQtyAsTxtP>';
+$xml_post_string .= '<shop:userIdP>?</shop:userIdP>';
+$xml_post_string .= '<shop:availabilityStatusP>?</shop:availabilityStatusP>';
+$xml_post_string .= '<shop:availabilityOnDateP>28/05/2022</shop:availabilityOnDate>';
+$xml_post_string .= '</shop:GetItemAvailabilityOnLocationEShop>';
+$xml_post_string .= '</soapenv:Body>';
+$xml_post_string .= '</soapenv:Envelope>';
+echo trim($xml_post_string);exit;
         $response = $this->initCurl($xml_post_string);
-
+print_r($response);exit;
         return $response;
 
     }
