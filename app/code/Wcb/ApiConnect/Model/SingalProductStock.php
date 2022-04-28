@@ -29,10 +29,15 @@ class SingalProductStock implements \Wcb\ApiConnect\Api\SingalProductStockInterf
 	{
 
 
-		 $xmlStock = $this->getSingleStock($sku);
+		$xmlData = $this->getSingleStock($sku);
+		if($xmlData){
+			$xmlData = $xmlData->SoapBody->GetItemAvailabilityOnLocationEShop_Result;
+			$data = $xmlData;;
+			$data = (array) $data;
+			$data = json_encode($data);
 
-		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
-     $data = simplexml_load_string($xmlStock);
+		}
+
      return $data;
 
 	}
