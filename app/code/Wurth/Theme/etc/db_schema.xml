@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Order">
+        <column xsi:type="text" name="order_confirmation_email" nullable="true"  comment="Order confirmation email"/>
+        <column xsi:type="text" name="internal_order_number" nullable="true"  comment="Internal Order Number"/>
+        <column xsi:type="text" name="remarks" nullable="true"  comment="Remarks"/>
+        <column xsi:type="boolean" name="delivery_order" nullable="true"
+                default="1" comment="Delivery Order"/>
+    </table>
+
+    <table name="quote" resource="sales" engine="innodb" comment="Sales Order">
+        <column xsi:type="text" name="order_confirmation_email" nullable="true"  comment="Order confirmation email"/>
+        <column xsi:type="text" name="internal_order_number" nullable="true"  comment="Internal Order Number"/>
+        <column xsi:type="text" name="remarks" nullable="true"  comment="Remarks"/>
+        <column xsi:type="boolean" name="delivery_order" nullable="true"
+                default="1" comment="Delivery Order"/>
+    </table>
+</schema>

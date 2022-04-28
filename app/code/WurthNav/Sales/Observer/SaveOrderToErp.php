@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Embitel\Sales\Observer;
+namespace WurthNav\Sales\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 
@@ -17,9 +17,9 @@ class SaveOrderToErp implements ObserverInterface
      *
      * @var Magento\Catalog\Model\ProductFactory $_productloader
      */
-    protected $_productloader;  
+    protected $_productloader;
     /**
-     * 
+     *
      * @param \Magento\Sales\Model\Order $order
      * @param \Magento\Sales\Model\Service\InvoiceService $invoiceService
      * @param \Magento\Framework\DB\Transaction $transaction
@@ -29,7 +29,7 @@ class SaveOrderToErp implements ObserverInterface
      */
     public function __construct(
         \Magento\Sales\Model\Order $order,
-        \Magento\Sales\Model\Service\InvoiceService $invoiceService,		
+        \Magento\Sales\Model\Service\InvoiceService $invoiceService,
         \Magento\Framework\DB\Transaction $transaction,
         \Magento\Catalog\Model\ProductFactory $_productloader,
         \Psr\Log\LoggerInterface $logger,
@@ -45,21 +45,21 @@ class SaveOrderToErp implements ObserverInterface
 
 	/*
 	 * Generate Auto Invoice once successfully order is place by customer in a frontend.
-	 * 
+	 *
 	 * */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $orderId = $observer->getEvent()->getOrderIds();
         $order = $this->order->load($orderId);
-        
+
         if($order->canInvoice()) {
-           
+
         }
-            
-        
+
+
     }
     /**
-     * 
+     *
      * @param type $id
      * @return type
      */
