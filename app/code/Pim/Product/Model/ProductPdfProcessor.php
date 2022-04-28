@@ -105,12 +105,14 @@ class ProductPdfProcessor
 				
                 $this->product =$this->productRepository->get($sku);
                 
-				if ($sku && $this->product->getId()) {
+				if ($sku && $this->product->getId() && $pdfUrl) {
 							
-                        $this->product->setData('product_pdf_path',$pdfUrl);
 					try {
-							
-							$this->productRepository->save($this->product);
+                            $this->product->setData('product_pdf_path',$pdfUrl);
+                            $this->productRepository->save($this->product);
+                            
+                            $this->product->setProductPdfPath($pdfUrl);
+                            $this->product->save();
 							$log ='Updated Product Pdf of sku '.$sku.PHP_EOL;
 							$item->setData('UpdateRequired','0');
                             $item->save();
