@@ -8,8 +8,11 @@
 <?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
 
 <div class="col-md more-info-block">
-<h3>Need More Information?</h3>
+    <?php 
+        echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('pdp-page-more-info-block')->toHtml();
+    ?>
+<!--<h3>Need More Information?</h3>
  <span class="phoneEmail">Contact us by phone or email?</span>
  <div><span class="icon-com-phone-a"></span> <span class="iphone-outline">Phone 0800 4260</span></div>
- <div><span class="icon-wuerth-e-mail"></span><span class="email-outline">Email wuert@wuerth.com.hr</span></div>
+ <div><span class="icon-wuerth-e-mail"></span><span class="email-outline">Email wuert@wuerth.com.hr</span></div>-->
 </div>
