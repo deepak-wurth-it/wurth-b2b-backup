@@ -467,7 +467,6 @@ class ProductProcessor
 
     public function updatePimProductRow($item){
         if($this->product && $item){
-			$item->setData('ExternalId',$this->product->getId());
             $item->setData('magento_sync_status','1');
             $item->setData('magento_product_id',$this->product->getId());
             $item->save();

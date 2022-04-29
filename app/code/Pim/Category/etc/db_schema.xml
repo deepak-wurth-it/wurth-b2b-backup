@@ -14,7 +14,7 @@
         <column xsi:type="int" name="pim_category_channel_id" unsigned="true" nullable="false" identity="false" default="0" comment="Pim Category Code"/>
         <column xsi:type="int" name="pim_category_code" unsigned="true" nullable="false" identity="false" default="0" comment="Pim Parent Category ID"/>
         <column xsi:type="int" name="pim_category_external_id" unsigned="true" nullable="false" identity="false" default="0" comment="Pim Category External Id"/>
-                <column xsi:type="int" name="pim_category_id" unsigned="true" nullable="false" identity="false" default="0" comment="Pim Category Id"/>
+        <column xsi:type="int" name="pim_category_id" unsigned="true" nullable="false" identity="false" default="0" comment="Pim Category Id"/>
 
 
 </table>
