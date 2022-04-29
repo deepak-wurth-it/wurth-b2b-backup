@@ -320,6 +320,12 @@ define([
          * Set shipping information handler
          */
         setShippingInformation: function () {
+            const $form = $('#order_detail_form')
+            $form.validation()
+            if(!$form.valid()){
+                return;
+            }
+
             this.setOrderDetailInQuote();
             if(this.showAddressForm()){
                 this.saveNewAddress();

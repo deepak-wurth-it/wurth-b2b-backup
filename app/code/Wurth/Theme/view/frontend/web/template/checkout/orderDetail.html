@@ -3,7 +3,7 @@
         <div class="company-address">
             <div class="othtit" data-bind="i18n: 'Other data:'"></div>
             <div class="addCont">
-                <form name="orderdetailform" id="order_detail_form" method="post" enctype="multipart/form-data">
+                <form data-bind="mageInit: {'validation': {}}" name="orderdetailform" id="order_detail_form" method="post" enctype="multipart/form-data">
                     <table>
                         <tr>
                             <td class="colname" data-bind="i18n: 'Email (Order Confirmation):'"></td>
@@ -23,17 +23,19 @@
                         <tr>
                             <td class="colname" data-bind="i18n: 'Remarks:'"></td>
                             <td class="coldet">
-                                <textarea name="remarks" class="form-control validate-length maximum-length-20" id="remarks" rows="2"
+                                <textarea name="remarks" class="form-control validate-length maximum-length-100" id="remarks" rows="2"
                                 ></textarea>
                                 <div class="maxdis" data-bind="i18n: 'Maximum character limit:100'"></div>
                             </td>
                         </tr>
                         <tr>
                             <td class="colname" colspan="2">
-                                <input class="forcheck" type="checkbox" data-validate='{"required":true}'>
-                                <span class="formtemrs"
-                                      data-bind="i18n: 'I accept the terms of sale through the online store (General terms)'">
-                                </span>
+                                <input class="forcheck" name="accept_terms" id="accept_terms" type="checkbox" data-validate='{"required":true}'>
+                                <label for="accept_terms">
+                                    <span class="formtemrs"
+                                          data-bind="i18n: 'I accept the terms of sale through the online store (General terms)'">
+                                    </span>
+                                </label>
                                 <!--<button type="submit" class="sendOrder" data-bind="i18n: 'Send the order'"></button>-->
                             </td>
                         </tr>
