@@ -3,7 +3,7 @@
  * See COPYING.txt for license details.
  */
 namespace Wcb\Catalog\Controller\Ajax;
-class SingalProductStock extends \Magento\Framework\App\Action\Action
+class GetItemAvailabilityOnLocation extends \Magento\Framework\App\Action\Action
 {
 	protected $_pageFactory;
 	protected $resultJsonFactory;
@@ -22,23 +22,22 @@ class SingalProductStock extends \Magento\Framework\App\Action\Action
 
 	public function execute()
 	{
-		 /** @var \Magento\Framework\Controller\Result\Json $result */
-		 $result = $this->resultJsonFactory->create();
-		
-		 //$sku = $this->getRequest()->getPost('sku');
-		 $xmlStock = $this->getSingleStock();
-		 
-		 $xmlStock = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $xmlStock);
-         $data = simplexml_load_string($xmlStock);
-		 //echo $data;
-		 $result->setData(array('success'=>$data));
-         return $result;
 
+		$sku = $this->getRequest()->getParam('sku');
+		/** @var \Magento\Framework\Controller\Result\Json $result */
+		$result = $this->resultJsonFactory->create();
+		$xmlData = $this->getSingleStock($sku);
+		if($xmlData){
+			$xmlData = $xmlData->SoapBody->GetItemAvailabilityOnLocationEShop_Result;
+			$data = $xmlData;;
+			$data = (array) $data;
+		}
 
+		$result->setData(array('success'=>$data));
+		return $result;
+    }
 
-	}
-
-	public function getSingleStock($sku='899 102310'){
+	public function getSingleStock($sku){
 		
 		return $this->_soapApiClient->GetItemAvailabilityOnLocation($sku);
 
