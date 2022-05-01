@@ -1,0 +1,20 @@
+{
+    "sales_order": {
+        "column": {
+            "order_confirmation_email": true,
+            "internal_order_number": true,
+            "remarks": true,
+            "Delivery": true,
+            "delivery_order": true
+        }
+    },
+    "quote": {
+        "column": {
+            "order_confirmation_email": true,
+            "internal_order_number": true,
+            "remarks": true,
+            "Delivery": true,
+            "delivery_order": true
+        }
+    }
+}
