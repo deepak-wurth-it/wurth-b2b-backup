@@ -59,17 +59,9 @@ define([
                         if (result.success) {
                             var finalResult = result.success;
 
-                            //if (finalResult.suggestedPriceAsTxtP) {
-                                // $('#suggestedPriceAsTxtP').html(finalResult.suggestedPriceAsTxtP);
-                                // $('#suggestedDiscountAsTxtP').html(finalResult.suggestedDiscountAsTxtP);
-                                // $('#suggestedSalesPriceInclDiscAsTxtP').html(finalResult.suggestedSalesPriceInclDiscAsTxtP);
-                                // $("#price_soap").css({
-                                //     display: "block"
-                                // });
-                                // $("#price_loader").css({
-                                //     display: "none"
-                                // });
-                            //}
+                            if (finalResult.availableQtyAsTxtP) {
+                               $('#deliverydayP').html(finalResult.remain_days);
+                            }
 
                             console.log(result.success);
                         } else {

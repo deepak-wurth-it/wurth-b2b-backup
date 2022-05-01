@@ -11,12 +11,17 @@ class GetItemAvailabilityOnLocation extends \Magento\Framework\App\Action\Action
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
 		\Wcb\ApiConnect\Model\SoapClient $soapApiClient,
-		\Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+		\Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+		\Magento\Framework\Stdlib\DateTime\DateTime $date,
+		\Magento\Framework\Stdlib\DateTime\TimezoneInterface $dateInt
 		)
 	{
 		$this->_pageFactory = $pageFactory;
 		$this->_soapApiClient = $soapApiClient;
 		$this->resultJsonFactory = $resultJsonFactory;
+		$this->date = $date;
+		$this->dateInt = $dateInt;
+
 		return parent::__construct($context);
 	}
 
@@ -33,6 +38,19 @@ class GetItemAvailabilityOnLocation extends \Magento\Framework\App\Action\Action
 			$data = (array) $data;
 		}
 
+		if($data['availabilityOnDateP']){
+		 $stockDate = $data['availabilityOnDateP'];
+		 $diff = $this->getDifference($stockDate);
+		 
+		 if($diff > 0 ){
+			$data['remain_days'] = $diff;
+		 }
+		 if($diff < 0 ){
+			$data['remain_days'] = 0;
+		 }
+		  
+		}
+		
 		$result->setData(array('success'=>$data));
 		return $result;
     }
@@ -42,4 +60,15 @@ class GetItemAvailabilityOnLocation extends \Magento\Framework\App\Action\Action
 		return $this->_soapApiClient->GetItemAvailabilityOnLocation($sku);
 
 	}
+
+	public function getDifference($stockDate)
+{
+	$stockDate = date("Y-m-d", strtotime($stockDate));
+    $toDate = strtotime($stockDate);
+	$current = date("Y-m-d", strtotime("now"));
+	$fromDate = strtotime($current);
+	$secs =  $toDate-$fromDate;// == <seconds between the two times>
+	$days = $secs / 86400;
+    return $days;
+}
 }
