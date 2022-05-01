@@ -72,21 +72,22 @@ script;
         }
     }
     </script>
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
     require(['jquery'], function ($) {
         $('.minicart-wrapper').on('contentLoading', function (event) {
-            debugger;
+          //  alert(event.type); //output = click
+            if(event.type=='contentLoading'){
             $('[data-block="minicart"]').on('contentUpdated', function () {
-                debugger;
                 $('[data-block="minicart"]').find('[data-role="dropdownDialog"]').dropdownDialog("open");
                 setTimeout(function () {
                     $('[data-block="minicart"]').find('[data-role="dropdownDialog"]').dropdownDialog("close");
                 }, 3000);
             });
+        }
         });
     });
-</script>
-<script type="text/javascript">
+</script>-->
+<!--<script type="text/javascript">
 require(["jquery"],function($){
 $('body').on("click",".more, .less",function(){
     var obj = $(this);
@@ -110,5 +111,5 @@ $('body').on("click",".more, .less",function(){
     }
 });
 });
-</script>
+</script>-->
 </div>

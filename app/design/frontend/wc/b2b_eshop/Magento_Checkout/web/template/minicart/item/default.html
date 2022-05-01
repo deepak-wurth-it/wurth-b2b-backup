@@ -71,7 +71,7 @@
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko ifnot: is_shipping_product -->
-                    <div class="details-qty qty qtybox">
+                   <!-- <div class="details-qty qty qtybox">
                         <label class="label" data-bind="i18n: 'Qty', attr: {
                         for: 'cart-item-'+item_id+'-qty'}"></label>
                         <div class="minqtrbox">
@@ -97,7 +97,7 @@
                         style="display: none">
                             <span data-bind="i18n: 'Update'"></span>
                         </button>
-                    </div>
+                    </div> -->
                 <!-- /ko -->
             </div>
 
@@ -110,12 +110,12 @@
                 </div>-->
                 <!-- /ko -->
                 <!-- ko ifnot: is_shipping_product -->
-                    <div class="secondary">
+                    <!--<div class="secondary">
                         <a href="#" data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
                            class="action delete">
                             <span data-bind="i18n: 'Remove'"></span>
                         </a>
-                    </div>
+                    </div>-->
                 <!-- /ko -->
             </div>
         </div>
