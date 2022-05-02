@@ -22,6 +22,8 @@ class UnitsOfMeasureProcessor
     const UNITS_OF_MEASURE = 'unitsofmeasure';
 
 	protected $product;
+	protected $connectionPim;
+	protected $connectionDefault;
 
     /**
      * @param LoggerInterface $logger
@@ -41,18 +43,18 @@ class UnitsOfMeasureProcessor
      */
     public function install()
     {
-		$connectionPim = $this->_resourceConnection->getConnection('pim');
-		$connection = $this->_resourceConnection->getConnection();
+		$this->connectionPim = $this->_resourceConnection->getConnection('pim');
+		$this->connectionDefault  = $this->_resourceConnection->getConnection();
 
-		$select = $connectionPim->select()
+		$select = $this->connectionPim->select()
         ->from(
             ['uom' => 'unitsofmeasure']
         );
-       $data = $connectionPim->fetchAll($select);
+       $data = $this->connectionPim->fetchAll($select);
 
        if(count($data)){
 		foreach($data as $row){
-		  $tableName = $connection->getTableName(self::UNITS_OF_MEASURE);
+		  $tableName = $this->connectionDefault->getTableName(self::UNITS_OF_MEASURE);
 		
 			$data = [
 			'unitsofmeasure_id' => $row['Id'],
@@ -65,22 +67,22 @@ class UnitsOfMeasureProcessor
 			];
 			
 			
-			$selectExist = $connectionPim->select()
+			$selectExist = $this->connectionPim->select()
 			->from(
 				['uom' => 'unitsofmeasure']
 			)
 			->where('unitsofmeasure_id = ?', $row['Id']);
 			
-		     $dataExist = $connection->fetchOne($selectExist);
+		     $dataExist = $this->connectionDefault->fetchOne($selectExist);
 
 			
 			if(empty($dataExist)){
-				$connection->insert(self::UNITS_OF_MEASURE, $data);
+				$this->connectionDefault->insert(self::UNITS_OF_MEASURE, $data);
 			}
 				if(!empty($dataExist)){
 				$where = ['unitsofmeasure_id = ?' => (int)$dataExist];
 				
-				$connection->update(self::UNITS_OF_MEASURE, $data,$where);
+				$this->connectionDefault->update(self::UNITS_OF_MEASURE, $data,$where);
 
 			}
 			

@@ -8,6 +8,7 @@ class Cart
     protected $storeManager;
     protected $checkoutSession;
     protected $logger;
+    protected $type = array('2'=>'100');
 
 
     public function __construct( 
@@ -29,14 +30,15 @@ class Cart
     {  
         $productId =  $productInfo->getData('entity_id');
         $product = $this->productRepository->getById($productId);     
-        $minimum_sales_quantity = $product->getData('minimum_sales_quantity');
-        $base_unit_of_measure_id = $product->getData('base_unit_of_measure_id');
-        
+        $minimum_sales_quantity =  (int)$product->getMinimumSalesUnitQuantity();
+        $base_unit_of_measure_id = (int) $product->getBaseUnitOfMeasureId();
+        //$base_unit_of_measure_id = '2';
         if($base_unit_of_measure_id){
-			///$type = $this->getType($base_unit_of_measure_id);
+			$type = $this->getType($base_unit_of_measure_id);
 			
-			if($base_unit_of_measure_id == '2'){
-				$minimum_sales_quantity = $minimum_sales_quantity * 100;
+			if($type == 'C' || $type='c'){
+				$quantity = $this->type[$base_unit_of_measure_id];
+				$minimum_sales_quantity = $minimum_sales_quantity * $quantity;
 			}
 			
 		}
@@ -58,6 +60,7 @@ class Cart
 			)
 			->where('unitsofmeasure_id = ?', $id);
 			
-	    $dataExist = $connection->fetchOne($selectExist);	
+	    $dataExist = $this->connection->fetchOne($selectExist);	
+	    return $dataExist;
 	}
 }
