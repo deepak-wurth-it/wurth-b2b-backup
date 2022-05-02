@@ -7,6 +7,7 @@
 <?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
 <?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
 <!-- Please use blubox, bluevan, redbox, redvan class to change box color-->
+<?php echo $block->getPackaging(); ?>
 <?php
   // login check helper
    $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();

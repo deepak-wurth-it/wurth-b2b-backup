@@ -4,6 +4,8 @@
  * See COPYING.txt for license details.
  */
 ?>
+
+<?php //print_r(get_class($block));exit; ?>
 <?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
 <?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
 <?php
@@ -34,23 +36,12 @@ $_product = $block->getProduct();
                        data-role="cart-item-qty">
                 <div id="79-upt" class="increaseQty icon-interface-plus"></div>
               </div>
-            <!--<input type="number" name="qty" id="qty" min="0" value="1" title="Qty"
-                   class="input-text qty"
-                   data-validate="{required-number:true,validate-item-quantity:{minAllowed:1,maxAllowed:10000}}">-->
+            
               <div class="veCount">
-              Packaging 100
+              <?php echo $block->escapeHtml( __('Packaging ')); ?><?php  echo $block->getPackaging(); ?>
               </div>
                 <div class="pdvariants">
                   <button type="submit" class="itemAdd">Dodaj u kosaricu</button>
-                    <!--<div class="actions">
-                        <button type="submit"
-                                title="<?/*= $block->escapeHtmlAttr("Dodaj u kosaricu") */?>"
-                                class="action primary tocart itemAdd"
-                                id="product-addtocart-button">
-                            <span><?/*= $block->escapeHtml("Dodaj u kosaricu") */?></span>
-                        </button>
-                        <?/*= $block->getChildHtml('', true) */?>
-                    </div>-->
                 </div>
         </div>
 </form>
