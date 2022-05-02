@@ -26,7 +26,7 @@
                 <button type="button"
                         class="action action-show-popup"
                         click="showNewAddressForm"
-                        visible="!isNewAddressAdded() && !showAddressForm()">
+                        visible="!isNewAddressAdded() && !showAddressForm() && showAddNewAddressButton()">
                     <span translate="'Add new address'" />
                 </button>
             </span>
@@ -52,43 +52,9 @@
         <each args="getRegion('before-form')" render="" />
         <!-- Inline address form -->
         <render if="isFormInline" args="shippingFormTemplate" />
+        <each args="getRegion('order-detail')" render="" />
     </div>
 </li>
-
-<!--Other Data-->
-<div class="controlother">
-    <div class="company-address">
-        <div class="othtit">Other data:</div>
-        <div class="addCont">
-            <table>
-                <tr>
-                    <td class="colname">Email (Order Confirmation):</td>
-                    <td class="coldet"><input type="email" class="form-control" id="inputEmail3" placeholder="Kristin.koening@wuerth.com.hr"></td>
-                </tr>
-                <tr>
-                    <td class="colname">Internal order number:</td>
-                    <td class="coldet"><input type="text" class="form-control" id="inputPassword3" placeholder=" "></td>
-                </tr>
-                <tr>
-                    <td class="colname">Remarks:</td>
-                    <td class="coldet"><textarea class="form-control" id="textAreaExample1" rows="2"></textarea>
-                        <div class="maxdis">Maximum character limit:100</div></td>
-                </tr>
-                <tr>
-                    <td class="colname" colspan="2"><input class="forcheck" type="checkbox">
-                        <span class="formtemrs">
-                      I accept the terms of sale through the online store (General terms)
-                    </span>
-                        <button type="submit" class="sendOrder">Send the order</button>
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-    </div>
-</div>
-<!-- Other Data End-->
-
 <!--Shipping method template-->
 <li id="opc-shipping_method"
     class="checkout-shipping-method"
