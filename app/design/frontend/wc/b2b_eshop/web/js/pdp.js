@@ -42,6 +42,34 @@ define([
                     }
 
                 });
+            },
+            soapStock: function (productCode) {
+                var GetItemAvailabilityOnLocation = urlBuilder.build('/wcbcatalog/ajax/GetItemAvailabilityOnLocation');
+                //console.log(wcbglobal.isLogin());
+                $.ajax({
+
+                    type: "POST",
+                    url: GetItemAvailabilityOnLocation,
+                    data: {
+                        sku: productCode
+                    },
+                    cache: false,
+                    async: false,
+                    success: function (result) {
+                        if (result.success) {
+                            var finalResult = result.success;
+
+                            if (finalResult.availableQtyAsTxtP) {
+                               $('#deliverydayP').html(finalResult.remain_days);
+                            }
+
+                            console.log(result.success);
+                        } else {
+
+                        }
+                    }
+
+                });
             }
         };
 
