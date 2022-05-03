@@ -59,7 +59,7 @@ define([
                         if (result.success) {
                             var finalResult = result.success;
 
-                            if (finalResult.availableQtyAsTxtP) {
+                            if (finalResult.remain_days) {
                                $('#deliverydayP').html(finalResult.remain_days);
                             }
 
