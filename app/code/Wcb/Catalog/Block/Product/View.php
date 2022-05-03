@@ -71,9 +71,26 @@ class View extends BaseView
 
     public function getPackageBox($sku){
 
-        $pimProduct =  $this->pimProductFactory->create()->load($sku);
-        if($pimProduct){
-          return $pimProduct->getData('PackageBox');
+        $product =  $this->getProduct();
+        if($product){
+			return $product->getPackageBox();
+        }
+    }
+    
+     public function getPackaging(){
+        //die('ok');
+        $product =  $this->getProduct();
+        
+        if($product){
+			 $minimum_sales_quantity =  (int)$product->getMinimumSalesUnitQuantity();
+             $base_unit_of_measure_id = (int) $product->getBaseUnitOfMeasureId();
+             
+            
+             if($base_unit_of_measure_id == '2'){
+			
+			 return $totalPkg = 	$minimum_sales_quantity * 100;
+			}
+          return $minimum_sales_quantity;
         }
     }
 }

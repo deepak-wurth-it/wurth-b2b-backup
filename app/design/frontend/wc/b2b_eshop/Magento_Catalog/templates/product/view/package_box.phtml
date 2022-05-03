@@ -7,15 +7,19 @@
 <?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
 <?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
 <?php $sku = $block->getProduct()->getSku();?>
-<div class="col-md">
- <span class="package-box-pdp"><label>Package :</label><?php echo floatval($this->getPackageBox($sku));?></span>
-</div>
+<?php $productCode = $block->getProduct()->getProductCode();?>
 <!-- Please use blubox, bluevan, redbox, redvan class to change box color-->
 <?php
   // login check helper
    $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
  ?>
 <?php if($logedIn) { ?>
-<div class="itemboxwrapp"><span class="bluebox"></span><span class="bluevan"></span><span class="deliveryday">10-14</span> <span class="itembox"> </span> <span class="deliveryday"></span><span> 1</span> </div>
+<div class="itemboxwrapp"><span class="bluebox"></span><span class="bluevan"></span><span id="deliverydayP" class="deliveryday"></span> <span class="itembox"> </span> <span class="deliveryday"></span><span> <?php echo floatval($this->getPackageBox($sku));?></span> </div>
 <?php } ?>
 <span class="hrline"></span>
+
+<script>
+require(['pdp'], function(pdp) {
+               pdp.soapStock("<?php echo $productCode ?>");
+            });
+</script>
