@@ -20,6 +20,21 @@
    $removeHelper = $this->helper(Magento\Checkout\Helper\Cart::class);
   // login check helper
    $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
+   $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
+   $product = $checkoutHelper->getLoadProduct($product->getId());
+
+   $type = '';
+  $displayUnitQty = 1;
+   if ($product->getBaseUnitOfMeasureId()) {
+       $type = $checkoutHelper->getType($product->getBaseUnitOfMeasureId());
+       $displayUnitQty = $checkoutHelper->getQuantityUnitByQuantity($block->getQty(), $product);
+       $minimumAndMeasureQty = $checkoutHelper->getMinimumAndMeasureQty($product);
+   }
+
+  /*  var_dump($product->getMinimumSalesUnitQuantity());
+    var_dump($product->getBaseUnitOfMeasureId());
+    var_dump($product->getProductUnitOfMeasureCode());
+    exit;*/
   ?>
 <tbody class="cart item">
    <tr class="item-info table__row">
@@ -39,7 +54,7 @@
          </span>
          <?php endif; ?>
          <div class="product-item-details">
-            <strong class="item-no">250</strong>
+            <strong class="item-no"><?= $product->getProductCode() ?></strong>
             <strong class="product-item-name">
             <?php if ($block->hasProductUrl()) :?>
             <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"><?= $block->escapeHtml($block->getProductName()) ?></a>
@@ -74,7 +89,7 @@
             <?= $addInfoBlock->setItem($_item)->toHtml() ?>
             <?php endif;?>
          </div>
-      </td> 
+      </td>
       <td class="colqty data-name" data-th="<?= $block->escapeHtml(__('Qty')) ?>" data-name="<?= $block->escapeHtml(__('Quantity x pieces = total quantity')) ?>">
           <?php if ($shippingProductCode != $_item->getSku()) { ?>
               <div class="productFieldset">
@@ -86,7 +101,8 @@
                        <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
                           name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
                           data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                          value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                          <!--value="--><?/*= $block->escapeHtmlAttr($block->getQty()) */?>"
+                          value="<?= $block->escapeHtmlAttr($displayUnitQty) ?>"
                           type="number"
                           size="4"
                           step="any"
@@ -102,24 +118,18 @@
 
                 <div class="cpCount">
                    <select>
-                      <option> 120 PC</option>
-                      <option> 120 PC</option>
-                      <option> 120 PC</option>
-                      <option> 120 PC</option>
+                      <option> <?= $minimumAndMeasureQty ?> PC</option>
                    </select>
                 </div>
                 <div class="cpCount">
                    <select>
-                      <option> 100 </option>
-                      <option> 100 </option>
-                      <option> 100 </option>
-                      <option> 100 </option>
+                      <option><?= $block->getQty() ?></option>
                    </select>
                 </div>
 
          </div>
          <div class="imd-avilable">
-         <?php if($logedIn) { ?>
+         <?php if ($logedIn) { ?>
             <span class="imd-van"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/Rectangle434.png'); ?>" /></span>
             <span class="imd-cart"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/cartico.png'); ?>" /></span>
             <span class="imd-day">12-14</span>
@@ -132,7 +142,7 @@
           <?php if ($shippingProductCode != $_item->getSku()) { ?>
          <table>
             <tr  class="seprator">
-               <td class="data-name" data-name="<?= $block->escapeHtml(__('Jed. measure')) ?>"> <span class="carmrp" >KOM</span> </td>
+               <td class="data-name" data-name="<?= $block->escapeHtml(__('Jed. measure')) ?>"> <span class="carmrp" ><?= $type ?></span> </td>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Price type')) ?>"> <span class="imd-cart"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/star-red.png'); ?>" /></span> </td>
             </tr>
          </table>
@@ -143,7 +153,7 @@
             <tr>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Price')) ?>">
                   <div class="colsubtotal">
-                     <?php if($logedIn) { ?>
+                     <?php if ($logedIn) { ?>
                      <div class="cpdis"><span class="cpcross">145,66 HRK </span> <span class="cpper"> (-25%)</span></div>
                      <span class="cpgprice">1816.17</span>
                      <?php } else { ?>
@@ -152,7 +162,7 @@
                   </div>
                </td>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Amount without VAT')) ?>">
-               <?php if($logedIn) { ?>
+               <?php if ($logedIn) { ?>
                  <span class="carmrp">2,401.88</span>
                         <?php } ?>
                </td>
