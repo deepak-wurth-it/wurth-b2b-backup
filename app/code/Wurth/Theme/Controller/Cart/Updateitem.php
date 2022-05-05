@@ -12,7 +12,10 @@ use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\View\LayoutFactory;
+use Magento\Quote\Model\Quote\ItemFactory;
 use Psr\Log\LoggerInterface;
+use Wcb\Checkout\Helper\Data as WcbCheckoutHelper;
 
 class Updateitem extends Action
 {
@@ -34,8 +37,18 @@ class Updateitem extends Action
      * @var CustomerCart
      */
     protected $cart;
-
+    /**
+     * @var ResultFactory
+     */
     protected $resultFactory;
+    /**
+     * @var WcbCheckoutHelper
+     */
+    protected $wcbCheckoutHelper;
+    /**
+     * @var ItemFactory
+     */
+    protected $itemFactory;
 
     /**
      * Updateitem constructor.
@@ -44,6 +57,9 @@ class Updateitem extends Action
      * @param LoggerInterface $logger
      * @param ManagerInterface $messageManager
      * @param CustomerCart $cart
+     * @param LayoutFactory $layoutFactory
+     * @param WcbCheckoutHelper $wcbCheckoutHelper
+     * @param ItemFactory $itemFactory
      */
     public function __construct(
         Context $context,
@@ -51,7 +67,9 @@ class Updateitem extends Action
         LoggerInterface $logger,
         ManagerInterface $messageManager,
         CustomerCart $cart,
-        \Magento\Framework\View\LayoutFactory $layoutFactory
+        LayoutFactory $layoutFactory,
+        WcbCheckoutHelper $wcbCheckoutHelper,
+        ItemFactory $itemFactory
     ) {
         $this->resultFactory = $context->getResultFactory();
         $this->logger = $logger;
@@ -59,6 +77,8 @@ class Updateitem extends Action
         $this->messageManager = $messageManager;
         $this->cart = $cart;
         $this->layoutFactory = $layoutFactory;
+        $this->wcbCheckoutHelper = $wcbCheckoutHelper;
+        $this->itemFactory = $itemFactory;
         parent::__construct($context);
     }
 
@@ -78,6 +98,7 @@ class Updateitem extends Action
         try {
             $itemId = $this->getRequest()->getParam('item_id');
             $qty = $this->getRequest()->getParam('qty');
+            $qty = $this->getTotalQty($itemId, $qty);
 
             $isItemUpdate = $this->updateCartItemQty($itemId, $qty);
             if ($isItemUpdate) {
@@ -102,6 +123,24 @@ class Updateitem extends Action
         }
         $response->setData($result);
         return $response;
+    }
+
+    /**
+     * @param $itemId
+     * @param $qty
+     * @return float|int
+     */
+    public function getTotalQty($itemId, $qty)
+    {
+        $item = $this->itemFactory->create()->load($itemId);
+        if ($item->getId()) {
+            $product = $this->wcbCheckoutHelper->getLoadProduct($item->getProductId());
+            if ($product) {
+                $qty = $this->wcbCheckoutHelper->getTotalQty($product, $qty);
+            }
+        }
+
+        return $qty;
     }
 
     /**

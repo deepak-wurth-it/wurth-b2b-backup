@@ -38,6 +38,14 @@
         </job>
     </group>
     
+    
+     <!-- Once in a month -->
+     <group id="pim">
+        <job name="units_of_measure" instance="Wcb\Cron\PimCron\ImportUnitsOfMeasure" method="execute">
+            <schedule>0 0 1 * *</schedule>
+        </job>
+    </group>
+    
 <!--<group id="pim">
         <job instance="Wcb\Cron\Test\TestCron" method="execute" name="test_cron">
                  <schedule>* * * * *</schedule>

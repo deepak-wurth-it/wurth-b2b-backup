@@ -5,6 +5,7 @@
 
 define([
     'jquery',
+    'mage/url',
     'underscore',
     'Magento_Ui/js/form/form',
     'ko',
@@ -29,6 +30,7 @@ define([
     'Magento_Checkout/js/model/shipping-rate-service'
 ], function (
     $,
+    url,
     _,
     Component,
     ko,
@@ -67,6 +69,7 @@ define([
         visible: ko.observable(!quote.isVirtual()),
         errorValidationMessage: ko.observable(false),
         showAddressForm: ko.observable(false),
+        showAddNewAddressButton: ko.observable(true),
         isCustomerLoggedIn: customer.isLoggedIn,
         isFormPopUpVisible: formPopUpState.isVisible,
         isFormInline: addressList().length === 0,
@@ -77,7 +80,7 @@ define([
         /**
          * SkipSipping Method
          *
-        **/
+         **/
         shippingCount:0,
         showShippingTitle:ko.observable(true),
         shippingRates: shippingService.getShippingRates(),
@@ -85,7 +88,7 @@ define([
         /**
          * @return {exports}
          */
-         /**
+        /**
          * @return {Boolean}
          */
         initialize: function () {
@@ -96,10 +99,13 @@ define([
             this._super();
             this.shippingCount = this.moduleEnabled ? 1 : 0; // set shipping count for validation
 
+            // Remove new address first
+            checkoutData.setNewCustomerShippingAddress(null);
+
             /**
              * set weather to show shipping title on checkout or not
              *
-            **/
+             **/
             if(this.moduleEnabled){
                 this.shippingRates.subscribe(function (rates) {
                     if(rates.length > 1){
@@ -151,11 +157,14 @@ define([
                 });
                 shippingRatesValidator.initFields(fieldsetName);
             });
-           if(window.checkoutConfig.quoteData.pickup_store_id && window.checkoutConfig.quoteData.pickup_store_id != ''){
-               this.addStorePickupAddress();
-               this.isFormInline = false;// hide new address form
-               this.isNewAddressAdded(true);
-           }
+            if(window.checkoutConfig.quoteData.pickup_store_id && window.checkoutConfig.quoteData.pickup_store_id != ''){
+                this.addStorePickupAddress();
+                this.isFormInline = false;// hide new address form
+                this.isNewAddressAdded(true);
+                this.showAddNewAddressButton(false);
+            }else{
+                checkoutData.setNewCustomerShippingAddress(null);
+            }
             return this;
         },
 
@@ -266,7 +275,7 @@ define([
             addressData['city'] = window.checkoutConfig.customerData.pickup_store.city;
             addressData['country_id'] = window.checkoutConfig.customerData.pickup_store.country_id;
             addressData['firstname'] = window.checkoutConfig.customerData.pickup_store.name;
-            addressData['lastname'] = '';
+            addressData['lastname'] = window.checkoutConfig.customerData.pickup_store.contact_name;
             addressData['postcode'] = window.checkoutConfig.customerData.pickup_store.postcode;
             addressData['region'] = window.checkoutConfig.customerData.pickup_store.region;
             addressData['region_id'] = window.checkoutConfig.customerData.pickup_store.region_id;
@@ -311,6 +320,13 @@ define([
          * Set shipping information handler
          */
         setShippingInformation: function () {
+            const $form = $('#order_detail_form')
+            $form.validation()
+            if(!$form.valid()){
+                return;
+            }
+
+            this.setOrderDetailInQuote();
             if(this.showAddressForm()){
                 this.saveNewAddress();
                 return;
@@ -427,6 +443,19 @@ define([
         },
         cancelNewAddress: function(){
             this.showAddressForm(false);
+        },
+        setOrderDetailInQuote: function(){
+            let saveUrl = url.build('theme/checkout/saveInQuote');
+            $.ajax({
+                url: saveUrl,
+                data: $('#order_detail_form').serialize(),
+                type: "POST",
+                dataType: 'json',
+                async: false,
+                showLoader: true,
+            }).done(function (data) {
+
+            });
         }
     });
 });
