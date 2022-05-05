@@ -37,9 +37,11 @@ $base_unit_of_measure_id = $block->getProduct()->getBaseUnitOfMeasureId();
                 <div id="79-dec" class="decreaseQty icon-interface-minus"></div>
                 <input id="cart-79-qty" name="qty" data-cart-item-id="Test product"
                        value="<?= ($block->getProductDefaultQty()) ? $block->getProductDefaultQty() * 1 : 1 ?>"
+                       data-qty="1"
                        type="number" size="4" step="any" title="Qty" class="input-text qty"
                        data-validate="{required:true,'validate-greater-than-zero':true}"
-                       data-role="cart-item-qty">
+                       data-role="cart-item-qty"
+                       >
                 <div id="79-upt" class="increaseQty icon-interface-plus"></div>
               </div>
             
