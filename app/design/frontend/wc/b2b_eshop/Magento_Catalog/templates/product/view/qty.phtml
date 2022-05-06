@@ -17,23 +17,31 @@ $product_id = $product->getId();
 $test = $objectManager->create(\Wcb\QuantityImport\Model\QuantityImport::class);
 $collection= $test->getCollection()->addFieldToFilter('product_code', array('eq'=>$product->getProductCode()));
 $_product = $block->getProduct();
+$minimum_sales_quantity = $block->getProduct()->getMinimumSalesUnitQuantity();
+$base_unit_of_measure_id = $block->getProduct()->getBaseUnitOfMeasureId();
 ?>
-<form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+<form id="wcb-qty-form" data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
       action="<?= $block->escapeUrl($block->getSubmitUrl($_product)) ?>" method="post"
       id="product_addtocart_form"<?php if ($_product->getOptions()) :?> enctype="multipart/form-data"<?php endif; ?>>
     <input type="hidden" name="product" value="<?= (int)$_product->getId() ?>" />
     <input type="hidden" name="selected_configurable_option" value="" />
     <input type="hidden" name="related_product" id="related-products-field" value="" />
     <input type="hidden" name="item"  value="<?= (int)$block->getRequest()->getParam('id') ?>" />
+    <input type="hidden" name="minimum_sales_quantity" id="minimum_sales_quantity_qty" value="<?php echo $minimum_sales_quantity; ?>" />
+    <input type="hidden" name="base_unit_of_measure_id" id="base_unit_of_measure_id_qty" value="<?php echo $base_unit_of_measure_id ;?>" />
+
+    
     <?= $block->getBlockHtml('formkey') ?>
         <div class="boxcontaner" data-mage-init='{"qtyIncrementWidget": {}}'>
               <div class="qty-field">
                 <div id="79-dec" class="decreaseQty icon-interface-minus"></div>
                 <input id="cart-79-qty" name="qty" data-cart-item-id="Test product"
                        value="<?= ($block->getProductDefaultQty()) ? $block->getProductDefaultQty() * 1 : 1 ?>"
+                       data-qty="1"
                        type="number" size="4" step="any" title="Qty" class="input-text qty"
                        data-validate="{required:true,'validate-greater-than-zero':true}"
-                       data-role="cart-item-qty">
+                       data-role="cart-item-qty"
+                       >
                 <div id="79-upt" class="increaseQty icon-interface-plus"></div>
               </div>
             
