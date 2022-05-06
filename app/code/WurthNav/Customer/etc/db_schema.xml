@@ -5,4 +5,10 @@
         <column xsi:type="int" name="sync_status" padding="10" unsigned="true" default="0" nullable="false"
                 comment="Syncing Status to WurthNav ShopContact table"/>
     </table>
+    
+     <table name="customer_group">
+       		<column xsi:type="varchar" name="code" nullable="true" length="64" comment="Code From WurthNav ERP From Branch Table"/>
+       		<column xsi:type="varchar" name="parent_branch" nullable="true" length="64" comment="Parent Branch From WurthNav ERP From Branch Table"/>
+
+    </table>
 </schema>
