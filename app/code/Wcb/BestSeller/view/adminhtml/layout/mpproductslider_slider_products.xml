@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 <layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
     <container name="root" label="Root" output="1">
-        <block class="Wcb\BestSeller\Block\Adminhtml\Slider\Edit\Tab\Products" name="slider.edit.tab.product"/>
-        <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="product_grid_serializer">
-            <arguments>
-                <argument name="grid_block" xsi:type="string">slider.edit.tab.product</argument>
-                <argument name="callback" xsi:type="string">getSelectedProducts</argument>
-                <argument name="input_element_name" xsi:type="string">products</argument>
-                <argument name="reload_param_name" xsi:type="string">slider_products</argument>
-            </arguments>
-        </block>
+        <block class="Wcb\BestSeller\Block\Adminhtml\Slider\Edit\Tab\AssignProducts" name="slider.edit.tab.product" />
+        <!--        <block class="Wcb\BestSeller\Block\Adminhtml\Slider\Edit\Tab\Products" name="slider.edit.tab.product" />-->
+        <!--        <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="product_grid_serializer">-->
+        <!--            <arguments>-->
+        <!--                <argument name="grid_block" xsi:type="string">slider.edit.tab.product</argument>-->
+        <!--                <argument name="callback" xsi:type="string">getSelectedProducts</argument>-->
+        <!--                <argument name="input_element_name" xsi:type="string">products</argument>-->
+        <!--                <argument name="reload_param_name" xsi:type="string">slider_products</argument>-->
+        <!--            </arguments>-->
+        <!--        </block>-->
+        <!--    </container>-->
     </container>
 </layout>

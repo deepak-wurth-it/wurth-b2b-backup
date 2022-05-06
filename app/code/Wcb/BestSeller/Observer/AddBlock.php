@@ -115,16 +115,27 @@ class AddBlock implements ObserverInterface
                         $collectionData = $layout->createBlock($this->productType->getBlockMap($slider->getProductType()))
                             ->setSlider($slider)
                             ->getProductCollection();
+                        $productIdWithTitle = $slider->getProductIdWithTitle();
+                        if ($productIdWithTitle) {
+                            $productIdWithTitle = json_decode($productIdWithTitle, true);
+                        }
+
                         foreach ($collectionData as $_product) {
+                            $headerTwo = $slider->getHeaderTwo();
                             if (in_array($_product->getId(), $productsIds)) {
                                 continue;
+                            }
+                            if ($productIdWithTitle && isset($productIdWithTitle[$_product->getId()])) {
+                                if ($productIdWithTitle[$_product->getId()] != '') {
+                                    $headerTwo = $productIdWithTitle[$_product->getId()];
+                                }
                             }
                             $productsAndCategory[] = [
                                 "name" => $_product->getName(),
                                 "image" => $this->abstractSlider->getImage($_product, 'recently_viewed_products_grid_content_widget')->toHtml(),
                                 "url" => $this->abstractSlider->getProductUrl($_product),
                                 "offer" => $slider->getOffer(),
-                                "header_two" => $slider->getHeaderTwo(),
+                                "header_two" => $headerTwo,
                                 "detail" => $this->abstractSlider->getProductDetailsHtml($_product),
                             ];
                             $productsIds[] = $_product->getId();
