@@ -7,7 +7,7 @@
     </table>
     
      <table name="customer_group">
-       		<column xsi:type="varchar" name="code" nullable="true" length="64" comment="Code From WurthNav ERP From Branch Table"/>
+       		<column xsi:type="varchar" name="branch_code" nullable="true" length="64" comment="Code From WurthNav ERP From Branch Table"/>
        		<column xsi:type="varchar" name="parent_branch" nullable="true" length="64" comment="Parent Branch From WurthNav ERP From Branch Table"/>
 
     </table>
