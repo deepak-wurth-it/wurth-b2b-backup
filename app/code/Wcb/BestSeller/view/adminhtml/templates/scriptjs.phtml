@@ -1,0 +1,23 @@
+<?php
+$blockGrid = $block->getBlockGrid();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+<?= $block->getGridHtml() ?>
+<input type="hidden" name="product_id_with_title" data-form-part="wurth_slider_page_form" id="product_id_with_title"
+       value=""/>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Wcb_BestSeller/js/assign-header-two": {
+                "selectedProducts":  <?= /* @escapeNotVerified */
+    $block->getProductsJson() ? $block->getProductsJson() : '{}' ?>,
+                "gridJsObjectName": <?= /* @escapeNotVerified */
+    '"' . $gridJsObjectName . '"' ?: '{}' ?>
+            }
+        }
+    }
+
+</script>
+<script>
+    require('mage/apply/main').apply();
+</script>

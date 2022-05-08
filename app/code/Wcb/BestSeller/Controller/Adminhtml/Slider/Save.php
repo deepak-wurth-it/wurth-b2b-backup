@@ -125,9 +125,18 @@ class Save extends Slider
         if (isset($data['responsive_items'])) {
             unset($data['responsive_items']['__empty']);
         }
+        $productsWithTitle = $this->getRequest()->getParam('product_id_with_title');
+        $productsKeys = json_decode($productsWithTitle, true);
+        $productsKeys = array_keys($productsKeys);
+        $customProducts = implode('&', $productsKeys);
 
         if ($products = $this->getRequest()->getParam('products')) {
             $data['product_ids'] = $products;
+        }
+
+        if ($productsWithTitle) {
+            $data['product_id_with_title'] = $productsWithTitle;
+            $data['product_ids'] = $customProducts;
         }
 
         return $data;

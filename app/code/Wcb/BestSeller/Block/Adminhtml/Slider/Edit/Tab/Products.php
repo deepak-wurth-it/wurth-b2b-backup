@@ -156,6 +156,20 @@ class Products extends Extended implements TabInterface
                 'width' => '50px',
             ]
         );
+        $this->addColumn(
+            'position',
+            [
+                'header' => __('Header 2'),
+                'class' => 'xxx',
+                'index' => 'position',
+                'width' => '50px',
+                'type'  => 'input',
+                'editable' => true,
+                'edit_only' => true
+            ]
+        );
+
+
 
         return parent::_prepareColumns();
     }
@@ -294,4 +308,10 @@ class Products extends Extended implements TabInterface
     {
         return 'ajax only';
     }
+
+    public function getJsObjectName()
+    {
+        return $this->getId() . 'JsObject';
+    }
+
 }
