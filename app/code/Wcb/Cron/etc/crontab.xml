@@ -49,7 +49,7 @@
     
      <group id="wurthnav">
         <job name="customer_group_import" instance="Wcb\Cron\PimCron\ImportUnitsOfMeasure" method="execute">
-            <schedule>0 0 1 * *</schedule>
+            <schedule>0 0 * * *</schedule>
         </job>
     </group>
     
