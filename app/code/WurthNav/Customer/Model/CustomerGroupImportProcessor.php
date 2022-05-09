@@ -124,7 +124,7 @@ class CustomerGroupImportProcessor
 				['b' => $Branches],
 				['*']
 			)->where('b.ParentBranch IN (?)', $wcode)
-		        ->where("b.Code <> $wcode ");
+		        ->where("b.Code <> '$wcode' ");
 
 		$data = $this->connectionWurthNav->fetchAll($select);
 
