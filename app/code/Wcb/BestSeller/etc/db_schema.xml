@@ -19,6 +19,7 @@ xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/et
         <column xsi:type="text" name="product_type" nullable="true" comment="Product Type"/>
         <column xsi:type="text" name="categories_ids" nullable="true" comment="Categories Ids"/>
         <column xsi:type="text" name="product_ids" nullable="true" comment="Product Ids"/>
+        <column xsi:type="text" name="product_id_with_title" nullable="true" comment="product_id_with_title"/>
         <column xsi:type="text" name="display_additional" nullable="true" comment="Display additional Information"/>
         <column xsi:type="text" name="is_responsive" nullable="true" comment="Responsive"/>
         <column xsi:type="text" name="responsive_items" nullable="true" comment="Max Items slider"/>

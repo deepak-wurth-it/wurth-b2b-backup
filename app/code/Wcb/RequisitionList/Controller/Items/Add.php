@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Wcb\RequisitionList\Controller\Items;
 
 use Exception;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
@@ -19,6 +20,7 @@ use Magento\RequisitionList\Model\RequisitionListItem\Options\Builder\Configurat
 use Magento\RequisitionList\Model\RequisitionListItem\SaveHandler;
 use Magento\RequisitionList\Model\RequisitionListProduct;
 use Psr\Log\LoggerInterface;
+use Wurth\Shippingproduct\Helper\Data as ShippingProductHelper;
 
 /**
  * Add products to the requisition list.
@@ -82,6 +84,14 @@ class Add extends \Magento\RequisitionList\Controller\Items\Add
      * @var UrlInterface
      */
     private $urlBuilder;
+    /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
+    /**
+     * @var ShippingProductHelper
+     */
+    protected $shippingProductHelper;
 
     public function __construct(
         ResultFactory $resultFactory,
@@ -93,7 +103,9 @@ class Add extends \Magento\RequisitionList\Controller\Items\Add
         MessageManagerInterface $messageManager,
         RequisitionListRepositoryInterface $requisitionListRepository,
         Json $jsonHelper,
-        UrlInterface $urlBuilder
+        UrlInterface $urlBuilder,
+        ProductRepositoryInterface $productRepository,
+        ShippingProductHelper $shippingProductHelper
     ) {
         $this->resultFactory = $resultFactory;
         $this->requestValidator = $requestValidator;
@@ -105,6 +117,8 @@ class Add extends \Magento\RequisitionList\Controller\Items\Add
         $this->requisitionListRepository = $requisitionListRepository;
         $this->jsonHelper = $jsonHelper;
         $this->urlBuilder = $urlBuilder;
+        $this->productRepository = $productRepository;
+        $this->shippingProductHelper = $shippingProductHelper;
         parent::__construct($resultFactory, $requestValidator, $requisitionListItemSaveHandler, $requisitionListProduct, $logger, $request, $messageManager, $requisitionListRepository, $jsonHelper, $urlBuilder);
     }
 
@@ -228,10 +242,25 @@ class Add extends \Magento\RequisitionList\Controller\Items\Add
     {
         foreach ($productData as $product) {
             $specificQty = $this->request->getParam('specific_qty');
+            $oldOptions = $product->getOptions();
+
             if ($specificQty == 'false') {
-                $oldOptions = $product->getOptions();
                 $oldOptions['qty'] = "1";
                 $product->setData("options", $oldOptions);
+            }
+            // skip shipping product
+            $productId = isset($oldOptions['product']) ? $oldOptions['product'] : '';
+            if ($productId) {
+                $productData = $this->productRepository->getById($productId);
+                $shippingProductCode = $this->shippingProductHelper->getConfig(ShippingProductHelper::SHIPPING_PRODUCT_CODE);
+                if ($productData->getProductCode() == $shippingProductCode) {
+                    continue;
+                }
+            }
+
+            //skip gift product
+            if (isset($oldOptions['options']['ampromo_rule_id'])) {
+                continue;
             }
 
             $options = is_array($product->getOptions()) ? $product->getOptions() : [];
