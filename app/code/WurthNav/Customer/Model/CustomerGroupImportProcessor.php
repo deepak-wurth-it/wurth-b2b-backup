@@ -118,12 +118,13 @@ class CustomerGroupImportProcessor
 		$Branches = $this->connectionWurthNav->getTableName('Branches');
 		$tableDivision = $this->connectionDefault->getTableName('division');
 
-		$condition = 'b.Code like ' . '"' . $wcode . '%"';
+		//$condition = 'b.Code like ' . '"' . $wcode . '%"';
 		$select = $this->connectionWurthNav->select()
 			->from(
 				['b' => $Branches],
 				['*']
-			)->where($condition);
+			)->where('b.ParentBranch IN (?)', $wcode)
+		        ->where("b.Code <> '$wcode' ");
 
 		$data = $this->connectionWurthNav->fetchAll($select);
 
