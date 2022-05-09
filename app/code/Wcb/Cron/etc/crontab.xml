@@ -46,6 +46,13 @@
         </job>
     </group>
     
+    
+     <group id="wurthnav">
+        <job name="customer_group_import" instance="Wcb\Cron\PimCron\ImportUnitsOfMeasure" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+    </group>
+    
 <!--<group id="pim">
         <job instance="Wcb\Cron\Test\TestCron" method="execute" name="test_cron">
                  <schedule>* * * * *</schedule>
