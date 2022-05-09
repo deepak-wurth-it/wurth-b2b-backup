@@ -66,7 +66,7 @@ class CustomerGroupImportProcessor
 				)->where('branches.Code IN (?)', $parent);
 
 
-ParentBranch
+
 			$data = $this->connectionWurthNav->fetchAll($select);
 
 
