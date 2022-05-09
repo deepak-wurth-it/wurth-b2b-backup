@@ -123,7 +123,7 @@ class CustomerGroupImportProcessor
 			->from(
 				['b' => $Branches],
 				['*']
-			))->where('b.ParentBranch IN (?)', $wcode);
+			)->where('b.ParentBranch IN (?)', $wcode);
 
 		$data = $this->connectionWurthNav->fetchAll($select);
 
