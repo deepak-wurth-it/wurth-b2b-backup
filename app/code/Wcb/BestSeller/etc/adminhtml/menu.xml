@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
 
-        <add id="Wcb_BestSeller::productslider" title="Best Bellers Sliders" module="Wcb_BestSeller" parent="Wcb_Base::menu" sortOrder="20" resource="Wcb_BestSeller::productslider"/>
+        <add id="Wcb_BestSeller::productslider" title="Best Sellers Sliders" module="Wcb_BestSeller" parent="Wcb_Base::menu" sortOrder="20" resource="Wcb_BestSeller::productslider"/>
         <add id="Wcb_BestSeller::slider" title="Manage Sliders" module="Wcb_BestSeller" sortOrder="20" parent="Wcb_BestSeller::productslider" action="mpproductslider/slider/index" resource="Wcb_BestSeller::slider"/>
         <add id="Wcb_BestSeller::configuration" title="Configuration" module="Wcb_BestSeller" sortOrder="30" parent="Wcb_BestSeller::productslider" action="adminhtml/system_config/edit/section/productslider" resource="Wcb_BestSeller::slider"/>
     </menu>
