@@ -50,10 +50,8 @@ class Data extends AbstractHelper
         $connection = $this->resourceConnection->getConnection();
         $table = $connection->getTableName('catalog_product_entity_text');
         $query = "SELECT row_id FROM " . $table . " WHERE attribute_id = $productCodeId && REPLACE(value,' ','') LIKE $productsCode";
-
         $data = $connection->fetchAll($query);
         $productData = [];
-
         foreach ($data as $row) {
             if (isset($row['row_id'])) {
                 $productData[] = $row['row_id'];

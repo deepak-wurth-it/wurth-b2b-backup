@@ -2,6 +2,7 @@
 
 namespace Wcb\QuickOrder\Model\ResourceModel\Product;
 
+use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection\SearchResultApplierInterfaceFactory;
@@ -9,7 +10,7 @@ use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DB\Helper;
 use Magento\QuickOrder\Model\CatalogPermissions\Permissions;
-use Magento\Catalog\Api\Data\ProductInterface;
+use Wcb\QuickOrder\Helper\Data as QuickOrderHelper;
 
 class Suggest extends \Magento\QuickOrder\Model\ResourceModel\Product\Suggest
 {
@@ -34,13 +35,19 @@ class Suggest extends \Magento\QuickOrder\Model\ResourceModel\Product\Suggest
      * @var SearchResultApplierInterfaceFactory
      */
     private $searchResultApplierInterfaceFactory;
+    /**
+     * @var QuickOrderHelper
+     */
+    protected $quickOrderHelper;
 
     public function __construct(
         Permissions $permissions,
         Helper $dbHelper,
+        QuickOrderHelper $quickOrderHelper,
         Visibility $catalogProductVisibility = null,
         SearchResultApplierInterfaceFactory $searchResultApplierInterfaceFactory = null
     ) {
+        $this->quickOrderHelper = $quickOrderHelper;
         $this->permissions = $permissions;
         $this->dbHelper = $dbHelper;
         $this->catalogProductVisibility = $catalogProductVisibility
@@ -62,25 +69,33 @@ class Suggest extends \Magento\QuickOrder\Model\ResourceModel\Product\Suggest
         $query
     ) {
         $productCollection->addAttributeToSelect(ProductInterface::NAME);
+        $productCollection->addAttributeToSelect('product_code');
+        //Commented code due to the result not getting.
 
-        $applier = $this->searchResultApplierInterfaceFactory->create(
-            [
-                'collection' => $productCollection,
-                'searchResult' => $fulltextSearchResults,
-                'size' => $fulltextSearchResults->getSearchCriteria()->getPageSize(),
-                'currentPage' => $fulltextSearchResults->getSearchCriteria()->getCurrentPage()
-            ]
-        );
-        $applier->apply();
+        /* $applier = $this->searchResultApplierInterfaceFactory->create(
+             [
+                 'collection' => $productCollection,
+                 'searchResult' => $fulltextSearchResults,
+                 'size' => $fulltextSearchResults->getSearchCriteria()->getPageSize(),
+                 'currentPage' => $fulltextSearchResults->getSearchCriteria()->getCurrentPage()
+             ]
+         );
+         $applier->apply();*/
         $this->permissions->applyPermissionsToProductCollection($productCollection);
         $productCollection->setPageSize($resultLimit);
 
-        $query = $this->dbHelper->escapeLikeValue($query, ['position' => 'any']);
+        // Set custom filter
+        $productIds = $this->quickOrderHelper->getProductCodeWithProductId($query);
+
+        $productCollection->addFieldToFilter('entity_id', ['in' => $productIds]);
+
+        // Commented because not need this filter
+
+        /*$query = $this->dbHelper->escapeLikeValue($query, ['position' => 'any']);
         $productCollection->addAttributeToFilter([
             ['attribute' => ProductInterface::SKU, 'like' => $query],
             ['attribute' => ProductInterface::NAME, 'like' => $query],
-        ]);
-
+        ]);*/
         // here we exclude from collection hidden in catalog products with required custom options.
         $productCollection->setVisibility($this->catalogProductVisibility->getVisibleInSearchIds());
 

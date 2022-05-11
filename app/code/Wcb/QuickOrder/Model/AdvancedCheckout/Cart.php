@@ -167,6 +167,9 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
                 //$sku = $product->getSku();
                 $sku = str_replace(' ', '', $product->getProductCode());
                 $isSalable = true;
+                if (!isset($itemsLowerCase[mb_strtolower($sku)]['code'])) {
+                    continue;
+                }
                 if ($itemsLowerCase[mb_strtolower($sku)]['code'] === Data::ADD_ITEM_STATUS_FAILED_OUT_OF_STOCK) {
                     $isSalable = false;
                 }
