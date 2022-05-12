@@ -3,5 +3,4 @@
    <type name="Magento\Checkout\Model\Cart">
         <plugin name="quantity_modify_plugin" type="Wcb\Checkout\Model\Plugin\Cart"/>
     </type>
-   <!-- <preference for="Magento\AdvancedCheckout\Model\Cart" type="Wcb\Checkout\Model\AdvancedCheckout\Cart" />-->
 </config>
