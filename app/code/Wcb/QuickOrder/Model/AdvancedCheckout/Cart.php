@@ -1,6 +1,6 @@
 <?php
 
-namespace Wcb\Checkout\Model\AdvancedCheckout;
+namespace Wcb\QuickOrder\Model\AdvancedCheckout;
 
 use function array_map;
 use function is_float;
@@ -32,6 +32,7 @@ use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\QuoteFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Wishlist\Model\WishlistFactory;
+use Wcb\QuickOrder\Helper\Data as QuickOrderHelper;
 
 class Cart extends \Magento\AdvancedCheckout\Model\Cart
 {
@@ -40,6 +41,7 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
     private $productCollectionFactory;
     private $areProductsSalableForRequestedQty;
     private $products = [];
+    protected $quickOrderHelper;
 
     public function __construct(
         \Magento\Checkout\Model\Cart $cart,
@@ -62,6 +64,7 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
         QuoteFactory $quoteFactory,
         Attribute $eavAttribute,
         ResourceConnection $resourceConnection,
+        QuickOrderHelper $quickOrderHelper,
         $itemFailedStatus = Data::ADD_ITEM_STATUS_FAILED_SKU,
         array $data = [],
         Json $serializer = null,
@@ -72,6 +75,7 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
     ) {
         $this->_eavAttribute = $eavAttribute;
         $this->resourceConnection = $resourceConnection;
+        $this->quickOrderHelper = $quickOrderHelper;
         $this->areProductsSalableForRequestedQty = $areProductsSalableForRequestedQty
             ?? ObjectManager::getInstance()->get(AreProductsSalableForRequestedQtyInterface::class);
         $this->productCollectionFactory = $productCollectionFactory
@@ -142,14 +146,17 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
         $products = [];
         if ($skuForFind) {
             //get without space product code and id
-            $productIds = $this->getProductCodeWithProductId($skuForFind);
+            $productIds = [];
+            if (isset($skuForFind[0])) {
+                $productIds = $this->quickOrderHelper->getProductCodeWithProductId($skuForFind[0]);
+            }
+
             /** @var Collection $collection */
             $collection = $this->productCollectionFactory->create();
             $collection->addAttributeToSelect('*');
             //$collection->addFieldToFilter('sku', ['in' => $skuForFind]);
             $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
-            //$collection->getSelect()->where("REPLACE('product_code',' ','')", ['in' => $skuForFind]);
-            // $collection->setFlag('has_stock_status_filter', false);
+            $collection->setFlag('has_stock_status_filter', false);
             $itemsLowerCase = array_combine(array_map('mb_strtolower', array_keys($items)), $items);
 
             //remove space in product code (in array keys)
@@ -160,6 +167,9 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
                 //$sku = $product->getSku();
                 $sku = str_replace(' ', '', $product->getProductCode());
                 $isSalable = true;
+                if (!isset($itemsLowerCase[mb_strtolower($sku)]['code'])) {
+                    continue;
+                }
                 if ($itemsLowerCase[mb_strtolower($sku)]['code'] === Data::ADD_ITEM_STATUS_FAILED_OUT_OF_STOCK) {
                     $isSalable = false;
                 }
@@ -171,38 +181,6 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
         }
 
         return $products;
-    }
-
-    public function getProductCodeWithProductId($productsCode)
-    {
-        // remove space in user enter code and use
-        $productCodeValue = [];
-        foreach ($productsCode as $_productcode) {
-            $productCodeValue[] = str_replace(' ', '', $_productcode);
-        }
-        if (empty($productCodeValue)) {
-            return [];
-        }
-        $productCodeValue = implode(',', $productCodeValue);
-
-        $productCodeId = $this->getProductCodeAttributeId();
-        $connection = $this->resourceConnection->getConnection();
-        $table = $connection->getTableName('catalog_product_entity_text');
-        $query = "SELECT row_id FROM " . $table . " WHERE attribute_id = $productCodeId && REPLACE(value,' ','') IN ($productCodeValue)";
-        $data = $connection->fetchAll($query);
-        $productData = [];
-
-        foreach ($data as $row) {
-            if (isset($row['row_id'])) {
-                $productData[] = $row['row_id'];
-            }
-        }
-        return $productData;
-    }
-
-    public function getProductCodeAttributeId()
-    {
-        return $this->_eavAttribute->getIdByCode('catalog_product', 'product_code');
     }
 
     private function addProductToLocalCache(ProductInterface $product, int $storeId)

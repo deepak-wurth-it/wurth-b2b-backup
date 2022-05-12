@@ -101,7 +101,6 @@ class Save extends Slider
                 if (empty($sliderId)) {
                     $this->_redirect('*/*/new');
                 } else {
-                    //$this->_redirect('*/*/edit', ['id' => $sliderId->getId()]);
                     $this->_redirect('*/*/edit', ['id' => $sliderId]);
                 }
 

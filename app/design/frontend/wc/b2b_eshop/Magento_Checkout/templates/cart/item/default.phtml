@@ -25,6 +25,7 @@
 
    $type = '';
   $displayUnitQty = 1;
+  $minimumAndMeasureQty = '';
    if ($product->getBaseUnitOfMeasureId()) {
        $type = $checkoutHelper->getType($product->getBaseUnitOfMeasureId());
        $displayUnitQty = $checkoutHelper->getQuantityUnitByQuantity($block->getQty(), $product);

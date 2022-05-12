@@ -20,6 +20,12 @@
                 <item name="CustomerGroupImportCommand" xsi:type="object">WurthNav\Customer\Console\Command\CustomerGroupImportCommand</item>
             </argument>
         </arguments>
+        
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="CustomerAddressImportCommand" xsi:type="object">WurthNav\Customer\Console\Command\CustomerAddressImportByCodeCommand</item>
+            </argument>
+        </arguments>
     </type>
 
 </config>

@@ -48,7 +48,13 @@
     
     
      <group id="wurthnav">
-        <job name="customer_group_import" instance="Wcb\Cron\PimCron\ImportUnitsOfMeasure" method="execute">
+        <job name="customer_group_import" instance="Wcb\Cron\WurthNavCron\ImportUnitsOfMeasure" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+    </group>
+    
+       <group id="wurthnav">
+        <job name="customer_address_import" instance="Wcb\Cron\WurthNavCron\ImportCustomerAddress" method="execute">
             <schedule>0 0 * * *</schedule>
         </job>
     </group>

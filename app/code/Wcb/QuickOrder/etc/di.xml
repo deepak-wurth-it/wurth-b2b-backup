@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\AdvancedCheckout\Model\Cart" type="Wcb\QuickOrder\Model\AdvancedCheckout\Cart" />
+    <preference for="Magento\QuickOrder\Model\ResourceModel\Product\Suggest" type="Wcb\QuickOrder\Model\ResourceModel\Product\Suggest" />
+    <preference for="Magento\QuickOrder\Model\Product\Suggest\DataProvider" type="Wcb\QuickOrder\Model\Product\Suggest\DataProvider" />
+</config>
