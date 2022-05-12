@@ -7,6 +7,8 @@ use Magento\Catalog\Model\ProductFactory;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 class Data extends AbstractHelper
 {
@@ -49,7 +51,11 @@ class Data extends AbstractHelper
     {
         $customerGroupId = 0;
         if ($this->_customerSession->isLoggedIn()) {
-            $customerGroupId = $this->_customerSession->getCustomer()->getGroupId();
+            try {
+                $customerGroupId = $this->_customerSession->getCustomerGroupId();
+            } catch (NoSuchEntityException $e) {
+            } catch (LocalizedException $e) {
+            }
         }
         return $customerGroupId;
     }

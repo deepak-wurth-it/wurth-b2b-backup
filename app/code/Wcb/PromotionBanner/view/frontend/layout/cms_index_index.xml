@@ -4,10 +4,10 @@
 	xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
 		<referenceContainer name="page.wrapper">
-			<container name="content.promo" label="content banner homes" htmlTag="div" htmlClass="promo-banner">	
+			<container name="content.promo" label="content banner homes" htmlTag="div" htmlClass="promo-banner">
 				<block class="Wcb\PromotionBanner\Block\PromotionBanner" name="promobanners" template="Wcb_PromotionBanner::index.phtml" />
 			</container>
-		 </referenceContainer>		
+		 </referenceContainer>
 		<move element="promobanners" destination="page.wrapper" after="content.catslider"/>
     </body>
 </page>

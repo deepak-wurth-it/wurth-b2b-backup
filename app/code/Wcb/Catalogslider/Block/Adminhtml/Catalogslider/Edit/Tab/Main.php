@@ -226,18 +226,18 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'label' => __('Banner Valid From'),
                 'title' => __('Banner Valid From'),
                 'date_format' => $dateFormat,
-                //'time_format' => $timeFormat,
+                'time_format' => $timeFormat,
 
                 'disabled' => $isElementDisabled
             ]
         );
 
-        $dateFormat = $this->_localeDate->getDateFormat(
-            IntlDateFormatter::MEDIUM
-        );
-        $timeFormat = $this->_localeDate->getTimeFormat(
-            IntlDateFormatter::MEDIUM
-        );
+//        $dateFormat = $this->_localeDate->getDateFormat(
+//            IntlDateFormatter::MEDIUM
+//        );
+//        $timeFormat = $this->_localeDate->getTimeFormat(
+//            IntlDateFormatter::MEDIUM
+//        );
 
         $fieldset->addField(
             'valid_to',
@@ -247,7 +247,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'label' => __('Banner Valid To'),
                 'title' => __('Banner Valid To'),
                 'date_format' => $dateFormat,
-                //'time_format' => $timeFormat,
+                'time_format' => $timeFormat,
 
                 'disabled' => $isElementDisabled
             ]

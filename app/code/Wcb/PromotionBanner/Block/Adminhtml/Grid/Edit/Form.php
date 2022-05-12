@@ -215,7 +215,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'label' => __('Banner Valid From'),
                 'title' => __('Banner Valid From'),
                 'date_format' => $dateFormat,
-                //'time_format' => $timeFormat,
+                'time_format' => $timeFormat,
             ]
         );
 
@@ -227,7 +227,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'label' => __('Banner Valid To'),
                 'title' => __('Banner Valid To'),
                 'date_format' => $dateFormat,
-                //'time_format' => $timeFormat,
+                'time_format' => $timeFormat,
             ]
         );
 
