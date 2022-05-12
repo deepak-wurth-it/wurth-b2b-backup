@@ -115,7 +115,8 @@ class CategoryId extends AbstractSlider
             $category = $this->_categoryFactory->create()->load($cat);
 
             if ($category->getImageUrl()) {
-                $imageUrl = $this->getUrl() . $category->getImageUrl();
+                /*$imageUrl = $this->getUrl() . $category->getImageUrl();*/
+                $imageUrl = $category->getImageUrl();
             } else {
                 $imageUrl= $this->getViewFileUrl('Magento_Catalog::images/product/placeholder/thumbnail.jpg');
             }
@@ -127,7 +128,7 @@ class CategoryId extends AbstractSlider
                 "url" => $category->getUrl(),
             ];
         }
-        /*echo "<pre>";
+       /* echo "<pre>";
         print_r($categoryData);
         exit;*/
         return $categoryData;

@@ -90,6 +90,7 @@ class Save extends Slider
 
                 return;
             } catch (Exception $e) {
+                exit('---' . $e->getMessage());
                 $this->messageManager->addExceptionMessage(
                     $e,
                     __('Something went wrong while saving the Slider. %1', $e->getMessage())
@@ -100,7 +101,7 @@ class Save extends Slider
                 if (empty($sliderId)) {
                     $this->_redirect('*/*/new');
                 } else {
-                    $this->_redirect('*/*/edit', ['id' => $sliderId->getId()]);
+                    $this->_redirect('*/*/edit', ['id' => $sliderId]);
                 }
 
                 return;
@@ -124,6 +125,16 @@ class Save extends Slider
 
         if (isset($data['responsive_items'])) {
             unset($data['responsive_items']['__empty']);
+        }
+        $productsWithTitle = $this->getRequest()->getParam('product_id_with_title');
+        if ($productsWithTitle) {
+            $productsKeys = json_decode($productsWithTitle, true);
+            $productsKeys = array_keys($productsKeys);
+            $customProducts = implode('&', $productsKeys);
+            if ($productsWithTitle) {
+                $data['product_id_with_title'] = $productsWithTitle;
+                $data['product_ids'] = $customProducts;
+            }
         }
 
         if ($products = $this->getRequest()->getParam('products')) {

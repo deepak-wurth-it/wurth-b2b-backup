@@ -4,6 +4,7 @@ namespace Wcb\BestSeller\Controller\Adminhtml\Slider;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\LayoutFactory;
 
@@ -26,9 +27,13 @@ class ProductsGrid extends Action
      */
     public function __construct(
         Context $context,
-        LayoutFactory $resultLayoutFactory
+        LayoutFactory $resultLayoutFactory,
+        Rawfactory $resultRawFactory,
+        \Magento\Framework\View\LayoutFactory $layoutFactory
     ) {
         $this->_resultLayoutFactory = $resultLayoutFactory;
+        $this->resultRawFactory = $resultRawFactory;
+        $this->layoutFactory = $layoutFactory;
 
         parent::__construct($context);
     }
@@ -45,5 +50,14 @@ class ProductsGrid extends Action
             ->setInBanner($this->getRequest()->getPost('slider_products', null));
 
         return $resultLayout;
+
+
+//        $resultRaw = $this->resultRawFactory->create();
+//        return $resultRaw->setContents(
+//            $this->layoutFactory->create()->createBlock(
+//                'Wcb\BestSeller\Block\Adminhtml\Slider\Edit\Tab\AssignProducts',
+//                'slider.edit.tab.product'
+//            )->toHtml()
+//        );
     }
 }
