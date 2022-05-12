@@ -13,7 +13,7 @@ class Catalogslider extends \Magento\Backend\Block\Widget\Container
      * @param \Magento\Backend\Block\Widget\Context $context
      * @param array $data
      */
-    public function __construct(\Magento\Backend\Block\Widget\Context $context,array $data = [])
+    public function __construct(\Magento\Backend\Block\Widget\Context $context, array $data = [])
     {
         parent::__construct($context, $data);
     }
@@ -25,8 +25,6 @@ class Catalogslider extends \Magento\Backend\Block\Widget\Container
      */
     protected function _prepareLayout()
     {
-
-		
         $addButtonProps = [
             'id' => 'add_new',
             'label' => __('Add New'),
@@ -37,7 +35,6 @@ class Catalogslider extends \Magento\Backend\Block\Widget\Container
             //'options' => $this->_getAddButtonOptions(),
         ];
         $this->buttonList->add('add_new', $addButtonProps);
-		
 
         $this->setChild(
             'grid',
@@ -53,7 +50,6 @@ class Catalogslider extends \Magento\Backend\Block\Widget\Container
      */
     protected function _getAddButtonOptions()
     {
-
         $splitButtonOptions[] = [
             'label' => __('Add New'),
             'onclick' => "setLocation('" . $this->_getCreateUrl() . "')"
@@ -84,5 +80,4 @@ class Catalogslider extends \Magento\Backend\Block\Widget\Container
     {
         return $this->getChildHtml('grid');
     }
-
 }
