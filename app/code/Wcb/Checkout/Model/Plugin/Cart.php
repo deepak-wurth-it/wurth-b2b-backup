@@ -25,7 +25,12 @@ class Cart
     }
     public function beforeAddProduct(\Magento\Checkout\Model\Cart $subject, $productInfo, $requestInfo = null)
     {
-        $productId =  $productInfo->getData('entity_id');
+        if (is_int($productInfo) || is_string($productInfo)) {
+            $productId = $productInfo;
+        } else {
+            $productId =  $productInfo->getData('entity_id');
+        }
+
         $product = $this->productRepository->getById($productId);
         $minimum_sales_quantity =  (int)$product->getMinimumSalesUnitQuantity();
         $base_unit_of_measure_id = (int) $product->getBaseUnitOfMeasureId();
@@ -38,8 +43,14 @@ class Cart
                 $minimum_sales_quantity = $minimum_sales_quantity * $quantity;
             }
         }
-        if ($minimum_sales_quantity && $requestInfo['qty']) {
-            $requestInfo['qty'] = $requestInfo['qty'] * $minimum_sales_quantity;
+        if (is_numeric($requestInfo)) {
+            if ($minimum_sales_quantity && $requestInfo) {
+                $requestInfo = $requestInfo * $minimum_sales_quantity;
+            }
+        } else {
+            if ($minimum_sales_quantity && $requestInfo['qty']) {
+                $requestInfo['qty'] = $requestInfo['qty'] * $minimum_sales_quantity;
+            }
         }
 
         return [$productInfo,$requestInfo];
