@@ -73,15 +73,15 @@ class Catalogslider extends \Magento\Framework\View\Element\Template
             ->create()
             ->getCollection()
             ->addFieldToFilter('status', 1)
-            ->addFieldToFilter(['valid_from', 'valid_to'], [['lteq' => $currentDate], ['gteq' => $currentDate]])
-//            ->addFieldToFilter(
-//                ['valid_to', 'valid_to'],
-//                [['gteq' => $currentDate], ['null' => 'null']]
-//            )
-//            ->addFieldToFilter(
-//                ['valid_from', 'valid_from'],
-//                [['lteq' => $currentDate], ['null' => 'null']]
-//            )
+           // ->addFieldToFilter(['valid_from', 'valid_to'], [['lteq' => $currentDate], ['gteq' => $currentDate]])
+            ->addFieldToFilter(
+                ['valid_to', 'valid_to'],
+                [['gteq' => $currentDate], ['null' => 'null']]
+            )
+            ->addFieldToFilter(
+                ['valid_from', 'valid_from'],
+                [['lteq' => $currentDate], ['null' => 'null']]
+            )
             ->addFieldToFilter('customer_group', ["finset" => $customerGroupId])
             ->setOrder('sort_order', 'ASC');
         return $sliderCollection;

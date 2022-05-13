@@ -8,10 +8,10 @@ if ($this->getEnable()) {
 	<div class="row">
 		<?php
     foreach ($banners as $banner):
-        $customer_group = explode(",", $banner['customer_group']);
-        if (in_array($currentCustomerGroup, $customer_group)):
+        //$customer_group = explode(",", $banner['customer_group']);
+        //if (in_array($currentCustomerGroup, $customer_group)):
             $url_image = $this->getMediaFolder() . $banner['image'];
-            
+
                 $class = '';
                 if ($banner['position'] == 'banner1') {
                 $class = 'col-md-6 col-sm-6';
@@ -31,16 +31,16 @@ if ($this->getEnable()) {
 				<?php if ($banner['url']): ?>
 					</a>
 				<?php
-            endif; ?>      
+            endif; ?>
 		</div>
     	<?php
-        endif;
+        //endif;
         if ($banner['position'] == 'banner3') { ?>
 	</div>
 		<?php
         }
-    endforeach; ?> 
+    endforeach; ?>
 	</div>
 </div>
 <?php
-} ?>  
+} ?>

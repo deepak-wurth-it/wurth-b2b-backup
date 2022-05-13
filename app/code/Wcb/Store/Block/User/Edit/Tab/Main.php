@@ -8,8 +8,17 @@
 
 namespace Wcb\Store\Block\User\Edit\Tab;
 
+use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Block\Widget\Form\Generic;
+use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Data\Form;
+use Magento\Framework\Data\FormFactory;
+use Magento\Framework\Locale\ListsInterface;
 use Magento\Framework\Locale\OptionInterface;
+use Magento\Framework\Registry;
+use Magento\User\Model\User;
+use Wcb\Store\Model\StoreOption;
 
 /**
  * Cms page edit form main tab
@@ -18,24 +27,25 @@ use Magento\Framework\Locale\OptionInterface;
  */
 class Main extends \Magento\User\Block\User\Edit\Tab\Main
 {
+    protected $deployedLocales;
 
     /**
-     * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Magento\Framework\Data\FormFactory $formFactory
-     * @param \Magento\Backend\Model\Auth\Session $authSession
-     * @param \Magento\Framework\Locale\ListsInterface $localeLists
+     * @param Context $context
+     * @param Registry $registry
+     * @param FormFactory $formFactory
+     * @param Session $authSession
+     * @param ListsInterface $localeLists
      * @param array $data
      * @param OptionInterface $deployedLocales Operates with deployed locales.
      */
 
     public function __construct(
-        \Magento\Backend\Block\Template\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Magento\Framework\Data\FormFactory $formFactory,
-        \Magento\Backend\Model\Auth\Session $authSession,
-        \Magento\Framework\Locale\ListsInterface $localeLists,
-        \Wcb\Store\Model\StoreOption $storeOption,
+        Context $context,
+        Registry $registry,
+        FormFactory $formFactory,
+        Session $authSession,
+        ListsInterface $localeLists,
+        StoreOption $storeOption,
         array $data = [],
         OptionInterface $deployedLocales = null
     ) {
@@ -45,9 +55,7 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
         parent::__construct($context, $registry, $formFactory, $authSession, $localeLists, $data, $this->deployedLocales);
     }
 
-
-
-     /**
+    /**
      * Prepare form fields
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
@@ -55,10 +63,10 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
      */
     protected function _prepareForm()
     {
-        /** @var $model \Magento\User\Model\User */
+        /** @var $model User */
         $model = $this->_coreRegistry->registry('permissions_user');
 
-        /** @var \Magento\Framework\Data\Form $form */
+        /** @var Form $form */
         $form = $this->_formFactory->create();
         $form->setHtmlIdPrefix('user_');
 
@@ -145,13 +153,13 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
         $baseFieldset->addField(
             'pickup_store_id',
             'select',
-        [
-            'name' => 'pickup_store_id',
-            'label' => __('Pickup Stores'),
-            'title' => __('Pickup Stores'),
-            'values' => $this->storeOption->toOptionArray(),
-            'class' => 'select'
-        ]
+            [
+                'name' => 'pickup_store_id',
+                'label' => __('Pickup Stores'),
+                'title' => __('Pickup Stores'),
+                'values' => $this->storeOption->toOptionArray(),
+                'class' => 'select'
+            ]
         );
 
         if ($this->_authSession->getUser()->getId() != $model->getUserId()) {
@@ -196,8 +204,6 @@ class Main extends \Magento\User\Block\User\Edit\Tab\Main
         $this->setForm($form);
 
         //return parent::_prepareForm();
-        return \Magento\Backend\Block\Widget\Form\Generic::_prepareForm();
+        return Generic::_prepareForm();
     }
-
-
 }
