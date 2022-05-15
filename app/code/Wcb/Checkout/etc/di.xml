@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
    <type name="Magento\Checkout\Model\Cart">
-        <plugin name="quantity_modify_plugin" type="Wcb\Checkout\Model\Plugin\Cart"/>
-    </type>
-   <!-- <preference for="Magento\AdvancedCheckout\Model\Cart" type="Wcb\Checkout\Model\AdvancedCheckout\Cart" />-->
+       <plugin name="quantity_modify_plugin" type="Wcb\Checkout\Model\Plugin\Cart"/>
+   </type>
 </config>

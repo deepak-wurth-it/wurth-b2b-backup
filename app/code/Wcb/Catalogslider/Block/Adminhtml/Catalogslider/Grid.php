@@ -1,6 +1,10 @@
 <?php
 namespace Wcb\Catalogslider\Block\Adminhtml\Catalogslider;
 
+use Magento\Customer\Api\GroupRepositoryInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Convert\DataObject;
+
 class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 {
     /**
@@ -17,6 +21,18 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
      * @var \Wcb\Catalogslider\Model\Status
      */
     protected $_status;
+    /**
+     * @var DataObject
+     */
+    protected $objectConverter;
+    /**
+     * @var GroupRepositoryInterface
+     */
+    protected $groupRepository;
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
@@ -34,12 +50,18 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         \Wcb\Catalogslider\Model\CatalogsliderFactory $CatalogsliderFactory,
         \Wcb\Catalogslider\Model\Status $status,
         \Magento\Framework\Module\Manager $moduleManager,
+        DataObject $objectConverter,
+        GroupRepositoryInterface $groupRepository,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
         array $data = []
     ) {
         $this->_catalogsliderFactory = $CatalogsliderFactory;
         $this->_status = $status;
         $this->moduleManager = $moduleManager;
         parent::__construct($context, $backendHelper, $data);
+        $this->objectConverter = $objectConverter;
+        $this->groupRepository = $groupRepository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
     /**
@@ -100,35 +122,33 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'index' => 'status',
             ]
         );
-				
-				$this->addColumn(
-					'valid_from',
-					[
-						'header' => __('Banner Valid From'),
-						'index' => 'valid_from',
-						'type'      => 'datetime',
-					]
-				);
 
-					
-				$this->addColumn(
-					'valid_to',
-					[
-						'header' => __('Banner Valid To'),
-						'index' => 'valid_to',
-						'type'      => 'datetime',
-					]
-				);
+        $this->addColumn(
+            'valid_from',
+            [
+                        'header' => __('Banner Valid From'),
+                        'index' => 'valid_from',
+                        'type'      => 'datetime',
+                    ]
+        );
 
-					
-				$this->addColumn(
-					'sort_order',
-					[
-						'header' => __('Banner Sort Order'),
-						'index' => 'sort_order',
-					]
-				);
-				
+        $this->addColumn(
+            'valid_to',
+            [
+                        'header' => __('Banner Valid To'),
+                        'index' => 'valid_to',
+                        'type'      => 'datetime',
+                    ]
+        );
+
+        $this->addColumn(
+            'sort_order',
+            [
+                        'header' => __('Banner Sort Order'),
+                        'index' => 'sort_order',
+                    ]
+        );
+
         $this->addColumn(
             'edit',
             [
@@ -151,11 +171,9 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'column_css_class' => 'col-action'
             ]
         );
-		
 
-		
-		   $this->addExportType($this->getUrl('catalogslider/*/exportCsv', ['_current' => true]),__('CSV'));
-		   $this->addExportType($this->getUrl('catalogslider/*/exportExcel', ['_current' => true]),__('Excel XML'));
+        $this->addExportType($this->getUrl('catalogslider/*/exportCsv', ['_current' => true]), __('CSV'));
+        $this->addExportType($this->getUrl('catalogslider/*/exportExcel', ['_current' => true]), __('Excel XML'));
 
         $block = $this->getLayout()->getBlock('grid.bottom.links');
         if ($block) {
@@ -165,13 +183,11 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         return parent::_prepareColumns();
     }
 
-	
     /**
      * @return $this
      */
     protected function _prepareMassaction()
     {
-
         $this->setMassactionIdField('id');
         //$this->getMassactionBlock()->setTemplate('Wcb_Catalogslider::catalogslider/grid/massaction_extended.phtml');
         $this->getMassactionBlock()->setFormFieldName('catalogslider');
@@ -204,10 +220,8 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             ]
         );
 
-
         return $this;
     }
-		
 
     /**
      * @return string
@@ -223,30 +237,29 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     public function getRowUrl($row)
     {
-		
         return $this->getUrl(
             'catalogslider/*/edit',
             ['id' => $row->getId()]
         );
-		
     }
 
-	
-		static public function getOptionArray7()
-		{
-            $data_array=array(); 
-			$data_array=['Auto(A)', 'Cargo(C)', 'Drvo(D)', 'Građevina(G)', 'Metal(M)', 'Industry(I)', 'Trade(T)', 'Auto Trade(B)', 'Others'];
-            return($data_array);
-		}
-		static public function getValueArray7()
-		{
-            $data_array=array();
-			foreach(\Wcb\Catalogslider\Block\Adminhtml\Catalogslider\Grid::getOptionArray7() as $k=>$v){
+    public function getOptionArray7()
+    {
+        $data_array=array();
+        $customerGroups = $this->_groupRepository->getList($this->searchCriteriaBuilder->create())->getItems();
+        $data_array = $this->_objectConverter->toOptionArray($customerGroups, 'id', 'code');
+        //			$data_array=['Auto(A)', 'Cargo(C)', 'Drvo(D)', 'Građevina(G)', 'Metal(M)', 'Industry(I)', 'Trade(T)', 'Auto Trade(B)', 'Others'];
+        return($data_array);
+    }
+    public function getValueArray7()
+    {
+        $data_array=array();
+        $customerGroups = $this->_groupRepository->getList($this->searchCriteriaBuilder->create())->getItems();
+        $data_array = $this->_objectConverter->toOptionArray($customerGroups, 'id', 'code');
+
+			/*foreach(\Wcb\Catalogslider\Block\Adminhtml\Catalogslider\Grid::getOptionArray7() as $k=>$v){
                $data_array[]=array('value'=>$k,'label'=>$v);
-			}
+			}*/
             return($data_array);
-
-		}
-		
-
+    }
 }

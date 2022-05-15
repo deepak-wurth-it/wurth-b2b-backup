@@ -1,15 +1,15 @@
 <?php
 if($this->getEnable()){
 $sliders = $block->getCatalogsliders();
-$customerLoggedIn = $this->checkCustomerLoggedIn();
-$currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others';
+//$customerLoggedIn = $this->checkCustomerLoggedIn();
+//$currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others';
 ?>
 <div class="carousel-wrap container-inner">
 	<h2><?php echo __('Catalogue')?></h2>
 	<div class="owl-carousel">
 		<?php foreach ($sliders as $slider):
-		$customer_group = explode(",",$slider['customer_group']);
-		if(in_array($currentCustomerGroup, $customer_group)): 
+		//$customer_group = explode(",",$slider['customer_group']);
+		//if(in_array($currentCustomerGroup, $customer_group)):
 			$url_image = $this->getMediaFolder().$slider['image'];?>
 			<div class="item">
 			<?php
@@ -19,9 +19,10 @@ $currentCustomerGroup = ($customerLoggedIn)?($this->getCustomerGroup()):'Others'
 						<img src="<?php echo $url_image; ?>" alt="<?php echo $slider['title'] ?>"  src="<?php echo $url_image; ?>"/>
 				<?php if($slider['url']): ?>
 					</a>
-				<?php endif; ?>      
+				<?php endif; ?>
 		</div>
-    	<?php endif;endforeach; ?> 
+    	<?php //endif;
+    	endforeach; ?>
 	</div>
 </div>
-<?php } ?>            
+<?php } ?>

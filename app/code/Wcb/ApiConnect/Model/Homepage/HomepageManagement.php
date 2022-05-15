@@ -17,6 +17,7 @@ use Magento\Store\Model\App\Emulation;
 use Magento\Store\Model\StoreManagerInterface;
 use Plazathemes\Bannerslider\Model\ResourceModel\Banner\CollectionFactory as BannerCollection;
 use Wcb\ApiConnect\Api\Homepage\HomepageManagementInterface;
+use Wcb\Base\Helper\Data;
 use Wcb\BestSeller\Helper\Data as BestSellerHelper;
 use Wcb\BestSeller\Model\Config\Source\ProductType;
 use Wcb\Catalogslider\Model\ResourceModel\Catalogslider\CollectionFactory as CatalogsliderCollection;
@@ -81,6 +82,12 @@ class HomepageManagement implements HomepageManagementInterface
      * @var StoreManagerInterface
      */
     protected $storeManager;
+    /**
+     * @var Data
+     */
+    private $heplerData;
+
+    protected $customerGroupId;
 
     /**
      * HomepageManagement constructor.
@@ -113,7 +120,8 @@ class HomepageManagement implements HomepageManagementInterface
         AbstractProduct $abstractProduct,
         Image $helperImage,
         Emulation $appEmulation,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        Data $heplerData
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->demoNotice = $demoNotice;
@@ -129,6 +137,8 @@ class HomepageManagement implements HomepageManagementInterface
         $this->helperImage = $helperImage;
         $this->appEmulation = $appEmulation;
         $this->storeManager = $storeManager;
+        $this->heplerData = $heplerData;
+        $this->customerGroupId = 0;
     }
 
     /**
@@ -138,6 +148,7 @@ class HomepageManagement implements HomepageManagementInterface
     {
         $result = [];
         try {
+            $this->customerGroupId = $this->heplerData->getCustomerApiGroupId();
             $data = [];
             $data["offer_header"] = $this->demoNotice->getCustomDemoMessage();
             $data["homepage_slider"] = $this->getHomePageSlider();
@@ -166,6 +177,7 @@ class HomepageManagement implements HomepageManagementInterface
             ->create()
             ->addFieldToFilter('status', 1)
             ->addFieldToFilter('display_pages', ["finset" => ["2"]])
+            ->addFieldToFilter('visible_to', ["finset" => $this->customerGroupId])
             ->addFieldToFilter(
                 ['valid_to', 'valid_to'],
                 [['gteq' => $currentDate], ['null' => 'null']]
@@ -187,6 +199,7 @@ class HomepageManagement implements HomepageManagementInterface
         $promotionBanner = $this->promotionBanner
             ->create()
             ->addFieldToFilter('status', 1)
+            ->addFieldToFilter('customer_group', ["finset" => $this->customerGroupId])
             ->addFieldToFilter(
                 ['valid_to', 'valid_to'],
                 [['gteq' => $currentDate], ['null' => 'null']]
@@ -203,10 +216,12 @@ class HomepageManagement implements HomepageManagementInterface
      */
     public function getCatalogSlider()
     {
+
         $currentDate = $this->dateTime->gmtDate();
         $sliderCollection = $this->catalogSlider
             ->create()
             ->addFieldToFilter('status', 1)
+            ->addFieldToFilter('customer_group', ["finset" => $this->customerGroupId])
             ->addFieldToFilter(
                 ['valid_to', 'valid_to'],
                 [['gteq' => $currentDate], ['null' => 'null']]
@@ -216,6 +231,7 @@ class HomepageManagement implements HomepageManagementInterface
                 [['lteq' => $currentDate], ['null' => 'null']]
             )
             ->setOrder('sort_order', 'ASC');
+
         return $sliderCollection->getData();
     }
 
@@ -264,7 +280,7 @@ class HomepageManagement implements HomepageManagementInterface
                             continue;
                         }
                         $storeId = $this->storeManager->getStore()->getId();
-                        
+
                         $productsAndCategory[] = [
                             "name" => $_product->getName(),
                             "image" => $this->helperImage->init($_product, 'product_base_image')->getUrl(),

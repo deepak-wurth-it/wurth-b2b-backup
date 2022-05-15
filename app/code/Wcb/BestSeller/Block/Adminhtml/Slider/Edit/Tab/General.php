@@ -1,7 +1,7 @@
 <?php
 
 namespace Wcb\BestSeller\Block\Adminhtml\Slider\Edit\Tab;
-
+use IntlDateFormatter;
 use Magento\Backend\Block\Store\Switcher\Form\Renderer\Fieldset\Element;
 use Magento\Backend\Block\Template\Context;
 use Magento\Backend\Block\Widget\Form\Element\Dependence;
@@ -109,7 +109,12 @@ class General extends Generic implements TabInterface
     {
         /** @var Slider $slider */
         $slider = $this->_coreRegistry->registry('wcb_bestseller_slider');
-
+        $dateFormat = $this->_localeDate->getDateFormat(
+            IntlDateFormatter::MEDIUM
+        );
+        $timeFormat = $this->_localeDate->getTimeFormat(
+            IntlDateFormatter::MEDIUM
+        );
         $form = $this->_formFactory->create();
         $form->setHtmlIdPrefix('slider_');
         $form->setFieldNameSuffix('slider');
@@ -211,16 +216,16 @@ class General extends Generic implements TabInterface
             'name' => 'from_date',
             'label' => __('From Date'),
             'title' => __('From'),
-            'date_format' => 'M/d/yyyy',
-            'timezone' => false
+            'date_format' => $dateFormat,
+            'time_format' => $timeFormat,
         ]);
 
         $fieldset->addField('to_date', 'date', [
             'name' => 'to_date',
             'label' => __('To Date'),
             'title' => __('To'),
-            'date_format' => 'M/d/yyyy',
-            'timezone' => false
+            'date_format' => $dateFormat,
+            'time_format' => $timeFormat,
         ]);
 
         $this->setChild(
