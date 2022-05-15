@@ -11,4 +11,27 @@
        		<column xsi:type="varchar" name="parent_branch" nullable="true" length="64" comment="Parent Branch From WurthNav ERP From Branch Table"/>
 
     </table>
+    
+     <table name="employees">
+       		<column xsi:type="varchar" name="branch_code" nullable="true" length="64" comment="Code From WurthNav ERP From Branch Table"/>
+       		<column xsi:type="varchar" name="parent_branch" nullable="true" length="64" comment="Parent Branch From WurthNav ERP From Branch Table"/>
+	 </table>
+
+  <table name="wurthnav_employees" resource="default" engine="innodb" comment="Employee Table">
+        
+		<column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+		<column xsi:type="varchar" name="EmployeeCode" nullable="true" length="64" comment="Employee Code"/>
+		<column xsi:type="varchar" name="Name" nullable="true" length="64" comment="Name"/>
+		<column xsi:type="varchar" name="Email" nullable="true" length="128" comment="Email"/>
+		<column xsi:type="varchar" name="PhoneNo" nullable="true" length="64" comment="Phone No"/>
+		<column xsi:type="varchar" name="BackofficeSupportEmployee" nullable="true" length="64" comment="Back Office Support Employee"/>
+		<column xsi:type="varchar" name="AreaManagerCode" nullable="true" length="64" comment="Area Manager Code"/>
+		<column xsi:type="varchar" name="RegionalManagerCode" nullable="true" length="64" comment="Regional Manager Code"/>
+
+
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+</table>
+
 </schema>

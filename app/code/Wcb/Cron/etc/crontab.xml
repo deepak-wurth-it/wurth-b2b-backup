@@ -59,6 +59,12 @@
         </job>
     </group>
     
+     <group id="wurthnav">
+        <job name="emplpyees_import" instance="Wcb\Cron\WurthNavCron\ImportEmployees" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+    </group>
+    
 <!--<group id="pim">
         <job instance="Wcb\Cron\Test\TestCron" method="execute" name="test_cron">
                  <schedule>* * * * *</schedule>
