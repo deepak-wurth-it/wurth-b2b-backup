@@ -8,7 +8,7 @@ use Magento\Framework\Controller\Result\Json;
 interface HomepageManagementInterface
 {
     /**
-     * @return Json
+     * @return mixed
      */
     public function getHomePageInfo();
 }

@@ -142,7 +142,7 @@ class HomepageManagement implements HomepageManagementInterface
     }
 
     /**
-     * @return Json
+     * @return mixed
      */
     public function getHomePageInfo()
     {
