@@ -37,7 +37,7 @@
                     <label>Base URL</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model>
                     <comment><![CDATA[Specify URL or {{base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
-                </field>  
+                </field>
                 <field id="base_media_url" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Base URL for User Media Files</label>
                     <!-- <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model> -->
@@ -46,12 +46,12 @@
                  <field id="catalog_media_url" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Catalog URL Files Url</label>
                     <!-- <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model> -->
-                    <comment><![CDATA[May be empty or start with {{secure_base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
+                    <comment><![CDATA[Start with {{secure_base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
                 </field>
                 <field id="category_media_url" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Category Media Files Url </label>
                     <!-- <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model> -->
-                    <comment><![CDATA[May be empty or start with {{secure_base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
+                    <comment><![CDATA[Start with {{secure_base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
                 </field>
             </group>
         </section>
