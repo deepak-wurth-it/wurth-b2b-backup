@@ -113,7 +113,7 @@ define([
             this._addByAjax();
 
             if (!this._isEmptyRowExist()) {
-                this._addRow();
+                //this._addRow();
             }
         },
 
@@ -151,7 +151,7 @@ define([
                             }
 
                             this.element.find(this.options.qtySelector).val(parseFloat(it.qty));
-                            this._addBlock(it);
+                            //this._addBlock(it);
                         }.bind(this));
 
                         if (data && data.generalErrorMessage && data.generalErrorMessage !== '') {

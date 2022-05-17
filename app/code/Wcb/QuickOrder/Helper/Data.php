@@ -38,14 +38,19 @@ class Data extends AbstractHelper
      * @param $productsCode
      * @return array
      */
-    public function getProductCodeWithProductId($productsCode)
+    public function getProductCodeWithProductId($productsCode, $like = true)
     {
         // remove space in user enter code and use
         if (!$productsCode) {
             return;
         }
         $productsCode = str_replace(' ', '', $productsCode);
-        $productsCode = "'" . $productsCode . "%'";
+        if ($like) {
+            $productsCode = "'" . $productsCode . "%'";
+        } else {
+            $productsCode = "'" . $productsCode . "'";
+        }
+
         $productCodeId = $this->getProductCodeAttributeId();
         $connection = $this->resourceConnection->getConnection();
         $table = $connection->getTableName('catalog_product_entity_text');
