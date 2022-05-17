@@ -2,6 +2,7 @@
 
 namespace Wcb\QuickOrder\Model\AdvancedCheckout;
 
+use Magento\Framework\Message\MessageInterface;
 use function array_map;
 use function is_float;
 use Magento\AdvancedCheckout\Helper\Data;
@@ -210,5 +211,39 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
         }
 
         return $this->products[$sku][$storeId] ?? null;
+    }
+    public function getMessages()
+    {
+        $affectedItems = $this->getAffectedItems();
+        $currentlyAffectedItemsCount = count($this->_currentlyAffectedItems);
+        $currentlyFailedItemsCount = 0;
+
+        foreach ($this->_currentlyAffectedItems as $sku) {
+            if (isset($affectedItems[$sku]) && $affectedItems[$sku]['code'] != Data::ADD_ITEM_STATUS_SUCCESS) {
+                $currentlyFailedItemsCount++;
+            }
+        }
+
+        $addedItemsCount = $currentlyAffectedItemsCount - $currentlyFailedItemsCount;
+
+        $failedItemsCount = count($this->getFailedItems());
+        $messages = [];
+        if ($addedItemsCount) {
+            if ($addedItemsCount == 1) {
+                $message = __('You added %1 product to your shopping cart.', $addedItemsCount);
+            } else {
+                $message = __('You added %1 products to your shopping cart.', $addedItemsCount);
+            }
+            $messages[] = $this->messageFactory->create(MessageInterface::TYPE_SUCCESS, $message);
+        }
+        if ($failedItemsCount && $failedItemsCount > 1) {
+            if ($failedItemsCount == 1) {
+                $warning = __('%1 product requires your attention.', $failedItemsCount);
+            } else {
+                $warning = __('%1 products require your attention.', $failedItemsCount);
+            }
+            $messages[] = $this->messageFactory->create(MessageInterface::TYPE_ERROR, $warning);
+        }
+        return $messages;
     }
 }

@@ -3,6 +3,7 @@
 	<module name="Wcb_QuickOrder">
         <sequence>
             <module name="Magento_QuickOrder" />
+            <module name="Magento_AdvancedCheckout"/>
         </sequence>
 	</module>
 </config>
