@@ -15,7 +15,9 @@ shim: {
      fancybox: {
          deps: ['jquery']
      }
-   }
+   },
+   
+deps: ['js/app']   
 };
 
  
