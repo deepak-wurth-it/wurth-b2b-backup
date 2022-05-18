@@ -1763,77 +1763,7 @@ label.sorter-label {
 			margin:0;
 		}
 	}
-	.recommended-search{
-		background: #fff;
-		box-shadow: 0 3px 5px #bababa;
-		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-		padding:20px 20px 10px 20px;
-		.search-heading h3 {
-			border-bottom: 1px solid #DEDEDE;
-			padding-bottom: 10px;
-		}
-		ul.row.search-botton-contaner {
-			padding-left: 2px;
-		}
-		ul.search-botton-contaner li {
-			font-family: 'wuerthbold';
-			font-size: 1.6rem;
-			background: #FFFFFF;
-			border: 1px solid #0093DD;
-			list-style: none;
-			text-align: center;
-			padding: 5px 10px 0px 10px;
-			margin: -16px 0px 0px 12px;
-			height: 36px;
-		}
-		.search-botton-contaner li a {			
-			font-family: 'wuerthbold';
-			font-size: 1.6rem;
-			color: #0093DD;
-		}
-		.search-botton-contaner li.active {
-			background: #0093DD;
-			border: 1px solid #0093DD;
-		}
-		.search-botton-contaner li.active a{			
-			font-family: 'wuerthbold';
-			font-size: 1.6rem;
-			color: #fff;
-		}
-		.row.search-contaner {
-			margin-top: -15px;
-		}
-		.col-2 {
-			text-align: center;
-		}
-		.search-pro-img {
-			width: 100px;
-			height: 121px;
-			margin: auto;
-		}
-		.search-pro-img img {
-			padding:10px
-		}
-
-		.table-contaner {
-			background: #FFFFFF;
-			border: 1px solid rgba(0, 0, 0, 0.12);
-			box-sizing: border-box;
-		}
-		.cms-cat-title {
-			margin-top: 25px;
-		}
-		.table-contaner table tr {
-			background: #FFFFFF;
-			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-		}
-		.table-contaner table tr:last-child {
-			border-bottom: none;
-		}
-		.cat-count{
-			margin-bottom: 15px;
-		}
-	}	
+	
 
 .cmsSubmenu{
 	background: #fff;
@@ -4708,6 +4638,110 @@ body {
 	}
 }
 
+// Search popup start
+.recommended-search{
+	background: #fff;
+	box-shadow: 0 3px 5px #bababa;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+	padding:20px 20px 10px 20px;
+	.search-heading h3 {
+		border-bottom: 1px solid #DEDEDE;
+		padding-bottom: 10px;
+	}
+	ul.row.search-botton-contaner {
+		padding-left: 2px;
+	}
+	ul.search-botton-contaner li {
+		font-family: 'wuerthbold';
+		font-size: 1.6rem;
+		background: #FFFFFF;
+		border: 1px solid #0093DD;
+		list-style: none;
+		text-align: center;
+		padding: 5px 10px 0px 10px;
+		margin: 0px 10px 0px 12px;
+		height: 36px;
+	}
+	.search-botton-contaner li a {			
+		font-family: 'wuerthbold';
+		font-size: 1.6rem;
+		color: #0093DD;
+	}
+	.search-botton-contaner li.active {
+		background: #0093DD;
+		border: 1px solid #0093DD;
+	}
+	.search-botton-contaner li.active a{			
+		font-family: 'wuerthbold';
+		font-size: 1.6rem;
+		color: #fff;
+	}
+	.row.search-contaner {
+		margin-top: -15px;
+	}
+	.col-2 {
+		text-align: center;
+	}
+	.search-pro-img {
+		width: 100px;
+		height: 121px;
+		margin: auto;
+	}
+	.search-pro-img img {
+		padding:10px
+	}
+
+	.table-contaner {
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		box-sizing: border-box;
+	}
+	.cms-cat-title {
+		margin-top: 25px;
+	}
+	.table-contaner table tr {
+		background: #FFFFFF;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.table-contaner table tr:last-child {
+		border-bottom: none;
+	}
+	.cat-count{
+		margin-bottom: 15px;
+	}
+}	
+.mst-searchautocomplete__autocomplete {
+	border-top:none;
+}
+ul.row.search-botton-contaner li {
+    list-style: none;
+	text-decoration:none;
+}
+ul.row.search-botton-contaner li:first-child {
+    background: #0093DD;
+	margin-left:0px;
+}
+ul.row.search-botton-contaner li{
+    background: #ffffff;
+	margin-left:0px;
+}
+.mst-searchautocomplete__index.popular ul li a {
+    font-size: 1.6rem;
+    color: #000000;
+}
+.mst-searchautocomplete__autocomplete .mst-searchautocomplete__empty-result {
+	background: none;
+}
+.mst-searchautocomplete__autocomplete .mst-searchautocomplete__empty-result{
+	padding:0px;
+}
+.mst-searchautocomplete__autocomplete._active {
+    top: 44px;
+    width: 900px;
+    left: -20%;
+}
+// Search popup end
+
 // compare page start by amit
 .catalog-product_compare-index {
 	.page-title-wrapper {
@@ -4921,6 +4955,9 @@ a.action.print.hidden-print {
     }
 	
 	div#shipping-new-address-form label{
+		text-align:left;
+	}
+	div#shipping-new-address-form .label{
 		text-align:left;
 	}
 	.opc-progress-bar-item._active:before {

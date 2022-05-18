@@ -9,13 +9,10 @@
 <?php $sku = $block->getProduct()->getSku();?>
 <?php $productCode = $block->getProduct()->getProductCode();?>
 <!-- Please use blubox, bluevan, redbox, redvan class to change box color-->
-<?php
-  // login check helper
-   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
- ?>
-<?php if($logedIn) { ?>
-<div class="itemboxwrapp"><span id="stockStatusP" ></span><span id="deliverydayVan" style="display:none;" ></span><span id="deliverydayP" style="display:none;" class="deliveryday"></span> <span class="itembox"> </span> <span class="deliveryday"></span><span> <?php echo floatval($this->getPackageBox($sku));?></span> </div>
-<?php } ?>
+
+<span class="wcb-logged">
+   <div class="itemboxwrapp"><span id="stockStatusP" ></span><span id="deliverydayVan" style="display:none;" ></span><span id="deliverydayP" style="display:none;" class="deliveryday"></span> <span class="itembox"> </span> <span class="deliveryday"></span><span> <?php echo floatval($this->getPackageBox($sku));?></span> </div>
+</span>
 <span class="hrline"></span>
 
 <script>
