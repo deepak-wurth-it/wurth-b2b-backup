@@ -1,28 +1,5 @@
 <?php $block->renderFileLessToCss(); ?>
-<?php
-	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-	$customerSession = $objectManager->get('Magento\Customer\Model\Session');
-	
-?>
 <header class="header-container">
-		<!-- <div class="top-bar">
-			<div class="container-inner">
-				<div class="container-size">
-					<div class="row">
-						<div class="col-md-6">
-							<?php //echo $this->getChildHtml("header.links"); ?>
-							<div class="link-contact-header">
-								<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('link_contact_header')->toHtml();?>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<?php echo $this->getChildHtml("currency"); ?>
-							<?php echo $this->getChildHtml("store_language"); ?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 		<div class="header-wrapper">
 		<div class="header">
 			<div class="container-inner">
@@ -55,18 +32,18 @@
 							<!--<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p> -->
 							
 							<div class="link-hover ">
-								<p class="icon"></p> <span class="accountTitle"><?php if($customerSession->isLoggedIn()) { ?> <?php echo __("Moj Wurth"); ?><?php } else { ?><a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <?php echo __("Login / Registration"); ?></a><?php } ?></span>
+								<p class="icon"></p> <span class="accountTitle"><span class="wcb-logged"> <?php echo __("Moj Wurth"); ?></span><span class="wcb-not-logged"><a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <?php echo __("Login / Registration"); ?></a></span></span>
 		
-								<div class="account-wraper <?= (($customerSession->isLoggedIn())?'log-in':'log-out') ?>"> 
-								<?php if($customerSession->isLoggedIn()) { ?> 
+								<div class="account-wraper"> 
+								<span class="wcb-logged"> 
 									<div class="my-acount">	
-										<div class="label welcome"> <strong><?php echo __("Welcome"); ?>, <?php echo $customerSession->getCustomer()->getName(); ?> </strong></div>									
+										<div class="label welcome"> <strong><span data-mage-init='{"js/customerGreeting":{}}'></span> </strong></div>									
 									<div class="label"> <span><a href="<?php echo $block->getUrl("customer/account"); ?>"><?php echo __("My acoount"); ?></a></span></div>
 									<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"> <?php echo __("Sign out"); ?></a></span></div>
 										<?php //echo $this->getChildHtml("top.links"); ?>
 										
 									</div>
-									<?php } ?>
+                                </span>
 									
 								</div>
 							</div>
