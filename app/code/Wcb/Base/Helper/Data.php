@@ -3,18 +3,26 @@
 namespace Wcb\Base\Helper;
 
 use Magento\Authorization\Model\UserContextInterface;
+use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\ProductFactory;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Store\Model\ScopeInterface;
 use Magento\User\Model\UserFactory;
 
 class Data extends AbstractHelper
 {
+    const API_BASE_URL = 'apiconfig/config/base_url';
+    const API_MEDIA_URL = 'apiconfig/config/base_media_url';
+    const API_CATALOG_MEDIA_URL = 'apiconfig/config/catalog_media_url';
+    const API_CATEGORY_MEDIA_URL = 'apiconfig/config/category_media_url';
+
     /**
      * @var ProductFactory
      */
@@ -44,6 +52,10 @@ class Data extends AbstractHelper
      * @var CustomerRepositoryInterface
      */
     private $customerRepository;
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $_scopeConfigInterface;
 
     /**
      * Data constructor.
@@ -62,6 +74,7 @@ class Data extends AbstractHelper
         UserContextInterface $userContext,
         UserFactory $userFactory,
         CustomerRepositoryInterface $customerRepository,
+        ScopeConfigInterface $scopeConfigInterface,
         Context $context
     ) {
         $this->productLoader = $productFactory;
@@ -71,11 +84,12 @@ class Data extends AbstractHelper
         $this->userContext = $userContext;
         $this->userFactory = $userFactory;
         $this->customerRepository = $customerRepository;
+        $this->_scopeConfigInterface = $scopeConfigInterface;
     }
 
     /**
      * @param $id
-     * @return \Magento\Catalog\Api\Data\ProductInterface
+     * @return ProductInterface
      * @throws NoSuchEntityException
      */
     public function getLoadProduct($id)
@@ -113,5 +127,24 @@ class Data extends AbstractHelper
             return $customer->getGroupId();
         }
         return $customerGroupId;
+    }
+
+    public function getApiMobileConfiguration()
+    {
+        $data = [];
+        $data['base_url'] = $this->getConfig(self::API_BASE_URL);
+        $data['base_media_url'] = $this->getConfig(self::API_MEDIA_URL);
+        $data['catalog_media_url'] = $this->getConfig(self::API_CATALOG_MEDIA_URL);
+        $data['category_media_url'] = $this->getConfig(self::API_CATEGORY_MEDIA_URL);
+        return $data;
+    }
+
+    /**
+     * @param $path
+     * @return mixed
+     */
+    public function getConfig($path)
+    {
+        return $this->_scopeConfigInterface->getValue($path, ScopeInterface::SCOPE_STORE);
     }
 }
