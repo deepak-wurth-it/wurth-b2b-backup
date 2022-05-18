@@ -5,4 +5,8 @@
 	<preference for="Wcb\ApiConnect\Api\SingalProductPriceInterface" type="Wcb\ApiConnect\Model\SingalProductPrice"/>
 	<preference for="Wcb\ApiConnect\Api\SingalProductStockInterface" type="Wcb\ApiConnect\Model\SingalProductStock"/>
     <preference for="Wcb\ApiConnect\Api\Homepage\HomepageManagementInterface" type="Wcb\ApiConnect\Model\Homepage\HomepageManagement" />
+    <preference for="Wcb\ApiConnect\Api\Data\ProductMeasureInterface" type="Wcb\ApiConnect\Model\Api\Data\ProductMeasure"/>
+    <type name="Magento\Catalog\Model\ProductRepository">
+       <plugin name="quantity_modify_plugin" type="Wcb\ApiConnect\Plugin\ProductAfterGet"/>
+   </type>
 </config>
