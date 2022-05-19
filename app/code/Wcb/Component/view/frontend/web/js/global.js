@@ -8,7 +8,7 @@ define([
 
     return {
 
-        isLogin: function (productCode) {
+        isLogin: function () {
             var loginCheckUrl = urlBuilder.build('/wcbglobal/customer/logincheck');
             var httpRequest = new XMLHttpRequest();
             httpRequest.open('GET', loginCheckUrl);

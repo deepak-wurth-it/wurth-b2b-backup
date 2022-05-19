@@ -49,16 +49,9 @@
    $pos = $block->getPositioned();
    $product=false;
    ?>
-<?php
-   // login check helper
-   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
-   ?>
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
 <?php if($level == 6 ){ ?>
-   <?php
-    $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
-   ?>
 <div class="row levelFive">
    <div class="col-sm-6">
       <div class="thumbnail sliderThubnail">
@@ -77,10 +70,6 @@
          <?php 
              echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('pdp-page-more-info-block')->toHtml();
           ?>
-           <!-- <div class="moreInfo">Need More Information?</div>
-            <span class="phoneEmail">Contact us by phone or email?</span>
-            <div><span class="icon-com-phone-a"></span> <span class="iphone-outline">Phone <a href="tel:0800 4260">0800 4260</a></span></div>
-            <div><span class="icon-wuerth-e-mail"></span><span class="email-outline">Email <a href ="mailto:wuert@wuerth.com.hr">wuert@wuerth.com.hr</a></span></div> -->
          </div>
          <div class="pdrepbug"><button type="submit" class="itembug"><span class="icon-web-warning"></span> Report a bug</button></div>
          <div class="social-block">
@@ -91,13 +80,6 @@
                ->setPosition("bottom_content")
                ->setType("inline")
                ->toHtml(); ?>
-            <!--<ul>
-               <li><a href="#!" role="button"><span class="icon-whatsapp"></span></a></li>
-               <li><a href="#!" role="button"><span class="icon-call"></span></a></li>
-               <li><a href="#!" role="button"><span class="icon-linkdin"></span></a></li>
-               <li><a href="#!" role="button"><span class="icon-facebook"></span></a></li>
-               <li><a href="#!" role="button"><span class="icon-youtube"></span></a></li>
-               </ul>-->
          </div>
       </div>
    </div>
@@ -139,35 +121,37 @@
    <?php $pid[ $product->getSku()][] = $ProductCode; ?>
    <?php $pid[ $product->getSku()][] = '1'; ?>
    <?php } ?>
-   <div class="accordion <?= (($logedIn ?'userlog':'')); ?>" >
+   <div class="accordion level-six" >
       <span class="attrow itemno"><a href="<?php echo $product->getProductUrl(); ?>" target="_blank" ><?php echo $product->getProductCode(); ?></a></span>
       <span class="attrow itemname"><?php echo $product->getName(); ?></span>
       <span class="attrow pieces">2 PiECES</span>
       <span class="attrow ah">2 Ah</span>
       <span class="attrow vdc">18 V / DC</span>
-      <div class="boxcontaner <?= (($logedIn ?'logdIn':'')); ?>">
-         <span class="attrow qtywrapp <?= (($logedIn ?'logdIn':'')); ?>">
+      <div class="boxcontaner">
+         <span class="attrow qtywrapp">
             <div class="qty-field" >
                <div id="79-dec" class="decreaseQty icon-interface-minus quantity-minus"></div>
                <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="qty-default input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
                <div id="79-upt" class="increaseQty icon-interface-plus quantity-plus"></div>
             </div>
          </span>
-         <span class="attrow pc <?= (($logedIn ?'logdIn':'')); ?>">
-            <div class="veCount <?= (($logedIn ?'logdIn':'')); ?>">
+         <span class="attrow pc">
+            <div class="veCount">
                <select>
                   <option> 100 PC </option>
                   <option> 100 PC </option>
                   <option> 100 PC </option>
                </select>
             </div>
-            <?php if($logedIn) { ?> 
-            <div class="itemboxwraper <?= (($logedIn ?'logdIn top':'')); ?>"><span class="itembox <?= (($logedIn ?'logdIn top':'')); ?>"></span><span class="deliveryday <?= (($logedIn ?'logdIn top':'')); ?>">1</span> </div>
-            <?php } ?>
+            
+               <span class="wcb-logged">
+                 <div class="itemboxwraper logdIn top"><span class="itembox logdIn top"></span><span class="deliveryday logdIn top">1</span> </div>
+            </span>
          </span>
       </div>
-      <span class="attrow loginprice <?= (($logedIn ?'logdIn':'')); ?>">
-         <?php if($logedIn) { ?>
+      <span class="attrow loginprice">
+         
+            <span class="wcb-logged">
          <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
          <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
             <span>Price:&nbsp;</span>
@@ -182,9 +166,9 @@
          </div>
          <div><span id="price_loader<?php echo $ProductCode; ?>" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
          <div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> </div>
-         <?php } else { ?> Please log in to see prices. <?php } ?>
+         </span> <span class="wcb-not-logged"> Please log in to see prices. </span>
       </span>
-      <span class="attrow <?= (($logedIn ?'bluecol':'redcol')); ?>">
+      <span class="attrow cart-color">
          <div class="actions-primary">
             <?php if ($product->isSaleable()):?>
             <?php $postParams = $block->getAddToCartPostParams($product); ?>
