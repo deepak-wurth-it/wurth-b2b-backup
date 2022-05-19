@@ -50,10 +50,6 @@ $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VI
 $pos = $block->getPositioned();
 $product=false;
 ?>
- <?php
-    // login check helper
-    $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
-  ?>
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
 <?php if( $level == 5 ) { ?>
@@ -89,17 +85,18 @@ $product=false;
                                        href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
                                 </strong>
                                 <?php if ($level > 4 && $productCount > 1) { ?>
-                                  <?php if($logedIn) { ?>
+                                    <span class="wcb-logged">
                                     <p class="price-box">
                                         <label>
                                             <span class="startFrom">Start from </span></span><span class="price">1,816.17 HRK</span>
                                     </p>
                                     <p class="view-stock"><a href="#" class="view-stock"><?php echo __("Please select single product to
                                             view stock"); ?> </a></p>
-                                     <?php } else { ?>
+                                            </span>
+                                    <span class="wcb-not-logged">  
                                       <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
-                                      <?php } ?>
-                                    <p class="variation-box <?= (($logedIn ?'logdIn':'notLog')); ?>"><label><?php echo $productCount; ?>
+                                    </span>
+                                    <p class="variation-box"><label><?php echo $productCount; ?>
                                             variations </label>
                                     </p>
                                     <p class="variation-buttom"><label><a href="<?= $subcategory->getUrl() ?>"> <?php echo  __("Show variations"); ?> </a></label></p>
@@ -168,7 +165,7 @@ $product=false;
                                             <?php echo $product->getName(); ?>
                                         </a>
                                     </strong>
-                                    <?php if($logedIn) { ?>
+                                        <span class="wcb-logged"> 
                                     <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
 
                                     <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
@@ -195,14 +192,12 @@ $product=false;
 
                                     <div><span id="price_loader<?php echo $ProductCode; ?>" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
 
-
-
-
                                     <span class="stock" id="stock_<?php echo $ProductCode; ?>"> </span>
-                                      <?php } else { ?>
+                                    </span>
+                                    <span class="wcb-not-logged"> 
                                         <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
-                                        <?php } ?>
-                                    <div class="product-item-inner <?= (($logedIn ?'logdIn':'notLog')); ?>">
+                                    </span>
+                                    <div class="product-item-inner">
                                         <div class="product actions product-item-actions">
                                             <div class="actions-primary">
                                                 <?php if ($_product->isSaleable()):?>

@@ -5,10 +5,9 @@
  */
 
 // @codingStandardsIgnoreFile
-$logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
 ?>
  <div id="price_soap70012101" style="display: block;" class="price-box"> 
-<?php if($logedIn) { ?>
+ <span class="wcb-logged">
         <span class="price" id="suggestedSalesPriceInclDiscAsTxtP70012101">1722,2</span>
         <span class="price">&nbsp;HRK&nbsp;</span>
         <span class="wcb-contaner-group">
@@ -20,7 +19,8 @@ $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
             </div>
             <span class="delivery-time">12 -14</span>
         </span>        
-<?php } else { ?>
+</span>
+<span class="wcb-not-logged">
     <span class="view-price priceDisplay"> <?php echo __("Login to view price"); ?> </span>
-<?php } ?>   
+</span> 
 </div>

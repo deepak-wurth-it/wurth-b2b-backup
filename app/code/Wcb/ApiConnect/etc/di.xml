@@ -2,5 +2,5 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 	<preference for="Wcb\ApiConnect\Api\SoapClientRepositoryInterface" type="Wcb\ApiConnect\Model\SoapClientRepository"/>
 	<preference for="Wcb\ApiConnect\Api\Data\SoapClientInterface" type="Wcb\ApiConnect\Model\SoapClient"/>
-	<preference for="Wcb\ApiConnect\Api\Data\SoapClientSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Wcb\ApiConnect\Api\Data\SoapClientSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
 </config>

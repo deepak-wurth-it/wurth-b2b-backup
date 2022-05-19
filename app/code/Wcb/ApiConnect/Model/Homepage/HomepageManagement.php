@@ -155,6 +155,7 @@ class HomepageManagement implements HomepageManagementInterface
             $data["promosition_banner"] = $this->getPromotionBanner();
             $data["catalog_slider"] = $this->getCatalogSlider();
             $data["bestseller_slider"] = $this->getBestSellerSlider();
+            $data["app_setting"] = $this->heplerData->getApiMobileConfiguration();
 
             $result['success'] = true;
             $result['message'] = "Homepage data get successfully.";

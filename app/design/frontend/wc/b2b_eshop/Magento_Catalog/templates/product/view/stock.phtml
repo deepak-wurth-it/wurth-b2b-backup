@@ -8,11 +8,7 @@
 <?php //echo $block->getReviewsSummaryHtml($block->getProduct(), false, true) ?>
 <!-- Please use blubox, bluevan, redbox, redvan class to change box color-->
 <?php echo $block->getPackaging(); ?>
-<?php
-  // login check helper
-   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
- ?>
-<?php if($logedIn) { ?>
+<span class="wcb-logged">
 <div class="itemboxwrapp"><span class="bluebox"></span><span class="bluevan"></span><span  class="deliveryday"></span> <span class="itembox"> </span> <span id="itemboxP" class="deliveryday"></span><span> 1</span> </div>
-<?php } ?>
+</span>
 <span class="hrline"></span>

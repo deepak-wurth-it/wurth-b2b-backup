@@ -9,16 +9,13 @@
 ?>
 
 <?php /** @var \Magento\Catalog\Block\Product\View $block */?>
-  <?php
-     // login check helper
-   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
-  ?>
-
+ 
 <?php $_product = $block->getProduct();?>
 <?php $productCode = $_product->getProductCode();?>
 
 <div>
-<?php if($logedIn) { ?>
+<span class="wcb-logged">
+  <span class="">
 <div id="price_soap" style="display:none;" class="priceDisplay">
         <span>Price:&nbsp;</span>
         <span id="suggestedPriceAsTxtP"></span>
@@ -33,9 +30,10 @@
 
 <div><span id="price_loader" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
 
-<?php } else { ?>
+</span>
+<span class="wcb-not-logged">
          <span class="view-price priceDisplay"> <?php echo __("Login to view price"); ?> </span>
-     <?php } ?>
+</span>
 
 </div>
 <script>
