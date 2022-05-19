@@ -18,10 +18,8 @@
    ?>
 <?php
    /** @var \Magento\Catalog\Helper\Output $_helper */
-   $_helper = $_outputHelper = $block->getData('outputHelper');
-   
-   $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
-   
+   $_helper = $_outputHelper = $block->getData('outputHelper');   
+  // $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();   
    
    ?>
 <!-- For Category -->
@@ -53,10 +51,7 @@
    $pos = $block->getPositioned();
    $product=false;
    ?>
-<?php 
-   // login check helper
-   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
-   ?>
+
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
 <?php if( $level <  5 ) { ?>

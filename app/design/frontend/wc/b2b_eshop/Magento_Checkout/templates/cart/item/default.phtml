@@ -17,9 +17,7 @@
    $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
    $shippingProductHelper = $helper = $this->helper(Wurth\Shippingproduct\Helper\Data::class);
    $shippingProductCode = $shippingProductHelper->getShippingProductCode();
-   $removeHelper = $this->helper(Magento\Checkout\Helper\Cart::class);
-  // login check helper
-   $logedIn=$this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
+   $removeHelper = $this->helper(Magento\Checkout\Helper\Cart::class); 
    $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
    $product = $checkoutHelper->getLoadProduct($product->getId());
 
@@ -130,12 +128,12 @@
 
          </div>
          <div class="imd-avilable">
-         <?php if ($logedIn) { ?>
+         <span class="wcb-logged">
             <span class="imd-van"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/Rectangle434.png'); ?>" /></span>
             <span class="imd-cart"><img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/cartico.png'); ?>" /></span>
             <span class="imd-day">12-14</span>
             <span class="imd-avlb">The quantity will be available for the displayed number of days</span>
-            <?php } ?>
+          </span>
          </div>
           <?php } ?>
       </td>
@@ -154,18 +152,19 @@
             <tr>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Price')) ?>">
                   <div class="colsubtotal">
-                     <?php if ($logedIn) { ?>
+                  <span class="wcb-logged">
                      <div class="cpdis"><span class="cpcross">145,66 HRK </span> <span class="cpper"> (-25%)</span></div>
                      <span class="cpgprice">1816.17</span>
-                     <?php } else { ?>
+                  </span>
+                  <span class="wcb-not-logged">
                         <span class="cpgprice">Login to view price</span>
-                        <?php } ?>
+                  <span>
                   </div>
                </td>
                <td class="data-name" data-name="<?= $block->escapeHtml(__('Amount without VAT')) ?>">
-               <?php if ($logedIn) { ?>
+               <span class="wcb-logged">
                  <span class="carmrp">2,401.88</span>
-                        <?php } ?>
+               </span>
                </td>
             </tr>
          </table>

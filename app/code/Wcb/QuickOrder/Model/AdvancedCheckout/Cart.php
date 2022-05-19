@@ -2,7 +2,6 @@
 
 namespace Wcb\QuickOrder\Model\AdvancedCheckout;
 
-use Magento\Framework\Message\MessageInterface;
 use function array_map;
 use function is_float;
 use Magento\AdvancedCheckout\Helper\Data;
@@ -28,6 +27,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Locale\FormatInterface;
 use Magento\Framework\Message\Factory;
 use Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\Message\MessageInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\QuoteFactory;
@@ -87,6 +87,7 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
     public function checkItems(array $items): array
     {
         $checkedItems = [];
+
         foreach ($items as $item) {
             if (empty($item['sku'])) {
                 continue;
@@ -110,7 +111,6 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
                 ]
             );
         }
-
         return $checkedItems;
     }
 
@@ -129,7 +129,8 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
                 (int)$this->getStore()->getWebsiteId()
             );
             foreach ($itemsStockStatus as $stockStatus) {
-                if (!$stockStatus->isSalable()) {
+                if (!$stockStatus->isSalable() && false) {
+                    //if (!$stockStatus->isSalable()) {
                     //$item = &$items[$stockStatus->getSku()];
                     $item = &$items[$stockStatus->getSku()];
                     $item['is_configure_disabled'] = true;
@@ -148,9 +149,13 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
         if ($skuForFind) {
             //get without space product code and id
             $productIds = [];
-            if (isset($skuForFind[0])) {
-                $productIds = $this->quickOrderHelper->getProductCodeWithProductId($skuForFind[0]);
+            // if (isset($skuForFind[0])) {
+            foreach ($skuForFind as $skuFind) {
+                $productIds[] = $this->quickOrderHelper->getProductCodeWithProductId($skuFind, false);
             }
+            $productIds = array_filter($productIds);
+            //$productIds = $this->quickOrderHelper->getProductCodeWithProductId($skuForFind[0]);
+            // }
 
             /** @var Collection $collection */
             $collection = $this->productCollectionFactory->create();

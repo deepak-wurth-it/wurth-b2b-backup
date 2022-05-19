@@ -98,7 +98,7 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
      */
     public function getProductByProductCode($productCode)
     {
-        $productIds = $this->quickOrderHelper->getProductCodeWithProductId($productCode);
+        $productIds = $this->quickOrderHelper->getProductCodeWithProductId($productCode, false);
 
         return $this->productCollectionFactory->create()
             ->addAttributeToSelect('*')
