@@ -3,6 +3,10 @@ namespace Wcb\Megamenu\Block;
 use Magento\Catalog\Model\Category;
 use Magento\Customer\Model\Context;
 class Menu extends \Magento\Framework\View\Element\Template {
+    
+    const MENU_CACHE_KEY = 'wcb_mega_menu';
+    const DEFAULT_CACHE_TAG = 'WCB_MEGAMENU';
+    
     /**
      * @var Category
      */
@@ -92,7 +96,45 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $this->_page = $page;
         $this->_request = $request;
         parent::__construct($context, $data);
+        //echo "<pre>";print_r($this->getRequest());exit;
+        $userAgent  = $this->getRequest()->getHeader('useragent');
+        $server     = $this->getRequest()->getServer();
+         
+        
+        //check is device is Mobile
+        $isMobileDevice = \Zend_Http_UserAgent_Mobile::match($userAgent, $server);
+        if ($isMobileDevice) {
+           //$this->setTemplate('Wcb_Megamenu::mobilemenu.phtml');
+        }
+        
+       //$this->setTemplate('Wcb_Megamenu::wcbmegamenu.phtml');
+
     }
+    
+    
+    
+     protected function getCacheLifetime()
+    {
+        return parent::getCacheLifetime() ?: 86400;
+    }
+
+    public function getCacheKeyInfo()
+    {
+        $keyInfo     =  parent::getCacheKeyInfo();
+        $keyInfo[]   =  self::MENU_CACHE_KEY;
+        return $keyInfo;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIdentities()
+    {
+        return [self::DEFAULT_CACHE_TAG, self::DEFAULT_CACHE_TAG . '_' . self::MENU_CACHE_KEY];
+    }
+    
+    
+    
     public function _prepareLayout() {
         $this->getStaticBlockFromIdentify();
     }
@@ -668,4 +710,5 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $html.= '</li>';
         return $html;
     }
+    
 }

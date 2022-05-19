@@ -8,7 +8,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <tab id="soap_api_setting" translate="label" sortOrder="120">
-            <label>Soap API Setting</label>
+            <label>API Setting</label>
         </tab>
         <section id="soap_api_setting" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Soap API Setting</label>
@@ -23,6 +23,35 @@
                 </field>
                 <field id="api_password" translate="label" type="password" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Soap Password</label>
+                </field>
+            </group>
+        </section>
+         <section id="apiconfig" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Mobile app Setting</label>
+            <tab>soap_api_setting</tab>
+            <resource>Wcb_HomePage::wcbcmshome_config</resource>
+             <group id="config" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Page Configuration</label>
+                  <field id="base_url" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Base URL</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model>
+                    <comment><![CDATA[Specify URL or {{base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
+                </field>
+                <field id="base_media_url" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Base URL for User Media Files</label>
+                    <!-- <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model> -->
+                    <comment><![CDATA[May be empty or start with {{secure_base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
+                </field>
+                 <field id="catalog_media_url" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Catalog URL Files Url</label>
+                    <!-- <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model> -->
+                    <comment><![CDATA[Start with {{secure_base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
+                </field>
+                <field id="category_media_url" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category Media Files Url </label>
+                    <!-- <backend_model>Magento\Config\Model\Config\Backend\Baseurl</backend_model> -->
+                    <comment><![CDATA[Start with {{secure_base_url}}, or {{unsecure_base_url}} placeholder.]]></comment>
                 </field>
             </group>
         </section>
