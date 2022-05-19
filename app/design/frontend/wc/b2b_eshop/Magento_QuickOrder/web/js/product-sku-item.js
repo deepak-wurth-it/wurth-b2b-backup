@@ -65,13 +65,13 @@ define([
          * @private
          */
         _reloadError: function () {
-            $(this.options.showError).trigger('addErrors', {
+            /*$(this.options.showError).trigger('addErrors', {
                 text: this.options.dataError.text
             });
 
             if (this._isAllRowsEmpty()) {
                 $('button.tocart').prop('disabled', true);
-            }
+            }*/
         },
 
         /**

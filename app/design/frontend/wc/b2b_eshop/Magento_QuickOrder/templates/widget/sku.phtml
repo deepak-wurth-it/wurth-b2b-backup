@@ -34,6 +34,7 @@
     <div class="block-content">
         <form
                 class="form form-addbysku"
+                id="form-addbysku"
                 action="<?= $block->escapeUrl($block->getUrl('quickorder/sku/uploadfile')) ?>"
                 method="post"
                 data-role="send-sku"
@@ -53,7 +54,7 @@
                         </div>
                         <div class="field sku required col-sm-4 hide-label">
                             <label class="label">
-                                <span><?= $block->escapeHtml(__('Enter SKU or Product Names')) ?></span>
+                                <span><?= $block->escapeHtml(__('Item code')) ?></span>
                             </label>
                         </div>
                         <div class="field qty required col-sm-3 hide-label">
@@ -70,7 +71,7 @@
                             title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
                             class="action tocart primary itemAdd"
                             data-action="submit-sku"
-                            disabled>
+                            >
                         <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
                     </button>
                 </div>
@@ -108,6 +109,10 @@
         ],
         function($, modal) {
             $(".upload-excel").click(function(e){
+                $("#add_to_cart_upload").prop('disabled', true);
+                $(".success-import").hide();
+                $(".error-import").hide();
+                $('.error-import-product tr:not(:first)').remove();
                 var popup = modal(options, $('#open-file'));
                 $('#open-file').modal('openModal');
             });
@@ -121,6 +126,9 @@
                 title: 'Adding products',
                 buttons: false
             };
+            $(document).on("click", "#add_to_cart_upload", function(){
+               $(".tocart.primary.itemAdd").trigger("click");
+            });
         }
     );
 </script>

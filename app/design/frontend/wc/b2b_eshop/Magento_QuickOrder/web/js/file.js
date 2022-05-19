@@ -135,8 +135,25 @@ define([
                 var data = result[0];
 
                 this.options.dataError.text = null;
-
+                let successImportCount = 0;
+                let errorImportCount = 0;
                 $.each(data.items, function (index, it) {
+                    // store import success and error count on page
+                    if(it.code == "success"){
+                        successImportCount++;
+                    }else{
+                        errorImportCount++;
+                        $(".error-import").show();
+                        $(".error-import .error-import-count").html(errorImportCount);
+                        let trHtml = "<tr>";
+                        trHtml += "<td>" + it.sku + "</td>";
+                        trHtml += "<td>" + it.qty + "</td>";
+                        trHtml += "<td>" + it.result + "</td>";
+                        trHtml += "</tr>";
+                        $('.error-import-product tr:last').after(trHtml);
+                    }
+                    // End store import success and error count on page
+
                     singleSkuInput = this._getSingleSkuInput(it.sku);
 
                     if (singleSkuInput != false) { //eslint-disable-line eqeqeq
@@ -144,15 +161,27 @@ define([
                         singleSkuInput.trigger('addRow', it);
                     }
                 }.bind(this));
+                //display success and error product code count
+                if(successImportCount){
+                    $(".success-import").show();
+                    $(".success-import .success-import-count").html(successImportCount);
+                    $("#add_to_cart_upload").prop("disabled", false);
+                }
+                if(errorImportCount){
+                    $(".error-import").show();
+                    $(".error-import .error-import-count").html(errorImportCount);
+                }
+                //End display success and error product code count
 
                 if (data && data.generalErrorMessage && data.generalErrorMessage !== '') {
                     this.options.dataError.text = data.generalErrorMessage;
                 }
 
-                $(this.options.showError).trigger('addErrors', {
-                    text: this.options.dataError.text
-                });
+                /* $(this.options.showError).trigger('addErrors', {
+                     text: this.options.dataError.text
+                 });*/
                 this._clearField();
+                $('.form-addbysku .deletable-item:not(:last)').hide();
                 $('body').trigger('processStop');
             }.bind(this));
         },
