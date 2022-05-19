@@ -22,6 +22,7 @@ class Data extends AbstractHelper
     const API_MEDIA_URL = 'apiconfig/config/base_media_url';
     const API_CATALOG_MEDIA_URL = 'apiconfig/config/catalog_media_url';
     const API_CATEGORY_MEDIA_URL = 'apiconfig/config/category_media_url';
+    const FLIP_CATALOG_URL ='catalog_settings/catalog_config/flip_catalog_url';
 
     /**
      * @var ProductFactory
@@ -146,5 +147,8 @@ class Data extends AbstractHelper
     public function getConfig($path)
     {
         return $this->_scopeConfigInterface->getValue($path, ScopeInterface::SCOPE_STORE);
+    }
+    public function getCatalogFlipPdfUrl(){
+        return $this->getConfig(self::FLIP_CATALOG_URL);
     }
 }

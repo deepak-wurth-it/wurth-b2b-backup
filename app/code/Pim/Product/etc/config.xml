@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<catalog_settings>
+			<catalog_config>
+				<flip_catalog_url>https://media.witglobal.net/bkmedia/wuerth/3152/hr/katalog/Auto/?mode=and&amp;searchquery=</flip_catalog_url>
+			</catalog_config>
+		</catalog_settings>
+	</default>
+</config>
