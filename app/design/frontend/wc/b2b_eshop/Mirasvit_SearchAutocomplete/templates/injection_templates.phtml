@@ -12,21 +12,18 @@
 </script>
 
 <script id="searchAutocompleteWrapper" type="text/x-custom-template">
-    <div class="mst-searchautocomplete__wrapper recommended-search">
+    <div class="mst-searchautocomplete__wrapper">
         <div data-bind="visible: result().noResults == false">
             <div data-bind="foreach: { data: result().indexes, as: 'index' }">
                 <div data-bind="visible: index.totalItems, attr: {class: 'mst-searchautocomplete__index ' + index.identifier}">
-                   <!-- <div class="mst-searchautocomplete__index-title">
+                    <div class="mst-searchautocomplete__index-title">
                         <span data-bind="text: index.title"></span>
                         <span data-bind="visible: index.isShowTotals">
                             (<span data-bind="text: index.totalItems"></span>)
                         </span>
-                    </div>-->
-                    <div class="search-heading">
-                        <h3>Last search</h3> 
                     </div>
 
-                    <ul data-bind="foreach: { data: index.items, as: 'item' }" class="row search-botton-contaner">
+                    <ul data-bind="foreach: { data: index.items, as: 'item' }">
                         <li data-bind="
                             template: { name:index.identifier, data: item },
                             attr: {class: 'mst-searchautocomplete__item ' + index.identifier},
@@ -34,62 +31,6 @@
                             css: {_active: $data.isActive}">
                         </li>
                     </ul>
-
-                    <div class="search-heading">
-      <h3>Last Seen</h3>
-   </div>
-   <div class="row search-contaner">
-      <div class="col-2">
-         <div  class="search-pro-img">
-            <img src="http://m2.wc.b2b.com/media/catalog/product/cache/727b38be8af09735bb0416b905d0115c/w/g/wg02-bk-0.jpg" alt="Card image cap"> 
-         </div>
-         <div class="search-pro-title">
-            <p> Dijagnostika za motorna vozila WOW </p>
-         </div>
-      </div>
-      <div class="col-2">
-         <div  class="search-pro-img">
-            <img src="http://m2.wc.b2b.com/media/catalog/product/cache/727b38be8af09735bb0416b905d0115c/w/g/wg02-bk-0.jpg" alt="Card image cap"> 
-         </div>
-         <div class="search-pro-title">
-            <p>Direktna montaža</p>
-         </div>
-      </div>
-      <div class="col-2">
-         <div  class="search-pro-img">
-            <img  src="http://m2.wc.b2b.com/media/catalog/product/cache/727b38be8af09735bb0416b905d0115c/w/g/wg02-bk-0.jpg" alt="Card image cap"> 
-         </div>
-         <div class="search-pro-title">
-            <p>Elektroinstalacije</p>
-         </div>
-      </div>
-      <div class="col-2">
-         <div  class="search-pro-img">
-            <img  src="http://m2.wc.b2b.com/media/catalog/product/cache/727b38be8af09735bb0416b905d0115c/w/g/wg02-bk-0.jpg" alt="Card image cap"> 
-         </div>
-         <div class="search-pro-title">
-            <p>Elementi za spajanje (opći, metrički, colni) </p>
-         </div>
-      </div>
-      <div class="col-2">
-         <div  class="search-pro-img">
-            <img  src="http://m2.wc.b2b.com/media/catalog/product/cache/727b38be8af09735bb0416b905d0115c/w/g/wg02-bk-0.jpg" alt="Card image cap">  
-         </div>
-         <div class="search-pro-title">
-            <p>Građevinska oprema i pribor</p>
-         </div>
-      </div>
-      <div class="col-2">
-         <div  class="search-pro-img">
-            <img  src="http://m2.wc.b2b.com/media/catalog/product/cache/727b38be8af09735bb0416b905d0115c/w/g/wg02-bk-0.jpg" alt="Card image cap"> 
-         </div>
-         <div class="search-pro-title">
-            <p>Elementi za spajanje (opći, metrički, colni)</p>
-         </div>
-      </div>
-   </div>
-</div>
-
                 </div>
             </div>
 
@@ -131,7 +72,7 @@
         </div>
 
         <!-- ko if: description -->
-        <div class="description" data-bind="text: description, highlight"></div>
+       <!-- <div class="description" data-bind="text: description, highlight"></div>-->
         <!-- /ko -->
 
         <!-- ko if: rating -->
@@ -149,9 +90,9 @@
         </div>
     </div>
 
-    <div class="store">
+    <!--<div class="store">
         <div data-bind="html: price" class="price"></div>
-    </div>
+    </div> -->
 </script>
 
 <script id="magento_catalog_categoryproduct" type="text/x-custom-template">
