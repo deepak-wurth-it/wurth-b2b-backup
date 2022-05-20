@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="pim_setting" translate="label" sortOrder="120">
+            <label>PIM Settings</label>
+        </tab>
+        <section id="catalog_settings" translate="label" type="text" sortOrder="20" showInWebsite="0" showInStore="0" showInDefault="1">
+            <label>Product Settings</label>
+            <tab>pim_setting</tab>
+            <resource>Pim_Category::pim_setting</resource>
+            <group id="catalog_config" translate="label" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1">
+                <label>Product Configuration</label>
+                <field id="flip_catalog_url" translate="label" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" canRestore='1'>
+                    <label>Flip Catalog Url</label>
+                    <comment><![CDATA[Flip Catalog pdf url]]></comment>
+                    <tooltip><![CDATA[https://media.witglobal.net/bkmedia/wuerth/3152/hr/katalog/Auto/?mode=and&searchquery={{product-code}}.]]></tooltip>
+                    <validate>required-entry validate-url</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
