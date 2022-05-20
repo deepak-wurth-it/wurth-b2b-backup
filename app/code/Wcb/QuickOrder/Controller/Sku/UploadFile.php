@@ -71,9 +71,12 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
         //Get sku using product code and set so magento default working as it as
 
         foreach ($items as $_item) {
+            if (!$_item['sku']) {
+                continue;
+            }
             $product = $this->getProductByProductCode($_item['sku']);
             if ($product->getSku()) {
-                $_item['sku'] = $product->getSku();
+                // $_item['sku'] = $product->getSku();
             }
             if (!isset($_item['qty'])) {
                 $_item['qty'] = 1;
@@ -84,6 +87,9 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
             $_item['qty'] = $newQty;
             $updatedItems[] = $_item;
         }
+        /*echo "<pre>";
+        print_r($updatedItems);
+        exit;*/
         if (!empty($updatedItems)) {
             $items = $updatedItems;
         }
