@@ -3,12 +3,15 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
+use Magento\QuickOrder\Block\Sku;
+
 ?>
 <?php
 /**
  * Order by SKU widget template
  *
- * @var $block \Magento\QuickOrder\Block\Sku
+ * @var $block Sku
  */
 ?>
 <div id="<?= $block->escapeHtmlAttr($block->getUniqueId()) ?>" class="widget block block-addbysku"
@@ -33,105 +36,104 @@
     <?php endif ?>
     <div class="block-content">
         <form
-                class="form form-addbysku"
-                id="form-addbysku"
-                action="<?= $block->escapeUrl($block->getUrl('quickorder/sku/uploadfile')) ?>"
-                method="post"
-                data-role="send-sku"
-                data-mage-init='{"validation":{}, "quickOrderAddToCart":{}}'
+            class="form form-addbysku"
+            id="form-addbysku"
+            action="<?= $block->escapeUrl($block->getUrl('quickorder/sku/uploadfile')) ?>"
+            method="post"
+            data-role="send-sku"
+            data-mage-init='{"validation":{}, "quickOrderAddToCart":{}}'
             <?php if ($block->getIsMultipart()): ?> enctype="multipart/form-data"<?php endif; ?>
         >
 
-           <div class="cartPageForm">
-            <div class="box box-items">
-                <fieldset class="fieldset" data-container="items">
+            <div class="cartPageForm">
+                <div class="box box-items">
+                    <fieldset class="fieldset" data-container="items">
 
-                    <div class="fields additional deletable-item-title">
-                        <div class="field col-sm-4">
-                            <label class="label cartitem">
-                                <span><?= $block->escapeHtml(__('Add itemes to cart')) ?></span>
-                            </label>
+                        <div class="fields additional deletable-item-title">
+                            <div class="field col-sm-4">
+                                <label class="label cartitem">
+                                    <span><?= $block->escapeHtml(__('Add itemes to cart')) ?></span>
+                                </label>
+                            </div>
+                            <div class="field sku required col-sm-4 hide-label">
+                                <label class="label">
+                                    <span><?= $block->escapeHtml(__('Item code')) ?></span>
+                                </label>
+                            </div>
+                            <div class="field qty required col-sm-3 hide-label">
+                                <label class="label">
+                                    <span><?= $block->escapeHtml(__('Qty')) ?></span>
+                                </label>
+                            </div>
                         </div>
-                        <div class="field sku required col-sm-4 hide-label">
-                            <label class="label">
-                                <span><?= $block->escapeHtml(__('Item code')) ?></span>
-                            </label>
-                        </div>
-                        <div class="field qty required col-sm-3 hide-label">
-                            <label class="label">
-                                <span><?= $block->escapeHtml(__('Qty')) ?></span>
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-            <div class="actions-toolbar col-md-4">
-                <div class="primary">
-                    <button type="submit"
-                            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
-                            class="action tocart primary itemAdd"
-                            data-action="submit-sku"
-                            >
-                        <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-     <div class="row pull-right but-con">
-         <div class="col-md-12">
-                <div type="button" class="action upload-excel">
-                <span class="csv-icon"><img src="<?php echo $block->getViewFileUrl('Magento_QuickOrder::images/csv.jpg'); ?>" /> </span>
-                <span data-bind="i18n: 'Upload Excel file'"></span>
-            </div>
-         </div>
-     </div>
-
-        <div id="open-file" style="display:none;">
-    <?php if ($block->getChildHtml()): ?>
-                <div class="box box-upload">
-                    <fieldset class="fieldset">
-                        <?= $block->getChildHtml() ?>
                     </fieldset>
                 </div>
-            <?php endif; ?>
-    </div>
+                <div class="actions-toolbar col-md-4">
+                    <div class="primary">
+                        <button type="submit"
+                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                class="action tocart primary itemAdd"
+                                data-action="submit-sku"
+                        >
+                            <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pull-right but-con">
+                <div class="col-md-12">
+                    <div type="button" class="action upload-excel">
+                        <span class="csv-icon"><img
+                                src="<?php echo $block->getViewFileUrl('Magento_QuickOrder::images/csv.jpg'); ?>"/> </span>
+                        <span data-bind="i18n: 'Upload Excel file'"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="open-file" style="display:none;">
+                <?php if ($block->getChildHtml()): ?>
+                    <div class="box box-upload">
+                        <fieldset class="fieldset">
+                            <?= $block->getChildHtml() ?>
+                        </fieldset>
+                    </div>
+                <?php endif; ?>
+            </div>
             <?php if ($block->getLink()): ?>
-                <?= /* @noEscape */ $block->getLink() ?>
+                <?= /* @noEscape */
+                $block->getLink() ?>
             <?php endif; ?>
         </form>
 
         <script>
-    require(
-        [
-            'jquery',
-            'Magento_Ui/js/modal/modal'
-        ],
-        function($, modal) {
-            $(".upload-excel").click(function(e){
-                $("#add_to_cart_upload").prop('disabled', true);
-                $(".success-import").hide();
-                $(".error-import").hide();
-                $('.error-import-product tr:not(:first)').remove();
-                var popup = modal(options, $('#open-file'));
-                $('#open-file').modal('openModal');
-            });
+            require(
+                [
+                    'jquery',
+                    'Magento_Ui/js/modal/modal'
+                ],
+                function ($, modal) {
+                    $(".upload-excel").click(function (e) {
+                        $("#add_to_cart_upload").prop('disabled', true);
+                        $(".success-import").hide();
+                        $(".error-import").hide();
+                        $('.error-import-product tr:not(:first)').remove();
+                        var popup = modal(options, $('#open-file'));
+                        $('#open-file').modal('openModal');
+                    });
 
-            var options = {
-                type: 'popup',
-                title: '',
-                modalClass: 'open-file',
-                responsive: false,
-                innerScroll: true,
-                title: 'Adding products',
-                buttons: false
-            };
-            $(document).on("click", "#add_to_cart_upload", function(){
-               $(".tocart.primary.itemAdd").trigger("click");
-            });
-        }
-    );
-</script>
+                    var options = {
+                        type: 'popup',
+                        title: '',
+                        modalClass: 'open-file',
+                        responsive: false,
+                        innerScroll: true,
+                        title: 'Adding products',
+                        buttons: false
+                    };
+                }
+            );
+        </script>
 
         <script data-template="add-block" type="text/x-magento-template">
             <!-- Disable multiple row by adding -hidecustom in data-role -->
@@ -144,8 +146,8 @@
                         "urlSku":"<?= $block->escapeUrl($block->getUrl('quickorder/ajax/search')) ?>",
                         "urlDelete":"<?= $block->escapeUrl($block->getUrl('quickorder/ajax/delete')) ?>"}}'>
 
-                    <div class="col-sm-4"></div>
-                        <div class="field sku required ui-front col-sm-4">
+                <div class="col-sm-4"></div>
+                <div class="field sku required ui-front col-sm-4">
                     <label class="label">
                         <span><?= $block->escapeHtml(__('Enter SKU or Product Name')) ?></span>
                     </label>
@@ -197,5 +199,11 @@
                 </div>
             </div>
         </script>
+    </div>
+</div>
+<div id="import-popup" class="no-display">
+    <div class="thank-you-pop" style="text-align: center">
+        <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="" width="110">
+        <h3><?= __("Products are Imported successfully.") ?></h3>
     </div>
 </div>
