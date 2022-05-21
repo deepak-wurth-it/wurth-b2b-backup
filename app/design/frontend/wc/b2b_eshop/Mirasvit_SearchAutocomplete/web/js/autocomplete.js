@@ -378,8 +378,8 @@ define([
 
             this.$placeholder()
                 .css('top', this.$input.outerHeight() - 1 + top)
-                .css('left',-126)
-                .css('width', this.$input.outerWidth() + 440);
+                .css('left',-109)
+                .css('width', this.$input.outerWidth() - 240);
         }
     };
 

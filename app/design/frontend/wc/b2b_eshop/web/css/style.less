@@ -4639,27 +4639,24 @@ body {
 }
 
 // Search popup start
-.mst-searchautocomplete__autocomplete._active.mst-2-cols div.magento_catalog_product {   
-    clear: left;
-    float: left;
-}
+// .mst-searchautocomplete__autocomplete._active.mst-2-cols div.magento_catalog_product {   
+//     clear: left;
+//     float: left;
+// }
 .mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
-    clear: right;
-    float: right;
+    // clear: right;
+    // float: right;
+	max-width: 430px;
+    width: 430px;
 }
 .mst-searchautocomplete__item.magento_catalog_product .mst-product-image-wrapper {
-    height: 4rem;
-    width: 4rem;
-    margin-right: 1rem;
-}
-.mst-searchautocomplete__item.magento_catalog_product .mst-product-image-wrapper {
-    height: 4rem;
-    width: 4rem;
+    height: 40px;
+    width: 40px;
     margin-right: 1rem;
 }
 .mst-searchautocomplete__item.magento_catalog_product .mst-product-image-wrapper img {
-    height: 4rem;
-    max-width: 4rem;
+    height: 40px;
+    max-width: 40px;
     display: block;
     margin: auto;
     object-fit: contain;
@@ -4676,6 +4673,17 @@ body {
     max-height: 70vh;
     overflow: auto;
     border: 1px solid rgba(0, 0, 0, 12%);
+}
+.mst-searchautocomplete__item.magento_catalog_product .title {
+    margin-bottom: 0px;
+}
+.mst-searchautocomplete__autocomplete .mst-searchautocomplete__index-title {
+    border-bottom: none;
+    padding: 15px 0 9px 0px;
+    color: #000000;
+    text-transform: uppercase;
+    font-family: 'wuerthbold';
+    font-size: 18px;
 }
 
 
