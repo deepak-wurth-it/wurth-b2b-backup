@@ -7,10 +7,10 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="checkout_cart_item_renderers"/>
-   <body>   
+   <body>
     <referenceBlock name="checkout.cart.upsell" remove="true"/>
     <referenceBlock name="checkout.cart.crosssell" remove="true"/>
-     <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>   
+     <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>
 
         <referenceBlock name="checkout.cart.coupon" remove="true"/>
         <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon2" as="coupon" template="Magento_Checkout::cart/coupon.phtml"/>
@@ -33,7 +33,7 @@
                             <argument name="label" xsi:type="string" translate="true">Download Sample</argument>
                         </arguments>
                     </block>
-                </block> 
+                </block>
             </block>
         </referenceContainer>
 
@@ -235,9 +235,11 @@
                     </block>
                 </container>
                 <container name="checkout.cart.noitems" as="no-items">
-                    <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">
-                        <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
-                    </block>
+                    <container name="checkout.cart.no.item.container" htmlTag="div" htmlClass="cart-container">
+                        <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">
+                            <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
+                        </block>
+                    </container>
                 </container>
             </block>
         </referenceContainer>
