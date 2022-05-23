@@ -345,5 +345,67 @@ class UpgradeData implements UpgradeDataInterface
 				$this->moduleDataSetup->getConnection()->endSetup();
 			}
 		}
+		
+		
+		if (version_compare($context->getVersion(), '1.0.7', '<')) {
+			$attributesInfoUpdate = [
+				'base_unit_of_measure_id' => [
+					'visible_on_front' => false
+
+				],
+				'vendor_id' => [
+					'visible_on_front' => false
+
+				],
+				'sales_unit_of_measure_id' => [
+					'visible_on_front' => false
+				],
+				'abc_group_code' => [
+					'visible_on_front' => false
+				],
+				'inventory_item_category_code' => [
+					'visible_on_front' => false
+				],
+				'minimum_sales_unit_quantity' => [
+					'visible_on_front' => false
+
+				],
+				'successor_product_code' => [
+					'visible_on_front' => false
+
+				],
+				'palette_quantity' => [
+					'visible_on_front' => false
+
+				],
+				'package_box' => [
+					'visible_on_front' => false
+
+				],
+				'short_name' => [
+					'visible_on_front' => false
+				],
+				'vendor_item_no' => [
+					'visible_on_front' => false
+				],
+				'synonyms' => [
+				
+				'visible_on_front' => false
+				
+				],
+				'product_code' => [
+				
+				'visible_on_front' => false
+				
+				]
+			];
+
+			foreach ($attributesInfoUpdate as $attributeCode => $attributeParams) {
+				$this->moduleDataSetup->getConnection()->startSetup();
+				$eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
+				$eavSetup->updateAttribute(\Magento\Catalog\Model\Product::ENTITY, $attributeCode, $attributeParams);
+				$this->moduleDataSetup->getConnection()->endSetup();
+			}
+		}
 	}
 }
