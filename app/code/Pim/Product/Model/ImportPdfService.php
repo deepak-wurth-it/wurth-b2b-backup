@@ -5,12 +5,12 @@ namespace Pim\Product\Model;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Io\File;
-use Magento\MediaStorage\Model\File\UploaderFactory;
+use \Magento\Framework\Filesystem;
 /**
  * Class ImportImageService
  * assign images to products by image URL
  */
-class ImportImageService
+class ImportPdfService
 {
     /**
      * Directory List
@@ -32,12 +32,12 @@ class ImportImageService
      */
     public function __construct(
         DirectoryList $directoryList,
-        UploaderFactory $uploaderFactory,
+        Filesystem $filesystem,
         File $file
     ) {
         $this->directoryList = $directoryList;
-        $this->uploaderFactory = $uploaderFactory;
         $this->file = $file;
+        $this->filesystem = $filesystem;
     }
     /**
      * Main service executor
@@ -49,19 +49,21 @@ class ImportImageService
      *
      * @return bool
      */
-    public function execute($product, $imageUrl, $visible = true, $imageType = [])
-    {
+    public function execute($pdf_name,$pdfUrl)
+    { 
         /** @var string $tmpDir */
-        $tmpDir = $this->getMediaDirTmpDir();
+        $pdfDir = $this->getMediaDirPdfDir();
         /** create folder if it is not exists */
-        $this->file->checkAndCreateFolder($tmpDir);
+        $this->file->checkAndCreateFolder($pdfDir);
         /** @var string $newFileName */
-        $newFileName = $tmpDir . baseName($imageUrl);
+        $newFileName = $pdfDir . baseName($pdfUrl);
         /** read file from URL and copy it to the new destination */
-        $result = $this->file->read($imageUrl, $newFileName);
+        $result = $this->file->read($pdfUrl, $newFileName);
+     
         if ($result) {
-            /** add saved file to the $product gallery */
-            $product->addImageToMediaGallery($newFileName, $imageType, true, $visible);
+			    $pdf_file = baseName($newFileName);
+                $mediapath = DirectoryList::MEDIA.DIRECTORY_SEPARATOR . 'product_pdfs'.DIRECTORY_SEPARATOR.$pdf_file;
+				return  $mediapath;
         }
         return $result;
     }
@@ -71,9 +73,9 @@ class ImportImageService
      *
      * @return string
      */
-    protected function getMediaDirTmpDir()
+    protected function getMediaDirPdfDir()
     {
-        return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'tmp';
+        return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'product_pdfs'.DIRECTORY_SEPARATOR;
     }
 }
 
