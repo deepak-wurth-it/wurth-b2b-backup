@@ -132,7 +132,7 @@ define([
 
             postArray.push(item);
             this._clearProductBlock();
-            skuElement.prop('disabled', true);
+            //skuElement.prop('disabled', true);
 
             if (item.sku !== '') {
                 $.post(
@@ -150,7 +150,7 @@ define([
                                 it.result = '';
                             }
 
-                            this.element.find(this.options.qtySelector).val(parseFloat(it.qty));
+                            //this.element.find(this.options.qtySelector).val(parseFloat(it.qty));
                             //this._addBlock(it);
                         }.bind(this));
 
