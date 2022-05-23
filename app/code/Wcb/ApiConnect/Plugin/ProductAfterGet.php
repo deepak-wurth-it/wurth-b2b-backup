@@ -49,7 +49,7 @@ class ProductAfterGet
             );
 
         $extensionAttributes->setData('product_pdf', $pdf);
-        $extensionAttributes->setData('technical_data', $this->getCustomAttributesVisibleOnFront($entity));
+        $extensionAttributes->setData('technical_information', $this->getCustomAttributesVisibleOnFront($entity));
 
         $entity->setExtensionAttributes($extensionAttributes);
 
