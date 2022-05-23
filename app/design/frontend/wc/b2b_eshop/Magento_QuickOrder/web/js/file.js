@@ -141,6 +141,14 @@ define([
                     // store import success and error count on page
                     if(it.code == "success"){
                         successImportCount++;
+
+                        //magento default flow
+                        singleSkuInput = this._getSingleSkuInput(it.sku);
+
+                        if (singleSkuInput != false) { //eslint-disable-line eqeqeq
+                            it.toRewriteQty = true;
+                            singleSkuInput.trigger('addRow', it);
+                        }
                     }else{
                         errorImportCount++;
                         $(".error-import").show();
@@ -154,12 +162,7 @@ define([
                     }
                     // End store import success and error count on page
 
-                    singleSkuInput = this._getSingleSkuInput(it.sku);
 
-                    if (singleSkuInput != false) { //eslint-disable-line eqeqeq
-                        it.toRewriteQty = true;
-                        singleSkuInput.trigger('addRow', it);
-                    }
                 }.bind(this));
                 //display success and error product code count
                 if(successImportCount){

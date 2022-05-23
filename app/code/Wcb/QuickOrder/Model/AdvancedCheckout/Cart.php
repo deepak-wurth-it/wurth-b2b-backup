@@ -247,8 +247,33 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
             } else {
                 $warning = __('%1 products require your attention.', $failedItemsCount);
             }
-            $messages[] = $this->messageFactory->create(MessageInterface::TYPE_ERROR, $warning);
+            // $messages[] = $this->messageFactory->create(MessageInterface::TYPE_ERROR, $warning);
         }
         return $messages;
+    }
+    protected function _getValidatedItem($sku, $qty)
+    {
+        $code = Data::ADD_ITEM_STATUS_SUCCESS;
+        if ($sku === '') {
+            $code = Data::ADD_ITEM_STATUS_FAILED_EMPTY;
+        } else {
+            if (is_float($qty) || is_int($qty) || \Zend_Validate::is((string)$qty, 'Float')) {
+                $qty = $this->_localeFormat->getNumber($qty);
+                if ($qty <= 0) {
+                    $code = Data::ADD_ITEM_STATUS_FAILED_QTY_INVALID_NON_POSITIVE;
+                } elseif ($qty < 0.0001 || $qty > 99999999.9999) {
+                    // same as app/design/frontend/enterprise/default/template/checkout/widget/sku.phtml
+                    $code = Data::ADD_ITEM_STATUS_FAILED_QTY_INVALID_RANGE;
+                }
+            } else {
+                $code = Data::ADD_ITEM_STATUS_FAILED_QTY_INVALID_NUMBER;
+            }
+        }
+
+        if ($code != Data::ADD_ITEM_STATUS_SUCCESS) {
+            //$qty = '';
+        }
+
+        return ['sku' => $sku, 'qty' => $qty, 'code' => $code];
     }
 }

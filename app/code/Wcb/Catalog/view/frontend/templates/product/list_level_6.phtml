@@ -34,8 +34,6 @@
 <?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
 <?php $firstProduct =  $level5Collection->getFirstItem(); ?>
 <?php $firstProductExtraRow = $block->getExtraAttributeData($firstProduct); ?>
-<?php $subcategories = []; ?>
-<?php $subcategories = $block->getCategoryChildrenData($catId); ?>
 <?php $pid = []; ?>
 <!-- End For Category -->
 <!-- For Product -->
