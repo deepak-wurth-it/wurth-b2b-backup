@@ -3,7 +3,7 @@
 
     <body>
         <referenceContainer name="page.wrapper">
-            <block class="Plazathemes\Layout\Block\Layout" name="custom_header" template="html/header.phtml" before="-" cacheable="false">
+            <block class="Plazathemes\Layout\Block\Layout" name="custom_header" template="html/header.phtml" before="-" >
 				
                 <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
                     <arguments>
