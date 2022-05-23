@@ -5,4 +5,5 @@
     <preference for="Magento\QuickOrder\Model\ResourceModel\Product\Suggest" type="Wcb\QuickOrder\Model\ResourceModel\Product\Suggest" />
     <preference for="Magento\QuickOrder\Model\Product\Suggest\DataProvider" type="Wcb\QuickOrder\Model\Product\Suggest\DataProvider" />
     <preference for="Magento\QuickOrder\Controller\Sku\UploadFile" type="Wcb\QuickOrder\Controller\Sku\UploadFile" />
+    <preference for="Magento\AdvancedCheckout\Controller\Cart\AdvancedAdd" type="Wcb\QuickOrder\Controller\Cart\AdvancedAdd" />
 </config>

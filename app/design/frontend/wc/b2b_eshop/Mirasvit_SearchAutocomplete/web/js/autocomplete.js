@@ -372,14 +372,14 @@ define([
         ensurePosition: function () {
             var position = this.$input.position();
             var width = this.$placeholder().outerWidth();
-          //  var left = position.left + parseInt(this.$input.css('marginLeft'), -100) + this.$input.outerWidth() - width;
-          var left = position.left + parseInt(this.$input.css('marginLeft'), -126);
+            var left = position.left + parseInt(this.$input.css('marginLeft'), -100) + this.$input.outerWidth() - width;
+          //var left = position.left + parseInt(this.$input.css('marginLeft'), -126);
             var top = position.top + parseInt(this.$input.css('marginTop'), 10);
 
-            // this.$placeholder()
-            //     .css('top', this.$input.outerHeight() - 1 + top)
-            //     .css('left',-126)
-            //     .css('width', this.$input.outerWidth() + 440);
+            this.$placeholder()
+                .css('top', this.$input.outerHeight() - 1 + top)
+                .css('left',-109)
+                .css('width', this.$input.outerWidth() - 240);
         }
     };
 

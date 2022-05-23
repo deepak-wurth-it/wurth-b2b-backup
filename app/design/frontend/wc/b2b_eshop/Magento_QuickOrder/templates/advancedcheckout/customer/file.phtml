@@ -35,6 +35,31 @@ $extErrorText = __(
                 <?= $block->getChildHtml('quick_order_download_template_link') ?>
             </p>
         </div>
-        <div class="form-cart-button"><button type="submit" class="add-to-basket"><?= $block->escapeHtml(__('Add to Basket')) ?></button> </div>
+        <div class="form-cart-button">
+            <button id="add_to_cart_upload" class="add-to-basket" disabled><?= $block->escapeHtml(__('Add to Basket')) ?></button>
+        </div>
+        <div class="success-import no-display">
+            <div class="message success">
+                <div class="success-import-message">
+                    <span class="success-import-count">5</span>
+                    <?= __('Products you can add in your cart.') ?>
+                </div>
+            </div>
+        </div>
+        <div class="error-import no-display">
+            <div class="message error">
+                <div class="success-import-message">
+                    <span class="error-import-count">2</span>
+                    <?= __('Products you can not add in your cart.') ?>
+                </div>
+            </div>
+            <table class="error-import-product" border="1" style="margin-bottom:10px">
+                <tr>
+                    <th><?= __("Product Code") ?></th>
+                    <th><?= __("Qty") ?></th>
+                    <th><?= __("Error") ?></th>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
