@@ -9,4 +9,7 @@
     <type name="Magento\Catalog\Model\ProductRepository">
        <plugin name="quantity_modify_plugin" type="Wcb\ApiConnect\Plugin\ProductAfterGet"/>
    </type>
+    <type name="Magento\Catalog\Model\CategoryRepository">
+       <plugin name="category_product_collection_count" type="Wcb\ApiConnect\Plugin\CategoryProductCollectionCountAfterGet"/>
+   </type>
 </config>
