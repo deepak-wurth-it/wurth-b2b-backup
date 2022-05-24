@@ -5,4 +5,9 @@
         <attribute code="product_pdf" type="Wcb\ApiConnect\Api\Data\ProductMeasureInterface[]" />
         <attribute code="technical_information" type="Wcb\ApiConnect\Api\Data\ProductMeasureInterface[]" />
     </extension_attributes>
+
+ <extension_attributes for="Magento\Catalog\Api\Data\CategoryInterface">
+        <attribute code="category_product_collection_count" type="Wcb\ApiConnect\Api\Data\ProductMeasureInterface[]" />
+    </extension_attributes>
+
 </config>
