@@ -27,7 +27,7 @@ class LoginCheck extends \Magento\Framework\App\Action\Action
         $result = $this->resultJsonFactory->create();
         $data = $this->httpContext->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
         $result->setData(array('success' => $data));
-        return $data;
+        return $result;
     }
 
 }
