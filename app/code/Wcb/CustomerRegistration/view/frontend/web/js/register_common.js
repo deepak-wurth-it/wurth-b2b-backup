@@ -3,7 +3,8 @@ define([
     'uiComponent',
     'mage/url',
     'Magento_Ui/js/lib/validation/validator',
-], function ($, Component, urlBuilder, validator) {
+    'Magento_Customer/js/customer-data',
+], function ($, Component, urlBuilder, validator, customerData) {
     'use strict';
     return Component.extend({
         initialize: function () {
@@ -111,6 +112,9 @@ define([
                     showLoader: true
                 }).success(function (data) {
                     $("#send2").prop('disabled', false);
+                    var sections = ['cart','checkout-data','customer'];
+                    customerData.invalidate(sections);
+                    customerData.reload(sections, true);
                     if(data.status == "true") {
                         window.location.href = data.redirect_url;
                     }

@@ -83,38 +83,4 @@
     </script>
 
 
-<script type="text/javascript">
-require(["jquery"], function($){
-	$(document).ready(function(){
-		//$(".nav-container").insertAfter(".header");
-		$(".mobile-bar-icon").click(function(){
-			$(".mobile-bar-content").addClass("open");
-		});
-		$(".mobile-bar-close").click(function(){
-			$(".mobile-bar-content").removeClass("open");
-		});
-	
-	});
-	$(window).scroll(function () {
-	   if ($(this).scrollTop() > 30) {
-		 $('.header').addClass("fix-nav-menu");	 
-	   } else {
-		$('.header').removeClass("fix-nav-menu");
-	 
-	   }
-	});	
-
-    jQuery(window).resize(function () {
-        var viewportWidth = jQuery(window).width();
-        if (viewportWidth < 1024) {
-			jQuery(".mobile-bar-content").removeClass("open");
-			jQuery(".mob-popup").removeClass('onn');	
-			jQuery(".mob-popup").addClass('off');		
-        }
-    });
-
-});
-</script>
-
-
 

@@ -1626,7 +1626,20 @@ label.sorter-label {
 // .account-wraper.log-out {
 // 	display: none;
 // }
-
+.cart-autocomplate.ui-autocomplete-loading
+{
+	background:  url('../images/loader-3.gif') right no-repeat;
+	background-position-x: 90px;
+}
+.error-import-product{
+	margin-bottom:10px;
+}
+.error-import-product tr td{
+	border:1px solid rgba(0, 0, 0, 12%);
+}
+.thank-you-pop{
+	text-align: center;
+}
 // hedaer layout UI- 
 .nav-ozmegamenu {
 	position: relative;
@@ -4639,13 +4652,7 @@ body {
 }
 
 // Search popup start
-// .mst-searchautocomplete__autocomplete._active.mst-2-cols div.magento_catalog_product {   
-//     clear: left;
-//     float: left;
-// }
-.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
-    // clear: right;
-    // float: right;
+.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {    
 	max-width: 430px;
     width: 430px;
 }
@@ -10265,8 +10272,8 @@ print {
 		width: 33%;
 	}
 	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
-		width: 920px !important;
-		left: -109 !important;
+		width: 920px;
+		left: -109;
 	}
 	
 }
