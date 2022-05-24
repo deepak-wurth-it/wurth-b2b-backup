@@ -20,7 +20,7 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Api\Data\AddressInterfaceFactory $dataAddressFactory,
         \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
-        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroup,
+        \Magento\Customer\Model\ResourceModel\Group\CollectionFactory $customerGroup,
         \Magento\Directory\Model\Country $country,
         \Wcb\CustomerRegistration\Model\ResourceModel\Division\CollectionFactory $divisionCollection,
         array $data = []
@@ -48,8 +48,8 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
 
     public function getDivision()
     {
-        return $this->divisionCollection->create()
-            ->addFieldToFilter("parent_branch", ["null" => true]);
+        return $this->customerGroup->create()
+            ->addFieldToFilter("branch_code", ["neq" => 'NULL']);
     }
 
     /**

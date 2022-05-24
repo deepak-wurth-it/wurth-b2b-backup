@@ -407,5 +407,37 @@ class UpgradeData implements UpgradeDataInterface
 				$this->moduleDataSetup->getConnection()->endSetup();
 			}
 		}
+		
+		if (version_compare($context->getVersion(), '1.0.8', '<')) {
+			 $this->moduleDataSetup->getConnection()->startSetup();
+			 $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
+			 $eavSetup->addAttribute(
+				 \Magento\Catalog\Model\Product::ENTITY,
+				 'rest_pdf',
+					 [
+					 'type' => 'text',
+					 'backend' => '',
+					 'frontend' => '',
+					 'label' => 'Extra Pdf',
+					 'input' => 'text',
+					 'class' => '',
+					 'source' => '',
+					 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+					 'visible' => true,
+					 'required' => false,
+					 'user_defined' => false,
+					 'default' => '',
+					 'searchable' => false,
+					 'filterable' => false,
+					 'comparable' => false,
+					 'visible_on_front' => false,
+					 'used_in_product_listing' => true,
+					 'unique' => false,
+					 'apply_to' => ''
+					 ]
+			 );
+			$this->moduleDataSetup->getConnection()->endSetup();
+			
+		}
 	}
 }

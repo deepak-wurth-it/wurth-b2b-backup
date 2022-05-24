@@ -51,18 +51,30 @@ class ImportImageServiceCategory
     {
         /** @var string $tmpDir */
         $tmpDir = $this->getMediaDirTmpDir();
+        $thumbDir = $this->getMediaDirThumbnailsDir();
 
         $imageName = baseName($imageUrl);
+
         /** create folder if it is not exists */
         $this->file->checkAndCreateFolder($tmpDir);
+        $this->file->checkAndCreateFolder($thumbDir);
+
         /** @var string $newFileName */
         $newFileName = $tmpDir . $imageName;
+        $newFileNameThumb = $thumbDir . $imageName;
+
         /** read file from URL and copy it to the new destination */
         $result = $this->file->read($imageUrl, $newFileName);
-        if ($result) {
+        $resultThumb = $this->file->read($imageUrl, $newFileNameThumb);
+
+        if ($result && $resultThumb) {
             /** add saved file to the $categoryobj gallery */
             //$imageType = array('image', 'small_image', 'thumbnail');
-            $categoryobj->setImage($imageName, $imageType, $visible, false); // make sure image will be in pub/media/catalog/category/
+            $catImage = DirectoryList::MEDIA. DIRECTORY_SEPARATOR . 'catalog/category' . DIRECTORY_SEPARATOR.baseName($newFileName);
+            $categoryobj->setImage($catImage, $imageType, $visible, false); // make sure image will be in pub/media/catalog/category/
+
+            $pathThumb = DirectoryList::MEDIA. DIRECTORY_SEPARATOR . 'catalog/category/thumbnails' . DIRECTORY_SEPARATOR.baseName($newFileNameThumb);
+            $categoryobj->setThumbnail($pathThumb, ['thumbnail'], $visible, false); // make sure image will be in pub/media/catalog/category/thumbnails
 
         }
         return $result;
@@ -76,5 +88,10 @@ class ImportImageServiceCategory
     protected function getMediaDirTmpDir()
     {
         return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'catalog/category' . DIRECTORY_SEPARATOR;
+    }
+
+     protected function getMediaDirThumbnailsDir()
+    {
+        return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'catalog/category/thumbnails' . DIRECTORY_SEPARATOR;
     }
 }

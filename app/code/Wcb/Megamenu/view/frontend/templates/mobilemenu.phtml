@@ -86,20 +86,20 @@
 				
 		</nav>
 
-		<div id="accounts" class="tabcontent">
-	<span class="wcb-logged">
+		<div id="accounts" class="tabcontent" data-bind="scope: 'customer'">
+	 <!-- ko if: customer().firstname  -->
 	<ul>
-		<li><span data-mage-init='{"js/customerGreeting":{}}'></span>!</li>	
+		<li><span  data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1', '%1')) ?>').replace('%1', customer().firstname)"></span>!</li>	
 		<li> <a href="<?php echo $block->getUrl("customer/account"); ?>">My Acoount</a></li> 
 		<li><a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Logout</a></li> 		
 	</ul>
-</span>
+     <!-- /ko -->
 
-<span class="wcb-not-logged">
+<!-- ko ifnot: customer().firstname  -->
     <ul>
 		<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"><?php echo __("Login / Registration"); ?></a></li> 
 	</ul>
-</span>
+ <!-- /ko -->
 </div>
 
 		
