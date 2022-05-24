@@ -3,5 +3,6 @@
         <attribute code="sales_unit_of_measure_id_value" type="Wcb\ApiConnect\Api\Data\ProductMeasureInterface[]" />
 <!--        <attribute code="product_technical_specification" type="Wcb\ApiConnect\Api\Data\ProductMeasureInterface[]" />-->
         <attribute code="product_pdf" type="Wcb\ApiConnect\Api\Data\ProductMeasureInterface[]" />
+        <attribute code="technical_information" type="Wcb\ApiConnect\Api\Data\ProductMeasureInterface[]" />
     </extension_attributes>
 </config>

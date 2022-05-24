@@ -17,7 +17,6 @@ use Psr\Log\LoggerInterface;
  */
 class ProductPdfProcessor
 {
-    CONST PRICE_INDEXER_ID = 'catalog_product_price';
     /**
      * @var \Magento\Indexer\Model\IndexerFactory
      */
@@ -52,7 +51,9 @@ class ProductPdfProcessor
         \Magento\Indexer\Model\IndexerFactory $indexerFactory,
         \Magento\Framework\Indexer\ConfigInterface $config,
         \Pim\Product\Model\ProductPdfFactory $productPdfFactory,
-        \Pim\Product\Model\ProductBarCodeFactory $productBarCodeFactory
+        \Pim\Product\Model\ProductBarCodeFactory $productBarCodeFactory,
+        \Pim\Product\Model\ImportPdfService    $importPdfService
+
 
 
 
@@ -69,6 +70,8 @@ class ProductPdfProcessor
         $this->indexerFactory = $indexerFactory;
         $this->productPdfFactory = $productPdfFactory;
         $this->productBarCodeFactory = $productBarCodeFactory;
+        $this->importPdfService = $importPdfService;
+
 
 
         $this->config = $config;
@@ -88,33 +91,61 @@ class ProductPdfProcessor
         $connectionPimPdf = $objPimPdfProduct->getResource()->getConnection();
 
         $collectionPimPdf = $objPimPdfProduct->getCollection();
-
+		echo $collectionPimPdf->getSize();
         $x = 0;
         if ($collectionPimPdf->getSize() && $collectionPimPdf->count()) {
 
             foreach ($collectionPimPdf as $item) {
 			try {
 				
-				$sku = $item->getData('ProductId');
-				$pdfUrl = $item->getData('Path');
+			    $sku = $item->getData('ProductId');
 				$productObj =$this->productFactory->create();
 				if(!$productObj->getIdBySku($sku)) {
 					continue;   
 				}
+				print_r($item->getData());
+				$pdfUrl = $item->getData('pdf_path');
+				$pdf_name = $item->getData('Name');
+				$rest_pdf = [];
 				
-				
-                $this->product =$this->productRepository->get($sku);
-                
+				 $objProduct= $this->productFactory->create();
+
+				 $this->product = $objProduct->load($objProduct->getIdBySku($sku));
+               
 				if ($sku && $this->product->getId() && $pdfUrl) {
 							
 					try {
-                            $this->product->setData('product_pdf_path',$pdfUrl);
-                            $this->productRepository->save($this->product);
+							$IsMainPdf =  $item->getData('IsMainPdf');
+							if($IsMainPdf){
+							   $pdfUrl = $this->importPdfService->execute($pdf_name,$pdfUrl);
+                               $this->product->setData('product_pdf_path',$pdfUrl);
+                            }
                             
-                            $this->product->setProductPdfPath($pdfUrl);
+                            if(empty($IsMainPdf)){
+							
+						       $pdfUrl = $item->getData('pdf_path');
+						       $pdfUrl = $this->importPdfService->execute($pdf_name,$pdfUrl);
+								
+						       $existPdf = $this->product->getData('rest_pdf');
+						       
+						      
+						       if($existPdf){
+								
+								  $pdfArray = json_decode($existPdf);
+								 
+								  array_push($pdfArray,$pdfUrl); 
+								  $pdfJson = json_encode($pdfArray);
+                                  $this->product->setData('rest_pdf',$pdfJson);
+							   }else{
+								  $pdfArray[] = $pdfUrl;
+								  $pdfJson = json_encode($pdfArray);
+                                  $this->product->setData('rest_pdf',$pdfJson);
+							   }
+							   
+                            }
                             $this->product->save();
-							$log ='Updated Product Pdf of sku '.$sku.PHP_EOL;
-							$item->setData('UpdateRequired','0');
+                            $log ='Updated Product Pdf of sku '.$sku.PHP_EOL;
+							$item->setData('UpdateRequired','1');
                             $item->save();
 
 
@@ -124,12 +155,12 @@ class ProductPdfProcessor
                             continue;
                         }
                        
-
+						$x++;
                     }
                 } catch (Exception $e) {
                     echo $e->getMessage();
                 }
-                $x++;
+              
                 if ($x == 500) {
                     $x=0;
                 

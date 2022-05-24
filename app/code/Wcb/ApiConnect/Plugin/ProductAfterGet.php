@@ -49,8 +49,74 @@ class ProductAfterGet
             );
 
         $extensionAttributes->setData('product_pdf', $pdf);
+        $extensionAttributes->setData('technical_information', $this->getCustomAttributesVisibleOnFront($entity));
+
         $entity->setExtensionAttributes($extensionAttributes);
 
         return $entity;
+    }
+    public function getCustomAttributesVisibleOnFront($entity){
+        $excludeAttr = [];
+        $data = [];
+        $attributes = $entity->getAttributes();
+
+        foreach ($attributes as $attribute) {
+           $optionId='';
+             if ($this->isVisibleOnFrontend($attribute, $excludeAttr))
+             {
+                $code = $attribute->getAttributeCode();
+                $value = $entity->getResource()->getAttributeRawValue($entity->getId(), $code, '1');
+                if ($value instanceof Phrase) {
+                    $value = (string)$value;
+                } elseif ($attribute->getFrontendInput() == 'price' && is_string($value)) {
+                    $value = $this->priceCurrency->convertAndFormat($value);
+                } elseif ($attribute->getFrontendInput() == 'select') {
+                    $value = $attribute->getSource()->getOptionText($value);
+
+                    $attr = $entity->getResource()->getAttribute($code);
+                    if ($attr->usesSource()) {
+                        $optionId = $attr->getSource()->getOptionId($value);
+                    }
+
+                } elseif ($attribute->getFrontendInput() == 'multiselect') {
+                 // added if condition in order or resolve the explode issue if value is empty.
+                     if(!empty($value) && $value) {
+                        $multiselectOptionsArray = explode(',', $value);
+                     foreach ($multiselectOptionsArray as $k => $optionKey) {
+                        $multiselectOptionsArray[$k] = $attribute->getSource()->getOptionText($optionKey);
+                     }
+                    $value = implode(', ', $multiselectOptionsArray);
+                    $multiSelectValue = explode(', ', $value);
+
+                        foreach ($multiSelectValue as $a => $attValue) {
+                            $attr = $product->getResource()->getAttribute($code);
+                            if ($attr->usesSource()) {
+                                $optionIdInfo = $attr->getSource()->getOptionId($attValue);
+                                $attArray[$a] = $optionIdInfo;
+                                $optionId = implode(', ', $attArray);
+                            }
+                        }
+                     }
+                 }
+                if (is_string($value) && strlen($value)) {
+                    $data[$attribute->getAttributeCode()] = [
+                        'label' => $attribute->getFrontendLabel(),
+                        'value' => __($value),
+                        'options_value' => $optionId,
+                        'visible_on_storefront' => $attribute->getIsVisibleOnFront()
+                    ];
+                }
+                // if(!empty($value)){
+                //     $product->setCustomAttribute($attribute->getAttributeCode(), $data);
+                // }
+             }
+         }
+         return $data;
+    }
+    protected function isVisibleOnFrontend(
+        \Magento\Eav\Model\Entity\Attribute\AbstractAttribute $attribute,
+        array $excludeAttr
+    ) {
+        return ($attribute->getIsVisibleOnFront() && !in_array($attribute->getAttributeCode(), $excludeAttr));
     }
 }
