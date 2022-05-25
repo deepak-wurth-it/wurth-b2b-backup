@@ -153,9 +153,9 @@ class CategoryProcessor
     {
         if ($this->category && $row) {
             $this->category->setCustomAttributes([
-                'description' => 'category example',
-                'meta_title' => 'category example',
-                'meta_keywords' => '',
+                'description' => $row['Name'],
+                'meta_title' => $row['Name'],
+                'meta_keywords' => $row['Name'],
                 'is_new' => '0',
                 'is_sale' => '0',
                 'meta_description' => '',

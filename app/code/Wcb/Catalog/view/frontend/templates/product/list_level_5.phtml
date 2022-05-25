@@ -9,13 +9,7 @@ use Magento\Framework\App\Action\Action;
 // @codingStandardsIgnoreFile
 
 ?>
-<?php
-/**
- * Product list template
- *
- * @var $block \Magento\Catalog\Block\Product\ListProduct
- */
-?>
+
 <?php
 /** @var \Magento\Catalog\Helper\Output $_helper */
 $_helper = $_outputHelper = $block->getData('outputHelper');
@@ -32,9 +26,6 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <?php $catId = $block->getLayer()->getCurrentCategory()->getId(); ?>
 <?php $catName = $block->getLayer()->getCurrentCategory()->getName(); ?>
 <?php $currentCat = $block->getLayer()->getCurrentCategory(); ?>
-<?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
-<?php $firstProduct =  $level5Collection->getFirstItem(); ?>
-<?php $firstProductExtraRow = $block->getExtraAttributeData($firstProduct); ?>
 <?php $subcategories = []; ?>
 <?php $subcategories = $block->getCategoryChildrenData($catId); ?>
 <!-- End For Category -->

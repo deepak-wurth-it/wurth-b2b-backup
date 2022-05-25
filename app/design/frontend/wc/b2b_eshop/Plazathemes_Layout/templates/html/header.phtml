@@ -1,5 +1,6 @@
 <?php $block->renderFileLessToCss(); ?>
-<header class="header-container">
+<header class="header-container" >
+	
 		<div class="header-wrapper">
 		<div class="header">
 			<div class="container-inner">
@@ -19,9 +20,7 @@
 					<!--<li class="item item-menu"><?php /* @escapeNotVerified */ echo __('Menu-1'); ?></li>-->
 				</ul>
 				<div class="tabs-content-mobile tabs-menu">
-					<?php echo $this->getChildHtml("mobilemenus");  ?>
-					<?php //echo $this->getChildHtml("wcbmegamenu_top"); ?>
-				
+					<?php echo $this->getChildHtml("mobilemenus");  ?>				
 				 </div>
 			</div>
 						<?php echo $this->getChildHtml("logo"); ?>
@@ -29,23 +28,25 @@
 					
 					<div class="minicart-wrap">
 						<div class="absolute">
-							<!--<p class="wishlist-link"><a href ="<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"><i class="icon ion-android-favorite-outline"></i></a></p> -->
 							
-							<div class="link-hover ">
-								<p class="icon"></p> <span class="accountTitle"><span class="wcb-logged"> <?php echo __("Moj Wurth"); ?></span><span class="wcb-not-logged"><a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <?php echo __("Login / Registration"); ?></a></span></span>
-		
+							<div class="link-hover " data-bind="scope: 'customer'" >
+								<p class="icon"></p> <span class="accountTitle"><!-- ko if: customer().firstname  --> <?php echo __("Moj Wurth"); ?> <!-- /ko -->  <!-- ko ifnot: customer().firstname  --> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <?php echo __("Login / Registration"); ?></a> <!-- /ko -->  </span>
+		                    <!-- ko if: customer().firstname  -->
 								<div class="account-wraper"> 
-								<span class="wcb-logged"> 
+								 
 									<div class="my-acount">	
-										<div class="label welcome"> <strong><span data-mage-init='{"js/customerGreeting":{}}'></span> </strong></div>									
+										<div class="label welcome"> 
+											<strong>
+												<span class="logged-in" data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1', '%1')) ?>').replace('%1', customer().firstname)">
+												</span> 
+											</strong>
+										</div>									
 									<div class="label"> <span><a href="<?php echo $block->getUrl("customer/account"); ?>"><?php echo __("My acoount"); ?></a></span></div>
-									<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"> <?php echo __("Sign out"); ?></a></span></div>
-										<?php //echo $this->getChildHtml("top.links"); ?>
-										
-									</div>
-                                </span>
+									<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"> <?php echo __("Sign out"); ?></a></span></div>										
+									</div>							
 									
 								</div>
+								 <!-- /ko -->
 							</div>
 							<?php echo $this->getChildHtml("minicart");?>
 						</div>
@@ -67,38 +68,19 @@
 		</div>	
 		</div>	
 </header>
-<script type="text/javascript">
-require(["jquery"], function($){
-	$(document).ready(function(){
-		//$(".nav-container").insertAfter(".header");
-		$(".mobile-bar-icon").click(function(){
-			$(".mobile-bar-content").addClass("open");
-		});
-		$(".mobile-bar-close").click(function(){
-			$(".mobile-bar-content").removeClass("open");
-		});
-	
-	});
-	$(window).scroll(function () {
-	   if ($(this).scrollTop() > 30) {
-		 $('.header').addClass("fix-nav-menu");	 
-	   } else {
-		$('.header').removeClass("fix-nav-menu");
-	 
-	   }
-	});	
-
-    jQuery(window).resize(function () {
-        var viewportWidth = jQuery(window).width();
-        if (viewportWidth < 1024) {
-			jQuery(".mobile-bar-content").removeClass("open");
-			jQuery(".mob-popup").removeClass('onn');	
-			jQuery(".mob-popup").addClass('off');		
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer": {
+                        "component": "Magento_Customer/js/view/customer"
+                    }
+                }
+            }
         }
-    });
-
-});
-</script>
+    }
+    </script>
 
 
 

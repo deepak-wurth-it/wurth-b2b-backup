@@ -34,8 +34,6 @@
 <?php $level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
 <?php $firstProduct =  $level5Collection->getFirstItem(); ?>
 <?php $firstProductExtraRow = $block->getExtraAttributeData($firstProduct); ?>
-<?php $subcategories = []; ?>
-<?php $subcategories = $block->getCategoryChildrenData($catId); ?>
 <?php $pid = []; ?>
 <!-- End For Category -->
 <!-- For Product -->
@@ -122,7 +120,7 @@
    <?php $pid[ $product->getSku()][] = '1'; ?>
    <?php } ?>
    <div class="accordion level-six" >
-      <span class="attrow itemno"><a href="<?php echo $product->getProductUrl(); ?>" target="_blank" ><?php echo $product->getProductCode(); ?></a></span>
+      <span class="attrow itemno"><a href="<?php echo $product->getProductUrl(); ?>" ><?php echo $product->getProductCode(); ?></a></span>
       <span class="attrow itemname"><?php echo $product->getName(); ?></span>
       <span class="attrow pieces">2 PiECES</span>
       <span class="attrow ah">2 Ah</span>
