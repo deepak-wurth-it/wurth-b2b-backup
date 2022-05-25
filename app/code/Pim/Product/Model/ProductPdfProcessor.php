@@ -122,33 +122,33 @@ class ProductPdfProcessor
                         try {
                             $IsMainPdf =  $item->getData('IsMainPdf');
                             if ($IsMainPdf) {
-                                $uploadedPdf = (string)$this->importPdfService->execute($pdf_name, $pdfUrl);
+                                $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
 
                                 if ($uploadedPdf) {
                                       $escape_url = $this->escaper->escapeHtml($uploadedPdf);
-                                      $this->product->setData('product_pdf_path', $escape_url);
+                                      $this->product->setData('product_main_pdf', $escape_url);
                                 }
-                                $this->product->setData('product_pdf_path', $pdfUrl);
+                                $this->product->setData('product_main_pdf', $pdfUrl);
                             }
                             if (empty($IsMainPdf)) {
 
-                                $existPdf = $this->product->getData('rest_pdf');
+                                $existPdf = $this->product->getData('product_main_pdf');
                                 if ($existPdf) {
                                     $pdfUrl = $item->getData('pdf_path');
                                     $pdf_name = $item->getData('Name');
-                                    $uploadedPdf = (string)$this->importPdfService->execute($pdf_name, $pdfUrl);
+                                    $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
                                     if ($uploadedPdf) {
                                         $uploadedPdf = $this->escaper->escapeHtml($uploadedPdf);
                                         $addedPdf = $existPdf . self::PDF_SEPRATOR . $uploadedPdf;
-                                        $this->product->setData('rest_pdf', $addedPdf);
+                                        $this->product->setData('product_main_pdf', $addedPdf);
                                     }
                                 } else {
                                     $pdfUrl = $item->getData('pdf_path');
                                     $pdf_name = $item->getData('Name');
-                                    $uploadedPdf = (string)$this->importPdfService->execute($pdf_name, $pdfUrl);
+                                    $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
                                     if ($uploadedPdf) {
                                         $uploadedPdf = $this->escaper->escapeHtml($uploadedPdf);
-                                        $this->product->setData('rest_pdf', $uploadedPdf);
+                                        $this->product->setData('product_main_pdf', $uploadedPdf);
                                     }
                                 }
                             }
