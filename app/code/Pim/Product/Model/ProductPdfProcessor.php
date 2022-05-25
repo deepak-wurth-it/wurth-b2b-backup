@@ -108,7 +108,7 @@ class ProductPdfProcessor
                     if (!$productObj->getIdBySku($sku)) {
                         continue;
                     }
-                    print_r($item->getData());
+                   
                     $pdfUrl = $item->getData('pdf_path');
                     $pdf_name = $item->getData('Name');
                     $rest_pdf = [];
@@ -120,6 +120,8 @@ class ProductPdfProcessor
                     if ($sku && $this->product->getId() && $pdfUrl) {
 
                         try {
+							//Main pdf start
+							
                             $IsMainPdf =  $item->getData('IsMainPdf');
                             if ($IsMainPdf) {
                                 $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
@@ -130,9 +132,14 @@ class ProductPdfProcessor
                                 }
                                 $this->product->setData('product_main_pdf', $pdfUrl);
                             }
+                            
+                            //Main pdf end
+                            
+                            
+                            //Remain pdf start
                             if (empty($IsMainPdf)) {
 
-                                $existPdf = $this->product->getData('product_main_pdf');
+                                $existPdf = $this->product->getData('product_remain_pdfs');
                                 if ($existPdf) {
                                     $pdfUrl = $item->getData('pdf_path');
                                     $pdf_name = $item->getData('Name');
@@ -140,7 +147,7 @@ class ProductPdfProcessor
                                     if ($uploadedPdf) {
                                         $uploadedPdf = $this->escaper->escapeHtml($uploadedPdf);
                                         $addedPdf = $existPdf . self::PDF_SEPRATOR . $uploadedPdf;
-                                        $this->product->setData('product_main_pdf', $addedPdf);
+                                        $this->product->setData('product_remain_pdfs', $addedPdf);
                                     }
                                 } else {
                                     $pdfUrl = $item->getData('pdf_path');
@@ -148,10 +155,14 @@ class ProductPdfProcessor
                                     $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
                                     if ($uploadedPdf) {
                                         $uploadedPdf = $this->escaper->escapeHtml($uploadedPdf);
-                                        $this->product->setData('product_main_pdf', $uploadedPdf);
+                                        $this->product->setData('product_remain_pdfs', $uploadedPdf);
                                     }
                                 }
                             }
+                            
+                            //Remain pdf end
+                            
+                            
                             $this->product->save();
                             $log = 'Updated Product Pdf of sku ' . $sku . PHP_EOL;
                             $item->setData('UpdateRequired', '1');
