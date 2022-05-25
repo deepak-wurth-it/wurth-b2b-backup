@@ -1,5 +1,5 @@
 <?php
-   
+
 namespace Pim\Product\Model;
 
 use Magento\Catalog\Model\Product;
@@ -50,7 +50,7 @@ class ImportPdfService
      * @return bool
      */
     public function execute($pdf_name,$pdfUrl)
-    { 
+    {
         /** @var string $tmpDir */
         $pdfDir = $this->getMediaDirPdfDir();
         /** create folder if it is not exists */
@@ -59,11 +59,11 @@ class ImportPdfService
         $newFileName = $pdfDir . baseName($pdfUrl);
         /** read file from URL and copy it to the new destination */
         $result = $this->file->read($pdfUrl, $newFileName);
-     
+
         if ($result) {
 			    $pdf_file = baseName($newFileName);
-                $mediapath = DirectoryList::MEDIA.DIRECTORY_SEPARATOR . 'product_pdfs'.DIRECTORY_SEPARATOR.$pdf_file;
-				return  $mediapath;
+          $result = DirectoryList::MEDIA.DIRECTORY_SEPARATOR . 'product_pdfs'.DIRECTORY_SEPARATOR.$pdf_file;
+
         }
         return $result;
     }
@@ -78,4 +78,3 @@ class ImportPdfService
         return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'product_pdfs'.DIRECTORY_SEPARATOR;
     }
 }
-
