@@ -8,7 +8,7 @@
             <p>Suspendisse vel quam dignissim, vulputate nibh id, tincidunt turpis. Maecenas scelerisque lacus ut sagittis pharetra. Maecenas cursus tincidunt gravida. Nam eleifend sapien sed nunc hendrerit, ut imperdiet </p>
         </div>
         <div class="tab-name" >
-            <button class="btn btn-default filter-button active" data-filter="all">All Products</button>
+            <button class="btn btn-default filter-button active" data-filter="all"><?php echo __("All Products"); ?></button>
             <?php foreach ($categoriesData as $categoryId => $category) { ?>
                 <button class="btn btn-default filter-button" data-filter="<?= $categoryId ?>">
                     <?= $category ?>
@@ -25,7 +25,7 @@
                         <h3><?= __($product["name"]); ?></h3>
                         <div class="btn">
                             <a href="<?= $product["product_url"]; ?>" target="_blank">
-                                <button>View Product Details</button>
+                                <button><?php echo __("View Product Details"); ?></button>
                             </a>
                         </div>
                     </div>
