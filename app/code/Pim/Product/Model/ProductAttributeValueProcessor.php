@@ -99,14 +99,14 @@ class ProductAttributeValueProcessor
                         if ($AttributeId && $Value && $option_id) {
 
                             $product->setCustomAttribute($attribute_id, $option_id);
-                            // try {
+                             try {
                                 $product->save($product);
                                 $isProductedUpdated = true;
                                 $this->logger->info('Attribute values imported for attribute id =>' . $attribute_id . 'Attribute Value id =>' . $option_id);
-                            // } catch (\Exception $e) {
-                            //     $this->logger->info('Attribute values imported for attribute id =>' . $attribute_id . 'Attribute Value id =>' . $option_id . ' ' . $e->getMessage());
-                            //     echo $e->getMessage() . PHP_EOL;
-                            // }
+                            } catch (\Exception $e) {
+                                $this->logger->info('Attribute values imported for attribute id =>' . $attribute_id . 'Attribute Value id =>' . $option_id . ' ' . $e->getMessage());
+                                echo $e->getMessage() . PHP_EOL;
+                            }
                         }
                         $log .= 'END Update Binding Product Attribute '.$AttributeId.' with sku =>' . $sku . PHP_EOL;
                         $this->getAttributeValueUpdateLogger($log);
