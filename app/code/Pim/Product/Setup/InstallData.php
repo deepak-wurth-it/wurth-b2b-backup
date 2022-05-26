@@ -34,7 +34,7 @@ class InstallData implements InstallDataInterface
 		$attributesInfo = [
             'base_unit_of_measure_id' => [
 
-                'type' => 'text',
+                'type' => 'varchar',
                 'label' => 'VAT number',
 				'backend' => '',
 				'frontend' => '',
@@ -50,7 +50,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -60,7 +60,7 @@ class InstallData implements InstallDataInterface
             ],
             'vendor_id' => [
 
-                'type' => 'text',
+                'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Vendor Id',
@@ -75,7 +75,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -85,7 +85,7 @@ class InstallData implements InstallDataInterface
             ],
             'sales_unit_of_measure_id' => [
 
-                'type' => 'text',
+                'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Sales Unit Of Measure Id',
@@ -100,7 +100,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -108,7 +108,7 @@ class InstallData implements InstallDataInterface
 				'group'=>'Product Details'
             ],
             'abc_group_code' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Abc Group Code',
@@ -123,7 +123,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -132,7 +132,7 @@ class InstallData implements InstallDataInterface
 
             ],
             'inventory_item_category_code' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Inventory Item Category Code',
@@ -147,7 +147,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -155,7 +155,7 @@ class InstallData implements InstallDataInterface
 				'group'=>'Product Details'
             ],
 			'minimum_sales_unit_quantity' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Minimum Sales Unit Quantity',
@@ -170,7 +170,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -179,7 +179,7 @@ class InstallData implements InstallDataInterface
 
             ],
 			'successor_product_code' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Successor Product Code',
@@ -194,7 +194,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -203,7 +203,7 @@ class InstallData implements InstallDataInterface
 
             ],
 			'palette_quantity' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Palette Quantity',
@@ -218,7 +218,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -227,7 +227,7 @@ class InstallData implements InstallDataInterface
 
             ],
 			'package_box' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Package Box',
@@ -242,7 +242,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -251,7 +251,7 @@ class InstallData implements InstallDataInterface
 
             ],
 			'short_name' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Short Name',
@@ -266,7 +266,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -275,7 +275,7 @@ class InstallData implements InstallDataInterface
 
             ],
 			'vendor_item_no' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Vendor Item No',
@@ -290,7 +290,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',
@@ -299,7 +299,7 @@ class InstallData implements InstallDataInterface
 
             ],
 			'synonyms' => [
-				'type' => 'text',
+				'type' => 'varchar',
 				'backend' => '',
 				'frontend' => '',
 				'label' => 'Synonyms',
@@ -314,7 +314,7 @@ class InstallData implements InstallDataInterface
 				'searchable' => false,
 				'filterable' => false,
 				'comparable' => false,
-				'visible_on_front' => true,
+				'visible_on_front' => false,
 				'used_in_product_listing' => true,
 				'unique' => false,
 				'apply_to' => '',

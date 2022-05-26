@@ -31,6 +31,13 @@
         </job>
     </group>
     
+    <!-- Every Day Once -->
+     <group id="pim">
+        <job name="pim_product_attribute_values" instance="Wcb\Cron\PimCron\UpdateProductAttributeValues" method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
+    </group>
+    
     <!-- Every Hour Once -->
      <group id="pim">
         <job name="pim_category_images" instance="Wcb\Cron\PimCron\ImportCategoryImages" method="execute">

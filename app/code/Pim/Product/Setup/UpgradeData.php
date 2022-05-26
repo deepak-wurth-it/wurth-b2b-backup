@@ -29,75 +29,7 @@ class UpgradeData implements UpgradeDataInterface
 	public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
 	{
 
-		if (version_compare($context->getVersion(), '1.0.5', '<')) {
-			$attributesInfoUpdate = [
-				'base_unit_of_measure_id' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'vendor_id' => [
-					'visible_on_front' => true,
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'sales_unit_of_measure_id' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'abc_group_code' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'inventory_item_category_code' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'minimum_sales_unit_quantity' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'successor_product_code' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'palette_quantity' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'package_box' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'short_name' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'vendor_item_no' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'synonyms' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-
-				]
-			];
-
-			foreach ($attributesInfoUpdate as $attributeCode => $attributeParams) {
-				$this->moduleDataSetup->getConnection()->startSetup();
-				$eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-				$eavSetup->updateAttribute(\Magento\Catalog\Model\Product::ENTITY, $attributeCode, $attributeParams);
-				$this->moduleDataSetup->getConnection()->endSetup();
-			}
-		}
-
+		
 		if (version_compare($context->getVersion(), '1.0.6', '<')) {
 
 			$attributesInfoP1 = [
@@ -296,56 +228,75 @@ class UpgradeData implements UpgradeDataInterface
 		}
 		
 		
-		if (version_compare($context->getVersion(), '1.0.7', '<')) {
+	if (version_compare($context->getVersion(), '1.0.9', '<')) {
 			$attributesInfoUpdate = [
 				'base_unit_of_measure_id' => [
-					'visible_on_front' => false
+				    'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'vendor_id' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'sales_unit_of_measure_id' => [
-					'visible_on_front' => false
+				    'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'abc_group_code' => [
-					'visible_on_front' => false
+				'	visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'inventory_item_category_code' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'minimum_sales_unit_quantity' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'successor_product_code' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'palette_quantity' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'package_box' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'short_name' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'vendor_item_no' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'synonyms' => [
-				
-				'visible_on_front' => false
-				
-				],
-				'product_code' => [
-				
-				'visible_on_front' => false
-				
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
+
+
 				]
 			];
 
@@ -356,6 +307,7 @@ class UpgradeData implements UpgradeDataInterface
 				$this->moduleDataSetup->getConnection()->endSetup();
 			}
 		}
+
 		
 
 	}

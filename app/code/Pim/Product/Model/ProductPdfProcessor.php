@@ -18,7 +18,7 @@ use Psr\Log\LoggerInterface;
  */
 class ProductPdfProcessor extends \Magento\Framework\DataObject
 {
-	
+
 
     /**
      * @var \Magento\Indexer\Model\IndexerFactory
@@ -86,7 +86,7 @@ class ProductPdfProcessor extends \Magento\Framework\DataObject
         $log = '';
         $this->product = '';
         $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
-        
+
 
         $objPimPdfProduct = $this->productPdfFactory->create();
         $connectionPimPdf = $objPimPdfProduct->getResource()->getConnection();
@@ -106,7 +106,7 @@ class ProductPdfProcessor extends \Magento\Framework\DataObject
                     if (!$productObj->getIdBySku($sku)) {
                         continue;
                     }
-                   
+
                     $pdfUrl = $item->getData('pdf_path');
                     $pdf_name = $item->getData('Name');
                     $rest_pdf = [];
@@ -119,7 +119,7 @@ class ProductPdfProcessor extends \Magento\Framework\DataObject
 
                         try {
 							//Main pdf start
-							
+
                             $IsMainPdf =  $item->getData('IsMainPdf');
                             if ($IsMainPdf == "1" || $IsMainPdf == 1 || $IsMainPdf == true) {
                                 $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
@@ -129,39 +129,35 @@ class ProductPdfProcessor extends \Magento\Framework\DataObject
                                       $this->product->setData('product_main_pdf', $uploadedPdf);
                                 }
                             }
-                            
+
                             //Main pdf end
-                            
-                            
+
+
                             //Remain pdf start
                             //Got more trouble here
-                            
+
                             if ($IsMainPdf == "0" || $IsMainPdf == 0 || $IsMainPdf == false) {
-  
+
 								$regSku = $this->getSameSku();
-								
+
                                 if ($regSku == $sku) {
                                     $pdfUrl = $item->getData('pdf_path');
                                     $pdf_name = $item->getData('Name');
                                     $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
-                                    if ($uploadedPdf) {
+                                    if ($uploadedPdf and strpos($existPdf, $uploadedPdf) !== true) {
                                         $uploadedPdf = $this->escaper->escapeHtml($uploadedPdf);
                                         $existPdf = $this->getRemainPdf();
-									if (strpos($existPdf, $uploadedPdf) !== true) {
 										$uploadedPdf = $existPdf . self::PDF_SEPRATOR . $uploadedPdf;
                                         $this->setRemainPdf($uploadedPdf);
                                         $this->product->setData('product_remain_pdfs', $uploadedPdf);
-									   }
-                                       
-                                    }
+									}
                                 } else {
                                     $pdfUrl = $item->getData('pdf_path');
                                     $pdf_name = $item->getData('Name');
                                     $uploadedPdf = $this->importPdfService->execute($pdf_name, $pdfUrl);
                                     if ($uploadedPdf) {
-										
+
                                         $uploadedPdf = $this->escaper->escapeHtml($uploadedPdf);
-                                       
                                         $this->setSameSku($sku);
                                         if($uploadedPdf){
                                           $this->setRemainPdf($uploadedPdf);
@@ -170,9 +166,9 @@ class ProductPdfProcessor extends \Magento\Framework\DataObject
                                     }
                                 }
                             }
-                            
+
                             //Remain pdf end
-                            
+
                             if($IsMainPdf == 0 || $IsMainPdf==1){
 								$this->product->save();
 								$log = 'Updated Product Pdf of sku ' . $sku . PHP_EOL;
@@ -251,5 +247,5 @@ class ProductPdfProcessor extends \Magento\Framework\DataObject
         }
         echo 'Full Reindex Done.' . PHP_EOL;;
     }
-    
+
  }
