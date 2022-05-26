@@ -355,8 +355,10 @@ class Menu extends \Magento\Framework\View\Element\Template {
         return $html;
     }
     function getThumbUrl($thumb = null) {
+       
         return $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/category/' . $thumb;
     }
+  
     public function drawCustomMenuItem($category = null, $level = 0, $last = false, $item = null) {
         if (!$category) return '';
         $category = $this->_categoryInstance->create()->load($category);
@@ -624,7 +626,9 @@ class Menu extends \Magento\Framework\View\Element\Template {
                 $name = $child->getName();
                 $child1 = $this->_categoryInstance->create()->load($child->getId());
                 $is_sale = $is_new = null;
-                $imageUrl = $child1->getThumbNail();
+                //$imageUrl = $child1->getThumbNail();
+                $imageUrl = $child1->getImageUrl();
+                
                 if (!$imageUrl) {
                     $imagePlaceholder = $this->helperImageFactory->create();
                     $imageUrl = $this->assetRepos->getUrl($imagePlaceholder->getPlaceholder('thumbnail'));
@@ -636,7 +640,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
                     $is_new = '<span class="is_new">' . $this->getConfig('is_new') . '</span>';
                 }
                 $sub_link = $this->_catalogCategory->getCategoryUrl($child);
-                $html.= '<div class="dropdownMenu"><div class="category-img" style="float: left;"><img src="' . $imageUrl . '" alt="Category"  width="24px" height="24px"> </div>';
+                $html.= '<div class="dropdownMenu"><div class="category-img" style="float: left;"><img src="' . $imageUrl . '" alt="'.$name.'"  width="24px" height="24px"> </div>';
                 if (in_array($child->getId(), $arr_catsid)) {
                     $html.= '<h4 class="itemMenuName level' . $level . $active . $ClassNoChildren . '"><span>' . $name . '</span>' . $is_sale . $is_new . '</h4>';
                 } else {
