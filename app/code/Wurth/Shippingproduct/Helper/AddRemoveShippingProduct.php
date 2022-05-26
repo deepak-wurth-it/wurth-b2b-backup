@@ -137,6 +137,8 @@ class AddRemoveShippingProduct extends AbstractHelper
         $item->setCustomPrice($price);
         $item->setOriginalCustomPrice($price);
         $item->getProduct()->setIsSuperMode(true);
+        $item->calcRowTotal();
+        $item->getQuote()->collectTotals();
     }
 
     /**
