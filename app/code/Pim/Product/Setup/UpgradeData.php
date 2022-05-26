@@ -101,58 +101,7 @@ class UpgradeData implements UpgradeDataInterface
 		if (version_compare($context->getVersion(), '1.0.6', '<')) {
 
 			$attributesInfoP1 = [
-				'product_pdf_path' => [
-
-					'type' => 'text',
-					'label' => 'Pdf Url',
-					'backend' => '',
-					'frontend' => '',
-					'label' => 'PDF Url',
-					'input' => 'text',
-					'class' => '',
-					'source' => '',
-					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-					'visible' => true,
-					'required' => false,
-					'user_defined' => false,
-					'default' => '',
-					'searchable' => false,
-					'filterable' => false,
-					'comparable' => false,
-					'visible_on_front' => false,
-					'used_in_product_listing' => true,
-					'unique' => false,
-					'apply_to' => '',
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'product_pdf_name' => [
-
-					'type' => 'text',
-					'label' => 'Pdf Name',
-					'backend' => '',
-					'frontend' => '',
-					'label' => 'PDF Name',
-					'input' => 'text',
-					'class' => '',
-					'source' => '',
-					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-					'visible' => true,
-					'required' => false,
-					'user_defined' => false,
-					'default' => '',
-					'searchable' => false,
-					'filterable' => false,
-					'comparable' => false,
-					'visible_on_front' => false,
-					'used_in_product_listing' => true,
-					'unique' => false,
-					'apply_to' => '',
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
+				
 				'product_unit_of_measure_code' => [
 
 					'type' => 'text',
@@ -408,36 +357,6 @@ class UpgradeData implements UpgradeDataInterface
 			}
 		}
 		
-		if (version_compare($context->getVersion(), '1.0.8', '<')) {
-			 $this->moduleDataSetup->getConnection()->startSetup();
-			 $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-			 $eavSetup->addAttribute(
-				 \Magento\Catalog\Model\Product::ENTITY,
-				 'rest_pdf',
-					 [
-					 'type' => 'text',
-					 'backend' => '',
-					 'frontend' => '',
-					 'label' => 'Extra Pdf',
-					 'input' => 'text',
-					 'class' => '',
-					 'source' => '',
-					 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-					 'visible' => true,
-					 'required' => false,
-					 'user_defined' => false,
-					 'default' => '',
-					 'searchable' => false,
-					 'filterable' => false,
-					 'comparable' => false,
-					 'visible_on_front' => false,
-					 'used_in_product_listing' => true,
-					 'unique' => false,
-					 'apply_to' => ''
-					 ]
-			 );
-			$this->moduleDataSetup->getConnection()->endSetup();
-			
-		}
+
 	}
 }

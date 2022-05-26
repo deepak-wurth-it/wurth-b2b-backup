@@ -1628,8 +1628,7 @@ label.sorter-label {
 // }
 .cart-autocomplate.ui-autocomplete-loading
 {
-	background:  url('../images/loader-3.gif') right no-repeat;
-	background-position-x: 90px;
+	background:  url('../images/AjaxLoader.gif') right no-repeat;
 }
 .error-import-product{
 	margin-bottom:10px;
@@ -4652,6 +4651,48 @@ body {
 }
 
 // Search popup start
+.mst-searchautocomplete__index.popular ul {
+    border: none;
+}
+.mst-searchautocomplete__index.popular ul li {
+    min-width: 83px;
+    height: 36px;
+    background: #FFFFFF;
+    border: 1px solid #0093DD;
+    margin-left: 15px;
+    text-align: center;
+    padding: 5px;
+	font-family: 'wuerthbold';
+}
+.mst-searchautocomplete__index.popular ul li:first-child {
+    margin-left: 0px;
+	background: #0093DD;
+	color: #FFFFFF;
+}
+.popular.mst-searchautocomplete__index.popular ul {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 12%);
+	margin-top: 0px;
+}
+
+.mst-searchautocomplete__index.popular ul li a {
+	color: #000000;
+}
+
+.mst-searchautocomplete__autocomplete {
+	border-top: none;
+}
+.mst-searchautocomplete__autocomplete._active.mst-2-cols.wcb-last-seen {
+    display: none;
+}
+.mst-searchautocomplete__autocomplete._active.mst-2-cols div.magento_catalog_product {   
+    clear: left;
+    float: left;
+}
+.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
+    clear: right;
+    float: right;
+}
 .mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {    
 	max-width: 430px;
     width: 430px;
@@ -4688,10 +4729,21 @@ body {
     border-bottom: none;
     padding: 15px 0 9px 0px;
     color: #000000;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-family: 'wuerthbold';
     font-size: 18px;
 }
+
+.search-heading h3 {
+    border-bottom: 1px solid rgba(0, 0, 0, 12%);
+    line-height: 35px;
+}
+span.search-pro-img img {
+    height: 110px;
+    width: 110px;
+    padding: 10px;
+}
+
 
 // Search popup end
 
@@ -9802,10 +9854,7 @@ print {
 		margin-bottom: 30px;
 	}
 
-	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
-		width: 375px !important;
-		left: -7px !important;
-	}
+	
 
 
 }
@@ -10086,6 +10135,20 @@ print {
 			}
 		}
 	}
+    // Search popup start in mobile view
+	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
+		width: 375px !important;
+		left: -7px !important;
+	}
+	.mst-searchautocomplete__autocomplete._active {
+		width: 375px !important;
+		left: -7px !important;
+	}
+	.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
+		max-width: 376px;
+		width: 375px;
+	}
+	// Search popup end in mobile view
 }
 
 @media only screen and (max-width: 574px) {
@@ -10272,9 +10335,14 @@ print {
 		width: 33%;
 	}
 	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
-		width: 920px;
-		left: -109;
+		width: 920px !important;
+		left: -109px !important;
 	}
+	.mst-searchautocomplete__autocomplete._active {
+		width: 920px !important;
+		left: -109px !important;
+	}
+	
 	
 }
 
@@ -14545,5 +14613,26 @@ margin-top: 10px;
 	}
 	.ampromo-items-content h2 {
 		margin-left: 0px;
+	}
+
+	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
+		width: 707px !important;
+		left: -2px !important;
+	}
+	.mst-searchautocomplete__autocomplete._active {
+		width: 707px !important;
+		left: -2px !important;
+	}
+	.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
+		clear: right;
+		float: right;
+	}
+	.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
+		max-width: 350px;
+		width: 350px;
+	}
+	.mst-searchautocomplete__autocomplete._active.mst-2-cols div.magento_catalog_product {
+		width: 350px;
+		max-width: 355px;
 	}
 }
