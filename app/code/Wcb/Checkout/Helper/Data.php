@@ -4,9 +4,11 @@ namespace Wcb\Checkout\Helper;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\ProductFactory;
+use Magento\Checkout\Model\Session;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
@@ -24,6 +26,12 @@ class Data extends AbstractHelper
 
     protected $date;
 
+    protected $priceCurrency;
+
+    protected $multiPriceAndStock;
+
+    protected $checkoutSession;
+
     protected $type = ['2' => '100'];
 
     public function __construct(
@@ -32,6 +40,9 @@ class Data extends AbstractHelper
         ResourceConnection $resourceConnection,
         Registry $registry,
         TimezoneInterface $date,
+        MultiPriceAndStock $multiPriceAndStock,
+        PriceCurrencyInterface $priceCurrency,
+        Session $checkoutSession,
         Context $context
     ) {
         $this->productLoader = $productFactory;
@@ -39,6 +50,9 @@ class Data extends AbstractHelper
         $this->connection = $resourceConnection->getConnection();
         $this->registry = $registry;
         $this->date = $date;
+        $this->multiPriceAndStock = $multiPriceAndStock;
+        $this->priceCurrency = $priceCurrency;
+        $this->checkoutSession = $checkoutSession;
         parent::__construct($context);
     }
 
@@ -93,23 +107,25 @@ class Data extends AbstractHelper
     public function getStockApiData($productCode, $qty)
     {
         $stockData = $this->registry->registry('stock_data');
-        $data = [];
+
         if ($stockData) {
             $stockApiResponse = $stockData;
         } else {
             $stockApiResponse = $this->getStockApiResponse();
+            $this->registry->unregister('stock_data');
             $this->registry->register('stock_data', $stockApiResponse);
         }
 
-        $data = $this->getStockDaysAndColor($stockApiResponse, $productCode, $qty);
-
-        return $data;
+        return $this->getStockDaysAndColor($stockApiResponse, $productCode, $qty);
     }
 
     public function getStockApiResponse()
     {
-        $responseData = "[{\"ItemNo\":\"039 58\",\"AvailableQuantity\":\"500\",\"AvailabilityStatus\":\"1\",\"AvailableonDate\":\"01.06.2022.\"},{\"ItemNo\":\"039 410\",\"AvailableQuantity\":\"500\",\"AvailabilityStatus\":\"3\",\"AvailableonDate\":\"05.06.2022.\"},{\"ItemNo\":\"039 68\",\"AvailableQuantity\":\"0\",\"AvailabilityStatus\":\"3\",\"AvailableonDate\":\"08.04.2022.\"}]";
-        if ($responseData) {
+        //$responseData = "[{\"ItemNo\":\"039 58\",\"AvailableQuantity\":\"1000\",\"AvailabilityStatus\":\"1\",\"AvailableonDate\":\"01.06.2022.\"},{\"ItemNo\":\"039 410\",\"AvailableQuantity\":\"500\",\"AvailabilityStatus\":\"3\",\"AvailableonDate\":\"05.06.2022.\"},{\"ItemNo\":\"039 68\",\"AvailableQuantity\":\"0\",\"AvailabilityStatus\":\"3\",\"AvailableonDate\":\"08.04.2022.\"}]";
+        $skus = $this->getItemSkus();
+        $responseData = $this->multiPriceAndStock->getMultiStockAndPriceData($skus, 'stock');
+
+        if ($responseData && !empty($responseData)) {
             $responseItems = json_decode($responseData, true);
             $newResponseData = [];
             foreach ($responseItems as $responseItem) {
@@ -139,11 +155,11 @@ class Data extends AbstractHelper
                 //Get color using qty
                 if ($qty < $availabelQty) {
                     $returnData['color'] = "green";
-                    $returnData['showDisplayDays'] = false;
+                    //$returnData['showDisplayDays'] = false;
                 }
                 if ($qty == $availabelQty) {
                     $returnData['color'] = "yellow";
-                    $returnData['showDisplayDays'] = false;
+                    //$returnData['showDisplayDays'] = false;
                 }
                 if ($qty > $availabelQty) {
                     $returnData['color'] = "blue";
@@ -156,5 +172,81 @@ class Data extends AbstractHelper
             }
         }
         return $returnData;
+    }
+
+    public function getPriceApiData($productCode)
+    {
+        $priceData = $this->registry->registry('price_data');
+
+        if ($priceData) {
+            $priceApiResponse = $priceData;
+        } else {
+            $priceApiResponse = $this->getPriceApiResponse();
+            $this->registry->unregister('price_data');
+            $this->registry->register('price_data', $priceApiResponse);
+        }
+
+        return $this->getPriceAndDiscount($priceApiResponse, $productCode);
+    }
+
+    public function getPriceApiResponse()
+    {
+        //$responsePriceData = '[{"ItemNo":"039 410","Quantity":"0","SuggestedPrice":"25","SuggestedDiscount":"0","SuggestedPriceInclDiscount":"19","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"25","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"039 58","Quantity":"0","SuggestedPrice":"20","SuggestedDiscount":"24","SuggestedPriceInclDiscount":"15,2","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"20","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"039 68","Quantity":"0","SuggestedPrice":"25","SuggestedDiscount":"24","SuggestedPriceInclDiscount":"19","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"25","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"040 3516","Quantity":"0","SuggestedPrice":"20,06","SuggestedDiscount":"24","SuggestedPriceInclDiscount":"15,25","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"20,06","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""}]';
+        $skus = $this->getItemSkus();
+        $responsePriceData = $this->multiPriceAndStock->getMultiStockAndPriceData($skus, 'price');
+        if ($responsePriceData) {
+            $responsePriceItems = json_decode($responsePriceData, true);
+            $newResponseData = [];
+            foreach ($responsePriceItems as $responsePriceItem) {
+                if (isset($responsePriceItem['ItemNo'])) {
+                    $newResponseData[$responsePriceItem['ItemNo']] = $responsePriceItem;
+                }
+            }
+            return $newResponseData;
+        }
+        return [];
+    }
+
+    public function getPriceAndDiscount($priceData, $productCode)
+    {
+        $returnData = [];
+
+        if (isset($priceData[$productCode])) {
+            $price = isset($priceData[$productCode]['SuggestedPrice']) ?
+                (float)str_replace(',', ".", $priceData[$productCode]['SuggestedPrice']) : 0;
+            $discount = isset($priceData[$productCode]['SuggestedDiscount']) ?
+                $priceData[$productCode]['SuggestedDiscount'] : 0;
+            $discountPrice = isset($priceData[$productCode]['SuggestedPriceInclDiscount']) ?
+                (float)str_replace(',', ".", $priceData[$productCode]['SuggestedPriceInclDiscount']) : 0;
+
+            $returnData['price'] = $price;
+            $returnData['discount'] = $discount;
+            $returnData['discount_price'] = $discountPrice;
+        }
+        return $returnData;
+    }
+
+    public function getFormattedPrice($price)
+    {
+        return $this->priceCurrency->format($price, true, 2);
+    }
+    public function getItemSkus()
+    {
+        $quote = $this->checkoutSession->getQuote();
+        $items = $quote->getAllVisibleItems();
+        $returnData = [];
+
+        foreach ($items as $item) {
+            $skuArray = [];
+            $skuArray['product_code'] = $item->getProduct()->getProductCode();
+            $skuArray['qty'] = $item->getQty();
+            $returnData['skus'][] = $skuArray;
+        }
+
+        $resultData = '';
+        if (!empty($returnData)) {
+            $resultData = json_encode($returnData);
+        }
+        return $resultData;
     }
 }
