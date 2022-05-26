@@ -10,7 +10,7 @@ use \Magento\Framework\Filesystem;
  * Class ImportImageService
  * assign images to products by image URL
  */
-class ImportPdfService
+class ImportPdfService 
 {
     /**
      * Directory List
@@ -51,6 +51,7 @@ class ImportPdfService
      */
     public function execute($pdf_name,$pdfUrl)
     {
+		
 		$result_ = '';
         /** @var string $tmpDir */
         $pdfDir = $this->getMediaDirPdfDir();
@@ -67,6 +68,8 @@ class ImportPdfService
           $result_ = baseName($pdfUrl);
 
         }
+        
+      
         return $result_;
     }
     /**
