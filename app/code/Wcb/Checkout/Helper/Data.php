@@ -138,6 +138,29 @@ class Data extends AbstractHelper
         return [];
     }
 
+    public function getItemSkus()
+    {
+        $quote = $this->checkoutSession->getQuote();
+        $items = $quote->getAllVisibleItems();
+        $returnData = [];
+        $returnData['skus'][] = [
+            "product_code" => 250,
+            "qty" => 1
+        ];
+        foreach ($items as $item) {
+            $skuArray = [];
+            $skuArray['product_code'] = $item->getProduct()->getProductCode();
+            $skuArray['qty'] = $item->getQty();
+            $returnData['skus'][] = $skuArray;
+        }
+
+        $resultData = '';
+        if (!empty($returnData)) {
+            $resultData = json_encode($returnData);
+        }
+        return $resultData;
+    }
+
     public function getStockDaysAndColor($stockData, $productCode, $qty)
     {
         $returnData = [];
@@ -229,24 +252,5 @@ class Data extends AbstractHelper
     public function getFormattedPrice($price)
     {
         return $this->priceCurrency->format($price, true, 2);
-    }
-    public function getItemSkus()
-    {
-        $quote = $this->checkoutSession->getQuote();
-        $items = $quote->getAllVisibleItems();
-        $returnData = [];
-
-        foreach ($items as $item) {
-            $skuArray = [];
-            $skuArray['product_code'] = $item->getProduct()->getProductCode();
-            $skuArray['qty'] = $item->getQty();
-            $returnData['skus'][] = $skuArray;
-        }
-
-        $resultData = '';
-        if (!empty($returnData)) {
-            $resultData = json_encode($returnData);
-        }
-        return $resultData;
     }
 }
