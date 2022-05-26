@@ -10,7 +10,7 @@ namespace Wcb\ApiConnect\Plugin;
 use Magento\Catalog\Api\ProductRepositoryInterfaceFactory;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartItemExtensionFactory;
-
+use Wcb\Checkout\Helper\Data;
 class QuotePlugin
 {
 
@@ -23,6 +23,10 @@ class QuotePlugin
      * @var \Magento\Catalog\Api\ProductRepositoryInterface
      */
     protected $productRepository;
+    /**
+     * @var Data
+     */
+    private $helperData;
 
     /**
      * @param CartItemExtensionFactory $cartItemExtension
@@ -30,10 +34,12 @@ class QuotePlugin
      */
     public function __construct(
         CartItemExtensionFactory $cartItemExtension,
-        ProductRepositoryInterfaceFactory $productRepository
+        ProductRepositoryInterfaceFactory $productRepository,
+        Data $helperData
     ) {
         $this->cartItemExtension = $cartItemExtension;
         $this->productRepository = $productRepository;
+        $this->helperData = $helperData;
     }
 
     /**
@@ -59,7 +65,7 @@ class QuotePlugin
      */
     private function setAttributeValue($quote)
     {
-        $data = [];
+       // $data = [];
         if ($quote->getItemsCount()) {
             foreach ($quote->getItems() as $item) {
                 $data = [];
@@ -67,8 +73,15 @@ class QuotePlugin
                 if ($extensionAttributes === null) {
                     $extensionAttributes = $this->cartItemExtension->create();
                 }
+
                 $productData = $this->productRepository->create()->get($item->getSku());
+                $getBaseUnitOfMeasureId = $productData->getBaseUnitOfMeasureId();
+                $ourCustomData = $this->helperData->getType($productData->getBaseUnitOfMeasureId());
+
+                $extensionAttributes->setImage($productData->getThumbnail());
                 $extensionAttributes->setProductCode($productData->getProductCode());
+                $extensionAttributes->setSalesUnitOfMeasureId($getBaseUnitOfMeasureId);
+                $extensionAttributes->setSalesUnitOfMeasureValue($ourCustomData);
 
                 $item->setExtensionAttributes($extensionAttributes);
             }
