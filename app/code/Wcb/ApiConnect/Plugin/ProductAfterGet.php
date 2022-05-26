@@ -43,7 +43,7 @@ class ProductAfterGet
         $extensionAttributes = $entity->getExtensionAttributes(); /** get current extension attributes from entity **/
         $extensionAttributes->setData('sales_unit_of_measure_id_value', $data);
 
-        $productCode= $entity->getProductCode();
+        $productCode = $entity->getProductCode();
         $pdf[]= array(
             "flip_catalog"=>$this->_wcbHelper->getCatalogFlipPdfUrl().$productCode
             );
@@ -89,7 +89,7 @@ class ProductAfterGet
                     $multiSelectValue = explode(', ', $value);
 
                         foreach ($multiSelectValue as $a => $attValue) {
-                            $attr = $product->getResource()->getAttribute($code);
+                            $attr = $entity->getResource()->getAttribute($code);
                             if ($attr->usesSource()) {
                                 $optionIdInfo = $attr->getSource()->getOptionId($attValue);
                                 $attArray[$a] = $optionIdInfo;
