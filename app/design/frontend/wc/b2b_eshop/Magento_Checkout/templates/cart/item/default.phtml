@@ -23,6 +23,7 @@ $removeHelper = $this->helper(Magento\Checkout\Helper\Cart::class);
 $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
 $product = $checkoutHelper->getLoadProduct($product->getId());
 $stockApiData = $checkoutHelper->getStockApiData($product->getProductCode(), $block->getQty());
+$priceApiData = $checkoutHelper->getPriceApiData($product->getProductCode());
 
 $type = '';
 $displayUnitQty = 1;
@@ -132,13 +133,15 @@ if ($product->getBaseUnitOfMeasureId()) {
             <div class="imd-avilable">
          <span class="wcb-logged-remove">
              <?php if (isset($stockApiData['color'])) { ?>
-                <span class="imd-van">
-                        <img src="<?php echo $block->getViewFileUrl('images/stock/' . $stockApiData['color'] . '.svg'); ?>"/>
+                 <span class="imd-van">
+                        <img
+                            src="<?php echo $block->getViewFileUrl('images/stock/' . $stockApiData['color'] . '.svg'); ?>"/>
                 </span>
              <?php } ?>
              <?php if (isset($stockApiData['showDisplayDays'])) { ?>
-                <span class="imd-cart">
-                    <img src="<?php echo $block->getViewFileUrl('images/stock/van-' . $stockApiData['color'] . '.svg'); ?>"/>
+                 <span class="imd-cart">
+                    <img
+                        src="<?php echo $block->getViewFileUrl('images/stock/van-' . $stockApiData['color'] . '.svg'); ?>"/>
                 </span>
              <?php } ?>
              <?php if (isset($stockApiData['showDisplayDays'])) { ?>
@@ -156,9 +159,12 @@ if ($product->getBaseUnitOfMeasureId()) {
                 <tr class="seprator">
                     <td class="data-name" data-name="<?= $block->escapeHtml(__('Jed. measure')) ?>"><span
                             class="carmrp"><?= $type ?></span></td>
-                    <td class="data-name" data-name="<?= $block->escapeHtml(__('Price type')) ?>"><span
-                            class="imd-cart"><img
-                                src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/star-red.png'); ?>"/></span>
+                    <td class="data-name" data-name="<?= $block->escapeHtml(__('Price type')) ?>">
+                        <span class="imd-cart">
+                            <?php if (isset($priceApiData['discount']) && $priceApiData['discount'] != 0) { ?>
+                                <img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/star-red.png'); ?>"/>
+                            <?php } ?>
+                        </span>
                     </td>
                 </tr>
             </table>
@@ -169,10 +175,24 @@ if ($product->getBaseUnitOfMeasureId()) {
             <tr>
                 <td class="data-name" data-name="<?= $block->escapeHtml(__('Price')) ?>">
                     <div class="colsubtotal">
-                  <span class="wcb-logged">
-                     <div class="cpdis"><span class="cpcross">145,66 HRK </span> <span
-                             class="cpper"> (-25%)</span></div>
-                     <span class="cpgprice">1816.17</span>
+                  <span class="wcb-logged-remove">
+                      <?php if (isset($priceApiData['discount']) &&
+                          isset($priceApiData['price']) &&
+                          $priceApiData['discount'] != 0) { ?>
+                         <div class="cpdis">
+                             <span class="cpcross"><?= $checkoutHelper->getFormattedPrice($priceApiData['price']) ?> </span>
+                             <span class="cpper"> (- <?= $priceApiData['discount'] ?>%)</span>
+                         </div>
+                          <span class="cpgprice">
+                             <?= $checkoutHelper->getFormattedPrice($priceApiData['discount_price']) ?>
+                         </span>
+                      <?php } else { ?>
+                      <?php if (isset($priceApiData['price'])) { ?>
+                         <span class="cpgprice">
+                             <?= $checkoutHelper->getFormattedPrice($priceApiData['price']) ?>
+                         </span>
+                      <?php }
+                      } ?>
                   </span>
                         <span class="wcb-not-logged">
                         <span class="cpgprice">Login to view price</span>
@@ -180,8 +200,14 @@ if ($product->getBaseUnitOfMeasureId()) {
                     </div>
                 </td>
                 <td class="data-name" data-name="<?= $block->escapeHtml(__('Amount without VAT')) ?>">
-               <span class="wcb-logged">
-                 <span class="carmrp">2,401.88</span>
+               <span class="wcb-logged-remove">
+                 <span class="carmrp">
+                     <?php if ($canApplyMsrp) :?>
+                         <span class="cart msrp subtotal">--</span>
+                     <?php else :?>
+                         <?= $block->getRowTotalHtml($_item) ?>
+                     <?php endif; ?>
+                 </span>
                </span>
                 </td>
             </tr>

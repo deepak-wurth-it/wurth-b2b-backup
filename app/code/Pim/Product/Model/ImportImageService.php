@@ -49,7 +49,7 @@ class ImportImageService
      *
      * @return bool
      */
-    public function execute($product, $imageUrl, $visible = true, $imageType = [])
+    public function execute($product, $imageUrl, $visible = false, $imageType = [])
     {
         /** @var string $tmpDir */
         $tmpDir = $this->getMediaDirTmpDir();

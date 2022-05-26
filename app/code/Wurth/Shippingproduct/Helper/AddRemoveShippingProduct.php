@@ -13,6 +13,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Psr\Log\LoggerInterface;
+use Wcb\Checkout\Helper\Data as CheckoutHelper;
 
 class AddRemoveShippingProduct extends AbstractHelper
 {
@@ -44,6 +45,10 @@ class AddRemoveShippingProduct extends AbstractHelper
      * @var Registry
      */
     protected $registry;
+    /**
+     * @var CheckoutHelper
+     */
+    protected $checkoutHelper;
 
     /**
      * AddRemoveShippingProduct constructor.
@@ -55,6 +60,7 @@ class AddRemoveShippingProduct extends AbstractHelper
      * @param Session $checkoutSession
      * @param LoggerInterface $logger
      * @param Registry $registry
+     * @param CheckoutHelper $checkoutHelper
      */
     public function __construct(
         Context $context,
@@ -64,7 +70,8 @@ class AddRemoveShippingProduct extends AbstractHelper
         ProductRepositoryInterface $productRepository,
         Session $checkoutSession,
         LoggerInterface $logger,
-        Registry $registry
+        Registry $registry,
+        CheckoutHelper $checkoutHelper
     ) {
         $this->formKey = $formKey;
         $this->cart = $cart;
@@ -73,6 +80,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $this->checkoutSession = $checkoutSession;
         $this->logger = $logger;
         $this->registry = $registry;
+        $this->checkoutHelper = $checkoutHelper;
         parent::__construct($context);
     }
 
@@ -105,6 +113,8 @@ class AddRemoveShippingProduct extends AbstractHelper
             } else {
                 $subtotal += $item->getRowTotal();
             }
+            // set Price using API
+            $this->setPriceUsingApi($item);
         }
 
         if ($subtotal < $cartAmountLimit && !$shippingProductExist && $subtotal !== 0) {
@@ -114,6 +124,21 @@ class AddRemoveShippingProduct extends AbstractHelper
         if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
             $this->removeShippingProduct($items);
         }
+    }
+    public function setPriceUsingApi($item)
+    {
+        $item = ($item->getParentItem() ? $item->getParentItem() : $item);
+        $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode());
+        $price = isset($priceData['price']) ? $priceData['price'] : '';
+        if (isset($priceData['discount']) && $priceData['discount'] != 0) {
+            $price = $priceData['discount_price'];
+        }
+
+        $item->setCustomPrice($price);
+        $item->setOriginalCustomPrice($price);
+        $item->getProduct()->setIsSuperMode(true);
+        $item->calcRowTotal();
+        $item->getQuote()->collectTotals();
     }
 
     /**
