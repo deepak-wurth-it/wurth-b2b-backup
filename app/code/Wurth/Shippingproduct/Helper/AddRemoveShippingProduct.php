@@ -15,6 +15,7 @@ use Magento\Framework\Registry;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Wcb\Checkout\Helper\Data as CheckoutHelper;
+use Wurth\Shippingproduct\Helper\Data as ShippingProductHelper;
 
 class AddRemoveShippingProduct extends AbstractHelper
 {
@@ -53,6 +54,8 @@ class AddRemoveShippingProduct extends AbstractHelper
 
     protected $cartRepositoryInterface;
 
+    protected $shippingProductHelper;
+
     /**
      * AddRemoveShippingProduct constructor.
      * @param Context $context
@@ -75,7 +78,8 @@ class AddRemoveShippingProduct extends AbstractHelper
         LoggerInterface $logger,
         Registry $registry,
         CheckoutHelper $checkoutHelper,
-        CartRepositoryInterface $cartRepositoryInterface
+        CartRepositoryInterface $cartRepositoryInterface,
+        ShippingProductHelper $shippingProductHelper
     ) {
         $this->formKey = $formKey;
         $this->cart = $cart;
@@ -86,6 +90,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $this->registry = $registry;
         $this->checkoutHelper = $checkoutHelper;
         $this->cartRepositoryInterface = $cartRepositoryInterface;
+        $this->shippingProductHelper = $shippingProductHelper;
         parent::__construct($context);
     }
 
@@ -122,16 +127,20 @@ class AddRemoveShippingProduct extends AbstractHelper
                 $subtotal += $item->getRowTotal();
             }
         }
-
-        if ($subtotal < $cartAmountLimit && !$shippingProductExist && $subtotal !== 0) {
-            $this->addShippingProduct($quote);
-            // set Price using API
-            $this->setPriceUsingApi($quote);
-        }
-
-        if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
+       /* if($quote->getData('pickup_store_id') && $shippingProductExist){
             $this->removeShippingProduct($items);
-        }
+        }else{*/
+            if ($subtotal < $cartAmountLimit && !$shippingProductExist && $subtotal !== 0) {
+                $this->addShippingProduct($quote);
+                // set Price using API
+                $this->setPriceUsingApi($quote);
+            }
+
+            if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
+                $this->removeShippingProduct($items);
+            }
+        //}
+        
     }
 
     public function setPriceUsingApi($quote)
@@ -144,7 +153,17 @@ class AddRemoveShippingProduct extends AbstractHelper
             if (isset($priceData['discount']) && $priceData['discount'] != 0) {
                 $price = $priceData['discount_price'];
             }
+            $unitOfMeasureId = $item->getProduct()->getBaseUnitOfMeasureId();
 
+            //$type = $this->checkoutHelper->getType($unitOfMeasureId);
+
+            if ($unitOfMeasureId == '2' && 
+                $item->getProduct()->getProductCode() != $this->shippingProductHelper->getConfig(ShippingProductHelper::SHIPPING_PRODUCT_CODE) &&
+                $price
+            ) {
+                $price = ($price * 1) / 100;
+            }
+          
             $item->setCustomPrice($price);
             $item->setOriginalCustomPrice($price);
             $item->getProduct()->setIsSuperMode(true);

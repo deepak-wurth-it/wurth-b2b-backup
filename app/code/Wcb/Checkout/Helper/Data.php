@@ -32,7 +32,7 @@ class Data extends AbstractHelper
 
     protected $checkoutSession;
 
-    protected $type = ['2' => '100'];
+    protected $type = ['2' => 100];
 
     public function __construct(
         ProductRepositoryInterface $productrepositoryInterface,
