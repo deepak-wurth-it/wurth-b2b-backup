@@ -7,12 +7,11 @@ namespace Wcb\ApiConnect\Plugin;
  */
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Wcb\Checkout\Helper\Data;
 use Wcb\Base\Helper\Data as WCBHELPER;
+use Wcb\Checkout\Helper\Data;
 
 class ProductAfterGet
 {
-
     const PRODUCT_CODE ='product_code';
     /**
      * @var Data
@@ -37,6 +36,7 @@ class ProductAfterGet
         ProductRepositoryInterface $subject,
         ProductInterface $entity
     ) {
+        $pdfMediaUrl = $this->_wcbHelper->getProductPdfMediaUrl();
         $getBaseUnitOfMeasureId = $entity->getBaseUnitOfMeasureId();
         $ourCustomData = $this->_helperData->getType($entity->getBaseUnitOfMeasureId());
         $data[] = ['id'=>$getBaseUnitOfMeasureId,'value'=>$ourCustomData];
@@ -44,9 +44,11 @@ class ProductAfterGet
         $extensionAttributes->setData('sales_unit_of_measure_id_value', $data);
 
         $productCode = $entity->getProductCode();
-        $pdf[]= array(
-            "flip_catalog"=>$this->_wcbHelper->getCatalogFlipPdfUrl().$productCode
-            );
+        $pdf[]= [
+            "flip_catalog"=>$this->_wcbHelper->getCatalogFlipPdfUrl() . $productCode,
+            "catalog_main_pdf"=> $entity->getProductMainPdf()?$pdfMediaUrl . $entity->getProductMainPdf():'',
+            "catalog_rest_pdf"=>$this->getCatalogRestPdfUrl($entity->getProductRemainPdfs(), $pdfMediaUrl)
+            ];
 
         $extensionAttributes->setData('product_pdf', $pdf);
         $extensionAttributes->setData('technical_information', $this->getCustomAttributesVisibleOnFront($entity));
@@ -55,15 +57,15 @@ class ProductAfterGet
 
         return $entity;
     }
-    public function getCustomAttributesVisibleOnFront($entity){
+    public function getCustomAttributesVisibleOnFront($entity)
+    {
         $excludeAttr = [];
         $data = [];
         $attributes = $entity->getAttributes();
 
         foreach ($attributes as $attribute) {
-           $optionId='';
-             if ($this->isVisibleOnFrontend($attribute, $excludeAttr))
-             {
+            $optionId='';
+            if ($this->isVisibleOnFrontend($attribute, $excludeAttr)) {
                 $code = $attribute->getAttributeCode();
                 $value = $entity->getResource()->getAttributeRawValue($entity->getId(), $code, '1');
                 if ($value instanceof Phrase) {
@@ -77,16 +79,15 @@ class ProductAfterGet
                     if ($attr->usesSource()) {
                         $optionId = $attr->getSource()->getOptionId($value);
                     }
-
                 } elseif ($attribute->getFrontendInput() == 'multiselect') {
-                 // added if condition in order or resolve the explode issue if value is empty.
-                     if(!empty($value) && $value) {
+                    // added if condition in order or resolve the explode issue if value is empty.
+                    if (!empty($value) && $value) {
                         $multiselectOptionsArray = explode(',', $value);
-                     foreach ($multiselectOptionsArray as $k => $optionKey) {
-                        $multiselectOptionsArray[$k] = $attribute->getSource()->getOptionText($optionKey);
-                     }
-                    $value = implode(', ', $multiselectOptionsArray);
-                    $multiSelectValue = explode(', ', $value);
+                        foreach ($multiselectOptionsArray as $k => $optionKey) {
+                            $multiselectOptionsArray[$k] = $attribute->getSource()->getOptionText($optionKey);
+                        }
+                        $value = implode(', ', $multiselectOptionsArray);
+                        $multiSelectValue = explode(', ', $value);
 
                         foreach ($multiSelectValue as $a => $attValue) {
                             $attr = $entity->getResource()->getAttribute($code);
@@ -96,8 +97,8 @@ class ProductAfterGet
                                 $optionId = implode(', ', $attArray);
                             }
                         }
-                     }
-                 }
+                    }
+                }
                 if (is_string($value) && strlen($value)) {
                     $data[$attribute->getAttributeCode()] = [
                         'label' => $attribute->getFrontendLabel(),
@@ -109,14 +110,37 @@ class ProductAfterGet
                 // if(!empty($value)){
                 //     $product->setCustomAttribute($attribute->getAttributeCode(), $data);
                 // }
-             }
-         }
-         return $data;
+            }
+        }
+        return $data;
     }
+
+    /**
+     * @param \Magento\Eav\Model\Entity\Attribute\AbstractAttribute $attribute
+     * @param array $excludeAttr
+     * @return bool
+     */
     protected function isVisibleOnFrontend(
         \Magento\Eav\Model\Entity\Attribute\AbstractAttribute $attribute,
         array $excludeAttr
     ) {
         return ($attribute->getIsVisibleOnFront() && !in_array($attribute->getAttributeCode(), $excludeAttr));
+    }
+
+    /**
+     * @param $restPdf
+     * @param $pdfMediaUrl
+     * @return array
+     */
+    protected function getCatalogRestPdfUrl($restPdf, $pdfMediaUrl)
+    {
+        $data=[];
+        $breakPdfs = explode('||', $restPdf);
+        foreach ($breakPdfs as $pdf) {
+            if($pdf){
+                $data[]= $pdfMediaUrl . $pdf;
+            }
+        }
+        return $data;
     }
 }
