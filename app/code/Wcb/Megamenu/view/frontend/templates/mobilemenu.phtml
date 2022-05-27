@@ -77,31 +77,25 @@
 							}
 								?>						
 						<div class="clearBoth"></div>
-					</div>
-					
-					
-						
-					
+					</div>	
 				</div>
-				
 		</nav>
 
-		<div id="accounts" class="tabcontent" data-bind="scope: 'customer'">
-	 <!-- ko if: customer().firstname  -->
-	<ul>
-		<li><span  data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1', '%1')) ?>').replace('%1', customer().firstname)"></span>!</li>	
-		<li> <a href="<?php echo $block->getUrl("customer/account"); ?>">My Acoount</a></li> 
-		<li><a href="<?php echo $block->getUrl('customer/account/logout'); ?>">Logout</a></li> 		
-	</ul>
-     <!-- /ko -->
+	<div id="accounts" class="tabcontent" data-bind="scope: 'customer'">
+			<!-- ko if: customer().firstname  -->
+			<ul>
+				<li><span  data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1', '%1')) ?>').replace('%1', customer().firstname)"></span>!</li>	
+				<li> <a href="<?php echo $block->getUrl("customer/account"); ?>"><!-- ko i18n: 'My Acoount' --><!-- /ko --> </a></li> 
+				<li><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"><!-- ko i18n: 'Logout' --><!-- /ko --></a></li> 		
+			</ul>
+			<!-- /ko -->
 
-<!-- ko ifnot: customer().firstname  -->
-    <ul>
-		<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"><?php echo __("Login / Registration"); ?></a></li> 
-	</ul>
- <!-- /ko -->
-</div>
-
+		<!-- ko ifnot: customer().firstname  -->
+			<ul>
+				<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <!-- ko i18n: 'Login / Registration' --><!-- /ko --></a></li> 
+			</ul>
+		<!-- /ko -->
+    </div>
 		
 
 		<script type="text/javascript">

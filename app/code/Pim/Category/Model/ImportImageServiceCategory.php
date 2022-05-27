@@ -70,13 +70,25 @@ class ImportImageServiceCategory
         if ($result && $resultThumb) {
             /** add saved file to the $categoryobj gallery */
             //$imageType = array('image', 'small_image', 'thumbnail');
-            $catImage = DirectoryList::MEDIA. DIRECTORY_SEPARATOR . 'catalog/category' . DIRECTORY_SEPARATOR.baseName($newFileName);
-            $categoryobj->setImage($catImage, $imageType, $visible, false); // make sure image will be in pub/media/catalog/category/
+            #************* Without Image Path *********************#
+            $catImage = baseName($newFileName);
+            $thumbImage = baseName($newFileNameThumb);
 
-            $pathThumb = DirectoryList::MEDIA. DIRECTORY_SEPARATOR . 'catalog/category/thumbnails' . DIRECTORY_SEPARATOR.baseName($newFileNameThumb);
-            $categoryobj->setThumbnail($pathThumb, ['thumbnail'], $visible, false); // make sure image will be in pub/media/catalog/category/thumbnails
+            $categoryobj->setImage($catImage, $imageType, $visible, false); // make sure image will be in pub/media/catalog/category/
+            $categoryobj->setThumbNail($thumbImage); // make sure image will be in pub/media/catalog/category/thumbnails
+            $categoryobj->setThumbnail($thumbImage);// make sure image will be in pub/media/catalog/category/thumbnails
+            $result = ['thumb_image'=>$thumbImage,'main_image'=>$catImage];
+
+          #************* With Image Path *********************#
+
+          //  $catImage = DirectoryList::MEDIA. DIRECTORY_SEPARATOR . 'catalog/category' . DIRECTORY_SEPARATOR.baseName($newFileName);
+          //  $categoryobj->setImage($catImage, $imageType, $visible, false); // make sure image will be in pub/media/catalog/category/
+
+          //  $pathThumb = DirectoryList::MEDIA. DIRECTORY_SEPARATOR . 'catalog/category/thumbnails' . DIRECTORY_SEPARATOR.baseName($newFileNameThumb);
+          //  $categoryobj->setThumbnail($pathThumb, ['thumbnail'], $visible, false); // make sure image will be in pub/media/catalog/category/thumbnails
 
         }
+        
         return $result;
     }
     /**
