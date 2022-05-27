@@ -18,6 +18,7 @@
         <attribute code="image" type="string" />
         <attribute code="sales_unit_of_measure_id" type="string" />
         <attribute code="sales_unit_of_measure_value" type="string" />
+        <attribute code="sales_minimum_qty" type="string" />
     </extension_attributes>
 
 </config>
