@@ -22,7 +22,7 @@ use Magento\Framework\Setup\Patch\PatchVersionInterface;
  *
  * @package Magento\Catalog\Setup\Patch
  */
-class UpdateProductVerOne implements DataPatchInterface, PatchVersionInterface
+class UpdateProductVerTwo implements DataPatchInterface, PatchVersionInterface
 {
     /**
      * @var ModuleDataSetupInterface
@@ -53,7 +53,6 @@ class UpdateProductVerOne implements DataPatchInterface, PatchVersionInterface
     public function apply()
     {
         /** @var EavSetup $eavSetup */
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
         $attributesInfoUpdate = [
             'base_unit_of_measure_id' => [
@@ -108,7 +107,10 @@ class UpdateProductVerOne implements DataPatchInterface, PatchVersionInterface
         ];
 		
 		foreach ($attributesInfoUpdate as $attributeCode => $attributeParams) {
+			$this->moduleDataSetup->getConnection()->startSetup();
+			$eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
             $eavSetup->updateAttribute(\Magento\Catalog\Model\Product::ENTITY, $attributeCode, $attributeParams);
+            $this->moduleDataSetup->getConnection()->endSetup();
         }
     }
 
@@ -125,7 +127,7 @@ class UpdateProductVerOne implements DataPatchInterface, PatchVersionInterface
      */
     public static function getVersion()
     {
-        return '1.0.7';
+        return '1.0.9';
     }
 
     /**
