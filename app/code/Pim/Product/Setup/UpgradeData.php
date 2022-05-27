@@ -29,130 +29,11 @@ class UpgradeData implements UpgradeDataInterface
 	public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
 	{
 
-		if (version_compare($context->getVersion(), '1.0.5', '<')) {
-			$attributesInfoUpdate = [
-				'base_unit_of_measure_id' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'vendor_id' => [
-					'visible_on_front' => true,
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'sales_unit_of_measure_id' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'abc_group_code' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'inventory_item_category_code' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'minimum_sales_unit_quantity' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'successor_product_code' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'palette_quantity' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'package_box' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'short_name' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'vendor_item_no' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-				],
-				'synonyms' => [
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-
-				]
-			];
-
-			foreach ($attributesInfoUpdate as $attributeCode => $attributeParams) {
-				$this->moduleDataSetup->getConnection()->startSetup();
-				$eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-				$eavSetup->updateAttribute(\Magento\Catalog\Model\Product::ENTITY, $attributeCode, $attributeParams);
-				$this->moduleDataSetup->getConnection()->endSetup();
-			}
-		}
-
+		
 		if (version_compare($context->getVersion(), '1.0.6', '<')) {
 
 			$attributesInfoP1 = [
-				'product_pdf_path' => [
-
-					'type' => 'text',
-					'label' => 'Pdf Url',
-					'backend' => '',
-					'frontend' => '',
-					'label' => 'PDF Url',
-					'input' => 'text',
-					'class' => '',
-					'source' => '',
-					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-					'visible' => true,
-					'required' => false,
-					'user_defined' => false,
-					'default' => '',
-					'searchable' => false,
-					'filterable' => false,
-					'comparable' => false,
-					'visible_on_front' => false,
-					'used_in_product_listing' => true,
-					'unique' => false,
-					'apply_to' => '',
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
-				'product_pdf_name' => [
-
-					'type' => 'text',
-					'label' => 'Pdf Name',
-					'backend' => '',
-					'frontend' => '',
-					'label' => 'PDF Name',
-					'input' => 'text',
-					'class' => '',
-					'source' => '',
-					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-					'visible' => true,
-					'required' => false,
-					'user_defined' => false,
-					'default' => '',
-					'searchable' => false,
-					'filterable' => false,
-					'comparable' => false,
-					'visible_on_front' => false,
-					'used_in_product_listing' => true,
-					'unique' => false,
-					'apply_to' => '',
-					'attribute_set' => 'Default',
-					'group' => 'Product Details'
-
-				],
+				
 				'product_unit_of_measure_code' => [
 
 					'type' => 'text',
@@ -166,7 +47,7 @@ class UpgradeData implements UpgradeDataInterface
 					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
 					'visible' => true,
 					'required' => false,
-					'user_defined' => false,
+					'user_defined' => true,
 					'default' => '',
 					'searchable' => false,
 					'filterable' => false,
@@ -192,7 +73,7 @@ class UpgradeData implements UpgradeDataInterface
 					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
 					'visible' => true,
 					'required' => false,
-					'user_defined' => false,
+					'user_defined' => true,
 					'default' => '',
 					'searchable' => false,
 					'filterable' => false,
@@ -218,7 +99,7 @@ class UpgradeData implements UpgradeDataInterface
 					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
 					'visible' => true,
 					'required' => false,
-					'user_defined' => false,
+					'user_defined' => true,
 					'default' => '',
 					'searchable' => false,
 					'filterable' => false,
@@ -244,7 +125,7 @@ class UpgradeData implements UpgradeDataInterface
 					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
 					'visible' => true,
 					'required' => false,
-					'user_defined' => false,
+					'user_defined' => true,
 					'default' => '',
 					'searchable' => false,
 					'filterable' => false,
@@ -270,7 +151,7 @@ class UpgradeData implements UpgradeDataInterface
 					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
 					'visible' => true,
 					'required' => false,
-					'user_defined' => false,
+					'user_defined' => true,
 					'default' => '',
 					'searchable' => false,
 					'filterable' => false,
@@ -297,7 +178,7 @@ class UpgradeData implements UpgradeDataInterface
 					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
 					'visible' => true,
 					'required' => false,
-					'user_defined' => false,
+					'user_defined' => true,
 					'default' => '',
 					'searchable' => false,
 					'filterable' => false,
@@ -323,7 +204,7 @@ class UpgradeData implements UpgradeDataInterface
 					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
 					'visible' => true,
 					'required' => false,
-					'user_defined' => false,
+					'user_defined' => true,
 					'default' => '',
 					'searchable' => false,
 					'filterable' => false,
@@ -347,56 +228,75 @@ class UpgradeData implements UpgradeDataInterface
 		}
 		
 		
-		if (version_compare($context->getVersion(), '1.0.7', '<')) {
+	if (version_compare($context->getVersion(), '1.0.9', '<')) {
 			$attributesInfoUpdate = [
 				'base_unit_of_measure_id' => [
-					'visible_on_front' => false
+				    'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'vendor_id' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'sales_unit_of_measure_id' => [
-					'visible_on_front' => false
+				    'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'abc_group_code' => [
-					'visible_on_front' => false
+				'	visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'inventory_item_category_code' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'minimum_sales_unit_quantity' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'successor_product_code' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'palette_quantity' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'package_box' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 
 				],
 				'short_name' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'vendor_item_no' => [
-					'visible_on_front' => false
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
 				],
 				'synonyms' => [
-				
-				'visible_on_front' => false
-				
-				],
-				'product_code' => [
-				
-				'visible_on_front' => false
-				
+					'visible_on_front' => false,
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
+
+
 				]
 			];
 
@@ -407,37 +307,8 @@ class UpgradeData implements UpgradeDataInterface
 				$this->moduleDataSetup->getConnection()->endSetup();
 			}
 		}
+
 		
-		if (version_compare($context->getVersion(), '1.0.8', '<')) {
-			 $this->moduleDataSetup->getConnection()->startSetup();
-			 $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-			 $eavSetup->addAttribute(
-				 \Magento\Catalog\Model\Product::ENTITY,
-				 'rest_pdf',
-					 [
-					 'type' => 'text',
-					 'backend' => '',
-					 'frontend' => '',
-					 'label' => 'Extra Pdf',
-					 'input' => 'text',
-					 'class' => '',
-					 'source' => '',
-					 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-					 'visible' => true,
-					 'required' => false,
-					 'user_defined' => false,
-					 'default' => '',
-					 'searchable' => false,
-					 'filterable' => false,
-					 'comparable' => false,
-					 'visible_on_front' => false,
-					 'used_in_product_listing' => true,
-					 'unique' => false,
-					 'apply_to' => ''
-					 ]
-			 );
-			$this->moduleDataSetup->getConnection()->endSetup();
-			
-		}
+
 	}
 }

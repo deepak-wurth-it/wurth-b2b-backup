@@ -148,7 +148,12 @@ class Data extends AbstractHelper
     {
         return $this->_scopeConfigInterface->getValue($path, ScopeInterface::SCOPE_STORE);
     }
-    public function getCatalogFlipPdfUrl(){
+
+    /**
+     * @return mixed
+     */
+    public function getCatalogFlipPdfUrl()
+    {
         return $this->getConfig(self::FLIP_CATALOG_URL);
     }
 }

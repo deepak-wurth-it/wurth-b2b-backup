@@ -12,4 +12,7 @@
     <type name="Magento\Catalog\Model\CategoryRepository">
        <plugin name="category_product_collection_count" type="Wcb\ApiConnect\Plugin\CategoryProductCollectionCountAfterGet"/>
    </type>
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="add_more_info" type="Wcb\ApiConnect\Plugin\QuotePlugin" sortOrder="10" />
+    </type>
 </config>

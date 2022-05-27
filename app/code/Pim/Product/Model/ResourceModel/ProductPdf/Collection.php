@@ -38,7 +38,6 @@ class Collection extends AbstractCollection
 			->order('main_table.Id ASC')
 			->distinct(true);
 
-                    //echo  $this->getSelect();exit;
         return $this;
     }
 }
