@@ -12,6 +12,7 @@ use Magento\Framework\Data\Form\FormKey;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
+use Magento\Quote\Api\CartRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Wcb\Checkout\Helper\Data as CheckoutHelper;
 
@@ -50,6 +51,8 @@ class AddRemoveShippingProduct extends AbstractHelper
      */
     protected $checkoutHelper;
 
+    protected $cartRepositoryInterface;
+
     /**
      * AddRemoveShippingProduct constructor.
      * @param Context $context
@@ -71,7 +74,8 @@ class AddRemoveShippingProduct extends AbstractHelper
         Session $checkoutSession,
         LoggerInterface $logger,
         Registry $registry,
-        CheckoutHelper $checkoutHelper
+        CheckoutHelper $checkoutHelper,
+        CartRepositoryInterface $cartRepositoryInterface
     ) {
         $this->formKey = $formKey;
         $this->cart = $cart;
@@ -81,6 +85,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $this->logger = $logger;
         $this->registry = $registry;
         $this->checkoutHelper = $checkoutHelper;
+        $this->cartRepositoryInterface = $cartRepositoryInterface;
         parent::__construct($context);
     }
 
@@ -107,36 +112,49 @@ class AddRemoveShippingProduct extends AbstractHelper
         $shippingProductExist = false;
         $subtotal = 0;
 
+        // set Price using API
+        $this->setPriceUsingApi($quote);
+
         foreach ($items as $item) {
             if ($item->getSku() === $this->helperData->getShippingProductCode()) {
                 $shippingProductExist = true;
             } else {
                 $subtotal += $item->getRowTotal();
             }
-            // set Price using API
-            $this->setPriceUsingApi($item);
         }
 
         if ($subtotal < $cartAmountLimit && !$shippingProductExist && $subtotal !== 0) {
             $this->addShippingProduct($quote);
+            // set Price using API
+            $this->setPriceUsingApi($quote);
         }
 
         if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
             $this->removeShippingProduct($items);
         }
     }
-    public function setPriceUsingApi($item)
-    {
-        $item = ($item->getParentItem() ? $item->getParentItem() : $item);
-        $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode());
-        $price = isset($priceData['price']) ? $priceData['price'] : '';
-        if (isset($priceData['discount']) && $priceData['discount'] != 0) {
-            $price = $priceData['discount_price'];
-        }
 
-        $item->setCustomPrice($price);
-        $item->setOriginalCustomPrice($price);
-        $item->getProduct()->setIsSuperMode(true);
+    public function setPriceUsingApi($quote)
+    {
+        $items = $quote->getAllVisibleItems();
+        foreach ($items as $item) {
+            $item = ($item->getParentItem() ? $item->getParentItem() : $item);
+            $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode());
+            $price = isset($priceData['price']) ? $priceData['price'] : '';
+            if (isset($priceData['discount']) && $priceData['discount'] != 0) {
+                $price = $priceData['discount_price'];
+            }
+
+            $item->setCustomPrice($price);
+            $item->setOriginalCustomPrice($price);
+            $item->getProduct()->setIsSuperMode(true);
+            $item->calcRowTotal();
+
+            $item->getQuote()->collectTotals();
+            $this->cart->getQuote()->setTriggerRecollect(1);
+            $this->cart->getQuote()->collectTotals()->save();
+            // $this->cart->getQuote()->setTotalsCollectedFlag(false)->collectTotals()->save();
+        }
     }
 
     /**
@@ -160,6 +178,12 @@ class AddRemoveShippingProduct extends AbstractHelper
                 $this->cart->save();
                 $this->cart->getQuote()->setTriggerRecollect(1);
                 $this->cart->getQuote()->collectTotals()->save();
+
+                // update total
+                $quoteObject = $this->cartRepositoryInterface->get($this->cart->getQuote()->getId());
+                $quoteObject->setTriggerRecollect(1);
+                $quoteObject->setIsActive(true);
+                $quoteObject->collectTotals()->save();
             }
         } catch (Exception $e) {
             $this->logger->info($e->getMessage());
@@ -181,6 +205,13 @@ class AddRemoveShippingProduct extends AbstractHelper
                     $this->cart->save();
                     $this->cart->getQuote()->setTriggerRecollect(1);
                     $this->cart->getQuote()->collectTotals()->save();
+
+                    // update total
+                    $quoteObject = $this->cartRepositoryInterface->get($this->cart->getQuote()->getId());
+                    $quoteObject->setTriggerRecollect(1);
+                    $quoteObject->setIsActive(true);
+                    $quoteObject->collectTotals()->save();
+
                     break;
                 }
             }

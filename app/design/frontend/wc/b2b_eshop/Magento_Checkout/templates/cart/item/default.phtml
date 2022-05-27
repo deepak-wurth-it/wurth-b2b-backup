@@ -33,6 +33,10 @@ if ($product->getBaseUnitOfMeasureId()) {
     $displayUnitQty = $checkoutHelper->getQuantityUnitByQuantity($block->getQty(), $product);
     $minimumAndMeasureQty = $checkoutHelper->getMinimumAndMeasureQty($product);
 }
+
+// login check helper
+
+$logedIn = $this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
 ?>
 <tbody class="cart item">
 <tr class="item-info table__row">
@@ -101,17 +105,16 @@ if ($product->getBaseUnitOfMeasureId()) {
                     <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
                            name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
                            data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                    <!--value="--><?php /*= $block->escapeHtmlAttr($block->getQty()) */ ?>"
-                    value="<?= $block->escapeHtmlAttr($displayUnitQty) ?>"
-                    type="number"
-                    size="4"
-                    step="any"
-                    title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
-                    class="input-text qty cart-item-qty-box"
-                    data-validate="{required:true,'validate-greater-than-zero':true}"
-                    data-role="cart-item-qty"
-                    data-item-id="<?= /* @escapeNotVerified */
-                    $_item->getId() ?>"/>
+                           value="<?= $block->escapeHtmlAttr($displayUnitQty) ?>"
+                           type="number"
+                           size="4"
+                           step="any"
+                           title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                           class="input-text qty cart-item-qty-box"
+                           data-validate="{required:true,'validate-greater-than-zero':true}"
+                           data-role="cart-item-qty"
+                           data-item-id="<?= /* @escapeNotVerified */
+                           $_item->getId() ?>"/>
                     <div id="<?= /* @escapeNotVerified */
                     $_item->getId() ?>-upt" class="increaseQty icon-interface-plus"
                          data-item-id="<?= /* @escapeNotVerified */
@@ -131,25 +134,29 @@ if ($product->getBaseUnitOfMeasureId()) {
 
             </div>
             <div class="imd-avilable">
-         <span class="wcb-logged">
-             <?php if (isset($stockApiData['color'])) { ?>
-                 <span class="imd-van">
-                        <img
-                            src="<?php echo $block->getViewFileUrl('images/stock/' . $stockApiData['color'] . '.svg'); ?>"/>
-                </span>
-             <?php } ?>
-             <?php if (isset($stockApiData['showDisplayDays'])) { ?>
-                 <span class="imd-cart">
-                    <img
-                        src="<?php echo $block->getViewFileUrl('images/stock/van-' . $stockApiData['color'] . '.svg'); ?>"/>
-                </span>
-             <?php } ?>
-             <?php if (isset($stockApiData['showDisplayDays'])) { ?>
-                 <span class="imd-day"><?= isset($stockApiData['stockDays']) ? $stockApiData['stockDays'] : '' ?></span>
-                 <span class="imd-avlb">The quantity will be available for the displayed number of days</span>
-             <?php } ?>
+                <?php if ($logedIn) { ?>
+                    <span class="wcb-logged-remove">
+                         <?php if (isset($stockApiData['color'])) { ?>
+                             <span class="imd-van">
+                                    <img
+                                        src="<?php echo $block->getViewFileUrl('images/stock/' . $stockApiData['color'] . '.svg'); ?>"/>
+                            </span>
+                         <?php } ?>
+                        <?php if (isset($stockApiData['showDisplayDays'])) { ?>
+                            <span class="imd-cart">
+                                <img
+                                    src="<?php echo $block->getViewFileUrl('images/stock/van-' . $stockApiData['color'] . '.svg'); ?>"/>
+                            </span>
+                        <?php } ?>
+                        <?php if (isset($stockApiData['showDisplayDays'])) { ?>
+                            <span
+                                class="imd-day"><?= isset($stockApiData['stockDays']) ? $stockApiData['stockDays'] : '' ?></span>
+                            <span
+                                class="imd-avlb">The quantity will be available for the displayed number of days</span>
+                        <?php } ?>
 
-          </span>
+                      </span>
+                <?php } ?>
             </div>
         <?php } ?>
     </td>
@@ -162,7 +169,8 @@ if ($product->getBaseUnitOfMeasureId()) {
                     <td class="data-name" data-name="<?= $block->escapeHtml(__('Price type')) ?>">
                         <span class="imd-cart">
                             <?php if (isset($priceApiData['discount']) && $priceApiData['discount'] != 0) { ?>
-                                <img src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/star-red.png'); ?>"/>
+                                <img
+                                    src=" <?php echo $block->getViewFileUrl('Magento_Checkout::images/star-red.png'); ?>"/>
                             <?php } ?>
                         </span>
                     </td>
@@ -175,40 +183,47 @@ if ($product->getBaseUnitOfMeasureId()) {
             <tr>
                 <td class="data-name" data-name="<?= $block->escapeHtml(__('Price')) ?>">
                     <div class="colsubtotal">
-                  <span class="wcb-logged">
-                      <?php if (isset($priceApiData['discount']) &&
-                          isset($priceApiData['price']) &&
-                          $priceApiData['discount'] != 0) { ?>
-                         <div class="cpdis">
-                             <span class="cpcross"><?= $checkoutHelper->getFormattedPrice($priceApiData['price']) ?> </span>
-                             <span class="cpper"> (- <?= $priceApiData['discount'] ?>%)</span>
-                         </div>
-                          <span class="cpgprice">
-                             <?= $checkoutHelper->getFormattedPrice($priceApiData['discount_price']) ?>
-                         </span>
-                      <?php } else { ?>
-                      <?php if (isset($priceApiData['price'])) { ?>
-                         <span class="cpgprice">
-                             <?= $checkoutHelper->getFormattedPrice($priceApiData['price']) ?>
-                         </span>
-                      <?php }
-                      } ?>
-                  </span>
+                        <?php if ($logedIn) { ?>
+                            <span class="wcb-logged-remove">
+                              <?php if (isset($priceApiData['discount']) &&
+                                  isset($priceApiData['price']) &&
+                                  $priceApiData['discount'] != 0) { ?>
+                                  <div class="cpdis">
+                                     <span
+                                         class="cpcross"><?= $checkoutHelper->getFormattedPrice($priceApiData['price']) ?> </span>
+                                     <span class="cpper"> (- <?= $priceApiData['discount'] ?>%)</span>
+                                 </div>
+                                  <span class="cpgprice">
+                                     <?= $checkoutHelper->getFormattedPrice($priceApiData['discount_price']) ?>
+                                 </span>
+                              <?php } else { ?>
+                                  <?php if (isset($priceApiData['price'])) { ?>
+                                      <span class="cpgprice">
+                                     <?= $checkoutHelper->getFormattedPrice($priceApiData['price']) ?>
+                                 </span>
+                                  <?php }
+                              } ?>
+                          </span>
+                        <?php } ?>
+                        <?php if (!$logedIn) { ?>
                         <span class="wcb-not-logged">
-                        <span class="cpgprice">Login to view price</span>
-                  <span>
+                                    <span class="cpgprice">Login to view price</span>
+                              <span>
+                          <?php } ?>
                     </div>
                 </td>
                 <td class="data-name" data-name="<?= $block->escapeHtml(__('Amount without VAT')) ?>">
-               <span class="wcb-logged">
-                 <span class="carmrp">
-                     <?php if ($canApplyMsrp) :?>
-                         <span class="cart msrp subtotal">--</span>
-                     <?php else :?>
-                         <?= $block->getRowTotalHtml($_item) ?>
-                     <?php endif; ?>
-                 </span>
-               </span>
+                    <?php if ($logedIn) { ?>
+                        <span class="wcb-logged-remove">
+                     <span class="carmrp">
+                         <?php if ($canApplyMsrp) : ?>
+                             <span class="cart msrp subtotal">--</span>
+                         <?php else : ?>
+                             <?= $block->getRowTotalHtml($_item) ?>
+                         <?php endif; ?>
+                     </span>
+                   </span>
+                    <?php } ?>
                 </td>
             </tr>
         </table>

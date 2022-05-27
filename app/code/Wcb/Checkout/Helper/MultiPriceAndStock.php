@@ -71,6 +71,7 @@ class MultiPriceAndStock extends AbstractHelper
                 }
             }
         }
+        $finalData = json_encode($finalData);
         return $finalData;
     }
 
