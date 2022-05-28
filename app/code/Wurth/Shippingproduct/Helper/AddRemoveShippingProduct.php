@@ -101,7 +101,7 @@ class AddRemoveShippingProduct extends AbstractHelper
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
-    public function updateShippingProduct($quote = '')
+    public function updateShippingProduct($quote = '', $api = '')
     {
         $skipPlugin = $this->registry->registry('skip_plugin');
         if ($skipPlugin === 'true') {
@@ -127,20 +127,19 @@ class AddRemoveShippingProduct extends AbstractHelper
                 $subtotal += $item->getRowTotal();
             }
         }
-       /* if($quote->getData('pickup_store_id') && $shippingProductExist){
-            $this->removeShippingProduct($items);
-        }else{*/
-            if ($subtotal < $cartAmountLimit && !$shippingProductExist && $subtotal !== 0) {
-                $this->addShippingProduct($quote);
-                // set Price using API
-                $this->setPriceUsingApi($quote);
+
+        if ($subtotal < $cartAmountLimit && !$shippingProductExist && $subtotal !== 0) {
+            if (!$quote->getData('pickup_store_id')) {
+                $this->addShippingProduct($quote, $api);
             }
 
-            if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
-                $this->removeShippingProduct($items);
-            }
-        //}
-        
+            // set Price using API
+            $this->setPriceUsingApi($quote);
+        }
+
+        if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
+            $this->removeShippingProduct($items, $quote, $api);
+        }
     }
 
     public function setPriceUsingApi($quote)
@@ -157,13 +156,15 @@ class AddRemoveShippingProduct extends AbstractHelper
 
             //$type = $this->checkoutHelper->getType($unitOfMeasureId);
 
-            if ($unitOfMeasureId == '2' && 
+            if ($unitOfMeasureId == '2' &&
                 $item->getProduct()->getProductCode() != $this->shippingProductHelper->getConfig(ShippingProductHelper::SHIPPING_PRODUCT_CODE) &&
                 $price
             ) {
                 $price = ($price * 1) / 100;
             }
-          
+            /*var_dump($price);
+            exit;*/
+            $price = (float) $price;
             $item->setCustomPrice($price);
             $item->setOriginalCustomPrice($price);
             $item->getProduct()->setIsSuperMode(true);
@@ -183,7 +184,7 @@ class AddRemoveShippingProduct extends AbstractHelper
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
-    public function addShippingProduct($quote)
+    public function addShippingProduct($quote, $api = '')
     {
         try {
             $product = $this->productRepository->get($this->helperData->getShippingProductCode());
@@ -215,7 +216,7 @@ class AddRemoveShippingProduct extends AbstractHelper
      * @param $items
      * @throws Exception
      */
-    public function removeShippingProduct($items)
+    public function removeShippingProduct($items, $quote = '', $api = '')
     {
         try {
             foreach ($items as $item) {
