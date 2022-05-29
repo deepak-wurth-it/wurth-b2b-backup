@@ -13,8 +13,11 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\UrlInterface;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\User\Model\UserFactory;
+use Wurth\Shippingproduct\Helper\Data as ShippingHelper;
 
 class Data extends AbstractHelper
 {
@@ -23,6 +26,8 @@ class Data extends AbstractHelper
     const API_CATALOG_MEDIA_URL = 'apiconfig/config/catalog_media_url';
     const API_CATEGORY_MEDIA_URL = 'apiconfig/config/category_media_url';
     const FLIP_CATALOG_URL ='catalog_settings/catalog_config/flip_catalog_url';
+    const MINIMUM_SHIPPING_AMT ='shipping_product_section/general/cart_amount_limit';
+    const SHIPPING_PRODUCT_CODE ='shipping_product_section/general/product_code';
 
     /**
      * @var ProductFactory
@@ -57,6 +62,18 @@ class Data extends AbstractHelper
      * @var ScopeConfigInterface
      */
     private $_scopeConfigInterface;
+    /**
+     * @var ShippingHelper
+     */
+    private $_shppingHelper;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+    /**
+     * @var UrlInterface
+     */
+    private $urlInterface;
 
     /**
      * Data constructor.
@@ -76,6 +93,9 @@ class Data extends AbstractHelper
         UserFactory $userFactory,
         CustomerRepositoryInterface $customerRepository,
         ScopeConfigInterface $scopeConfigInterface,
+        ShippingHelper $_shippingHelper,
+        StoreManagerInterface $storeManager,
+        UrlInterface $urlInterface,
         Context $context
     ) {
         $this->productLoader = $productFactory;
@@ -86,6 +106,9 @@ class Data extends AbstractHelper
         $this->userFactory = $userFactory;
         $this->customerRepository = $customerRepository;
         $this->_scopeConfigInterface = $scopeConfigInterface;
+        $this->_shppingHelper = $_shippingHelper;
+        $this->storeManager = $storeManager;
+        $this->urlInterface = $urlInterface;
     }
 
     /**
@@ -130,13 +153,20 @@ class Data extends AbstractHelper
         return $customerGroupId;
     }
 
+    /**
+     * @return array
+     */
     public function getApiMobileConfiguration()
     {
         $data = [];
-        $data['base_url'] = $this->getConfig(self::API_BASE_URL);
-        $data['base_media_url'] = $this->getConfig(self::API_MEDIA_URL);
-        $data['catalog_media_url'] = $this->getConfig(self::API_CATALOG_MEDIA_URL);
-        $data['category_media_url'] = $this->getConfig(self::API_CATEGORY_MEDIA_URL);
+        $data['base_url'] = $this->getBaseUrl();//$this->getConfig(self::API_BASE_URL);
+        $data['base_media_url'] = $this->getMediaUrl();//$this->getConfig(self::API_MEDIA_URL);
+        $data['catalog_media_url'] = $this->getCatalogMediaUrl();//$this->getConfig(self::API_CATALOG_MEDIA_URL);
+        $data['category_media_url'] = $this->getCategoryMediaUrl();//$this->getConfig(self::API_CATEGORY_MEDIA_URL);
+        //$data['cart_min_shipping_data'] =$this->getShippingConfigurationData();
+        $data['shipping_cart_min_amt'] = $this->_shppingHelper->getCartAmountLimit();
+        $data['shipping_cart_product_code'] = $this->getConfig(self::SHIPPING_PRODUCT_CODE);
+        $data['shipping_cart_product_sku'] = $this->_shppingHelper->getShippingProductCode();
         return $data;
     }
 
@@ -156,4 +186,63 @@ class Data extends AbstractHelper
     {
         return $this->getConfig(self::FLIP_CATALOG_URL);
     }
+
+    /**
+     *
+     */
+    public function getShippingConfigurationData()
+    {
+        $data = [];
+        $data['shipping_cart_min_amt'] = $this->_shppingHelper->getCartAmountLimit();
+        $data['shipping_cart_product_code'] = $this->getConfig(self::SHIPPING_PRODUCT_CODE);
+        $data['shipping_cart_product_sku'] = $this->_shppingHelper->getShippingProductCode();
+        return $data;
+    }
+
+    /**
+     * @return mixed
+     * @throws NoSuchEntityException
+     */
+    public function getBaseUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl();
+    }
+
+    /**
+     * @return mixed
+     * @throws NoSuchEntityException
+     */
+    public function getMediaUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getCatalogMediaUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getCategoryMediaUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/category/';
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getProductPdfMediaUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA). 'product_pdfs/';
+    }
+
+
 }
