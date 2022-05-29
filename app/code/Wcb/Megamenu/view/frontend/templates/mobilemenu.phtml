@@ -81,18 +81,18 @@
 				</div>
 		</nav>
 
-	<div id="accounts" class="tabcontent" data-bind="scope: 'customer'">
+	<div id="accounts" class="tabcontent" data-bind="scope: 'customer'" >
 			<!-- ko if: customer().firstname  -->
 			<ul>
 				<li><span  data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1', '%1')) ?>').replace('%1', customer().firstname)"></span>!</li>	
-				<li> <a href="<?php echo $block->getUrl("customer/account"); ?>"><!-- ko i18n: 'My Acoount' --><!-- /ko --> </a></li> 
-				<li><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"><!-- ko i18n: 'Logout' --><!-- /ko --></a></li> 		
+				<li> <a href="<?php echo $block->getUrl("customer/account"); ?>"> <span data-bind="text: new String('My Acoount')"></span> </a></li> 
+				<li><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"><span data-bind="text: new String('Logout')"></span></a></li> 		
 			</ul>
 			<!-- /ko -->
 
 		<!-- ko ifnot: customer().firstname  -->
 			<ul>
-				<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <!-- ko i18n: 'Login / Registration' --><!-- /ko --></a></li> 
+				<li> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"><span data-bind="text: new String('Login / Registration')"></span></a></li> 
 			</ul>
 		<!-- /ko -->
     </div>
@@ -108,6 +108,19 @@
     <script>
         requirejs(['jquery', 'mobilemenu'], function($) {           
         });
+    </script>
+	 <script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer": {
+                        "component": "Magento_Customer/js/view/customer"
+                    }
+                }
+            }
+        }
+    }
     </script>
 
 <?php endif ?>
