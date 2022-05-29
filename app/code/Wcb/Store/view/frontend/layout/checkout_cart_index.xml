@@ -14,7 +14,7 @@
                    <argument name="jsLayout" xsi:type="array">
                        <item name="components" xsi:type="array">
                            <item name="wcbstore" xsi:type="array">
-							   <item name="component" xsi:type="string">Wcb_Store/js/wcbstore</item> 
+							   <item name="component" xsi:type="string">Wcb_Store/js/wcbstore</item>
 							   <item name="displayArea" xsi:type="string">wcbstore</item>
 							   <item name="config" xsi:type="array">
                                           <item name="template" xsi:type="string">Wcb_Store/wcbstore</item>
