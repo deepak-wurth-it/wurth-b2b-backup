@@ -122,14 +122,10 @@ $logedIn = $this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
                 </div>
 
                 <div class="cpCount">
-                    <select>
-                        <option> <?= $minimumAndMeasureQty ?> PC</option>
-                    </select>
+                     <?= $minimumAndMeasureQty ?> PC
                 </div>
                 <div class="cpCount">
-                    <select>
-                        <option><?= $block->getQty() ?></option>
-                    </select>
+                   <?= $block->getQty() ?>
                 </div>
 
             </div>
