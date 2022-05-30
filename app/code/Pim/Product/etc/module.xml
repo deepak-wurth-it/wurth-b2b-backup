@@ -3,6 +3,7 @@
 	<module name="Pim_Product" setup_version="1.0.9">
 		<sequence>
 			<module name="Magento_Catalog"/>
+			<module name="Wcb_Catalog"/>
 		</sequence>
 	</module>
 </config>

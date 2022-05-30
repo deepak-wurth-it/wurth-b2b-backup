@@ -22,7 +22,8 @@
             <argument name="batchSizeManagement" xsi:type="object">Magento\Catalog\Model\Indexer\CategoryProductBatchSize</argument>
         </arguments>
     </type>
-    
+   <preference for="Magento\Catalog\Model\Product\Gallery\CreateHandler" type="Wcb\Catalog\Model\Product\Gallery\CreateHandler"/>
+   <!--<preference for="Magento\Catalog\Model\Product\Gallery\Processor" type="Wcb\Catalog\Model\Product\Gallery\Processor"/>-->
 
     <!-- <preference for="Magento\Catalog\Block\Category\View" type="Wcb\Catalog\Block\Category\View"/> Not Using As Of Now Deepak-->
     <!-- <preference for="Magento\Catalog\Block\Product\ProductList\Toolbar" type="Wcb\Catalog\Block\Product\ProductList\Toolbar"/>
