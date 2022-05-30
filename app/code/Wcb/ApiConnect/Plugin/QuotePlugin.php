@@ -80,8 +80,8 @@ class QuotePlugin
 
                 $extensionAttributes->setImage($productData->getThumbnail());
                 $extensionAttributes->setProductCode($productData->getProductCode());
-                $extensionAttributes->setSalesUnitOfMeasureId($getBaseUnitOfMeasureId);
                 $extensionAttributes->setSalesUnitOfMeasureValue($ourCustomData);
+                $extensionAttributes->setSalesMinimumQty($productData->getMinimumSalesUnitQuantity());
 
                 $item->setExtensionAttributes($extensionAttributes);
             }

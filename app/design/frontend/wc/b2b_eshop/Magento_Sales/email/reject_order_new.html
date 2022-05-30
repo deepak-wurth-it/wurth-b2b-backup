@@ -1,0 +1,269 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Header"}} @-->
+<!--@vars {
+"var logo_url":"Email Logo Image URL",
+"var logo_alt":"Email Logo Alt Text",
+"var logo_height":"Email Logo Image Height",
+"var logo_width":"Email Logo Image Width",
+"var template_styles|raw":"Template CSS"
+} @-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<style>
+   table, td, div, h1, p {
+     font-family: Arial, sans-serif;
+   }
+   @media screen and (max-width: 530px) {
+     .unsub {
+       display: block;
+     }
+     .e-logo{
+      text-align: center;  
+      margin-bottom: 10px;
+     }
+     .footer-content{
+        display:grid;
+        text-align: left;
+     }
+     .footer-content td{
+        display:flex;
+        text-align: left;
+     }
+   }
+   @media screen and (min-width: 531px) {
+      .unsub {
+       display: flex;
+     }
+     .e-logo{
+      text-align: left; 
+      margin-bottom: 10px; 
+     }
+   }
+ </style>
+<body>
+    <!-- Header Start ak -->
+      <div style="max-width: 850px; margin:auto; background:#fff;">
+         <table style="width: 100%; margin:auto; border: 1px solid rgba(0, 0, 0, 8%);">
+         <tr>
+            <td>
+               <table style="width: 100%; margin:auto;" cellspacing="0" cellpadding="0" >
+                  <tr>
+                     <td>
+                        <table style="width: 95%; padding: 20px;margin: auto;margin-top: 11px;">
+                           <tr >
+                              <td style="display: flex;">
+                                 <p class="e-logo" style="text-align: left;"><img src="http://wuerth.com.hr/img/layout/logo.gif" alt="Wurth Logo" class="elogos" /></p>
+                                 <div style="text-align: center; margin:auto;">
+                                    <p style='text-align: center; font-size:28px; margin: 0;'>
+                                       <strong>WÜRTH HR - ONLINE SHOP</strong>
+                                    </p>
+                                  
+
+                  <!-- Header End -->
+
+<!--{{template config_path="design/email/header_template"}} -->
+<p style='font-size:18px; margin: 0px;'><strong>Narud&#382;ba br: {{order_number}}. Datum: {{date}}</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+   <td style="background: #FFFFFF; border-bottom: 1px solid #CC0000; box-sizing: border-box; height:20px;"></td>
+</tr>
+ <!-- Content Start-->
+                  <tr>
+                    <table style="width: 95%; margin: auto; margin-top: 20px;">
+                            <tr>
+                                <td align="center">
+                                  
+                                    <table width="900" style=' border:1px solid #dedede; padding: 10px;'>
+									
+                                        <caption style='color: #ffffff; background-color: #858181; height: 26px; padding: 7px 0 0 0px;'><span><strong>NARU&#268;ENI ARTIKLI (cijene izražene u HRK)</strong></span></caption>
+                                        <tbody>
+                                            <tr style="border: font-weight: bold;" height="80px">
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:5%; ">Redni broj</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%);  width:10%;"></td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">Šifra artikla</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:25%">Opis</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:5%;">Kol.</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:5%;">Pak.</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:8%;">JM</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">Jedinicna cijena</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">popust %</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">Jed. cijena s ukij. popustom</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">Ixnos bex porexa</td>
+                                            </tr>
+											<tr height="70px">
+                                                <td>1</td>
+                                                <td ><img src="https://media.wuerth.com/source/eshop/stmedia/wuerth/images/std.lang.all/resolutions/category/348px/37584199.jpg" height="80"></td>
+                                                <td >760001</td>
+                                                <td >UREDAJI ZA ISTISKIVANJE - MULATORSKI</td>
+                                                <td >2</td>
+                                                <td >2</td>
+												<td >KOM</td>
+												<td >561,23</td>
+                                                <td >35%</td>
+												<td >364,80</td>
+												<td >820,60</td>
+                                            </tr>
+											<tr style="border: font-weight: bold;" height="70px">
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:5%;">2</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;"><img src="https://media.wuerth.com/source/eshop/stmedia/wuerth/images/std.lang.all/resolutions/category/348px/37584199.jpg" height="80"></td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;" >760001</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:25%">UREDAJI ZA ISTISKIVANJE - MULATORSKI</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:5%;">2</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:5%;">2</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:8%;">KOM</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">561,23</td>
+                                                <td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:8%;">35%</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">364,80</td>
+												<td style="border-bottom: 1px solid rgba(0, 0, 0, 12%); width:10%;">820,60</td>
+                                            </tr>
+                                             
+                                            <tr style="">
+                                                <td colspan='10' style="font-weight: bold; text-align: right;">Ukupno HRK bez PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                <td style='text-align: right;'>{{total_no_tax}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='10' style="font-weight: bold; text-align: right;">25% PDV-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                <td style='text-align: right;'>{{total_tax}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='10' style="font-weight: bold; text-align: right;">Ukupno HRK sa PDV-om&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                <td style='text-align: right;'>{{total}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='10' style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+									
+									<table width="900" style="background-color: #858181; color: #fff; padding: 10px;">
+                                        <tr>
+                                            <td style="width: 50%;">
+                                                <table border='0' style="margin-bottom: 47px;">
+                                                        <tr>
+                                                            <td style='color: #ffffff; text-align: left;' colspan='2'><strong>Adresa za fakturu - BILL TO ADDRESS</strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Kupac:&nbsp;</td>
+                                                            <td>{{customer_no}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Naziv kupca:&nbsp;</td>
+                                                            <td>{{company}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ulica i broj:</td>
+                                                            <td>{{address}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Po&scaron;tanski broj:&nbsp;</td>
+                                                            <td>{{postal_code}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mjesto:&nbsp;</td>
+                                                            <td>{{place}}&nbsp;</td>
+                                                        </tr>
+														
+                                                </table>
+                                            </td>
+                                            <td style="width: 50%;">
+                                                <table border='0'>
+                                                        <tr>
+                                                            <td style='color: #ffffff;' colspan='2'><strong>Adresa za isporuku - DELIVERY ADRESS </strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Naziv kupca:</td>
+                                                            <td>&nbsp;{{company_1}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ulica i broj:</td>
+                                                            <td>{{address_1}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Po&scaron;tanski broj:</td>
+                                                            <td>{{postal_code_1}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mjesto:</td>
+                                                            <td>{{place_1}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Telefon:</td>
+                                                            <td>{{phone}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>E-mail:ORDERED BY MAIL &nbsp;</td>
+                                                            <td>{{email}}&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Naru&#269;itelj: ORDERED BY NAME</td>
+                                                            <td>{{ordered_by}}&nbsp;</td>
+                                                        </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        
+                                    </table>
+                  </tr>
+                 <!-- End Content --> 
+<!-- footer start -->
+ <tr>
+    <td>                   
+       <img style="width: 100%;  padding-top: 15px;" src="https://devtestb2b.wuerth.com.hr/media/wysiwyg/wurth_mail_footer_2.png" alt="Wurth Mail footer" />                      
+    </td>
+ </tr>
+ <tr>
+    <td style="background: #FFFFFF; border-bottom: 5px solid #0093DD; box-sizing: border-box; height:20px;"></td>
+ </tr>
+ <tr style="background-image:url('https://devtestb2b.wuerth.com.hr/media/wysiwyg/email-footer-world-map.png'); background-color: #0e0d0ebf; width: 100%; background-repeat: no-repeat;  height: 176px; text-align: center;">
+    <td>
+       <table style="width: 76%; margin:auto; text-align: center; font-size: 9px; color: #fff; line-height: 1rem;margin-top: 20px;">
+          <tr class="footer-content">
+             <td >
+                <p><img src="https://devtestb2b.wuerth.com.hr/media/wysiwyg/location.png" alt="Location" height="20" width="20" /></p>
+                Würth - Hrvatska d.o.o </br> Lužec 1
+             </td>
+             <td >
+                <p><img src="https://devtestb2b.wuerth.com.hr/media/wysiwyg/location.png" alt="Location" height="20" width="20" /></p>
+                49 214 Veliko Trgovišće </br> Croatia
+             </td>
+             <td >
+                <p><img src="https://devtestb2b.wuerth.com.hr/media/wysiwyg/file.png" alt="file" height="20" width="20" /></p>
+                T +385 49 638 300 </br> e-mail: <a href="mailto:wuerth@wuerth.com.hr" target="_blank" style="color: #fff;list-style: none;">wuerth@wuerth.com.hr</a>
+             </td>
+          </tr>
+          <tr>
+             <td colspan="3" >Upisan u trgovački registarski uložak Trgovačkog suda u Zagrebu pod brojem MBS: 080286160 | PDV broj: HR 52641439848 | OIB: 52641439848 </td>
+          </tr>
+       </table>
+       <table style="width: 99%; margin:auto; margin-bottom:10px; text-align: center; font-size: 8px; color: #fff;">
+          <tr>
+             <td>
+                <p style="border-top:1px solid #ECECEC; width:50%; margin:auto; margin-top:5px; margin-bottom:10px;"></p>
+                Računi: Privredna banka Zagreb d.d., Zagreb, broj 2340009-1110277773, IBAN: HR31 2340 0091 1102 7777 3 | Temeljni kapital društva iznosi 5 695 500,00 kn i uplaćen je u cijelosti u novcu i stvarima | Članovi uprave / likvidatori: Nenad Vezmar, direktor, zastupa društvo pojedinačno i samostalno, Olga Nejašmić, direktor, zastupa društvo pojedinačno i samostalno, Mario Vuković, direktor, zastupa društvo pojedinačno i samostalno.
+             </td>
+          </tr>
+       </table>
+    </td>
+ </tr>
+  <!-- footer end -->
+</table>
+</div>
+</body>
+</html>				 
+<!--{{template config_path="design/email/footer_template"}} -->
