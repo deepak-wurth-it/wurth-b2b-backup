@@ -6,7 +6,7 @@ require(
 function ($, mobilemenu) {
           "use strict";          
           // js start for mobilemenu.phtml
-          console.log('mobile menu js loading');
+         // console.log('mobile menu js loading');
           $(document).on("click",".mob-tabs", function(evt){
             let cityName = $(this).attr("data-cityname");
             var i, tabcontent, tablinks;
