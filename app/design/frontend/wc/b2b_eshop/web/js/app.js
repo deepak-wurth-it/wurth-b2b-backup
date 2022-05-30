@@ -44,4 +44,20 @@ require(
                 }
             });
 
+            $('.qty-default').keyup(function (e) {
+                var value = $(this).val();
+                 if (value <= 1 ) {
+                    this.value = this.value.replace(value, '1');
+                }
+            });
+            $('.input-text.qty').keyup(function (e) {
+                if($(this).hasClass('cart-item-qty-box')){
+                    return;
+                }
+                var value = $(this).val();
+                 if (value <= 1 ) {
+                    this.value = this.value.replace(value, '1');
+                }
+            });
+
     });

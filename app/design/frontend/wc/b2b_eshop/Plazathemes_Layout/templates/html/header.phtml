@@ -27,31 +27,26 @@
 					</div>
 					
 					<div class="minicart-wrap">
-						<div class="absolute" data-bind="scope: 'customer'">
+						<div class="absolute">
 							
-							<div class="link-hover" >
-								<p class="icon"></p> <span class="accountTitle">
-									<!-- ko if: customer().firstname  -->
-									<!-- ko i18n: 'Moj Wurth' --><!-- /ko --> 
-									<!-- /ko --> 
-									 <!-- ko ifnot: customer().firstname  --> 
-									 <a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <!-- ko i18n: 'Login / Registration' --><!-- /ko --></a> 
-									 <!-- /ko -->  
-									</span>
-								<!-- ko if: customer().firstname  -->
-									<div class="account-wraper">								 
-										<div class="my-acount">	
-											<div class="label welcome"> 
-												<strong>
-													<span class="logged-in" data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1', '%1')) ?>').replace('%1', customer().firstname)">
-													</span> 
-												</strong>
-											</div>									
-										<div class="label"> <span><a href="<?php echo $block->getUrl("customer/account"); ?>"><!-- ko i18n: 'My acoount' --><!-- /ko --></a></span></div>
-										<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"><!-- ko i18n: 'Sign out' --><!-- /ko --></a></span></div>										
-										</div>
-									</div>
-								<!-- /ko -->
+							<div class="link-hover" data-bind="scope: 'customer'" >
+								<p class="icon"></p> <span class="accountTitle"><!-- ko if: customer().firstname  --> <span data-bind="text: new String('Moj Wurth')"></span> <!-- /ko -->  <!-- ko ifnot: customer().firstname  --> <a href="<?php echo $block->getUrl("customer/account/login"); ?>"> <span data-bind="text: new String('Login / Registration')"></span></a> <!-- /ko -->  </span>
+		                    <!-- ko if: customer().firstname  -->
+								<div class="account-wraper"> 
+								 
+									<div class="my-acount">	
+										<div class="label welcome"> 
+											<strong>
+												<span class="logged-in" data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1', '%1')) ?>').replace('%1', customer().firstname)">
+												</span> 
+											</strong>
+										</div>									
+									<div class="label"> <span><a href="<?php echo $block->getUrl("customer/account"); ?>"><span data-bind="text: new String('My acoount')"></span></a></span></div>
+									<div class="label"><span><a href="<?php echo $block->getUrl('customer/account/logout'); ?>"> <span data-bind="text: new String('Sign out')"></span></a></span></div>										
+									</div>							
+									
+								</div>
+								 <!-- /ko -->
 							</div>
 							<?php echo $this->getChildHtml("minicart");?>
 						</div>
