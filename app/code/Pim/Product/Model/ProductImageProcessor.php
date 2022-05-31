@@ -72,6 +72,12 @@ class ProductImageProcessor
         if ($productCollection->getSize() && $productCollection->count()) {
             $i = 0;
             foreach ($productCollection as $product) {
+                // if (!$product->getExtensionAttributes()) {
+                //     $productExtension = $this->productExtensionFactory->create();
+                //     $product->setExtensionAttributes($productExtension);
+                // }
+                $pimPictureId = "";
+                $product->getExtensionAttributes()->setPimPictureId($pimPictureId);
                 $time_start = microtime(true); 
                 $sku = $product->getSku();
                 $productImagesFactoryObject = $this->productImagesFactory->create();
@@ -83,6 +89,11 @@ class ProductImageProcessor
                         
                         try {
                             $imageUrl = $images->getData('Path');
+
+                            $pimPictureId = $images->getData('PictureId');
+                            $product->getExtensionAttributes()->setPimPictureId($pimPictureId);
+
+
                             if ($imageUrl) {
 
                             $this->importImageService->execute($product, $imageUrl, $visible = false, $imageType = ['small_image','image']);
@@ -94,7 +105,7 @@ class ProductImageProcessor
                             $id = $images->getId();
                             //print_r($images->getData());
                             //echo $id;
-                            $this->productImagesResource->updateByQuery($id);
+                            //$this->productImagesResource->updateByQuery($id);
                         } catch (\Exception $e) {
                             $this->logger->info(print_r($e->getMessage(), true));
                         }
@@ -110,7 +121,7 @@ class ProductImageProcessor
                         echo $log;
                     }
                 }
-          
+                
                if ($i == 500) {
                     $i=0;
 		    $this->reindexByKey($indexLists);
