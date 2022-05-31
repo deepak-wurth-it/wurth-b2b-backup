@@ -24,6 +24,10 @@ define([
             $(document).on('click','.increaseQty, .decreaseQty',function(){
                 let inputElem = $(this).parents('td').find('input');
                 let currentQty = inputElem.val();
+                if (currentQty < 1 ) {
+                    inputElem.val(1);
+                    return;
+                }
                 let qty = currentQty;
                 let item_id = $(this).attr("data-item-id");
                 if ($(this).hasClass('increaseQty')) {
@@ -40,6 +44,10 @@ define([
             });
             $(document).on('keyup','.cart-item-qty-box',function(){
                 let qty = $(this).val();
+                if (qty < 1 ) {
+                    $(this).val(1);
+                    return;
+                }
                 let item_id = $(this).attr("data-item-id");
                 if(qty && qty != "0" && item_id){
                     self.updateQty(item_id, qty)

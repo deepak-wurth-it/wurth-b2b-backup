@@ -98,6 +98,7 @@ class AddRemoveShippingProduct extends AbstractHelper
      * Update shipping product
      *
      * @param string $quote
+     * @param string $api
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
@@ -194,13 +195,21 @@ class AddRemoveShippingProduct extends AbstractHelper
                     'product' => $product->getId(),
                     'qty' => 1
                 ];
-                $this->cart->addProduct($product, $params);
-                $this->cart->save();
-                $this->cart->getQuote()->setTriggerRecollect(1);
-                $this->cart->getQuote()->collectTotals()->save();
+                $request = new \Magento\Framework\DataObject();
+                $request->setData($params);
+                if ($api=='') {
+                    $this->cart->addProduct($product, $params);
+                    $this->cart->save();
+                    $this->cart->getQuote()->setTriggerRecollect(1);
+                    $this->cart->getQuote()->collectTotals()->save();
+                    // update total
+                    $quoteObject = $this->cartRepositoryInterface->get($this->cart->getQuote()->getId());
+                } else {
+                    // update total
+                    $quoteObject = $this->cartRepositoryInterface->get($quote->getId());
+                    $quoteObject->addProduct($product, $request);
+                }
 
-                // update total
-                $quoteObject = $this->cartRepositoryInterface->get($this->cart->getQuote()->getId());
                 $quoteObject->setTriggerRecollect(1);
                 $quoteObject->setIsActive(true);
                 $quoteObject->collectTotals()->save();
@@ -214,6 +223,8 @@ class AddRemoveShippingProduct extends AbstractHelper
      * Remove shipping product
      *
      * @param $items
+     * @param string $quote
+     * @param string $api
      * @throws Exception
      */
     public function removeShippingProduct($items, $quote = '', $api = '')
@@ -221,13 +232,18 @@ class AddRemoveShippingProduct extends AbstractHelper
         try {
             foreach ($items as $item) {
                 if ($item->getSku() === $this->helperData->getShippingProductCode()) {
-                    $this->cart->removeItem($item->getId());
-                    $this->cart->save();
-                    $this->cart->getQuote()->setTriggerRecollect(1);
-                    $this->cart->getQuote()->collectTotals()->save();
+                    if ($api=='') {
+                        $this->cart->removeItem($item->getId());
+                        $this->cart->save();
+                        $this->cart->getQuote()->setTriggerRecollect(1);
+                        $this->cart->getQuote()->collectTotals()->save();
 
-                    // update total
-                    $quoteObject = $this->cartRepositoryInterface->get($this->cart->getQuote()->getId());
+                        // update total
+                        $quoteObject = $this->cartRepositoryInterface->get($this->cart->getQuote()->getId());
+                    } else {
+                        $quoteObject = $this->cartRepositoryInterface->get($quote->getId());
+                        $quoteObject->deleteItem($item);
+                    }
                     $quoteObject->setTriggerRecollect(1);
                     $quoteObject->setIsActive(true);
                     $quoteObject->collectTotals()->save();
