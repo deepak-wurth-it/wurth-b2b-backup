@@ -1,22 +1,70 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-?>
-<?php
-/**
  * Shopping cart totals template
- * @var $block \Magento\Checkout\Block\Cart\Totals
+ * @var $block Totals
  */
+
+use Magento\Checkout\Block\Cart\Totals;
+
 ?>
+<?php $logedIn = $this->helper("Wcb\Component\Helper\Data")->isLoggedIn(); ?>
 <div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
-    <!-- ko template: getTemplate() --><!-- /ko -->
-    <script type="text/x-magento-init">
+    <?php if ($logedIn) { ?>
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
             {
                 "#cart-totals": {
-                    "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+                    "Magento_Ui/js/core/app": <?= /* @noEscape */
+            $block->getJsLayout() ?>
                 }
             }
-    </script>
+        </script>
+    <?php } else { ?>
+        <div class="table-wrapper">
+            <table class="data table totals">
+                <caption class="table-caption"><?= __("Total") ?></caption>
+                <tbody>
+                <tr class="totals sub">
+                    <th class="mark"><?= __("Total HRK without VAT:") ?></th>
+                    <td class="amount">
+                        <span class="price">-</span>
+                    </td>
+                </tr>
+                <tr class="totals-tax">
+                    <th class="mark" colspan="1" scope="row"><?= __("VAT:") ?></th>
+                    <td class="amount">
+                        <span class="price">-</span>
+                    </td>
+                </tr>
+                <tr class="grand totals">
+                    <th class="mark" scope="row">
+                        <strong><?= ("Total HRK with VAT:") ?></strong>
+                    </th>
+                    <td class="amount">
+                        <strong>
+                            <span class="price">-</span>
+                        </strong>
+                    </td>
+                </tr>
+                <tr class="grand totals wcb-grand">
+                    <td colspan="2">
+                        <span class="cart-notice">
+                            <?= __("For all orders 300 HRK (excluding VAT) we charge delivery in the amount of 20 HRK + VAT") ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="grand totals wcb-grand-total">
+                    <th class="mark" scope="row">
+                        <strong><?= __("Total") ?></strong>
+                    </th>
+                    <td class="amount">
+                        <strong>
+                            <span class="price">-</span>
+                        </strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <?php } ?>
 </div>
