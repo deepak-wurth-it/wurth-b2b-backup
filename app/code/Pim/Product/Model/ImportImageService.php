@@ -73,7 +73,7 @@ class ImportImageService
      */
     protected function getMediaDirTmpDir()
     {
-        return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'tmp';
+        return $this->directoryList->getPath(DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'tmp'. DIRECTORY_SEPARATOR;
     }
 }
 
