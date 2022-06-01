@@ -122,8 +122,9 @@ class Data extends AbstractHelper
     public function getStockApiResponse()
     {
         //$responseData = "[{\"ItemNo\":\"039 58\",\"AvailableQuantity\":\"1000\",\"AvailabilityStatus\":\"1\",\"AvailableonDate\":\"01.06.2022.\"},{\"ItemNo\":\"039 410\",\"AvailableQuantity\":\"500\",\"AvailabilityStatus\":\"3\",\"AvailableonDate\":\"05.06.2022.\"},{\"ItemNo\":\"039 68\",\"AvailableQuantity\":\"0\",\"AvailabilityStatus\":\"3\",\"AvailableonDate\":\"08.04.2022.\"}]";
+        $responseData = '[{"ItemNo":"ZRK35080","AvailableQuantity":"0","AvailabilityStatus":"3","AvailableonDate":"28.09.2022."},{"ItemNo":"F350X80RK","AvailableQuantity":"149","AvailabilityStatus":"1","AvailableonDate":"01.06.2022."},{"ItemNo":"700 11301","AvailableQuantity":"0","AvailabilityStatus":"3","AvailableonDate":"08.06.2022."},{"ItemNo":"702 5432","AvailableQuantity":"5","AvailabilityStatus":"1","AvailableonDate":"01.06.2022."},{"ItemNo":"189 03525","AvailableQuantity":"60190","AvailabilityStatus":"1","AvailableonDate":"01.06.2022."},{"ItemNo":"701 405000","AvailableQuantity":"85","AvailabilityStatus":"1","AvailableonDate":"01.06.2022."},{"ItemNo":"250","AvailableQuantity":"60,75","AvailabilityStatus":"1","AvailableonDate":"01.06.2022."}]';
         $skus = $this->getItemSkus();
-        $responseData = $this->multiPriceAndStock->getMultiStockAndPriceData($skus, 'stock');
+        //$responseData = $this->multiPriceAndStock->getMultiStockAndPriceData($skus, 'stock');
 
         if ($responseData && !empty($responseData)) {
             $responseItems = json_decode($responseData, true);
@@ -138,9 +139,9 @@ class Data extends AbstractHelper
         return [];
     }
 
-    public function getItemSkus()
+    public function getItemSkus($quotes='')
     {
-        $quote = $this->checkoutSession->getQuote();
+        $quote = ($quotes)? $quotes :$this->checkoutSession->getQuote();
         $items = $quote->getAllVisibleItems();
         $returnData = [];
         $returnData['skus'][] = [
@@ -197,14 +198,14 @@ class Data extends AbstractHelper
         return $returnData;
     }
 
-    public function getPriceApiData($productCode)
+    public function getPriceApiData($productCode,$quote='')
     {
         $priceData = $this->registry->registry('price_data');
 
         if ($priceData) {
             $priceApiResponse = $priceData;
         } else {
-            $priceApiResponse = $this->getPriceApiResponse();
+            $priceApiResponse = $this->getPriceApiResponse($quote);
             $this->registry->unregister('price_data');
             $this->registry->register('price_data', $priceApiResponse);
         }
@@ -212,11 +213,13 @@ class Data extends AbstractHelper
         return $this->getPriceAndDiscount($priceApiResponse, $productCode);
     }
 
-    public function getPriceApiResponse()
+    public function getPriceApiResponse($quote)
     {
         //$responsePriceData = '[{"ItemNo":"039 410","Quantity":"0","SuggestedPrice":"25","SuggestedDiscount":"0","SuggestedPriceInclDiscount":"19","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"25","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"039 58","Quantity":"0","SuggestedPrice":"20","SuggestedDiscount":"24","SuggestedPriceInclDiscount":"15,2","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"20","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"039 68","Quantity":"0","SuggestedPrice":"25","SuggestedDiscount":"24","SuggestedPriceInclDiscount":"19","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"25","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"040 3516","Quantity":"0","SuggestedPrice":"20,06","SuggestedDiscount":"24","SuggestedPriceInclDiscount":"15,25","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"20,06","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""}]';
-        $skus = $this->getItemSkus();
-        $responsePriceData = $this->multiPriceAndStock->getMultiStockAndPriceData($skus, 'price');
+        $responsePriceData = '[{"ItemNo":"ZRK35080","Quantity":"0","SuggestedPrice":"111,49","SuggestedDiscount":"0","SuggestedPriceInclDiscount":"111,49","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"111,49","RegularDiscount":"0","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"F350X80RK","Quantity":"0","SuggestedPrice":"130,77","SuggestedDiscount":"0","SuggestedPriceInclDiscount":"130,77","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"130,77","RegularDiscount":"0","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"700 11301","Quantity":"0","SuggestedPrice":"1546,88","SuggestedDiscount":"12","SuggestedPriceInclDiscount":"1361,25","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"1546,88","RegularDiscount":"12","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"702 5432","Quantity":"0","SuggestedPrice":"4508,4","SuggestedDiscount":"12","SuggestedPriceInclDiscount":"3967,39","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"4508,4","RegularDiscount":"12","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"189 03525","Quantity":"0","SuggestedPrice":"8,77","SuggestedDiscount":"24","SuggestedPriceInclDiscount":"6,67","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"8,77","RegularDiscount":"24","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"701 405000","Quantity":"0","SuggestedPrice":"2336,57","SuggestedDiscount":"12","SuggestedPriceInclDiscount":"2056,18","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"2336,57","RegularDiscount":"12","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""},{"ItemNo":"250","Quantity":"0","SuggestedPrice":"20","SuggestedDiscount":"0","SuggestedPriceInclDiscount":"20","SuggestedPriceType":"Regular","RegularSalesPriceLCY":"20","RegularDiscount":"0","TASalesPriceLCY":"0","TADiscount":"0","CampaignSalesPriceLCY":"0","OVSSalesPriceLCY":"0","OVSDiscount":"0","Note":""}]';
+
+        $skus = $this->getItemSkus($quote);
+       // $responsePriceData = $this->multiPriceAndStock->getMultiStockAndPriceData($skus, 'price');
         if ($responsePriceData) {
             $responsePriceItems = json_decode($responsePriceData, true);
             $newResponseData = [];
