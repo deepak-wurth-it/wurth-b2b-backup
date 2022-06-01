@@ -4,11 +4,15 @@
  * See COPYING.txt for license details.
  */
 -->
-<div class="opc-block-summary" data-bind="blockLoader: isLoading">
-    <div class="wcb-summary-title">
-        <span data-bind="i18n: 'Order Summary'" class="title"></span>
-    </div>
+<!-- ko if: isDisplayed() -->
+<div class="wcb-table">
+<table class="data table table-totals">
+    <caption class="table-caption" data-bind="i18n: 'Order Summary'"></caption>
+    <tbody>
     <!-- ko foreach: elems() -->
         <!-- ko template: getTemplate() --><!-- /ko -->
     <!-- /ko -->
+    </tbody>
+</table>
 </div>
+<!-- /ko -->
