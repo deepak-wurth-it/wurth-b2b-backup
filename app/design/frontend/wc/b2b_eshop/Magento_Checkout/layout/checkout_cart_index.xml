@@ -37,12 +37,13 @@
             </block>
         </referenceContainer>
        <referenceContainer name="checkout.cart.noitems">
-           <container name="checkout.cart.no.item.container" htmlTag="div" htmlClass="cart-container">
+           <container name="checkout.cart.no.item.container" htmlTag="div" htmlClass="cart-container row">
                <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">
                    <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
                </block>
            </container>
        </referenceContainer>
+        <referenceContainer name="checkout.cart.container" htmlClass="cart-container row" />
        <referenceContainer name="cart.summary" htmlClass="cart-summary col-md-6" />
        <referenceBlock name="checkout.cart.totals">
            <arguments>
