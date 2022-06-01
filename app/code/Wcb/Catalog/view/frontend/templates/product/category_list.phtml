@@ -3,18 +3,14 @@
     * Copyright © 2016 Magento. All rights reserved.
     * See COPYING.txt for license details.
     */
-   
    use Magento\Framework\App\Action\Action;
-   
    // @codingStandardsIgnoreFile
-   
    ?>
-
 <?php
    /** @var \Magento\Catalog\Helper\Output $_helper */
-   $_helper = $_outputHelper = $block->getData('outputHelper');   
-  // $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();   
-   
+   $_helper = $_outputHelper = $block->getData('outputHelper');
+  // $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
+
    ?>
 <!-- For Category -->
 <?php $level = $block->getLayer()->getCurrentCategory()->getLevel(); ?>
@@ -24,7 +20,7 @@
 <?php $currentCat = $block->getLayer()->getCurrentCategory(); ?>
 <?php $subcategories = []; ?>
 <?php $subcategories = $block->getCategoryChildrenData($catId);
- 
+
    ?>
 <!-- End For Category -->
 <!-- For Product -->
@@ -61,7 +57,7 @@
                </span>
                </a>
                <?php endif; ?>
-            <div class="product details product-item-details images">                
+            <div class="product details product-item-details images">
                <strong class="product name product-item-name PlpItemName">
                <a class="product-item-link"
                   href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>

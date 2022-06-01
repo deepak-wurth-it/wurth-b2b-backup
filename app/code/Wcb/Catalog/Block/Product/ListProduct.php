@@ -19,7 +19,7 @@ use Magento\Eav\Model\Entity\Collection\AbstractCollection;
 use Magento\Framework\Data\Helper\PostHelper;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface as LocaleDate;
 use Magento\Framework\Url\Helper\Data;
-
+use Wcb\Base\Helper\Data as WcbHelper;
 /**
  * Product list
  * @api
@@ -66,6 +66,10 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
 
     const XML_PATH_PRODUCT_PER_PAGE_ON_GRID = 'catalog/frontend/grid_per_page_values';
     const XML_PATH_PRODUCT_PER_PAGE_ON_GRID_DEFAULT_VALUE = 'catalog/frontend/grid_per_page';
+    /**
+     * @var WcbHelper
+     */
+    private $_wcbHelper;
 
     /**
      * @param Context $context
@@ -85,6 +89,7 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Catalog\Model\CategoryFactory $categoryModelFactory,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        WcbHelper $wcbHelper,
         array $data = []
     ) {
         $this->_catalogLayer = $layerResolver->get();
@@ -96,7 +101,7 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
         $this->_priceHelper = $priceHelper;
         $this->categoryModelFactory = $categoryModelFactory;
         $this->scopeConfig = $scopeConfig;
-
+        $this->_wcbHelper = $wcbHelper;
         parent::__construct(
             $context,
             $postDataHelper,
@@ -105,6 +110,7 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
             $urlHelper,
             $data
         );
+
     }
 
     public function getCategoryChildrenData($id = null)
@@ -176,6 +182,10 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
         // }
         // exit;
         return $extraRow;
+    }
+
+    public function getPlaceHolderImageUrl(){
+        return $this->_wcbHelper->getPlaceHolderUrl();
     }
 
 }
