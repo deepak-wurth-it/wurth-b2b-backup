@@ -15,8 +15,6 @@ use Magento\Framework\App\Action\Action;
 $_helper = $_outputHelper = $block->getData('outputHelper');
 
 $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
-
-
 ?>
 <!-- For Category -->
 <?php $level = $block->getLayer()->getCurrentCategory()->getLevel(); ?>
@@ -33,17 +31,17 @@ $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
 <?php
 $viewMode = 'grid';
 $kk = "912 814185";
-$pid= [];
+$pid = [];
 $extraRow = "";
 $imageDisplayArea = 'category_page_grid';
 $showDescription = false;
 $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
 $pos = $block->getPositioned();
-$product=false;
+$product = false;
 ?>
 <!-- <div data-mage-init='{"plp":{}}' ></div> -->
 <!-- End For Product -->
-<?php if( $level == 5 ) { ?>
+<?php if ($level == 5) { ?>
     <?= $block->getToolbarHtml() ?>
     <?= $block->getAdditionalHtml() ?>
 
@@ -52,25 +50,27 @@ $product=false;
             <?php foreach ($subcategories as $subcategory): ?>
                 <?php $productCount = $subcategory->getProductCollection()->getSize(); ?>
                 <?php $subcategory = $block->getCategoryData($subcategory->getId()); ?>
-                <?php //$subcategory->hasChildren() ?>
+                <?php //$subcategory->hasChildren()?>
                 <?php if ($productCount > 1): ?>
                     <li class="item product product-item">
                         <div class="product-item-info">
                             <?php if ($_imgUrl = $subcategory->getImageUrl()): ?>
                                 <a href="<?= $subcategory->getUrl() ?>" class="product photo product-item-photo">
-            <span class="product-image-container">
-            <?php $_imgHtml = '<img src="' . $_imgUrl . '" />'; ?>
-            <?php echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image'); ?>
-            </span>
+                                    <span class="product-image-container">
+                                    <?php $_imgHtml = '<img src="' . $_imgUrl . '" />'; ?>
+                                    <?php echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image'); ?>
+                                    </span>
                                 </a>
-                            <?php endif; ?>
+                            <?php else:
+                                echo  $_imgHtml = '<img src="' . $block->getPlaceHolderImageUrl() . '" />';
+                            endif; ?>
                             <div class="product details product-item-details">
-                                <a href="<?= $subcategory->getUrl() ?>" class="product photo product-item-photo">
-            <span class="product-image-container">
-            <?php $_imgHtml = '<img src="' . $_imgUrl . '" />'; ?>
-            <?php echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image'); ?>
-            </span>
-                                </a>
+                               <!-- <a href="<?php //$subcategory->getUrl() ?>" class="product photo product-item-photo"> -->
+                                    <!--            <span class="product-image-container">-->
+                                    <!--            --><?php //$_imgHtml = '<img src="' . $_imgUrl . '" />';?>
+                                    <!--            --><?php //echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image');?>
+                                    <!--            </span>-->
+<!--                                </a>-->
                                 <strong class="product name product-item-name PlpItemName">
                                     <a class="product-item-link"
                                        href="<?= $subcategory->getUrl() ?>"><?= $subcategory->getName() ?></a>
@@ -83,45 +83,49 @@ $product=false;
                                     </p>
                                     <p class="view-stock"><a href="#" class="view-stock"><?php echo __("Please select single product to
                                             view stock"); ?> </a></p>
-                                            </span>
-                                    <span class="wcb-not-logged">  
+                                    </span>
+                                    <span class="wcb-not-logged">
                                       <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
                                     </span>
                                     <p class="variation-box"><label><?php echo $productCount; ?>
                                             variations </label>
                                     </p>
-                                    <p class="variation-buttom"><label><a href="<?= $subcategory->getUrl() ?>"> <?php echo  __("Show variations"); ?> </a></label></p>
+                                    <p class="variation-buttom"><label><a
+                                                href="<?= $subcategory->getUrl() ?>"> <?php echo __("Show variations"); ?> </a></label>
+                                    </p>
                                 <?php } ?>
                                 <?php if ($level > 4 && $productCount == 1) { ?>
                                     <p class="quantity-available">Quantity available immediately: 90</p>
                                     <p class="price-box"><span class="price">1,816.17 HRK</span></p>
                                     <p class="variation-box"><label> -120 + 100 pc</label></p>
                                     <p class="variation-buttom"><label> Dodaju Kosaricu</label></p>
-                                    <p>Count <?php echo $subcategory->getProductCollection()->getSize();; ?></p>
+                                    <p>Count <?php echo $subcategory->getProductCollection()->getSize(); ?></p>
                                 <?php } ?>
                             </div>
                         </div>
                     </li>
                 <?php endif; ?>
-                <?php if (!$subcategory->hasChildren() &&  $productCount == 1): ?>
+                <?php if (!$subcategory->hasChildren() && $productCount == 1): ?>
                     <?php
 
-                       $products = $subcategory->getProductCollection()->addAttributeToSelect('*');
+                    $products = $subcategory->getProductCollection()->addAttributeToSelect('*');
 
                     ?>
                     <?php foreach ($products as $_product): ?>
 
 
-                        <?php  $ProductCode = $_product->getProductCode(); ?>
+                        <?php $ProductCode = $_product->getProductCode(); ?>
 
                         <?php $product = true; ?>
                         <li class="item product product-item">
                             <div class="product-item-info"
-                                 id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
-                                 data-container="product-<?= /* @noEscape */ $viewMode ?>">
-                                <?php if($ProductCode){ ?>
-                                <?php $pid[ $_product->getSku()][] = $ProductCode; ?>
-                                <?php $pid[ $_product->getSku()][] = '1'; ?>
+                                 id="product-item-info_<?= /* @noEscape */
+                                 $_product->getId() ?>"
+                                 data-container="product-<?= /* @noEscape */
+                                 $viewMode ?>">
+                                <?php if ($ProductCode) { ?>
+                                    <?php $pid[$_product->getSku()][] = $ProductCode; ?>
+                                    <?php $pid[$_product->getSku()][] = '1'; ?>
                                 <?php } ?>
 
                                 <?php
@@ -133,7 +137,7 @@ $product=false;
 
                                 ?>
                                 <?php // Product Image
-                                $product = $objectmanager ->create('Magento\Catalog\Model\Product')->load($_product->getId());
+                                $product = $objectmanager->create('Magento\Catalog\Model\Product')->load($_product->getId());
                                 $abstractProductBlock = $block->getLayout()->createBlock('\Magento\Catalog\Block\Product\AbstractProduct');
                                 $productimages = $product->getMediaGalleryImages();
 
@@ -142,9 +146,8 @@ $product=false;
                                    class="product photo product-item-photo"
                                    tabindex="-1">
                                     <?php
-                                    foreach($productimages as $productimage)
-                                    {
-                                        echo "<img src = ".$productimage['url']. " />";
+                                    foreach ($productimages as $productimage) {
+                                        echo "<img src = " . $productimage['url'] . " />";
                                         break;
                                     } ?>
                                 </a>
@@ -156,42 +159,46 @@ $product=false;
                                             <?php echo $product->getName(); ?>
                                         </a>
                                     </strong>
-                                        <span class="wcb-logged"> 
+                                    <span class="wcb-logged">
                                     <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
 
-                                    <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;" class="price-box">
+                                    <div id="price_soap<?php echo $ProductCode; ?>" style="display:none;"
+                                         class="price-box">
                                             <!-- <span>Price:&nbsp;</span>
                                             <span class="price" id="suggestedPriceAsTxtP<?php echo $ProductCode; ?>"></span>
                                             <span class="price" >-</span>
                                             <span class="price" id="suggestedDiscountAsTxtP<?php echo $ProductCode; ?>"></span>
                                             <span class="price" >%</span>
                                             <span class="price" >&nbsp;=&nbsp;</span>-->
-                                            <span class="price" id="suggestedSalesPriceInclDiscAsTxtP<?php echo $ProductCode; ?>"></span>
-                                            <span class="price" >&nbsp;HRK&nbsp;</span>
+                                            <span class="price"
+                                                  id="suggestedSalesPriceInclDiscAsTxtP<?php echo $ProductCode; ?>"></span>
+                                            <span class="price">&nbsp;HRK&nbsp;</span>
                                             <span class="wcb-contaner-group">
                                                 <div class="tooltip box redBox">
-                                                    <span class="tooltiptext">The item is not available immediately</span>
+                                                    <span
+                                                        class="tooltiptext">The item is not available immediately</span>
                                                 </div>
                                                 <div class="tooltip van redVan">
                                                     <span class="tooltiptext">The quantity will be available for the displayed number of days</span>
                                                 </div>
                                                 <span class="delivery-time">12 -14</span>
                                             </span>
-                                            
+
 
                                     </div>
 
-                                    <div><span id="price_loader<?php echo $ProductCode; ?>" class="priceDisplay"><img src="<?=$block->getViewFileUrl('images/loader-h2.gif');?>"/></span></div>
+                                    <div><span id="price_loader<?php echo $ProductCode; ?>" class="priceDisplay"><img
+                                                src="<?= $block->getViewFileUrl('images/loader-h2.gif'); ?>"/></span></div>
 
                                     <span class="stock" id="stock_<?php echo $ProductCode; ?>"> </span>
                                     </span>
-                                    <span class="wcb-not-logged"> 
+                                    <span class="wcb-not-logged">
                                         <span class="view-price"> <?php echo __("Login to view price"); ?> </span>
                                     </span>
                                     <div class="product-item-inner">
                                         <div class="product actions product-item-actions">
                                             <div class="actions-primary">
-                                                <?php if ($_product->isSaleable()):?>
+                                                <?php if ($_product->isSaleable()): ?>
                                                     <?php $postParams = $block->getAddToCartPostParams($_product); ?>
                                                     <form data-role="tocart-form"
                                                           data-product-sku="<?= $escaper->escapeHtml($_product->getSku()) ?>"
@@ -199,11 +206,14 @@ $product=false;
                                                           method="post">
                                                         <input type="hidden"
                                                                name="product"
-                                                               value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                                               value="<?= /* @noEscape */
+                                                               $postParams['data']['product'] ?>">
                                                         <input type="hidden"
-                                                               name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                               name="<?= /* @noEscape */
+                                                               Action::PARAM_NAME_URL_ENCODED ?>"
                                                                value="<?=
-                                                               /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
+                                                               /* @noEscape */
+                                                               $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
                                                                ?>">
                                                         <?= $block->getBlockHtml('formkey') ?>
                                                         <!--  --------------- -->
@@ -211,14 +221,19 @@ $product=false;
                                                             <div class="fieldset productFieldset">
                                                                 <div class="field qty">
                                                                     <!-- <label class="label" for="qty"><span><?php /* @escapeNotVerified */
-                                                                    //echo __('Qty') ?></span></label> -->
+                                                                    //echo __('Qty')?></span></label> -->
                                                                     <div class="control-qty-cart">
-                                                                        <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
-                                                                        <input type="number" name="qty" id="qty" maxlength="12" value="1" title="<?php /* @escapeNotVerified */
-                                                                        echo __('Qty') ?>" class="qty-default input-text qty"
+                                                                        <span
+                                                                            class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                                                        <input type="number" name="qty" id="qty"
+                                                                               maxlength="12" value="1"
+                                                                               title="<?php /* @escapeNotVerified */
+                                                                               echo __('Qty') ?>"
+                                                                               class="qty-default input-text qty"
                                                                                data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
                                                                         />
-                                                                        <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                                                                        <span
+                                                                            class="quantity-controls quantity-plus icon-interface-plus"></span>
 
                                                                     </div>
 
@@ -235,25 +250,25 @@ $product=false;
                                                         </div>
                                                         <!--  --------------- -->
                                                         <div class="product-actions">
-                                                <button type="submit"
-                                                        title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
-                                                        class="action tocart primary variation-buttom"
-                                                        disabled>
-                                                    <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
-                                                </button>
-                                                <div data-role="add-to-links" class="actions-secondary">
-                                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
-                                                        <?php echo $addToBlock->setProduct($_product)->getChildHtml() ?>
-                                                    <?php endif; ?>
-                                                </div>
-                                            </div>
-                                          </form>
-                                                <?php else:?>
-                                                    <?php if ($_product->isAvailable()):?>
+                                                            <button type="submit"
+                                                                    title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                    class="action tocart primary variation-buttom"
+                                                                    disabled>
+                                                                <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                                            </button>
+                                                            <div data-role="add-to-links" class="actions-secondary">
+                                                                <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                                                    <?php echo $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                <?php else: ?>
+                                                    <?php if ($_product->isAvailable()): ?>
                                                         <div class="stock available">
                                                             <span><?= $escaper->escapeHtml(__('In stock')) ?></span>
                                                         </div>
-                                                    <?php else:?>
+                                                    <?php else: ?>
                                                         <div class="stock unavailable">
                                                             <span><?= $escaper->escapeHtml(__('Out of stock')) ?></span>
                                                         </div>
@@ -282,15 +297,16 @@ $product=false;
 
        }
    }
-</script>
-<?php $pid_json = json_encode($pid) ?>
-<?php //echo $pid_json ?>
-    <script>
-        require(['plp'], function(pdp) {
-            pdp.GetMultiProductPrice('<?php echo $pid_json ?>');
-            pdp.GetMultiProductStock('<?php echo $pid_json ?>');
-        });
-    </script>
+
+        </script>
+        <?php $pid_json = json_encode($pid) ?>
+        <?php //echo $pid_json?>
+        <script>
+            require(['plp'], function (pdp) {
+                pdp.GetMultiProductPrice('<?php echo $pid_json ?>');
+                pdp.GetMultiProductStock('<?php echo $pid_json ?>');
+            });
+        </script>
     <?php endif; ?>
     <script type="text/javascript">
         require([

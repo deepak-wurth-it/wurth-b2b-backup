@@ -1875,6 +1875,32 @@ label.sorter-label {
 	}
 }
 
+	// One page shipping start
+	.checkout-index-index{
+		.opc-sidebar{
+			margin:0px;
+		}
+		.opc-block-summary {
+			background: #ffffff;
+			padding-left: 30px;
+			padding-top: 0px;
+		}
+		.wcb-summary-title {
+            font-family: 'wuerthbold';			
+			font-size: 20px;
+			background: #ECECEC;
+			padding: 20px 20px 0px 20px;
+		}
+		.wcb-table {
+			background: #ECECEC;
+			padding: 20px;
+		}	
+		tr.grand.totals {
+			color: #CC0000;
+		}	
+	}
+	// One Page Shipping end
+
 // Registration Sucess page start by Amit
 .register-success {
     text-align: center;
@@ -1890,6 +1916,23 @@ label.sorter-label {
 	}
 }
 // Registration Sucess page end by Amit
+
+	// checkout sucess page start
+		.checkout-onepage-success{
+			.checkout-success {
+				text-align: center;
+			}
+			a.action.primary.continue {
+				background: #0093DD;
+				border: 1px solid #0093DD;
+				color: #fff;
+				font-family: 'wuerthbold';
+			}
+			.wcb-sucess-icon {
+				margin-bottom: 20px;
+			}
+		}
+	// checkout sucess page end
 
 // Tracking order Page start by Amit
 .tracking-order{
@@ -2179,10 +2222,21 @@ table.ReqListTable
 
 // Quick order on Cart page start 
 	.checkout-cart-index {
-		.cart-container {
-			margin: 0px 0px 40px;
-			border-bottom: 1px solid rgba(0, 0, 0, 8%);
-			padding: 0 0 20px 0px;
+		form#form-validate {
+			padding: 0 0px 15px 0;
+			margin: 0 0 40px 0;
+			border-bottom: 1px solid rgba(0, 0, 0, 12%);
+		}
+		.cart-totals .grand .mark{
+			padding-top: 10px;
+            padding-bottom: 5px;
+		}
+		.cart-summary-terms {
+			margin-top: 10px;
+			font-family: 'wuerthbook';
+		}
+		.social-block {
+			padding-left: 0px;
 		}
 		.fields.additional.deletable-item {
 			display: flex;
@@ -2343,42 +2397,42 @@ table.ReqListTable
 		color: rgba(0, 0, 0, 0.6);
 		padding: 0 0 20px 0px;
 	}
-.cart-container .block-requisition-list {
-    display: block;
-    float: right;
-    margin: -35px 45px 0px 0px;
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 12%);
-    border-radius: 4px;
-    height: 35px;
-    width: 35px;
-    padding: 0px 0px 0px 3px;
-}
-.page-title-wrapper .block {
-    display: none;
-}
-.requisition-list-action .action.toggle {
-    display: inline-block;
-    text-decoration: none;
-    font-size: 0px;
-    background: url(../images/fileicon.png) right 3px top 10px;
-    background-repeat: no-repeat;
-	cursor: pointer;
-}
-.requisition-list-action .action.toggle.active {
-    display: inline-block;
-    text-decoration: none;
-    background: url(../images/fileicon.png) right 0px top 6px;
-    background-repeat: no-repeat;
-    font-size: 0px;
-	cursor: pointer;
-}
-.block-requisition-list .requisition-list-action .action.toggle:before{
-	display:none;
-}
-.requisition-list-action .action.toggle.active:after {	
-		font-size:0px;
+	.cart-container .block-requisition-list {
+		display: block;
+		float: right;
+		margin: -90px 45px 0px 0px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 12%);
+		border-radius: 4px;
+		height: 35px;
+		width: 35px;
+		padding: 0px 0px 0px 3px;
 	}
+	.page-title-wrapper .block {
+		display: none;
+	}
+	.requisition-list-action .action.toggle {
+		display: inline-block;
+		text-decoration: none;
+		font-size: 0px;
+		background: url(../images/fileicon.png) right 3px top 10px;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	}
+	.requisition-list-action .action.toggle.active {
+		display: inline-block;
+		text-decoration: none;
+		background: url(../images/fileicon.png) right 0px top 6px;
+		background-repeat: no-repeat;
+		font-size: 0px;
+		cursor: pointer;
+	}
+	.block-requisition-list .requisition-list-action .action.toggle:before{
+		display:none;
+	}
+	.requisition-list-action .action.toggle.active:after {	
+			font-size:0px;
+		}
 	.requisition-list-action > .action.toggle {
 		padding: 5px 7px;
 	}
@@ -2394,6 +2448,8 @@ table.ReqListTable
 		border-radius: 50px;
 		font-family: 'wuerthbook';
 		color: #FFFFFF;
+		width: auto;
+        float: left;
 	}
 	button.action.primary.checkout:hover {
 		background: #0093DD;
@@ -2419,18 +2475,18 @@ table.ReqListTable
 	}
 
 	/* The container */
-.specific_qty {
-	display: block;
-	position: relative;
-	padding-left: 35px;
-	margin-bottom: 12px;
-	cursor: pointer;
-	font-size: 16px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-  }
+	.specific_qty {
+		display: block;
+		position: relative;
+		padding-left: 35px;
+		margin-bottom: 12px;
+		cursor: pointer;
+		font-size: 16px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
   
   /* Hide the browser's default checkbox */
   .specific_qty input {
@@ -7062,7 +7118,21 @@ button#top-cart-btn-checkout:hover {
 	background: #ECECEC;
 	border: 1px solid rgba(0, 0, 0, 0.08);
 }
+span.cart-notice {
+    font-family: 'wuerthbook';
+    font-size: 14px;
+}
+tr.grand.totals.wcb-grand {
+    border: 1px solid rgba(0, 0, 0, 12%);
+    border-left: none;
+    border-right: none;
+}
+tr.grand.totals.wcb-grand-total {
+    color: #CC0000;
+	border-bottom: 1px solid rgba(0, 0, 0, 12%);
+}
 .delivery-info {
+	padding-left: 0px;
 .select-delivery {
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -10225,13 +10295,15 @@ print {
 	//Request a quote end by Amit for view page
 	.delivery-info {
 		  display: block;
+		  padding-right: 0px;
+		  margin-top: 66px;
 		  .boxgroup {
 			display: block;
 			margin: 10px;
 			margin-top: 0px;
 		}
-		.col-md-6.social-block {
-           padding-right: 15px;
+		.col-md.social-block {
+           padding-right: 0px;
         }
 		.card-body {
 			display: grid;
@@ -10249,14 +10321,21 @@ print {
 			width: 100%;
 		}
 	}
+	.cart-container .block-requisition-list {
+		margin: -56px 42px 0px 0px;
+		width: 35px;
+		padding: 0 3px 0px 0px;
+	}
 	.cart-summary._sticky {
 		position: unset;
-		width: auto;
 		background: #ECECEC;
 		border: 1px solid rgba(0, 0, 0, 0.08);
-		width: 93%;
-		margin-left: 14px;
-		margin-top: 20px;
+		width: 100%;
+	}
+	.checkout-cart-index form#form-validate {
+		padding: 0 0px 50px 0;
+		border-bottom: 1px solid rgba(0, 0, 0, 12%);
+		margin: 0 0 39px 0;
 	}
 
 	.sales-order-history{
@@ -11534,12 +11613,9 @@ print {
 			margin: 0px 0px 40px;
 			border-bottom: 1px solid rgba(0, 0, 0, 12%);
 			padding: 0 0 50px 0px;
+			display:inline;
 		}
-		.cart-container .block-requisition-list {
-			margin: 0px -77px 0px 0px;
-			width: 35px;
-			padding: 0 3px 0px 0px;
-		}
+		
 		form#negotiable-quote-form {
 			margin: 0px 50px 0px 0px;
 			border: 1px solid rgba(0, 0, 0, 12%);
@@ -14652,4 +14728,28 @@ margin-top: 10px;
 		width: 350px;
 		max-width: 355px;
 	}
+
+	.checkout-cart-index {
+			form#form-validate {
+			padding: 0 0px 55px 0;
+			margin: 0 0 30px 0;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+		}
+		.cart-container {
+			margin:0px;
+			display: inline-block;
+		}
+		.delivery-info {
+			display: inline-block;
+		}
+		.cart-container .block-requisition-list {
+			margin: -86px 45px 0px 0px;
+		}
+		form#form-validate {
+			padding: 0 0px 20px 0;
+			margin: 0 0 30px 0;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+		}
+   }
+	
 }

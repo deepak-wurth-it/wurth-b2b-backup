@@ -148,7 +148,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $items = $quote->getAllVisibleItems();
         foreach ($items as $item) {
             $item = ($item->getParentItem() ? $item->getParentItem() : $item);
-            $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode());
+            $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode(),$quote);
             $price = isset($priceData['price']) ? $priceData['price'] : '';
             if (isset($priceData['discount']) && $priceData['discount'] != 0) {
                 $price = $priceData['discount_price'];
