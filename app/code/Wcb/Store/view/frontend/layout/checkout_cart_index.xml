@@ -8,24 +8,13 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <container name="delivery-info" htmlTag="section" htmlClass="delivery-info row">
-             <block class="Wcb\Store\Block\Store" name="cart_store_pickup"  template="Wcb_Store::delivery-method.phtml">
-             <!-- <arguments>
-                   <argument name="jsLayout" xsi:type="array">
-                       <item name="components" xsi:type="array">
-                           <item name="wcbstore" xsi:type="array">
-							   <item name="component" xsi:type="string">Wcb_Store/js/wcbstore</item>
-							   <item name="displayArea" xsi:type="string">wcbstore</item>
-							   <item name="config" xsi:type="array">
-                                          <item name="template" xsi:type="string">Wcb_Store/wcbstore</item>
-                               </item>
-                           </item>
-                       </item>
-                   </argument>
-               </arguments> -->
-             </block>
+            <container name="delivery-info" htmlTag="section" htmlClass="delivery-info col-md-6" >
+             <block class="Wcb\Store\Block\Store" name="cart_store_pickup"  template="Wcb_Store::delivery-method.phtml"> </block>
             </container>
          </referenceContainer>
-         <move element="cart.summary" destination="delivery-info" after="-" />
+        <!-- <move element="cart.summary" destination="delivery-info" after="-" />-->
+        <!--<move element="cart.summary" destination="checkout.cart.container" after="checkout.cart.form" /> -->
+        <move element="cart.summary" destination="checkout.cart.container" after="-" />
+        <move element="delivery-info" destination="checkout.cart.container" after="checkout.cart.form" />
     </body>
 </page>
