@@ -244,5 +244,13 @@ class Data extends AbstractHelper
         return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA). 'product_pdfs/';
     }
 
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getPlaceHolderUrl(){
+        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA).'catalog/product/placeholder/default/replacement_product.png';
+    }
+
 
 }
