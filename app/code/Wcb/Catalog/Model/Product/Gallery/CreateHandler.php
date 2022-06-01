@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Wcb\Catalog\Model\Product\Gallery;
 
 
-use Magento\Catalog\Model\Product\Gallery\CreateHandler as MageCreateHandler;
+use Magento\Catalog\Model\Product\Gallery\CreateHandler as CreateHandlerWcb;
 
 /**
  * Create handler for catalog product gallery
@@ -18,10 +18,12 @@ use Magento\Catalog\Model\Product\Gallery\CreateHandler as MageCreateHandler;
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @since 101.0.0
  */
-class CreateHandler extends MageCreateHandler
+class CreateHandler extends CreateHandlerWcb
 {
  
  
+     
+
     /**
      * Process images
      *
@@ -30,13 +32,12 @@ class CreateHandler extends MageCreateHandler
      * @return void
      * @since 101.0.0
      */
-    protected function processNewAndExistingImages($product, array &$images)
-    {
-        //Custom Code
-        $extAttributes = $product->getExtensionAttributes();
-        $pim_picture_id = $extAttributes->getPimPictureId();
+    protected function processNewAndExistingImages($product, array &$images){
 
-
+		
+		   $extAttributes = $product->getExtensionAttributes();
+           $pim_picture_id = $extAttributes->getPimPictureId();
+           
         foreach ($images as &$image) {
             if (empty($image['removed'])) {
                 $data = $this->processNewImage($product, $image);
@@ -53,7 +54,7 @@ class CreateHandler extends MageCreateHandler
                 $data['label'] = isset($image['label']) ? $image['label'] : '';
                 $data['position'] = isset($image['position']) ? (int)$image['position'] : 0;
                 $data['disabled'] = isset($image['disabled']) ? (int)$image['disabled'] : 0;
-                $data['pim_picture_id'] = $pim_picture_id ? (int) $pim_picture_id : 0;
+                $data['pim_picture_id'] = isset($pim_picture_id) ? (int)$pim_picture_id : 0;
                 $data['store_id'] = (int)$product->getStoreId();
 
                 $data[$this->metadata->getLinkField()] = (int)$product->getData($this->metadata->getLinkField());
@@ -62,6 +63,8 @@ class CreateHandler extends MageCreateHandler
             }
         }
     }
+
+    
 
     
 }
