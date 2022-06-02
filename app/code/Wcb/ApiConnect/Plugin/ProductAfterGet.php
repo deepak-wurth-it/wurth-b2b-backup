@@ -8,6 +8,7 @@ namespace Wcb\ApiConnect\Plugin;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Wcb\Base\Helper\Data as WCBHELPER;
+use Wcb\Catalog\Helper\Data as WcbCatalogHelper;
 use Wcb\Checkout\Helper\Data;
 
 class ProductAfterGet
@@ -21,22 +22,29 @@ class ProductAfterGet
      * @var WCBHELPER
      */
     private $_wcbHelper;
+    /**
+     * @var WcbCatalogHelper
+     */
+    private $_wcbCatalogHelper;
 
     /**
      * @param ProductExtensionFactory $extensionFactory
      */
     public function __construct(
         Data $helperData,
-        WCBHELPER $_wcbHelper
+        WCBHELPER $_wcbHelper,
+        WcbCatalogHelper $_wcbCatalogHelper
     ) {
         $this->_helperData = $helperData;
         $this->_wcbHelper = $_wcbHelper;
+        $this->_wcbCatalogHelper = $_wcbCatalogHelper;
     }
     public function afterGet(
         ProductRepositoryInterface $subject,
         ProductInterface $entity
     ) {
-        $pdfMediaUrl = $this->_wcbHelper->getProductPdfMediaUrl();
+        $pdfData =$this->_wcbCatalogHelper->getProductPdfByProduct($entity->getId());
+        //$pdfMediaUrl = $this->_wcbHelper->getProductPdfMediaUrl();
         $getBaseUnitOfMeasureId = $entity->getBaseUnitOfMeasureId();
         $ourCustomData = $this->_helperData->getType($entity->getBaseUnitOfMeasureId());
         $data[] = ['id'=>$getBaseUnitOfMeasureId,'value'=>$ourCustomData];
@@ -46,8 +54,7 @@ class ProductAfterGet
         $productCode = $entity->getProductCode();
         $pdf[]= [
             "flip_catalog"=>$this->_wcbHelper->getCatalogFlipPdfUrl() . $productCode,
-            "catalog_main_pdf"=> $entity->getProductMainPdf()?$pdfMediaUrl . $entity->getProductMainPdf():'',
-            "catalog_rest_pdf"=>$this->getCatalogRestPdfUrl($entity->getProductRemainPdfs(), $pdfMediaUrl)
+            "catalog_pdfs"=> $pdfData
             ];
 
         $extensionAttributes->setData('product_pdf', $pdf);
@@ -137,7 +144,7 @@ class ProductAfterGet
         $data=[];
         $breakPdfs = explode('||', $restPdf);
         foreach ($breakPdfs as $pdf) {
-            if($pdf){
+            if ($pdf) {
                 $data[]= $pdfMediaUrl . $pdf;
             }
         }

@@ -1,11 +1,11 @@
 <?php
-   
+
 namespace Wcb\Catalog\Model;
 
 class ProductPdf extends \Magento\Framework\Model\AbstractModel{
 
-   
-   
+
+
    /**
      * CMS page cache tag.
      */
@@ -31,6 +31,6 @@ class ProductPdf extends \Magento\Framework\Model\AbstractModel{
         $this->_init(\Wcb\Catalog\Model\ResourceModel\ProductPdf::class);
     }
 
-   
+
 }
 
