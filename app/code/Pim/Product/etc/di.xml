@@ -17,10 +17,10 @@
                 <item name="createProduct" xsi:type="object">Pim\Product\Console\Command\CreateProductCommand</item>
                 <item name="updateProduct" xsi:type="object">Pim\Product\Console\Command\UpdateProductCommand</item>
                 <item name="importImages" xsi:type="object">Pim\Product\Console\Command\ImportProductImagesCommand</item>
-				<item name="updateProductPdf" xsi:type="object">Pim\Product\Console\Command\UpdateProductPdfCommand</item>
-				<item name="updateProductBarCode" xsi:type="object">Pim\Product\Console\Command\UpdateProductBarCodeCommand</item>
-				<item name="UnitsOfMeasure" xsi:type="object">Pim\Product\Console\Command\UnitsOfMeasureCommand</item>
-			</argument>
+                <item name="updateProductPdf" xsi:type="object">Pim\Product\Console\Command\UpdateProductPdfCommand</item>
+                <item name="updateProductBarCode" xsi:type="object">Pim\Product\Console\Command\UpdateProductBarCodeCommand</item>
+                <item name="UnitsOfMeasure" xsi:type="object">Pim\Product\Console\Command\UnitsOfMeasureCommand</item>
+            </argument>
         </arguments>
     </type>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
@@ -57,9 +57,9 @@
         </arguments>
     </virtualType>
 
-<!-- Custom Logger-->
+    <!-- Custom Logger-->
 
-  <virtualType name="Pim\Product\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+    <virtualType name="Pim\Product\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
             <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
             <argument name="fileName" xsi:type="string">/var/log/pim_product_import.log</argument>
@@ -79,6 +79,6 @@
             <argument name="logger" xsi:type="object">Pim\Product\Logger\Logger</argument>
         </arguments>
     </type>
-<!--/Custom Logger-->
+    <!--/Custom Logger-->
 
 </config>
