@@ -3,4 +3,7 @@
    <type name="Magento\Checkout\Model\Cart">
        <plugin name="quantity_modify_plugin" type="Wcb\Checkout\Model\Plugin\Cart"/>
    </type>
+    <type name="Magento\Directory\Model\PriceCurrency">
+        <plugin name="round_price_precisions" type="Wcb\Checkout\Plugin\PriceCurrency"/>
+    </type>
 </config>
