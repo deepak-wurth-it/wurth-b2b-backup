@@ -132,7 +132,7 @@ class ProductAttributeValueProcessor
     public function getAttributeValueUpdateLogger($log)
     {
         echo $log;
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/image_import.log');
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/attribute_value_import.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
         $logger->info($log);
