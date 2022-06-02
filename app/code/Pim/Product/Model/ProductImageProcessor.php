@@ -38,7 +38,8 @@ class ProductImageProcessor
         \Magento\Indexer\Model\IndexerFactory                   $indexerFactory,
         \Pim\Product\Model\ImportImageService                   $importImageService,
         \Magento\Framework\Indexer\IndexerRegistry              $indexReg,
-        \Magento\Framework\Indexer\ConfigInterface              $config
+        \Magento\Framework\Indexer\ConfigInterface              $config,
+        \Magento\Catalog\Model\Product\Gallery\GalleryManagement $galleryManagement      
 
 
 
@@ -53,6 +54,7 @@ class ProductImageProcessor
         $this->importImageService = $importImageService;
         $this->productImagesResource = $productImagesResource;
         $this->indexReg = $indexReg;
+        $this->galleryManagement = $galleryManagement;
         $this->config = $config;
 
 
@@ -65,38 +67,52 @@ class ProductImageProcessor
     public function install()
     {
         $this->product = $this->productFactory->create();
-        $productCollection = $this->product->getCollection();
+        $productCollection = $this->product->getCollection()->addMediaGalleryData();
         $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
        
       
         if ($productCollection->getSize() && $productCollection->count()) {
             $i = 0;
             foreach ($productCollection as $product) {
-                // if (!$product->getExtensionAttributes()) {
-                //     $productExtension = $this->productExtensionFactory->create();
-                //     $product->setExtensionAttributes($productExtension);
-                // }
+               
                 $pimPictureId = "";
-                $product->getExtensionAttributes()->setPimPictureId($pimPictureId);
+                
                 $time_start = microtime(true); 
                 $sku = $product->getSku();
                 $productImagesFactoryObject = $this->productImagesFactory->create();
                 $productImagesObject = $productImagesFactoryObject->getCollection()
                     ->addFieldToFilter('ProductId', $sku);
-              
+                    
+             
                 if ($productImagesObject->getSize() && $productImagesObject->count()) {
-                    foreach ($productImagesObject as $images) {
-                        
-                        try {
+					echo $product->getProductUrl().PHP_EOL;
+				 /*$mediaEntry = [];
+				  $mediaGalleryEntries = $product->getMediaGallery();
+					if($mediaGalleryEntries){
+						$i=0;
+					foreach ($mediaGalleryEntries as $key=>$entry) {
+						if(!empty($entry) && is_array($entry)){
+							foreach($entry as $row){
+								print_r($row);
+							}
+						}
+					  }
+					}
+					exit;*/
+
+					
+                    foreach ($productImagesObject as $key=>$images) {
+						
+                        //try {
                             $imageUrl = $images->getData('Path');
-
-                            $pimPictureId = $images->getData('PictureId');
-                            $product->getExtensionAttributes()->setPimPictureId($pimPictureId);
-
+                            $extensionAttributes = $product->getExtensionAttributes(); /** get current extension attributes from entity **/
+							$pimPictureId = $images->getData('PictureId');
+                            $extensionAttributes->setPimPictureId($pimPictureId);
+							$product->setExtensionAttributes($extensionAttributes);
+                           
 
                             if ($imageUrl) {
-
-                            $this->importImageService->execute($product, $imageUrl, $visible = false, $imageType = ['small_image','image']);
+								$this->importImageService->execute($product, $imageUrl, $visible = false, $imageType = ['image']);
                             }
                             $ThumbnailPath = $images->getData('ThumbnailPath');
                              if ($ThumbnailPath) {
@@ -106,9 +122,11 @@ class ProductImageProcessor
                             //print_r($images->getData());
                             //echo $id;
                             //$this->productImagesResource->updateByQuery($id);
-                        } catch (\Exception $e) {
-                            $this->logger->info(print_r($e->getMessage(), true));
-                        }
+                        //} catch (\Exception $e) {
+                       //     $this->logger->info(print_r($e->getMessage(), true));
+                        //}
+                        
+                        $i++;
                     }
                     $this->productRepository->save($product);
                     $productImagePath = $product->getData('image');
@@ -157,5 +175,57 @@ class ProductImageProcessor
     }
 
 
+
+	public function removeDuplicateImages(){
+		
+		foreach($_products as $_prod) {
+            $_product = $productRepository->getById($_prod->getId());
+            $_product->setStoreId(0);
+            $_md5_values = array();
+            $base_image = $_product->getImage();
+            
+            if($base_image != 'no_selection') {
+                $mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                $filepath = $path.'/catalog/product' . $base_image ;
+                if (file_exists($filepath)) {
+                    $_md5_values[] = md5(file_get_contents($filepath));            
+                }
+                $i++;
+
+                echo "\r\n processing product $i of $total ";
+                // Loop through product images
+                $gallery = $_product->getMediaGalleryEntries();
+                if ($gallery) {
+                    foreach ($gallery as $key => $galleryImage) {
+                        //protected base image
+                        if($galleryImage->getFile() == $base_image) {
+                            continue;
+                        }
+                        $filepath = $path.'/catalog/product' .$galleryImage->getFile();
+
+                        if(file_exists($filepath)) {
+                            $md5 = md5(file_get_contents($filepath));
+                        } else {
+                            continue;
+                        }
+
+                        if( in_array( $md5, $_md5_values )) {
+                            if (count($galleryImage->getTypes()) > 0) {
+                                continue;
+                            }
+                            unset($gallery[$key]);
+                            echo "\r\n removed duplicate image from ".$_product->getSku();
+                            $count++;
+                        } else {
+                            $_md5_values[] = $md5;
+                        }
+                    }
+                    
+                    $_product->setMediaGalleryEntries($gallery);
+                    $productRepository->save($_product);            
+                  }
+			  }
+		  }
+	}
   
 }

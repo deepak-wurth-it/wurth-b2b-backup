@@ -22,19 +22,20 @@ class Collection extends AbstractCollection
         $this->getSelect()
             ->from(['main_table' => $this->getMainTable()])
             ->joinLeft(
-                array('pdf' => $this->getTable('pdfs')),
-                'main_table.PdfId = pdf.Id',
+                array('pdfs' => $this->getTable('pdfs')),
+                'main_table.PdfId = pdfs.Id',
                [
-                    'name' => 'pdf.Name',
-				    'pdf_path' => 'pdf.Path'
+                    'pdf_name' => 'pdfs.Name',
+				    'pdf_path' => 'pdfs.Path',
+				    'pdf_type_id' => 'pdfs.PdfTypeId'
                 ]
 
             )
 			->where("main_table.ChannelId  = 2")
 			->where("main_table.UpdateRequired  = 1")
 			->where("main_table.Active  = 1")
-			->where("pdf.Active  = 1")
-			->where("pdf.UpdateRequired  = 1")
+			->where("pdfs.Active  = 1")
+			->where("pdfs.UpdateRequired  = 1")
 			->order('main_table.Id ASC')
 			->distinct(true);
 

@@ -22,5 +22,34 @@
 		<constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
+        
+ </table>       
+ <table name="product_pdf" resource="default" engine="innodb" comment="Product Pdf">
+        
+        <column xsi:type="int" name="entity_id"    unsigned="true"   nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="is_main_pdf"  nullable="true"  comment="Main PDF"/>
+		<column xsi:type="int" name="product_id"   unsigned="true"     nullable="true"   identity="false" comment="Product Id" />
+		<column xsi:type="int" name="pdf_type_id"   nullable="true" comment="Product Type Id"/>
+	    <column xsi:type="int" name="pdf_active_status"   nullable="true" comment="PDF active status"/>
+	    <column xsi:type="int" name="pdf_id"   nullable="true"  comment="PDF Id"/>
+
+
+
+	    <column xsi:type="varchar" name="sku"      nullable="true"  length="64"   comment="Product Sku"/>
+	    <column xsi:type="varchar" name="pdf_name" nullable="true"  length="255"   comment="Product Name"/>
+        <column xsi:type="varchar" name="pdf_url"  nullable="true"  length="255"   comment="Product Url"/>
+		<column xsi:type="timestamp" name="created_at" nullable="false" on_update="false"  default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="modifiedate_at" nullable="false" on_update="true"  default="CURRENT_TIMESTAMP" comment="ModifiedDate Time"/>		
+        <column xsi:type="int" name="external_id" unsigned="true" nullable="true" identity="false" comment="External Id"/>
+
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        
+        <constraint xsi:type="foreign" referenceId="PRODUCT_PDF_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ID" table="product_pdf" column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+
+           
+
+         
 </table>
 </schema>      

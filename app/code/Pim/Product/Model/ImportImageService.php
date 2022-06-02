@@ -33,10 +33,12 @@ class ImportImageService
     public function __construct(
         DirectoryList $directoryList,
         UploaderFactory $uploaderFactory,
+        \Magento\Catalog\Api\ProductRepositoryInterface $ProductRepositoryInterface,
         File $file
     ) {
         $this->directoryList = $directoryList;
         $this->uploaderFactory = $uploaderFactory;
+        $this->ProductRepositoryInterface = $ProductRepositoryInterface;
         $this->file = $file;
     }
     /**
@@ -59,10 +61,22 @@ class ImportImageService
         $newFileName = $tmpDir . baseName($imageUrl);
         /** read file from URL and copy it to the new destination */
         $result = $this->file->read($imageUrl, $newFileName);
+        //$imageType = [];
         if ($result) {
+			
+			
+			/*$existingMediaGalleryEntries = $product->getMediaGalleryEntries();
+			foreach ($existingMediaGalleryEntries as $key => $entry) {
+				
+				unset($existingMediaGalleryEntries[$key]);
+			}
+			$product->setMediaGalleryEntries($existingMediaGalleryEntries);
+			$this->ProductRepositoryInterface->save($product);*/
+			
             /** add saved file to the $product gallery */
-            $product->addImageToMediaGallery($newFileName, $imageType, true, $visible);
+            $product->addImageToMediaGallery($newFileName, $imageType, false, $visible);
         }
+        //echo 'fsfdfdsfsffdfdffdfdfdfdfdhghghghgsfds';exit;
         return $result;
     }
     /**
