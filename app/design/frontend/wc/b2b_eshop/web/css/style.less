@@ -1412,6 +1412,7 @@ label.sorter-label {
 #checkoutSteps {
 	background-color: #fff;
 	padding: 20px;
+	padding-right: 0px;
 }
 
 // ====================================================================================================
@@ -1884,9 +1885,9 @@ label.sorter-label {
 			margin-top: 20px;
 		}
 		.opc-block-summary .minicart-items-wrapper {
-			padding: 15px 15px 0px 15px;
+			padding: 0px 15px 0px 15px;
 			margin: 0px;
-            max-height: 472px;
+            max-height: auto;
 		}
 		.opc-block-summary {
 			background: #ffffff;
@@ -1925,6 +1926,20 @@ label.sorter-label {
 			font-size: 20px;
 			padding-left:20px;
 		}
+		table.data.table.table-totals {
+			border-collapse: collapse;
+		}
+		tr.wcb-notice {
+			border: 1px solid rgba(0, 0, 0, 12%);
+			border-left:none;
+			border-right:none;
+		}
+		tr.grand.totals.wcb-grand {
+			border: none;
+		}
+		li.product-item:first-child {
+			border-top: 1px solid rgba(0, 0, 0, 12%);
+		}
 		.opc-block-summary .items-in-cart > .title {
 			padding: 0px 40px 10px 0;
 		}
@@ -1941,7 +1956,7 @@ label.sorter-label {
 		}
 		.opc-block-shipping-information {
 			display: none;
-		}
+		}  
 	}
 	// One Page Shipping end
 
@@ -2268,6 +2283,10 @@ table.ReqListTable
 	.checkout-cart-index {
 		.block.block-cart-failed {
 			display: none;
+		}
+		.cart-empty.col-md-9 {
+			margin-bottom: 20px;
+			padding-left: 0px;
 		}
 		form#form-validate {
 			padding: 0 0px 15px 0;
@@ -5039,13 +5058,15 @@ a.action.print.hidden-print {
 	}
 }
 
-.table:not(.cart):not(.totals)>tbody>tr>th {
-	border-top: 1px solid #DEDEDE !important;
-}
+		.catalog-product_compare-index{
+			.table:not(.cart):not(.totals)>tbody>tr>th {
+				border-top: 1px solid #DEDEDE !important;
+			}
 
-.table:not(.cart):not(.totals)>tbody>tr>td {
-	border-top: 1px solid #DEDEDE !important;
-}
+			.table:not(.cart):not(.totals)>tbody>tr>td {
+				border-top: 1px solid #DEDEDE !important;
+			}
+		}
 
 // compare page end by amit
 // checkout page by amit start here
@@ -5109,9 +5130,10 @@ a.action.print.hidden-print {
 	.opc-progress-bar-item._active>span:before {
 		background: #CC0000;
 	}
-	.control-add {
-		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-		margin-left: 20px;
+	.control-add.wcb-company-address {
+		margin-left: 0px;
+		border-bottom: 1px solid rgba(0, 0, 0, 12%);
+		margin-bottom: 10px;
 	}
 	.control {
 		border-bottom: none;
@@ -7097,7 +7119,7 @@ span.label.minsubbut {
 
 .subtotal.mincartsub {
 	position: absolute;
-	margin: 0 0 0 195px;
+	margin: 0 0 0 175px;
 	display: flex;
 	padding-top: 20px;
 }
