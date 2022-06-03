@@ -17,10 +17,9 @@
                 <span class="label"><!-- ko i18n: 'Qty' --><!-- /ko --></span>
                 <span class="value" data-bind="text: $parent.qty"></span>
             </div>
-        </div>
 
-        <!-- ko if: (prodStockData)-->
-            <div class="stock-data">
+             <!-- ko if: (prodStockData)-->
+             <div class="stock-data">
                 <!-- ko if: (prodStockData.color)-->
                 <span class="imd-van">
                             <img data-bind="attr: {'src': getStockImageUrl(prodStockData.color)}">
@@ -34,6 +33,9 @@
                 <!-- /ko -->
             </div>
         <!-- /ko -->
+        </div>
+
+       
 
         <!-- ko foreach: getRegion('after_details') -->
         <!-- ko template: getTemplate() --><!-- /ko -->

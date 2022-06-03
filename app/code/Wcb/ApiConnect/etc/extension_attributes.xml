@@ -19,6 +19,7 @@
         <attribute code="sales_unit_of_measure_id" type="string" />
         <attribute code="sales_unit_of_measure_value" type="string" />
         <attribute code="sales_minimum_qty" type="string" />
+        <attribute code="row_sub_total" type="string" />
     </extension_attributes>
 
 </config>
