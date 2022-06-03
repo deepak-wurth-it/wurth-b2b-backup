@@ -1,9 +1,7 @@
 <?php
-
 namespace Wcb\Catalog\Model\ResourceModel\ProductPdf;
 
-use \Magento\Catalog\Model\ResourceModel\Collection\AbstractCollection;
-
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 class Collection extends AbstractCollection
 {
     /**
@@ -17,5 +15,5 @@ class Collection extends AbstractCollection
     }
 
 
-    
+
 }

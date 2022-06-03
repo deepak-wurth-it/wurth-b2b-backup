@@ -451,7 +451,6 @@ define([
                 data: $('#order_detail_form').serialize(),
                 type: "POST",
                 dataType: 'json',
-                async: false,
                 showLoader: true,
             }).done(function (data) {
 

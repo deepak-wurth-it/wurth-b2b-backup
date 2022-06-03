@@ -82,7 +82,7 @@ class QuotePlugin
                 $extensionAttributes->setProductCode($productData->getProductCode());
                 $extensionAttributes->setSalesUnitOfMeasureValue($ourCustomData);
                 $extensionAttributes->setSalesMinimumQty($productData->getMinimumSalesUnitQuantity());
-
+                $extensionAttributes->setRowSubTotal($item->getRowTotal());
                 $item->setExtensionAttributes($extensionAttributes);
             }
         }

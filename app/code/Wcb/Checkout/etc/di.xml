@@ -3,4 +3,11 @@
    <type name="Magento\Checkout\Model\Cart">
        <plugin name="quantity_modify_plugin" type="Wcb\Checkout\Model\Plugin\Cart"/>
    </type>
+    <type name="Magento\Directory\Model\PriceCurrency">
+        <plugin name="round_price_precisions" type="Wcb\Checkout\Plugin\PriceCurrency"/>
+    </type>
+    <type name="Magento\Customer\Model\Address\AbstractAddress">
+        <plugin name="skip_validate" type="Wcb\Checkout\Plugin\Model\Address\AbstractAddress"/>
+    </type>
+    <preference for="Magento\Quote\Model\QuoteAddressValidator" type="Wcb\Checkout\Model\QuoteAddressValidator" />
 </config>

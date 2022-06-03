@@ -4,7 +4,9 @@
  * See COPYING.txt for license details.
  */
 -->
-<div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': isItemsBlockExpanded()}}">
+<!--<div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': isItemsBlockExpanded()}}"> -->
+    <div class="block items-in-cart"></div>
+    <span class="wcb-summary" data-bind="i18n: 'Shopping summary'"></span>
     <div class="title" data-role="title">
         <strong role="heading" aria-level="1">
             <translate args="maxCartItemsToDisplay" if="maxCartItemsToDisplay < getCartLineItemsCount()"/>

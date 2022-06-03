@@ -1412,6 +1412,7 @@ label.sorter-label {
 #checkoutSteps {
 	background-color: #fff;
 	padding: 20px;
+	padding-right: 0px;
 }
 
 // ====================================================================================================
@@ -1880,10 +1881,20 @@ label.sorter-label {
 		.opc-sidebar{
 			margin:0px;
 		}
+		.column.main .block:last-child {
+			margin-top: 20px;
+		}
+		.opc-block-summary .minicart-items-wrapper {
+			padding: 0px 15px 0px 15px;
+			margin: 0px;
+            max-height: 320px;
+            overflow: auto;
+		}
 		.opc-block-summary {
 			background: #ffffff;
-			padding-left: 30px;
-			padding-top: 0px;
+			padding: 0;
+            margin-left: 30px;
+			border: 1px solid rgba(0, 0, 0, 12%);
 		}
 		.wcb-summary-title {
             font-family: 'wuerthbold';			
@@ -1895,9 +1906,74 @@ label.sorter-label {
 			background: #ECECEC;
 			padding: 20px;
 		}	
-		tr.grand.totals {
+		tr.grand.totals.wcb-grand {
 			color: #CC0000;
 		}	
+		span.cart-notice {
+			font-family: 'wuerthbook';
+			font-size: 14px;
+		}
+		.opc-block-summary .items-in-cart > .title {
+			border-bottom:none;
+		}
+		.minicart-items .product-item {
+			padding: 10px 0px 0px 0;
+		}
+		.minicart-items .product-item-details {
+			padding-left: 75px;
+		}
+		.wcb-summary {
+			font-family: 'wuerthbold';
+			font-size: 20px;
+			padding-left:20px;
+		}
+		table.data.table.table-totals {
+			border-collapse: collapse;
+		}
+		tr.wcb-notice {
+			border: 1px solid rgba(0, 0, 0, 12%);
+			border-left:none;
+			border-right:none;
+		}
+		tr.grand.totals.wcb-grand {
+			border: none;
+		}
+		li.product-item:first-child {
+			border-top: 1px solid rgba(0, 0, 0, 12%);
+		}
+		.opc-block-summary .items-in-cart > .title {
+			padding: 0px 40px 10px 0;
+		}
+		.opc-block-summary > .title {			
+			pointer-events: none;
+			display: block;
+			font-size: 16px;
+			font-family: 'wuerthbook';
+			font-weight: 300;
+			margin-left: 20px;
+		}
+		span.price {
+			color: #CC0000;
+		}
+		.details-qty {
+			font-size: 16px;
+			font-family: 'wuerthbook';			
+			color: #CC0000;
+		}
+		.opc-block-summary .items-in-cart > .title strong {
+			font-family: 'wuerthbook';
+			font-size: 1.6rem;
+			padding-left:20px;
+		}
+		.table:not(.cart):not(.totals) > tbody > tr > th {
+			border-top: none;
+		}
+		.table:not(.cart):not(.totals) > tbody > tr > td {
+			border-top: none;
+		}
+		.opc-block-shipping-information {
+			display: none;
+		}  
 	}
 	// One Page Shipping end
 
@@ -2222,6 +2298,13 @@ table.ReqListTable
 
 // Quick order on Cart page start 
 	.checkout-cart-index {
+		.block.block-cart-failed {
+			display: none;
+		}
+		.cart-empty.col-md-9 {
+			margin-bottom: 20px;
+			padding-left: 0px;
+		}
 		form#form-validate {
 			padding: 0 0px 15px 0;
 			margin: 0 0 40px 0;
@@ -2381,9 +2464,6 @@ table.ReqListTable
 		border-radius: 4px;
 		height: 35px;
 		width: 35px;
-	}
-	.cart-empty {
-		display: none;
 	}
 	.cart.table-wrapper .items > .item {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -3613,11 +3693,23 @@ body .pt-banner-container .owl-theme .owl-controls .owl-pagination {
 }
 
 // product-item-actions style grid list
-.page-products .product-item-info {
-	width: 100%;
-	padding: 10px 10px 0px 10px;
-	border: solid 1px rgba(0, 0, 0, 12%);
-}
+	.catalog-category-view {
+		.page-products .product-item-info {
+			width: 100%;
+			padding: 10px 10px 0px 10px;
+			border: solid 1px rgba(0, 0, 0, 12%);
+		}
+		.product-item-info img {
+			width: auto;
+			max-height: 210px;
+		}
+	}
+
+	.page-products .product-item-info {
+		width: 100%;
+		padding: 10px 10px 0px 10px;
+		border: solid 1px rgba(0, 0, 0, 12%);
+	}
 
 .products-grid .product-items {
 	display: flex;
@@ -4995,13 +5087,15 @@ a.action.print.hidden-print {
 	}
 }
 
-.table:not(.cart):not(.totals)>tbody>tr>th {
-	border-top: 1px solid #DEDEDE !important;
-}
+		.catalog-product_compare-index{
+			.table:not(.cart):not(.totals)>tbody>tr>th {
+				border-top: 1px solid #DEDEDE !important;
+			}
 
-.table:not(.cart):not(.totals)>tbody>tr>td {
-	border-top: 1px solid #DEDEDE !important;
-}
+			.table:not(.cart):not(.totals)>tbody>tr>td {
+				border-top: 1px solid #DEDEDE !important;
+			}
+		}
 
 // compare page end by amit
 // checkout page by amit start here
@@ -5065,9 +5159,10 @@ a.action.print.hidden-print {
 	.opc-progress-bar-item._active>span:before {
 		background: #CC0000;
 	}
-	.control-add {
-		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-		margin-left: 20px;
+	.control-add.wcb-company-address {
+		margin-left: 0px;
+		border-bottom: 1px solid rgba(0, 0, 0, 12%);
+		margin-bottom: 10px;
 	}
 	.control {
 		border-bottom: none;
@@ -7053,7 +7148,7 @@ span.label.minsubbut {
 
 .subtotal.mincartsub {
 	position: absolute;
-	margin: 0 0 0 195px;
+	margin: 0 0 0 175px;
 	display: flex;
 	padding-top: 20px;
 }
