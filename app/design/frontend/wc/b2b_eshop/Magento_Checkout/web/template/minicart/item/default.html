@@ -71,11 +71,10 @@
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko ifnot: is_shipping_product -->
-                   <!-- <div class="details-qty qty qtybox">
+                  <div class="details-qty qty qtybox wcb-disable">
                         <label class="label" data-bind="i18n: 'Qty', attr: {
                         for: 'cart-item-'+item_id+'-qty'}"></label>
                         <div class="minqtrbox">
-                        <div class="less icon-interface-minus"></div>
                             <input data-bind="attr: {
                             id: 'cart-item-'+item_id+'-qty',
                             'data-cart-item': item_id,
@@ -84,11 +83,9 @@
                             }, value: qty"
                             type="number"
                             size="4"
-                            class="item-qty cart-item-qty">
-
-                            <div class="more icon-interface-plus"></div>
+                            class="item-qty cart-item-qty" disabled>
                         </div>
-                        <button data-bind="attr: {
+                       <!--   <button data-bind="attr: {
                         id: 'update-cart-item-'+item_id,
                         'data-cart-item': item_id,
                         title: $t('Update')
@@ -96,8 +93,8 @@
                         class="update-cart-item"
                         style="display: none">
                             <span data-bind="i18n: 'Update'"></span>
-                        </button>
-                    </div> -->
+                        </button> -->
+                    </div> 
                 <!-- /ko -->
             </div>
 
