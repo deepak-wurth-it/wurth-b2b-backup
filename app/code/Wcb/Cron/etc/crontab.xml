@@ -52,6 +52,13 @@
             <schedule>0 0 1 * *</schedule>
         </job>
     </group>
+
+      <!-- Every Day Once -->
+     <group id="pim">
+        <job name="product_categories" instance="Wcb\Cron\PimCron\UpdateProductCategories" method="execute">
+            <schedule>0 0 3 * *</schedule>
+        </job>
+    </group>
     
     
      <group id="wurthnav">

@@ -22,7 +22,10 @@ class CategoryProductProcessor
     const WRONG_PIM_COLLECTION_MESSAGE = 'Something went wrong in pim collection ';
     const START_MESSAGE = 'Start Import For Pim Category Id  ->>';
     const SAVE_FAILED = 'Could Not Save ';
+    const PIM_PRODUCT_CATEGORIES = 'productscategories';
     protected $category;
+    protected $productscategoriesUpdateObj;
+    protected $sku;
 
     /**
      *
@@ -41,21 +44,25 @@ class CategoryProductProcessor
         \Pim\Category\Model\PimProductsCategoriesFactory                $pimProductsCategoriesFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface                 $productRepository,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
-        \Magento\Catalog\Api\CategoryLinkManagementInterface            $categoryLinkManagement
+        \Magento\Catalog\Api\CategoryLinkManagementInterface            $categoryLinkManagement,
+        \Magento\Catalog\Model\ProductFactory                           $productFactory,
+        \Magento\Indexer\Model\IndexerFactory                           $indexerFactory
 
 
-    )
-    {
+
+    ) {
         $this->categoryFactory = $categoryFactory;
         $this->resourceConnection = $resourceConnection;
         $this->categoryRepositoryInterface = $categoryRepositoryInterface;
         $this->objectManager = $objectManager;
         $this->fileCsv = $fileCsv;
+        $this->productFactory = $productFactory;
         $this->directoryList = $directoryList;
         $this->storeManager = $storeManager;
         $this->pimCategoryFactory = $pimCategoryFactory;
         $this->categoryRepository = $categoryRepository;
         $this->logger = $logger;
+        $this->indexerFactory = $indexerFactory;
         $this->pimProductsCategoriesFactory = $pimProductsCategoriesFactory;
         $this->productRepository = $productRepository;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
@@ -75,60 +82,162 @@ class CategoryProductProcessor
     }
 
 
-    public function showExceptionMessage($e, $row = null, $customMessage = null)
+    public function showExceptionMessage($e, $sku, $customMessage = null)
     {
-        if ($row) {
-            echo $customMessage . $row['Id'] . PHP_EOL;
+        if ($sku) {
+            echo $customMessage .$sku . PHP_EOL;
         }
         echo $e->getMessage() . "\n" . PHP_EOL;
     }
 
-    public function pimProductCategoryCollection()
+    public function pimProductCategoryCollection($sku = null)
     {
 
         $pimProductsCategoriesCollection = $this->pimProductsCategoriesFactory->create();
-        return $pimProductsCategoriesCollection->getCollection()
-            ->addFieldToFilter('magento_sync_status', ['null' => true])
-            ->addFieldToFilter('Active', ['eq' => '1'])
-            ->setOrder('CategoryId', 'DESC');
+        $pimProductsCategoriesCollection = $pimProductsCategoriesCollection->getCollection();
+        if ($sku) {
+            $pimProductsCategoriesCollection = $pimProductsCategoriesCollection->addFieldToFilter('ProductId', ['eq' => $sku]);
+        }
+        $pimProductsCategoriesCollection->addFieldToSelect('CategoryId')
+            ->addFieldToFilter('UpdateRequired', ['eq' => '1'])
+            ->addFieldToFilter('Active', ['eq' => '1']);
 
+        $pimProductsCategoriesCollection->getSelect()->order('ProductId ASC');
 
+        return $pimProductsCategoriesCollection;
     }
+
+
+    //Pim Category Collection
+    public function pimProductCategoryPlainCollection()
+    {
+
+        $pimProductsCategoriesCollection = $this->pimProductsCategoriesFactory->create();
+        $pimProductsCategoriesCollection = $pimProductsCategoriesCollection->getCollection();
+
+        return $pimProductsCategoriesCollection;
+    }
+
+
+
+    // Specific Product Collection from Pim Categories
+    public function getProductCountInPimCategoryTable($sku = null)
+    {
+        $rowCollection = $this->pimProductCategoryPlainCollection();
+        if ($sku) {
+            $rowCollection = $rowCollection->addFieldToFilter('ProductId', ['eq' => $sku]);
+        }
+        $rowCollection = $rowCollection->addFieldToSelect('CategoryId')->addFieldToFilter('Active', ['eq' => '1']);
+        $pimCategoryIds = $rowCollection->getData('CategoryId');
+        return $pimCategoryIds;
+    }
+
+    // Get magento Product Collection
+    public function getProductCollection()
+    {
+        $collection = $this->productFactory->create()->getCollection();
+        $collection->addAttributeToSelect('*');
+        $collection->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+        return $collection;
+    }
+
+    //Get Magento categories
+    public function getMagentoCategoriesID($pimCategoryIds = null)
+    {
+        //Get Magento Category ids 
+        $magentoCategoriesIds = $this->categoryFactory->create();
+        $collectionMagentoCategory = $magentoCategoriesIds->getCollection()->addAttributeToSelect('entity_id');
+        if ($pimCategoryIds) {
+            $collectionMagentoCategory->addAttributeToFilter('pim_category_id', array('in' => $pimCategoryIds));
+        }
+        $collectionMagentoCategory->getSelect()->reset(\Zend_Db_Select::COLUMNS);
+        $collectionMagentoCategory->getSelect()->columns('entity_id');
+
+        $collectionIds = $collectionMagentoCategory->getAllIds();
+
+        return $collectionIds;
+    }
+
+
+
 
     public function updateProductCategoryData()
     {
+        $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
-        $collection = $this->pimProductCategoryCollection();
-        //echo $collection->getSelect();exit;
-        foreach ($collection as $data) {
+        $products = $this->getProductCollection();
+        $i=0;
+        foreach ($products as $row) {
             try {
-                $productObj = $this->productRepository->get($data['ProductId']);
-                $categoryObj = $this->categoryRepository->getByPimCategoryId($data['CategoryId']);
-                if ($productObj && $categoryObj) {
-                    $catId = $categoryObj->getFirstItem()->getId();
-                    $sku = $productObj->getSku();
-                    $this->categoryLinkManagement->assignProductToCategories(
-                        $sku,
-                        [$catId]
-                    );
 
-                    $data->setData('magento_sync_status', '1');
-                    $data->save();
-                    echo 'Product sku ' . $sku . ' assigned  with category ' . $catId . PHP_EOL;;
+                //Get Sku    
+                $this->sku = $row->getSku();
+                $sku =  $this->sku;
+                //$sku = '1733';
 
+                //Get product occurance in pim product categories db
+                $pimProductCategoryCollection = $this->pimProductCategoryCollection($sku);
+
+                if ($pimProductCategoryCollection->getSize()) {
+                    $pimCategories =  implode(",", array_column($pimProductCategoryCollection->getData(), "CategoryId"));
+
+                    if ($pimCategories) {
+
+                        $collectionIds = $this->getMagentoCategoriesID($pimCategories);
+
+                        if (is_array($collectionIds)) {
+
+                            $collectionIds = implode(",", $collectionIds);
+                        }
+                        if ($collectionIds) {
+                            $row->setCategoryIds($collectionIds);
+                            $row->save();
+                            $log = 'Categories '. $collectionIds.' assigned to sku  ' . $sku . PHP_EOL;
+                            $i++;
+
+                            // $this->categoryLinkManagement->assignProductToCategories(
+                            //     $sku,
+                            //     [$collectionIds]
+                            // );
+
+                            // $log .= 'Product sku ' . $sku . ' assigned  with category ' . $collectionIds . PHP_EOL;
+                            $this->updateRow($sku);
+                            echo $log;
+                        }
+                        if($i == 25){
+                            $i=0;
+                            $this->reindexByKey($indexLists);
+                        }
+                    }
                 }
-
-
             } catch (\Exception $e) {
 
-                $this->logger->info(self::SAVE_FAILED. $data['Id'] . PHP_EOL . '. ' . $e->getMessage());
-                $this->showExceptionMessage($e, $data,self::SAVE_FAILED);
-                $this->logger->info('Product not assigned to category : '. $e->getMessage());
+                $this->logger->info(self::SAVE_FAILED . ' For Sku : ' . $this->sku . PHP_EOL);
+                $this->showExceptionMessage($e, $this->sku,self::SAVE_FAILED);
+                $this->logger->info('Not Assigned category for sku : ' . $this->sku);
+                $this->logger->info($e->getMessage());
                 continue;
             }
         }
         echo 'Product has been assigned to categories' . PHP_EOL;
+    }
 
+
+    public function updateRow($sku)
+    {
+        if(empty($this->productscategoriesUpdateObj)){
+        $this->productscategoriesUpdateObj = $this->pimProductsCategoriesFactory->create();
+        }
+        $connection  = $this->productscategoriesUpdateObj->getResource()->getConnection();
+
+        $data = ["UpdateRequired" => (int)0]; // you can use as per your requirement
+
+        $where = ['ProductId = ?' => (int)$sku];
+        $tableName = $connection->getTableName(self::PIM_PRODUCT_CATEGORIES);
+
+        $updatedRows = $connection->update($tableName, $data, $where);
+
+        echo "Updated Rows : " . $updatedRows . PHP_EOL;
     }
 
     public function getCategoryCollection($isActive = true, $level = false, $sortBy = false, $pageSize = false)
@@ -157,5 +266,20 @@ class CategoryProductProcessor
         }
 
         return $collection;
+    }
+
+     /**
+     * Regenerate all index
+     *
+     * @return void
+     * @throws \Exception
+     */
+    private function reindexByKey($indexLists){
+        echo 'Full Reindex started .....'.PHP_EOL;
+        foreach ($indexLists as $indexerId) {
+            $indexer = $this->indexerFactory->create()->load($indexerId);
+            $indexer->reindexAll();
+        }
+        echo 'Full Reindex Done.'.PHP_EOL;;
     }
 }

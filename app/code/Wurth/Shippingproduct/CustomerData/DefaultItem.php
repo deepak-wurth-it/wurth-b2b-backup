@@ -57,7 +57,9 @@ class DefaultItem extends \Magento\Checkout\CustomerData\DefaultItem
             'canApplyMsrp' => $this->msrpHelper->isShowBeforeOrderConfirm($this->item->getProduct())
                 && $this->msrpHelper->isMinimalPriceLessMsrp($this->item->getProduct()),
             'message' => $this->item->getMessage(),
-            'is_shipping_product' => $isShippingProduct
+            'is_shipping_product' => $isShippingProduct,
+            'is_customer_logged_in' => false,
+            'item_raw_total' => $this->checkoutHelper->formatPrice($this->item->getRowTotal())
         ];
     }
 }
