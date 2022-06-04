@@ -71,45 +71,5 @@ script;
             ) ?>"
         }
     }
-    </script>
-    <!--<script type="text/javascript">
-    require(['jquery'], function ($) {
-        $('.minicart-wrapper').on('contentLoading', function (event) {
-          //  alert(event.type); //output = click
-            if(event.type=='contentLoading'){
-            $('[data-block="minicart"]').on('contentUpdated', function () {
-                $('[data-block="minicart"]').find('[data-role="dropdownDialog"]').dropdownDialog("open");
-                setTimeout(function () {
-                    $('[data-block="minicart"]').find('[data-role="dropdownDialog"]').dropdownDialog("close");
-                }, 3000);
-            });
-        }
-        });
-    });
-</script>-->
-<!--<script type="text/javascript">
-require(["jquery"],function($){
-$('body').on("click",".more, .less",function(){
-    var obj = $(this);
-    var currentQty = obj.siblings('.cart-item-qty').val();
-    var iid = obj.siblings('.update-cart-item').attr('data-cart-item');
-
-    if(obj.hasClass('more')){
-        var newAdd = parseInt(currentQty)+parseInt(1);
-        obj.siblings('.cart-item-qty').val(newAdd);
-        obj.siblings('.cart-item-qty').attr('data-item-qty',newAdd);
-          $('#update-cart-item-'+iid).click();
-          $('.update-cart-item').click();
-    } else {
-        if(parseInt(currentQty) > 1){
-            var newAdd = parseInt(currentQty)-parseInt(1);
-            obj.siblings('.cart-item-qty').val(newAdd);
-            obj.siblings('.cart-item-qty').attr('data-item-qty',newAdd);
-            $('#update-cart-item-'+iid).click();
-            $('.update-cart-item').click();
-        }
-    }
-});
-});
-</script>-->
+    </script> 
 </div>
