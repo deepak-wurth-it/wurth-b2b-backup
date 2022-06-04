@@ -119,7 +119,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $subtotal = 0;
 
         // set Price using API
-        $this->setPriceUsingApi($quote,$api);
+        $this->setPriceUsingApi($quote);
 
         foreach ($items as $item) {
             if ($item->getSku() === $this->helperData->getShippingProductCode()) {
@@ -135,15 +135,25 @@ class AddRemoveShippingProduct extends AbstractHelper
             }
 
             // set Price using API
-            $this->setPriceUsingApi($quote,$api);
+            $this->setPriceUsingApi($quote);
         }
 
         if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
             $this->removeShippingProduct($items, $quote, $api);
         }
+        /**
+         * We have save forcefully because some product price is not updates in the cart item
+         */
+        if($api){
+            $quote->save();
+        }
     }
 
-    public function setPriceUsingApi($quote,$api)
+    /**
+     * @param $quote
+     * @throws Exception
+     */
+    public function setPriceUsingApi($quote)
     {
         $items = $quote->getAllVisibleItems();
         foreach ($items as $item) {
@@ -171,18 +181,10 @@ class AddRemoveShippingProduct extends AbstractHelper
             $item->setOriginalCustomPrice($price);
             $item->getProduct()->setIsSuperMode(true);
             $item->calcRowTotal();
-            // if($api){
-            //     $item->save();
-            // }
-            
-            
             $item->getQuote()->collectTotals();
             $this->cart->getQuote()->setTriggerRecollect(1);
             $this->cart->getQuote()->collectTotals()->save();
             // $this->cart->getQuote()->setTotalsCollectedFlag(false)->collectTotals()->save();
-        }
-        if($api){
-            $quote->save();
         }
     }
 
