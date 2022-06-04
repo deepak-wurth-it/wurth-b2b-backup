@@ -141,8 +141,18 @@ class AddRemoveShippingProduct extends AbstractHelper
         if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
             $this->removeShippingProduct($items, $quote, $api);
         }
+        /**
+         * We have save forcefully because some product price is not updates in the cart item
+         */
+        if($api){
+            $quote->save();
+        }
     }
 
+    /**
+     * @param $quote
+     * @throws Exception
+     */
     public function setPriceUsingApi($quote)
     {
         $items = $quote->getAllVisibleItems();
@@ -167,10 +177,10 @@ class AddRemoveShippingProduct extends AbstractHelper
             exit;*/
             $price = (float) $price;
             $item->setCustomPrice($price);
+            $item->setPrice($price);
             $item->setOriginalCustomPrice($price);
             $item->getProduct()->setIsSuperMode(true);
             $item->calcRowTotal();
-
             $item->getQuote()->collectTotals();
             $this->cart->getQuote()->setTriggerRecollect(1);
             $this->cart->getQuote()->collectTotals()->save();
@@ -208,6 +218,7 @@ class AddRemoveShippingProduct extends AbstractHelper
                     // update total
                     $quoteObject = $this->cartRepositoryInterface->get($quote->getId());
                     $quoteObject->addProduct($product, $request);
+                    //$quoteObject->save();
                 }
 
                 $quoteObject->setTriggerRecollect(1);
