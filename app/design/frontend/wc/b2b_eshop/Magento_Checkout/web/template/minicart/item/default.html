@@ -57,7 +57,7 @@
             </div>
             <!-- /ko -->
 
-            <div class="product-item-pricing">
+            <div class="product-item-pricing chkcart">
                 <!-- ko if: canApplyMsrp -->
 
                 <div class="details-map">
@@ -72,34 +72,36 @@
                         <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko ifnot: is_customer_logged_in -->
-                         Login to view price
+                        <span class="cpgprice" data-bind="i18n:'Login to view price'"></span>
                     <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko ifnot: is_shipping_product -->
-                  <div class="details-qty qty qtybox wcb-disable">
-                        <label class="label" data-bind="i18n: 'Qty', attr: {
-                        for: 'cart-item-'+item_id+'-qty'}"></label>
-                        <div class="minqtrbox">
-                            <input data-bind="attr: {
-                            id: 'cart-item-'+item_id+'-qty',
+                    <!-- ko if: is_customer_logged_in -->
+                      <div class="details-qty qty qtybox wcb-disable">
+                            <label class="label" data-bind="i18n: 'Qty', attr: {
+                            for: 'cart-item-'+item_id+'-qty'}"></label>
+                            <div class="minqtrbox">
+                                <input data-bind="attr: {
+                                id: 'cart-item-'+item_id+'-qty',
+                                'data-cart-item': item_id,
+                                'data-item-qty': qty,
+                                'data-cart-item-id': product_sku
+                                }, value: qty"
+                                type="number"
+                                size="4"
+                                class="item-qty cart-item-qty" disabled>
+                            </div>
+                           <!--   <button data-bind="attr: {
+                            id: 'update-cart-item-'+item_id,
                             'data-cart-item': item_id,
-                            'data-item-qty': qty,
-                            'data-cart-item-id': product_sku
-                            }, value: qty"
-                            type="number"
-                            size="4"
-                            class="item-qty cart-item-qty" disabled>
+                            title: $t('Update')
+                            }"
+                            class="update-cart-item"
+                            style="display: none">
+                                <span data-bind="i18n: 'Update'"></span>
+                            </button> -->
                         </div>
-                       <!--   <button data-bind="attr: {
-                        id: 'update-cart-item-'+item_id,
-                        'data-cart-item': item_id,
-                        title: $t('Update')
-                        }"
-                        class="update-cart-item"
-                        style="display: none">
-                            <span data-bind="i18n: 'Update'"></span>
-                        </button> -->
-                    </div> 
+                    <!-- /ko -->
                 <!-- /ko -->
             </div>
 
