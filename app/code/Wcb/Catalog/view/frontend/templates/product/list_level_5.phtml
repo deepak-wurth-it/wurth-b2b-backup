@@ -146,11 +146,22 @@ $product = false;
                                    class="product photo product-item-photo"
                                    tabindex="-1">
                                     <?php
-                                    foreach ($productimages as $productimage) {
-                                        echo "<img src = " . $productimage['url'] . " />";
-                                        break;
-                                    } ?>
+                                    $_imgUrl =$subcategory->getImageUrl();
+                                    if($_imgUrl) {
+                                        $_imgHtml = '<img src="' . $_imgUrl . '" />';
+                                        echo $_imgHtml = $_outputHelper->categoryAttribute($subcategory, $_imgHtml, 'image');
+                                    } else{
+                                        echo '<img src="' . $block->getPlaceHolderImageUrl() . '" />';
+                                    }
+
+                                    //echo '<img src="' . $subcategory->getImageUrl() . '" />';
+//                                    foreach ($productimages as $productimage) {
+//                                        echo "<img src = " . $productimage['url'] . " />";
+//                                       break;
+//                                    }
+                                    ?>
                                 </a>
+
                                 <div class="product details product-item-details">
                                     <?php $_productNameStripped = $block->stripTags($_product->getName(), null, true); ?>
                                     <strong class="product name product-item-name PlpItemName">
