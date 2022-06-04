@@ -119,7 +119,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $subtotal = 0;
 
         // set Price using API
-        $this->setPriceUsingApi($quote);
+        $this->setPriceUsingApi($quote,$api);
 
         foreach ($items as $item) {
             if ($item->getSku() === $this->helperData->getShippingProductCode()) {
@@ -135,7 +135,7 @@ class AddRemoveShippingProduct extends AbstractHelper
             }
 
             // set Price using API
-            $this->setPriceUsingApi($quote);
+            $this->setPriceUsingApi($quote,$api);
         }
 
         if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
@@ -143,7 +143,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         }
     }
 
-    public function setPriceUsingApi($quote)
+    public function setPriceUsingApi($quote,$api)
     {
         $items = $quote->getAllVisibleItems();
         foreach ($items as $item) {
@@ -167,14 +167,22 @@ class AddRemoveShippingProduct extends AbstractHelper
             exit;*/
             $price = (float) $price;
             $item->setCustomPrice($price);
+            $item->setPrice($price);
             $item->setOriginalCustomPrice($price);
             $item->getProduct()->setIsSuperMode(true);
             $item->calcRowTotal();
-
+            // if($api){
+            //     $item->save();
+            // }
+            
+            
             $item->getQuote()->collectTotals();
             $this->cart->getQuote()->setTriggerRecollect(1);
             $this->cart->getQuote()->collectTotals()->save();
             // $this->cart->getQuote()->setTotalsCollectedFlag(false)->collectTotals()->save();
+        }
+        if($api){
+            $quote->save();
         }
     }
 
@@ -208,6 +216,7 @@ class AddRemoveShippingProduct extends AbstractHelper
                     // update total
                     $quoteObject = $this->cartRepositoryInterface->get($quote->getId());
                     $quoteObject->addProduct($product, $request);
+                    //$quoteObject->save();
                 }
 
                 $quoteObject->setTriggerRecollect(1);
