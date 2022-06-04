@@ -5,11 +5,13 @@ namespace Wurth\Shippingproduct\CustomerData;
 use Magento\Catalog\Model\Product\Configuration\Item\ItemResolverInterface;
 use Magento\Framework\App\ObjectManager;
 use Wurth\Shippingproduct\Helper\Data as helperData;
+use Wcb\Component\Helper\Data as componentHelper;
 
 class DefaultItem extends \Magento\Checkout\CustomerData\DefaultItem
 {
     private $escaper;
     protected $helperData;
+    protected $componentHelper;
 
     public function __construct(
         \Magento\Catalog\Helper\Image $imageHelper,
@@ -18,11 +20,13 @@ class DefaultItem extends \Magento\Checkout\CustomerData\DefaultItem
         \Magento\Catalog\Helper\Product\ConfigurationPool $configurationPool,
         \Magento\Checkout\Helper\Data $checkoutHelper,
         helperData $helperData,
+        componentHelper $componentHelper,
         \Magento\Framework\Escaper $escaper = null,
         ItemResolverInterface $itemResolver = null
     ) {
         $this->escaper = $escaper ?: ObjectManager::getInstance()->get(\Magento\Framework\Escaper::class);
         $this->helperData = $helperData;
+        $this->componentHelper = $componentHelper;
         parent::__construct($imageHelper, $msrpHelper, $urlBuilder, $configurationPool, $checkoutHelper, $escaper, $itemResolver);
     }
 
@@ -58,7 +62,7 @@ class DefaultItem extends \Magento\Checkout\CustomerData\DefaultItem
                 && $this->msrpHelper->isMinimalPriceLessMsrp($this->item->getProduct()),
             'message' => $this->item->getMessage(),
             'is_shipping_product' => $isShippingProduct,
-            'is_customer_logged_in' => false,
+            'is_customer_logged_in' => $this->componentHelper->isLoggedIn(),
             'item_raw_total' => $this->checkoutHelper->formatPrice($this->item->getRowTotal())
         ];
     }

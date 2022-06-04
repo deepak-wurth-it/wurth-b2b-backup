@@ -9,5 +9,8 @@
     <type name="Magento\Customer\Model\Address\AbstractAddress">
         <plugin name="skip_validate" type="Wcb\Checkout\Plugin\Model\Address\AbstractAddress"/>
     </type>
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="add_customer_loggedin" type="Wcb\Checkout\Plugin\CustomerData" sortOrder="1"/>
+    </type>
     <preference for="Magento\Quote\Model\QuoteAddressValidator" type="Wcb\Checkout\Model\QuoteAddressValidator" />
 </config>
