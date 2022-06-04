@@ -13,7 +13,7 @@
 "var customer.name":"Customer Name"
 } @-->
 {{template config_path="design/email/header_template"}} 
-<p style='font-size:24px; margin: 0px;'><strong>Registracija novog korisnika: {company}. Datum: {date}</strong></p>
+<p style='font-size:20px; margin: 0px;'><strong>Registracija novog korisnika: {company}. Datum: {date}</strong></p>
    </div>
 </td>
 </tr>
@@ -87,26 +87,17 @@
                                 </table>
                             </td>
                         </tr>
-                    </table>
-                 </tr> 
+                   <tr><td><br/></td></tr>
 
-                 <tr>
-                    <table style="width: 95%; margin: auto; margin-top: 20px;">
-                        <tr>
-                            <td style="width: 100%;">
-                                <table border='0'>
-                                    <tbody>
-                                        <tr>
-                                            <td style='color: #cc0000; text-align: left;'><strong>Želim dobijati Newsletter</strong></td>
+                    <tr>
+                        <td style='color: #cc0000; text-align: left; margin-top:20px;'><strong>Želim dobijati Newsletter</strong></td>
                                         </tr>
                                         <tr>
                                             <td>{newsletter}&nbsp;</td>
                                         </tr>
-    
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
                     </table>
-                 </tr>           
+                 </tr> 
+
+            
+
 {{template config_path="design/email/footer_template"}}
