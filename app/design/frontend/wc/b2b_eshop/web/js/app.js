@@ -59,5 +59,15 @@ require(
                     this.value = this.value.replace(value, '1');
                 }
             });
+            
+            // On checkout page button enable disable start
+            $('.action.primary.checkout').prop("disabled", true);
+				$('#accept_terms').click(function() {
+					if ($(this).is(':checked')) {
+				$('.action.primary.checkout').prop("disabled", true);
+			 } else {
+					$('.action.primary.checkout').attr('disabled',false);}
+			});
+            // On checkout page button enable disable end
 
     });

@@ -14,7 +14,8 @@
 
         <referenceBlock name="checkout.cart.coupon" remove="true"/>
         <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon2" as="coupon" template="Magento_Checkout::cart/coupon.phtml"/>
-        <move element="checkout.cart.coupon2" destination="cart.summary" before="checkout.cart.shipping"/>
+        <!--<move element="checkout.cart.coupon2" destination="cart.summary" before="checkout.cart.shipping"/> -->
+        <move element="checkout.cart.coupon2" destination="wcb-coupon-wrapper" before="-"/>
 
         <referenceContainer name="page.messages">
             <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
@@ -83,5 +84,9 @@
                   after="checkout.cart.totals"
                   template="Magento_Checkout::cartprivacy.phtml" />
        </referenceContainer>
+         <referenceContainer name="content">
+        <container name="wcb-coupon-wrapper" htmlTag="div" htmlClass="wcb-coupon-wrapper" />
+     </referenceContainer>  
+     <move element="wcb-coupon-wrapper" destination="cart.summary" before="checkout.cart.shipping" />
    </body>
 </page>
