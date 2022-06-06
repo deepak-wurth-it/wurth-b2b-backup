@@ -61,7 +61,6 @@ require(
             });
             
             // On checkout page button enable disable start
-            $('.action.primary.checkout').prop("disabled", true);
 				$('#accept_terms').click(function() {
 					if ($(this).is(':checked')) {
 				$('.action.primary.checkout').prop("disabled", false);
