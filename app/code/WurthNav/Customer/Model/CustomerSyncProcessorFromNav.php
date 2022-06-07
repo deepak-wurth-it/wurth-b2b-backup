@@ -39,6 +39,7 @@ class CustomerSyncProcessorFromNav
         \Magento\Company\Api\CompanyRepositoryInterface $companyRepository,
         \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
+        \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory $customerCollectionFactory,
         NavCustomers $navCustomers,
         LoggerInterface $logger
     ) {
@@ -56,16 +57,63 @@ class CustomerSyncProcessorFromNav
         $this->customerRepository = $customerRepository;
         $this->companyRepository = $companyRepository;
         $this->logger = $logger;
+        $this->customerCollectionFactory = $customerCollectionFactory;
         $this->navCustomers = $navCustomers;
         $this->addressDataFactory = $addressDataFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
+
+    public function getBillingAddressByCustomerCode($customerCode, $currentCustomerId)
+    {
+        $customerObj = $this->customerCollectionFactory->create();
+        $collection = $customerObj->addAttributeToSelect('*')
+            ->addAttributeToFilter('customer_code', $customerCode)
+            ->load();
+        if ($collection->getSize()) {
+
+            $firstItem = $collection->getFirstItem();
+            $customerId = $firstItem->getId();
+            $billingAddress =  $this->getDefaultBillingAddress($customerId);
+            if ($billingAddress) {
+                $firstName =     $billingAddress->getFirstname();
+                $lastName =      $billingAddress->getLastname();
+                $countryId =     $billingAddress->getCountryId();
+                $regionId =      $billingAddress->getRegionId();
+                $regionName =     $billingAddress->getRegion();
+                $city =         $billingAddress->getCity();
+                $postcode =     $billingAddress->getPostcode();
+                $street =         $billingAddress->getStreet();
+                $telephone =     $billingAddress->getTelephone();
+
+                $address = $this->addressDataFactory->create();
+                $address->setFirstname($firstName)
+                    ->setLastname($lastName)
+                    ->setCountryId($countryId)
+                    ->setRegionId($regionId)
+                    ->setRegion($regionName)
+                    ->setCity($city)
+                    ->setPostcode($postcode)
+                    ->setCustomerId($currentCustomerId)
+                    ->setStreet($street)
+                    ->setTelephone($telephone)
+                    ->setIsDefaultBilling('1');
+                //->setSaveInAddressBook('1');
+                $address->save();
+                $log .= "Saved customer billing details".PHP_EOL;
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     /**
      * @param array $fixtures
      * @throws \Exception
      */
     public function install()
-    {
+    {   //$this->getBillingAddressByCustomerCode('12345');
+        $log = "";
         $this->customer = '';
         $this->navCustomerObj = "";
         $navCustomerObj = $this->navCustomers->create();
@@ -88,32 +136,36 @@ class CustomerSyncProcessorFromNav
                     $email =  $navCustomer->getData('Email');
                     $email = trim($email);
                     /****************  save customer **********************/
-                    $customerRepoObject = $this->customerRepository->get($email,$webSiteId);
+                   
                     $CustomerModel = $this->customerFactory->create();
                     $CustomerModel->setWebsiteId($webSiteId);
                     $CustomerModel->loadByEmail($email);
                     $customerId = $CustomerModel->getId();
+                    if(empty($customerId)){
+                        continue;
+                    }
+                    $customerRepoObject = $this->customerRepository->getById($customerId);
                     $firstName = $CustomerModel->getFirstname();
                     $lastName = $CustomerModel->getLastname();
                     if ($customerRepoObject) {
-                      
+
                         $Email = $navCustomer->getData('Email');
                         if ($Email) {
                             $customerRepoObject->setEmail($Email);
                         }
                         $Phone = $navCustomer->getData('Phone');
                         if ($Phone) {
-                            $customerRepoObject->setCustomAttribute('phone',$Phone);
+                            $customerRepoObject->setCustomAttribute('phone', $Phone);
                         }
 
                         $CustomerCode = $navCustomer->getData('CustomerCode');
 
                         if ($CustomerCode) {
-                            $customerRepoObject->setCustomAttribute('customer_code',$CustomerCode);
+                            $customerRepoObject->setCustomAttribute('customer_code', $CustomerCode);
                         }
 
                         $this->customerRepository->save($customerRepoObject);
-
+                        $log = "Saved customer basic details".PHP_EOL;
                     }
 
 
@@ -125,14 +177,15 @@ class CustomerSyncProcessorFromNav
 
                     /********************** Update Address  ********************/
                     $shippingAddress = $this->getDefaultShippingAddress($customerId);
-                   if ($shippingAddress) {
+
+                    if ($shippingAddress) {
                         $shippingId =  $shippingAddress->getId();
                         $street = $navCustomer->getData('Address');
                         $PostalCode = $navCustomer->getData('PostalCode');
                         $City = $navCustomer->getData('City');
                         $Phone = $navCustomer->getData('Phone');
                         $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
-    
+
                         $region = $shippingAddress->getRegion();
                         $regionId = $shippingAddress->getRegionId();
                         $countryId = $shippingAddress->getCountryId();
@@ -148,17 +201,19 @@ class CustomerSyncProcessorFromNav
                             ->setStreet([$street])
                             ->setTelephone($Phone)
                             ->setIsDefaultShipping(true);
-                            if($BillToCustomerNo){
-                                //$shippingAddress->setIsDefaultBilling(true);
-                            }
-
-                            $address = $this->addressRepository->save($shippingAddress);
-                            if ($address->getId()) {
-                                $status[] = $address->getId();
-                            }
+                            $log .= "Saved customer shipping details".PHP_EOL;
+    
+                        if ($BillToCustomerNo) {
+                            $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId);
                         }
-                    
-                   
+
+                        $address = $this->addressRepository->save($shippingAddress);
+                        if ($address->getId()) {
+                            $status[] = $address->getId();
+                        }
+                    }
+
+
 
                     /********************* company data  ***********************/
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
@@ -168,7 +223,7 @@ class CustomerSyncProcessorFromNav
                     $BranchCode = $navCustomer->getData('BranchCode');
                     $company->setDivision($BranchCode);
                     $savedCompany = $this->companyRepository->save($company);
-
+                    $log .= "Saved company  details".PHP_EOL;
 
                     //$CustomerType = $navCustomer->getData('CustomerType');
                     //$Potential = $navCustomer->getData('Potential');
@@ -176,7 +231,7 @@ class CustomerSyncProcessorFromNav
                     //$CustomerDiscountGroup = $navCustomer->getData('CustomerDiscountGroup');//Ignore as per scope
                     //$CentralOfficeCustomerCode = $navCustomer->getData('CentralOfficeCustomerCode');//Ignore as per scope
                     //$BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
-
+                    echo $log;
                     if ($savedCompany->getId()) {
                         $status[] = $savedCompany->getId();
                     }
@@ -210,6 +265,4 @@ class CustomerSyncProcessorFromNav
         }
         return $address;
     }
-
-    
 }
