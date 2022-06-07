@@ -30,10 +30,10 @@
                             event: { mouseover: $parents[1].onMouseOver, mouseout: $parents[1].onMouseOut, mousedown: $parents[1].onClick },
                             css: {_active: $data.isActive}">
                         </li>
-                    </ul>                               
+                    </ul>
 
                 </div>
-            </div>            
+            </div>
 
             <div class="mst-searchautocomplete__show-all" data-bind="visible: result().urlAll && result().totalItems > 0">
                 <a data-bind="attr: { href: result().urlAll }">
@@ -41,48 +41,48 @@
                 </a>
             </div>
 
-            <!-- custom design -->           
+            <!-- custom design -->
 
                     <div class="container" id="last-seen">
                          <div class="wcb-last-seen">
                             <div class="search-heading">
                             <h3>Last Seen</h3>
-                            </div>   
+                            </div>
 
                             <div class="row row-cols-2 row-cols-lg-3">
                                 <div class="col-4 col-lg-2">
                                     <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/500112.jpg" alt="Card image cap"> 
+                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/500112.jpg" alt="Card image cap">
                                     </span>
                                     <p>Elementi za spajanje (opći, metrički, colni)</p>
                                 </div>
                                 <div class="col-4 col-lg-2">
                                     <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/50010305.jpg" alt="Card image cap"> 
-                                    </span>
-                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
-                                </div>                               
-                                <div class="col-4 col-lg-2">
-                                    <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5002.jpg" alt="Card image cap"> 
+                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/50010305.jpg" alt="Card image cap">
                                     </span>
                                     <p>Elementi za spajanje (opći, metrički, colni)</p>
                                 </div>
                                 <div class="col-4 col-lg-2">
                                     <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5005.jpg" alt="Card image cap"> 
+                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5002.jpg" alt="Card image cap">
                                     </span>
                                     <p>Elementi za spajanje (opći, metrički, colni)</p>
                                 </div>
                                 <div class="col-4 col-lg-2">
                                     <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/50010305.jpg" alt="Card image cap"> 
+                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5005.jpg" alt="Card image cap">
                                     </span>
                                     <p>Elementi za spajanje (opći, metrički, colni)</p>
                                 </div>
                                 <div class="col-4 col-lg-2">
                                     <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5004.jpg" alt="Card image cap"> 
+                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/50010305.jpg" alt="Card image cap">
+                                    </span>
+                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
+                                </div>
+                                <div class="col-4 col-lg-2">
+                                    <span  class="search-pro-img">
+                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5004.jpg" alt="Card image cap">
                                     </span>
                                     <p>Elementi za spajanje (opći, metrički, colni)</p>
                                 </div>
@@ -90,7 +90,7 @@
                          </div>
 
                         </div>
-                        <!-- custom design end -->  
+                        <!-- custom design end -->
         </div>
 
         <div class="mst-searchautocomplete__empty-result" data-bind="visible: result().noResults == true && !loading()">
@@ -152,10 +152,16 @@
 </script>
 
 <script id="magento_catalog_category" type="text/x-custom-template">
+    <div class="mst-product-image-wrapper">
+        <img src="https://devtestb2b.wuerth.com.hr/media/catalog/product/placeholder/default/replacement_product_2.png" width="100">
+    </div>
     <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
 </script>
 
 <script id="magento_cms_page" type="text/x-custom-template">
+    <div class="mst-product-image-wrapper">
+        <img src="https://devtestb2b.wuerth.com.hr/media/catalog/product/placeholder/default/replacement_product_2.png" width="100">
+    </div>
     <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
 </script>
 
