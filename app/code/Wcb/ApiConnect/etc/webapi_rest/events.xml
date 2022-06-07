@@ -3,7 +3,13 @@
    <!--  <event name="checkout_cart_save_after">
         <observer name="checkout_cart_save_after" instance="Wurth\Shippingproduct\Observer\AddShippingProduct" />
     </event> -->
-     <event name="sales_quote_item_save_after">
+<!--     <event name="sales_quote_item_save_after">-->
+<!--        <observer name="checkout_cart_save_after" instance="Wcb\ApiConnect\Observer\AddShippingProduct" />-->
+<!--    </event>-->
+    <event name="sales_quote_save_after">
         <observer name="checkout_cart_save_after" instance="Wcb\ApiConnect\Observer\AddShippingProduct" />
     </event>
+<!--    <event name="sales_quote_remove_item">-->
+<!--        <observer name="checkout_cart_delete_after" instance="Wcb\ApiConnect\Observer\RemoveProductAfter" />-->
+<!--    </event>-->
 </config>
