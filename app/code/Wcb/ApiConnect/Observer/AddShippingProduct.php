@@ -39,9 +39,11 @@ class AddShippingProduct implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
+
         try {
-            $cart = $observer->getData('cart');
-            $quote = $observer->getEvent()->getItem()->getQuote();
+            //$cart = $observer->getData('cart');
+            //$quote = $observer->getEvent()->getItem()->getQuote();
+            $quote = $observer->getEvent()->getQuote();
             $this->addRemoveShippingProduct->updateShippingProduct($quote, $api = 1);
         } catch (Exception $e) {
             $this->logger->info($e->getMessage());
