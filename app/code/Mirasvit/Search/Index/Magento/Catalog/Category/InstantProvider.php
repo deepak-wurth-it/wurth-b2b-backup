@@ -24,6 +24,7 @@ use Magento\Framework\Url;
 use Magento\Store\Model\StoreManagerInterface;
 use Mirasvit\Search\Index\AbstractInstantProvider;
 use Mirasvit\Search\Service\IndexService;
+use Magento\Framework\UrlInterface;
 
 class InstantProvider extends AbstractInstantProvider
 {
