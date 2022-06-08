@@ -13,7 +13,6 @@
  * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
  */
 
-
 declare(strict_types=1);
 
 namespace Mirasvit\Search\Index\Magento\Catalog\Category;
@@ -21,6 +20,7 @@ namespace Mirasvit\Search\Index\Magento\Catalog\Category;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\CategoryRepository;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Url;
 use Magento\Store\Model\StoreManagerInterface;
 use Mirasvit\Search\Index\AbstractInstantProvider;
 use Mirasvit\Search\Service\IndexService;
@@ -31,14 +31,17 @@ class InstantProvider extends AbstractInstantProvider
 
     private $storeManager;
 
+    protected $urlBuilder;
+
     public function __construct(
+        Url $urlBuilder,
         CategoryRepository $categoryRepository,
         StoreManagerInterface $storeManager,
         IndexService $indexService
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->storeManager       = $storeManager;
-
+        $this->urlBuilder = $urlBuilder;
         parent::__construct($indexService);
     }
 
@@ -64,10 +67,15 @@ class InstantProvider extends AbstractInstantProvider
     {
         $category = $category->setStoreId($storeId);
         $category = $category->load($category->getId());
-
+        if ($category->getUrl()) {
+            $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . $category->getUrl();
+        } else {
+            $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . "catalog/product/placeholder/default/replacement_product_2.png";
+        }
         return [
             'name' => $this->getFullPath($category, $storeId),
-            'url'  => $category->getUrl(),
+            'url'  => $imageUrl,
+            'image'  => $category->getImageUrl(),
         ];
     }
 
@@ -81,6 +89,8 @@ class InstantProvider extends AbstractInstantProvider
         ];
 
         do {
+            break; // skip breadcrumbs
+
             if (!$category->getParentId()) {
                 break;
             }
