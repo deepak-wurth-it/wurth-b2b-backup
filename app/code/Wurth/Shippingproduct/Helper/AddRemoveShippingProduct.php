@@ -9,6 +9,7 @@ use Magento\Checkout\Model\Session;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Data\Form\FormKey;
+use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
@@ -119,7 +120,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         $subtotal = 0;
 
         // set Price using API
-        $this->setPriceUsingApi($quote);
+        $this->setPriceUsingApi($quote, $api);
 
         foreach ($items as $item) {
             if ($item->getSku() === $this->helperData->getShippingProductCode()) {
@@ -133,32 +134,21 @@ class AddRemoveShippingProduct extends AbstractHelper
             if (!$quote->getData('pickup_store_id')) {
                 $this->addShippingProduct($quote, $api);
             }
-
             // set Price using API
-            $this->setPriceUsingApi($quote);
+            $this->setPriceUsingApi($quote, $api);
         }
 
         if (($subtotal >= $cartAmountLimit && $shippingProductExist) || $subtotal === 0) {
             $this->removeShippingProduct($items, $quote, $api);
         }
-        /**
-         * We have save forcefully because some product price is not updates in the cart item
-         */
-        if($api){
-            $quote->save();
-        }
     }
 
-    /**
-     * @param $quote
-     * @throws Exception
-     */
-    public function setPriceUsingApi($quote)
+    public function setPriceUsingApi($quote, $api)
     {
         $items = $quote->getAllVisibleItems();
         foreach ($items as $item) {
             $item = ($item->getParentItem() ? $item->getParentItem() : $item);
-            $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode(),$quote);
+            $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode(), $quote);
             $price = isset($priceData['price']) ? $priceData['price'] : '';
             if (isset($priceData['discount']) && $priceData['discount'] != 0) {
                 $price = $priceData['discount_price'];
@@ -175,15 +165,17 @@ class AddRemoveShippingProduct extends AbstractHelper
             }
             /*var_dump($price);
             exit;*/
-            $price = (float) $price;
+            $price = (float)$price;
             $item->setCustomPrice($price);
             $item->setPrice($price);
             $item->setOriginalCustomPrice($price);
             $item->getProduct()->setIsSuperMode(true);
             $item->calcRowTotal();
             $item->getQuote()->collectTotals();
-            $this->cart->getQuote()->setTriggerRecollect(1);
-            $this->cart->getQuote()->collectTotals()->save();
+            $quote->setTriggerRecollect(1);
+            $quote->collectTotals()->save();
+//            $this->cart->getQuote()->setTriggerRecollect(1);
+//            $this->cart->getQuote()->collectTotals()->save();
             // $this->cart->getQuote()->setTotalsCollectedFlag(false)->collectTotals()->save();
         }
     }
@@ -205,9 +197,9 @@ class AddRemoveShippingProduct extends AbstractHelper
                     'product' => $product->getId(),
                     'qty' => 1
                 ];
-                $request = new \Magento\Framework\DataObject();
+                $request = new DataObject();
                 $request->setData($params);
-                if ($api=='') {
+                if ($api == '') {
                     $this->cart->addProduct($product, $params);
                     $this->cart->save();
                     $this->cart->getQuote()->setTriggerRecollect(1);
@@ -217,8 +209,17 @@ class AddRemoveShippingProduct extends AbstractHelper
                 } else {
                     // update total
                     $quoteObject = $this->cartRepositoryInterface->get($quote->getId());
-                    $quoteObject->addProduct($product, $request);
-                    //$quoteObject->save();
+                    $shippingProductExistCustom = false;
+                    foreach ($quoteObject->getAllVisibleItems() as $item) {
+                        if ($item->getSku() === $this->helperData->getShippingProductCode()) {
+                            $shippingProductExistCustom = true;
+                            break;
+                        }
+                    }
+                    if (!$shippingProductExistCustom) {
+                        $quoteObject->addProduct($product, $request);
+                    }
+//                    $quoteObject->addProduct($product, $request);
                 }
 
                 $quoteObject->setTriggerRecollect(1);
@@ -243,7 +244,7 @@ class AddRemoveShippingProduct extends AbstractHelper
         try {
             foreach ($items as $item) {
                 if ($item->getSku() === $this->helperData->getShippingProductCode()) {
-                    if ($api=='') {
+                    if ($api == '') {
                         $this->cart->removeItem($item->getId());
                         $this->cart->save();
                         $this->cart->getQuote()->setTriggerRecollect(1);
