@@ -1880,7 +1880,35 @@ label.sorter-label {
 		figure.full-width img {
 			width: 100%;
 		}
+		// about us page start
+		.counter-box {
+			display: block;
+			background: #fff;
+			padding: 40px 20px 37px;
+			text-align: center
+		}
 		
+		.counter-box p {
+			font-family: 'wuerthbook';
+			font-weight: 700;
+			font-size: 28px;
+			color: #CC0000;
+		}
+		
+		.counter-box img {
+			font-size: 60px;
+			margin: 0 0 15px;
+			color: #d2d2d2
+		}
+		
+		.counter { 
+			line-height: 28px;
+			font-family: 'wuerthbook';
+			font-size: 60px;
+			margin: 10px 0px 10px 0px;
+			display: block;
+		}
+		// about us page end
 	// cms page for image
 
 	// One page shipping start
@@ -10357,6 +10385,25 @@ print {
 		width: 375px;
 	}
 	// Search popup end in mobile view
+
+	// cms page grid order
+	
+	.pagebuilder-column.col-md-6.first-order {
+		-webkit-box-ordinal-group: 2;
+		-moz-box-ordinal-group: 2;
+		-ms-flex-order: 2;
+		-webkit-order: 2;
+		order: 2;
+	  }
+	
+	  .pagebuilder-column.col-md-6.second-order {
+		-webkit-box-ordinal-group: 1;
+		-moz-box-ordinal-group: 1;
+		-ms-flex-order: 1;
+		-webkit-order: 1;
+		order: 1;
+	  }
+	// cms page gride order
 }
 
 @media only screen and (max-width: 574px) {

@@ -68,5 +68,22 @@ require(
 					$('.action.primary.checkout').attr('disabled',true);}
 			});
             // On checkout page button enable disable end
+			
+			// counter in about us  page
+			 $(document).ready(function() {
+
+				$('.counter').each(function () {
+					$(this).prop('Counter',0).animate({
+						Counter: $(this).text()
+					}, {
+						duration: 4000,
+						easing: 'swing',
+						step: function (now) {
+							$(this).text(Math.ceil(now));
+						}
+					});
+			});
+			
+			// counter in about us page 
 
     });
