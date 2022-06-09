@@ -21,10 +21,10 @@ use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\CategoryRepository;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Url;
+use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Mirasvit\Search\Index\AbstractInstantProvider;
 use Mirasvit\Search\Service\IndexService;
-use Magento\Framework\UrlInterface;
 
 class InstantProvider extends AbstractInstantProvider
 {
@@ -68,15 +68,18 @@ class InstantProvider extends AbstractInstantProvider
     {
         $category = $category->setStoreId($storeId);
         $category = $category->load($category->getId());
-        if ($category->getUrl()) {
-            $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . $category->getUrl();
+
+        if ($category->getImageUrl()) {
+            // $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . $category->getImageUrl();
+            $imageUrl = $category->getImageUrl();
         } else {
             $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . "catalog/product/placeholder/default/replacement_product_2.png";
         }
+
         return [
             'name' => $this->getFullPath($category, $storeId),
-            'url'  => $imageUrl,
-            'image'  => $category->getImageUrl(),
+            'url'  =>  $category->getUrl(),
+            'image'  => $imageUrl,
         ];
     }
 
