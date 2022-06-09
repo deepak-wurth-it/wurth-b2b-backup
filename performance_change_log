@@ -7,9 +7,9 @@ php bin/magento module:disable Magento_Ups
 php bin/magento module:disable PayPal_BraintreeGraphQl
 php bin/magento module:disable PayPal_Braintree
 php bin/magento module:disable Magento_PaypalGraphQl
-php bin/magento module:disable Magento_CheckoutAgreements
-php bin/magento module:disable Magento_CheckoutAgreementsGraphQl
-php bin/magento module:disable Magento_CheckoutAgreementsNegotiableQuote
+php bin/magento module:disable Magento_CheckoutAgreements = Failed to disable
+php bin/magento module:disable Magento_CheckoutAgreementsGraphQl = Failed to disable
+php bin/magento module:disable Magento_CheckoutAgreementsNegotiableQuote = Failed to disable
 php bin/magento module:disable Vertex_Tax
 php bin/magento module:disable Vertex_AddressValidation
 php bin/magento module:disable Vertex_TaxStaging
