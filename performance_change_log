@@ -1,0 +1,16 @@
+#Disabled module for performance on checkout page
+
+php bin/magento module:disable Magento_Dhl
+php bin/magento module:disable Magento_Fedex
+php bin/magento module:disable Magento_Usps
+php bin/magento module:disable Magento_Ups
+php bin/magento module:disable PayPal_BraintreeGraphQl
+php bin/magento module:disable PayPal_Braintree
+php bin/magento module:disable Magento_PaypalGraphQl
+php bin/magento module:disable Magento_CheckoutAgreements
+php bin/magento module:disable Magento_CheckoutAgreementsGraphQl
+php bin/magento module:disable Magento_CheckoutAgreementsNegotiableQuote
+php bin/magento module:disable Vertex_Tax
+php bin/magento module:disable Vertex_AddressValidation
+php bin/magento module:disable Vertex_TaxStaging
+php bin/magento module:disable  Magento_PaypalPurchaseOrder
