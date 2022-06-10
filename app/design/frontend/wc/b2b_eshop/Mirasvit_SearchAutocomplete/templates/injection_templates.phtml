@@ -15,11 +15,12 @@
     <div class="mst-searchautocomplete__wrapper">
         <div data-bind="visible: result().noResults == false" class="test">
             <div data-bind="foreach: { data: result().indexes, as: 'index' }">
-                <div data-bind="visible: index.totalItems, attr: {class: 'mst-searchautocomplete__index ' + index.identifier}">
+                <div
+                    data-bind="visible: index.totalItems, attr: {class: 'mst-searchautocomplete__index ' + index.identifier}">
                     <div class="mst-searchautocomplete__index-title">
                         <span data-bind="text: index.title"></span>
-                        <span data-bind="visible: index.isShowTotals">
-                            (<span data-bind="text: index.totalItems"></span>)
+                        <span data-bind="visible: index.isShowTotals && index.identifier == 'magento_catalog_product'">
+                            :<span data-bind="text: index.totalItems"></span>
                         </span>
                     </div>
 
@@ -35,62 +36,20 @@
                 </div>
             </div>
 
-            <div class="mst-searchautocomplete__show-all" data-bind="visible: result().urlAll && result().totalItems > 0">
+            <div class="mst-searchautocomplete__show-all"
+                 data-bind="visible: result().urlAll && result().totalItems > 0">
                 <a data-bind="attr: { href: result().urlAll }">
-                    <span data-bind="text: result().textAll"></span>
+                    <!--<span data-bind="text: result().textAll"></span>-->
+                    <span data-bind="i18n: 'View all results →'"></span>
+
                 </a>
             </div>
 
             <!-- custom design -->
-
-                    <div class="container" id="last-seen">
-                         <div class="wcb-last-seen">
-                            <div class="search-heading">
-                            <h3>Last Seen</h3>
-                            </div>
-
-                            <div class="row row-cols-2 row-cols-lg-3">
-                                <div class="col-4 col-lg-2">
-                                    <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/500112.jpg" alt="Card image cap">
-                                    </span>
-                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
-                                </div>
-                                <div class="col-4 col-lg-2">
-                                    <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/50010305.jpg" alt="Card image cap">
-                                    </span>
-                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
-                                </div>
-                                <div class="col-4 col-lg-2">
-                                    <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5002.jpg" alt="Card image cap">
-                                    </span>
-                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
-                                </div>
-                                <div class="col-4 col-lg-2">
-                                    <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5005.jpg" alt="Card image cap">
-                                    </span>
-                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
-                                </div>
-                                <div class="col-4 col-lg-2">
-                                    <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/50010305.jpg" alt="Card image cap">
-                                    </span>
-                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
-                                </div>
-                                <div class="col-4 col-lg-2">
-                                    <span  class="search-pro-img">
-                                        <img  src="https://devtestb2b.wuerth.com.hr/media/catalog/category/5004.jpg" alt="Card image cap">
-                                    </span>
-                                    <p>Elementi za spajanje (opći, metrički, colni)</p>
-                                </div>
-                            </div>
-                         </div>
-
-                        </div>
-                        <!-- custom design end -->
+            <div id="custom-recent-view-product" data-bind="visible: !result().urlAll, scope:'custom-recent-view-product'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <!-- custom design end -->
         </div>
 
         <div class="mst-searchautocomplete__empty-result" data-bind="visible: result().noResults == true && !loading()">
@@ -104,7 +63,8 @@
 </script>
 
 <script id="magento_search_query" type="text/x-custom-template">
-    <a class="title" data-bind="text: query_text, attr: {href: url}, highlight"></a> <span class="num_results" data-bind="text: num_results"></span>
+    <a class="title" data-bind="text: query_text, attr: {href: url}, highlight"></a> <span class="num_results"
+                                                                                           data-bind="text: num_results"></span>
 </script>
 
 <script id="magento_catalog_product" type="text/x-custom-template">
@@ -124,7 +84,7 @@
         </div>
 
         <!-- ko if: description -->
-       <!-- <div class="description" data-bind="text: description, highlight"></div>-->
+        <!-- <div class="description" data-bind="text: description, highlight"></div>-->
         <!-- /ko -->
 
         <!-- ko if: rating -->
@@ -236,4 +196,18 @@
 
 <script id="mirasvit_brand_page" type="text/x-custom-template">
     <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
+</script>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "custom-recent-view-product": {
+                    "component": "Mirasvit_SearchAutocomplete/js/recent-view"
+                }
+            }
+        }
+    }
+}
+
 </script>
