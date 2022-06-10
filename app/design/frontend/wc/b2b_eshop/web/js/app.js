@@ -70,7 +70,7 @@ require(
             // On checkout page button enable disable end
 			
 			// counter in about us  page
-			 $(document).ready(function() {
+            $(document).ready(function() {
 
 				$('.counter').each(function () {
 					$(this).prop('Counter',0).animate({
@@ -83,6 +83,7 @@ require(
 						}
 					});
 			});
+        });
 			
 			// counter in about us page 
 
