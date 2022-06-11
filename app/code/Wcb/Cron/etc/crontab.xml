@@ -79,6 +79,18 @@
         </job>
     </group>
     
+     
+     <group id="wurthnav">
+        <job name="customer_register_update_to_erp" instance="Wcb\Cron\WurthNavCron\ExportRegisterDataToERP" method="execute">
+            <schedule>*/10 * * * *</schedule>
+        </job>
+    </group>
+    <group id="wurthnav">
+        <job name="customer_register_update_to_erp_to_magento" instance="Wcb\Cron\WurthNavCron\ImportRegisterDataToERP" method="execute">
+            <schedule>*/10 * * * *</schedule>
+        </job>
+    </group>
+    
 <!--<group id="pim">
         <job instance="Wcb\Cron\Test\TestCron" method="execute" name="test_cron">
                  <schedule>* * * * *</schedule>
