@@ -42,7 +42,7 @@ define(['jquery',
                 if(recentAllProducts.length == 0) {
                     return;
                 }
-                recentAllProducts = recentAllProducts.slice(-5);// get last five product
+                recentAllProducts = recentAllProducts.slice(-6);// get last five product
 
                 let recentProductUrl = urlBuilder.build('searchautocomplete/ajax/getrecentproduct');
                 let self = this;

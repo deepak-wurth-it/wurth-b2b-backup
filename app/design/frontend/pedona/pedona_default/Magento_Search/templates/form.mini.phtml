@@ -13,7 +13,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
 ?>
 
 	<form class="form minisearch" id="search_mini_form" action="<?php /* @escapeNotVerified */ echo $helper->getResultUrl() ?>" method="get">
-		<div class="field search">
+		<div class="field search actions">
 			<input id="search"
 				   data-mage-init='{"quickSearch":{
 						"formSelector":"#search_mini_form",
@@ -34,9 +34,9 @@ $helper = $this->helper('Magento\Search\Helper\Data');
 
 			<?php //echo $block->getChildHtml() ?>
 
-			<button type="submit" title="<?php echo $block->escapeHtml(__('Search')) ?>" class="action">
+			<button type="submit" title="<?php echo $block->escapeHtml(__('Search')) ?>" class="action search">
 				<span><?php /* @escapeNotVerified */ //echo __('Search'); ?></span>
 			</button>
 		</div>
-		
+
 	</form>

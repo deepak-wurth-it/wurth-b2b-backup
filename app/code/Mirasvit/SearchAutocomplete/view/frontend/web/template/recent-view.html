@@ -10,7 +10,9 @@
                 <span class="search-pro-img">
                     <img data-bind="attr: {src: item.image}">
                 </span>
-                <p data-bind="text: item.name"></p>
+                <a data-bind="attr: {href: item.url}">
+                    <p data-bind="text: item.name"></p>
+                </a>
             </div>
             <!-- /ko -->
         </div>

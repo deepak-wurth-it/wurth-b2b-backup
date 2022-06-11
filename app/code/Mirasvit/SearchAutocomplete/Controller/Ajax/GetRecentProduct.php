@@ -59,13 +59,14 @@ class GetRecentProduct extends Action
             $collection = $this->productCollectionFactory->create()
                 ->addAttributeToSelect('*')
                 ->addFieldToFilter("entity_id", ['in', $productIds]);
-            $collection->setPageSize(5);
+            $collection->setPageSize(6);
             $data = [];
 
             foreach ($collection as $product) {
                 $data[] = [
                     'id' => $product->getEntityId(),
                     'name' => $product->getName(),
+                    'url' => $product->getProductUrl(),
                     'image' => $this->getImageUrl($product)
                 ];
             }
