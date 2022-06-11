@@ -14,17 +14,17 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class SalesOrderSyncCommand extends Command
+class DimensionValueEshopSyncCommand extends Command
 {
 
 
     public function __construct(
-        \WurthNav\Sales\Model\SalesShipmentLineSyncProcessor $salesShipmentLineSyncProcessor,
+        \WurthNav\Sales\Model\DimensionValueEshopProcessor $dimensionValueEshopProcessor,
         \Magento\Framework\App\State $state
 
     ) {
         
-        $this->salesShipmentLineSyncProcessor = $salesShipmentLineSyncProcessor;
+        $this->dimensionValueEshopProcessor = $dimensionValueEshopProcessor;
         $this->state = $state;
         parent::__construct();
 
@@ -36,8 +36,8 @@ class SalesOrderSyncCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('nav:sales:shipment:sync')
-            ->setDescription('Sales Shipment Line Sync');
+        $this->setName('nav:sales:dimension:value:sync')
+            ->setDescription('Dimension value sync');
 
         parent::configure();
     }
@@ -49,11 +49,12 @@ class SalesOrderSyncCommand extends Command
      * @throws LocalizedException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
-    {       $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
+    {
+		    $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
 
         try {
            
-            $this->salesShipmentLineSyncProcessor->install();
+            $this->dimensionValueEshopProcessor->install();
         } catch (\Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
