@@ -36,4 +36,13 @@
             <resource ref="self"/>
         </resources>
     </route>
+    <route url="/V1/customer/addInfo" method="GET">
+        <service class="Wcb\ApiConnect\Api\Customer\CustomerAddressInfo" method="getCustomerInfo"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
 </routes>
