@@ -27,11 +27,11 @@
             </argument>
         </arguments>
         
-         <arguments>
+         <!--<arguments>
             <argument name="commands" xsi:type="array">
                 <item name="ShopSyncCommand" xsi:type="object">WurthNav\Sales\Console\Command\ShopSyncCommand</item>
             </argument>
-        </arguments>
+        </arguments>-->
     </type>
 
 </config>
