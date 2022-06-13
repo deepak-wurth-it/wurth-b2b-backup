@@ -49,10 +49,9 @@ class SalesOrderSyncToNavCommand extends Command
      * @throws LocalizedException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        try {
-            $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_FRONTEND);
-           
+    {       $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
+		
+        try {           
             $this->salesOrderSyncToNavProcessor->install();
         } catch (\Exception $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
