@@ -3,4 +3,5 @@
 	<preference for="Wcb\ApiConnect\Api\SoapClientRepositoryInterface" type="Wcb\ApiConnect\Model\SoapClientRepository"/>
 	<preference for="Wcb\ApiConnect\Api\Data\SoapClientInterface" type="Wcb\ApiConnect\Model\SoapClient"/>
     <preference for="Wcb\ApiConnect\Api\Data\SoapClientSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Wcb\ApiConnect\Api\Customer\CustomerAddressInfo" type="Wcb\ApiConnect\Model\Api\Customer\CustomerAddressModelInfo"/>
 </config>
