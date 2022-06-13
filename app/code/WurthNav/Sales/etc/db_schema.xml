@@ -41,5 +41,30 @@
 		 <column name="promised_delivery_date" nullable="true" xsi:type="varchar" length="200" comment="Order is placed for Delivery or Store Number "/>
 
    </table>
+   
+   <table name="wurthnav_dimension_value_eshop" resource="default" engine="innodb" comment="Order Types Code">
+		<column xsi:type="int" name="Id" padding="8" unsigned="true" nullable="false" identity="true" comment="Auto Increment Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="Id"/>
+		</constraint>
+        <column name="Code" nullable="true" xsi:type="varchar" length="255" comment="Code"/>
+        <column name="DimensionCode" nullable="true" xsi:type="varchar" length="255" comment="Dimension Code"/>
+        <column name="Name" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+   </table>
+   
+   <table name="wurthnav_shops" resource="default" engine="innodb" comment="Click and Collect  Shops">
+		<column xsi:type="int" name="Id" padding="8" unsigned="true" nullable="false" identity="true" comment="Auto Increment Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="Id"/>
+		</constraint>
+        <column name="Code" nullable="true" xsi:type="varchar" length="255" comment="Code"/>
+        <column name="Name" nullable="true" xsi:type="varchar" length="255" comment="Dimension Code"/>
+        <column name="Address" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+        <column name="City" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+		<column name="PostCode" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+		<column name="Wholesale Center Location" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+		<column name="E-Mail" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+   </table>
+	
 </schema>
 
