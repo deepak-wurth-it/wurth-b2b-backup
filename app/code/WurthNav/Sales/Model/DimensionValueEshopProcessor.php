@@ -5,7 +5,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace WurthNav\Customer\Model;
+namespace WurthNav\Sales\Model;
 use Psr\Log\LoggerInterface;
 
 
@@ -15,10 +15,10 @@ use Psr\Log\LoggerInterface;
  * Class Attribute
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class EmployeesProcessor
+class DimensionValueEshopProcessor
 {
 
-    const EMPLOYEES = 'wurthnav_employees';
+    const WURTH_NAV_DIMENSION_VALUE_ESHOP = 'wurthnav_dimension_value_eshop';
 
 	protected $connectionWurthNav;
 	protected $connectionDefault;
@@ -46,43 +46,38 @@ class EmployeesProcessor
 
 		$select = $this->connectionWurthNav->select()
         ->from(
-            ['emp' => 'Employees']
+            ['dve' => 'DimensionValue_Eshop']
         );
        $data = $this->connectionWurthNav->fetchAll($select);
 
        if(count($data)){
 		foreach($data as $row){
 			
-		  $tableName = $this->connectionDefault->getTableName(self::EMPLOYEES);
+		  $tableName = $this->connectionDefault->getTableName(self::WURTH_NAV_DIMENSION_VALUE_ESHOP);
 		
 			$data = [
-			'EmployeeCode' => $row['EmployeeCode'],
-			'Name' =>$row['Name'],
-			'Email' =>$row['Email'],
-			'PhoneNo' =>$row['PhoneNo'],
-			'BackofficeSupportEmployee' =>$row['BackofficeSupportEmployee'],
-			'AreaManagerCode' =>$row['AreaManagerCode'],
-			'RegionalManagerCode' =>$row['RegionalManagerCode']
+			'Code' => $row['Code'],
+			'DimensionCode' =>$row['DimensionCode'],
+			'Name' =>$row['Name']
 			];
 			
 			
 			$selectExist = $this->connectionDefault->select()
 			->from(
-				['emp' => self::EMPLOYEES ]
+				['wdve' => self::WURTH_NAV_DIMENSION_VALUE_ESHOP ]
 			)
-			->where('EmployeeCode = ?', $row['EmployeeCode']);
+			->where('Code = ?', $row['Code']);
 			
 		     $dataExist = $this->connectionDefault->fetchOne($selectExist);
 
 		
 			if(empty($dataExist)){
-				$this->connectionDefault->insert(self::EMPLOYEES, $data);
+				$this->connectionDefault->insert(self::WURTH_NAV_DIMENSION_VALUE_ESHOP, $data);
 			}
 				if(!empty($dataExist)){
-					
-				$where = ['EmployeeCode = ?' => (int)$dataExist];
+				$where = ['Code = ?' => (int)$dataExist];
 				
-				$this->connectionDefault->update(self::EMPLOYEES, $data,$where);
+				$this->connectionDefault->update(self::WURTH_NAV_DIMENSION_VALUE_ESHOP, $data,$where);
 
 			}
 			

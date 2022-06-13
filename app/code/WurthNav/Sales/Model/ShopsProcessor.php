@@ -5,7 +5,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace WurthNav\Customer\Model;
+namespace WurthNav\Sales\Model;
 use Psr\Log\LoggerInterface;
 
 
@@ -15,10 +15,10 @@ use Psr\Log\LoggerInterface;
  * Class Attribute
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class EmployeesProcessor
+class ShopsProcessor
 {
 
-    const EMPLOYEES = 'wurthnav_employees';
+    const WURTH_NAV_SHOPS = 'wurthnav_shops';
 
 	protected $connectionWurthNav;
 	protected $connectionDefault;
@@ -46,43 +46,42 @@ class EmployeesProcessor
 
 		$select = $this->connectionWurthNav->select()
         ->from(
-            ['emp' => 'Employees']
+            ['shp' => 'Shops']
         );
        $data = $this->connectionWurthNav->fetchAll($select);
 
        if(count($data)){
 		foreach($data as $row){
 			
-		  $tableName = $this->connectionDefault->getTableName(self::EMPLOYEES);
+		  $tableName = $this->connectionDefault->getTableName(self::WURTH_NAV_SHOPS);
 		
 			$data = [
-			'EmployeeCode' => $row['EmployeeCode'],
+			'Code' => $row['Code'],
 			'Name' =>$row['Name'],
-			'Email' =>$row['Email'],
-			'PhoneNo' =>$row['PhoneNo'],
-			'BackofficeSupportEmployee' =>$row['BackofficeSupportEmployee'],
-			'AreaManagerCode' =>$row['AreaManagerCode'],
-			'RegionalManagerCode' =>$row['RegionalManagerCode']
+			'Address' =>$row['Address'],
+			'City' =>$row['City'],
+			'PostCode' =>$row['PostCode'],
+			'Wholesale' =>$row['Wholesale'],
+			'E-Mail' =>$row['E-Mail']
 			];
-			
+
 			
 			$selectExist = $this->connectionDefault->select()
 			->from(
-				['emp' => self::EMPLOYEES ]
+				['wns' => self::WURTH_NAV_SHOPS ]
 			)
-			->where('EmployeeCode = ?', $row['EmployeeCode']);
+			->where('Code = ?', $row['Code']);
 			
 		     $dataExist = $this->connectionDefault->fetchOne($selectExist);
 
 		
 			if(empty($dataExist)){
-				$this->connectionDefault->insert(self::EMPLOYEES, $data);
+				$this->connectionDefault->insert(self::WURTH_NAV_SHOPS, $data);
 			}
 				if(!empty($dataExist)){
-					
-				$where = ['EmployeeCode = ?' => (int)$dataExist];
+				$where = ['Code = ?' => (int)$dataExist];
 				
-				$this->connectionDefault->update(self::EMPLOYEES, $data,$where);
+				$this->connectionDefault->update(self::WURTH_NAV_SHOPS, $data,$where);
 
 			}
 			

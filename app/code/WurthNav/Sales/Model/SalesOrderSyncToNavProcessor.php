@@ -64,6 +64,8 @@ class SalesOrderSyncToNavProcessor
 				 $ordersNav->setData('OrderStatus',$order->getOrderStatus());//Order Status
 				 $ordersNav->setData('PaymentType',$methodTitle);//Order Payment Method
 				 $ordersNav->setData('LastUpdate',$order->getUpdatedAt());//Order Last Update
+				 $ordersNav->setData('NeedsUpdate','1');// Needs Update
+				 $ordersNav->setData('Synchronized','1');// Needs Update
 				 $ordersNav->save(); // New Save
 				 
 				 $this->SaveOrderItems($order);

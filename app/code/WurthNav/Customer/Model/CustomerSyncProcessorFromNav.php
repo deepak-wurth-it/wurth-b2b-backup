@@ -119,7 +119,7 @@ class CustomerSyncProcessorFromNav
         $navCustomerObj = $this->navCustomers->create();
 
         $collection = $navCustomerObj->getCollection()
-            ->addFieldToFilter('Synchronized', array('eq' => '1'));
+            ->addFieldToFilter('Synchronized', array('eq' => '0'));
         $status = [];
 
 
@@ -236,8 +236,8 @@ class CustomerSyncProcessorFromNav
                         $status[] = $savedCompany->getId();
                     }
                     if (count($status) == 3) {
-                        //$navCustomer->setData('Synchronized', '0');
-                        //$navCustomer->save();
+                        $navCustomer->setData('Synchronized', '1');
+                        $navCustomer->save();
                     }
                 } catch (\Exception $e) {
                     $this->logger->critical($e->getMessage());
