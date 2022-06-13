@@ -51,15 +51,15 @@ class SalesOrderStatusSyncCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {       $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
 
-        try {
+        //try {
             $this->salesOrderOrderStatusProcessor->install();
-        } catch (\Exception $e) {
-            $output->writeln('<error>' . $e->getMessage() . '</error>');
-            if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
-                $output->writeln($e->getTraceAsString());
-            }
+        //} catch (\Exception $e) {
+          //  $output->writeln('<error>' . $e->getMessage() . '</error>');
+            //if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
+              ///  $output->writeln($e->getTraceAsString());
+            //}
             // we must have an exit code higher than zero to indicate something was wrong
-            return \Magento\Framework\Console\Cli::RETURN_FAILURE;
-        }
+            //return \Magento\Framework\Console\Cli::RETURN_FAILURE;
+        //}
     }
 }

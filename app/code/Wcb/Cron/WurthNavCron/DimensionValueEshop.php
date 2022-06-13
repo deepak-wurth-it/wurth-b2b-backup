@@ -18,7 +18,7 @@ class DimensionValueEshop
 
 
     public function __construct(
-        \WurthNav\Customer\Model\DimensionValueEshopProcessor $dimensionValueEshopProcessor
+        \WurthNav\Sales\Model\DimensionValueEshopProcessor $dimensionValueEshopProcessor
     ) {
 
         $this->dimensionValueEshopProcessor = $dimensionValueEshopProcessor;
