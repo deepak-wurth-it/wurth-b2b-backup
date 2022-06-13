@@ -22,6 +22,7 @@ $_productCollection = $block->getLoadedProductCollection();
 /** @var \Magento\Catalog\Helper\Output $_helper */
 $_helper = $block->getData('outputHelper');
 $pid = [];
+$pid['skus'] = [];
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty">
@@ -54,10 +55,14 @@ $pid = [];
             <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
             <?php foreach ($_productCollection as $_product): ?>
                 <?php $productCode = $_product->getProductCode(); ?>
-                <?php if ($productCode) { ?>
-                    <?php $pid[$_product->getSku()][] = $productCode; ?>
-                    <?php $pid[$_product->getSku()][] = '1'; ?>
-                <?php } ?>
+                <?php
+                if ($productCode) {
+                    $skuArray = [];
+                    $skuArray['product_code'] = $productCode;
+                    $skuArray['qty'] = '1';
+                    $pid['skus'][] = $skuArray;
+                }
+                ?>
 
                 <li class="item product product-item">
                     <div class="product-item-info"
@@ -92,15 +97,17 @@ $pid = [];
                             <!--Price Section-->
                             <?php $productCode = str_replace(' ', '', $productCode); ?>
                             <span class="wcb-logged">
-                                    <div id="price_soap<?php echo $productCode; ?>" style="display: none;" class="price-box">
+                                    <div id="price_soap_<?php echo $productCode; ?>" style="display: none;"
+                                         class="price-box">
                                         <span class="price"
-                                              id="suggestedSalesPriceInclDiscAsTxtP<?php echo $productCode; ?>" style="display: none"></span>
+                                              id="suggestedSalesPriceInclDiscAsTxtP_<?php echo $productCode; ?>"></span>
                                         <span class="price">&nbsp;HRK&nbsp;</span>
 
                                         <span class="stock" id="stock_<?php echo $productCode; ?>">
                                             <span class="wcb-contaner-group">
                                                 <div class="tooltip box redBox">
-                                                    <span class="tooltiptext">The item is not available immediately</span>
+                                                    <span
+                                                        class="tooltiptext">The item is not available immediately</span>
                                                 </div>
                                                 <div class="tooltip van redVan">
                                                     <span class="tooltiptext">The quantity will be available for the displayed number of days</span>
@@ -110,12 +117,12 @@ $pid = [];
                                         </span>
                                     </div>
                                      <div>
-                                        <span id="price_loader<?php echo $productCode; ?>" class="priceDisplay">
+                                        <span id="price_loader_<?php echo $productCode; ?>" class="priceDisplay">
                                             <img src="<?= $block->getViewFileUrl('images/loader-h2.gif'); ?>"/>
                                         </span>
                                     </div>
                                 </span>
-                                <span class="wcb-not-logged">
+                            <span class="wcb-not-logged">
                                     <span class="view-price priceDisplay">
                                         <?php echo __("Login to view price"); ?>
                                     </span>
@@ -221,21 +228,15 @@ $pid = [];
                 }
             }
         }
-
-
-
-
         </script>
     <?php endif; ?>
     <?php $pid_json = json_encode($pid) ?>
     <script type="text/javascript">
         require([
             'jquery',
-            'plp'
-        ], function ($, pdp) {
-            debugger;
-            pdp.GetMultiProductPrice('<?php echo $pid_json ?>');
-            pdp.GetMultiProductStock('<?php echo $pid_json ?>');
+            'searchlist'
+        ], function ($, searchlist) {
+            searchlist.GetMultiProductPriceAndStock('<?php echo $pid_json ?>');
 
             $('.quantity-plus').click(function () {
                 var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
