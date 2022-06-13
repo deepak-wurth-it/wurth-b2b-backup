@@ -18,7 +18,7 @@ class ShopsSync
 
 
     public function __construct(
-        \WurthNav\Customer\Model\ShopsProcessor $shopsProcessor
+        \WurthNav\Sales\Model\ShopsProcessor $shopsProcessor
     ) {
 
         $this->shopsProcessor = $shopsProcessor;

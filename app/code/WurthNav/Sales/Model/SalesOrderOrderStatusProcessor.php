@@ -13,6 +13,7 @@ use \WurthNav\Sales\Model\OrderItemsFactory;
 
 class SalesOrderOrderStatusProcessor
 {
+	const PREPARING_FOR_SHIPMENT= 'preparing_for_shipment';
     public function __construct(
         \Magento\Framework\App\ResourceConnection $resourceConnection,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
@@ -65,17 +66,17 @@ class SalesOrderOrderStatusProcessor
                         $order->save();
                     }
                     if ($status === 'preparing_for_shipment') {
-                        $orderState = Order::STATE_PROCESSING;
+                        $orderState = Self::PREPARING_FOR_SHIPMENT;
                         $order->setState($orderState)->setStatus($orderState);
                         $order->save();
                     }
                     if ($status === 'shipped_completed') {
-                        $orderState = Order::STATE_PROCESSING;
+                        $orderState = Order::STATE_COMPLETE;
                         $order->setState($orderState)->setStatus($orderState);
                         $order->save();
                     }
                     if ($status === 'cancelled') {
-                        $orderState = Order::STATE_PROCESSING;
+                        $orderState = Order::STATE_CANCELED;
                         $order->setState($orderState)->setStatus($orderState);
                         $order->save();
                     }
