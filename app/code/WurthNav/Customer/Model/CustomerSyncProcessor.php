@@ -264,7 +264,7 @@ class CustomerSyncProcessor
                         }    
                         
                     }
-                    $shopContact->getFirstItem()->setData('needs_update',0);
+                    $shopContact->getFirstItem()->setData('needs_update',1);
                     $updateData = $shopContact->save();
                 }else if(empty($shopContact->getData())){
                     $shopContactFactory->addData($data);

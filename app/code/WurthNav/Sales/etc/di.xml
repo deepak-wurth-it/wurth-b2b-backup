@@ -15,7 +15,7 @@
             </argument>
         </arguments>
        
-          <arguments>
+          <!--<arguments>
             <argument name="commands" xsi:type="array">
                 <item name="SalesOrderStatusSync" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderStatusSyncCommand</item>
             </argument>
@@ -27,7 +27,7 @@
             </argument>
         </arguments>
         
-         <!--<arguments>
+         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="ShopSyncCommand" xsi:type="object">WurthNav\Sales\Console\Command\ShopSyncCommand</item>
             </argument>
