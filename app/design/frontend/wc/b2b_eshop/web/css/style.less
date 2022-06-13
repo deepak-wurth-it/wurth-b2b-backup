@@ -1876,7 +1876,39 @@ label.sorter-label {
 	}
 }
 
+		// timeline css cms page
+		.timeline-with-icons {
+			border-left: 1px solid hsl(0, 0%, 90%);
+			position: relative;
+			list-style: none;
+		}
+
+		.timeline-with-icons .timeline-item {
+			position: relative;
+		}
+
+		.timeline-with-icons .timeline-item:after {
+			position: absolute;
+			display: block;
+			top: 0;
+		}
+
+		.timeline-with-icons .timeline-icon {
+			position: absolute;
+			left: -48px;
+			background-color: hsl(217, 88.2%, 90%);
+			color: hsl(217, 88.8%, 35.1%);
+			border-radius: 50%;
+			height: 31px;
+			width: 31px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		// timeline css cms page
 	// cms page for image
+	
 		figure.full-width img {
 			width: 100%;
 		}
@@ -1957,7 +1989,7 @@ label.sorter-label {
 				padding: 0 20px;
 			}
 			button.wcb-search-button {
-				position: absolute;
+				position: absolute ;
 				right: 15px;
 				top: 0;
 				width: 60px;
@@ -10546,7 +10578,7 @@ print {
 
 	// cms page grid order
 	
-	.pagebuilder-column.col-md-6.first-order {
+	.pagebuilder-column.first-order {
 		-webkit-box-ordinal-group: 2;
 		-moz-box-ordinal-group: 2;
 		-ms-flex-order: 2;
@@ -10554,7 +10586,7 @@ print {
 		order: 2;
 	  }
 	
-	  .pagebuilder-column.col-md-6.second-order {
+	  .pagebuilder-column.second-order {
 		-webkit-box-ordinal-group: 1;
 		-moz-box-ordinal-group: 1;
 		-ms-flex-order: 1;
