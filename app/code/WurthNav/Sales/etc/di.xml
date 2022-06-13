@@ -15,11 +15,11 @@
             </argument>
         </arguments>
        
-          <!--<arguments>
+          <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="SalesOrderStatusSync" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderStatusSyncCommand</item>
             </argument>
-        </arguments>-->
+        </arguments>
        
          <arguments>
             <argument name="commands" xsi:type="array">
