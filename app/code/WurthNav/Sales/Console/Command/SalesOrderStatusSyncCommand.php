@@ -14,17 +14,17 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class SalesOrderSyncCommand extends Command
+class SalesOrderStatusSyncCommand extends Command
 {
 
 
     public function __construct(
-        \WurthNav\Sales\Model\SalesShipmentLineSyncProcessor $salesShipmentLineSyncProcessor,
+        \WurthNav\Sales\Model\SalesOrderOrderStatusProcessor $salesOrderOrderStatusProcessor,
         \Magento\Framework\App\State $state
 
     ) {
         
-        $this->salesShipmentLineSyncProcessor = $salesShipmentLineSyncProcessor;
+        $this->salesOrderOrderStatusProcessor = $salesOrderOrderStatusProcessor;
         $this->state = $state;
         parent::__construct();
 
@@ -36,8 +36,8 @@ class SalesOrderSyncCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('nav:sales:shipment:sync')
-            ->setDescription('Sales Shipment Line Sync');
+        $this->setName('nav:sales:order:status:sync')
+            ->setDescription('Sales Order Status Sync');
 
         parent::configure();
     }
@@ -51,16 +51,15 @@ class SalesOrderSyncCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {       $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
 
-        try {
-           
-            $this->salesShipmentLineSyncProcessor->install();
-        } catch (\Exception $e) {
-            $output->writeln('<error>' . $e->getMessage() . '</error>');
-            if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
-                $output->writeln($e->getTraceAsString());
-            }
+        //try {
+            $this->salesOrderOrderStatusProcessor->install();
+        //} catch (\Exception $e) {
+          //  $output->writeln('<error>' . $e->getMessage() . '</error>');
+            //if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
+              ///  $output->writeln($e->getTraceAsString());
+            //}
             // we must have an exit code higher than zero to indicate something was wrong
-            return \Magento\Framework\Console\Cli::RETURN_FAILURE;
-        }
+            //return \Magento\Framework\Console\Cli::RETURN_FAILURE;
+        //}
     }
 }

@@ -62,31 +62,20 @@ class CustomerSyncProcessor
     {
         $this->customer = '';
         $customer = $this->customerFactory->create();
-		
+
         $collection = $customer->getCollection()
             ->addAttributeToSelect('*');
-        
-        $collection->getSelect()     
-        ->join(
-            ['company' => 'company'],
-            'e.email = company.company_email',
-            [  'company_name' => 'company.company_name',
-               'super_user_id' => 'company.super_user_id'
-			]
-        )->where(
-            'e.sync_status = ?',
+        $collection->getSelect()->where(
+            'sync_status = ?',
             '0'
         );
 
+      
         $x = 0;
         if ($collection->getSize() && $collection->count()) {
 
             foreach ($collection as $customer) {
-				
             try{
-				if($customer->getSuperUserId() != $customer->getSuperUserId()){
-					continue;
-				}
                 $billingAddressId = $customer->getDefaultBilling();
                 $shippingAddressId = $customer->getDefaultShipping();
 
@@ -264,7 +253,7 @@ class CustomerSyncProcessor
                         }    
                         
                     }
-                    $shopContact->getFirstItem()->setData('needs_update',1);
+                    $shopContact->getFirstItem()->setData('needs_update',0);
                     $updateData = $shopContact->save();
                 }else if(empty($shopContact->getData())){
                     $shopContactFactory->addData($data);
