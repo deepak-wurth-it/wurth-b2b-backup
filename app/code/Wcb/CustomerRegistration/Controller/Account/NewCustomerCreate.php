@@ -189,6 +189,11 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         $address->setCountryId($defaultCountryCode);
         $address->setIsDefaultShipping($sameAsHeadQuartersDelAd);
         $address->setIsDefaultBilling($sameAsHeadQuartersInvAd);
+        if ($type === 'delivery') {
+            $address->setIsDefaultShipping(1);
+        } elseif ($type === 'invoice') {
+            $address->setIsDefaultBilling(1);
+        }
         $address->setCustomerId($cusId);
         try {
             $this->addressRepository->save($address);
