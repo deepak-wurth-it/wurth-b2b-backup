@@ -5,7 +5,7 @@
  * See COPYING.txt for license details.
  */
 
- 
+
 namespace WurthNav\Sales\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -23,12 +23,10 @@ class SalesOrderStatusSyncCommand extends Command
         \Magento\Framework\App\State $state
 
     ) {
-        
+
         $this->salesOrderOrderStatusProcessor = $salesOrderOrderStatusProcessor;
         $this->state = $state;
         parent::__construct();
-
-
     }
 
     /**
@@ -49,17 +47,17 @@ class SalesOrderStatusSyncCommand extends Command
      * @throws LocalizedException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
-    {       $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
+    {
+        $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_FRONTEND); // or \Magento\Framework\App\Area::AREA_ADMINHTML, depending on your needs
 
-        //try {
+        try {
             $this->salesOrderOrderStatusProcessor->install();
-        //} catch (\Exception $e) {
-          //  $output->writeln('<error>' . $e->getMessage() . '</error>');
-            //if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
-              ///  $output->writeln($e->getTraceAsString());
-            //}
-            // we must have an exit code higher than zero to indicate something was wrong
-            //return \Magento\Framework\Console\Cli::RETURN_FAILURE;
-        //}
+        } catch (\Exception $e) {
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
+                $output->writeln($e->getTraceAsString());
+            }
+            return \Magento\Framework\Console\Cli::RETURN_FAILURE;
+        }
     }
 }

@@ -64,7 +64,7 @@ class CustomerGroupImportProcessor
 				->from(
 					['branches' => 'Branches']
 				)->where('branches.Code IN (?)', $parent)
-				)->where('branches.Synchronized IN (?)', $Synchronized);
+				->where('branches.Synchronized IN (?)', $Synchronized);
 
 
 
