@@ -107,6 +107,7 @@ class CustomerSyncProcessorFromNav
     }
 
 
+
     /**
      * @param array $fixtures
      * @throws \Exception
@@ -124,6 +125,7 @@ class CustomerSyncProcessorFromNav
 
 
         $x = 0;
+        //echo $collection->getSize();exit;
         if ($collection->getSize() && $collection->count()) {
 
 
@@ -144,6 +146,7 @@ class CustomerSyncProcessorFromNav
                     if (empty($customerId)) {
                         continue;
                     }
+                   //echo $customerId;exit;
                     $customerRepoObject = $this->customerRepository->getById($customerId);
                     $firstName = $CustomerModel->getFirstname();
                     $lastName = $CustomerModel->getLastname();
@@ -213,32 +216,23 @@ class CustomerSyncProcessorFromNav
                         }
                     }
 
-
+                   
 
                     /********************* company data  ***********************/
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
+                   
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
-                    $company->setSalesRepresentativeId($SalespersonCode);
+                    $company->setWcbSalesPersonCode($SalespersonCode);
                     $BranchCode = $navCustomer->getData('BranchCode');
                     $company->setDivision($BranchCode);
+                    $company->setStatus('1');
                     $savedCompany = $this->companyRepository->save($company);
                     $this->log .= "Saved company  details" . PHP_EOL;
 
-                    //$CustomerType = $navCustomer->getData('CustomerType');
-                    //$Potential = $navCustomer->getData('Potential');
-                    //$AdvancePaymentRequired = $navCustomer->getData('AdvancePaymentRequired');//Ignore as per scope
-                    //$CustomerDiscountGroup = $navCustomer->getData('CustomerDiscountGroup');//Ignore as per scope
-                    //$CentralOfficeCustomerCode = $navCustomer->getData('CentralOfficeCustomerCode');//Ignore as per scope
-                    //$BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
-
-                    if ($savedCompany->getId()) {
-                        $status[] = $savedCompany->getId();
-                    }
-                    if (count($status) == 3) {
-                        $navCustomer->setData('Synchronized', '1');
-                        $navCustomer->save();
-                    }
+                    // Customer Save       
+                    $navCustomer->setData('Synchronized', '1');
+                    $navCustomer->save();
                     $this->wurthNavLogger($this->log);
                 } catch (\Exception $e) {
                     $this->logger->critical($e->getMessage());
@@ -269,7 +263,7 @@ class CustomerSyncProcessorFromNav
 
     public function wurthNavLogger($log)
     {
-        echo $log . PHP_EOL;
+        echo $log;
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_customer_import.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);

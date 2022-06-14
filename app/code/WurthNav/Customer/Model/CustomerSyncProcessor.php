@@ -79,14 +79,16 @@ class CustomerSyncProcessor
             );
 
         $x = 0;
+        
         if ($collection->getSize() && $collection->count()) {
 
             foreach ($collection as $customer) {
 
                 try {
-                    if ($customer->getSuperUserId() != $customer->getSuperUserId()) {
+                    if ($customer->getId() != $customer->getSuperUserId()) {
                         continue;
                     }
+                    
                     $billingAddressId = $customer->getDefaultBilling();
                     $shippingAddressId = $customer->getDefaultShipping();
 
@@ -98,7 +100,7 @@ class CustomerSyncProcessor
                     if (empty($billingAddressId) || empty($shippingAddressId) && empty($company)) {
                         continue;
                     }
-
+                   
                     $updateData = '';
                     $saveData = '';
                     //$key='';
@@ -183,7 +185,7 @@ class CustomerSyncProcessor
                         $ship_city =  $getDefaultShippingAddress->getCity();
                     }
 
-
+                    
                     if ($shippingAddressId) {
                         $ship_street_address =  implode(',', $this->addressRepository->getById($shippingAddressId)->getStreet());
                     }
@@ -253,7 +255,7 @@ class CustomerSyncProcessor
                         'Invoice To City' => $invoice_city,
                         'Newsletter' => $newsLetterOptStatus
                     );
-
+                    
                     if ($shopContact->getData() && $shopContact->getFirstItem()->getData('needs_update')) {
                         foreach ($data as $key => $value) {
                             if ($value) {
@@ -276,6 +278,7 @@ class CustomerSyncProcessor
                     if ($updateData) {
                         $this->log .= 'Updated Record Successfully for customer id ' . $customer->getName() . PHP_EOL;
                     }
+                    $this->wurthNavLogger($this->log);
                 } catch (\Exception $e) {
                     $this->logger->info($e->getMessage());
                     echo $e->getMessage() . PHP_EOL;
@@ -320,7 +323,7 @@ class CustomerSyncProcessor
 
     public function wurthNavLogger($log)
     {
-        echo $log . PHP_EOL;
+        echo $log;
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_customer_sync.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
