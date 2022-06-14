@@ -10,6 +10,8 @@ use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\Session as CustomerSession;
 use Wcb\ApiConnect\Api\Customer\CustomerAddressInfo;
 use Wcb\Store\Model\StoreFactory;
+use Magento\Company\Api\CompanyRepositoryInterface;
+use Magento\Customer\Api\AddressRepositoryInterface;
 
 class CustomerAddressModelInfo implements CustomerAddressInfo
 {
@@ -38,6 +40,14 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
      * @var StoreFactory
      */
     private $storeFactory;
+    /**
+     * @var CompanyRepositoryInterface
+     */
+    private $companyRepository;
+    /**
+     * @var AddressRepositoryInterface
+     */
+    private $addressRepositoryInterface;
 
     public function __construct(
         CustomerRepository $customerRepository,
@@ -46,7 +56,9 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
         CustomerAddressDataProvider $customerAddressData,
         CustomerAddressDataFormatter $customerAddressDataFormatter,
         storeFactory $storeFactory,
-        CompositeUserContext $compositeUserContext
+        CompositeUserContext $compositeUserContext,
+        CompanyRepositoryInterface $companyRepository,
+        AddressRepositoryInterface $addressRepositoryInterface
     ) {
         $this->customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
@@ -55,6 +67,8 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
         $this->customerAddressDataFormatter = $customerAddressDataFormatter;
         $this->storeFactory = $storeFactory;
         $this->compositeUserContext = $compositeUserContext;
+        $this->companyRepository = $companyRepository;
+        $this->addressRepositoryInterface = $addressRepositoryInterface;
     }
 
     public function getCustomerInfo()
@@ -85,6 +99,7 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
 //        }
 
         $result['customerData']['addresses'] = $newAddress;
+        $result['customerData']['company_detail']= $this->getDefaultBillAddress();
         //}
         return $result;
     }
@@ -164,4 +179,61 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
 //        }
 //        return false;
 //    }
+
+
+    /**
+     * @return array|bool
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
+     */
+    public function getDefaultBillAddress()
+    {
+        $currentCustomer = $this->getCurrentCustomer();
+        if ($currentCustomer->getId()) {
+            $customer = $this->customerRepository->getById($currentCustomer->getId());
+            $billingAddressId = $customer->getDefaultBilling();
+
+            try {
+                $billingAddress = $this->addressRepositoryInterface->getById($billingAddressId);
+
+                $company = $this->getCompany($customer);
+                $customerCode = '';
+                $companyName = '';
+                if ($company) {
+                    $companyName = $company->getCompanyName();
+                }
+                if ($customer->getCustomAttribute("customer_code")) {
+                    $customerCode = $customer->getCustomAttribute("customer_code")->getValue();
+                }
+
+                $companyName .= " (" . $customerCode . ")";
+                $addressData = [];
+                $addressData['name'] = $companyName;
+                $addressData['city'] = $billingAddress->getCity();
+                $addressData['street'] = $billingAddress->getStreet();
+                $addressData['postcode'] = $billingAddress->getPostCode();
+                $addressData['id'] = $billingAddressId;
+                return $addressData;
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $customer
+     * @return bool|CompanyInterface
+     */
+    public function getCompany($customer)
+    {
+        try {
+            if ($customer->getExtensionAttributes()->getCompanyAttributes()) {
+                $companyId = $customer->getExtensionAttributes()->getCompanyAttributes()->getCompanyId();
+                return $this->companyRepository->get($companyId);
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }
