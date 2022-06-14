@@ -24,7 +24,7 @@ class CustomerSyncProcessorFromNav
 
     protected $customer;
     protected $navCustomerObj;
-
+    public $log;
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
@@ -99,7 +99,7 @@ class CustomerSyncProcessorFromNav
                     ->setIsDefaultBilling('1');
                 //->setSaveInAddressBook('1');
                 $address->save();
-                $log .= "Saved customer billing details".PHP_EOL;
+                $this->log .= "Saved customer billing details" . PHP_EOL;
                 return true;
             }
         }
@@ -136,12 +136,12 @@ class CustomerSyncProcessorFromNav
                     $email =  $navCustomer->getData('Email');
                     $email = trim($email);
                     /****************  save customer **********************/
-                   
+
                     $CustomerModel = $this->customerFactory->create();
                     $CustomerModel->setWebsiteId($webSiteId);
                     $CustomerModel->loadByEmail($email);
                     $customerId = $CustomerModel->getId();
-                    if(empty($customerId)){
+                    if (empty($customerId)) {
                         continue;
                     }
                     $customerRepoObject = $this->customerRepository->getById($customerId);
@@ -165,7 +165,7 @@ class CustomerSyncProcessorFromNav
                         }
 
                         $this->customerRepository->save($customerRepoObject);
-                        $log = "Saved customer basic details".PHP_EOL;
+                        $this->log .= "Saved customer basic details" . PHP_EOL;
                     }
 
 
@@ -201,8 +201,8 @@ class CustomerSyncProcessorFromNav
                             ->setStreet([$street])
                             ->setTelephone($Phone)
                             ->setIsDefaultShipping(true);
-                            $log .= "Saved customer shipping details".PHP_EOL;
-    
+                        $this->log .= "Saved customer shipping details" . PHP_EOL;
+
                         if ($BillToCustomerNo) {
                             $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId);
                         }
@@ -223,7 +223,7 @@ class CustomerSyncProcessorFromNav
                     $BranchCode = $navCustomer->getData('BranchCode');
                     $company->setDivision($BranchCode);
                     $savedCompany = $this->companyRepository->save($company);
-                    $log .= "Saved company  details".PHP_EOL;
+                    $this->log .= "Saved company  details" . PHP_EOL;
 
                     //$CustomerType = $navCustomer->getData('CustomerType');
                     //$Potential = $navCustomer->getData('Potential');
@@ -231,7 +231,7 @@ class CustomerSyncProcessorFromNav
                     //$CustomerDiscountGroup = $navCustomer->getData('CustomerDiscountGroup');//Ignore as per scope
                     //$CentralOfficeCustomerCode = $navCustomer->getData('CentralOfficeCustomerCode');//Ignore as per scope
                     //$BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
-                    echo $log;
+
                     if ($savedCompany->getId()) {
                         $status[] = $savedCompany->getId();
                     }
@@ -239,6 +239,7 @@ class CustomerSyncProcessorFromNav
                         $navCustomer->setData('Synchronized', '1');
                         $navCustomer->save();
                     }
+                    $this->wurthNavLogger($this->log);
                 } catch (\Exception $e) {
                     $this->logger->critical($e->getMessage());
                 }
@@ -264,5 +265,14 @@ class CustomerSyncProcessorFromNav
             return __('You have not added default billing address. Please add default billing address.');
         }
         return $address;
+    }
+
+    public function wurthNavLogger($log)
+    {
+        echo $log . PHP_EOL;
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_customer_import.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info($log);
     }
 }
