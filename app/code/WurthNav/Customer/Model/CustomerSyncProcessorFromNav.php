@@ -40,6 +40,8 @@ class CustomerSyncProcessorFromNav
         \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory $customerCollectionFactory,
+        \Magento\Integration\Model\Oauth\TokenFactory $tokenModelFactory,
+
         NavCustomers $navCustomers,
         LoggerInterface $logger
     ) {
@@ -57,6 +59,7 @@ class CustomerSyncProcessorFromNav
         $this->customerRepository = $customerRepository;
         $this->companyRepository = $companyRepository;
         $this->logger = $logger;
+        $this->_tokenModelFactory = $tokenModelFactory;
         $this->customerCollectionFactory = $customerCollectionFactory;
         $this->navCustomers = $navCustomers;
         $this->addressDataFactory = $addressDataFactory;
@@ -107,6 +110,13 @@ class CustomerSyncProcessorFromNav
     }
 
 
+    public function getCustomerTokenLocal($customerId)
+    {
+
+        $customerToken = $this->_tokenModelFactory->create();
+        $tokenKey = $customerToken->createCustomerToken($customerId)->getToken();
+        return $tokenKey;
+    }
 
     /**
      * @param array $fixtures
@@ -139,17 +149,21 @@ class CustomerSyncProcessorFromNav
                     $email = trim($email);
                     /****************  save customer **********************/
 
-                    $CustomerModel = $this->customerFactory->create();
-                    $CustomerModel->setWebsiteId($webSiteId);
-                    $CustomerModel->loadByEmail($email);
-                    $customerId = $CustomerModel->getId();
+                    $customerObject = $this->customerFactory->create();
+                    $customerObject->setWebsiteId($webSiteId);
+                    $customerObject->loadByEmail($email);
+                    $customerId = $customerObject->getId();
+
+
                     if (empty($customerId)) {
                         continue;
                     }
-                   //echo $customerId;exit;
+                    //echo $customerId;exit;
                     $customerRepoObject = $this->customerRepository->getById($customerId);
-                    $firstName = $CustomerModel->getFirstname();
-                    $lastName = $CustomerModel->getLastname();
+                    $firstName = $customerObject->getFirstname();
+                    $lastName = $customerObject->getLastname();
+
+                    //print_r(get_class_methods($customerObject->getDataModel()));exit;
                     if ($customerRepoObject) {
 
                         $Email = $navCustomer->getData('Email');
@@ -167,15 +181,21 @@ class CustomerSyncProcessorFromNav
                             $customerRepoObject->setCustomAttribute('customer_code', $CustomerCode);
                         }
 
+                        $customerRepoObject->setCustomAttribute('verified', true);
+                        $customerRepoObject->setConfirmation(null);
                         $this->customerRepository->save($customerRepoObject);
+
+                        $this->getCustomerTokenLocal($customerId);
+                        $Disabled = $navCustomer->getData('Disabled');
+                        $customerObject->setIsActive($Disabled);
+                        $customerObject->setStatus(1);
+                        $customerObject->save();
+
                         $this->log .= "Saved customer basic details" . PHP_EOL;
                     }
 
 
-                    // $Disabled = $navCustomer->getData('Disabled');
-                    // if ($Disabled) {
-                    //     $CustomerModel->setIsActive($Disabled);
-                    // }
+
 
 
                     /********************** Update Address  ********************/
@@ -216,12 +236,12 @@ class CustomerSyncProcessorFromNav
                         }
                     }
 
-                   
+
 
                     /********************* company data  ***********************/
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
-                   
+
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
                     $company->setWcbSalesPersonCode($SalespersonCode);
                     $BranchCode = $navCustomer->getData('BranchCode');
@@ -230,12 +250,15 @@ class CustomerSyncProcessorFromNav
                     $savedCompany = $this->companyRepository->save($company);
                     $this->log .= "Saved company  details" . PHP_EOL;
 
-                    // Customer Save       
+
+                    // Customer Update in WurthNav ERP
                     $navCustomer->setData('Synchronized', '1');
                     $navCustomer->save();
                     $this->wurthNavLogger($this->log);
                 } catch (\Exception $e) {
                     $this->logger->critical($e->getMessage());
+                    $this->wurthNavLogger($e->getMessage());
+                    $this->wurthNavLogger("Customer Could not save,Please see Customer ID =>> " . $customerId);
                 }
             }
         }
