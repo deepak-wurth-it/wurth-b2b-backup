@@ -13,18 +13,17 @@
  * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
  */
 
-
 declare(strict_types=1);
 
-namespace Mirasvit\Search\Index\Magento\Cms\Page;
+namespace Wcb\MirasvitSearch\Index\Magento\Cms\Page;
 
 use Magento\Cms\Model\Page;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Url;
-use Mirasvit\Search\Index\AbstractInstantProvider;
+use Magento\Framework\UrlInterface;
 use Mirasvit\Search\Service\IndexService;
 
-class InstantProvider extends AbstractInstantProvider
+class InstantProvider extends \Mirasvit\Search\Index\Magento\Cms\Page\InstantProvider
 {
     private $urlBuilder;
 
@@ -33,8 +32,7 @@ class InstantProvider extends AbstractInstantProvider
         IndexService $indexService
     ) {
         $this->urlBuilder = $urlBuilder;
-
-        parent::__construct($indexService);
+        parent::__construct($urlBuilder, $indexService);
     }
 
     public function getItems(int $storeId, int $limit): array
@@ -52,10 +50,15 @@ class InstantProvider extends AbstractInstantProvider
     {
         $page = $page->setStoreId($storeId);
         $page = $page->load($page->getId());
-
+        if ($page->getCmsImage()) {
+            $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . 'cmsimage/' . $page->getCmsImage();
+        } else {
+            $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . "catalog/product/placeholder/default/replacement_product_2.png";
+        }
         return [
-            'name' => $page->getTitle(),
-            'url'  => $this->urlBuilder->getUrl($page->getIdentifier(), ['_scope' => $storeId]),
+            'name' => "CMS" . $page->getTitle(),
+            'image' => $imageUrl,
+            'url' => $this->urlBuilder->getUrl($page->getIdentifier(), ['_scope' => $storeId]),
         ];
     }
 

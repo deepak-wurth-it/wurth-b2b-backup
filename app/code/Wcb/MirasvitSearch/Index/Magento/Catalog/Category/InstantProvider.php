@@ -13,40 +13,51 @@
  * @copyright Copyright (C) 2022 Mirasvit (https://mirasvit.com/)
  */
 
-
 declare(strict_types=1);
 
-namespace Mirasvit\Search\Index\Magento\Catalog\Category;
+namespace Wcb\MirasvitSearch\Index\Magento\Catalog\Category;
 
 use Magento\Catalog\Api\Data\CategoryInterface;
+use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\CategoryRepository;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Url;
+use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use Mirasvit\Search\Index\AbstractInstantProvider;
 use Mirasvit\Search\Service\IndexService;
 
-class InstantProvider extends AbstractInstantProvider
+class InstantProvider extends \Mirasvit\Search\Index\Magento\Catalog\Category\InstantProvider
 {
+    /**
+     * @var Url
+     */
+    protected $urlBuilder;
+    /**
+     * @var CategoryRepository
+     */
     private $categoryRepository;
-
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
 
     public function __construct(
         CategoryRepository $categoryRepository,
         StoreManagerInterface $storeManager,
-        IndexService $indexService
+        IndexService $indexService,
+        Url $urlBuilder
     ) {
         $this->categoryRepository = $categoryRepository;
-        $this->storeManager       = $storeManager;
-
-        parent::__construct($indexService);
+        $this->storeManager = $storeManager;
+        $this->urlBuilder = $urlBuilder;
+        parent::__construct($categoryRepository, $storeManager, $indexService);
     }
 
     public function getItems(int $storeId, int $limit): array
     {
         $items = [];
 
-        /** @var \Magento\Catalog\Model\Category $category */
+        /** @var Category $category */
         foreach ($this->getCollection($limit) as $category) {
             $items[] = $this->mapCategory($category, $storeId);
         }
@@ -55,8 +66,8 @@ class InstantProvider extends AbstractInstantProvider
     }
 
     /**
-     * @param \Magento\Catalog\Model\Category $category
-     * @param int                             $storeId
+     * @param Category $category
+     * @param int $storeId
      *
      * @return array
      */
@@ -65,15 +76,23 @@ class InstantProvider extends AbstractInstantProvider
         $category = $category->setStoreId($storeId);
         $category = $category->load($category->getId());
 
+        if ($category->getImageUrl()) {
+            // $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . $category->getImageUrl();
+            $imageUrl = $category->getImageUrl();
+        } else {
+            $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . "catalog/product/placeholder/default/replacement_product_2.png";
+        }
+
         return [
-            'name' => $this->getFullPath($category, $storeId),
-            'url'  => $category->getUrl(),
+            'name' => "CAT-" . $this->getFullPath($category, $storeId),
+            'url' => $category->getUrl(),
+            'image' => $imageUrl,
         ];
     }
 
     private function getFullPath(CategoryInterface $category, int $storeId): string
     {
-        $store  = $this->storeManager->getStore($storeId);
+        $store = $this->storeManager->getStore($storeId);
         $rootId = $store->getRootCategoryId();
 
         $result = [
@@ -81,6 +100,8 @@ class InstantProvider extends AbstractInstantProvider
         ];
 
         do {
+            break; // skip breadcrumbs
+
             if (!$category->getParentId()) {
                 break;
             }

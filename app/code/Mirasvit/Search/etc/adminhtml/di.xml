@@ -26,25 +26,4 @@
             <argument name="domMerger" xsi:type="object">uiConfigurationDomMerger</argument>
         </arguments>
     </type>
-
-    <virtualType name="CmsPageUploader" type="Mirasvit\Search\Model\ImageUploader">
-        <arguments>
-            <argument name="baseTmpPath" xsi:type="const">Mirasvit\Search\Model\ImageUploader::IMAGE_TMP_PATH</argument>
-            <argument name="basePath" xsi:type="const">Mirasvit\Search\Model\ImageUploader::IMAGE_PATH</argument>
-            <argument name="allowedExtensions" xsi:type="array">
-                <item name="jpg" xsi:type="string">jpg</item>
-                <item name="jpeg" xsi:type="string">jpeg</item>
-                <item name="gif" xsi:type="string">gif</item>
-                <item name="png" xsi:type="string">png</item>
-            </argument>
-        </arguments>
-    </virtualType>
-    <type name="Mirasvit\Search\Controller\Adminhtml\Search\Image\Upload">
-        <arguments>
-            <argument name="uploader" xsi:type="object">CmsPageUploader</argument>
-        </arguments>
-    </type>
-
-    <preference for="Magento\Cms\Controller\Adminhtml\Page\Save" type="Mirasvit\Search\Controller\Adminhtml\Cms\Page\Save" />
-    <preference for="Magento\Cms\Model\Page\DataProvider" type="Mirasvit\Search\Model\Cms\Page\DataProvider" />
 </config>
