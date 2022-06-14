@@ -24,7 +24,7 @@ class CustomerGroupImportProcessor
 {
 	const INDEXER_LIST = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
-	const UNITS_OF_MEASURE = 'unitsofmeasure';
+	const BRANCHES = 'Branches';
 
 	protected $product;
 	protected $connectionWurthNav;
@@ -59,11 +59,12 @@ class CustomerGroupImportProcessor
 		try {
 			$parent = ['A', 'B', 'C', 'D', 'G', 'I', 'M', 'T'];
 
-
+			$Synchronized='0';
 			$select = $this->connectionWurthNav->select()
 				->from(
 					['branches' => 'Branches']
-				)->where('branches.Code IN (?)', $parent);
+				)->where('branches.Code IN (?)', $parent)
+				->where('branches.Synchronized IN (?)', $Synchronized);
 
 
 
@@ -90,7 +91,10 @@ class CustomerGroupImportProcessor
 						$this->setAndSaveDivision($group->getId(), $row['Code']);
 
 						if ($group->getId()) {
-
+							 $data =  ['Synchronized'=>'1'];	
+							 $where = ['Code = ?' => (int)$row['Code']];	
+							 $this->connectionWurthNav->update(self::BRANCHES, $data,$where);
+							 
 							$log = "Done For Row " . $row['Code'] . PHP_EOL;
 							echo $log;
 							$this->wurthNavLogger($log);

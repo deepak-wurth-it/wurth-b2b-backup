@@ -79,6 +79,7 @@ class EmployeesProcessor
 				$this->connectionDefault->insert(self::EMPLOYEES, $data);
 			}
 				if(!empty($dataExist)){
+					
 				$where = ['EmployeeCode = ?' => (int)$dataExist];
 				
 				$this->connectionDefault->update(self::EMPLOYEES, $data,$where);

@@ -30,7 +30,7 @@ class CustomerAddressImportProcessor
 {
 	const INDEXER_LIST = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
-	const UNITS_OF_MEASURE = 'unitsofmeasure';
+	const CUSTOMER_DELIVERY_ADDRESS = 'CustomerDeliveryAddress';
 
 	protected $product;
 	protected $connectionWurthNav;
@@ -72,8 +72,11 @@ class CustomerAddressImportProcessor
 	public function install()
 	{
 		try {
+			$Synchronized='0';
 			$select = $this->connectionWurthNav->select()
-				->from(['c' => 'CustomerDeliveryAddress']);
+				->from(['c' => 'CustomerDeliveryAddress'])
+				->where('Synchronized (?)', $Synchronized);
+				
 			$data = $this->connectionWurthNav->fetchAll($select);
 			
 			if (count($data)) {
@@ -133,6 +136,10 @@ class CustomerAddressImportProcessor
 							//->setIsDefaultShipping('0')
 							->setSaveInAddressBook('1');
 							if($address->save()){
+							 $data =  ['Synchronized'=>'1'];	
+							 $where = ['CustomerCode = ?' => (int)$row['CustomerCode']];	
+							 $this->connectionWurthNav->update(self::CUSTOMER_DELIVERY_ADDRESS, $data,$where);
+	
 							 $log = '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address  has been saved for customer code'.$dataCustomer->getCustomerCode();
 							}else{
 							  $log = '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address could not be saved for customer code'.$dataCustomer->getCustomerCode();
