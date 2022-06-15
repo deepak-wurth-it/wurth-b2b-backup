@@ -82,13 +82,13 @@
       <!-- Once in a 30 minute -->
      <group id="wurthnav">
         <job name="customer_register_update_to_erp" instance="Wcb\Cron\WurthNavCron\ExportRegisterDataToERP" method="execute">
-            <schedule>*/30 * * * *</schedule>
+            <schedule>*/10 * * * *</schedule>
         </job>
     </group>
      <!-- Once in a 30 minute -->
     <group id="wurthnav">
         <job name="customer_register_update_to_erp_to_magento" instance="Wcb\Cron\WurthNavCron\ImportRegisterDataToERP" method="execute">
-            <schedule>*/30 * * * *</schedule>
+            <schedule>*/10 * * * *</schedule>
         </job>
     </group>
     
