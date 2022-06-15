@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-   <type name="Magento\Framework\Console\CommandList">
+   <type name="Magento\Framework\Console\CommandListInterface" >
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="SalesOrderSyncCommand" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderSyncCommand</item>
@@ -14,13 +14,8 @@
                 <item name="SalesOrderSyncToNavCommand" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderSyncToNavCommand</item>
             </argument>
         </arguments>
-        <!--
-        <arguments>
-            <argument name="commands" xsi:type="array">
-                <item name="SalesOrderStatusSync" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderStatusSyncCommand</item>
-            </argument>
-        </arguments>
-        
+       
+       
          <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="DimensionValueSync" xsi:type="object">WurthNav\Sales\Console\Command\DimensionValueEshopSyncCommand</item>
@@ -31,8 +26,16 @@
             <argument name="commands" xsi:type="array">
                 <item name="ShopSyncCommand" xsi:type="object">WurthNav\Sales\Console\Command\ShopSyncCommand</item>
             </argument>
-        </arguments>-->
+        </arguments>
+        
     </type>
 
-</config>
 
+	<type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="SalesOrderStatusSync" xsi:type="object">WurthNav\Sales\Console\Command\SalesOrderStatusSyncCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

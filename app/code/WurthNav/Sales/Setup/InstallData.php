@@ -18,7 +18,7 @@ class InstallData implements InstallDataInterface
     /**
      * Custom Processing Order-Status code
      */
-    const ORDER_STATUS_PROCESSING_FULFILLMENT_CODE = 'Preparing_for_Shipment';
+    const ORDER_STATUS_PROCESSING_FULFILLMENT_CODE = 'preparing_for_shipment';
     /**
      * Custom Processing Order-Status label
      */
@@ -26,12 +26,12 @@ class InstallData implements InstallDataInterface
     /**
      * Custom Order-State code
      */
-    const ORDER_STATE_CUSTOM_CODE = 'Preparing_for_Shipment';
+    const ORDER_STATE_CUSTOM_CODE = 'preparing_for_shipment';
     
     /**
      * Custom Order-Status code
      */
-    const ORDER_STATUS_CUSTOM_CODE = 'Preparing_for_Shipment';
+    const ORDER_STATUS_CUSTOM_CODE = 'preparing_for_shipment';
    
     /**
      * Custom Order-Status label
@@ -57,10 +57,12 @@ class InstallData implements InstallDataInterface
      */
     public function __construct(
         StatusFactory $statusFactory,
-        StatusResourceFactory $statusResourceFactory
+        StatusResourceFactory $statusResourceFactory,
+        \Magento\Framework\App\State $state
     ) {
         $this->statusFactory = $statusFactory;
         $this->statusResourceFactory = $statusResourceFactory;
+		$this->state = $state;
     }
     /**
      * Installs data for a module
@@ -73,7 +75,8 @@ class InstallData implements InstallDataInterface
      * @throws Exception
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
-    {
+    {	$this->state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
+
         $this->addNewOrderProcessingStatus();
         $this->addNewOrderStateAndStatus();
     }

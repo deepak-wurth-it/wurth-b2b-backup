@@ -65,6 +65,10 @@
 		<column name="Wholesale Center Location" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
 		<column name="E-Mail" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
    </table>
+   
+   <table name="company" resource="default" engine="innodb" comment="Company Table">
+        <column xsi:type="varchar" name="wcb_sales_person_code" nullable="true" length="2" comment="B2B Sales Person Code"/>
+   </table>
 	
 </schema>
 

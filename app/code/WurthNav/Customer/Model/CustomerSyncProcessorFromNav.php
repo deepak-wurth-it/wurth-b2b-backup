@@ -24,7 +24,7 @@ class CustomerSyncProcessorFromNav
 
     protected $customer;
     protected $navCustomerObj;
-
+    public $log;
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
@@ -40,6 +40,8 @@ class CustomerSyncProcessorFromNav
         \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory $customerCollectionFactory,
+        \Magento\Integration\Model\Oauth\TokenFactory $tokenModelFactory,
+
         NavCustomers $navCustomers,
         LoggerInterface $logger
     ) {
@@ -57,6 +59,7 @@ class CustomerSyncProcessorFromNav
         $this->customerRepository = $customerRepository;
         $this->companyRepository = $companyRepository;
         $this->logger = $logger;
+        $this->_tokenModelFactory = $tokenModelFactory;
         $this->customerCollectionFactory = $customerCollectionFactory;
         $this->navCustomers = $navCustomers;
         $this->addressDataFactory = $addressDataFactory;
@@ -99,13 +102,21 @@ class CustomerSyncProcessorFromNav
                     ->setIsDefaultBilling('1');
                 //->setSaveInAddressBook('1');
                 $address->save();
-                $log .= "Saved customer billing details".PHP_EOL;
+                $this->log .= "Saved customer billing details" . PHP_EOL;
                 return true;
             }
         }
         return false;
     }
 
+
+    public function getCustomerTokenLocal($customerId)
+    {
+
+        $customerToken = $this->_tokenModelFactory->create();
+        $tokenKey = $customerToken->createCustomerToken($customerId)->getToken();
+        return $tokenKey;
+    }
 
     /**
      * @param array $fixtures
@@ -119,11 +130,12 @@ class CustomerSyncProcessorFromNav
         $navCustomerObj = $this->navCustomers->create();
 
         $collection = $navCustomerObj->getCollection()
-            ->addFieldToFilter('Synchronized', array('eq' => '1'));
+            ->addFieldToFilter('Synchronized', array('eq' => '0'));
         $status = [];
 
 
         $x = 0;
+        //echo $collection->getSize();exit;
         if ($collection->getSize() && $collection->count()) {
 
 
@@ -136,17 +148,22 @@ class CustomerSyncProcessorFromNav
                     $email =  $navCustomer->getData('Email');
                     $email = trim($email);
                     /****************  save customer **********************/
-                   
-                    $CustomerModel = $this->customerFactory->create();
-                    $CustomerModel->setWebsiteId($webSiteId);
-                    $CustomerModel->loadByEmail($email);
-                    $customerId = $CustomerModel->getId();
-                    if(empty($customerId)){
+
+                    $customerObject = $this->customerFactory->create();
+                    $customerObject->setWebsiteId($webSiteId);
+                    $customerObject->loadByEmail($email);
+                    $customerId = $customerObject->getId();
+
+
+                    if (empty($customerId)) {
                         continue;
                     }
+                    //echo $customerId;exit;
                     $customerRepoObject = $this->customerRepository->getById($customerId);
-                    $firstName = $CustomerModel->getFirstname();
-                    $lastName = $CustomerModel->getLastname();
+                    $firstName = $customerObject->getFirstname();
+                    $lastName = $customerObject->getLastname();
+
+                    //print_r(get_class_methods($customerObject->getDataModel()));exit;
                     if ($customerRepoObject) {
 
                         $Email = $navCustomer->getData('Email');
@@ -164,15 +181,21 @@ class CustomerSyncProcessorFromNav
                             $customerRepoObject->setCustomAttribute('customer_code', $CustomerCode);
                         }
 
+                        $customerRepoObject->setCustomAttribute('verified', true);
+                        $customerRepoObject->setConfirmation(null);
                         $this->customerRepository->save($customerRepoObject);
-                        $log = "Saved customer basic details".PHP_EOL;
+
+                        $this->getCustomerTokenLocal($customerId);
+                        $Disabled = $navCustomer->getData('Disabled');
+                        $customerObject->setIsActive($Disabled);
+                        $customerObject->setStatus(1);
+                        $customerObject->save();
+
+                        $this->log .= "Saved customer basic details" . PHP_EOL;
                     }
 
 
-                    // $Disabled = $navCustomer->getData('Disabled');
-                    // if ($Disabled) {
-                    //     $CustomerModel->setIsActive($Disabled);
-                    // }
+
 
 
                     /********************** Update Address  ********************/
@@ -201,8 +224,8 @@ class CustomerSyncProcessorFromNav
                             ->setStreet([$street])
                             ->setTelephone($Phone)
                             ->setIsDefaultShipping(true);
-                            $log .= "Saved customer shipping details".PHP_EOL;
-    
+                        $this->log .= "Saved customer shipping details" . PHP_EOL;
+
                         if ($BillToCustomerNo) {
                             $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId);
                         }
@@ -218,29 +241,24 @@ class CustomerSyncProcessorFromNav
                     /********************* company data  ***********************/
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
+
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
-                    $company->setSalesRepresentativeId($SalespersonCode);
+                    $company->setWcbSalesPersonCode($SalespersonCode);
                     $BranchCode = $navCustomer->getData('BranchCode');
                     $company->setDivision($BranchCode);
+                    $company->setStatus('1');
                     $savedCompany = $this->companyRepository->save($company);
-                    $log .= "Saved company  details".PHP_EOL;
+                    $this->log .= "Saved company  details" . PHP_EOL;
 
-                    //$CustomerType = $navCustomer->getData('CustomerType');
-                    //$Potential = $navCustomer->getData('Potential');
-                    //$AdvancePaymentRequired = $navCustomer->getData('AdvancePaymentRequired');//Ignore as per scope
-                    //$CustomerDiscountGroup = $navCustomer->getData('CustomerDiscountGroup');//Ignore as per scope
-                    //$CentralOfficeCustomerCode = $navCustomer->getData('CentralOfficeCustomerCode');//Ignore as per scope
-                    //$BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
-                    echo $log;
-                    if ($savedCompany->getId()) {
-                        $status[] = $savedCompany->getId();
-                    }
-                    if (count($status) == 3) {
-                        //$navCustomer->setData('Synchronized', '0');
-                        //$navCustomer->save();
-                    }
+
+                    // Customer Update in WurthNav ERP
+                    $navCustomer->setData('Synchronized', '1');
+                    $navCustomer->save();
+                    $this->wurthNavLogger($this->log);
                 } catch (\Exception $e) {
                     $this->logger->critical($e->getMessage());
+                    $this->wurthNavLogger($e->getMessage());
+                    $this->wurthNavLogger("Customer Could not save,Please see Customer ID =>> " . $customerId);
                 }
             }
         }
@@ -264,5 +282,14 @@ class CustomerSyncProcessorFromNav
             return __('You have not added default billing address. Please add default billing address.');
         }
         return $address;
+    }
+
+    public function wurthNavLogger($log)
+    {
+        echo $log;
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_customer_import.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info($log);
     }
 }

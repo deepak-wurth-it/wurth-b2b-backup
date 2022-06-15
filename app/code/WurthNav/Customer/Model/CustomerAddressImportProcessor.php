@@ -30,8 +30,8 @@ class CustomerAddressImportProcessor
 {
 	const INDEXER_LIST = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
-	const UNITS_OF_MEASURE = 'unitsofmeasure';
-
+	const CUSTOMER_DELIVERY_ADDRESS = 'CustomerDeliveryAddress';
+	public $log;
 	protected $product;
 	protected $connectionWurthNav;
 	protected $connectionDefault;
@@ -59,7 +59,7 @@ class CustomerAddressImportProcessor
 		$this->groupRepository = $groupRepository;
 		$this->groupFactoryModel = $groupFactoryModel;
 		$this->addressFactory = $addressFactory;
-        $this->accountManagement = $accountManagement;
+		$this->accountManagement = $accountManagement;
 
 		$this->connectionWurthNav = $this->_resourceConnection->getConnection('wurthnav');
 		$this->connectionDefault  = $this->_resourceConnection->getConnection();
@@ -72,10 +72,13 @@ class CustomerAddressImportProcessor
 	public function install()
 	{
 		try {
+			$Synchronized = '0';
 			$select = $this->connectionWurthNav->select()
-				->from(['c' => 'CustomerDeliveryAddress']);
+				->from(['c' => 'CustomerDeliveryAddress'])
+				->where('Synchronized IN (?)', $Synchronized);
+
 			$data = $this->connectionWurthNav->fetchAll($select);
-			
+
 			if (count($data)) {
 				foreach ($data as $row) {
 					try {
@@ -85,44 +88,43 @@ class CustomerAddressImportProcessor
 						$lastName = "";
 						$customerObj = $this->customerCollectionFactory->create();
 						$collection = $customerObj->addAttributeToSelect('*')
-						->addAttributeToFilter('customer_code',$row['CustomerCode'])
-						->load();
-						if(empty($collection->getSize())){
+							->addAttributeToFilter('customer_code', $row['CustomerCode'])
+							->load();
+						if (empty($collection->getSize())) {
 							continue;
-							
-						}			
+						}
 						$dataCustomer = $collection->getFirstItem();
-						
-						$customerId = $dataCustomer->getId(); 
+
+						$customerId = $dataCustomer->getId();
 						$address = $this->addressFactory->create();
-						
-						
+
+
 						$shippingAddress = $this->getDefaultShippingAddress($customerId);
-						if($shippingAddress){
+						if ($shippingAddress) {
 							$region = $shippingAddress->getRegion();
 							$regionId = $shippingAddress->getRegionId();
 							$countryId = $shippingAddress->getCountryId();
-					    }
-                        
+						}
+
 						$firstName = $row['Name'];
-						$street = $row['Address']; 
-						$city = $row['City']; 
-						$postCode = $row['PostalCode']; 
+						$street = $row['Address'];
+						$city = $row['City'];
+						$postCode = $row['PostalCode'];
 						//?? = $row['Contact']; 
-					    $telephone = $row['PhoneNo']; 
-					
-						if($firstName && $street && $city && $postCode && $postCode ){
-							
-							$log = '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__DATA_EMPTY_ISSUE_FOR_CUSTOMER_CODE'.$row['CustomerCode'];
-							$this->wurthNavLogger($log);
+						$telephone = $row['PhoneNo'];
+
+						if ($firstName && $street && $city && $postCode && $postCode) {
+
+							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__DATA_EMPTY_ISSUE_FOR_CUSTOMER_CODE' . $row['CustomerCode'];
+							$this->wurthNavLogger($this->log);
 							continue;
 						}
 						$address->setCustomerId($customerId)
 							->setFirstname($firstName)
 							->setLastname($lastName)
 							->setCountryId($countryId)
-                            //->setRegionId($regionId)
-                            //->setRegion($region)
+							//->setRegionId($regionId)
+							//->setRegion($region)
 							->setPostcode($postCode)
 							->setCity($city)
 							->setTelephone($telephone)
@@ -132,61 +134,63 @@ class CustomerAddressImportProcessor
 							//->setIsDefaultBilling('0')
 							//->setIsDefaultShipping('0')
 							->setSaveInAddressBook('1');
-							if($address->save()){
-							 $log = '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address  has been saved for customer code'.$dataCustomer->getCustomerCode();
-							}else{
-							  $log = '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address could not be saved for customer code'.$dataCustomer->getCustomerCode();
-							}
-							
-							$this->wurthNavLogger($log);
-						
+						if ($address->save()) {
+							$data =  ['Synchronized' => '1'];
+							$where = ['CustomerCode = ?' => (int)$row['CustomerCode']];
+							$this->connectionWurthNav->update(self::CUSTOMER_DELIVERY_ADDRESS, $data, $where);
 
+							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address  has been saved for customer code' . $dataCustomer->getCustomerCode();
+						} else {
+							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address could not be saved for customer code' . $dataCustomer->getCustomerCode();
+						}
+
+						$this->wurthNavLogger($this->log);
 					} catch (\Exception $e) {
-						$log = '--------------------- __CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
-						$log = $e->getMessage() . PHP_EOL;
-						$this->wurthNavLogger($log);
+						$this->log .= '--------------------- __CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
+						$this->log .= $e->getMessage() . PHP_EOL;
+						$this->wurthNavLogger($this->log);
 					}
 				}
 			}
 		} catch (\Exception $e) {
-			$log = '---------------------__CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
-			$log = $e->getMessage() . PHP_EOL;
-			$this->wurthNavLogger($log);
+			$this->log .= '---------------------__CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
+			$this->log .= $e->getMessage() . PHP_EOL;
+			$this->wurthNavLogger($this->log);
 		}
 	}
 
-	
-
-	
 
 
 
-    public function getDefaultShippingAddress($customerId)
-    {
-        try {
-            $address = $this->accountManagement->getDefaultShippingAddress($customerId);
-        } catch (NoSuchEntityException $e) {
-            return __('You have not added default shipping address. Please add default shipping address.');
-        }
-        return $address;
-    }
-    
-    public function getDefaultBillingAddress($customerId)
-    {
-        try {
-            $address = $this->accountManagement->getDefaultBillingAddress($customerId);
-        } catch (NoSuchEntityException $e) {
-            return __('You have not added default billing address. Please add default billing address.');
-        }
-        return $address;
-    }
-    
-    
-    
+
+
+
+	public function getDefaultShippingAddress($customerId)
+	{
+		try {
+			$address = $this->accountManagement->getDefaultShippingAddress($customerId);
+		} catch (NoSuchEntityException $e) {
+			return __('You have not added default shipping address. Please add default shipping address.');
+		}
+		return $address;
+	}
+
+	public function getDefaultBillingAddress($customerId)
+	{
+		try {
+			$address = $this->accountManagement->getDefaultBillingAddress($customerId);
+		} catch (NoSuchEntityException $e) {
+			return __('You have not added default billing address. Please add default billing address.');
+		}
+		return $address;
+	}
+
+
+
 	public function wurthNavLogger($log)
 	{
-		echo $log.PHP_EOL;
-		$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurth_nav_logger.log');
+		echo $log . PHP_EOL;
+		$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_customer_address_import.log');
 		$logger = new \Zend\Log\Logger();
 		$logger->addWriter($writer);
 		$logger->info($log);
