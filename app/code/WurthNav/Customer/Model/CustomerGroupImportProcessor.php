@@ -25,7 +25,7 @@ class CustomerGroupImportProcessor
 	const INDEXER_LIST = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
 	const BRANCHES = 'Branches';
-
+	public $log;
 	protected $product;
 	protected $connectionWurthNav;
 	protected $connectionDefault;
@@ -64,10 +64,10 @@ class CustomerGroupImportProcessor
 				->from(
 					['branches' => 'Branches']
 				)->where('branches.Code IN (?)', $parent)
-				->where('branches.Synchronized IN (?)', $Synchronized);
+				->where('branches.Synchronized  IN (?)', $Synchronized);
 
 
-
+			//echo $select;exit;
 			$data = $this->connectionWurthNav->fetchAll($select);
 
 
@@ -95,24 +95,23 @@ class CustomerGroupImportProcessor
 							 $where = ['Code = ?' => (int)$row['Code']];	
 							 $this->connectionWurthNav->update(self::BRANCHES, $data,$where);
 							 
-							$log = "Done For Row " . $row['Code'] . PHP_EOL;
-							echo $log;
-							$this->wurthNavLogger($log);
+							$this->log .= "Done For Row " . $row['Code'] . PHP_EOL;
+							
+							$this->wurthNavLogger($this->log);
 						}
 
 					} catch (\Exception $e) {
-						$log = '--------------------- Magento Customer Group Import Error------------------------' . PHP_EOL;
-						$log = $e->getMessage() . PHP_EOL;
-						echo $log;
-						$this->wurthNavLogger($log);
+						$this->log .= '--------------------- Magento Customer Group Import Error------------------------' . PHP_EOL;
+						$this->log .=$e->getMessage() . PHP_EOL;
+						
+						$this->wurthNavLogger($this->log);
 					}
 				}
 			}
 		} catch (\Exception $e) {
-			$log = '--------------------- Import Error main method------------------------' . PHP_EOL;
-			$log = $e->getMessage() . PHP_EOL;
-			echo $log;
-			$this->wurthNavLogger($log);
+			$this->log .= '--------------------- Import Error main method------------------------' . PHP_EOL;
+			$this->log .= $e->getMessage() . PHP_EOL;
+			$this->wurthNavLogger($this->log);
 		}
 	}
 
@@ -146,24 +145,23 @@ class CustomerGroupImportProcessor
 
 					if ($id = $this->checkColumnExist($tableDivision, $row['Code'])) {
 						$where = ['id IN (?)' => (int)$id];
-						$log = "Update division branch_code " . $row['Code'] . PHP_EOL;
-						echo $log;
-						$this->wurthNavLogger($log);
+						$this->log .= "Update division branch_code " . $row['Code'] . PHP_EOL;
+						
+						$this->wurthNavLogger($this->log);
 						$this->connectionDefault->update($tableDivision, $division, $where);
 						continue;
 					}
 
 					$this->connectionDefault->beginTransaction();
 					$this->insertMultiple($tableDivision, $division);
-					$log = "Insert division branch_code " . $row['Code'] . PHP_EOL;
-					echo $log;
-					$this->wurthNavLogger($log);
+					$this->log .= "Insert division branch_code " . $row['Code'] . PHP_EOL;
+					
+					$this->wurthNavLogger($this->log);
 					$this->connectionDefault->commit();
 				} catch (\Exception $e) {
-					$log = '---------------------Error Branch Code Import------------------------' . PHP_EOL;
-					$log = $e->getMessage() . PHP_EOL;
-					echo $log;
-					$this->wurthNavLogger($log);
+					$this->log .= '---------------------Error Branch Code Import------------------------' . PHP_EOL;
+					$this->log .= $e->getMessage() . PHP_EOL;
+					$this->wurthNavLogger($this->log);
 					$this->connectionDefault->rollBack();
 				}
 			}
@@ -176,10 +174,9 @@ class CustomerGroupImportProcessor
 			$tableName = $this->connectionDefault->getTableName($table);
 			return $this->connectionDefault->insertMultiple($tableName, $data);
 		} catch (\Exception $e) {
-			$log = '---------------------Insert Multiple Error------------------------' . PHP_EOL;
-			$log = $e->getMessage() . PHP_EOL;
-			echo $log;
-			$this->wurthNavLogger($log);
+			$this->log .= '---------------------Insert Multiple Error------------------------' . PHP_EOL;
+			$this->log .= $e->getMessage() . PHP_EOL;
+			$this->wurthNavLogger($this->log);
 		}
 	}
 
@@ -196,16 +193,15 @@ class CustomerGroupImportProcessor
 			$data = $this->connectionDefault->fetchOne($select);
 			return $data;
 		} catch (\Exception $e) {
-			$log = '---------------------Column Check Error------------------------' . PHP_EOL;
-			$log = $e->getMessage() . PHP_EOL;
-			echo $log;
-			$this->wurthNavLogger($log);
+			$this->log .= '---------------------Column Check Error------------------------' . PHP_EOL;
+			$this->log .= $e->getMessage() . PHP_EOL;
+			$this->wurthNavLogger($this->log);
 		}
 	}
 
-	public function wurthNavLogger($log)
-	{
-		$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurth_nav_logger.log');
+	public function wurthNavLogger($log = null)
+	{   echo $log;
+		$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_customer_group_import.log');
 		$logger = new \Zend\Log\Logger();
 		$logger->addWriter($writer);
 		$logger->info($log);
