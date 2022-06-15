@@ -56,7 +56,7 @@ class InstantProvider extends \Mirasvit\Search\Index\Magento\Cms\Page\InstantPro
             $imageUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]) . "catalog/product/placeholder/default/replacement_product_2.png";
         }
         return [
-            'name' => "CMS" . $page->getTitle(),
+            'name' => $page->getTitle(),
             'image' => $imageUrl,
             'url' => $this->urlBuilder->getUrl($page->getIdentifier(), ['_scope' => $storeId]),
         ];
