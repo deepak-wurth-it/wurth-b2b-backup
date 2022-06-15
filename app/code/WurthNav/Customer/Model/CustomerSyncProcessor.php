@@ -6,6 +6,7 @@
  */
 
 namespace WurthNav\Customer\Model;
+
 use WurthNav\Customer\Model\ResourceModel\ShopContactFactory as ResourceShopContactFactory;
 
 use Psr\Log\LoggerInterface;
@@ -18,9 +19,9 @@ use Psr\Log\LoggerInterface;
  */
 class CustomerSyncProcessor
 {
-    
-    protected $customer;
 
+    protected $customer;
+    public $log;
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
@@ -48,10 +49,8 @@ class CustomerSyncProcessor
         $this->accountManagement = $accountManagement;
         $this->customerRepository = $customerRepository;
         $this->customerRepository = $customerRepository;
-        $this->companyRepositoryInterface = $companyRepositoryInterface; 
+        $this->companyRepositoryInterface = $companyRepositoryInterface;
         $this->logger = $logger;
-
-
     }
 
     /**
@@ -62,79 +61,82 @@ class CustomerSyncProcessor
     {
         $this->customer = '';
         $customer = $this->customerFactory->create();
-		
+
         $collection = $customer->getCollection()
             ->addAttributeToSelect('*');
-        
-        $collection->getSelect()     
-        ->join(
-            ['company' => 'company'],
-            'e.email = company.company_email',
-            [  'company_name' => 'company.company_name',
-               'super_user_id' => 'company.super_user_id'
-			]
-        )->where(
-            'e.sync_status = ?',
-            '0'
-        );
+
+        $collection->getSelect()
+            ->join(
+                ['company' => 'company'],
+                'e.entity_id = company.super_user_id',
+                [
+                    'company_name' => 'company.company_name',
+                    'super_user_id' => 'company.super_user_id'
+                ]
+            )->where(
+                'e.sync_status = ?',
+                '0'
+            );
 
         $x = 0;
+        
         if ($collection->getSize() && $collection->count()) {
 
             foreach ($collection as $customer) {
-				
-            try{
-				if($customer->getSuperUserId() != $customer->getSuperUserId()){
-					continue;
-				}
-                $billingAddressId = $customer->getDefaultBilling();
-                $shippingAddressId = $customer->getDefaultShipping();
 
-                $address = $customer->getDefaultBillingAddress();
-                $getDefaultBillingAddress = $customer->getDefaultBillingAddress();
-                $getDefaultShippingAddress = $customer->getDefaultShippingAddress();
-                $company = $this->getCustomerCompany($customer->getId());
+                try {
+                    if ($customer->getId() != $customer->getSuperUserId()) {
+                        continue;
+                    }
+                    
+                    $billingAddressId = $customer->getDefaultBilling();
+                    $shippingAddressId = $customer->getDefaultShipping();
 
-                if(empty($billingAddressId) || empty($shippingAddressId) && empty($company)){
-                    continue;
-                }
-                
-                $updateData='';
-                $saveData='';
-                //$key='';
-                //$value='';
-               
-                $shopContactFactory = $this->shopContactFactory->create();
+                    $address = $customer->getDefaultBillingAddress();
+                    $getDefaultBillingAddress = $customer->getDefaultBillingAddress();
+                    $getDefaultShippingAddress = $customer->getDefaultShippingAddress();
+                    $company = $this->getCustomerCompany($customer->getId());
 
-                $shopContact = $shopContactFactory->getCollection();
-                $shopContact->getSelect()->where(
-                    'No_ = ?',
-                    $customer->getId()
-                );
-               
-                //print_r(($this->isAccountConfirmed($customer->getId())));
+                    if (empty($billingAddressId) || empty($shippingAddressId) && empty($company)) {
+                        continue;
+                    }
+                   
+                    $updateData = '';
+                    $saveData = '';
+                    //$key='';
+                    //$value='';
 
-                //Customer detail =====================
+                    $shopContactFactory = $this->shopContactFactory->create();
 
-               
-                $id =  $customer->getId();
-                $Name = $customer->getName();
-                $email = $customer->getEmail();
-                $newsLetterOptStatus = 2;
-                if($this->isCustomerSubscribeById($id)){
-                    $newsLetterOptStatus = 1;
-                }
-               
-               //Company Data ==========================
-                $company = '';
-                $companyName = '';
-                $division = '';
-                $activites = '';
-                $companyPhone = '';
-                $jobTitle = '';
-                $vatId_OIB = '';
-               
-                if($company){
+                    $shopContact = $shopContactFactory->getCollection();
+                    $shopContact->getSelect()->where(
+                        'No_ = ?',
+                        $customer->getId()
+                    );
+
+                    //print_r(($this->isAccountConfirmed($customer->getId())));
+
+                    //Customer detail =====================
+
+
+                    $id =  $customer->getId();
+                    $Name = $customer->getName();
+                    $email = $customer->getEmail();
+                    $newsLetterOptStatus = 2;
+                    if ($this->isCustomerSubscribeById($id)) {
+                        $newsLetterOptStatus = 1;
+                    }
+
+                    //Company Data ==========================
+                    $company = '';
+                    $companyName = '';
+                    $division = '';
+                    $activites = '';
+                    $companyPhone = '';
+                    $jobTitle = '';
+                    $vatId_OIB = '';
+
+                    if ($company) {
                         $vatId_OIB = $this->companyRepositoryInterface->get($company->getId())->getVatTaxId();
                         $customerCompanyAttributes = $this->customerRepository->getById($customer->getId())->getExtensionAttributes()->getCompanyAttributes();
                         $companyPhone =  $company->getTelephone();
@@ -142,186 +144,189 @@ class CustomerSyncProcessor
                         $activites = $company->getExtensionAttributes()->getActivities();
                         $division = $company->getExtensionAttributes()->getDivision();
                         $jobTitle = $customerCompanyAttributes->getJobTitle();
-
-                }
-               
-                //Billing Data ============================
-                $invoice_postcode='';
-                $invoice_city = '';
-                $invoice_street = '';
-                $billing_street_address='';
-
-                if ($getDefaultBillingAddress) {
-                   
-                    $invoice_postcode =  $getDefaultBillingAddress->getPostcode();
-                }
-
-                if ($getDefaultBillingAddress) {
-                    $invoice_city =  $getDefaultBillingAddress->getCity();
-                }
-
-              
-
-                if($billingAddressId){
-                   $billing_street_address =  implode(',',$this->addressRepository->getById($billingAddressId)->getStreet());
-                }
-
-                //Shipping Data ==============================
-
-               
-                $ship_city = '';
-                $ship_postcode = '';
-                $ship_street = '';
-                $ship_street_address='';
-                
-                if ($getDefaultShippingAddress) {
-                    $ship_postcode =  $getDefaultShippingAddress->getPostcode();
-                }
-
-                
-
-                if ($getDefaultShippingAddress) {
-                    $ship_city =  $getDefaultShippingAddress->getCity();
-                }
-
-              
-                if($shippingAddressId){
-                    $ship_street_address =  implode(',',$this->addressRepository->getById($shippingAddressId)->getStreet());
-                 }
-
-
-               // Address ========================================
-
-               $city = '';
-               $country='';
-               $contact='';
-               $postcode = '';
-               $street = '';
-               $telephone = '';
-               
-                if ($address) {
-                   
-                    $postcode =  $address->getPostcode();
-                }
-
-                if ($address) {
-                    $city =  $address->getCity();
-                }
-
-                if ($address) {
-                    $country =  $address->getCountryId();
-                }
-
-
-                if ($address) {
-                    
-                    $telephone =  $address->getTelephone();
-                }
-
-                if ($address) {
-                    $street =   implode(',',$address->getStreet());
-                   
-                }
-
-              
-                $data = array(
-                'No_' => $id,
-                'Name'=>$Name,
-                'Address'=>$street,
-                'Post Code'=> $postcode,
-                'City'=> $city,
-                'Country'=>$country,
-                'Mobile Phone No_'=>$telephone,//Customer Mobile
-                'E-Mail'=>$email,
-                'Salesperson Code'=>'',// Balnk as discussed with BA
-                'VAT Registration No_'=>$vatId_OIB,//oib
-                'Job Title'=>$jobTitle,//Postiton in company
-                'Type'=>'1',//0 = New or 1 = Existing User//If customer code will come then type 1 then 0
-                'Company No_'=>'',//Empty
-                'Company Name'=>$companyName,//Company name
-                'Contact No_'=>$contact,
-                'Customer No_'=>$id,
-                'Cust_ Business Unit Code'=>'',//Empty
-                'Status'=>'',//Blank as discussed with BA
-                'Phone No_'=>$companyPhone,
-                'Global Dimension 1 Code'=>$division,//From Company
-                'Global Dimension 2 Code'=>$activites,// From Company
-                'Ship To Address'=>$ship_street_address,
-                'Invoice To Address'=>$billing_street_address,
-                'Send Invoice Via E-mail'=>'',//Empty(will be handled by ERP)
-                'Ship To Post Code'=>$ship_postcode,
-                'Ship To City'=>$ship_city,
-                'Invoice To Post Code'=>$invoice_postcode,
-                'Invoice To City'=>$invoice_city,
-                'Newsletter'=>$newsLetterOptStatus
-            );
-                
-                if ($shopContact->getData() && $shopContact->getFirstItem()->getData('needs_update') ){
-                    foreach($data as $key=>$value){
-                        if($value){
-                           
-                           $shopContact->getFirstItem()->setData($key,$value);
-                        }    
-                        
                     }
-                    $shopContact->getFirstItem()->setData('needs_update',1);
-                    $updateData = $shopContact->save();
-                }else if(empty($shopContact->getData())){
-                    $shopContactFactory->addData($data);
-                    $saveData = $shopContactFactory->save();
-                }
 
-               
-               
-                if($saveData){
-                    echo  __('Insert Record Successfully for customer id '.$customer->getName().' !').PHP_EOL ;
-                }
-                if($updateData){
-                    echo  __('Updated Record Successfully for customer id '.$customer->getName().' !').PHP_EOL ;
-                }
-               
+                    //Billing Data ============================
+                    $invoice_postcode = '';
+                    $invoice_city = '';
+                    $invoice_street = '';
+                    $billing_street_address = '';
+
+                    if ($getDefaultBillingAddress) {
+
+                        $invoice_postcode =  $getDefaultBillingAddress->getPostcode();
+                    }
+
+                    if ($getDefaultBillingAddress) {
+                        $invoice_city =  $getDefaultBillingAddress->getCity();
+                    }
+
+
+
+                    if ($billingAddressId) {
+                        $billing_street_address =  implode(',', $this->addressRepository->getById($billingAddressId)->getStreet());
+                    }
+
+                    //Shipping Data ==============================
+
+
+                    $ship_city = '';
+                    $ship_postcode = '';
+                    $ship_street = '';
+                    $ship_street_address = '';
+
+                    if ($getDefaultShippingAddress) {
+                        $ship_postcode =  $getDefaultShippingAddress->getPostcode();
+                    }
+
+
+
+                    if ($getDefaultShippingAddress) {
+                        $ship_city =  $getDefaultShippingAddress->getCity();
+                    }
+
+                    
+                    if ($shippingAddressId) {
+                        $ship_street_address =  implode(',', $this->addressRepository->getById($shippingAddressId)->getStreet());
+                    }
+
+
+                    // Address ========================================
+
+                    $city = '';
+                    $country = '';
+                    $contact = '';
+                    $postcode = '';
+                    $street = '';
+                    $telephone = '';
+
+                    if ($address) {
+
+                        $postcode =  $address->getPostcode();
+                    }
+
+                    if ($address) {
+                        $city =  $address->getCity();
+                    }
+
+                    if ($address) {
+                        $country =  $address->getCountryId();
+                    }
+
+
+                    if ($address) {
+
+                        $telephone =  $address->getTelephone();
+                    }
+
+                    if ($address) {
+                        $street =   implode(',', $address->getStreet());
+                    }
+
+
+                    $data = array(
+                        'No_' => $id,
+                        'Name' => $Name,
+                        'Address' => $street,
+                        'Post Code' => $postcode,
+                        'City' => $city,
+                        'Country' => $country,
+                        'Mobile Phone No_' => $telephone, //Customer Mobile
+                        'E-Mail' => $email,
+                        'Salesperson Code' => '', // Balnk as discussed with BA
+                        'VAT Registration No_' => $vatId_OIB, //oib
+                        'Job Title' => $jobTitle, //Postiton in company
+                        'Type' => '1', //0 = New or 1 = Existing User//If customer code will come then type 1 then 0
+                        'Company No_' => '', //Empty
+                        'Company Name' => $companyName, //Company name
+                        'Contact No_' => $contact,
+                        'Customer No_' => $id,
+                        'Cust_ Business Unit Code' => '', //Empty
+                        'Status' => '', //Blank as discussed with BA
+                        'Phone No_' => $companyPhone,
+                        'Global Dimension 1 Code' => $division, //From Company
+                        'Global Dimension 2 Code' => $activites, // From Company
+                        'Ship To Address' => $ship_street_address,
+                        'Invoice To Address' => $billing_street_address,
+                        'Send Invoice Via E-mail' => '', //Empty(will be handled by ERP)
+                        'Ship To Post Code' => $ship_postcode,
+                        'Ship To City' => $ship_city,
+                        'Invoice To Post Code' => $invoice_postcode,
+                        'Invoice To City' => $invoice_city,
+                        'Newsletter' => $newsLetterOptStatus
+                    );
+                    
+                    if ($shopContact->getData() && $shopContact->getFirstItem()->getData('needs_update')) {
+                        foreach ($data as $key => $value) {
+                            if ($value) {
+
+                                $shopContact->getFirstItem()->setData($key, $value);
+                            }
+                        }
+                        $shopContact->getFirstItem()->setData('needs_update', 1);
+                        $updateData = $shopContact->save();
+                    } else if (empty($shopContact->getData())) {
+                        $shopContactFactory->addData($data);
+                        $saveData = $shopContactFactory->save();
+                    }
+
+
+
+                    if ($saveData) {
+                        $this->log .=  'Insert Record Successfully for customer id ' . $customer->getName() . PHP_EOL;
+                    }
+                    if ($updateData) {
+                        $this->log .= 'Updated Record Successfully for customer id ' . $customer->getName() . PHP_EOL;
+                    }
+                    $this->wurthNavLogger($this->log);
                 } catch (\Exception $e) {
                     $this->logger->info($e->getMessage());
-                    echo $e->getMessage().PHP_EOL;
+                    echo $e->getMessage() . PHP_EOL;
                     continue;
                 }
             }
-
         }
     }
 
     public function getCustomerCompany($customerId)
     {
-        
+
         $company = $this->companyRepository->getByCustomerId($customerId);
         return $company;
     }
 
-    public function getFullShippingAddress ($getDefaultShippingAddress){
-        foreach($getDefaultShippingAddress as $data){
-            //echo $data;
-        }
-
-    }
-
-    public function getFullBillingAddress ($getDefaultBillingAddress){
-        foreach($getDefaultBillingAddress as $data){
+    public function getFullShippingAddress($getDefaultShippingAddress)
+    {
+        foreach ($getDefaultShippingAddress as $data) {
             //echo $data;
         }
     }
-    
+
+    public function getFullBillingAddress($getDefaultBillingAddress)
+    {
+        foreach ($getDefaultBillingAddress as $data) {
+            //echo $data;
+        }
+    }
+
     public function isAccountConfirmed($customerId)
     {
         return $this->accountManagement->getConfirmationStatus($customerId);
     }
 
-    public function isCustomerSubscribeById($customerId) {
+    public function isCustomerSubscribeById($customerId)
+    {
         $status = $this->subscriberFactory->create()->loadByCustomerId((int)$customerId)->isSubscribed();
 
         return (bool)$status;
     }
 
-
-
-
+    public function wurthNavLogger($log)
+    {
+        echo $log;
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_customer_sync.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info($log);
+    }
 }
