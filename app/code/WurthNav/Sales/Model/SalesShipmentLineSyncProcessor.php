@@ -19,9 +19,9 @@ use WurthNav\Sales\Model\SalesShipmentLineMiddlewareFactory as SalesShipmentLine
  */
 class SalesShipmentLineSyncProcessor
 {
-
+    
     protected $salesShipment;
-
+    public $log;
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         SalesShipmentLineMiddlewareFactory $salesShipmentLineMiddlewareFactory,
@@ -33,7 +33,6 @@ class SalesShipmentLineSyncProcessor
         $this->salesShipmentLineMiddlewareFactory = $salesShipmentLineMiddlewareFactory;
         $this->salesShipmentLineFactory = $salesShipmentLineFactory;
         $this->logger = $logger;
-
     }
 
     /**
@@ -53,14 +52,14 @@ class SalesShipmentLineSyncProcessor
         $limit = 100;
         if ($sizeTotal > 0) {
 
-        for ($i = 1; $i <= $size; $i++) {
-            
+            for ($i = 1; $i <= $size; $i++) {
+
                 $collection->setPageSize($limit);
                 $collection->setCurPage($i);
 
-                echo $collection->getSelect();
+                //echo $collection->getSelect();
 
-                echo 'Started page ' . $i . PHP_EOL;
+                $this->log .= 'Started page ' . $i . PHP_EOL;
 
                 if ($collection->getSize() > 0 && $collection->count()) {
                     foreach ($collection as $row) {
@@ -152,31 +151,37 @@ class SalesShipmentLineSyncProcessor
                             if ($checkExist->getId()) {
                                 $salesShipmentInner->setData('Id', $checkExist->getId());
                                 $salesShipmentInner->save();
-                                echo 'Updated Magento SalesShipmentLine Id ' . $checkExist->getId() . PHP_EOL;
-
+                                $this->log .= 'Updated Magento SalesShipmentLine Id ' . $checkExist->getId() . PHP_EOL;
                             } else {
 
                                 $salesShipmentInner->save();
-                                echo 'Inserted Middleware SalesShipmentLine Id ' . $Id . PHP_EOL;
-
+                                $this->log .=  'Inserted Middleware SalesShipmentLine Id ' . $Id . PHP_EOL;
                             }
-
                         } catch (\Exception $e) {
                             $this->logger->info($e->getMessage());
                             echo $e->getMessage() . PHP_EOL;
                             continue;
                         }
-
                     }
                 }
                 $collection->clear();
 
-                if ($i == 5) {
-                    //break;
+                if ($i == 500) {
                 }
+                $this->wurthNavLogger($this->log);
+                $this->log = "";
+                 // No Synchronized or need_update  Other validation field found for previous  done lines
             }
-
         }
+    }
 
+
+    public function wurthNavLogger($log = null)
+    {
+        echo $log;
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/wurthnav_sales_shipment_import.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info($log);
     }
 }
