@@ -1,0 +1,12 @@
+{
+    "cms_page": {
+        "column": {
+            "cms_image": true
+        }
+    },
+    "search_query": {
+        "column": {
+            "customer_id": true
+        }
+    }
+}
