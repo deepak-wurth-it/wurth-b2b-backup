@@ -84,7 +84,7 @@ class InstantProvider extends \Mirasvit\Search\Index\Magento\Catalog\Category\In
         }
 
         return [
-            'name' => "CAT-" . $this->getFullPath($category, $storeId),
+            'name' => $this->getFullPath($category, $storeId),
             'url' => $category->getUrl(),
             'image' => $imageUrl,
         ];
