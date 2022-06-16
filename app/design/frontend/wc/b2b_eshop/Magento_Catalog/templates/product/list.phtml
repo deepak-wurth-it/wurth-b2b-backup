@@ -31,7 +31,7 @@ $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
         <div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
     </div>
 <?php else: ?>
-    <?php //echo $block->getToolbarHtml()?>
+    <?php echo $block->getToolbarHtml()?>
     <?= $block->getAdditionalHtml() ?>
     <?php
     if ($block->getMode() === 'grid') {
@@ -107,14 +107,17 @@ $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
 
                                         <span class="stock" id="stock_<?php echo $productCode; ?>">
                                             <span class="wcb-contaner-group">
-                                                <div class="tooltip box redBox">
-                                                    <span
-                                                        class="tooltiptext">The item is not available immediately</span>
+                                                <div class="tooltip box boxcolor_<?php echo $productCode; ?>">
+                                                    <span class="tooltiptext">
+                                                        <?= ("The item is not available immediately") ?>
+                                                    </span>
                                                 </div>
-                                                <div class="tooltip van redVan">
-                                                    <span class="tooltiptext">The quantity will be available for the displayed number of days</span>
+                                                <div class="tooltip van boxvan_<?php echo $productCode; ?>">
+                                                    <span class="tooltiptext">
+                                                        <?= __("The quantity will be available for the displayed number of days") ?>
+                                                    </span>
                                                 </div>
-                                                <span class="delivery-time">12 -14</span>
+                                                <span class="delivery-time delivery_day_<?php echo $productCode; ?>"></span>
                                             </span>
                                         </span>
                                     </div>
@@ -147,9 +150,12 @@ $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
                                             <div class="control-qty-cart">
                                                 <span
                                                     class=" icon-interface-minus quantity-controls quantity-minus"></span>
-                                                <input type="number" name="qty" id="qty" maxlength="12" value="1"
+                                                <input type="number" name="qty" id="qty_<?= $productCode ?>" maxlength="12" value="1"
+                                                       data-mimimumQty = <?= $checkoutHelper->getMinimumAndMeasureQty($_product) ?>
                                                        title="<?php /* @escapeNotVerified */
-                                                       echo __('Qty') ?>" class="qty-default input-text qty"
+                                                       echo __('Qty') ?>"
+                                                       class="qty-default input-text qty qtyinfo_<?= $productCode ?>"
+                                                       data-productcode="<?= $productCode ?>"
                                                        data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
                                                 />
                                                 <span
@@ -157,10 +163,10 @@ $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
                                             </div>
                                         </div>
                                         <div class="pkgCount">
-                                            <select>
-                                                <option> <?= $checkoutHelper->getMinimumAndMeasureQty($_product) ?>PC
-                                                </option>
-                                            </select>
+                                            <div class="veCount logdIn">
+                                                <?= __('Packaging') ?>
+                                                <?= $checkoutHelper->getMinimumAndMeasureQty($_product) ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -172,10 +178,7 @@ $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
                                         <div class="actions-primary">
                                             <?php if ($_product->isSaleable()): ?>
                                                 <?php $postParams = $block->getAddToCartPostParams($_product); ?>
-                                                <!--<form data-role="tocart-form"
-                                                  data-product-sku="<? /*= $escaper->escapeHtml($_product->getSku()) */ ?>"
-                                                  action="<? /*= $escaper->escapeUrl($postParams['action']) */ ?>"
-                                                  method="post">-->
+
                                                 <input type="hidden"
                                                        name="product"
                                                        value="<?= /* @noEscape */
@@ -271,13 +274,14 @@ $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
             'jquery',
             'searchlist'
         ], function ($, searchlist) {
-            debugger;
             searchlist.GetMultiProductPriceAndStock('<?php echo $pid_json ?>');
 
             $('.quantity-plus').click(function () {
                 var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
                 currentQTY = currentQTY + 1;
                 $(this).parent().parent().find(".qty-default").val(currentQTY);
+                let dataProductcode = $(this).parent().parent().find(".qty-default").attr("data-productcode");
+                searchlist.updateStockDaysAndColor(dataProductcode);
             });
 
             $('.quantity-minus').click(function () {
@@ -285,8 +289,14 @@ $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
                 currentQTY = currentQTY - 1;
                 if (currentQTY > 0) {
                     $(this).parent().parent().find(".qty-default").val(currentQTY);
+                    let dataProductcode = $(this).parent().parent().find(".qty-default").attr("data-productcode");
+                    searchlist.updateStockDaysAndColor(dataProductcode);
                 }
             });
+            $(".qty-default").on("keyup change", function(e) {
+                let dataProductcode = $(this).attr("data-productcode");
+                searchlist.updateStockDaysAndColor(dataProductcode);
+            })
         });
     </script>
 <?php endif; ?>
