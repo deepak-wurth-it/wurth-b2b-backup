@@ -66,31 +66,31 @@ class CustomerSyncProcessorFromNav
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
-    public function getBillingAddressByCustomerCode($customerCode, $currentCustomerId)
+    public function getBillingAddressByCustomerCode($customerCode, $currentCustomerId, $billingAddress)
     {
-        $customerObj = $this->customerCollectionFactory->create();
-        $collection = $customerObj->addAttributeToSelect('*')
-            ->addAttributeToFilter('customer_code', $customerCode)
-            ->load();
-        if ($collection->getSize()) {
 
-            $firstItem = $collection->getFirstItem();
-            $customerId = $firstItem->getId();
-            $billingAddress =  $this->getDefaultBillingAddress($customerId);
-            if ($billingAddress) {
-                $firstName =     $billingAddress->getFirstname();
-                $lastName =      $billingAddress->getLastname();
-                $countryId =     $billingAddress->getCountryId();
-                $regionId =      $billingAddress->getRegionId();
-                $regionName =     $billingAddress->getRegion();
-                $city =         $billingAddress->getCity();
-                $postcode =     $billingAddress->getPostcode();
-                $street =         $billingAddress->getStreet();
-                $telephone =     $billingAddress->getTelephone();
+        $navCustomerObj = $this->navCustomers->create();
+        $customerNavAddress =  $navCustomerObj->load('CustomerCode', $customerCode);
 
+
+        if ($customerNavAddress->getData('CustomerCode') == $customerCode) {
+            $street = [];
+            $city =        $customerNavAddress->getData('City');
+            $postcode =      $customerNavAddress->getData('PostalCode');
+            $street[$customerNavAddress->getData('Address')];
+            $telephone =     $customerNavAddress->getData('Phone');
+
+            if ($city && $postcode &&  !empty($street) && $telephone) {
+
+
+                $regionName = $billingAddress->getRegion();
+                $regionId = $billingAddress->getRegionId();
+                $countryId = $billingAddress->getCountryId();
+                $firstNameBiller =     $billingAddress->getFirstname();
+                $lastNameBiller =      $billingAddress->getLastname();
                 $address = $this->addressDataFactory->create();
-                $address->setFirstname($firstName)
-                    ->setLastname($lastName)
+                $address->setFirstname($firstNameBiller)
+                    ->setLastname($lastNameBiller)
                     ->setCountryId($countryId)
                     ->setRegionId($regionId)
                     ->setRegion($regionName)
@@ -198,7 +198,7 @@ class CustomerSyncProcessorFromNav
 
 
 
-                    /********************** Update Address  ********************/
+                    /********************** Update customer Address  ********************/
                     $shippingAddress = $this->getDefaultShippingAddress($customerId);
 
                     if ($shippingAddress) {
@@ -212,10 +212,12 @@ class CustomerSyncProcessorFromNav
                         $region = $shippingAddress->getRegion();
                         $regionId = $shippingAddress->getRegionId();
                         $countryId = $shippingAddress->getCountryId();
+                        $firstNameShipper =     $shippingAddress->getFirstname();
+                        $lastNameShipper =      $shippingAddress->getLastname();
                         $shippingAddress->setCustomerId($customerId)
                             ->setId($shippingId)
-                            ->setFirstname($firstName)
-                            ->setLastname($lastName)
+                            ->setFirstname($firstNameShipper)
+                            ->setLastname($lastNameShipper)
                             ->setCountryId($countryId)
                             ->setRegionId($regionId)
                             ->setRegion($region)
@@ -225,18 +227,55 @@ class CustomerSyncProcessorFromNav
                             ->setTelephone($Phone)
                             ->setIsDefaultShipping(true);
                         $this->log .= "Saved customer shipping details" . PHP_EOL;
-
-                        if ($BillToCustomerNo) {
-                            $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId);
-                        }
-
                         $address = $this->addressRepository->save($shippingAddress);
                         if ($address->getId()) {
                             $status[] = $address->getId();
                         }
                     }
 
+                    #====================== Customer Customer Billing Data ==================#
+                    $billingAddress =  $this->getDefaultBillingAddress($customerId);
 
+                    if ($BillToCustomerNo) {
+                        $statusBillToData = $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId, $billingAddress);
+                    }
+
+                    if ($billingAddress && $statusBillToData == false) {
+
+                        $billingId =  $billingAddress->getId();
+                        $street = $navCustomer->getData('Address');
+                        $postcode = $navCustomer->getData('PostalCode');
+                        $city = $navCustomer->getData('City');
+                        $telephone = $navCustomer->getData('Phone');
+                        $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
+
+                        $regionName = $billingAddress->getRegion();
+                        $regionId = $billingAddress->getRegionId();
+                        $countryId = $billingAddress->getCountryId();
+                        $firstNameBiller =     $billingAddress->getFirstname();
+                        $lastNameBiller =      $billingAddress->getLastname();
+
+                        $address = $this->addressDataFactory->create();
+                        $address->setCustomerId($customerId)
+                            ->setId($billingId)
+                            ->setFirstname($firstNameBiller)
+                            ->setLastname($lastNameBiller)
+                            ->setCountryId($countryId)
+                            ->setRegionId($regionId)
+                            ->setRegion($regionName)
+                            ->setCity($city)
+                            ->setPostcode($postcode)
+                            ->setStreet($street)
+                            ->setTelephone($telephone)
+                            ->setIsDefaultBilling('1');
+                        $address->save();
+                        $this->log .= "Saved customer billing details" . PHP_EOL;
+                        return true;
+                    }
+
+
+
+                    #====================== Customer Billing End ===================#
 
                     /********************* company data  ***********************/
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
@@ -246,6 +285,7 @@ class CustomerSyncProcessorFromNav
                     $company->setWcbSalesPersonCode($SalespersonCode);
                     $BranchCode = $navCustomer->getData('BranchCode');
                     $company->setDivision($BranchCode);
+                    //$company->setActivities($BranchCode);
                     $company->setStatus('1');
                     $savedCompany = $this->companyRepository->save($company);
                     $this->log .= "Saved company  details" . PHP_EOL;
