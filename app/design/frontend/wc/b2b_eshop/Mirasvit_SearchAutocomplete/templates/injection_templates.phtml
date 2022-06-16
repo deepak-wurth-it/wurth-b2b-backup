@@ -59,7 +59,7 @@
 </script>
 
 <script id="popular" type="text/x-custom-template">
-    <a class="title" data-bind="text: query"></a>
+    <a class="title wcb-popular" data-bind="text: query"></a>
 </script>
 
 <script id="magento_search_query" type="text/x-custom-template">
@@ -70,7 +70,7 @@
 <script id="magento_catalog_product" type="text/x-custom-template">
     <!-- ko if: image -->
     <a rel="noreferrer" data-bind="attr: {href: url}">
-        <div class="mst-product-image-wrapper"><img data-bind="attr: {src: image}"/></div>
+        <div class="mst-product-image-wrapper wcb-pro-img"><img data-bind="attr: {src: image}"/></div>
     </a>
     <!-- /ko -->
 
@@ -112,14 +112,14 @@
 </script>
 
 <script id="magento_catalog_category" type="text/x-custom-template">
-    <div class="mst-product-image-wrapper">
+    <div class="mst-product-image-wrapper wcb-cat-img">
         <img data-bind="attr: {src: image}" width="100">
     </div>
     <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
 </script>
 
 <script id="magento_cms_page" type="text/x-custom-template">
-    <div class="mst-product-image-wrapper">
+    <div class="mst-product-image-wrapper wcb-cms-img">
         <img data-bind="attr: {src: image}" width="100">
     </div>
     <a class="title" data-bind="text: name, attr: {href: url}, highlight"></a>
