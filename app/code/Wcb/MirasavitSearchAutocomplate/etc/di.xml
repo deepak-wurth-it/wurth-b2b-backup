@@ -2,4 +2,7 @@
     <type name="Mirasvit\SearchAutocomplete\Block\Injection">
         <plugin name="change_popular_title" type="Wcb\MirasavitSearchAutocomplate\Plugin\Block\Injection" sortOrder="1"/>
     </type>
+    <type name="Mirasvit\SearchAutocomplete\Model\ConfigProvider">
+        <plugin name="change_popular_title" type="Wcb\MirasavitSearchAutocomplate\Plugin\Model\ConfigProvider" sortOrder="1"/>
+    </type>
 </config>
