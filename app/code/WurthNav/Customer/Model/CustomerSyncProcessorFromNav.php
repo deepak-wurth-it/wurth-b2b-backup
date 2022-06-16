@@ -153,6 +153,7 @@ class CustomerSyncProcessorFromNav
                     $customerObject->setWebsiteId($webSiteId);
                     $customerObject->loadByEmail($email);
                     $customerId = $customerObject->getId();
+                    
 
 
                     if (empty($customerId)) {
