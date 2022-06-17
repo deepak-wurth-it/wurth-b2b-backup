@@ -28,8 +28,15 @@ define([
                 if ($(this.element).valid() === false) {
                     //$(this.options.buttonAddToCart).prop('disabled', true);
                 } else {
-                    $('body').trigger('processStart');
-                    this.addToCartWithAjax($(this.element), false);
+                    let skuEle =  $("input[data-role='product-sku']");
+                    if(skuEle.length > 0){
+                        if( skuEle.attr("selected-value") == skuEle.val()){
+                            $('body').trigger('processStart');
+                            this.addToCartWithAjax($(this.element), false);
+                        }else{
+                            $(".wrong-product-code").show().delay(5000).hide("slow");
+                        }
+                    }
                 }
                 return false;
 

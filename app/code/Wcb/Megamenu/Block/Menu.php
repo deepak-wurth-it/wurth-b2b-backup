@@ -3,10 +3,10 @@ namespace Wcb\Megamenu\Block;
 use Magento\Catalog\Model\Category;
 use Magento\Customer\Model\Context;
 class Menu extends \Magento\Framework\View\Element\Template {
-    
+
     const MENU_CACHE_KEY = 'wcb_mega_menu';
     const DEFAULT_CACHE_TAG = 'WCB_MEGAMENU';
-    
+
     /**
      * @var Category
      */
@@ -48,6 +48,10 @@ class Menu extends \Magento\Framework\View\Element\Template {
     protected $_blockFactory;
     protected $_pageFactory;
     protected $_page;
+    /**
+     * @var \Magento\Framework\Api\SortOrderBuilder
+     */
+    protected $sortOrderBuilder;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -80,6 +84,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         \Magento\Cms\Model\Page $page,
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\App\Request\Http $request,
+        \Magento\Framework\Api\SortOrderBuilder $sortOrderBuilder,
         array $data = []
     ) {
         $this->_productCollectionFactory = $productCollectionFactory;
@@ -95,24 +100,25 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $this->helperImageFactory = $helperImageFactory;
         $this->_page = $page;
         $this->_request = $request;
+        $this->sortOrderBuilder = $sortOrderBuilder;
         parent::__construct($context, $data);
         //echo "<pre>";print_r($this->getRequest());exit;
         $userAgent  = $this->getRequest()->getHeader('useragent');
         $server     = $this->getRequest()->getServer();
-         
-        
+
+
         //check is device is Mobile
         $isMobileDevice = \Zend_Http_UserAgent_Mobile::match($userAgent, $server);
         if ($isMobileDevice) {
            //$this->setTemplate('Wcb_Megamenu::mobilemenu.phtml');
         }
-        
+
        //$this->setTemplate('Wcb_Megamenu::wcbmegamenu.phtml');
 
     }
-    
-    
-    
+
+
+
      protected function getCacheLifetime()
     {
         return parent::getCacheLifetime() ?: 86400;
@@ -132,9 +138,9 @@ class Menu extends \Magento\Framework\View\Element\Template {
     {
         return [self::DEFAULT_CACHE_TAG, self::DEFAULT_CACHE_TAG . '_' . self::MENU_CACHE_KEY];
     }
-    
-    
-    
+
+
+
     public function _prepareLayout() {
         $this->getStaticBlockFromIdentify();
     }
@@ -163,19 +169,19 @@ class Menu extends \Magento\Framework\View\Element\Template {
                 ->createBlock('Magento\Cms\Block\Block')
                 ->setBlockId($blockData->getIdentifier())
                 ->toHtml();
-                
-                if($menuContent!=''){ 
-                    $submenustatus= "haschilds"; 
+
+                if($menuContent!=''){
+                    $submenustatus= "haschilds";
                 } else
                  {
-                    $submenustatus= "pt_cms"; 
+                    $submenustatus= "pt_cms";
                     }
 
             $html = '<div class="pt_menu nav-1" id="' . $submenustatus . '">
             <div style="display:none;" class="cmsPop popup '.$blockData->getIdentifier() .'"><div class="back-arrow tablinks allPagesBack">Back</div>'.$menuContent.'</div>
 					<div class="parentMenu '.$submenustatus.'"><a href="' . $link . '" class="withchilds '.$submenustatus.' ' . $active . '"><span>' . $blockData->getTitle() . '</span></a></div>
 				</div>';
-                
+
         }
         return $html;
     }
@@ -215,7 +221,13 @@ class Menu extends \Magento\Framework\View\Element\Template {
      * @return Array
      */
     protected function _getSearchCriteria() {
-        return $this->_search->addFilter('is_active', '1')->addFilter('addintomenu', '1')->create();
+        $sortOrder = $this->sortOrderBuilder->setField('custom_sort_order')
+            ->setDirection('ASC')->create();
+        return $this->_search
+            ->addFilter('is_active', '1')
+            ->addFilter('addintomenu', '1')
+            ->setSortOrders([$sortOrder])
+            ->create();
     }
     public function getCategoryLevel2($level = 2) {
         $collection = $this->_categoryInstance->create()->getCollection()
@@ -355,10 +367,10 @@ class Menu extends \Magento\Framework\View\Element\Template {
         return $html;
     }
     function getThumbUrl($thumb = null) {
-       
+
         return $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/category/' . $thumb;
     }
-  
+
     public function drawCustomMenuItem($category = null, $level = 0, $last = false, $item = null) {
         if (!$category) return '';
         $category = $this->_categoryInstance->create()->load($category);
@@ -375,7 +387,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         // --- Sub Categories ---
         $activeChildren = $this->getActiveChildren($category, $level);
         // --- class for active category ---
-        $active = ''; 
+        $active = '';
         if ($this->isCategoryActive($category)) $active = ' act';
         // --- Popup functions for show ---
         $drawPopup = ($blockHtml || count($activeChildren));
@@ -399,7 +411,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $link = $this->_catalogCategory->getCategoryUrl($category);
         $is_active_id = $this->_catalogLayer->get()->getCurrentCategory()->getId();
         $is_active = null;
-        
+
         $currentFullAction = $this->_request->getFullActionName() ;
         if (($is_active_id == $id) || ($currentFullAction == 'catalog_product_view') || ($currentFullAction == 'catalog_category_view') || ($currentFullAction == 'cms_index_index')) {
             $is_active = 'act';
@@ -523,7 +535,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
             $html[] = '<div id="popup' . $id . '"  class="mob-popup">';
             // --- draw Sub Categories ---
             $html[] = '<div class="back-arrow tablinks">All Katalog proizvoda</div>';
-            if (count($activeChildren)) { 
+            if (count($activeChildren)) {
                     $html[] = '<div class="block1" id="block1' . $id . '">';
                     $html[] = $this->drawColumns($activeChildren, $id);
                         if ($blockHtml && $blockHtmlRight) {
@@ -600,7 +612,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
                 }
            // }
         }
-        
+
         if ($countChildren == 0 && $columChunk == 1) {
             $ClassNoChildren = ' nochild';
         }
@@ -616,8 +628,8 @@ class Menu extends \Magento\Framework\View\Element\Template {
             // $productCount = $child->getProductCollection()->count();
             // //echo $activeCount;
             // if($activeCount > 0 && $activeSize > 0 && $productCount > 0){
-                
-            
+
+
             if ($child->getIsActive()) {
                 // --- class for active category ---
                 $active = '';
@@ -628,7 +640,7 @@ class Menu extends \Magento\Framework\View\Element\Template {
                 $is_sale = $is_new = null;
                 //$imageUrl = $child1->getThumbNail();
                 $imageUrl = $child1->getImageUrl();
-                
+
                 if (!$imageUrl) {
                     $imagePlaceholder = $this->helperImageFactory->create();
                     $imageUrl = $this->assetRepos->getUrl($imagePlaceholder->getPlaceholder('thumbnail'));
@@ -714,5 +726,5 @@ class Menu extends \Magento\Framework\View\Element\Template {
         $html.= '</li>';
         return $html;
     }
-    
+
 }

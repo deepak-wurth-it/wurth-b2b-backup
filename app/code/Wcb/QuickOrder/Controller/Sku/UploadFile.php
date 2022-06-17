@@ -141,11 +141,11 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
      */
     public function getProductByProductCode($productCode)
     {
-        $productIds = $this->quickOrderHelper->getProductCodeWithProductId($productCode, false);
+        // $productIds = $this->quickOrderHelper->getProductCodeWithProductId($productCode, false);
 
         return $this->productCollectionFactory->create()
             ->addAttributeToSelect('*')
-            ->addFieldToFilter('entity_id', ['in' => $productIds])
+            ->addFieldToFilter('product_code', ['eq' => $productCode])
             ->getFirstItem();
     }
 
