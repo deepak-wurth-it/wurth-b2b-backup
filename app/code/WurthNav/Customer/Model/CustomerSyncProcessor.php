@@ -105,20 +105,23 @@ class CustomerSyncProcessor
                     $getDefaultShippingAddress = $customer->getDefaultShippingAddress();
                     $company = $this->getCustomerCompany($customer->getId());
                     $shopContactFactory = $this->shopContactFactory->create();
+                    $customerType =  $customer->getSuperUserId() ? '0' : '1';
+                    $customerCode = $customer->getData('customer_code');
 
 
                     $customerRepoObject = $this->customerRepository->getById($customer->getId());
-                    if (empty($billingAddressId) || empty($shippingAddressId) && empty($company)) {
-                        continue;
-                    }
+                    //if (empty($billingAddressId) || empty($shippingAddressId) && empty($company)) {
+                       // continue;
+                   // }
 
                     #================ About the company & Address =========================#
-                    if ($company) {
+                    if ($company && empty($customerType)) {
+                      
                         $companyRepoObject = $this->companyRepositoryInterface->get($company->getId());
                         $shopContactFactory->setData('Company Name', $company->getCompanyName());
                         $shopContactFactory->setData('Employees', $company->getNumberOfEmployees());
                         $shopContactFactory->setData('Global Dimension 2 Code',  $company->getActivities());
-                        $shopContactFactory->setData('Global Dimension 1 Code', $company->getDivision());
+                        //$shopContactFactory->setData('Global Dimension 1 Code', $company->getDivision());//not required
                         $shopContactFactory->setData('Country', $company->getCountryId());
 
                         $address = '';
@@ -142,23 +145,34 @@ class CustomerSyncProcessor
                         $shopContactFactory->setData('position', $customer->getPosition());
                         $superUser = $customer->getSuperUserId() ? '' : $customer->getId();
                         $shopContactFactory->setData('Customer No_', $superUser);
+                        $shopContactFactory->setData('Type', $customerType);
+                        $shopContactFactory->setData('Newsletter', $newsletter);
+                        $shopContactFactory->setData('Job Title', $customer->getPosition());
+                        $newsletter = $this->isCustomerSubscribeById($customer->getId()) ? '1' : '0';
+
+
+
 
                         if ($customerRepoObject->getCustomAttribute('phone')) {
                             $data['Contact No_'] = $data['Phone No_'] = $customerRepoObject->getCustomAttribute('phone')->getValue();
                             $shopContactFactory->setData('Contact No_', $data['Contact No_']);
-                            $shopContactFactory->setData('Phone No_', $data['Phone No_']);
+                            //$shopContactFactory->setData('Phone No_', $data['Phone No_']); // Not Required
                         }
-                        $type =  $customer->getSuperUserId() ? '0' : '1';
-                        $newsletter = $this->isCustomerSubscribeById($customer->getId()) ? '1' : '0';
-                        $shopContactFactory->setData('Type', $type);
-                        $shopContactFactory->setData('Newsletter', $newsletter);
-                        $shopContactFactory->setData('Job Title', $customer->getPosition());
+     
+
+                        //If user is not admin
+  
+                        if($customerType){
+                            echo $customerCode.PHP_EOL;
+                            $shopContactFactory->setData('Customer No_',$customerCode);
+                        }
+
                     }
                     #================//////////////////==========================#
 
                     #================= User Shipping =============================#
 
-                    if ($billingAddressId && $getDefaultShippingAddress) {
+                    if ($billingAddressId && $getDefaultShippingAddress && empty($customerType)) {
                         $data['Ship To Post Code'] =  $getDefaultShippingAddress ? $getDefaultShippingAddress->getPostcode() : '';
                         $data['Ship To City'] =  $getDefaultShippingAddress ? $getDefaultShippingAddress->getCity() : '';
                         $data['Ship To Address'] =  $shippingAddressId ? implode(',', $this->addressRepository->getById($shippingAddressId)->getStreet()) : '';
@@ -169,7 +183,7 @@ class CustomerSyncProcessor
                     #==================///////////////=============================#
 
                     #================= User Billing =============================#
-                    if ($billingAddressId && $getDefaultShippingAddress) {
+                    if ($billingAddressId && $getDefaultShippingAddress && empty($customerType))  {
                         $data['Invoice To Post Code'] = $getDefaultBillingAddress ? $getDefaultBillingAddress->getPostcode() : '';
                         $data['Invoice To City'] =  $getDefaultBillingAddress ? $getDefaultBillingAddress->getCity() : '';
                         $data['Invoice To Address'] =  $billingAddressId ? implode(',', $this->addressRepository->getById($billingAddressId)->getStreet()) : '';
