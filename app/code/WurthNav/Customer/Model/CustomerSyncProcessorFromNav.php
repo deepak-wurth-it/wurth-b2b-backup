@@ -298,7 +298,7 @@ class CustomerSyncProcessorFromNav
 		    if ($navCustomer->getData('parentBranchCode')) {
 			    $division = $groupId = $navCustomer->getData('parentBranchCode');
 			    $company->setDivision($division);
-			    $customer->setGroupId($groupId);
+			    //$customer->setGroupId($groupId);
                     }
 
                     $BranchCode = $navCustomer->getData('BranchCode');
