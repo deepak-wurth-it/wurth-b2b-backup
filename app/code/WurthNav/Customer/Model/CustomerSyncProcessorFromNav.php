@@ -134,8 +134,8 @@ class CustomerSyncProcessorFromNav
 
         $collection->getSelect()
             ->joinLeft(
-                ['Branches' => 'Branches'],
-                'main_table.BranchCode = Branches.Code',
+                ['bnch' => 'Branches'],
+                "`main_table.BranchCode` = `bnch.Code`",
                 [
                     'parentBranchCode' => 'Branches.ParentBranch'
                 ]
