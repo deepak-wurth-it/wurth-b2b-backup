@@ -68,6 +68,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
     protected $customerInterfaceFactory;
     protected $encryptorInterface;
     protected $customerRepositoryInterface;
+    protected $subscriberFactory;
 
     /**
      * @param Context $context
@@ -103,6 +104,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         CustomerInterfaceFactory $customerInterfaceFactory,
         EncryptorInterface $encryptorInterface,
         CustomerRepositoryInterface $customerRepositoryInterface,
+        \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory,
         Validator $formKeyValidator = null
     ) {
         $this->storeManager     = $storeManager;
@@ -120,6 +122,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         $this->customerInterfaceFactory = $customerInterfaceFactory;
         $this->encryptorInterface = $encryptorInterface;
         $this->customerRepositoryInterface = $customerRepositoryInterface;
+        $this->subscriberFactory= $subscriberFactory;
         // messageManager can also be set via $context
         // $this->messageManager   = $context->getMessageManager();
 
@@ -204,6 +207,12 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     $customer->setTaxvat($vatTaxId);
                     $customer->setConfirmation(AccountManagementInterface::ACCOUNT_CONFIRMATION_REQUIRED);
                     $customer->save();
+
+                    // subscribe user
+                    $isSubscribe = $this->getRequest()->getParam('is_subscribed');
+                    if ($isSubscribe) {
+                        $this->subscriberFactory->create()->subscribe($email);
+                    }
                 }
 
                 // prepare customer data

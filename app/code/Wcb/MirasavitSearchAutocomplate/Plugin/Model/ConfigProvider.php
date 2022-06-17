@@ -30,6 +30,11 @@ class ConfigProvider
         $this->queryCollectionFactory = $queryCollectionFactory;
     }
 
+    /**
+     * @param \Mirasvit\SearchAutocomplete\Model\ConfigProvider $subject
+     * @param callable $proceed
+     * @return array
+     */
     public function aroundGetPopularSearches(\Mirasvit\SearchAutocomplete\Model\ConfigProvider $subject, callable $proceed)
     {
         $result = $subject->getDefaultPopularSearches();
@@ -44,7 +49,7 @@ class ConfigProvider
             if ($this->getCustomerId()) {
                 $collection = $this->queryCollectionFactory->create()
                     ->setPageSize(6);
-                $collection->addFieldToFilter('customer_id', ['eq' => $this->getCustomerId()]);
+                $collection->addFieldToFilter('customer_id', ['finset' => $this->getCustomerId()]);
                 $collection->setOrder('query_id', 'desc');
             }
 
@@ -71,6 +76,9 @@ class ConfigProvider
         return $result;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCustomerId()
     {
         return $this->userContext->getUserId();

@@ -162,7 +162,7 @@ $logedIn = $this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
                 <tr class="seprator">
                     <td class="data-name" data-name="<?= $block->escapeHtml(__('Jed. measure')) ?>"><span
                             class="carmrp"><?= $type ?></span></td>
-                    <td class="data-name" data-name="<?= $block->escapeHtml(__('Price type')) ?>">
+                    <td class="data-name no-display" data-name="<?= $block->escapeHtml(__('Price type')) ?>">
                         <span class="imd-cart">
                             <?php if (isset($priceApiData['discount']) && $priceApiData['discount'] != 0) { ?>
                                 <img
