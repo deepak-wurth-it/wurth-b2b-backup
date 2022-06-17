@@ -97,7 +97,7 @@ class CustomerAddressImportProcessor
 
 						$customerId = $dataCustomer->getId();
 						$address = $this->addressFactory->create();
-
+						
 
 						$shippingAddress = $this->getDefaultShippingAddress($customerId);
 						if ($shippingAddress) {
@@ -113,7 +113,7 @@ class CustomerAddressImportProcessor
 						//?? = $row['Contact']; 
 						$telephone = $row['PhoneNo'];
 
-						if ($firstName && $street && $city && $postCode && $postCode) {
+						if (empty($firstName) && empty($street) && empty($city) && empty($postCode)) {
 
 							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__DATA_EMPTY_ISSUE_FOR_CUSTOMER_CODE' . $row['CustomerCode'];
 							$this->wurthNavLogger($this->log);
