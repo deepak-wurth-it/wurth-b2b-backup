@@ -7,7 +7,9 @@
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-        <table name="cms_page" resource="default" engine="innodb" comment="Cms Page Table">
-        <column xsi:type="int" name="addintomenu" unsigned="true" nullable="false" identity="false" default="0" comment="Include in header menu"/>
-</table>
-</schema>      
+    <table name="cms_page" resource="default" engine="innodb" comment="Cms Page Table">
+        <column xsi:type="int" name="addintomenu" unsigned="true" nullable="false" identity="false" default="0"
+                comment="Include in header menu"/>
+        <column xsi:type="int" name="custom_sort_order" nullable="true" comment="sort order for menu"/>
+    </table>
+</schema>
