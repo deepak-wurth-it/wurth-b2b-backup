@@ -107,6 +107,8 @@ class CustomerSyncProcessor
                     $shopContactFactory = $this->shopContactFactory->create();
                     $customerType =  $customer->getSuperUserId() ? '0' : '1';
                     $customerCode = $customer->getData('customer_code');
+                    $newsletter = $this->isCustomerSubscribeById($customer->getId()) ? '1' : '0';
+
 
 
                     $customerRepoObject = $this->customerRepository->getById($customer->getId());
@@ -148,7 +150,6 @@ class CustomerSyncProcessor
                         $shopContactFactory->setData('Type', $customerType);
                         $shopContactFactory->setData('Newsletter', $newsletter);
                         $shopContactFactory->setData('Job Title', $customer->getPosition());
-                        $newsletter = $this->isCustomerSubscribeById($customer->getId()) ? '1' : '0';
 
 
 
