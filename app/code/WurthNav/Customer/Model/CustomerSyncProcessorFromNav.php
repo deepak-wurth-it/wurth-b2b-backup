@@ -131,6 +131,15 @@ class CustomerSyncProcessorFromNav
 
         $collection = $navCustomerObj->getCollection()
             ->addFieldToFilter('Synchronized', array('eq' => '0'));
+
+        $collection->getSelect()
+            ->joinLeft(
+                ['Branches' => 'Branches'],
+                'main_table.BranchCode = Branches.Code',
+                [
+                    'parentBranchCode' => 'Branches.ParentBranch'
+                ]
+            );
         $status = [];
 
 
@@ -153,7 +162,7 @@ class CustomerSyncProcessorFromNav
                     $customerObject->setWebsiteId($webSiteId);
                     $customerObject->loadByEmail($email);
                     $customerId = $customerObject->getId();
-                    
+
 
 
                     if (empty($customerId)) {
@@ -284,6 +293,9 @@ class CustomerSyncProcessorFromNav
 
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
                     $company->setWcbSalesPersonCode($SalespersonCode);
+                    if ($navCustomer->getData('Name')) {
+                        $company->setName($navCustomer->getData('Name'));
+                    }
                     $BranchCode = $navCustomer->getData('BranchCode');
                     $company->setDivision($BranchCode);
                     //$company->setActivities($BranchCode);
