@@ -191,7 +191,7 @@ class CustomerSyncProcessorFromNav
                         }
                         $customerType = $navCustomer->getData('CustomeType');
                         $customerRepoObject->setCustomAttribute('verified', true);
-                        $customerRepoObject->setCustomAttribute('customer_type', $customerType);
+                        $customerRepoObject->setCustomAttribute('wc_customer_type', $customerType);
                         $customerRepoObject->setConfirmation(null);
                         $this->getCustomerTokenLocal($customerId);
                         $Disabled = $navCustomer->getData('Disabled');
