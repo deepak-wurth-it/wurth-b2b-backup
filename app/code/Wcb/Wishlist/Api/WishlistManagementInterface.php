@@ -1,9 +1,5 @@
 <?php
-/**
- * A Magento 2 module named Test/Mobileshop
- *
- */
-namespace Wcb\ApiConnect\Api;
+namespace Wcb\Wishlist\Api;
 
 /**
  * Interface WishlistManagementInterface
@@ -28,6 +24,15 @@ interface WishlistManagementInterface
      * @return array
      *
      */
-    public function addWishlistForCustomer($customerId,$productId);
+    public function addWishlistForCustomer($customerId, $productId);
 
+    /**
+     * Return Added wishlist item.
+     *
+     * @param int $customerId
+     * @param int $wishlistId
+     * @return array
+     *
+     */
+    public function deleteWishlistForCustomer($customerId, $wishlistItemId);
 }
