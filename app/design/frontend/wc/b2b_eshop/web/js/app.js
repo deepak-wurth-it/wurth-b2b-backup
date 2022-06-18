@@ -69,21 +69,27 @@ require(
 			});
             // On checkout page button enable disable end
 			
-			// counter in about us  page
-            $(document).ready(function() {
+			// counter in about us  page          
 
-				$('.counter').each(function () {
-					$(this).prop('Counter',0).animate({
-						Counter: $(this).text()
-					}, {
-						duration: 4000,
-						easing: 'swing',
-						step: function (now) {
-							$(this).text(Math.ceil(now));
-						}
-					});
-			});
-        });
+            $(window).scroll(startCounter);
+            function startCounter() {
+                var hT = $('.wcb-counter').offset().top,
+                    hH = $('.wcb-counter').outerHeight(),
+                    wH = $(window).height();
+                if ($(window).scrollTop() > hT+hH-wH) {
+                    $(window).off("scroll", startCounter);
+                    $('.wcb-counter').each(function () {
+                        var $this = $(this);
+                        $({ Counter: 0 }).animate({ Counter: $this.text() }, {
+                            duration: 2000,
+                            easing: 'swing',
+                            step: function () {
+                                $this.text(Math.ceil(this.Counter));
+                            }
+                        });
+                    });
+                }
+            }
 			
 			// counter in about us page 
 

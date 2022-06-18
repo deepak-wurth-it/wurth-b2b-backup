@@ -75,8 +75,6 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
     {
         // if (isset($result['customerData']['addresses'])) {
          $currentCustomer = $this->getCurrentCustomer();// add your custom here;
-//        print_r($currentCustomer->getEmail());
-//        exit;
         $newAddress = [];
         $billingAddressId = $currentCustomer->getDefaultBilling();
         if ($currentCustomer->getCustomAttribute('customer_code')) {
@@ -93,6 +91,7 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
 
         //Set store pickup data
         $result['customerData']['pickup_store'] = '';
+        $result['customerData']['email'] = $currentCustomer->getEmail();
 //        if ($isClickAndCollect) {
 //            $newAddress = [];
 //            $result['customerData']['pickup_store'] = $isClickAndCollect;
