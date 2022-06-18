@@ -41,7 +41,7 @@ class CustomerSyncProcessorFromNav
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory $customerCollectionFactory,
         \Magento\Integration\Model\Oauth\TokenFactory $tokenModelFactory,
-
+        \Magento\Customer\Model\Group $groupModel,
         NavCustomers $navCustomers,
         LoggerInterface $logger
     ) {
@@ -64,33 +64,34 @@ class CustomerSyncProcessorFromNav
         $this->navCustomers = $navCustomers;
         $this->addressDataFactory = $addressDataFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->groupModel = $groupModel;
     }
 
-    public function getBillingAddressByCustomerCode($customerCode, $currentCustomerId)
+    public function getBillingAddressByCustomerCode($customerCode, $currentCustomerId, $billingAddress)
     {
-        $customerObj = $this->customerCollectionFactory->create();
-        $collection = $customerObj->addAttributeToSelect('*')
-            ->addAttributeToFilter('customer_code', $customerCode)
-            ->load();
-        if ($collection->getSize()) {
 
-            $firstItem = $collection->getFirstItem();
-            $customerId = $firstItem->getId();
-            $billingAddress =  $this->getDefaultBillingAddress($customerId);
-            if ($billingAddress) {
-                $firstName =     $billingAddress->getFirstname();
-                $lastName =      $billingAddress->getLastname();
-                $countryId =     $billingAddress->getCountryId();
-                $regionId =      $billingAddress->getRegionId();
-                $regionName =     $billingAddress->getRegion();
-                $city =         $billingAddress->getCity();
-                $postcode =     $billingAddress->getPostcode();
-                $street =         $billingAddress->getStreet();
-                $telephone =     $billingAddress->getTelephone();
+        $navCustomerObj = $this->navCustomers->create();
+        $customerNavAddress =  $navCustomerObj->load('CustomerCode', $customerCode);
 
+
+        if ($customerNavAddress->getData('CustomerCode') == $customerCode) {
+            $street = [];
+            $city =        $customerNavAddress->getData('City');
+            $postcode =      $customerNavAddress->getData('PostalCode');
+            $street[$customerNavAddress->getData('Address')];
+            $telephone =     $customerNavAddress->getData('Phone');
+
+            if ($city && $postcode &&  !empty($street) && $telephone) {
+
+
+                $regionName = $billingAddress->getRegion();
+                $regionId = $billingAddress->getRegionId();
+                $countryId = $billingAddress->getCountryId();
+                $firstNameBiller =     $billingAddress->getFirstname();
+                $lastNameBiller =      $billingAddress->getLastname();
                 $address = $this->addressDataFactory->create();
-                $address->setFirstname($firstName)
-                    ->setLastname($lastName)
+                $address->setFirstname($firstNameBiller)
+                    ->setLastname($lastNameBiller)
                     ->setCountryId($countryId)
                     ->setRegionId($regionId)
                     ->setRegion($regionName)
@@ -123,19 +124,26 @@ class CustomerSyncProcessorFromNav
      * @throws \Exception
      */
     public function install()
-    {   //$this->getBillingAddressByCustomerCode('12345');
+    {   
         $log = "";
         $this->customer = '';
         $this->navCustomerObj = "";
         $navCustomerObj = $this->navCustomers->create();
 
-        $collection = $navCustomerObj->getCollection()
-            ->addFieldToFilter('Synchronized', array('eq' => '0'));
+        $collection = $navCustomerObj->getCollection();
+
+        $collection->getSelect()
+            ->joinLeft(
+                ['bnch' => 'Branches'],
+                'main_table.BranchCode  = bnch.Code',
+                [
+                    'parentBranchCode' => 'bnch.ParentBranch',
+                    'parentBranchName' => 'bnch.Name'
+                ]
+            )->where("main_table.Synchronized  = 0");
         $status = [];
 
-
         $x = 0;
-        //echo $collection->getSize();exit;
         if ($collection->getSize() && $collection->count()) {
 
 
@@ -155,15 +163,16 @@ class CustomerSyncProcessorFromNav
                     $customerId = $customerObject->getId();
 
 
+
                     if (empty($customerId)) {
                         continue;
                     }
-                    //echo $customerId;exit;
+                   
                     $customerRepoObject = $this->customerRepository->getById($customerId);
                     $firstName = $customerObject->getFirstname();
                     $lastName = $customerObject->getLastname();
 
-                    //print_r(get_class_methods($customerObject->getDataModel()));exit;
+                    #================= Magento Customer Data ==========================#
                     if ($customerRepoObject) {
 
                         $Email = $navCustomer->getData('Email');
@@ -180,80 +189,139 @@ class CustomerSyncProcessorFromNav
                         if ($CustomerCode) {
                             $customerRepoObject->setCustomAttribute('customer_code', $CustomerCode);
                         }
-
+                        $customerType = $navCustomer->getData('CustomeType');
                         $customerRepoObject->setCustomAttribute('verified', true);
+                        $customerRepoObject->setCustomAttribute('wc_customer_type', $customerType);
                         $customerRepoObject->setConfirmation(null);
-                        $this->customerRepository->save($customerRepoObject);
-
                         $this->getCustomerTokenLocal($customerId);
                         $Disabled = $navCustomer->getData('Disabled');
                         $customerObject->setIsActive($Disabled);
                         $customerObject->setStatus(1);
-                        $customerObject->save();
+
+                        $this->customerRepository->save($customerRepoObject);
 
                         $this->log .= "Saved customer basic details" . PHP_EOL;
                     }
 
+                    #================= Magento Customer Data ==========================#
 
 
 
+                    /********************** Customer Shipping Not required   ********************/
+                    // $shippingAddress = $this->getDefaultShippingAddress($customerId);
 
-                    /********************** Update Address  ********************/
-                    $shippingAddress = $this->getDefaultShippingAddress($customerId);
+                    // if ($shippingAddress) {
+                    //     $shippingId =  $shippingAddress->getId();
+                    //     $street = $navCustomer->getData('Address');
+                    //     $PostalCode = $navCustomer->getData('PostalCode');
+                    //     $City = $navCustomer->getData('City');
+                    //     $Phone = $navCustomer->getData('Phone');
+                    //     $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
 
-                    if ($shippingAddress) {
-                        $shippingId =  $shippingAddress->getId();
+                    //     $region = $shippingAddress->getRegion();
+                    //     $regionId = $shippingAddress->getRegionId();
+                    //     $countryId = $shippingAddress->getCountryId();
+                    //     $firstNameShipper =     $shippingAddress->getFirstname();
+                    //     $lastNameShipper =      $shippingAddress->getLastname();
+                    //     $shippingAddress->setCustomerId($customerId)
+                    //         ->setId($shippingId)
+                    //         ->setFirstname($firstNameShipper)
+                    //         ->setLastname($lastNameShipper)
+                    //         ->setCountryId($countryId)
+                    //         ->setRegionId($regionId)
+                    //         ->setRegion($region)
+                    //         ->setCity($City)
+                    //         ->setPostcode($PostalCode)
+                    //         ->setStreet([$street])
+                    //         ->setTelephone($Phone)
+                    //         ->setIsDefaultShipping(true);
+                    //     $this->log .= "Saved customer shipping details" . PHP_EOL;
+                    //     $address = $this->addressRepository->save($shippingAddress);
+                    //     if ($address->getId()) {
+                    //         $status[] = $address->getId();
+                    //     }
+                    // }
+
+
+                    #====================== Customer Customer Billing Data ==================#
+                    $billingAddress =  $this->getDefaultBillingAddress($customerId);
+                    $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
+                    if ($BillToCustomerNo) {
+                        $statusBillToData = $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId, $billingAddress);
+                    }
+
+                    if ($billingAddress && $statusBillToData == false) {
+
+                        $billingId =  $billingAddress->getId();
                         $street = $navCustomer->getData('Address');
-                        $PostalCode = $navCustomer->getData('PostalCode');
-                        $City = $navCustomer->getData('City');
-                        $Phone = $navCustomer->getData('Phone');
+                        $postcode = $navCustomer->getData('PostalCode');
+                        $city = $navCustomer->getData('City');
+                        $telephone = $navCustomer->getData('Phone');
                         $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
 
-                        $region = $shippingAddress->getRegion();
-                        $regionId = $shippingAddress->getRegionId();
-                        $countryId = $shippingAddress->getCountryId();
-                        $shippingAddress->setCustomerId($customerId)
-                            ->setId($shippingId)
-                            ->setFirstname($firstName)
-                            ->setLastname($lastName)
+                        $regionName = $billingAddress->getRegion();
+                        $regionId = $billingAddress->getRegionId();
+                        $countryId = $billingAddress->getCountryId();
+                        $firstNameBiller =     $billingAddress->getFirstname();
+                        $lastNameBiller =      $billingAddress->getLastname();
+
+                        $address = $this->addressDataFactory->create();
+                        $address->setCustomerId($customerId)
+                            ->setId($billingId)
+                            ->setFirstname($firstNameBiller)
+                            ->setLastname($lastNameBiller)
                             ->setCountryId($countryId)
                             ->setRegionId($regionId)
-                            ->setRegion($region)
-                            ->setCity($City)
-                            ->setPostcode($PostalCode)
-                            ->setStreet([$street])
-                            ->setTelephone($Phone)
-                            ->setIsDefaultShipping(true);
-                        $this->log .= "Saved customer shipping details" . PHP_EOL;
-
-                        if ($BillToCustomerNo) {
-                            $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId);
-                        }
-
-                        $address = $this->addressRepository->save($shippingAddress);
-                        if ($address->getId()) {
-                            $status[] = $address->getId();
-                        }
+                            ->setRegion($regionName)
+                            ->setCity($city)
+                            ->setPostcode($postcode)
+                            ->setStreet($street)
+                            ->setTelephone($telephone)
+                            ->setIsDefaultBilling('1');
+                        $address->save();
+                        $this->log .= "Saved customer billing details" . PHP_EOL;
+                        return true;
                     }
 
 
 
-                    /********************* company data  ***********************/
+                    #====================== Customer Billing End ===================#
+
+
+
+                    #====================== Customer Company ========================#
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
 
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
                     $company->setWcbSalesPersonCode($SalespersonCode);
+                    if ($navCustomer->getData('Name')) {
+                        $company->setName($navCustomer->getData('Name'));
+                    }
+
+                    if ($navCustomer->getData('parentBranchCode')) {
+                        $parentBranchName  = $navCustomer->getData('parentBranchName');
+                        $parentBranchCode  = $navCustomer->getData('parentBranchCode');
+                        $company->setDivision($parentBranchCode);
+
+                        $existingGroup = $this->groupModel->load($parentBranchName, 'customer_group_code');
+                        if($existingGroup->getid()){
+                            $customerObject->setGroupId($existingGroup->getid());
+                        }
+                    }
+
                     $BranchCode = $navCustomer->getData('BranchCode');
-                    $company->setDivision($BranchCode);
+                    $company->setActivities($BranchCode);
                     $company->setStatus('1');
                     $savedCompany = $this->companyRepository->save($company);
                     $this->log .= "Saved company  details" . PHP_EOL;
 
+                    #====================== Customer Company ========================#
 
                     // Customer Update in WurthNav ERP
                     $navCustomer->setData('Synchronized', '1');
-                    $navCustomer->save();
+                    $navCustomer->save(); //ERP customer table update
+                    $customerObject->save(); //Magento 2 Customer SAVE
                     $this->wurthNavLogger($this->log);
                 } catch (\Exception $e) {
                     $this->logger->critical($e->getMessage());

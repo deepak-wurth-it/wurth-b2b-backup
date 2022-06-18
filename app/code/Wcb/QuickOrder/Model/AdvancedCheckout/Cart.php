@@ -92,7 +92,7 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
             if (empty($item['sku'])) {
                 continue;
             }
-            $sku = str_replace(" ", "", $item['sku']);
+            $sku = $item['sku'];//str_replace(" ", "", $item['sku']);
             $qty = $item['qty'] ?? '';
             $qty = is_float($qty) && isset($checkedItems[$sku]) ? ($qty + $checkedItems[$sku]['qty']) : $qty;
             $checkedItems[$sku] = $this->_getValidatedItem($sku, $qty);
@@ -148,12 +148,13 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
         $products = [];
         if ($skuForFind) {
             //get without space product code and id
-            $productIds = [];
+            // $productIds = [];
             // if (isset($skuForFind[0])) {
-            foreach ($skuForFind as $skuFind) {
-                $productIds[] = $this->quickOrderHelper->getProductCodeWithProductId($skuFind, false);
-            }
-            $productIds = array_filter($productIds);
+            /* foreach ($skuForFind as $skuFind) {
+                 $productIds[] = $this->quickOrderHelper->getProductCodeWithProductId($skuFind, false);
+             }*/
+            $productIds = array_filter($skuForFind);
+
             //$productIds = $this->quickOrderHelper->getProductCodeWithProductId($skuForFind[0]);
             // }
 
@@ -161,17 +162,20 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
             $collection = $this->productCollectionFactory->create();
             $collection->addAttributeToSelect('*');
             //$collection->addFieldToFilter('sku', ['in' => $skuForFind]);
-            $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
+            //$collection->addFieldToFilter('entity_id', ['in' => $productIds]);
+            $collection->addFieldToFilter('product_code', ['in' => $productIds]);
             $collection->setFlag('has_stock_status_filter', false);
+
             $itemsLowerCase = array_combine(array_map('mb_strtolower', array_keys($items)), $items);
 
             //remove space in product code (in array keys)
-            $keys = str_replace(' ', '', array_keys($itemsLowerCase));
-            $itemsLowerCase = array_combine($keys, array_values($itemsLowerCase));
+            // $keys = str_replace(' ', '', array_keys($itemsLowerCase));
+            //$itemsLowerCase = array_combine($keys, array_values($itemsLowerCase));
 
             foreach ($collection as $product) {
                 //$sku = $product->getSku();
-                $sku = str_replace(' ', '', $product->getProductCode());
+                //$sku = str_replace(' ', '', $product->getProductCode());
+                $sku = $product->getProductCode();
                 $isSalable = true;
                 if (!isset($itemsLowerCase[mb_strtolower($sku)]['code'])) {
                     continue;
@@ -191,7 +195,7 @@ class Cart extends \Magento\AdvancedCheckout\Model\Cart
 
     private function addProductToLocalCache(ProductInterface $product, int $storeId)
     {
-        $this->products[str_replace(' ', '', $product->getProductCode())][$storeId] = $product;
+        $this->products[$product->getProductCode()][$storeId] = $product;
     }
 
     protected function _loadProductBySku($sku)
