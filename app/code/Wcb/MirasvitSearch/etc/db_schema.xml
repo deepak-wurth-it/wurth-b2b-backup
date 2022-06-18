@@ -10,4 +10,7 @@
     <table name="cms_page" resource="default" comment="CMS Page Table">
         <column xsi:type="text" name="cms_image" nullable="true" comment="Cms Page Image"/>
     </table>
+    <table name="search_query" resource="default" engine="innodb" comment="Search query table">
+        <column xsi:type="text" name="customer_id" nullable="true" comment="Customer Id"/>
+    </table>
 </schema>

@@ -215,6 +215,11 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         if ($customer) {
             try {
                 $customer->setGroupId($groupId);
+                // set User subscribe or not
+                $extensionAttributes = $customer->getExtensionAttributes();
+                $extensionAttributes->setIsSubscribed($this->getRequest()->getParam('is_subscribed', false));
+                $customer->setExtensionAttributes($extensionAttributes);
+
                 $this->customerRepository->save($customer);
             } catch (LocalizedException $exception) {
                 $this->logger->error($exception);
