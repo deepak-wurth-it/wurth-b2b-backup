@@ -5,15 +5,16 @@ namespace Wcb\Wishlist\Model;
 use Exception;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\ProductFactory;
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Model\CustomerFactory;
 use Magento\Framework\Math\Random;
 use Magento\Framework\Stdlib\DateTime;
 use Magento\Wishlist\Model\ItemFactory;
 use Magento\Wishlist\Model\ResourceModel\Item\Collection;
 use Magento\Wishlist\Model\ResourceModel\Item\CollectionFactory;
+use Magento\Wishlist\Model\ResourceModel\Wishlist\CollectionFactory as WishListCollection;
 use Magento\Wishlist\Model\WishlistFactory;
 use Wcb\Wishlist\Api\WishlistManagementInterface;
-use Magento\Customer\Model\CustomerFactory;
-use Magento\Customer\Api\CustomerRepositoryInterface;
 
 /**
  * Defines the implementaiton class of the \Wcb\Wishlist\Api\WishlistManagementInterface
@@ -60,6 +61,10 @@ class WishlistManagement implements
      * @var CustomerFactory
      */
     private $customerFactory;
+    /**
+     * @var WishListCollection
+     */
+    private $wishListCollection;
 
     /**
      * @param CollectionFactory $wishlistCollectionFactory
@@ -74,7 +79,8 @@ class WishlistManagement implements
         ProductRepositoryInterface $productRepository,
         ItemFactory $itemFactory,
         CustomerFactory $customerFactory,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        WishListCollection $wishListCollection
     ) {
         $this->_wishlistCollectionFactory = $wishlistCollectionFactory;
         $this->_productRepository = $productRepository;
@@ -82,6 +88,7 @@ class WishlistManagement implements
         $this->_itemFactory = $itemFactory;
         $this->customerRepository = $customerRepository;
         $this->customerFactory = $customerFactory;
+        $this->wishListCollection = $wishListCollection;
     }
 
     /**
@@ -91,13 +98,13 @@ class WishlistManagement implements
      */
     public function getWishlistForCustomer($customerId)
     {
-        $customerIds = array();
+        $customerIds = [];
         $customer = $this->customerRepository->getById($customerId);
         if ($customer->getCustomAttribute('customer_code')) {
-            echo $customerCode = $customer->getCustomAttribute('customer_code')->getValue();
+            $customerCode = $customer->getCustomAttribute('customer_code')->getValue();
             $sameCustomerCodeCollection = $this->getCustomerByCustomerCode($customerCode);
             foreach ($sameCustomerCodeCollection as $_customer) {
-                $customerIds[] =$_customer->getId();
+                $customerIds[] = $_customer->getId();
             }
         }
         if (empty($customerId) || !isset($customerId) || $customerId == "") {
@@ -109,13 +116,22 @@ class WishlistManagement implements
             ];
             return $response;
         } else {
+            $wishlistData = [];
+
+            /* $this->_wishlistCollectionFactory->create()
+            ->addCustomerIdFilter($customerId);*/
+
+            /*Remove filter from customer id as per our requirement */
+            $wishlistCollection = $this->wishListCollection->create()
+                ->addFieldToFilter('customer_id', ['in' => $customerIds]);
+            $list = $wishlistCollection->getColumnValues('wishlist_id');
+            if (empty($list)) {
+                return $wishlistData;
+            }
             $collection =
                 $this->_wishlistCollectionFactory->create()
-                   // ->addFieldToFilter('customer_id',array('finset' => $customerIds));
-                   ->addCustomerIdFilter($customerId);
-            //echo $collection->getSelect();
-            //exit;
-            $wishlistData = [];
+                    ->addFieldToFilter('wishlist_id', ['in' => $list]);
+
             foreach ($collection as $item) {
                 $productInfo = $item->getProduct()->toArray();
                 $data = [
@@ -132,6 +148,13 @@ class WishlistManagement implements
             }
             return $wishlistData;
         }
+    }
+
+    public function getCustomerByCustomerCode($customerCode)
+    {
+        return $this->customerFactory->create()->getCollection()
+            ->addAttributeToSelect("*")
+            ->addAttributeToFilter("customer_code", ["eq" => $customerCode]);
     }
 
     /**
@@ -230,7 +253,11 @@ class WishlistManagement implements
             ];
             return $response;
         }
-        if (!$wishlist->getId() || $wishlist->getCustomerId() != $customerId) {
+        //if (!$wishlist->getId() || $wishlist->getCustomerId() != $customerId) {
+        /**
+         * Remove customer condition to delete wishlist item if the customer is valid not only who have added to the product in the wishlist.
+         */
+        if (!$wishlist->getId()) {
             $message = __('The requested Wish List Item doesn\'t exist .');
             $status = false;
             $response[] = [
@@ -253,11 +280,5 @@ class WishlistManagement implements
             "status" => $status
         ];
         return $response;
-    }
-    public function getCustomerByCustomerCode($customerCode)
-    {
-        return $this->customerFactory->create()->getCollection()
-            ->addAttributeToSelect("*")
-            ->addAttributeToFilter("customer_code", ["eq" => $customerCode]);
     }
 }
