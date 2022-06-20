@@ -2,6 +2,7 @@
 
 namespace Wurth\Theme\Plugin\Model;
 
+use Magento\Company\Api\CompanyRepositoryInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface as CustomerRepository;
 use Magento\Customer\Model\Address\CustomerAddressDataFormatter;
 use Magento\Customer\Model\Address\CustomerAddressDataProvider;
@@ -25,6 +26,8 @@ class DefaultConfigProvider
 
     protected $storeFactory;
 
+    protected $companyRepository;
+
     public function __construct(
         CustomerRepository $customerRepository,
         CustomerSession $customerSession,
@@ -32,7 +35,8 @@ class DefaultConfigProvider
         CustomerAddressDataProvider $customerAddressData,
         CustomerAddressDataFormatter $customerAddressDataFormatter,
         \Magento\Checkout\Model\Session $checkoutSession,
-        storeFactory $storeFactory
+        storeFactory $storeFactory,
+        CompanyRepositoryInterface $companyRepository
     ) {
         $this->customerRepository = $customerRepository;
         $this->customerSession = $customerSession;
@@ -41,15 +45,25 @@ class DefaultConfigProvider
         $this->customerAddressDataFormatter = $customerAddressDataFormatter;
         $this->checkoutSession = $checkoutSession;
         $this->storeFactory = $storeFactory;
+        $this->companyRepository = $companyRepository;
     }
 
     public function afterGetConfig($subject, $result)
     {
         if (isset($result['customerData']['addresses'])) {
             $currentCustomer = $this->getCurrentCustomer();// add your custom here;
-            $newAddress = [];
-            $billingAddressId = $currentCustomer->getDefaultBilling();
-            if ($currentCustomer->getCustomAttribute('customer_code')) {
+            // $newAddress = [];
+
+
+            //get Customer address using main user id only
+            $company = $this->getCompany($currentCustomer);
+            $customer = $this->customerRepository->getById($company->getSuperUserId());
+            $newAddress = $this->getCustomerAddress($customer);
+            $billingAddressId = $customer->getDefaultBilling();
+
+            // commented code is Get all adddress using all customer_code
+
+            /*if ($currentCustomer->getCustomAttribute('customer_code')) {
                 $customerCode = $currentCustomer->getCustomAttribute('customer_code')->getValue();
                 $sameCustomerCodeCollection = $this->getCustomerByCustomerCode($customerCode);
                 foreach ($sameCustomerCodeCollection as $_customer) {
@@ -57,6 +71,7 @@ class DefaultConfigProvider
                     $newAddress = array_merge($newAddress, $this->getCustomerAddress($_customer));
                 }
             }
+            */
             $newAddress = $this->sortAddressByAddressCode($newAddress);
             $newAddress = $this->changeDefaultShippingAddress($newAddress, $billingAddressId);
             $isClickAndCollect = $this->checkClickAndCollect();
@@ -143,5 +158,16 @@ class DefaultConfigProvider
             }
         }
         return false;
+    }
+    public function getCompany($customer)
+    {
+        try {
+            if ($customer->getExtensionAttributes()->getCompanyAttributes()) {
+                $companyId = $customer->getExtensionAttributes()->getCompanyAttributes()->getCompanyId();
+                return $this->companyRepository->get($companyId);
+            }
+        } catch (Exception $e) {
+            return false;
+        }
     }
 }

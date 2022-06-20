@@ -68,7 +68,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
     protected $customerInterfaceFactory;
     protected $encryptorInterface;
     protected $customerRepositoryInterface;
-    protected $subscriberFactory;
+    protected $customerRepository;
 
     /**
      * @param Context $context
@@ -86,6 +86,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
      * @param CustomerInterfaceFactory $customerInterfaceFactory
      * @param EncryptorInterface $encryptorInterface
      * @param CustomerRepositoryInterface $customerRepositoryInterface
+     * @param CustomerRepositoryInterface $customerRepository
      * @param Validator $formKeyValidator
      */
     public function __construct(
@@ -104,7 +105,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         CustomerInterfaceFactory $customerInterfaceFactory,
         EncryptorInterface $encryptorInterface,
         CustomerRepositoryInterface $customerRepositoryInterface,
-        \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         Validator $formKeyValidator = null
     ) {
         $this->storeManager     = $storeManager;
@@ -122,7 +123,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         $this->customerInterfaceFactory = $customerInterfaceFactory;
         $this->encryptorInterface = $encryptorInterface;
         $this->customerRepositoryInterface = $customerRepositoryInterface;
-        $this->subscriberFactory= $subscriberFactory;
+        $this->customerRepository = $customerRepository;
         // messageManager can also be set via $context
         // $this->messageManager   = $context->getMessageManager();
 
@@ -137,7 +138,6 @@ class CreatePost extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $postData = $this->getRequest()->getPost();
-        $companyId = $this->getCompanyId($postData['company']['vat_tax_id']);
         $resultRedirect = $this->resultRedirectFactory->create();
 
         // check if the form is actually posted and has the proper form key
@@ -175,7 +175,9 @@ class CreatePost extends \Magento\Framework\App\Action\Action
             try {
                 $url = $this->urlModel->getUrl('excustomer/account/create', ['_secure' => true]);
 
-                $companyId = $this->getCompanyId($postData['company']['vat_tax_id']);
+                $companyData = $this->getCompanyId($postData['company']['vat_tax_id']);
+                $companyId = isset($companyData['company_id']) ? $companyData['company_id'] : '';
+                $companyGroupId = isset($companyData['company_group_id']) ? $companyData['company_group_id'] : 1;
                 if (!$companyId) {
                     $message = __(
                         'Company OIB does not exists. Please enter valid company OIB.'
@@ -209,10 +211,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     $customer->save();
 
                     // subscribe user
-                    $isSubscribe = $this->getRequest()->getParam('is_subscribed');
-                    if ($isSubscribe) {
-                        $this->subscriberFactory->create()->subscribe($email);
-                    }
+                    $this->subscribeUserAndSetGroup($customer->getId(), $companyGroupId);
                 }
 
                 // prepare customer data
@@ -277,7 +276,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
      * @return int|null
      * @throws LocalizedException
      */
-    public function getCompanyId(string $companyTax): ?int
+    public function getCompanyId($companyTax)
     {
         $this->searchCriteriaBuilder->addFilter(
             'vat_tax_id',
@@ -287,11 +286,46 @@ class CreatePost extends \Magento\Framework\App\Action\Action
             $this->searchCriteriaBuilder->create()
         )->getItems();
         $companyId = null;
+        $returnData = [
+            'company_id' => null,
+            'company_group_id' => null
+        ];
         if ($companyData) {
             foreach ($companyData as $company) {
-                $companyId = (int)$company->getId();
+                $returnData = [
+                    'company_id' => (int)$company->getId(),
+                    'company_group_id' => $company->getCustomerGroupId(),
+                ];
             }
         }
-        return $companyId;
+        return $returnData;
+    }
+    public function subscribeUserAndSetGroup($customerId, $groupId)
+    {
+        $customer = $this->getCustomerById($customerId);
+
+        if ($customer) {
+            try {
+                $customer->setGroupId($groupId);
+                // set User subscribe or not
+                $extensionAttributes = $customer->getExtensionAttributes();
+                $extensionAttributes->setIsSubscribed($this->getRequest()->getParam('is_subscribed', false));
+                $customer->setExtensionAttributes($extensionAttributes);
+
+                $this->customerRepository->save($customer);
+            } catch (LocalizedException $exception) {
+
+            }
+        }
+    }
+    public function getCustomerById($customerId)
+    {
+        try {
+            $customer = $this->customerRepository->getById($customerId);
+        } catch (LocalizedException $exception) {
+            $customer = null;
+        }
+
+        return $customer;
     }
 }
