@@ -48,59 +48,59 @@
     
      <!-- Once in a month -->
      <group id="pim">
-        <job name="units_of_measure" instance="Wcb\Cron\PimCron\ImportUnitsOfMeasure" method="execute">
+        <job name="pim_units_of_measure" instance="Wcb\Cron\PimCron\ImportUnitsOfMeasure" method="execute">
             <schedule>0 0 1 * *</schedule>
         </job>
     </group>
 
       <!-- Every Day Once -->
      <group id="pim">
-        <job name="product_categories" instance="Wcb\Cron\PimCron\UpdateProductCategories" method="execute">
+        <job name="pim_product_categories" instance="Wcb\Cron\PimCron\UpdateProductCategories" method="execute">
             <schedule>0 0 3 * *</schedule>
         </job>
     </group>
     
     <!-- Once in a month -->
      <group id="wurthnav">
-        <job name="customer_group_import" instance="Wcb\Cron\WurthNavCron\ImportUnitsOfMeasure" method="execute">
+        <job name="wurthnav_customer_group_import" instance="Wcb\Cron\WurthNavCron\ImportUnitsOfMeasure" method="execute">
             <schedule>0 0 1 * *</schedule>
         </job>
     </group>
      <!-- Every Day Once -->
        <group id="wurthnav">
-        <job name="customer_address_import" instance="Wcb\Cron\WurthNavCron\ImportCustomerAddress" method="execute">
+        <job name="wurthnav_customer_address_import" instance="Wcb\Cron\WurthNavCron\ImportCustomerAddress" method="execute">
             <schedule>0 0 * * *</schedule>
         </job>
     </group>
      <!-- Every Day Once -->
      <group id="wurthnav">
-        <job name="emplpyees_import" instance="Wcb\Cron\WurthNavCron\ImportEmployees" method="execute">
+        <job name="wurthnav_emplpyees_import" instance="Wcb\Cron\WurthNavCron\ImportEmployees" method="execute">
             <schedule>0 0 * * *</schedule>
         </job>
     </group>
     
       <!-- Once in a 30 minute -->
      <group id="wurthnav">
-        <job name="customer_register_update_to_erp" instance="Wcb\Cron\WurthNavCron\ExportRegisterDataToERP" method="execute">
+        <job name="wurthnav_customer_register_update_to_erp" instance="Wcb\Cron\WurthNavCron\ExportRegisterDataToERP" method="execute">
             <schedule>*/10 * * * *</schedule>
         </job>
     </group>
      <!-- Once in a 30 minute -->
     <group id="wurthnav">
-        <job name="customer_register_update_to_erp_to_magento" instance="Wcb\Cron\WurthNavCron\ImportRegisterDataToERP" method="execute">
+        <job name="wurthnav_customer_register_update_to_erp_to_magento" instance="Wcb\Cron\WurthNavCron\ImportRegisterDataToERP" method="execute">
             <schedule>*/10 * * * *</schedule>
         </job>
     </group>
     
     <!-- Once in a month -->
     <group id="wurthnav">
-        <job name="shop_sync" instance="Wcb\Cron\WurthNavCron\ShopsSync" method="execute">
+        <job name="wurthnav_shop_sync" instance="Wcb\Cron\WurthNavCron\ShopsSync" method="execute">
             <schedule>0 0 1 * *</schedule>
         </job>
     </group>
      <!-- Once in a month -->
     <group id="wurthnav">
-        <job name="dimension_value_sync" instance="Wcb\Cron\WurthNavCron\DimensionValueEshop" method="execute">
+        <job name="wurthnav_dimension_value_sync" instance="Wcb\Cron\WurthNavCron\DimensionValueEshop" method="execute">
             <schedule>0 0 1 * *</schedule>
         </job>
     </group>
