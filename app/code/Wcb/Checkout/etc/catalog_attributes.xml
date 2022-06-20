@@ -2,5 +2,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/catalog_attributes.xsd">
     <group name="quote_item">
         <attribute name="base_unit_of_measure_id"/>
+        <attribute name="wcb_product_status"/>
+        <attribute name="successor_product_code"/>
+    </group>
+    <group name="catalog_product">
+        <attribute name="wcb_product_status"/>
+        <attribute name="successor_product_code"/>
     </group>
 </config>
