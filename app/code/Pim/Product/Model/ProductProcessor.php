@@ -87,9 +87,7 @@ class ProductProcessor
         $objPimProduct = $this->pimProductFactory->create();
         $connection = $objPimProduct->getResource()->getConnection();
 
-        $collection = $objPimProduct->getCollection()
-            ->addFieldToFilter('Status', ['eq' => '1']);
-            //->addFieldToFilter('magento_sync_status', [['eq' => '0'],['null' => true]]);
+        $collection = $objPimProduct->getCollection();
 
         $x = 0;
         if ($collection->getSize() && $collection->count()) {
@@ -162,7 +160,8 @@ class ProductProcessor
                         $this->product->setData('instructions',$item->getData('Instructions'));
                         $this->product->setData('seo_page_name',$item->getData('SeoPageName'));
                         $this->product->setData('alternative_name',$item->getData('AlternativeName'));
-                        
+						$this->product->setData('wcb_product_status',$item->getData('Status'));
+
 
 
 
