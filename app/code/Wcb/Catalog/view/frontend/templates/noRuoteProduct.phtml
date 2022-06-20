@@ -1,0 +1,12 @@
+<div class="register-success">
+   <span class="success-image">
+    <img
+        src="<?= $block->getViewFileUrl('images/noProduct.svg'); ?>" width="200">
+   </span>
+    <h2><?= __("This Item is not available at the moment.") ?></h2>
+    <p> <?= __('Please return to the starting page.') ?>
+        <a href="<?= $block->getStartPageUrl() ?>">
+            <span> click here </span>
+        </a>
+    </p>
+</div>
