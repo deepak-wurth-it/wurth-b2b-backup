@@ -3,36 +3,36 @@
 namespace Wurth\Theme\Observer;
 
 use Exception;
+use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Quote\Model\QuoteFactory;
-use Psr\Log\LoggerInterface;
 
 class SaveOrderDetail implements ObserverInterface
 {
-    /**
-     * @var LoggerInterface
-     */
-    protected $_logger;
 
     /**
      * @var Session
      */
     protected $quoteFactory;
+    /**
+     * @var CustomerRepositoryInterface
+     */
+    protected $customerRepository;
 
     /**
      * Constructor
      *
-     * @param LoggerInterface $logger
      * @param QuoteFactory $quoteFactory
+     * @param CustomerRepositoryInterface $customerRepository
      */
 
     public function __construct(
-        LoggerInterface $logger,
-        QuoteFactory $quoteFactory
+        QuoteFactory $quoteFactory,
+        CustomerRepositoryInterface $customerRepository
     ) {
-        $this->_logger = $logger;
+        $this->customerRepository = $customerRepository;
         $this->quoteFactory = $quoteFactory;
     }
 
@@ -45,10 +45,19 @@ class SaveOrderDetail implements ObserverInterface
             $order = $observer->getOrder();
             $quoteId = $order->getQuoteId();
             $quote = $this->quoteFactory->create()->load($quoteId);
+
+            // set customer code
+            $customer = $this->customerRepository->getById($order->getCustomerId());
+            $customerCode = '';
+            if ($customer->getCustomAttribute('customer_code')) {
+                $customerCode = $customer->getCustomAttribute('customer_code')->getValue();
+            }
+
             $order->setOrderConfirmationEmail($quote->getOrderConfirmationEmail());
             $order->setInternalOrderNumber($quote->getInternalOrderNumber());
             $order->setRemarks($quote->getRemarks());
             $order->setDeliveryOrder($quote->getDeliveryOrder());
+            $order->setCustomerCode($customerCode);
             $order->save();
         } catch (Exception $e) {
         }
