@@ -56,4 +56,31 @@ class Query
     {
         return $this->userContext->getUserId();
     }
+
+    public function aroundSaveNumResults(\Magento\Search\Model\ResourceModel\Query $subject, callable $proceed, QueryModel $query)
+    {
+        $adapter = $subject->getConnection();
+        $table = $subject->getMainTable();
+        $numResults = $query->getNumResults();
+        $saveData = [
+            'store_id' => $query->getStoreId(),
+            'query_text' => $query->getQueryText(),
+            'num_results' => $numResults
+        ];
+
+        $customerId = $this->getCustomerId();
+        if ($query->getCustomerId() && $customerId) {
+            $exitCustomerId = explode(',', $query->getCustomerId());
+            if (!in_array($customerId, $exitCustomerId)) {
+                $exitCustomerId[] = $customerId;
+            }
+
+            $customerId = implode(',', $exitCustomerId);
+        }
+        $saveData['customer_id'] = $customerId;
+
+        //$updateData = ['num_results' => $numResults];
+        //$adapter->insertOnDuplicate($table, $saveData, $updateData);
+        $adapter->insertOnDuplicate($table, $saveData);
+    }
 }

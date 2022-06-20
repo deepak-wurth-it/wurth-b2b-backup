@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Wishlist API preference-->
+    <preference for="Wcb\Wishlist\Api\WishlistManagementInterface" type="Wcb\Wishlist\Model\WishlistManagement" />
+    <!--Wishlist API preference End-->
+</config>

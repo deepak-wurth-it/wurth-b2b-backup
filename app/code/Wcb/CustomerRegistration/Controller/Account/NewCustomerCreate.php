@@ -70,7 +70,8 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
                     "telephone" => "+385" . $request['telephone'],
                     "super_user_id" => $customerId,
                     "position" => $request['position'],
-                    "customer_group_id" => 1,
+                    //"customer_group_id" => 1,
+                    "customer_group_id" => $request['company']['division'],
                     "number_of_employees" => $request['company']['no_of_employees'],
                     "division" => $this->getDivisionNameByGroupId($request['company']['division']),
                     "activities" => $request['company']['activities'],
@@ -215,6 +216,11 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
         if ($customer) {
             try {
                 $customer->setGroupId($groupId);
+                // set User subscribe or not
+                $extensionAttributes = $customer->getExtensionAttributes();
+                $extensionAttributes->setIsSubscribed($this->getRequest()->getParam('is_subscribed', false));
+                $customer->setExtensionAttributes($extensionAttributes);
+
                 $this->customerRepository->save($customer);
             } catch (LocalizedException $exception) {
                 $this->logger->error($exception);

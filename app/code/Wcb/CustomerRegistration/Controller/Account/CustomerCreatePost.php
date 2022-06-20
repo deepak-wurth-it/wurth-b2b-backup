@@ -384,7 +384,7 @@ class CustomerCreatePost extends AbstractAccount implements CsrfAwareActionInter
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
-    { 
+    {
         $post = $this->getRequest()->getPostValue();
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();

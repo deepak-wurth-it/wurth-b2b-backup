@@ -73,8 +73,6 @@ class CheckCompany extends \Magento\Framework\App\Action\Action
         try {
             return $this->customerRepositoryInterface->getById($customerId);
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
-            exit;
             return '';
         }
     }

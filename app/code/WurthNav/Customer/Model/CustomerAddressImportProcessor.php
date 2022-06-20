@@ -97,9 +97,13 @@ class CustomerAddressImportProcessor
 
 						$customerId = $dataCustomer->getId();
 						$address = $this->addressFactory->create();
-						
+
 
 						$shippingAddress = $this->getDefaultShippingAddress($customerId);
+						$shippingId =  $shippingAddress->getId();
+						if ($shippingAddress && $shippingId) {
+							$address->load($shippingId)->delete();
+						}
 						if ($shippingAddress) {
 							$region = $shippingAddress->getRegion();
 							$regionId = $shippingAddress->getRegionId();
