@@ -69,13 +69,13 @@ class CompanyDetail implements ConfigProviderInterface
     {
         $customerSession = $this->customerSession->create();
         if ($customerSession->getCustomerId()) {
-            $customer = $this->customerRepository->getById($customerSession->getCustomerId());
-            $billingAddressId = $customer->getDefaultBilling();
-
             try {
-                $billingAddress = $this->addressRepository->getById($billingAddressId);
-
+                $customer = $this->customerRepository->getById($customerSession->getCustomerId());
                 $company = $this->getCompany($customer);
+                // get Super user using current user
+                $customer = $this->customerRepository->getById($company->getSuperUserId());
+                $billingAddressId = $customer->getDefaultBilling();
+                $billingAddress = $this->addressRepository->getById($billingAddressId);
                 $customerCode = '';
                 $companyName = '';
                 if ($company) {
