@@ -107,9 +107,9 @@ class CustomerSyncProcessor
                     $shopContactFactory = $this->shopContactFactory->create();
                     $customerType =  $customer->getSuperUserId() ? '0' : '1';
                     $customerCode = $customer->getData('customer_code');
-                    $newsletter = $this->isCustomerSubscribeById($customer->getId()) ? '1' : '0';
-
-
+                    $customerEmail = $customer->getEmail();
+                    //$newsletter = $this->isCustomerSubscribeById($customer->getId()) ? '1' : '0';
+					$newsletter = $this->isCustomerSubscribeById($customerEmail) ? '1' : '0';
 
                     $customerRepoObject = $this->customerRepository->getById($customer->getId());
                     //if (empty($billingAddressId) || empty($shippingAddressId) && empty($company)) {
@@ -141,15 +141,36 @@ class CustomerSyncProcessor
 
                     #=================  About the user  ===========================# 
                     if ($customerRepoObject && $customer) {
+                        
                         $shopContactFactory->setData('No_', $customer->getId());
+                        
                         $shopContactFactory->setData('Name', $customer->getName());
+                        
                         $shopContactFactory->setData('E-Mail', $customer->getEmail());
-                        $shopContactFactory->setData('position', $customer->getPosition());
+                        
+                        
+                        if ($customer->getCustomAttribute("position")) {
+							$position = $customer->getCustomAttribute("position")->getValue();
+							$shopContactFactory->setData('position', $position);
+
+						}
+                        
+                        
                         $superUser = $customer->getSuperUserId() ? '' : $customer->getId();
+                       
                         $shopContactFactory->setData('Customer No_', $superUser);
+                       
                         $shopContactFactory->setData('Type', $customerType);
+                       
                         $shopContactFactory->setData('Newsletter', $newsletter);
-                        $shopContactFactory->setData('Job Title', $customer->getPosition());
+                       
+                        $newsletter->setCustomAttribute('verified', true);
+
+						if ($customer->getCustomAttribute("position")) {
+							$position = $customer->getCustomAttribute("position")->getValue();
+							$shopContactFactory->setData('Job Title', $position);
+
+						}
 
 
 
@@ -250,9 +271,10 @@ class CustomerSyncProcessor
         return $this->accountManagement->getConfirmationStatus($customerId);
     }
 
-    public function isCustomerSubscribeById($customerId)
+    public function isCustomerSubscribeById($customerId,$email)
     {
-        $status = $this->subscriberFactory->create()->loadByCustomerId((int)$customerId)->isSubscribed();
+		$status = $this->subscriberFactory->create()->loadByEmail($email)->isSubscribed();
+        //$status = $this->subscriberFactory->create()->loadByCustomerId((int)$customerId)->isSubscribed();
 
         return (bool)$status;
     }
