@@ -18,16 +18,17 @@ class ExportOrderToERP
 
 
     public function __construct(
-        \WurthNav\Customer\Model\SalesOrderSyncToNavProcessor $salesOrderSyncToNavProcessor
+        \WurthNav\Sales\Model\SalesOrderSyncToNavProcessorFactory $SalesOrderSyncToNavProcessorFactory
     ) {
 
-        $this->salesOrderSyncToNavProcessor = $salesOrderSyncToNavProcessor;
+        $this->SalesOrderSyncToNavProcessorFactory = $SalesOrderSyncToNavProcessorFactory;
     }
 
     public function execute()
     {
         try {
-            $this->salesOrderSyncToNavProcessor->install();
+			$objectERPSales = $this->SalesOrderSyncToNavProcessorFactory->create(); 
+            $objectERPSales->install();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
