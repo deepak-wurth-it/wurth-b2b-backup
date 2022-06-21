@@ -276,7 +276,7 @@ class CustomerSyncProcessorFromNav
                             ->setRegion($regionName)
                             ->setCity($city)
                             ->setPostcode($postcode)
-                            ->setStreet($street)
+                            ->setStreet([$street])
                             ->setTelephone($telephone)
                             ->setIsDefaultBilling('1');
                         $address->save();
