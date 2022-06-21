@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--ProductCompare API preference-->
+    <preference for="Wcb\ProductCompareApi\Api\ProductCompareManagementInterface" type="Wcb\ProductCompareApi\Model\ProductCompareManagement" />
+    <!--ProductCompare API preference End-->
+</config>
