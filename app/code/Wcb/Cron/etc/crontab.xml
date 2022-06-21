@@ -92,6 +92,13 @@
         </job>
     </group>
     
+      <!-- Once in a 30 minute -->
+    <group id="wurthnav">
+        <job name="wurthnav_order_sync" instance="Wcb\Cron\WurthNavCron\ExportOrderToERP" method="execute">
+            <schedule>*/30 * * * *</schedule>
+        </job>
+    </group>
+    
     <!-- Once in a month -->
     <group id="wurthnav">
         <job name="wurthnav_shop_sync" instance="Wcb\Cron\WurthNavCron\ShopsSync" method="execute">
