@@ -211,7 +211,7 @@ class CreatePost extends \Magento\Framework\App\Action\Action
                     $customer->save();
 
                     // subscribe user
-                    $this->subscribeUserAndSetGroup($customer->getId(), $companyGroupId);
+                    $this->subscribeUserAndSetGroup($customer->getId(), $companyGroupId, $position);
                 }
 
                 // prepare customer data
@@ -300,13 +300,14 @@ class CreatePost extends \Magento\Framework\App\Action\Action
         }
         return $returnData;
     }
-    public function subscribeUserAndSetGroup($customerId, $groupId)
+    public function subscribeUserAndSetGroup($customerId, $groupId, $position)
     {
         $customer = $this->getCustomerById($customerId);
 
         if ($customer) {
             try {
                 $customer->setGroupId($groupId);
+                $customer->setCustomAttribute('position', $position);
                 // set User subscribe or not
                 $extensionAttributes = $customer->getExtensionAttributes();
                 $extensionAttributes->setIsSubscribed($this->getRequest()->getParam('is_subscribed', false));

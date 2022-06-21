@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/compare/items" method="GET">
+        <service class="Wcb\ProductCompareApi\Api\ProductCompareManagementInterface" method="getProductCompareForCustomer"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/compare/add" method="POST">
+        <service class="Wcb\ProductCompareApi\Api\ProductCompareManagementInterface" method="addProductCompareForCustomer"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+
+<!--    <route url="/V1/wishlist/add/:productId" method="POST">-->
+<!--        <service class="Wcb\Wishlist\Api\WishlistManagementInterface" method="addWishlistForCustomer"/>-->
+<!--        <resources>-->
+<!--            <resource ref="self" />-->
+<!--        </resources>-->
+<!--        <data>-->
+<!--            <parameter name="customerId" force="true">%customer_id%</parameter>-->
+<!--        </data>-->
+<!--    </route>-->
+    <route url="/V1/compare/delete/:compareItemId" method="DELETE">
+        <service class="Wcb\ProductCompareApi\Api\ProductCompareManagementInterface" method="deleteProductCompareForCustomer"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/compare/clear" method="DELETE">
+        <service class="Wcb\ProductCompareApi\Api\ProductCompareManagementInterface" method="clearProductCompareForCustomer"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+</routes>

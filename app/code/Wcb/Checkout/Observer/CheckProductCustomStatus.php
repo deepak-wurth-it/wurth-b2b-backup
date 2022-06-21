@@ -63,8 +63,10 @@ class CheckProductCustomStatus implements ObserverInterface
     public function execute(Observer $observer)
     {
         $productId = $observer->getRequest()->getParam('product');
+        $qty = $observer->getRequest()->getParam('qty');
+
         $product = $this->productRepository->getById($productId);
-        $result = $this->manageProductStatus->checkDiscontinuedProductStatus($product);
+        $result = $this->manageProductStatus->checkDiscontinuedProductStatus($product, $qty);
         if (!$result['allow_add_to_cart']) {
             $observer->getRequest()->setParam('product', false);
             $observer->getRequest()->setParam('return_url', false);
