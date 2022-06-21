@@ -299,7 +299,7 @@ class CustomerSyncProcessorFromNav
                     $company->setWcbSalesPersonCode($SalespersonCode);
                     
                     if ($navCustomer->getData('Name')) {
-                        $company->setName($navCustomer->getData('Name'));
+                        $company->setCompanyName($navCustomer->getData('Name'));
                     }
 
                     if ($navCustomer->getData('parentBranchCode')) {
