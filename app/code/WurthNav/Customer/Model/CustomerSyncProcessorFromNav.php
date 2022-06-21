@@ -306,7 +306,7 @@ class CustomerSyncProcessorFromNav
 			            
                         $existingGroup = $this->groupModel->load($parentBranchCode, 'parent_branch');
                        
-                        if($existingGroup->getid()){
+                        if($existingGroup->getId()){
                             $customerObject->setGroupId($existingGroup->getid());
                         }
                     }
