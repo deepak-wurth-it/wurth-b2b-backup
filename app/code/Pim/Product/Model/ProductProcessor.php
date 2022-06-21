@@ -166,15 +166,15 @@ class ProductProcessor
 
 
 						/******************* Adding PDF to Product ***********************************/
-						
-						
-						
-						/****************** Adding Barc code to Product ******************************/ 
+
+
+
+						/****************** Adding Barc code to Product ******************************/
 
 
                         //print_r(($this->product->getDescription()));exit;
                         try {
-							
+
 			    //$this->productRepository->save($this->product);
                             $this->product->save();
                             $log .= 'End Product Id '.$pimProductId.PHP_EOL;
@@ -197,7 +197,7 @@ class ProductProcessor
                 $x++;
                 if ($x == 500) {
                     $x=0;
-                
+
                 $this->reindexByKey($indexLists);
 
                     //break;
@@ -258,7 +258,7 @@ class ProductProcessor
 
     public function setPimProductShortDescription($item)
     {
-			
+
         $shortDesc = $item->getData('ShortDescription') ? $item->getData('ShortDescription') : '';
 
         if ($shortDesc &&  $this->product) {
@@ -370,7 +370,8 @@ class ProductProcessor
 
     public function setProductStatus($item)
     {
-        if ($item->getData('Active') && $item->getData('Active') == 1) {
+        if (($item->getData('Active') && $item->getData('Active') == 1) &&
+            ($item->getData('Blocked') == 0)) {
 
             $this->product->setStatus(\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
 
@@ -506,7 +507,7 @@ class ProductProcessor
         }
         echo 'Full Reindex Done.'.PHP_EOL;;
     }
-    
+
    public function getProductImportLogger($log)
     {
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/product_import.log');
@@ -514,7 +515,7 @@ class ProductProcessor
         $logger->addWriter($writer);
         $logger->info($log);
     }
-    
+
 
     private function reindexByKey($indexLists){
         echo 'Full Reindex started .....'.PHP_EOL;
