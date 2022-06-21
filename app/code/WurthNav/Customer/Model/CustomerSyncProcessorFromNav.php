@@ -293,9 +293,11 @@ class CustomerSyncProcessorFromNav
                     #====================== Customer Company ========================#
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
+                    $existingGroup  = "";
 					//print_r(get_class_methods($company));exit;
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
                     $company->setWcbSalesPersonCode($SalespersonCode);
+                    
                     if ($navCustomer->getData('Name')) {
                         $company->setName($navCustomer->getData('Name'));
                     }
@@ -307,7 +309,8 @@ class CustomerSyncProcessorFromNav
                         $existingGroup = $this->groupModel->load($parentBranchCode, 'parent_branch');
                        
                         if($existingGroup->getId()){
-                            $customerObject->setGroupId($existingGroup->getid());
+                            //$customerObject->setGroupId($existingGroup->getid());
+                            $company->setCustomerGroupId($existingGroup->getId());
                         }
                     }
 
