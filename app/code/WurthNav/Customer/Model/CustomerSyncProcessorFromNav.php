@@ -102,7 +102,7 @@ class CustomerSyncProcessorFromNav
                     ->setTelephone($telephone)
                     ->setIsDefaultBilling('1');
                 //->setSaveInAddressBook('1');
-                $address->save();
+                $address = $this->addressRepository->save($address);
                 $this->log .= "Saved customer billing details" . PHP_EOL;
                 return true;
             }
@@ -279,7 +279,7 @@ class CustomerSyncProcessorFromNav
                             ->setStreet([$street])
                             ->setTelephone($telephone)
                             ->setIsDefaultBilling('1');
-                        $address->save();
+                        $address = $this->addressRepository->save($address);
                         $this->log .= "Saved customer billing details" . PHP_EOL;
                         return true;
                     }
