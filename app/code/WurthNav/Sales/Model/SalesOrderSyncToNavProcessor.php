@@ -61,11 +61,11 @@ class SalesOrderSyncToNavProcessor
 
 					$ordersNav->setData('CreatedBy', $name);
 					$ordersNav->setData('CustomerCode', $order->getCustomerCode()); // will update
-					$ordersNav->setData('DeliveryAddressCode', $order->getDeliveryAddressCode()); // will update	 
+					$ordersNav->setData('DeliveryAddressCode', $order->getDeliveryAddressCode()); // will update from delivery address 	 
 
-					$ordersNav->setData('CustomerOrderNo', $order->getCustomerOrderNo()); // will update
-					$ordersNav->setData('CostCenter', $order->getCostCenter()); // will update
-					$ordersNav->setData('LocationCode', $order->getLocationCode()); // will update
+					$ordersNav->setData('CustomerOrderNo', $order->getCustomerOrderNo()); // will update/Internal Order number
+					$ordersNav->setData('CostCenter', $order->getCostCenter()); // will update// Dimension value
+					$ordersNav->setData('LocationCode', $order->getLocationCode()); // will update // Shop Contact
 					$ordersNav->setData('TotalNoTax', $order->getSubtotal()); //Order total without Tax	
 
 
