@@ -137,8 +137,7 @@ class CustomerSyncProcessorFromNav
                 ['bnch' => 'Branches'],
                 'main_table.BranchCode  = bnch.Code',
                 [
-                    'parentBranchCode' => 'bnch.ParentBranch',
-                    'parentBranchName' => 'bnch.Name'
+                    'parentBranchCode' => 'bnch.ParentBranch'
                 ]
             )->where("main_table.Synchronized  = 0");
         $status = [];
@@ -302,11 +301,11 @@ class CustomerSyncProcessorFromNav
                     }
 
                     if ($navCustomer->getData('parentBranchCode')) {
-                        $parentBranchName  = $navCustomer->getData('parentBranchName');
                         $parentBranchCode  = $navCustomer->getData('parentBranchCode');
                         $company->setDivision($parentBranchCode);
-
-                        $existingGroup = $this->groupModel->load($parentBranchName, 'customer_group_code');
+			            
+                        $existingGroup = $this->groupModel->load($parentBranchCode, 'parent_branch');
+                       
                         if($existingGroup->getid()){
                             $customerObject->setGroupId($existingGroup->getid());
                         }
