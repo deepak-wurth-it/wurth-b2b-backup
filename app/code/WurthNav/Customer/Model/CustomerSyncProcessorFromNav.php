@@ -150,7 +150,7 @@ class CustomerSyncProcessorFromNav
             foreach ($collection as $navCustomer) {
 
 
-                try {
+               // try {
                     $webSiteId = $this->storeManager->getStore()->getWebsiteId();
                     $storeId = $this->storeManager->getStore()->getStoreId();;
                     $email =  $navCustomer->getData('Email');
@@ -167,7 +167,7 @@ class CustomerSyncProcessorFromNav
                     if (empty($customerId)) {
                         continue;
                     }
-                   
+                  
                     $customerRepoObject = $this->customerRepository->getById($customerId);
                     $firstName = $customerObject->getFirstname();
                     $lastName = $customerObject->getLastname();
@@ -279,9 +279,10 @@ class CustomerSyncProcessorFromNav
                             ->setStreet([$street])
                             ->setTelephone($telephone)
                             ->setIsDefaultBilling('1');
+                            
                         $address = $this->addressRepository->save($address);
                         $this->log .= "Saved customer billing details" . PHP_EOL;
-                        return true;
+                        
                     }
 
 
@@ -293,7 +294,7 @@ class CustomerSyncProcessorFromNav
                     #====================== Customer Company ========================#
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
-
+					//print_r(get_class_methods($company));exit;
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
                     $company->setWcbSalesPersonCode($SalespersonCode);
                     if ($navCustomer->getData('Name')) {
@@ -324,11 +325,11 @@ class CustomerSyncProcessorFromNav
                     $navCustomer->save(); //ERP customer table update
                     $customerObject->save(); //Magento 2 Customer SAVE
                     $this->wurthNavLogger($this->log);
-                } catch (\Exception $e) {
-                    $this->logger->critical($e->getMessage());
-                    $this->wurthNavLogger($e->getMessage());
-                    $this->wurthNavLogger("Customer Could not save,Please see Customer ID =>> " . $customerId);
-                }
+                //} catch (\Exception $e) {
+                  //  $this->logger->critical($e->getMessage());
+                    //$this->wurthNavLogger($e->getMessage());
+                    //$this->wurthNavLogger("Customer Could not save,Please see Customer ID =>> " . $customerId);
+                //}
             }
         }
     }
