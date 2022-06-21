@@ -108,13 +108,10 @@ class CustomerSyncProcessor
                     $customerType =  $customer->getSuperUserId() ? '0' : '1';
                     $customerCode = $customer->getData('customer_code');
                     $customerEmail = $customer->getEmail();
-                    //$newsletter = $this->isCustomerSubscribeById($customer->getId()) ? '1' : '0';
-					$newsletter = $this->isCustomerSubscribeById($customerEmail) ? '1' : '0';
+					$newsletter = $this->isCustomerSubscribeByEmail($customerEmail) ? '1' : '0';
 
                     $customerRepoObject = $this->customerRepository->getById($customer->getId());
-                    //if (empty($billingAddressId) || empty($shippingAddressId) && empty($company)) {
-                       // continue;
-                   // }
+
 
                     #================ About the company & Address =========================#
                     if ($company && empty($customerType)) {
@@ -271,10 +268,15 @@ class CustomerSyncProcessor
         return $this->accountManagement->getConfirmationStatus($customerId);
     }
 
-    public function isCustomerSubscribeById($customerId,$email)
+    public function isCustomerSubscribeById($customerId)
     {
-		$status = $this->subscriberFactory->create()->loadByEmail($email)->isSubscribed();
-        //$status = $this->subscriberFactory->create()->loadByCustomerId((int)$customerId)->isSubscribed();
+        $status = $this->subscriberFactory->create()->loadByCustomerId((int)$customerId)->isSubscribed();
+
+        return (bool)$status;
+    }
+    
+    public function isCustomerSubscribeByEmail($email) {
+        $status = $this->subscriberFactory->create()->loadByEmail($email)->isSubscribed();
 
         return (bool)$status;
     }
