@@ -73,6 +73,9 @@ require(
 
             $(window).scroll(startCounter);
             function startCounter() {
+                if($('.wcb-counter').length == 0){
+            		return;
+            	}
                 var hT = $('.wcb-counter').offset().top,
                     hH = $('.wcb-counter').outerHeight(),
                     wH = $(window).height();

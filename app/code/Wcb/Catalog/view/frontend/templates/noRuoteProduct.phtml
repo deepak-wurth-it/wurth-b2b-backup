@@ -1,12 +1,9 @@
-<div class="register-success">
-   <span class="success-image">
-    <img
-        src="<?= $block->getViewFileUrl('images/noProduct.svg'); ?>" width="200">
-   </span>
-    <h2><?= __("This Item is not available at the moment.") ?></h2>
-    <p> <?= __('Please return to the starting page.') ?>
-        <a href="<?= $block->getStartPageUrl() ?>">
-            <span> click here </span>
-        </a>
-    </p>
+<div class="row wcb-404 register-success">
+<div class="col-md-12 wcb-text-center">
+   <p class="success-image">
+       <img src="<?= $block->getViewFileUrl('images/noProduct.svg'); ?>" width="170">
+   </p>
+    <h3><?= __("Sorry! This Item is not available at the moment.") ?></h3>
+    <a href="<?= $block->getStartPageUrl() ?>" class="primary-button">Continue Shopping</a>
+</div>
 </div>
