@@ -102,7 +102,7 @@ class CustomerSyncProcessorFromNav
                     ->setTelephone($telephone)
                     ->setIsDefaultBilling('1');
                 //->setSaveInAddressBook('1');
-                $address->save();
+                $address = $this->addressRepository->save($address);
                 $this->log .= "Saved customer billing details" . PHP_EOL;
                 return true;
             }
@@ -137,8 +137,7 @@ class CustomerSyncProcessorFromNav
                 ['bnch' => 'Branches'],
                 'main_table.BranchCode  = bnch.Code',
                 [
-                    'parentBranchCode' => 'bnch.ParentBranch',
-                    'parentBranchName' => 'bnch.Name'
+                    'parentBranchCode' => 'bnch.ParentBranch'
                 ]
             )->where("main_table.Synchronized  = 0");
         $status = [];
@@ -150,7 +149,7 @@ class CustomerSyncProcessorFromNav
             foreach ($collection as $navCustomer) {
 
 
-                try {
+               // try {
                     $webSiteId = $this->storeManager->getStore()->getWebsiteId();
                     $storeId = $this->storeManager->getStore()->getStoreId();;
                     $email =  $navCustomer->getData('Email');
@@ -167,7 +166,7 @@ class CustomerSyncProcessorFromNav
                     if (empty($customerId)) {
                         continue;
                     }
-                   
+                  
                     $customerRepoObject = $this->customerRepository->getById($customerId);
                     $firstName = $customerObject->getFirstname();
                     $lastName = $customerObject->getLastname();
@@ -246,6 +245,7 @@ class CustomerSyncProcessorFromNav
                     #====================== Customer Customer Billing Data ==================#
                     $billingAddress =  $this->getDefaultBillingAddress($customerId);
                     $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
+                    $statusBillToData = false;
                     if ($BillToCustomerNo) {
                         $statusBillToData = $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId, $billingAddress);
                     }
@@ -275,12 +275,13 @@ class CustomerSyncProcessorFromNav
                             ->setRegion($regionName)
                             ->setCity($city)
                             ->setPostcode($postcode)
-                            ->setStreet($street)
+                            ->setStreet([$street])
                             ->setTelephone($telephone)
                             ->setIsDefaultBilling('1');
-                        $address->save();
+                            
+                        $address = $this->addressRepository->save($address);
                         $this->log .= "Saved customer billing details" . PHP_EOL;
-                        return true;
+                        
                     }
 
 
@@ -292,21 +293,24 @@ class CustomerSyncProcessorFromNav
                     #====================== Customer Company ========================#
                     $companyId = $this->companyManagement->getByCustomerId($customerId)->getId();
                     $company = $this->companyRepository->get($companyId);
-
+                    $existingGroup  = "";
+					//print_r(get_class_methods($company));exit;
                     $SalespersonCode = $navCustomer->getData('SalespersonCode');
                     $company->setWcbSalesPersonCode($SalespersonCode);
+                    
                     if ($navCustomer->getData('Name')) {
-                        $company->setName($navCustomer->getData('Name'));
+                        $company->setCompanyName($navCustomer->getData('Name'));
                     }
 
                     if ($navCustomer->getData('parentBranchCode')) {
-                        $parentBranchName  = $navCustomer->getData('parentBranchName');
                         $parentBranchCode  = $navCustomer->getData('parentBranchCode');
                         $company->setDivision($parentBranchCode);
-
-                        $existingGroup = $this->groupModel->load($parentBranchName, 'customer_group_code');
-                        if($existingGroup->getid()){
-                            $customerObject->setGroupId($existingGroup->getid());
+			            
+                        $existingGroup = $this->groupModel->load($parentBranchCode, 'parent_branch');
+                       
+                        if($existingGroup->getId()){
+                            //$customerObject->setGroupId($existingGroup->getid());
+                            $company->setCustomerGroupId($existingGroup->getId());
                         }
                     }
 
@@ -323,11 +327,11 @@ class CustomerSyncProcessorFromNav
                     $navCustomer->save(); //ERP customer table update
                     $customerObject->save(); //Magento 2 Customer SAVE
                     $this->wurthNavLogger($this->log);
-                } catch (\Exception $e) {
-                    $this->logger->critical($e->getMessage());
-                    $this->wurthNavLogger($e->getMessage());
-                    $this->wurthNavLogger("Customer Could not save,Please see Customer ID =>> " . $customerId);
-                }
+                //} catch (\Exception $e) {
+                  //  $this->logger->critical($e->getMessage());
+                    //$this->wurthNavLogger($e->getMessage());
+                    //$this->wurthNavLogger("Customer Could not save,Please see Customer ID =>> " . $customerId);
+                //}
             }
         }
     }

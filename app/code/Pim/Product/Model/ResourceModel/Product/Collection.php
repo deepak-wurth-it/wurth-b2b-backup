@@ -23,7 +23,7 @@ class Collection extends AbstractCollection
             ->from(['main_table' => $this->getMainTable()])
             ->where("main_table.Active  = 1")
             ->where("main_table.UpdateRequired  = 1")
-            ->joinRight(
+            ->joinLeft(
                 array('pdt' => $this->getTable('productdetails')),
                 'main_table.Id = pdt.ProductId',
                [
@@ -39,23 +39,11 @@ class Collection extends AbstractCollection
                 ]
 
             )
-            //->where("pdt.UpdateRequired  = 1")
             ->where("pdt.ChannelId = 2")
             ->where("pdt.Active  = 1")
-            // ->joinLeft(
-            //     array('bcd' => $this->getTable('barcodes')),
-            //     'main_table.Id = bcd.ProductId',
-            //     [
-            //         'Code' => 'bcd.Code'
-            //     ]
-
-            // )
-            //->where("bcd.UpdateRequired  = 1")
-            //->where("bcd.Active  = 1")
             ->order('main_table.Id ASC')
             ->distinct(true);
 
-                    //echo  $this->getSelect();exit;
         return $this;
     }
 }
