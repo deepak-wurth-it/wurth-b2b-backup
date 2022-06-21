@@ -4,5 +4,8 @@
     <event name="controller_action_predispatch_checkout_cart_add">
         <observer name="custom_check_product_status" instance="Wcb\Checkout\Observer\CheckProductCustomStatus"/>
     </event>
+    <event name="controller_action_predispatch_qtyimport_product_addToCart">
+        <observer name="custom_check_product_status" instance="Wcb\Checkout\Observer\CheckProductCustomStatus"/>
+    </event>
 </config>
 
