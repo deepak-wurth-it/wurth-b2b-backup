@@ -246,6 +246,7 @@ class CustomerSyncProcessorFromNav
                     #====================== Customer Customer Billing Data ==================#
                     $billingAddress =  $this->getDefaultBillingAddress($customerId);
                     $BillToCustomerNo = $navCustomer->getData('BillToCustomerNo');
+                    $statusBillToData = false;
                     if ($BillToCustomerNo) {
                         $statusBillToData = $this->getBillingAddressByCustomerCode($BillToCustomerNo, $customerId, $billingAddress);
                     }
