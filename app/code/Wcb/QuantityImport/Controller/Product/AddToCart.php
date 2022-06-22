@@ -9,6 +9,7 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseFactory;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Psr\Log\LoggerInterface;
 
@@ -31,7 +32,7 @@ class AddToCart extends Action
         ResponseFactory $responseFactory,
         LoggerInterface $logger,
         JsonFactory $resultJsonFactory,
-        \Magento\Framework\Message\ManagerInterface $messageManager
+        ManagerInterface $messageManager
     ) {
         $this->_resultPageFactory = $resultPageFactory;
         $this->_cart = $cart;
@@ -47,16 +48,21 @@ class AddToCart extends Action
     public function execute()
     {
         $result = [];
+        $resultJson = $this->resultJsonFactory->create();
+
         try {
-            $productid = $this->getRequest()->getParam('product');
+            $productId = $this->getRequest()->getParam('product');
             $qty = $this->getRequest()->getParam('qty');
-            $_product = $this->_productRepositoryInterface->getById($productid);
-            $options = $_product->getOptions();
+            if (!$productId) {
+                $result['success'] = false;
+                $result['message'] = __("The product that was requested doesn't exist.");
+                return $resultJson->setData($result);
+            }
+            $_product = $this->_productRepositoryInterface->getById($productId);
 
             $params = [
                 'product' => $_product->getId(),
-                'qty' => $qty,
-                //'price' => $_product->getPrice()
+                'qty' => $qty
             ];
 
             $this->_cart->addProduct($_product, $params);
@@ -65,14 +71,12 @@ class AddToCart extends Action
             $result['success'] = true;
             $result['message'] = $message;
             $this->messageManager->addSuccess($message);
-
         } catch (Exception $e) {
             $result['success'] = false;
             $result['message'] = __($e->getMessage());
             $this->messageManager->addError(__($e->getMessage()));
         }
 
-        $resultJson = $this->resultJsonFactory->create();
         return $resultJson->setData($result);
     }
 }

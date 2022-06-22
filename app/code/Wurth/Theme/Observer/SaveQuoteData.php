@@ -59,7 +59,7 @@ class SaveQuoteData implements ObserverInterface
                 $quote->setOrderConfirmationEmail($postData['additional_properties']['order_confirmation_email']);
                 $quote->setInternalOrderNumber($postData['additional_properties']['internal_order_number']);
                 $quote->setRemarks($postData['additional_properties']['remarks']);
-                $quote->setDeliveryOrder(1);
+                $quote->setDeliveryOrder(0);
                 $quote->save();
             } catch (Exception $e) {
             }

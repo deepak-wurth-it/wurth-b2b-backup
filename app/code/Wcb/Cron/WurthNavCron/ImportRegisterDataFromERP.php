@@ -12,7 +12,7 @@ namespace Wcb\Cron\WurthNavCron;
 
 
 
-class ImportRegisterDataToERP
+class ImportRegisterDataFromERP
 {
 
 
