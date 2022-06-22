@@ -390,12 +390,19 @@ define([
                 var width = $(window).width() - 30;
                 var left = positioneft.left - 15; 
             }
-            });
+            });         
                   
             var top = position.top + parseInt(this.$input.css('marginTop'), 10);
+            if ($(window).width() > 1146) {
+                var top = this.$input.outerHeight() - 1 + top  + 24;
+            }
+            else {
+
+                var top = this.$input.outerHeight() - 1 + top  + 14;
+            }
 
             this.$placeholder()
-                .css('top', this.$input.outerHeight() - 1 + top)
+                .css('top', top)
                 .css('left', -left)
                  .css('width', width);
         }
