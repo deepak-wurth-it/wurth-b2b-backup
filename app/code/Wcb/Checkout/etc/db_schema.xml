@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote_item" resource="checkout" engine="innodb" comment="Sales Flat Quote Item">
+        <column name="wcb_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb price"/>
+        <column name="wcb_after_discount_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb after discount price"/>
+        <column name="wcb_discount_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb discount price"/>
+    </table>
+    <table name="sales_order_item" resource="default" engine="innodb" comment="Sales Order Table">
+		 <column name="wcb_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb price"/>
+		 <column name="wcb_after_discount_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb after discount price"/>
+		 <column name="wcb_discount_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb discount price"/>
+   </table>
+</schema>
+

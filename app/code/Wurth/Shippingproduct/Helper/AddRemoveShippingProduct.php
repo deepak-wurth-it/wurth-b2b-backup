@@ -150,9 +150,18 @@ class AddRemoveShippingProduct extends AbstractHelper
             $item = ($item->getParentItem() ? $item->getParentItem() : $item);
             $priceData = $this->checkoutHelper->getPriceApiData($item->getProduct()->getProductCode(), $quote);
             $price = isset($priceData['price']) ? $priceData['price'] : '';
+
+            // set prices in quote_item tables
+            $item->setWcbPrice($price);
+
             if (isset($priceData['discount']) && $priceData['discount'] != 0) {
                 $price = $priceData['discount_price'];
             }
+            // set prices in quote_item tables
+            $discountAmount = isset($priceData['discount_amount']) ? $priceData['discount_amount'] : 0;
+            $item->setWcbAfterDiscountPrice($price);
+            $item->setWcbDiscountPrice($discountAmount);
+
             $unitOfMeasureId = $item->getProduct()->getBaseUnitOfMeasureId();
 
             //$type = $this->checkoutHelper->getType($unitOfMeasureId);
