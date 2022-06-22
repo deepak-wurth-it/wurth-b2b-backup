@@ -8,28 +8,35 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\Message\ManagerInterface;
+use Wcb\Checkout\Helper\Data as CheckoutHelper;
 
 class ManageProductStatus extends AbstractHelper
 {
     protected $messageManager;
     protected $request;
     protected $productCollectionFactory;
+    protected $checkoutHelper;
+    protected $multiPriceAndStock;
 
     public function __construct(
         Context $context,
         ManagerInterface $messageManager,
         RequestInterface $request,
-        ProductCollection $productCollectionFactory
+        ProductCollection $productCollectionFactory,
+        checkoutHelper $checkoutHelper,
+        MultiPriceAndStock $multiPriceAndStock
     ) {
         $this->request = $request;
         $this->messageManager = $messageManager;
+        $this->checkoutHelper = $checkoutHelper;
         $this->productCollectionFactory = $productCollectionFactory;
+        $this->multiPriceAndStock = $multiPriceAndStock;
         parent::__construct($context);
     }
 
-    public function checkDiscontinuedProductStatus($product, $throwError = false)
+    public function checkDiscontinuedProductStatus($product, $qty = 1)
     {
-        $wcbProductStatus = $product->getWcbProductStatus();
+        $wcbProductStatus = 1;//$product->getWcbProductStatus();
         $replaceProductCode = $product->getSuccessorProductCode();
 
         $result = [];
@@ -45,7 +52,28 @@ class ManageProductStatus extends AbstractHelper
 
         // If status is 2 then check stock availability and show replacement product
         if ($wcbProductStatus == '2') {
-            $result['show_replace_product'] = true;
+
+            // get total qty with minimum qty logic
+            $qty = $this->checkoutHelper->getTotalQty($product, $qty);
+
+            // get stock using API
+            $stockSku = [];
+            $stockSku['skus'][] = [
+                "product_code" => $product->getProductCode(),
+                "qty" => 1
+            ];
+            $stockSku = json_encode($stockSku);
+            $stockApiData = $this->multiPriceAndStock->getMultiStockAndPriceData($stockSku, 'stock');
+            if (!empty($stockApiData)) {
+                $stockApiData = json_decode($stockApiData, true);
+                $stockQty = isset($stockApiData[0]['AvailableQuantity'])
+                    ? $stockApiData[0]['AvailableQuantity']
+                    : 0;
+                if ($stockQty < $qty) {
+                    $result['allow_add_to_cart'] = false;
+                    $result['show_replace_product'] = true;
+                }
+            }
         }
 
         //If current product and replacement code are same or blank then not display message.
