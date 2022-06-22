@@ -77,7 +77,7 @@ class SaveInQuote extends Action
             $quote->setOrderConfirmationEmail($confirmationEmail);
             $quote->setInternalOrderNumber($internalOrderNumber);
             $quote->setRemarks($remarks);
-            $quote->setDeliveryOrder(1);
+            $quote->setDeliveryOrder(0);
             $quote->save();
         } catch (Exception $e) {
         }

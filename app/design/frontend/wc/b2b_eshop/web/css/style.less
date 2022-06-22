@@ -819,9 +819,6 @@ dd {
 	}
 }
 
-// .nav-toggle{
-// 	display: none !important;
-// }
 .mobile-bar-content .tab {
 	display: flex;
 }
@@ -3437,11 +3434,11 @@ table.ReqListTable
 	}
 }
 
-// forgot password page CSS
-.customer-account-forgotpassword .page-title-wrapper,
-{
-	display: none;
-}
+   // forgot password page CSS
+	.customer-account-forgotpassword .page-title-wrapper
+	{
+		display: none;
+	}
 
 .customer-account-create, .customer-account-confirmation {
 .page-title-wrapper {
@@ -5204,6 +5201,9 @@ li.mst-searchautocomplete__item.magento_cms_page:last-child {
 	background: #0093DD;
 	color: #FFFFFF;
 }
+.mst-searchautocomplete__index.popular ul li:first-child a {
+	color: #FFFFFF;
+}
 .popular.mst-searchautocomplete__index.popular ul {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 12%);
@@ -5211,7 +5211,8 @@ li.mst-searchautocomplete__item.magento_cms_page:last-child {
 }
 
 .mst-searchautocomplete__index.popular ul li a {
-	color: #000000;
+	font-family: 'wuerthbold';
+	color: #0093DD;
 }
 
 .mst-searchautocomplete__autocomplete {
@@ -5229,8 +5230,8 @@ li.mst-searchautocomplete__item.magento_cms_page:last-child {
     float: right;
 }
 .mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {    
-	max-width: 430px;
-    width: 430px;
+	max-width: 50%;
+    width: 49%;
 	padding-bottom: 0px;
 }
 .mst-searchautocomplete__item.magento_catalog_product .mst-product-image-wrapper {
@@ -10554,7 +10555,7 @@ print {
 @media only screen and (max-width: 767px) {
 	.catalog-category-view .page-title-wrapper,
 	.page-title-wrapper {
-		.page-title,
+		.page-title
 		{
 			font-size: 1.8rem;
 		}
@@ -10736,17 +10737,10 @@ print {
 		grid-gap: 10px;
 		grid-template-columns: 1fr 1fr 1fr;
 	}
-	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
-		width: 375px !important;
-		left: -7px !important;
-	}
-	.mst-searchautocomplete__autocomplete._active {
-		width: 375px !important;
-		left: -7px !important;
-	}
+
 	.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
-		max-width: 376px;
-		width: 375px;
+		max-width: 100%;
+		width: 100%;
 	}
 	// Search popup end in mobile view
 
@@ -10955,24 +10949,14 @@ print {
 
 /*Fix products-grid */
 
-@media (min-width: 768px) {
-	.category-products .products-grid ul>li:nth-of-type(3n+1) {
-		clear: left;
+	@media (min-width: 768px) {
+		.category-products .products-grid ul>li:nth-of-type(3n+1) {
+			clear: left;
+		}
+		.opc-progress-bar-item {
+			width: 33%;
+		}
 	}
-	.opc-progress-bar-item {
-		width: 33%;
-	}
-	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
-		width: 920px !important;
-		left: -109px !important;
-	}
-	.mst-searchautocomplete__autocomplete._active {
-		width: 920px !important;
-		left: -109px !important;
-	}
-	
-	
-}
 
 //---------------------------------------------------------	
 @media only screen and (max-width: 479px) {
@@ -12318,7 +12302,7 @@ print {
 		margin-right: -15px;
 	}
 	.pt-banner-container .pt-banner-caption {
-		.pt-banner-content,
+		.pt-banner-content
 		{
 			max-width: 27%;
 		}
@@ -15244,26 +15228,12 @@ margin-top: 10px;
 		margin-left: 0px;
 	}
 
-	.mst-searchautocomplete__autocomplete._active.mst-2-cols {
-		width: 707px !important;
-		left: -2px !important;
-	}
-	.mst-searchautocomplete__autocomplete._active {
-		width: 707px !important;
-		left: -2px !important;
-	}
+	
 	.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
 		clear: right;
 		float: right;
-	}
-	.mst-searchautocomplete__autocomplete._active.mst-2-cols .mst-searchautocomplete__index {
-		max-width: 350px;
-		width: 350px;
-	}
-	.mst-searchautocomplete__autocomplete._active.mst-2-cols div.magento_catalog_product {
-		width: 350px;
-		max-width: 355px;
-	}
+	 } 
+
 
 	.checkout-cart-index {
 			form#form-validate {
