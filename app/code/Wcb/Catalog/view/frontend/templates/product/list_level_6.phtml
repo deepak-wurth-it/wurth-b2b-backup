@@ -179,6 +179,11 @@ $product=false;
                   data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
                   action="<?= $escaper->escapeUrl($postParams['action']) ?>"
                   method="post">
+                <div class="qty-field" >
+               <div id="79-dec" class="decreaseQty icon-interface-minus quantity-minus"></div>
+               <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="qty-default input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
+               <div id="79-upt" class="increaseQty icon-interface-plus quantity-plus"></div>
+            </div>
                <input type="hidden"
                       name="product"
                       value="<?= /* @noEscape */ $postParams['data']['product'] ?>">

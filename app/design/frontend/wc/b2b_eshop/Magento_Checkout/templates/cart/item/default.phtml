@@ -23,15 +23,39 @@ $removeHelper = $this->helper(Magento\Checkout\Helper\Cart::class);
 $checkoutHelper = $this->helper("Wcb\Checkout\Helper\Data");
 $product = $checkoutHelper->getLoadProduct($product->getId());
 $stockApiData = $checkoutHelper->getStockApiData($product->getProductCode(), $block->getQty());
+$availableQty = isset($stockApiData['AvailableQuantity']) ? $stockApiData['AvailableQuantity'] : 0;
 $priceApiData = $checkoutHelper->getPriceApiData($product->getProductCode());
 
 $type = '';
 $displayUnitQty = 1;
 $minimumAndMeasureQty = '';
+
 if ($product->getBaseUnitOfMeasureId()) {
     $type = $checkoutHelper->getType($product->getBaseUnitOfMeasureId());
     $displayUnitQty = $checkoutHelper->getQuantityUnitByQuantity($block->getQty(), $product);
     $minimumAndMeasureQty = $checkoutHelper->getMinimumAndMeasureQty($product);
+}
+
+// For replacement product
+
+$wcbProductStatus = $product->getWcbProductStatus();
+$replacementMsg = '';
+$notAllowedMsg = '';
+if ($wcbProductStatus == 2) {
+    $manageProductHelper = $this->helper("Wcb\Checkout\Helper\ManageProductStatus");
+    $replCode = $product->getSuccessorProductCode();
+    if ($replCode) {
+        $replaceProduct =  $manageProductHelper->getProductUrlUsingProductCode($replCode);
+        if ($replaceProduct->getId()) {
+            $link = "<a href='" . $replaceProduct->getProductUrl() . "'>$replCode</a>";
+            $replacementMsg = sprintf(__("This is replacement product for this %s ."), $link);
+            $notAllowedMsg = __("You are not allowed to add more qty in product.");
+        } else {
+            $replacementMsg = __("You are not allowed to add more qty in product.");
+        }
+    } else {
+        $replacementMsg = __("You are not allowed to add more qty in product.");
+    }
 }
 
 // login check helper
@@ -113,6 +137,10 @@ $logedIn = $this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
                            class="input-text qty cart-item-qty-box"
                            data-validate="{required:true,'validate-greater-than-zero':true}"
                            data-role="cart-item-qty"
+                           data-available-qty = "<?= $availableQty ?>"
+                           data-item-qty = "<?= $block->escapeHtmlAttr($displayUnitQty) ?>"
+                           data-minimum-qty = "<?= $minimumAndMeasureQty ?>"
+                           data-available-status = "<?= $wcbProductStatus ?>"
                            data-item-id="<?= /* @escapeNotVerified */
                            $_item->getId() ?>"/>
                     <div id="<?= /* @escapeNotVerified */
@@ -128,6 +156,18 @@ $logedIn = $this->helper("Wcb\Component\Helper\Data")->isLoggedIn();
                    <?= $block->getQty() ?>
                 </div>
 
+            </div>
+            <?php if ($notAllowedMsg != '') { ?>
+                <div class="replacement-product-msg-<?= $_item->getId() ?> no-display">
+                    <div class="message-warning warning message">
+                        <div><?= $notAllowedMsg ?></div>
+                    </div>
+                </div>
+            <?php } ?>
+            <div class="replacement-product-msg-<?= $_item->getId() ?> no-display">
+                <div class="message-warning warning message">
+                    <div><?= $replacementMsg ?></div>
+                </div>
             </div>
             <div class="imd-avilable">
                 <?php if ($logedIn) { ?>
