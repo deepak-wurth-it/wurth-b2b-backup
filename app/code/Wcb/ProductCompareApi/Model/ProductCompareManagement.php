@@ -4,26 +4,20 @@ namespace Wcb\ProductCompareApi\Model;
 
 use Exception;
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Catalog\CustomerData\CompareProducts;
-use Magento\Catalog\Helper\Output;
+use Magento\Catalog\Model\Product\Compare\ListCompare;
 use Magento\Catalog\Helper\Product\Compare;
-
 use Magento\Catalog\Model\Config as CatalogConfig;
 use Magento\Catalog\Model\Product\Compare\Item;
-use Magento\Catalog\Model\Product\Compare\ListCompare;
-use Magento\Catalog\Model\Product\Url;
 use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Catalog\Model\ResourceModel\Product\Compare\Item\CollectionFactory;
 use Magento\Catalog\ViewModel\Product\Checker\AddToCompareAvailability;
-
-use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Customer\Model\CustomerFactory;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Reports\Model\Product\Index\ComparedFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Wcb\ProductCompareApi\Api\ProductCompareManagementInterface;
-
+use Magento\Catalog\Model\Product\Compare\ItemFactory;
 /**
  * Defines the implementaiton class of the \Wcb\ProductCompareApi\Api\ProductCompareManagementInterface
  */
@@ -46,14 +40,6 @@ class ProductCompareManagement implements ProductCompareManagementInterface
      * @var Item
      */
     protected $_itemFactory;
-    /**
-     * @var CustomerRepositoryInterface
-     */
-    private $customerRepository;
-    /**
-     * @var CustomerFactory
-     */
-    private $customerFactory;
 
     /**
      * @var StoreManagerInterface
@@ -63,10 +49,7 @@ class ProductCompareManagement implements ProductCompareManagementInterface
      * @var AddToCompareAvailability|null
      */
     private $compareAvailability;
-    /**
-     * @var ObjectManagerInterface
-     */
-    private $_objectmanager;
+
     /**
      * @var ObjectManagerInterface
      */
@@ -88,66 +71,50 @@ class ProductCompareManagement implements ProductCompareManagementInterface
      */
     private $collectionFactory;
     /**
-     * @var CompareProducts
-     */
-    private $compareProducts;
-    /**
      * @var Visibility
      */
     private $_catalogProductVisibility;
     /**
-     * @var Url
-     */
-    private $productUrl;
-    /**
-     * @var Output
-     */
-    private $outputHelper;
-    /**
      * @var CatalogConfig
      */
     private $catalogConfig;
+    /**
+     * @var ItemFactory
+     */
+    private $_compareItemFactory;
 
     public function __construct(
         StoreManagerInterface $storeManager,
         ProductRepositoryInterface $productRepository,
-        CustomerFactory $customerFactory,
-        CustomerRepositoryInterface $customerRepository,
+        ListCompare $catalogProductCompareList,
         ObjectManagerInterface $_objectManager,
         AddToCompareAvailability $compareAvailability = null,
-        ListCompare $catalogProductCompareList,
         ComparedFactory $compareFactory,
         Item $compareItem,
         CollectionFactory $collectionFactory,
         Compare $compareHelper,
-        CompareProducts $compareProducts,
         Visibility $catalogProductVisibility,
-        Url $productUrl,
-        Output $outputHelper,
-        CatalogConfig $catalogConfig
+        CatalogConfig $catalogConfig,
+        ItemFactory $compareItemFactory
     ) {
         $this->_productRepository = $productRepository;
-        $this->customerRepository = $customerRepository;
-        $this->customerFactory = $customerFactory;
+        $this->_catalogProductCompareList = $catalogProductCompareList;
         $this->_storeManager = $storeManager;
         $this->_objectManager = $_objectManager;
         $this->compareAvailability = $compareAvailability ?: $this->_objectManager->get(AddToCompareAvailability::class);
-        $this->_catalogProductCompareList = $catalogProductCompareList;
         $this->compareFactory = $compareFactory;
         $this->compareItem = $compareItem;
         $this->collectionFactory = $collectionFactory;
         $this->compareHelper = $compareHelper;
-        $this->compareProducts = $compareProducts;
         $this->_catalogProductVisibility = $catalogProductVisibility;
-        $this->productUrl = $productUrl;
-        $this->outputHelper = $outputHelper;
         $this->catalogConfig = $catalogConfig;
+        $this->_compareItemFactory = $compareItemFactory;
     }
 
     /**
-     * Get wishlist collection
+     * Get Product Compare Data
      * @param int $customerId
-     * @return array WishlistData
+     * @return array Compare Data
      */
     public function getProductCompareForCustomer($customerId)
     {
@@ -161,6 +128,7 @@ class ProductCompareManagement implements ProductCompareManagementInterface
             return $response;
         } else {
             $compareData = [];
+            $items = [];
             if (!$this->_itemCollection) {
                 $this->compareHelper->setAllowUsedFlat(false);
                 // cannot be placed in constructor because of the cyclic dependency which cannot be fixed with proxy class
@@ -220,20 +188,20 @@ class ProductCompareManagement implements ProductCompareManagementInterface
         }
         try {
             if ($product && $this->compareAvailability->isAvailableForCompare($product)) {
-                $this->compareItem->setCustomerId($customerId);
-                $this->compareItem->addProductData($productId);
-                $this->compareItem->save();
-                $this->compareItem->unsetData();
-
-                $viewData = [
-                    'product_id' => $productId,
-                    'customer_id' => $customerId
-                ];
-                $this->compareFactory->create()->setData($viewData)->save();
+                $item = $this->_compareItemFactory->create();
+                $item->setCustomerId($customerId);
+                $item->loadByProduct($product);
+                if (!$item->getId() && $this->productExists($product)) {
+                    $item->addProductData($product);
+                    $item->save();
+                }
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
-            return false;
+            $response[] = [
+                "message" => $e->getMessage(),
+                "status" => false
+            ];
+            return $response;
         }
         $message = __('Item added to compare.');
         $status = true;
@@ -295,12 +263,30 @@ class ProductCompareManagement implements ProductCompareManagementInterface
         } catch (Exception $e) {
             return false;
         }
-        $message = __(' Item has been removed from wishlist .');
+        $message = __(' Item has been removed from Add to compare list .');
         $status = true;
         $response[] = [
             "message" => $message,
             "status" => $status
         ];
         return $response;
+    }
+    /**
+     * Check product exists.
+     *
+     * @param int|\Magento\Catalog\Model\Product $product
+     * @return bool
+     */
+    private function productExists($product)
+    {
+        if ($product instanceof \Magento\Catalog\Model\Product && $product->getId()) {
+            return true;
+        }
+        try {
+            $product = $this->productRepository->getById((int)$product);
+            return !empty($product->getId());
+        } catch (NoSuchEntityException $e) {
+            return false;
+        }
     }
 }

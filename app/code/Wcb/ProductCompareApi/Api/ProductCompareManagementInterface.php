@@ -39,9 +39,9 @@ interface ProductCompareManagementInterface
      * Return Delete ProductCompare status.
      *
      * @param int $customerId
-     * @param int $wishlistId
+     * @param int $compareItemId
      * @return array
      *
      */
-    public function deleteProductCompareForCustomer($customerId, $compareListItemId);
+    public function deleteProductCompareForCustomer($customerId, $compareItemId);
 }
