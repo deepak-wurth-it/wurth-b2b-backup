@@ -25,11 +25,11 @@ $extErrorText = __(
             }}'>
 
             <div class="upload-container">
-            <div class="file-upload"><?= $block->escapeHtml(__('Choose File')) ?></div>
-            <input id="customer_sku_csv" type="file" data-reset="true" class="action-upload" name="<?= $block->escapeHtmlAttr($fieldNameFile) ?>">
+            <!--<div class="file-upload"><?= $block->escapeHtml(__('Choose File')) ?></div> -->
+            <input id="customer_sku_csv" type="file" data-reset="true" class="action-uploadK" name="<?= $block->escapeHtmlAttr($fieldNameFile) ?>">
         </div>
 
-        <div class="note">
+        <div class="notes">
             <p>
                 <?= $block->escapeHtml(__('File must be in .csv format and include "SKU" and "QTY" columns')); ?>
                 <?= $block->getChildHtml('quick_order_download_template_link') ?>

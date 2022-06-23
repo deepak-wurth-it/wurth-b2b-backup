@@ -14,6 +14,12 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
 class Data extends AbstractHelper
 {
+    const WEB_DELIVERY_CODE = "SW01";
+    const APP_DELIVERY_CODE = "SW04";
+    const WEB_CLICK_COLLECT_CODE = "SW06";
+    const APP_CLICK_COLLECT_CODE = "SW07";
+    const WEB_DELIVERY_LOCATION_CODE = "100";
+
     protected $productLoader;
 
     protected $connection;
@@ -243,6 +249,7 @@ class Data extends AbstractHelper
             $returnData['price'] = $price;
             $returnData['discount'] = $discount;
             $returnData['discount_price'] = $discountPrice;
+            $returnData['discount_amount'] = $price - $discountPrice;
         }
         return $returnData;
     }
