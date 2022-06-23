@@ -4,27 +4,38 @@ namespace Wcb\ProductCompareApi\Model;
 
 use Exception;
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Customer\Model\CustomerFactory;
+use Magento\Catalog\CustomerData\CompareProducts;
+use Magento\Catalog\Helper\Output;
+use Magento\Catalog\Helper\Product\Compare;
 
-use Wcb\ProductCompareApi\Api\ProductCompareManagementInterface;
-use Magento\Catalog\Model\Product\Compare\ItemFactory;
+use Magento\Catalog\Model\Config as CatalogConfig;
+use Magento\Catalog\Model\Product\Compare\Item;
+use Magento\Catalog\Model\Product\Compare\ListCompare;
+use Magento\Catalog\Model\Product\Url;
+use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Catalog\Model\ResourceModel\Product\Compare\Item\CollectionFactory;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\ViewModel\Product\Checker\AddToCompareAvailability;
-use Magento\Framework\ObjectManagerInterface;
-use Magento\Catalog\Model\Product\Compare\ListCompare;
 
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Model\CustomerFactory;
+use Magento\Framework\ObjectManagerInterface;
 use Magento\Reports\Model\Product\Index\ComparedFactory;
-use Magento\Catalog\Model\Product\Compare\Item;
-use Magento\Catalog\Helper\Product\Compare;
+use Magento\Store\Model\StoreManagerInterface;
+use Wcb\ProductCompareApi\Api\ProductCompareManagementInterface;
+
 /**
  * Defines the implementaiton class of the \Wcb\ProductCompareApi\Api\ProductCompareManagementInterface
  */
 class ProductCompareManagement implements ProductCompareManagementInterface
 {
+
+    /**
+     * Product Compare Items Collection
+     *
+     * @var Collection
+     */
+    protected $_itemCollection;
 
     /**
      * @var ProductRepository
@@ -77,10 +88,25 @@ class ProductCompareManagement implements ProductCompareManagementInterface
      */
     private $collectionFactory;
     /**
-     * @var \Magento\Catalog\CustomerData\CompareProducts
+     * @var CompareProducts
      */
     private $compareProducts;
-
+    /**
+     * @var Visibility
+     */
+    private $_catalogProductVisibility;
+    /**
+     * @var Url
+     */
+    private $productUrl;
+    /**
+     * @var Output
+     */
+    private $outputHelper;
+    /**
+     * @var CatalogConfig
+     */
+    private $catalogConfig;
 
     public function __construct(
         StoreManagerInterface $storeManager,
@@ -93,7 +119,12 @@ class ProductCompareManagement implements ProductCompareManagementInterface
         ComparedFactory $compareFactory,
         Item $compareItem,
         CollectionFactory $collectionFactory,
-        Compare $compareHelper
+        Compare $compareHelper,
+        CompareProducts $compareProducts,
+        Visibility $catalogProductVisibility,
+        Url $productUrl,
+        Output $outputHelper,
+        CatalogConfig $catalogConfig
     ) {
         $this->_productRepository = $productRepository;
         $this->customerRepository = $customerRepository;
@@ -106,6 +137,11 @@ class ProductCompareManagement implements ProductCompareManagementInterface
         $this->compareItem = $compareItem;
         $this->collectionFactory = $collectionFactory;
         $this->compareHelper = $compareHelper;
+        $this->compareProducts = $compareProducts;
+        $this->_catalogProductVisibility = $catalogProductVisibility;
+        $this->productUrl = $productUrl;
+        $this->outputHelper = $outputHelper;
+        $this->catalogConfig = $catalogConfig;
     }
 
     /**
@@ -115,30 +151,54 @@ class ProductCompareManagement implements ProductCompareManagementInterface
      */
     public function getProductCompareForCustomer($customerId)
     {
-        $customerIds = [];
-        return json_encode($this->compareProducts->getSectionData());
-        exit;
-         if (empty($customerId) || !isset($customerId) || $customerId == "") {
-             $message = __('Id required');
-             $status = false;
-             $response[] = [
-                 "message" => $message,
-                 "status" => $status
-             ];
-             return $response;
-         } else {
-             $wishlistData = [];
-             return $wishlistData;
-         }
+        if (empty($customerId) || !isset($customerId) || $customerId == "") {
+            $message = __('Id required');
+            $status = false;
+            $response[] = [
+                "message" => $message,
+                "status" => $status
+            ];
+            return $response;
+        } else {
+            $compareData = [];
+            if (!$this->_itemCollection) {
+                $this->compareHelper->setAllowUsedFlat(false);
+                // cannot be placed in constructor because of the cyclic dependency which cannot be fixed with proxy class
+                // collection uses this helper in constructor when calling isEnabledFlat() method
+                $this->_itemCollection = $this->collectionFactory->create();
+                $this->_itemCollection->useProductItem()->setStoreId($this->_storeManager->getStore()->getId());
+
+                $this->_itemCollection->setCustomerId($customerId);
+               // $this->_itemCollection->setVisibility($this->_catalogProductVisibility->getVisibleInSiteIds());
+                /* Price data is added to consider item stock status using price index */
+                //$this->_itemCollection->addPriceData();
+
+                $this->_itemCollection->addAttributeToSelect(
+                    $this->catalogConfig->getProductAttributes()
+                )->loadComparableAttributes()->addMinimalPrice()->addTaxPercents()->setVisibility(
+                    $this->_catalogProductVisibility->getVisibleInSiteIds()
+                );
+                /* update compare items count */
+                //$this->_catalogSession->setCatalogCompareItemsCount(count($this->_itemCollection));
+            }
+
+            foreach ($this->_itemCollection as $item) {
+                $items[] = $item->getData();
+            }
+            $compareData[] = [
+                'count' => count($this->_itemCollection),
+                'items' => $items,
+                'status' => true
+            ];
+
+            return $compareData;
+        }
     }
 
-
     /**
-     * Add wishlist item for the customer
      * @param int $customerId
-     * @param int $productIdId
+     * @param int $productId
      * @return array|bool
-     *
      */
     public function addProductCompareForCustomer($customerId, $productId)
     {
@@ -171,7 +231,6 @@ class ProductCompareManagement implements ProductCompareManagementInterface
                 ];
                 $this->compareFactory->create()->setData($viewData)->save();
             }
-
         } catch (Exception $e) {
             echo $e->getMessage();
             return false;
@@ -187,92 +246,55 @@ class ProductCompareManagement implements ProductCompareManagementInterface
 
     /**
      * @param int $customerId
-     * @return array|void
+     * @return array|string
      */
     public function clearProductCompareForCustomer($customerId)
     {
-        $collection = $this->collectionFactory->create();
-        $collection->setCustomerId($customerId);
-        $collection->clear();
-        $this->compareHelper->calculate();
-        return "success";
+        try {
+            $collection = $this->collectionFactory->create();
+            $collection->setCustomerId($customerId);
+            $collection->clear();
+            $this->compareHelper->calculate();
+            return "success";
+        } catch (Exception $e) {
+            return flase;
+        }
     }
 
-
     /**
-     * Delete wishlist item for customer
      * @param int $customerId
-     * @param int $productIdId
-     * @return array
-     *
+     * @param int $compareItemId
+     * @return array|bool
      */
-    public function deleteProductCompareForCustomer($customerId, $compareListId)
+    public function deleteProductCompareForCustomer($customerId, $compareItemId)
     {
         $message = null;
         $status = null;
-        if ($compareListId == null) {
-
+        if ($compareItemId == null || $compareItemId == '') {
+            $message = __('Invalid Compare product item, Please select a valid item');
+            $status = false;
+            $response[] = [
+                "message" => $message,
+                "status" => $status
+            ];
+            return $response;
         }
 
-
-
-//        if ($wishlistItemId == null) {
-//            $message = __('Invalid wishlist item, Please select a valid item');
-//            $status = false;
-//            $response[] = [
-//                "message" => $message,
-//                "status" => $status
-//            ];
-//            return $response;
-//        }
-//        $item = $this->_itemFactory->create()->load($wishlistItemId);
-//        if (!$item->getId()) {
-//            $message = __('The requested Wish List Item doesn\'t exist .');
-//            $status = false;
-//
-//            $response[] = [
-//                "message" => $message,
-//                "status" => $status
-//            ];
-//            return $response;
-//        }
-//        $wishlistId = $item->getWishlistId();
-//        $wishlist = $this->_wishlistFactory->create();
-//
-//        if ($wishlistId) {
-//            $wishlist->load($wishlistId);
-//        } elseif ($customerId) {
-//            $wishlist->loadByCustomerId($customerId, true);
-//        }
-//        if (!$wishlist) {
-//            $message = __('The requested Wish List Item doesn\'t exist .');
-//            $status = false;
-//            $response[] = [
-//                "message" => $message,
-//                "status" => $status
-//            ];
-//            return $response;
-//        }
-//        //if (!$wishlist->getId() || $wishlist->getCustomerId() != $customerId) {
-//        /**
-//         * Remove customer condition to delete wishlist item if the customer is valid not only who have added to the product in the wishlist.
-//         */
-//        if (!$wishlist->getId()) {
-//            $message = __('The requested Wish List Item doesn\'t exist .');
-//            $status = false;
-//            $response[] = [
-//                "message" => $message,
-//                "status" => $status
-//            ];
-//            return $response;
-//        }
-//        try {
-//            $item->delete();
-//            $wishlist->save();
-//        } catch (Exception $e) {
-//            return false;
-//        }
-
+        $compare = $this->compareItem->load($compareItemId);
+        if (!$compare->getCatalogCompareItemId() && $compare->getCustomerId != $customerId) {
+            $message = __('The requested Compare List Item doesn\'t exist .');
+            $status = false;
+            $response[] = [
+                "message" => $message,
+                "status" => $status
+            ];
+            return $response;
+        }
+        try {
+            $compare->delete();
+        } catch (Exception $e) {
+            return false;
+        }
         $message = __(' Item has been removed from wishlist .');
         $status = true;
         $response[] = [

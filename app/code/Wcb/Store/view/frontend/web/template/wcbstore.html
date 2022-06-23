@@ -7,18 +7,18 @@
                 <span data-bind="i18n: 'Select a delivery method'"></span>
             </label>
    </div>
-   <div class="select-delivery">
+   <div class="select-delivery no-display">
     <label for="is_subscribed">
     <input type="checkbox" data-bind="checked: addStore , click: storeAction" name="is_subscribed" title="Click and Collect?" class="checkbox">
            <span class="checkmark"> </span>
         <span data-bind="i18n: 'Click and Collect?'"></span>
     </label>
      <!-- main container store -->
-  <div class ="boxgroup"  data-bind="visible: EnableDisableStore"> 
+  <div class ="boxgroup"  data-bind="visible: EnableDisableStore">
 
      <!-- Container 1-->
    <div class="click-collect">
-    <span class="textbox">       
+    <span class="textbox">
     <select class="select select-stores" id="wcb_stores" name="stores" data-bind="
         options: storeOption,
         optionsText: 'name',
@@ -30,19 +30,19 @@
      </span>
      <p class="text-content" data-bind="i18n: 'It is possible to pick up goods that are available on site.'"></p>
    </div>
-            
+
    <!-- Container 2-->
-   <div class="card-body">                
+   <div class="card-body">
                 <div class="card-img">
-                <img class="card-img-top" data-bind="attr:{src: image}" />                   
+                <img class="card-img-top" data-bind="attr:{src: image}" />
                 </div>
                 <div class="card-content">
                  <div class="title" data-bind="text:store_name"></div>
                    <div class="store-address">
-                    <span data-bind="text:address"></span> 
-                    <span class="location"> <a  data-bind="attr: {href: map_url}" target="_blank"><span data-bind="i18n: 'Location'"></span></a></span> 
+                    <span data-bind="text:address"></span>
+                    <span class="location"> <a  data-bind="attr: {href: map_url}" target="_blank"><span data-bind="i18n: 'Location'"></span></a></span>
                 </div>
-                   
+
                     <div class="info-contaner">
                         <!-- ko if: phone -->
                        <p> <span class="icon-com-phone-a"></span> <span data-bind="i18n: 'Phone: '"> </span><span class="iphone-outline" data-bind="text:phone"></span></p>
@@ -51,11 +51,11 @@
                       <p> <span class="icon-wuerth-e-mail"></span> <span data-bind="i18n: 'Email: '"> </span><span class="email-outline" data-bind="text:email"></span></span></p>
                       <!-- /ko -->
                     </div>
-        </div>              
+        </div>
   </div>
 </div>
-   
+
   </div>
-  
+
 
 <!-- /ko -->

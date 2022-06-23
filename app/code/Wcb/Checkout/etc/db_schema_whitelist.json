@@ -1,0 +1,16 @@
+{
+    "quote_item": {
+        "column": {
+            "wcb_price": true,
+            "wcb_after_discount_price": true,
+            "wcb_discount_price": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "wcb_price": true,
+            "wcb_after_discount_price": true,
+            "wcb_discount_price": true
+        }
+    }
+}
