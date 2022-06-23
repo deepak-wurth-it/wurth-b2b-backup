@@ -2601,6 +2601,18 @@ table.ReqListTable
 
 // Quick order on Cart page start 
 	.checkout-cart-index {
+		img.product-image-photo {
+			transition: transform .2s;
+		}
+		img.product-image-photo:hover {
+			transform: scale(1.5);
+		}
+		table.error-import-product {
+			text-align: left;
+		}
+		table.error-import-product tr th {
+			border: 1px solid rgba(0, 0, 0, 12%);
+		}
 		div#cart-item-form-section {
 			width: 100%;
 		}
@@ -2674,7 +2686,7 @@ table.ReqListTable
 			margin: 5px 5px 0px 5px;
 		}
 		aside.modal-popup.open-file {
-			width: 50%;
+			width: 55%;
 			margin: auto;
 		}
 		.open-file header.modal-header {
