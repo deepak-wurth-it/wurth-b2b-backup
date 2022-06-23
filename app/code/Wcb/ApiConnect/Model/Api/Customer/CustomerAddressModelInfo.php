@@ -8,6 +8,8 @@ use Magento\Customer\Model\Address\CustomerAddressDataFormatter;
 use Magento\Customer\Model\Address\CustomerAddressDataProvider;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Wcb\ApiConnect\Api\Customer\CustomerAddressInfo;
 use Wcb\Store\Model\StoreFactory;
 use Magento\Company\Api\CompanyRepositoryInterface;
@@ -73,20 +75,31 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
 
     public function getCustomerInfo()
     {
-        // if (isset($result['customerData']['addresses'])) {
+        //if (isset($result['customerData']['addresses'])) {
          $currentCustomer = $this->getCurrentCustomer();// add your custom here;
-        $newAddress = [];
-        $billingAddressId = $currentCustomer->getDefaultBilling();
-        if ($currentCustomer->getCustomAttribute('customer_code')) {
-            $customerCode = $currentCustomer->getCustomAttribute('customer_code')->getValue();
-            $sameCustomerCodeCollection = $this->getCustomerByCustomerCode($customerCode);
-            foreach ($sameCustomerCodeCollection as $_customer) {
-                $_customer = $this->customerRepository->getById($_customer->getId());
-                $newAddress = array_merge($newAddress, $this->getCustomerAddress($_customer));
-            }
-        }
+        //$newAddress = [];
+
+        //get Customer address using main user id only
+        $company = $this->getCompany($currentCustomer);
+        $customer = $this->customerRepository->getById($company->getSuperUserId());
+        $newAddress = $this->getCustomerAddress($customer);
+        $billingAddressId = $customer->getDefaultBilling();
+
         $newAddress = $this->sortAddressByAddressCode($newAddress);
         $newAddress = $this->changeDefaultShippingAddress($newAddress, $billingAddressId);
+
+
+//        $billingAddressId = $currentCustomer->getDefaultBilling();
+//        if ($currentCustomer->getCustomAttribute('customer_code')) {
+//            $customerCode = $currentCustomer->getCustomAttribute('customer_code')->getValue();
+//            $sameCustomerCodeCollection = $this->getCustomerByCustomerCode($customerCode);
+//            foreach ($sameCustomerCodeCollection as $_customer) {
+//                $_customer = $this->customerRepository->getById($_customer->getId());
+//                $newAddress = array_merge($newAddress, $this->getCustomerAddress($_customer));
+//            }
+//        }
+//        $newAddress = $this->sortAddressByAddressCode($newAddress);
+//        $newAddress = $this->changeDefaultShippingAddress($newAddress, $billingAddressId);
         //$isClickAndCollect = $this->checkClickAndCollect();
 
         //Set store pickup data
@@ -105,7 +118,6 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
 
     public function getCurrentCustomer()
     {
-        //$this->compositeUserContext->getUserId();
         return $this->customerRepository->getById($this->compositeUserContext->getUserId());
     }
 
@@ -185,17 +197,59 @@ class CustomerAddressModelInfo implements CustomerAddressInfo
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
+//    public function getDefaultBillAddress_old()
+//    {
+//        $currentCustomer = $this->getCurrentCustomer();
+//        if ($currentCustomer->getId()) {
+//            $customer = $this->customerRepository->getById($currentCustomer->getId());
+//            $billingAddressId = $customer->getDefaultBilling();
+//
+//            try {
+//                $billingAddress = $this->addressRepositoryInterface->getById($billingAddressId);
+//
+//                $company = $this->getCompany($customer);
+//                $customerCode = '';
+//                $companyName = '';
+//                if ($company) {
+//                    $companyName = $company->getCompanyName();
+//                }
+//                if ($customer->getCustomAttribute("customer_code")) {
+//                    $customerCode = $customer->getCustomAttribute("customer_code")->getValue();
+//                }
+//
+//                $companyName .= " (" . $customerCode . ")";
+//                $addressData = [];
+//                $addressData['name'] = $companyName;
+//                $addressData['city'] = $billingAddress->getCity();
+//                $addressData['street'] = $billingAddress->getStreet();
+//                $addressData['postcode'] = $billingAddress->getPostCode();
+//                $addressData['id'] = $billingAddressId;
+//                return $addressData;
+//            } catch (Exception $e) {
+//                return false;
+//            }
+//        }
+//        return false;
+//    }
+
+
+    /**
+     * @return array|bool
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
+     */
     public function getDefaultBillAddress()
     {
         $currentCustomer = $this->getCurrentCustomer();
+        //$customerSession = $this->customerSession->create();
         if ($currentCustomer->getId()) {
-            $customer = $this->customerRepository->getById($currentCustomer->getId());
-            $billingAddressId = $customer->getDefaultBilling();
-
             try {
-                $billingAddress = $this->addressRepositoryInterface->getById($billingAddressId);
-
+                $customer = $this->customerRepository->getById($currentCustomer->getId());
                 $company = $this->getCompany($customer);
+                // get Super user using current user
+                $customer = $this->customerRepository->getById($company->getSuperUserId());
+                $billingAddressId = $customer->getDefaultBilling();
+                $billingAddress = $this->addressRepositoryInterface->getById($billingAddressId);
                 $customerCode = '';
                 $companyName = '';
                 if ($company) {
