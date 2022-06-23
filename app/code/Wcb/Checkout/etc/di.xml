@@ -12,5 +12,8 @@
     <type name="Magento\Checkout\CustomerData\Cart">
         <plugin name="add_customer_loggedin" type="Wcb\Checkout\Plugin\CustomerData" sortOrder="1"/>
     </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="quote_to_order_item" type="Wcb\Checkout\Plugin\Quote\QuoteToOrderItem"/>
+    </type>
     <preference for="Magento\Quote\Model\QuoteAddressValidator" type="Wcb\Checkout\Model\QuoteAddressValidator" />
 </config>
