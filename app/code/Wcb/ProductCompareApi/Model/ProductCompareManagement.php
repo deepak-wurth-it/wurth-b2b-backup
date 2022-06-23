@@ -83,6 +83,21 @@ class ProductCompareManagement implements ProductCompareManagementInterface
      */
     private $_compareItemFactory;
 
+    /**
+     * ProductCompareManagement constructor.
+     * @param StoreManagerInterface $storeManager
+     * @param ProductRepositoryInterface $productRepository
+     * @param ListCompare $catalogProductCompareList
+     * @param ObjectManagerInterface $_objectManager
+     * @param AddToCompareAvailability|null $compareAvailability
+     * @param ComparedFactory $compareFactory
+     * @param Item $compareItem
+     * @param CollectionFactory $collectionFactory
+     * @param Compare $compareHelper
+     * @param Visibility $catalogProductVisibility
+     * @param CatalogConfig $catalogConfig
+     * @param ItemFactory $compareItemFactory
+     */
     public function __construct(
         StoreManagerInterface $storeManager,
         ProductRepositoryInterface $productRepository,
