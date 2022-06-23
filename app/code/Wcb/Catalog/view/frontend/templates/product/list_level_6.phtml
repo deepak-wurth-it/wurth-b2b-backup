@@ -130,6 +130,12 @@ $product=false;
                     <span class="attrow pieces">2 PiECES</span>
                     <span class="attrow ah">2 Ah</span>
                     <span class="attrow vdc">18 V / DC</span>
+                    <?php if ($product->isSaleable()):?>
+             <?php $postParams = $block->getAddToCartPostParams($product); ?>
+            <form data-role="tocart-form"
+                  data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
+                  action="<?= $escaper->escapeUrl($postParams['action']) ?>"
+                  method="post" class="wcb-action-form">
                     <div class="boxcontaner">
          <span class="attrow qtywrapp">
             <div class="qty-field" >
@@ -173,12 +179,7 @@ $product=false;
       </span>
                     <span class="attrow cart-color">
          <div class="actions-primary">
-            <?php if ($product->isSaleable()):?>
-             <?php $postParams = $block->getAddToCartPostParams($product); ?>
-            <form data-role="tocart-form"
-                  data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
-                  action="<?= $escaper->escapeUrl($postParams['action']) ?>"
-                  method="post">
+      
                <input type="hidden"
                       name="product"
                       value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
