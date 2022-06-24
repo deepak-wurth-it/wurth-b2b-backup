@@ -2073,7 +2073,32 @@ label.sorter-label {
 				border-bottom-right-radius: 30px;
 				text-align: center;
 			}
+			.wcb-no-record {
+				color: #CC0000;
+				padding: 10px;
+			}
+			.wcb-first {
+				order: 2;
+			}
+			.wcb-second{
+				order:1;
+			}
 	    }
+
+		.map-responsive{
+			overflow:hidden;		
+			padding-bottom:56.25%;		
+			position:relative;		
+			height:0;		
+		}
+		
+		.map-responsive iframe{		
+			left:0;		
+			top:0;		
+			height:100%;		
+			width:100%;		
+			position:absolute;		
+		}
 		
 		.wcb-cms-location{
 			display: inline-block;
@@ -2119,6 +2144,7 @@ label.sorter-label {
 			padding: 5px;
 			margin-top: 10px;
 		}
+		
 		
 		// Where do we meet page end
 		// about us page start
@@ -10565,6 +10591,15 @@ print {
 			padding-right: 16px;
 		}
 	}
+	.wcb-we-meet{
+		.wcb-first {
+			order: 1;
+			margin-top: 30px;
+		}
+		.wcb-second{
+			order:2;
+		}
+   }  
 }
 
 @media only screen and (max-width: 767px) {
@@ -10676,6 +10711,7 @@ print {
 	.page-layout-2columns-left .column.main {
 		width: 100%;
 	}
+   
 }
 
 //----------------------------------------------------------
@@ -13031,6 +13067,76 @@ margin-top: 10px;
 
 }
 // IOS  Overview Page end by Amit
+// Open Tenders cms Page start by Amit
+
+.open-tenders {	
+	
+	table.table-content {
+		background: @general_bg_color;
+		width: 100%;
+	}
+	table.table-content td {
+		width: 50%;
+		text-align: left;		
+		border: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.text-primary {
+		background: #FFFFFF;
+		border: none;
+		color: #0093DD;
+	}
+	
+	.get-invoice {
+		color: #009EE0;
+	}
+	.attribute.last-order::before {
+		content: attr(data-name);
+		font-family: 'wuerthbold';
+        font-size: 14px;
+		color: rgba(0, 0, 0, 0.87);
+	}
+	.attribute.last-order {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: #0093DD;
+		cursor: pointer;
+	}
+	
+	
+	.item.item-container {
+		background: @general_bg_color;
+		list-style:none;
+	} 
+
+	.item {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+		border-radius: 2px;
+		padding: 10px;
+	}
+	.collection-container {
+		display: grid;
+		grid-template-columns: 1fr;
+		padding: 0;
+	}
+	.collection-container>li:first-child {
+		display: none;
+	}
+
+	.attribute::before {
+		content: attr(data-name);
+		font-family: 'wuerthbold';
+		font-size: 14px;
+	}
+
+	.attribute {
+		display: grid;
+		grid-template-columns: minmax(9em, 55%) 1fr;
+		padding-bottom: 10px;
+	}
+	
+
+}
+// Open Tenders CMS Page end by Amit
 
 // Undelivered lines page end by Amit
 .undelivered-lines {	
@@ -14485,33 +14591,104 @@ margin-top: 10px;
 	  padding: 2px;
 	  text-overflow: ellipsis;
   }
-.attribute.last-order {
-	font-family: 'wuerthbook';
-	font-size: 16px;
-	color: @general_link_hover_color_cyan;
-	cursor: pointer;
-}
-  ol.collection.collection-container {
-	padding: 0;
-	margin-top: 20px;
-}
-
-  .collection-container>.item-container:first-child {
-	  background-color: #ececec;
-	  font-family: 'wuerthbold';
-	  font-size: 14px;
-	  color: rgba(0, 0, 0, 0.87);
-  }	 
-
-  .collection-container>.item-container:first-child .attribute {
-	  display: flex;
-	  align-items: center;
-	  text-overflow: initial;
-	  overflow: auto;
-	  white-space: normal;
-  }
+	.attribute.last-order {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: @general_link_hover_color_cyan;
+		cursor: pointer;
 	}
+	ol.collection.collection-container {
+		padding: 0;
+		margin-top: 20px;
+	}
+
+	.collection-container>.item-container:first-child {
+		background-color: #ececec;
+		font-family: 'wuerthbold';
+		font-size: 14px;
+		color: rgba(0, 0, 0, 0.87);
+	}	 
+
+	.collection-container>.item-container:first-child .attribute {
+		display: flex;
+		align-items: center;
+		text-overflow: initial;
+		overflow: auto;
+		white-space: normal;
+	}
+}
 // IOS Overview page end by Amit
+// Open Tenders cms page start by Amit
+.open-tenders{	
+	
+	table.table-content, tr, td {
+		background: @general_bg_color;
+		border: 1px solid rgba(0, 0, 0, 8%);
+		width: 50%;
+	}
+	.financial-info {
+		font-family: 'wuerthbook';
+		font-size: 14px;
+		color: rgba(0, 0, 0, 0.87);
+		margin-top: 20px;
+	}
+	.item-container {
+		display: grid;
+		grid-template-columns: 20% 12% 15% 15% 12% 14% 10%;;
+		background: @general_bg_color;
+		margin: 0px;
+		padding: 10px 5px;
+		font-family: 'wuerthbook';
+		border-bottom: 1px solid #DEDEED;
+	}
+	.toolbar-amount {
+		padding: 5px 0 0;
+		display: block;
+	}
+	.text-primary {
+		background: #FFFFFF;
+		border: none;
+		color: #0093DD;
+	}
+		
+	.get-invoice {
+		color: #009EE0;
+	}
+	.row.filter-contaner {
+		margin-top: 20px;
+	}
+
+  .attribute {        
+	  padding: 2px;
+	  text-overflow: ellipsis;
+  }
+	.attribute.last-order {
+		font-family: 'wuerthbook';
+		font-size: 16px;
+		color: @general_link_hover_color_cyan;
+		cursor: pointer;
+	}
+	ol.collection.collection-container {
+		padding: 0;
+		margin-top: 20px;
+	}
+
+	.collection-container>.item-container:first-child {
+		background-color: #ececec;
+		font-family: 'wuerthbold';
+		font-size: 14px;
+		color: rgba(0, 0, 0, 0.87);
+	}	 
+
+	.collection-container>.item-container:first-child .attribute {
+		display: flex;
+		align-items: center;
+		text-overflow: initial;
+		overflow: auto;
+		white-space: normal;
+	}
+	}
+// Open Tenders cms page end by Amit
 // Undelivered Lines page start by Amit
    .undelivered-lines{	
 	.sales-title {
