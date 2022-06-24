@@ -171,6 +171,9 @@ class Data extends AbstractHelper
         $returnData = [];
 
         if (isset($stockData[$productCode])) {
+            $returnData['AvailableQuantity'] = isset($stockData[$productCode]['AvailableQuantity'])
+                ? $stockData[$productCode]['AvailableQuantity']
+                : 0;
             if (isset($stockData[$productCode]['AvailableQuantity'])
                 && isset($stockData[$productCode]['AvailableonDate'])) {
                 $availabelQty = $stockData[$productCode]['AvailableQuantity'];
