@@ -52,14 +52,14 @@ $product=false;
 <div class="row levelFive">
     <div class="col-sm-6">
         <div class="thumbnail sliderThubnail">
-        <?php
-        if ($_imgUrl = $currentCat->getImageUrl()){ ?>
-            <img src="<?=$_imgUrl?>" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236">
-        <?php }else{ ?>
-            <img src="<?=$block->getPlaceHolderImageUrl()?>" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236">
-        <?php } ?>
+            <?php
+            if ($_imgUrl = $currentCat->getImageUrl()){ ?>
+                <img src="<?=$_imgUrl?>" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236">
+            <?php }else{ ?>
+                <img src="<?=$block->getPlaceHolderImageUrl()?>" class="pdp-thumbnail" alt="Cinque Terre" width="304" height="236">
+            <?php } ?>
 
-            </div>
+        </div>
     </div>
     <div class="col-sm-6">
         <div class="static-content">
@@ -111,8 +111,8 @@ $product=false;
             <span class="attrow">Price PU</span>
         </div>
         <?php if($level5Collection->getSize() > 0 ){ ?>
-    <?php //$level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
-        <div id="element" data-mage-init='{
+            <?php //$level5Collection =  $currentCat->getProductCollection()->addAttributeToSelect('*'); ?>
+            <div id="element" data-mage-init='{
    "accordion":{
    "active": false,
    "collapsible": true,
@@ -125,18 +125,18 @@ $product=false;
                     <?php $pid[ $product->getSku()][] = '1'; ?>
                 <?php } ?>
                 <div class="accordion level-six" >
-                    <span class="attrow itemno"><a href="<?php echo $product->getProductUrl(); ?>" ><?php echo $product->getProductCode(); ?></a></span>
-                    <span class="attrow itemname"><?php echo $product->getName(); ?></span>
-                    <span class="attrow pieces">2 PiECES</span>
-                    <span class="attrow ah">2 Ah</span>
-                    <span class="attrow vdc">18 V / DC</span>
-                    <?php if ($product->isSaleable()):?>
-             <?php $postParams = $block->getAddToCartPostParams($product); ?>
-            <form data-role="tocart-form"
-                  data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
-                  action="<?= $escaper->escapeUrl($postParams['action']) ?>"
-                  method="post" class="wcb-action-form">
-                    <div class="boxcontaner">
+                <span class="attrow itemno"><a href="<?php echo $product->getProductUrl(); ?>" ><?php echo $product->getProductCode(); ?></a></span>
+                <span class="attrow itemname"><?php echo $product->getName(); ?></span>
+                <span class="attrow pieces">2 PiECES</span>
+                <span class="attrow ah">2 Ah</span>
+                <span class="attrow vdc">18 V / DC</span>
+                <?php if ($product->isSaleable()):?>
+                    <?php $postParams = $block->getAddToCartPostParams($product); ?>
+                    <form data-role="tocart-form"
+                          data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
+                          action="<?= $escaper->escapeUrl($postParams['action']) ?>"
+                          method="post" class="wcb-action-form">
+                        <div class="boxcontaner">
          <span class="attrow qtywrapp">
             <div class="qty-field" >
                <div id="79-dec" class="decreaseQty icon-interface-minus quantity-minus"></div>
@@ -144,7 +144,7 @@ $product=false;
                <div id="79-upt" class="increaseQty icon-interface-plus quantity-plus"></div>
             </div>
          </span>
-                        <span class="attrow pc">
+                            <span class="attrow pc">
             <div class="veCount">
                <select>
                   <option> 100 PC </option>
@@ -157,8 +157,8 @@ $product=false;
                  <div class="itemboxwraper logdIn top"><span class="itembox logdIn top"></span><span class="deliveryday logdIn top">1</span> </div>
             </span>
          </span>
-                    </div>
-                    <span class="attrow loginprice">
+                        </div>
+                        <span class="attrow loginprice">
 
             <span class="wcb-logged">
          <?php $ProductCode = str_replace(' ', '', $ProductCode); ?>
@@ -177,19 +177,9 @@ $product=false;
          <div class="itemboxwrapp"><span class="redbox"></span><span class="redvan"></span><span class="deliveryday">10-14</span> </div>
          </span> <span class="wcb-not-logged"> Please log in to see prices. </span>
       </span>
-                    <span class="attrow cart-color">
+                        <span class="attrow cart-color">
          <div class="actions-primary">
-            <?php if ($product->isSaleable()):?>
-             <?php $postParams = $block->getAddToCartPostParams($product); ?>
-            <form data-role="tocart-form"
-                  data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
-                  action="<?= $escaper->escapeUrl($postParams['action']) ?>"
-                  method="post">
-                <div class="qty-field" >
-               <div id="79-dec" class="decreaseQty icon-interface-minus quantity-minus"></div>
-               <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="qty-default input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
-               <div id="79-upt" class="increaseQty icon-interface-plus quantity-plus"></div>
-            </div>
+
                <input type="hidden"
                       name="product"
                       value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
@@ -204,10 +194,10 @@ $product=false;
                        class="action tocart primary carticon"
                        disabled>
                </button>
-            </form>
-         </div>
-         <?php endif;  ?>
-      </span>
+                    </form>
+                    </div>
+                <?php endif;  ?>
+                </span>
                 </div>
                 <div data-role="collapsible">
                     <div class="expendRow" data-role="trigger"></div>
@@ -277,11 +267,11 @@ $product=false;
                     <!-- tabs content end -->
                 </div>
             <?php } ?>
-            <?php } ?>
-        </div>
         <?php } ?>
-        <!-- End --->
-        <script type="text/x-magento-init">
+    </div>
+    <?php } ?>
+    <!-- End --->
+    <script type="text/x-magento-init">
    {
        ".levelFive": {
            "plpJsWidget": {
@@ -289,7 +279,7 @@ $product=false;
        }
    }
 </script>
-        <script type="text/x-magento-init">
+    <script type="text/x-magento-init">
    {
        "[data-role=tocart-form], .form.map.checkout": {
            "catalogAddToCart": {
@@ -299,17 +289,17 @@ $product=false;
        }
    }
 </script>
-        <?php if(!empty($pid)) {?>
-            <?php $pid_json = json_encode($pid) ?>
-            <script>
-                require(['plp'], function(pdp) {
-                    pdp.GetMultiProductPrice('<?php echo $pid_json ?>');
-                    pdp.GetMultiProductStock('<?php echo $pid_json ?>');
-                });
-            </script>
-        <?php } ?>
-        <?php } ?>
-        <script type="text/x-magento-init">
+    <?php if(!empty($pid)) {?>
+        <?php $pid_json = json_encode($pid) ?>
+        <script>
+            require(['plp'], function(pdp) {
+                pdp.GetMultiProductPrice('<?php echo $pid_json ?>');
+                pdp.GetMultiProductStock('<?php echo $pid_json ?>');
+            });
+        </script>
+    <?php } ?>
+    <?php } ?>
+    <script type="text/x-magento-init">
     {
         "*": {
             "Wcb_Catalog/js/qtyjs": {
