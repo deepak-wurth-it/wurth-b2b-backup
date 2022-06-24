@@ -10,5 +10,8 @@
     <event name="controller_action_predispatch_wishlist_index_cart">
         <observer name="custom_check_product_status_wishlist" instance="Wcb\Checkout\Observer\WishlistCheckProductCustomStatus"/>
     </event>
+    <event name="controller_action_predispatch_checkout_cart_index">
+        <observer name="change_product_price_page_reload" instance="Wcb\Checkout\Observer\ChangeProductPrice"/>
+    </event>
 </config>
 
