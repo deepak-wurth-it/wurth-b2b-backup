@@ -33,12 +33,12 @@ define([
                 if ($(this).hasClass('increaseQty')) {
                     qty = parseInt(currentQty) + parseInt(1);
                     inputElem.val(qty);
-                    self.updateQty(item_id, qty);
+                    self.updateQty(item_id, qty, inputElem);
                 } else {
                     if (currentQty > 1) {
                         qty = parseInt(currentQty) - parseInt(1);
                         inputElem.val(parseInt(currentQty) - parseInt(1));
-                        self.updateQty(item_id, qty);
+                        self.updateQty(item_id, qty, inputElem);
                     }
                 }
             });
@@ -50,7 +50,7 @@ define([
                 }
                 let item_id = $(this).attr("data-item-id");
                 if(qty && qty != "0" && item_id){
-                    self.updateQty(item_id, qty)
+                    self.updateQty(item_id, qty, $(this))
                 }
             });
 
@@ -70,7 +70,25 @@ define([
                 }
             });
         },
-        updateQty: function(item_id, qty) {
+        updateQty: function(item_id, qty, ele) {
+            // check replacement product display or not
+            if(ele.length > 0){
+                let wcbProductStatus = ele.attr("data-available-status");
+                if(wcbProductStatus == '2' || wcbProductStatus == '3'){
+                    let totalQty = ele.val() * ele.attr("data-minimum-qty");
+                    let availableQty = ele.attr("data-available-qty");
+                    let currentInputQty = ele.attr("data-item-qty");
+
+                    if(availableQty < totalQty){
+                        $(".replacement-product-msg-"+ item_id).show();
+                        $("#cart-" + item_id + "-qty").val(currentInputQty);
+                        return;
+                    }else{
+                        $(".replacement-product-msg-"+ item_id).hide();
+                    }
+                }
+            }
+
             let self = this;
             let url = urlBuilder.build("theme/cart/updateitem");
             $.ajax({
