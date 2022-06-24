@@ -16,9 +16,11 @@ class SalesOrderSyncToNavProcessor
 {
 
 	public $log;
+	const SHIPPING_DETAILS = 'ShippingDetails';
 	public function __construct(
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
 		\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+		\Magento\Framework\App\ResourceConnection $resourceConnection,
 		OrdersFactory $ordersFactory,
 		OrderItemsFactory $orderItemsFactory,
 		LoggerInterface $logger
@@ -29,6 +31,9 @@ class SalesOrderSyncToNavProcessor
 		$this->orderItemsFactory = $orderItemsFactory;
 		$this->orderCollectionFactory = $orderCollectionFactory;
 		$this->logger = $logger;
+		$this->_resourceConnection = $resourceConnection;
+		$this->connectionWurthNav = $this->_resourceConnection->getConnection('wurthnav');
+		$this->connectionDefault  = $this->_resourceConnection->getConnection();
 	}
 
 	public function install()
@@ -38,21 +43,22 @@ class SalesOrderSyncToNavProcessor
 		if ($orders->getSize() > 0 && $orders->count() > 0) {
 			foreach ($orders as $order) {
 				try {
-
 					$ordersNav = $this->ordersFactory->create();
 					$orderId = $order->getId();
 
 					$ordersNavExist = $this->loadByOrderId($ordersNav, $orderId);
-					if($ordersNavExist == "no_update"){
+
+					if ($ordersNavExist == "no_update") {
 						continue;
 					}
 
 					if ($ordersNavExist && $ordersNavExist != "no_update") {
 						$ordersNav = $ordersNavExist;
-						$this->log = 'Updated order Id  =>>' . $orderId . PHP_EOL;
+						$this->log .= 'Updated order Id  =>>' . $orderId . PHP_EOL;
 					} else {
-						$this->log = 'Imported order Id  =>>' . $orderId . PHP_EOL;
+						$this->log .= 'Imported order Id  =>>' . $orderId . PHP_EOL;
 					}
+
 
 					$method = $order->getPayment()->getMethodInstance();
 					$methodTitle = $method->getTitle();
@@ -74,13 +80,25 @@ class SalesOrderSyncToNavProcessor
 					$ordersNav->setData('CreatedDate', $order->getCreatedAt()); //Order Created Date
 					$ordersNav->setData('OrderStatus', $order->getOrderStatus()); //Order Status
 					$ordersNav->setData('PaymentType', $methodTitle); //Order Payment Method
+
+					//Other Field
+
+					$ordersNav->setData('ExternalId', $order->getExternalId()); //ERP Order Id
+					//$ordersNav->setData('order_sync_status_nav', $methodTitle); //Order Payment Method
+					$ordersNav->setData('DeliveryAddressCode', $order->getExternalId()); //it displays delivery address code Linkage with dboCustomerDeliveryAddress
+					$ordersNav->setData('CustomerOrderNo', $order->getCustomerOrderNo()); //User enters Internal order number during checkout
+					$ordersNav->setData('CostCenter', $order->getCostCenter()); //cost center
+					$ordersNav->setData('LocationCode', $order->getLocationCode()); //Order is placed for Delivery or Store Number
+
 					$ordersNav->setData('LastUpdate', $order->getUpdatedAt()); //Order Last Update
 					$ordersNav->setData('NeedsUpdate', '1'); // Needs Update
 					$ordersNav->setData('Synchronized', '1'); // Needs Update
 					$ordersNav->save(); // New Save
 
+
+
+					$this->SaveShippingAddress($order);
 					$this->SaveOrderItems($order);
-					
 				} catch (\Exception $e) {
 					$this->logger->info($e->getMessage());
 					echo $e->getMessage() . PHP_EOL;
@@ -91,6 +109,53 @@ class SalesOrderSyncToNavProcessor
 	}
 
 
+	public function SaveShippingAddress($order)
+	{
+		$data = "";
+		$row = $shippingAddress = $order->getShippingAddress()->getData();
+		if (count($shippingAddress)) {
+			try {
+
+				$data = [
+					//'ShippingDetailsID' =>  $order->getShippingAddress()->getId(),
+					'OrderID' => $order->getId(),
+					'Name' =>  $row['firstname'] . ' ' . $row['lastname'],
+					'Street' => $row['street'],
+					'Country' => $row['city'],
+					'PostalCode' => $row['postcode'],
+					'City' => $row['city'],
+					'Phone' => $row['telephone'],
+					'IsWholesale' => '1',
+					'FullDelivery' => $order->getDeliveryOrder()
+				];
+
+
+
+				$selectExist = $this->connectionWurthNav->select()
+					->from(
+						['shp' => self::SHIPPING_DETAILS]
+					)
+					->where('OrderID = ?', $order->getId());
+
+				$dataExist = $this->connectionWurthNav->fetchOne($selectExist);
+
+				if (empty($dataExist)) {
+					$this->connectionWurthNav->insert(self::SHIPPING_DETAILS, $data);
+					$this->log .= "Shipping Address Has Been Added for Order Id =>>" . $order->getId() . PHP_EOL;
+				}
+				if (!empty($dataExist)) {
+					$where = ['OrderID = ?' => (int)$dataExist];
+
+					$this->connectionWurthNav->update(self::SHIPPING_DETAILS, $data, $where);
+					$this->log .= "Shipping Address Has Been Added for Order Id =>>" . $order->getId() . PHP_EOL;
+				}
+			} catch (\Exception $e) {
+				$this->logger->info($e->getMessage());
+				echo $e->getMessage() . PHP_EOL;
+			}
+		}
+	}
+
 	public function getAllOrder()
 	{
 		$orders = $this->orderCollectionFactory->create();
@@ -100,9 +165,9 @@ class SalesOrderSyncToNavProcessor
 	public function loadByOrderId($ordersNav, $orderId)
 	{
 		$order = $ordersNav->load($orderId, 'OrderID');
-	
-		if($order->getData('Synchronized') && $order->getData('NeedsUpdate')){
-			
+
+		if ($order->getData('Synchronized') && $order->getData('NeedsUpdate')) {
+
 			$order = "no_update";
 		}
 		return $order;
@@ -139,6 +204,12 @@ class SalesOrderSyncToNavProcessor
 				$orderItemsNav->setData('Quantity', $items->getQtyOrdered()); // Number of quantity of the item
 				$orderItemsNav->setData('Price', $items->getPrice()); //Price per unit for the respective item
 				$orderItemsNav->setData('Discount', $items->getDiscountAmount()); // Discount for the respective item
+
+				//Other
+				//$orderItemsNav->setData('external_id', $items->getDiscountAmount()); // Discount for the respective item
+				$orderItemsNav->setData('Promised Delivery Date', $items->getPromisedDeliveryDate()); // Discount for the respective item
+
+
 				$orderItemsNav->setData('CreatedDate', $items->getCreatedAt()); //Order Created Date
 				$orderItemsNav->setData('LastUpdate', $items->getUpdatedAt()); //Order Last Update
 				$orderItemsNav->save(); // New Save
