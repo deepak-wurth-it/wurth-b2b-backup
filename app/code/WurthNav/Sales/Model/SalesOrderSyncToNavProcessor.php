@@ -69,7 +69,7 @@ class SalesOrderSyncToNavProcessor
 					$ordersNav->setData('CustomerCode', $order->getCustomerCode()); // will update
 					$ordersNav->setData('DeliveryAddressCode', $order->getDeliveryAddressCode()); // will update from delivery address 	 
 
-					$ordersNav->setData('CustomerOrderNo', $order->getCustomerOrderNo()); // will update/Internal Order number
+					$ordersNav->setData('CustomerOrderNo', $order->getInternalOrderNumber()); // will update/Internal Order number
 					$ordersNav->setData('CostCenter', $order->getCostCenter()); // will update// Dimension value
 					$ordersNav->setData('LocationCode', $order->getLocationCode()); // will update // Shop Contact
 					$ordersNav->setData('TotalNoTax', $order->getSubtotal()); //Order total without Tax	
@@ -78,15 +78,14 @@ class SalesOrderSyncToNavProcessor
 					$ordersNav->setData('Tax', $order->getTaxAmount()); //Tax amount of the order
 					$ordersNav->setData('Total', $order->getGrandTotal()); //Total with tax
 					$ordersNav->setData('CreatedDate', $order->getCreatedAt()); //Order Created Date
-					$ordersNav->setData('OrderStatus', $order->getOrderStatus()); //Order Status
+					$ordersNav->setData('OrderStatus', $order->getOrderStatus()); //Order Status/This should to be 1 after order palce
 					$ordersNav->setData('PaymentType', $methodTitle); //Order Payment Method
-
+					$ordersNav->setData('Comment', $order->getRemarks()); //Order Comment
 					//Other Field
 
 					$ordersNav->setData('ExternalId', $order->getExternalId()); //ERP Order Id
-					//$ordersNav->setData('order_sync_status_nav', $methodTitle); //Order Payment Method
 					$ordersNav->setData('DeliveryAddressCode', $order->getExternalId()); //it displays delivery address code Linkage with dboCustomerDeliveryAddress
-					$ordersNav->setData('CustomerOrderNo', $order->getCustomerOrderNo()); //User enters Internal order number during checkout
+					$ordersNav->setData('CustomerOrderNo', $order->getInternalOrderNumber()); //User enters Internal order number during checkout
 					$ordersNav->setData('CostCenter', $order->getCostCenter()); //cost center
 					$ordersNav->setData('LocationCode', $order->getLocationCode()); //Order is placed for Delivery or Store Number
 
@@ -117,11 +116,10 @@ class SalesOrderSyncToNavProcessor
 			try {
 
 				$data = [
-					//'ShippingDetailsID' =>  $order->getShippingAddress()->getId(),
 					'OrderID' => $order->getId(),
 					'Name' =>  $row['firstname'] . ' ' . $row['lastname'],
 					'Street' => $row['street'],
-					'Country' => $row['city'],
+					'Country' => $row['country'],
 					'PostalCode' => $row['postcode'],
 					'City' => $row['city'],
 					'Phone' => $row['telephone'],
@@ -184,6 +182,7 @@ class SalesOrderSyncToNavProcessor
 	{
 
 		$orderItems = $order->getAllItems();
+		$i=1;
 		foreach ($orderItems as $items) {
 			try {
 				$orderItemsNav = $this->orderItemsFactory->create();
@@ -196,24 +195,26 @@ class SalesOrderSyncToNavProcessor
 					$this->log .= 'Imported order items Id =>>' .  $orderItemId . PHP_EOL;
 				}
 
-				$orderItemsNav->setData('OrderItemID', $items->getId());
+				$orderItemsNav->setData('MagentoOrderItemId', $items->getId());//
+				$orderItemsNav->setData('OrderItemID', $i);//Loop Id
+				$orderItemsNav->setData('ProductNumber', $items->getId());//Product Code
 				$orderItemsNav->setData('OrderID', $items->getOrderId());
-				$orderItemsNav->setData('ProductNumber', $items->getSku()); // Product number of the item
 				$orderItemsNav->setData('LocationCode', $order->getLocationCode()); // will update
-				$orderItemsNav->setData('TotalNoTax', $items->getRowTotal()); //Order total without Tax	
-				$orderItemsNav->setData('Quantity', $items->getQtyOrdered()); // Number of quantity of the item
-				$orderItemsNav->setData('Price', $items->getPrice()); //Price per unit for the respective item
+				$orderItemsNav->setData('TotalNoTax', $items->getRowTotal()); //It's subtotal (without tax) of purchased qty of an item
+				//$orderItemsNav->setData('Quantity', $items->getQtyOrdered()); // Number of quantity of the item/Confusion
 				$orderItemsNav->setData('Discount', $items->getDiscountAmount()); // Discount for the respective item
-
 				//Other
-				//$orderItemsNav->setData('external_id', $items->getDiscountAmount()); // Discount for the respective item
+				$orderItemsNav->setData('Price', $items->getWcbPrice()); // Origional price
+				$orderItemsNav->setData('Discount', $items->getWcbDiscountPrice()); // only discount
+				$orderItemsNav->setData('Packaging', $items->getWcbQuantityOrdered()); // only discount
+				$orderItemsNav->setData('Quantity', $items->getWcbOrderUnit()); // only discount
 				$orderItemsNav->setData('Promised Delivery Date', $items->getPromisedDeliveryDate()); // Discount for the respective item
 
 
 				$orderItemsNav->setData('CreatedDate', $items->getCreatedAt()); //Order Created Date
 				$orderItemsNav->setData('LastUpdate', $items->getUpdatedAt()); //Order Last Update
 				$orderItemsNav->save(); // New Save
-
+				$i++;
 			} catch (\Exception $e) {
 				$this->logger->info($e->getMessage());
 				echo $e->getMessage() . PHP_EOL;

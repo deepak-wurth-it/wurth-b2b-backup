@@ -36,8 +36,8 @@ class ManageProductStatus extends AbstractHelper
 
     public function checkDiscontinuedProductStatus($product, $qty = 1)
     {
-        $wcbProductStatus = 1;//$product->getWcbProductStatus();
-        $replaceProductCode = $product->getSuccessorProductCode();
+        $wcbProductStatus = $product->getWcbProductStatus();
+        $replaceProductCode = $product->getSuccessorProductCode();//"039 410";
 
         $result = [];
         $result['allow_add_to_cart'] = true;
@@ -64,6 +64,7 @@ class ManageProductStatus extends AbstractHelper
             ];
             $stockSku = json_encode($stockSku);
             $stockApiData = $this->multiPriceAndStock->getMultiStockAndPriceData($stockSku, 'stock');
+
             if (!empty($stockApiData)) {
                 $stockApiData = json_decode($stockApiData, true);
                 $stockQty = isset($stockApiData[0]['AvailableQuantity'])
@@ -89,6 +90,8 @@ class ManageProductStatus extends AbstractHelper
                 if ($replaceProduct->getId()) {
                     $replCodeUrl = $replaceProduct->getProductUrl();
                 }
+                $this->messageManager->addNotice(__("You are not allowed to add this product."));
+
                 $link = "<a href='" . $replCodeUrl . "'>$replCode</a>";
                 $this->messageManager->addNotice(
                     sprintf(__("This is replacement product for this %s ."), $link)
