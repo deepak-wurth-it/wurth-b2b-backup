@@ -21,13 +21,13 @@ use Wurth\Shippingproduct\Helper\Data as ShippingHelper;
 
 class Data extends AbstractHelper
 {
-    const API_BASE_URL = 'apiconfig/config/base_url';
-    const API_MEDIA_URL = 'apiconfig/config/base_media_url';
-    const API_CATALOG_MEDIA_URL = 'apiconfig/config/catalog_media_url';
+    const API_FEEDBACK_EMAIL = 'apiconfig/config/application_feedback_email';
+    const API_GENERAL_CONDITION_URL = 'apiconfig/config/general_conditions_url';
+    const API_PRIVACY_POLICY_URL = 'apiconfig/config/privacy_policy_url';
     const API_CATEGORY_MEDIA_URL = 'apiconfig/config/category_media_url';
-    const FLIP_CATALOG_URL ='catalog_settings/catalog_config/flip_catalog_url';
-    const MINIMUM_SHIPPING_AMT ='shipping_product_section/general/cart_amount_limit';
-    const SHIPPING_PRODUCT_CODE ='shipping_product_section/general/product_code';
+    const FLIP_CATALOG_URL = 'catalog_settings/catalog_config/flip_catalog_url';
+    const MINIMUM_SHIPPING_AMT = 'shipping_product_section/general/cart_amount_limit';
+    const SHIPPING_PRODUCT_CODE = 'shipping_product_section/general/product_code';
 
     /**
      * @var ProductFactory
@@ -171,6 +171,53 @@ class Data extends AbstractHelper
     }
 
     /**
+     * @return array
+     */
+    public function getAppFeedbackData(){
+        $data = [];
+        $data['feedback_email'] = $this->getConfig(self::API_FEEDBACK_EMAIL);
+        $data['general_conditions_url'] = $this->getConfig(self::API_GENERAL_CONDITION_URL);
+        $data['privacy_policy_url'] = $this->getConfig(self::API_PRIVACY_POLICY_URL);
+        return $data;
+    }
+
+    /**
+     * @return mixed
+     * @throws NoSuchEntityException
+     */
+    public function getBaseUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl();
+    }
+
+    /**
+     * @return mixed
+     * @throws NoSuchEntityException
+     */
+    public function getMediaUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getCatalogMediaUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getCategoryMediaUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . 'catalog/category/';
+    }
+
+    /**
      * @param $path
      * @return mixed
      */
@@ -200,57 +247,20 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @return mixed
-     * @throws NoSuchEntityException
-     */
-    public function getBaseUrl()
-    {
-        return $this->storeManager->getStore()->getBaseUrl();
-    }
-
-    /**
-     * @return mixed
-     * @throws NoSuchEntityException
-     */
-    public function getMediaUrl()
-    {
-        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-    }
-
-    /**
-     * @return string
-     * @throws NoSuchEntityException
-     */
-    public function getCatalogMediaUrl()
-    {
-        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
-    }
-
-    /**
-     * @return string
-     * @throws NoSuchEntityException
-     */
-    public function getCategoryMediaUrl()
-    {
-        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/category/';
-    }
-
-    /**
      * @return string
      * @throws NoSuchEntityException
      */
     public function getProductPdfMediaUrl()
     {
-        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA). 'product_pdfs/';
+        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . 'product_pdfs/';
     }
 
     /**
      * @return string
      * @throws NoSuchEntityException
      */
-    public function getPlaceHolderUrl(){
-        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA).'catalog/product/placeholder/default/replacement_product.png';
+    public function getPlaceHolderUrl()
+    {
+        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . 'catalog/product/placeholder/default/replacement_product.png';
     }
-
-
 }
