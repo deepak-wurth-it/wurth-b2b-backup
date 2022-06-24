@@ -100,8 +100,7 @@ class CustomerAddressImportProcessor
 
 
 						$shippingAddress = $this->getDefaultShippingAddress($customerId);
-						$shippingId =  $shippingAddress->getId();
-						if ($shippingAddress && $shippingId) {
+						if ($shippingAddress) {
 							$address->load($shippingId)->delete();
 						}
 						if ($shippingAddress) {
@@ -127,8 +126,8 @@ class CustomerAddressImportProcessor
 							->setFirstname($firstName)
 							->setLastname($lastName)
 							->setCountryId($countryId)
-							//->setRegionId($regionId)
-							//->setRegion($region)
+							->setRegionId($regionId)
+							->setRegion($region)
 							->setPostcode($postCode)
 							->setCity($city)
 							->setTelephone($telephone)
