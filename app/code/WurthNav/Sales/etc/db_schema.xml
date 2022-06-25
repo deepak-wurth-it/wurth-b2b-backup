@@ -36,13 +36,17 @@
    </table>
    
    <table name="sales_order_item" resource="default" engine="innodb" comment="Sales Order Table">
-		 <column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
-		 <column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
-		 <column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
-		 <column name="promised_delivery_date" nullable="true" xsi:type="varchar" length="200" comment="Order is placed for Delivery or Store Number "/>
-		 <column name="wcb_quantity_ordered" nullable="true" xsi:type="varchar" length="200" comment="Minimum sales qty * com or c "/>
-		 <column name="wcb_order_unit" nullable="true" xsi:type="varchar" length="20" comment="Order unit without multiply,user input unit "/>
-
+		<column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
+		<column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
+		<column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
+		<column name="promised_delivery_date" nullable="true" xsi:type="varchar" length="200" comment="Order is placed for Delivery or Store Number "/>
+		<column name="wcb_quantity_ordered" nullable="true" xsi:type="varchar" length="200" comment="Minimum sales qty * com or c "/>
+		<column name="wcb_invoice_no" nullable="true" xsi:type="varchar" length="255" comment="ERP invoice number "/>
+		<column name="wcb_tracking_link" nullable="true" xsi:type="varchar" length="255" comment="ERP order tracking link "/>
+		<column name="wcb_external_id" nullable="true" xsi:type="varchar" length="255" comment="ERP order external id "/>
+		<column name="wcb_order_status" nullable="true" xsi:type="varchar" length="255" comment="ERP order status "/>
+		<column name="wcb_delivery_status_code" nullable="true" xsi:type="varchar" length="255" comment="ERP order status code "/>
+		<column name="wcb_delivery_status_desc" nullable="true" xsi:type="text"  comment="ERP delivery status description "/>
    </table>
    
    <table name="wurthnav_dimension_value_eshop" resource="default" engine="innodb" comment="Order Types Code">
