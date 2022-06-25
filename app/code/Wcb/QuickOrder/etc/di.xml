@@ -6,4 +6,10 @@
     <preference for="Magento\QuickOrder\Model\Product\Suggest\DataProvider" type="Wcb\QuickOrder\Model\Product\Suggest\DataProvider" />
     <preference for="Magento\QuickOrder\Controller\Sku\UploadFile" type="Wcb\QuickOrder\Controller\Sku\UploadFile" />
     <preference for="Magento\AdvancedCheckout\Controller\Cart\AdvancedAdd" type="Wcb\QuickOrder\Controller\Cart\AdvancedAdd" />
+    <type name="Magento\AdvancedCheckout\Model\Cart">
+        <plugin name="modifyCartItemsForQuickOrder" disabled="true"/>
+    </type>
+    <type name="Magento\AdvancedCheckout\Model\Cart">
+        <plugin name="custom_modifyCartItemsForQuickOrder" type="Wcb\QuickOrder\Plugin\AdvancedCheckout\ModifyAffectedItemsPlugin"/>
+    </type>
 </config>

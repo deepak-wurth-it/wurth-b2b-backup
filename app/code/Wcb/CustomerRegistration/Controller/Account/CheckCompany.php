@@ -35,9 +35,14 @@ class CheckCompany extends \Magento\Framework\App\Action\Action
         //Check customer exists
         $exists = $this->checkCompanyExists($companyOib, $customerCode);
         $result = [];
-        if ($exists) {
+        if ($exists['company_code_exists']) {
             $result["success"] = 'true';
             $result["message"] = "";
+
+            if ($exists['customer_type'] == '1') {
+                $result["success"] = 'false';
+                $result["message"] = __("You're not allowed to register.");
+            }
         } else {
             $result["success"] = 'false';
             $result["message"] = __("Customer is not linked. Please enter valid customer code");
@@ -48,25 +53,36 @@ class CheckCompany extends \Magento\Framework\App\Action\Action
     public function checkCompanyExists($companyOib, $customerCode)
     {
         $companies = $this->companyCollection->create()
-            ->addFieldToFilter("vat_tax_id", ["eq" => $companyOib])
-            ->getFirstItem();
+            ->addFieldToFilter("vat_tax_id", ["eq" => $companyOib]);
 
         $companyCodeExists = false;
-
-        if ($companies->getId()) {
-            $customer = $this->checkCustomerExist($companies->getSuperUserId());
-            if ($customer != '') {
-                if ($customer->getCustomAttribute("customer_code")) {
-                    $custCode = $customer
-                        ->getCustomAttribute("customer_code")
-                        ->getValue();
-                    if ($customerCode == $custCode) {
-                        $companyCodeExists = true;
+        $customerType = '';
+        $returnData = [];
+        foreach ($companies as $company) {
+            if ($company->getId()) {
+                $customer = $this->checkCustomerExist($company->getSuperUserId());
+                if ($customer != '') {
+                    if ($customer->getCustomAttribute("customer_code")) {
+                        $custCode = $customer
+                            ->getCustomAttribute("customer_code")
+                            ->getValue();
+                        if ($customerCode == $custCode) {
+                            if ($customer->getCustomAttribute("wc_customer_type")) {
+                                $customerType = $customer
+                                    ->getCustomAttribute("wc_customer_type")
+                                    ->getValue();
+                            }
+                            $companyCodeExists = true;
+                            break;
+                        }
                     }
                 }
             }
         }
-        return $companyCodeExists;
+
+        $returnData['company_code_exists'] = $companyCodeExists;
+        $returnData['customer_type'] = $customerType;
+        return $returnData;
     }
     public function checkCustomerExist($customerId)
     {

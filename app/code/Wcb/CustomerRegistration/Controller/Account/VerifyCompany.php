@@ -6,6 +6,8 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class VerifyCompany extends \Magento\Framework\App\Action\Action
 {
+    protected $customerRepositoryInterface;
+
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
@@ -69,13 +71,42 @@ class VerifyCompany extends \Magento\Framework\App\Action\Action
         );
         $companyData = $this->companyRepository->getList(
             $this->searchCriteriaBuilder->create()
-        )->getItems();
+        );//->getItems();
         $companyDetails = null;
         if ($companyData) {
-            foreach ($companyData as $company) {
-                $companyDetails = $company;//->getCompanyName();
+            if ($companyData->getTotalCount() > 1) {
+                $companyData = $companyData->getItems();
+                foreach ($companyData as $company) {
+                    $customer = $this->checkCustomerExist($company->getSuperUserId());
+                    if ($customer != '') {
+                        if ($customer->getCustomAttribute("wc_customer_type")) {
+                            $customerType = $customer
+                                ->getCustomAttribute("wc_customer_type")
+                                ->getValue();
+                            if ($customerType == '1') {
+                                $companyDetails = $company;
+                                break;
+                            }
+                        }
+                    }
+                    $companyDetails = $company;//->getCompanyName();
+                }
+            } else {
+                $companyData = $companyData->getItems();
+                foreach ($companyData as $company) {
+                    $companyDetails = $company;//->getCompanyName();
+                }
             }
         }
         return $companyDetails;
+    }
+
+    public function checkCustomerExist($customerId)
+    {
+        try {
+            return $this->customerRepositoryInterface->getById($customerId);
+        } catch (\Exception $e) {
+            return '';
+        }
     }
 }
