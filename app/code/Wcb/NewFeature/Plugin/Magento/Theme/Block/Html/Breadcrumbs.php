@@ -10,6 +10,7 @@ class Breadcrumbs
     {
         if ($crumbName == 'home') {
             $crumbInfo['label'] = __('Online shop');
+            $crumbInfo['c_label'] = __('Home');
         }
 
         return [$crumbName, $crumbInfo];
