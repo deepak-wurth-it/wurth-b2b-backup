@@ -90,6 +90,7 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
 
             //Get sku using product code and set so magento default working as it as
             $returnValue = false;
+            $statusResult = [];
             foreach ($items as $_item) {
                 if (!$_item['sku']) {
                     continue;
@@ -107,7 +108,7 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
                 $_item['qty'] = $newQty;
                 $updatedItems[] = $_item;
                 if (count($items) == 1) {
-                    $statusResult = $this->manageProductStatus->checkDiscontinuedProductStatus($product, $newQty);
+                    $statusResult = $this->manageProductStatus->checkDiscontinuedProductStatus($product, $newQty, $this->getRequest()->getPost('isAjax'));
                     if (!$statusResult['allow_add_to_cart']) {
                         $returnValue = true;
                         break;
@@ -119,7 +120,9 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
                 if ($this->getRequest()->getPost('isAjax')) {
                     $result['success'] = "false";
                     $result['item_form'] = "";
-                    $result['message'] = __("You are not allowed to add this item.");
+                    $result['custom_status'] = true;
+                    $result['replacementMsg'] = isset($statusResult['replacementMsg']) ? $statusResult['replacementMsg'] : '';
+                    $result['notAllowMsg'] = isset($statusResult['notAllowMsg']) ? $statusResult['notAllowMsg'] : '';
 
                     $response->setData($result);
                     return $response;
@@ -151,10 +154,12 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
 
             $result['success'] = "true";
             $result['item_form'] = $itemForm;
+            $result['custom_status'] = false;
             $result['message'] = __("Item has been updated successfully.");
         } catch (\Exception $e) {
             $result['success'] = "false";
             $result['item_form'] = "";
+            $result['custom_status'] = false;
             $result['message'] = __($e->getMessage());
         }
 
