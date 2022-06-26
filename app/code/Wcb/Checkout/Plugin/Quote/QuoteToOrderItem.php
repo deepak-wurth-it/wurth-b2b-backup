@@ -25,6 +25,8 @@ class QuoteToOrderItem
         $orderItem->setWcbPrice($item->getWcbPrice());
         $orderItem->setWcbAfterDiscountPrice($item->getWcbAfterDiscountPrice());
         $orderItem->setWcbDiscountPrice($item->getWcbDiscountPrice());
+        $orderItem->setWcbQuantityOrdered($item->getWcbQuantityOrdered());
+        $orderItem->setWcbOrderUnit($item->getWcbOrderUnit());
         return $orderItem;
     }
 }
