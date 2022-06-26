@@ -23,28 +23,37 @@
         <column name="ModifyDate" nullable="true" xsi:type="varchar" length="255" comment="Modify Date"/>
         <column name="CreateDate" nullable="true" xsi:type="datetime" comment="Create Date"/>
 	</table>
-	
+
 	<table name="sales_order" resource="default" engine="innodb" comment="Sales Order Table">
-		 <column name="customer_code" nullable="true" xsi:type="varchar" length="55" comment="ERP Customer Code"/>
-		 <column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
-		 <column name="order_sync_status_nav"  xsi:type="int" unsigned="false" nullable="false" default="0" comment="Order Sync Status to ERP"/>
-		 <column name="delivery_address_code" nullable="true" xsi:type="varchar" length="10" comment="it displays delivery address code Linkage with dboCustomerDeliveryAddress"/>
-		 <column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
-		 <column name="cost_center" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
-		 <column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
-  
+
+		<column name="customer_code" nullable="true" xsi:type="varchar" length="55" comment="ERP Customer Code"/>
+		<column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
+		<column name="order_sync_status_nav"  xsi:type="int" unsigned="false" nullable="false" default="0" comment="Order Sync Status to ERP"/>
+		<column name="delivery_address_code" nullable="true" xsi:type="varchar" length="10" comment="it displays delivery address code Linkage with dboCustomerDeliveryAddress"/>
+		<column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
+		<column name="cost_center" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
+		<column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
+		<column name="wcb_invoice_no" nullable="true" xsi:type="varchar" length="255" comment="ERP invoice number "/>
+		<column name="wcb_tracking_link" nullable="true" xsi:type="varchar" length="255" comment="ERP order tracking link "/>
+		<column name="wcb_external_id" nullable="true" xsi:type="varchar" length="255" comment="ERP order external id "/>
+		<column name="wcb_order_status" nullable="true" xsi:type="varchar" length="255" comment="ERP order status "/>
+		<column name="wcb_delivery_status_code" nullable="true" xsi:type="varchar" length="255" comment="ERP order status code "/>
+		<column name="wcb_delivery_status_desc" nullable="true" xsi:type="text"  comment="ERP delivery status description "/>
    </table>
-   
+
    <table name="sales_order_item" resource="default" engine="innodb" comment="Sales Order Table">
-		 <column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
-		 <column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
-		 <column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
-		 <column name="promised_delivery_date" nullable="true" xsi:type="varchar" length="200" comment="Order is placed for Delivery or Store Number "/>
-		 <column name="wcb_quantity_ordered" nullable="true" xsi:type="varchar" length="200" comment="Minimum sales qty * com or c "/>
-		 <column name="wcb_order_unit" nullable="true" xsi:type="varchar" length="20" comment="Order unit without multiply,user input unit "/>
+		<column name="external_id" nullable="true" xsi:type="varchar" length="55" comment="ERP Order Id"/>
+		<column name="customer_order_no" nullable="true" xsi:type="varchar" length="20" comment="User enters Internal order number during checkout"/>
+		<column name="location_code" nullable="true" xsi:type="varchar" length="20" comment="Order is placed for Delivery or Store Number "/>
+		<column name="promised_delivery_date" nullable="true" xsi:type="varchar" length="200" comment="Order is placed for Delivery or Store Number "/>
+		<column name="wcb_quantity_ordered" nullable="true" xsi:type="varchar" length="200" comment="Minimum sales qty * com or c "/>
+		<column name="wcb_item_status" nullable="true" xsi:type="varchar" length="255" comment="ERP order item status "/>
+		<column name="wcb_shipped_quantity" nullable="true" xsi:type="varchar" length="255" comment="ERP order item shipped quantity "/>
+		<column name="wcb_completely_shipped" nullable="true" xsi:type="varchar" length="255" comment="ERP completely shipped items "/>
+		<column name="wcb_promised_delivery_date" nullable="true" xsi:type="varchar" length="255" comment="ERP promised delivery date "/>
 
    </table>
-   
+
    <table name="wurthnav_dimension_value_eshop" resource="default" engine="innodb" comment="Order Types Code">
 		<column xsi:type="int" name="Id" padding="8" unsigned="true" nullable="false" identity="true" comment="Auto Increment Id"/>
 		<constraint xsi:type="primary" referenceId="PRIMARY">
@@ -52,9 +61,9 @@
 		</constraint>
         <column name="Code" nullable="true" xsi:type="varchar" length="255" comment="Code"/>
         <column name="DimensionCode" nullable="true" xsi:type="varchar" length="255" comment="Dimension Code"/>
-        <column name="Name" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+        <column name="Name" nullable="true" xsi:type="varchar" length="255" comment="Name"/>
    </table>
-   
+
    <table name="wurthnav_shops" resource="default" engine="innodb" comment="Click and Collect  Shops">
 		<column xsi:type="int" name="Id" padding="8" unsigned="true" nullable="false" identity="true" comment="Auto Increment Id"/>
 		<constraint xsi:type="primary" referenceId="PRIMARY">
@@ -62,16 +71,16 @@
 		</constraint>
         <column name="Code" nullable="true" xsi:type="varchar" length="255" comment="Code"/>
         <column name="Name" nullable="true" xsi:type="varchar" length="255" comment="Dimension Code"/>
-        <column name="Address" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
-        <column name="City" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
-		<column name="PostCode" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
-		<column name="Wholesale Center Location" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
-		<column name="E-Mail" nullable="true" xsi:type="varchar" length="255" comment="Name"/>  
+        <column name="Address" nullable="true" xsi:type="varchar" length="255" comment="Name"/>
+        <column name="City" nullable="true" xsi:type="varchar" length="255" comment="Name"/>
+		<column name="PostCode" nullable="true" xsi:type="varchar" length="255" comment="Name"/>
+		<column name="Wholesale Center Location" nullable="true" xsi:type="varchar" length="255" comment="Name"/>
+		<column name="E-Mail" nullable="true" xsi:type="varchar" length="255" comment="Name"/>
    </table>
-   
+
    <table name="company" resource="default" engine="innodb" comment="Company Table">
         <column xsi:type="varchar" name="wcb_sales_person_code" nullable="true" length="2" comment="B2B Sales Person Code"/>
    </table>
-	
+
 </schema>
 

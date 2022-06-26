@@ -218,7 +218,7 @@ class Save extends \Magento\Company\Controller\Adminhtml\Index\Save
             $customer = $this->customer->create()->setWebsiteId($data['website_id'])->loadByEmail($data['email']);
             if ($customer) {
                 $customer_id = $customer->getId();
-                if (isset($data['confirmation'])) {
+                if (isset($data['confirmation']) && $customer_id) {
                     if ($data['confirmation'] === '' || $data['confirmation'] === null) {
                         $data['confirmation'] = $this->accountManagement->getConfirmationStatus($customer_id);
                     }

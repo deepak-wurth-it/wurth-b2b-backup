@@ -2,6 +2,7 @@
 namespace Wcb\QuickOrder\Model\Product\Suggest;
 
 use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\Exception\LocalizedException;
@@ -32,17 +33,23 @@ class DataProvider extends \Magento\QuickOrder\Model\Product\Suggest\DataProvide
      * @var int
      */
     private $resultLimit;
+    /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
 
     public function __construct(
         CollectionFactory $collectionFactory,
         FulltextSearch $fulltextSearch,
         Suggest $suggestResource,
+        ProductRepositoryInterface $productRepository,
         $resultLimit = 10
     ) {
         $this->collectionFactory = $collectionFactory;
         $this->fulltextSearch = $fulltextSearch;
         $this->suggestResource = $suggestResource;
         $this->resultLimit = $resultLimit;
+        $this->productRepository = $productRepository;
         parent::__construct($collectionFactory, $fulltextSearch, $suggestResource, $resultLimit);
     }
 
@@ -75,11 +82,15 @@ class DataProvider extends \Magento\QuickOrder\Model\Product\Suggest\DataProvide
                     //$sku = $item->getSku();
                     $sku = $item->getProductCode();
                     $name = $item->getName();
+                    $replacementData = $this->getReplacementData($item);
+                    $replacementMsg = isset($replacementData['msg']) ? $replacementData['msg'] : '';
+                    $replacementCode = isset($replacementData['replace_code']) ? $replacementData['replace_code'] : $sku;
                     return [
                         'id' => $sku,
                         'labelSku' => $sku,
                         'labelProductName' => $name,
-                        'value' => $sku
+                        'value' => $replacementCode,
+                        'replacementProductMsg' => $replacementMsg
                     ];
                 }, $items);
                 $page++;
@@ -139,5 +150,24 @@ class DataProvider extends \Magento\QuickOrder\Model\Product\Suggest\DataProvide
         }
 
         return $suggestItems;
+    }
+    public function getReplacementData($product)
+    {
+        $product = $this->productRepository->getById($product->getId());
+        $wcbProductStatus = $product->getWcbProductStatus();
+        $replaceProductCode = $product->getSuccessorProductCode();
+        $returnData = [];
+        $returnData['msg'] = '';
+        if ($wcbProductStatus == 3 || $wcbProductStatus == 2) {
+            if ($replaceProductCode) {
+                $returnMsg = __("This is replacement product for this " . $replaceProductCode);
+                $returnData['replace_code'] = $replaceProductCode;
+            } else {
+                $returnMsg = __("You are not allowed to add this product.");
+            }
+            $returnData['msg'] = $returnMsg;
+
+        }
+        return $returnData;
     }
 }
