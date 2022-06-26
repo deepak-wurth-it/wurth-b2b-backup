@@ -96,7 +96,7 @@ require(
 			
 			// counter in about us page 
 
-            // where-do-we-meet start
+            // where-do-we-meet js start
             $("#wcb-search").keyup(function() {
                 // Retrieve the input field text and reset the count to zero
                 var filter = $(this).val(),
