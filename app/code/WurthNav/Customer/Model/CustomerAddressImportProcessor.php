@@ -15,6 +15,7 @@ use \Magento\Customer\Model\CustomerFactory;
 use \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use \Magento\Customer\Model\AddressFactory;
 use \Magento\Customer\Api\AccountManagementInterface;
+use Magento\Framework\Exception\InputException;
 
 
 
@@ -98,15 +99,18 @@ class CustomerAddressImportProcessor
 						$customerId = $dataCustomer->getId();
 						$address = $this->addressFactory->create();
 
-
+						
+						$billingAddress = $this->getDefaultBillingAddress($customerId);
 						$shippingAddress = $this->getDefaultShippingAddress($customerId);
+
 						if ($shippingAddress) {
+							$shippingId = $shippingAddress->getId();
 							$address->load($shippingId)->delete();
 						}
-						if ($shippingAddress) {
-							$region = $shippingAddress->getRegion();
-							$regionId = $shippingAddress->getRegionId();
-							$countryId = $shippingAddress->getCountryId();
+						if ($billingAddress) {
+							$region = $billingAddress->getRegion();
+							$regionId = $billingAddress->getRegionId();
+							$countryId = $billingAddress->getCountryId() ?? 'HR';
 						}
 
 						$firstName = $row['Name'];
@@ -152,6 +156,7 @@ class CustomerAddressImportProcessor
 						$this->log .= '--------------------- __CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
 						$this->log .= $e->getMessage() . PHP_EOL;
 						$this->wurthNavLogger($this->log);
+						throw new InputException(__($this->log));
 					}
 				}
 			}
@@ -159,6 +164,7 @@ class CustomerAddressImportProcessor
 			$this->log .= '---------------------__CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
 			$this->log .= $e->getMessage() . PHP_EOL;
 			$this->wurthNavLogger($this->log);
+			throw new InputException(__($this->log));
 		}
 	}
 
