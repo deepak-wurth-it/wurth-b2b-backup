@@ -114,12 +114,12 @@ class SalesOrderSyncToNavProcessor
 		$row = $shippingAddress = $order->getShippingAddress()->getData();
 		if (count($shippingAddress)) {
 			try {
-
+				
 				$data = [
 					'OrderID' => $order->getId(),
 					'Name' =>  $row['firstname'] . ' ' . $row['lastname'],
 					'Street' => $row['street'],
-					'Country' => $row['country'],
+					'Country' => $row['country_id'],
 					'PostalCode' => $row['postcode'],
 					'City' => $row['city'],
 					'Phone' => $row['telephone'],
@@ -180,10 +180,10 @@ class SalesOrderSyncToNavProcessor
 
 	public function SaveOrderItems($order)
 	{
-
+        
 		$orderItems = $order->getAllItems();
 		$i=1;
-		foreach ($orderItems as $items) {
+		foreach ($orderItems as $key=>$items) {
 			try {
 				$orderItemsNav = $this->orderItemsFactory->create();
 				$orderItemId = $items->getId();
@@ -201,7 +201,6 @@ class SalesOrderSyncToNavProcessor
 				$orderItemsNav->setData('OrderID', $items->getOrderId());
 				$orderItemsNav->setData('LocationCode', $order->getLocationCode()); // will update
 				$orderItemsNav->setData('TotalNoTax', $items->getRowTotal()); //It's subtotal (without tax) of purchased qty of an item
-				//$orderItemsNav->setData('Quantity', $items->getQtyOrdered()); // Number of quantity of the item/Confusion
 				$orderItemsNav->setData('Discount', $items->getDiscountAmount()); // Discount for the respective item
 				//Other
 				$orderItemsNav->setData('Price', $items->getWcbPrice()); // Origional price

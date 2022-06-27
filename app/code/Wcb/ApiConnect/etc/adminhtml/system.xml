@@ -40,7 +40,7 @@
                  </field>
                  <field id="general_conditions_url" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                         <label>General Conditions URL</label>
-                     <validate>required-entry validate-clean-url</validate>
+                     <validate>required-entry </validate>
                  </field>
                  <field id="privacy_policy_url" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                      <label>Privacy Policy URL</label>
