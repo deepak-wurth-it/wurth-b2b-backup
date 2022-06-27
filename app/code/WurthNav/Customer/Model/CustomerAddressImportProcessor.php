@@ -98,8 +98,15 @@ class CustomerAddressImportProcessor
 
 						$customerId = $dataCustomer->getId();
 						$address = $this->addressFactory->create();
+						$addressCode = $row['AddressCode'];
 
-						
+						$existAddress = $address->load($addressCode, 'address_code');
+
+						if ($existAddress) {
+							$address = $existAddress;
+						}
+
+
 						$billingAddress = $this->getDefaultBillingAddress($customerId);
 						$shippingAddress = $this->getDefaultShippingAddress($customerId);
 
@@ -117,8 +124,6 @@ class CustomerAddressImportProcessor
 						$street = $row['Address'];
 						$city = $row['City'];
 						$postCode = $row['PostalCode'];
-						$addressCode = $row['AddressCode'];
-						//?? = $row['Contact']; 
 						$telephone = $row['PhoneNo'];
 
 						if (empty($firstName) && empty($street) && empty($city) && empty($postCode)) {
@@ -147,10 +152,15 @@ class CustomerAddressImportProcessor
 							$data =  ['Synchronized' => '1'];
 							$where = ['CustomerCode = ?' => (int)$row['CustomerCode']];
 							$this->connectionWurthNav->update(self::CUSTOMER_DELIVERY_ADDRESS, $data, $where);
+							if ($existAddress) {
 
-							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address  has been saved for customer code' . $dataCustomer->getCustomerCode();
+								$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__UPDATE__ : Customer address  has been updated for customer code' . $dataCustomer->getCustomerCode();
+							} else {
+
+								$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__UPDATE__ : Customer address  has been created for customer code' . $dataCustomer->getCustomerCode();
+							}
 						} else {
-							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address could not be saved for customer code' . $dataCustomer->getCustomerCode();
+							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ERROR : Customer address could not be created for customer code' . $dataCustomer->getCustomerCode();
 						}
 
 						$this->wurthNavLogger($this->log);
