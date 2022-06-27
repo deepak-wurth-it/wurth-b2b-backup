@@ -117,6 +117,7 @@ class CustomerAddressImportProcessor
 						$street = $row['Address'];
 						$city = $row['City'];
 						$postCode = $row['PostalCode'];
+						$addressCode = $row['AddressCode'];
 						//?? = $row['Contact']; 
 						$telephone = $row['PhoneNo'];
 
@@ -135,6 +136,7 @@ class CustomerAddressImportProcessor
 							->setPostcode($postCode)
 							->setCity($city)
 							->setTelephone($telephone)
+							->setAddressCode($addressCode)
 							//->setFax($fax)
 							//->setCompany($company)
 							->setStreet([$street])
