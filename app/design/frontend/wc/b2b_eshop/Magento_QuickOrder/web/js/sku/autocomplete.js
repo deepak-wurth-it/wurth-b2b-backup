@@ -45,7 +45,8 @@ define([
             this.itemTemplate = $(mageTemplate(itemTpl, {
                 data: {
                     labelSku: item.labelSku,
-                    labelProductName: item.labelProductName
+                    labelProductName: item.labelProductName,
+                    replacementProductMsg: item.replacementProductMsg
                 }
             }));
 

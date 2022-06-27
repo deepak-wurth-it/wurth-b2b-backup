@@ -25,6 +25,9 @@ define([
          */
         _init: function () {
             this.element.on('submit', function () {
+                $(".replacement-product-msg").hide();
+                $(".discontinue-not-allowed-msg").hide();
+
                 if ($(this.element).valid() === false) {
                     //$(this.options.buttonAddToCart).prop('disabled', true);
                 } else {
@@ -51,6 +54,7 @@ define([
             })
         },
         addToCartWithAjax: function (currentForm, openPopup) {
+
             let form = currentForm;
             let actionUrl = form.attr('action');
             let self = this;
@@ -80,6 +84,19 @@ define([
                     // Open import success popup
                     if (openPopup) {
                         self.openImportProductPopup();
+                    }
+                    // error message
+                    if (!openPopup) {
+                        if(data.custom_status){
+                            if(data.replacementMsg != ''){
+                                $(".replacement-product-msg .msg").html(data.replacementMsg);
+                                $(".replacement-product-msg").show();
+                            }
+                            if(data.notAllowMsg != ''){
+                                $(".discontinue-not-allowed-msg .msg").html(data.notAllowMsg);
+                                $(".discontinue-not-allowed-msg").show();
+                            }
+                        }
                     }
                     $('body').trigger('processStop');
                 }

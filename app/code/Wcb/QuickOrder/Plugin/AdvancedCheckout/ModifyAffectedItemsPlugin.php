@@ -8,6 +8,7 @@ use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\QuickOrder\Model\Config;
 use Magento\Store\Model\StoreManagerInterface;
+use Wcb\Checkout\Helper\Data as wcbCheckout;
 use Wcb\Checkout\Helper\ManageProductStatus;
 
 /**
@@ -44,12 +45,18 @@ class ModifyAffectedItemsPlugin
      */
     protected $manageProductStatus;
     /**
+     * @var wcbCheckout
+     */
+    protected $wcbCheckout;
+
+    /**
      * @param Data $checkoutHelper
      * @param Config $quickOrderConfig
      * @param StoreManagerInterface $storeManager
      * @param Data $advancedCheckoutHelper
      * @param ProductRepositoryInterface $productrepositoryInterface
      * @param ManageProductStatus $manageProductStatus
+     * @param wcbCheckout $wcbCheckout
      */
     public function __construct(
         Data $checkoutHelper,
@@ -57,7 +64,8 @@ class ModifyAffectedItemsPlugin
         StoreManagerInterface $storeManager,
         Data $advancedCheckoutHelper,
         ProductRepositoryInterface $productrepositoryInterface,
-        ManageProductStatus $manageProductStatus
+        ManageProductStatus $manageProductStatus,
+        wcbCheckout $wcbCheckout
     ) {
         $this->checkoutHelper = $checkoutHelper;
         $this->quickOrderConfig = $quickOrderConfig;
@@ -65,6 +73,7 @@ class ModifyAffectedItemsPlugin
         $this->advancedCheckoutHelper = $advancedCheckoutHelper;
         $this->manageProductStatus = $manageProductStatus;
         $this->productRepository = $productrepositoryInterface;
+        $this->wcbCheckout = $wcbCheckout;
     }
 
     /**
@@ -96,12 +105,13 @@ class ModifyAffectedItemsPlugin
                     // for check discontinue product status
                     $productId =  $this->getItemParam($affectedData, 'id', $code);
                     $qty = $this->getItemParam($affectedData, 'qty');
+
                     $statusResult = $this->checkProductCustomStatus($productId, $qty);
                     if ($statusResult != '') {
                         if (!$statusResult['allow_add_to_cart']) {
                             $item['code'] = 'failed_qty_allowed';
                             $item['isError'] = 1;
-                            $item['result'] = $statusResult['message'];
+                            $item['result'] = $statusResult['notAllowMsg'] . $statusResult['replacementMsg'];
                         }
                     }
                     $items[$sku] = $item;
@@ -126,7 +136,9 @@ class ModifyAffectedItemsPlugin
     {
         try {
             $product = $this->productRepository->getById($productId);
-            return $this->manageProductStatus->checkDiscontinuedProductStatus($product, $qty, true);
+            $minimumAndMasureQty = $this->wcbCheckout->getMinimumAndMeasureQty($product);
+            $unitQty = $this->getNextMinimumQty($minimumAndMasureQty, $qty);
+            return $this->manageProductStatus->checkDiscontinuedProductStatus($product, $unitQty, true);
         } catch (\Exception $e) {
             //echo $e->getMessage();
             return '';
@@ -226,5 +238,14 @@ class ModifyAffectedItemsPlugin
         }
 
         return (string) $message;
+    }
+
+    public function getNextMinimumQty($minimumAndMasureQty, $userQty)
+    {
+        if ($userQty && $minimumAndMasureQty) {
+            $minimumQty = (int) ($userQty / $minimumAndMasureQty);
+            return ($minimumQty > 0) ? $minimumQty : 1;
+        }
+        return 1;
     }
 }

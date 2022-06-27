@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Cron for Customer Registration data import from ERP
+ * Cron order update from nav
  * @category  Wuerth
  * @package   Wcb_Cron
  * @author    Deepak Kumar <dkumar@Redstage.com>
@@ -12,22 +12,22 @@ namespace Wcb\Cron\WurthNavCron;
 
 
 
-class ImportRegisterDataFromERP
+class UpdateOrderFromNav
 {
 
 
 
     public function __construct(
-        \WurthNav\Customer\Model\CustomerSyncProcessorFromNav $customerSyncProcessorFromNav
+        \WurthNav\Sales\Model\SalesOrderSyncFromNavProcessor $SalesOrderSyncFromNavProcessor
     ) {
 
-        $this->customerSyncProcessorFromNav = $customerSyncProcessorFromNav;
+        $this->SalesOrderSyncFromNavProcessor = $SalesOrderSyncFromNavProcessor;
     }
 
     public function execute()
     {
         try {
-            $this->customerSyncProcessorFromNav->install();
+            $this->SalesOrderSyncFromNavProcessor->startProcess();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
