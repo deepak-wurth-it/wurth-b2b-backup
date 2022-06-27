@@ -1,0 +1,17 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<li>
+    <a><%- data.labelSku %></a>
+    <span><%- data.labelProductName %></span>
+    <%if (data.replacementProductMsg) {%>
+    <div class="replacement-product-msg mage-error">
+        <div class="message-warning warning message">
+            <div class="msg"><%- data.replacementProductMsg %> .</div>
+        </div>
+    </div>
+    <%}%>
+</li>
