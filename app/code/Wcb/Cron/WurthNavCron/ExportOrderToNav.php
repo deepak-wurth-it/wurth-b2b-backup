@@ -12,22 +12,23 @@ namespace Wcb\Cron\WurthNavCron;
 
 
 
-class ExportRegisterDataToERP
+class ExportOrderToNav
 {
 
 
 
     public function __construct(
-        \WurthNav\Customer\Model\CustomerSyncProcessor $customerSyncProcessor
+        \WurthNav\Sales\Model\SalesOrderSyncToNavProcessorFactory $SalesOrderSyncToNavProcessorFactory
     ) {
 
-        $this->customerSyncProcessor = $customerSyncProcessor;
+        $this->SalesOrderSyncToNavProcessorFactory = $SalesOrderSyncToNavProcessorFactory;
     }
 
     public function execute()
     {
         try {
-            $this->customerSyncProcessor->install();
+			$objectERPSales = $this->SalesOrderSyncToNavProcessorFactory->create(); 
+            $objectERPSales->install();
         } catch (\Exception $e) {
             return $e->getMessage();
         }

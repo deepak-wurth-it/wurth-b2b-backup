@@ -11,6 +11,7 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\DataObject;
 use Magento\QuickOrder\Model\Config as ModuleConfig;
 use Wcb\Checkout\Helper\Data as checkoutHelper;
+use Wcb\Checkout\Helper\ManageProductStatus;
 use Wcb\QuickOrder\Helper\Data as QuickOrderHelper;
 
 /**
@@ -27,6 +28,7 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
     protected $resultJsonFactory;
     protected $advancedAdd;
     protected $resultFactory;
+    protected $manageProductStatus;
 
     /**
      * UploadFile constructor.
@@ -38,6 +40,7 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
      * @param QuickOrderHelper $quickOrderHelper
      * @param JsonFactory $resultJsonFactory
      * @param AdvancedAdd $advancedAdd
+     * @param ManageProductStatus $manageProductStatus
      */
     public function __construct(
         Context $context,
@@ -47,7 +50,8 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
         checkoutHelper $checkoutHelper,
         QuickOrderHelper $quickOrderHelper,
         JsonFactory $resultJsonFactory,
-        AdvancedAdd $advancedAdd
+        AdvancedAdd $advancedAdd,
+        ManageProductStatus $manageProductStatus
     ) {
         $this->resultFactory = $context->getResultFactory();
         $this->productCollectionFactory = $productCollectionFactory;
@@ -55,6 +59,7 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
         $this->quickOrderHelper = $quickOrderHelper;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->advancedAdd = $advancedAdd;
+        $this->manageProductStatus = $manageProductStatus;
         parent::__construct($context, $moduleConfig, $advancedCheckoutHelper);
     }
 
@@ -84,7 +89,8 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
             $updatedItems = [];
 
             //Get sku using product code and set so magento default working as it as
-
+            $returnValue = false;
+            $statusResult = [];
             foreach ($items as $_item) {
                 if (!$_item['sku']) {
                     continue;
@@ -101,6 +107,30 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
                 $newQty = $this->getNextMinimumQty($minimumAndMasureQty, $_item['qty']);
                 $_item['qty'] = $newQty;
                 $updatedItems[] = $_item;
+                if (count($items) == 1) {
+                    $statusResult = $this->manageProductStatus->checkDiscontinuedProductStatus($product, $newQty, $this->getRequest()->getPost('isAjax'));
+                    if (!$statusResult['allow_add_to_cart']) {
+                        $returnValue = true;
+                        break;
+                    }
+                }
+            }
+            if ($returnValue) {
+                $this->getRequest()->setParam('items', '');
+                if ($this->getRequest()->getPost('isAjax')) {
+                    $result['success'] = "false";
+                    $result['item_form'] = "";
+                    $result['custom_status'] = true;
+                    $result['replacementMsg'] = isset($statusResult['replacementMsg']) ? $statusResult['replacementMsg'] : '';
+                    $result['notAllowMsg'] = isset($statusResult['notAllowMsg']) ? $statusResult['notAllowMsg'] : '';
+
+                    $response->setData($result);
+                    return $response;
+                } else {
+                    $redirect = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_REDIRECT);
+                    $redirect->setUrl('/checkout/cart/');
+                    return $redirect;
+                }
             }
 
             if (!empty($updatedItems)) {
@@ -124,10 +154,12 @@ class UploadFile extends \Magento\QuickOrder\Controller\Sku\UploadFile
 
             $result['success'] = "true";
             $result['item_form'] = $itemForm;
+            $result['custom_status'] = false;
             $result['message'] = __("Item has been updated successfully.");
         } catch (\Exception $e) {
             $result['success'] = "false";
             $result['item_form'] = "";
+            $result['custom_status'] = false;
             $result['message'] = __($e->getMessage());
         }
 

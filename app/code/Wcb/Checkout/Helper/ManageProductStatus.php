@@ -34,7 +34,7 @@ class ManageProductStatus extends AbstractHelper
         parent::__construct($context);
     }
 
-    public function checkDiscontinuedProductStatus($product, $qty = 1)
+    public function checkDiscontinuedProductStatus($product, $qty = 1, $isAjax = false)
     {
         $wcbProductStatus = $product->getWcbProductStatus();
         $replaceProductCode = $product->getSuccessorProductCode();//"039 410";
@@ -43,6 +43,8 @@ class ManageProductStatus extends AbstractHelper
         $result['allow_add_to_cart'] = true;
         $result['show_replace_product'] = false;
         $result['replace_product_code'] = $replaceProductCode;
+        $result['replacementMsg'] = '';
+        $result['notAllowMsg'] = '';
 
         // If status is 3 then add to cart not allowed and show replacement product
         if ($wcbProductStatus == '3') {
@@ -54,6 +56,7 @@ class ManageProductStatus extends AbstractHelper
         if ($wcbProductStatus == '2') {
 
             // get total qty with minimum qty logic
+
             $qty = $this->checkoutHelper->getTotalQty($product, $qty);
 
             // get stock using API
@@ -90,14 +93,21 @@ class ManageProductStatus extends AbstractHelper
                 if ($replaceProduct->getId()) {
                     $replCodeUrl = $replaceProduct->getProductUrl();
                 }
-                $this->messageManager->addNotice(__("You are not allowed to add this product."));
-
                 $link = "<a href='" . $replCodeUrl . "'>$replCode</a>";
-                $this->messageManager->addNotice(
-                    sprintf(__("This is replacement product for this %s ."), $link)
-                );
+                if (!$isAjax) {
+                    $this->messageManager->addNotice(__("You are not allowed to add this product."));
+                    $this->messageManager->addNotice(
+                        sprintf(__("This is replacement product for this %s ."), $link)
+                    );
+                }
+                $result['replacementMsg'] = sprintf(__("This is replacement product for this %s ."), $link);
+                $result['notAllowMsg'] = "Not allowed to add this product.";
             } else {
-                $this->messageManager->addNotice(__("You are not allowed to add this product."));
+                if (!$isAjax) {
+                    $this->messageManager->addNotice(__("You are not allowed to add this product."));
+                }
+                $result['replacementMsg'] = '';
+                $result['notAllowMsg'] = "Not allowed to add this product.";
             }
         }
 

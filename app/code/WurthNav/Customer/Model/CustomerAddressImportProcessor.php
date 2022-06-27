@@ -15,6 +15,7 @@ use \Magento\Customer\Model\CustomerFactory;
 use \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use \Magento\Customer\Model\AddressFactory;
 use \Magento\Customer\Api\AccountManagementInterface;
+use Magento\Framework\Exception\InputException;
 
 
 
@@ -97,23 +98,32 @@ class CustomerAddressImportProcessor
 
 						$customerId = $dataCustomer->getId();
 						$address = $this->addressFactory->create();
+						$addressCode = $row['AddressCode'];
+
+						$existAddress = $address->load($addressCode, 'address_code');
+
+						if ($existAddress) {
+							$address = $existAddress;
+						}
 
 
+						$billingAddress = $this->getDefaultBillingAddress($customerId);
 						$shippingAddress = $this->getDefaultShippingAddress($customerId);
+
 						if ($shippingAddress) {
+							$shippingId = $shippingAddress->getId();
 							$address->load($shippingId)->delete();
 						}
-						if ($shippingAddress) {
-							$region = $shippingAddress->getRegion();
-							$regionId = $shippingAddress->getRegionId();
-							$countryId = $shippingAddress->getCountryId();
+						if ($billingAddress) {
+							$region = $billingAddress->getRegion();
+							$regionId = $billingAddress->getRegionId();
+							$countryId = $billingAddress->getCountryId() ?? 'HR';
 						}
 
 						$firstName = $row['Name'];
 						$street = $row['Address'];
 						$city = $row['City'];
 						$postCode = $row['PostalCode'];
-						//?? = $row['Contact']; 
 						$telephone = $row['PhoneNo'];
 
 						if (empty($firstName) && empty($street) && empty($city) && empty($postCode)) {
@@ -131,6 +141,7 @@ class CustomerAddressImportProcessor
 							->setPostcode($postCode)
 							->setCity($city)
 							->setTelephone($telephone)
+							->setAddressCode($addressCode)
 							//->setFax($fax)
 							//->setCompany($company)
 							->setStreet([$street])
@@ -141,10 +152,15 @@ class CustomerAddressImportProcessor
 							$data =  ['Synchronized' => '1'];
 							$where = ['CustomerCode = ?' => (int)$row['CustomerCode']];
 							$this->connectionWurthNav->update(self::CUSTOMER_DELIVERY_ADDRESS, $data, $where);
+							if ($existAddress) {
 
-							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address  has been saved for customer code' . $dataCustomer->getCustomerCode();
+								$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__UPDATE__ : Customer address  has been updated for customer code' . $dataCustomer->getCustomerCode();
+							} else {
+
+								$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__UPDATE__ : Customer address  has been created for customer code' . $dataCustomer->getCustomerCode();
+							}
 						} else {
-							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ : Customer address could not be saved for customer code' . $dataCustomer->getCustomerCode();
+							$this->log .= '__CUSTOMER_DELIVERY_ADDRESS__IMPORT__ERROR : Customer address could not be created for customer code' . $dataCustomer->getCustomerCode();
 						}
 
 						$this->wurthNavLogger($this->log);
@@ -152,6 +168,7 @@ class CustomerAddressImportProcessor
 						$this->log .= '--------------------- __CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
 						$this->log .= $e->getMessage() . PHP_EOL;
 						$this->wurthNavLogger($this->log);
+						throw new InputException(__($this->log));
 					}
 				}
 			}
@@ -159,6 +176,7 @@ class CustomerAddressImportProcessor
 			$this->log .= '---------------------__CUSTOMER_DELIVERY_ADDRESS__IMPORT_ERROR__------------------------' . PHP_EOL;
 			$this->log .= $e->getMessage() . PHP_EOL;
 			$this->wurthNavLogger($this->log);
+			throw new InputException(__($this->log));
 		}
 	}
 
