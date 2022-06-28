@@ -83,14 +83,19 @@ class InstantProvider extends \Mirasvit\Search\Index\Magento\Catalog\Product\Ins
 
     private function mapProduct(ProductInterface $product, int $storeId): array
     {
-        $replaceProductData = $this->getReplaceProductData($product->getId());
+        $replaceProductData = $this->getReplaceProductData($product->getId(), $storeId);
         $replaceProductCode = isset($replaceProductData['replace_product_code']) ? $replaceProductData['replace_product_code'] : '';
         $replaceProductMsg = isset($replaceProductData['msg']) ? $replaceProductData['msg'] : '';
         $replaceProductUrl = isset($replaceProductData['url']) ? $replaceProductData['url'] : '';
 
+        $proUrl = $this->mapper->getProductUrl($product, $storeId);
+        if ($replaceProductUrl != '') {
+            //$proUrl = $replaceProductUrl;
+        }
+
         return [
             'name' => $this->mapper->getProductName($product),
-            'url' => $this->mapper->getProductUrl($product, $storeId),
+            'url' => $proUrl,
             'sku' => $this->mapper->getProductSku($product),
             'description' => $this->mapper->getDescription($product),
             'image' => $this->mapper->getProductImage($product, $storeId),
@@ -104,27 +109,31 @@ class InstantProvider extends \Mirasvit\Search\Index\Magento\Catalog\Product\Ins
         ];
     }
 
-    public function getReplaceProductData($productId)
+    public function getReplaceProductData($productId, $storeId)
     {
         $product = $this->productRepository->getById($productId);
         $wcbProductStatus = $product->getWcbProductStatus();
         $replaceProductCode = $product->getSuccessorProductCode();
         $returnData = [];
-        $returnData['msg'] = 'test-';
+        $returnData['msg'] = '';
         $returnData['url'] = '';
         $returnData['replace_product_code'] = '';
         if ($wcbProductStatus == 3 || $wcbProductStatus == 2) {
             if ($replaceProductCode) {
-                $returnMsg = __("This is replacement product for this " . $replaceProductCode);
-                $returnData['replace_product_code'] = $replaceProductCode;
                 $replaceProduct = $this->getProductByProductCode($replaceProductCode);
+                $link = $replaceProduct;
                 if ($replaceProduct->getId()) {
                     $returnData['url'] = $replaceProduct->getProductUrl();
+                    $replUrl = $this->mapper->getProductUrl($replaceProduct, $storeId);
+                    $link = "<a href='" . $replUrl . "'>$replaceProductCode</a>";
                 }
+
+                $returnMsg = __(sprintf("This is replacement product for this %s", $link));
+                $returnData['replace_product_code'] = $replaceProductCode;
             } else {
                 $returnMsg = __("You are not allowed to add this product.");
             }
-            $returnData['msg'] ="test--" . $returnMsg;
+            $returnData['msg'] = $returnMsg;
         }
         return $returnData;
     }
