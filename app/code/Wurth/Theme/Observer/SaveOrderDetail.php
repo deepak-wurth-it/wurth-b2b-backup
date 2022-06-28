@@ -60,21 +60,46 @@ class SaveOrderDetail implements ObserverInterface
             $quoteId = $order->getQuoteId();
             $quote = $this->quoteFactory->create()->load($quoteId);
 
-            // set customer code
-            $customer = $this->customerRepository->getById($order->getCustomerId());
-            $customerCode = '';
-            if ($customer->getCustomAttribute('customer_code')) {
-                $customerCode = $customer->getCustomAttribute('customer_code')->getValue();
-            }
-
             $order->setOrderConfirmationEmail($quote->getOrderConfirmationEmail());
             $order->setInternalOrderNumber($quote->getInternalOrderNumber());
             $order->setRemarks($quote->getRemarks());
             $order->setDeliveryOrder($quote->getDeliveryOrder());
-            $order->setCustomerCode($customerCode);
-            $order->setDeliveryAddressCode($this->getAddressCode($order));
-            $order->setCostCenter($this->getCostCenterCode($quote));
-            $order->setLocationCode($this->getLocationCode($quote));
+
+            /*From Rest API*/
+            $isRestApi='';
+            $postData = file_get_contents("php://input");
+            if ($postData) {
+                $postData = json_decode($postData, true);
+            }
+            if (isset($postData['additional_properties'])) {
+                $deliveryAddressCode = isset($postData['additional_properties']['delivery_address_code']) ? $postData['additional_properties']['delivery_address_code'] : '';
+                $cost_center = isset($postData['additional_properties']['cost_center']) ? $postData['additional_properties']['cost_center'] : "SW04";
+                $location_code = isset($postData['additional_properties']['location_code']) ? $postData['additional_properties']['location_code'] : 100;
+                $customer_code = isset($postData['additional_properties']['customer_code']) ? $postData['additional_properties']['customer_code'] : '';
+                $delivery_address_code = isset($postData['additional_properties']['delivery_address_code']) ? $postData['additional_properties']['customer_code'] : '';
+
+                if ($deliveryAddressCode) {
+                    $order->setDeliveryAddressCode($deliveryAddressCode);
+                }
+                if ($customer_code) {
+                    $order->setCustomerCode($customer_code);
+                }
+                $order->setCostCenter($cost_center);
+                $order->setLocationCode($location_code);
+            } else {
+                // set customer code
+                $customer = $this->customerRepository->getById($order->getCustomerId());
+                $customerCode = '';
+                if ($customer->getCustomAttribute('customer_code')) {
+                    $customerCode = $customer->getCustomAttribute('customer_code')->getValue();
+                }
+                $order->setCustomerCode($customerCode);
+                $order->setDeliveryAddressCode($this->getAddressCode($order));
+                $order->setCostCenter($this->getCostCenterCode($quote));
+                $order->setLocationCode($this->getLocationCode($quote));
+            }
+            /*End*/
+
             $order->save();
         } catch (Exception $e) {
         }
