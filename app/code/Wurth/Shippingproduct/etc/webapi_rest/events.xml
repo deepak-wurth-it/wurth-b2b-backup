@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <!--<event name="checkout_cart_save_after">
-        <observer name="checkout_cart_save_after" instance="Wurth\Shippingproduct\Observer\AddShippingProduct" />
-    </event>-->
-    <!-- <event name="sales_quote_product_add_after">
-        <observer name="wcb_after_add_to_cart" instance="Wurth\Shippingproduct\Observer\AddCartProductAfter" />
-    </event> -->
+    <event name="sales_quote_item_set_product">
+        <observer name="wcb_to_cart" instance="Wurth\Shippingproduct\Observer\AddToCartProductAfter" />
+    </event>
 </config>

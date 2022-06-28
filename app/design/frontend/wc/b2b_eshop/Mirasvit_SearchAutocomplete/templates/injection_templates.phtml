@@ -77,7 +77,13 @@
     <div class="meta">
         <div class="title">
             <a rel="noreferrer" data-bind="html: name, attr: {href: url}, highlight"></a>
-
+            <!-- ko if: $data.replace_product_msg -->
+            <div class="search-replacement-product-msg mage-error">
+                <div class="message-warning warning message">
+                    <div class="msg" data-bind="html: $data.replace_product_msg"></div>
+                </div>
+            </div>
+            <!-- /ko -->
             <!-- ko if: sku -->
             <span class="sku" data-bind="text: sku, highlight"></span>
             <!-- /ko -->
