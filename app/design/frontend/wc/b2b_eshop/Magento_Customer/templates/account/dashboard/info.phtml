@@ -8,114 +8,151 @@
 ?>
 <section class="block block-dashboard-info myProfile">
     <div class="block-content">
-    <div class="col-md addBox">
-    <p><span class="textBold"><?= $block->escapeHtml($block->getName()) ?></span> </p>                              
+        <div class="col-md addBox">
+            <p><span class="textBold"><?= $block->escapeHtml($block->getName()) ?></span></p>
 
-    <p><span class="textBold">Broj korisnika:</span> 2380 </p>
-   <p><span class="textBold">Customer code:</span> <span class="redText"> 30799331 </span> (Kristian Koening) </p>
-   <p><span class="textBold">Email:</span> <span><?= $block->escapeHtml($block->getCustomer()->getEmail()) ?> </span> (<span class="textBlue"><a href="!#">Change</a></span>)</p>
-   <div id = "changePass" onclick = "displayLoginBox()">Change Password</div>
-        <div id = "passBox" style="display:none;"> 
-        <form>
-  <div class="form-group">
-    <label class="inputLevel">Current Password <span>*</span> </label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">    
-  </div>
-  <div class="form-group">
-    <label class="inputLevel">New Password <span>*</span></label>
-    <input type="password" class="form-control" id="newpassword">
-    <small id="emailHelp" class="form-text text-muted">Password Strength: No Password</small>
-  </div>
-  <div class="form-group">
-    <label class="inputLevel">Confirm New Password <span>*</span></label>
-    <input type="password" class="form-control" id="confirmpassword">    
-  </div>
-  <div class="form-group">
-  <button type="submit" class="btn btn-primary">Save</button>
-  </div>
-</form>
-              
-        </div>
-    </div>
-
-    <div class="col-md addBox">
-    <div class="boxTitle">
-                <span><?= $block->escapeHtml(__('Newsletters')) ?></span>
-   </div>
-    <?php if ($block->isNewsletterEnabled()): ?>
-                    <div class="newslettertext">
-                        <?php if ($block->getIsSubscribed()): ?>
-                            <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('newsletter/manage')) ?>"> <?= $block->escapeHtml(__('You already sign up to our Newsletter')) ?> </a>
-                            
-                        <?php else: ?>
-                            <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('newsletter/manage')) ?>"> <?= $block->escapeHtml(__('I want to sign up for the Newsletter')) ?></a>
-                        <?php endif; ?>
+            <p><span class="textBold">Broj korisnika:</span> 2380 </p>
+            <p><span class="textBold">Customer code:</span> <span class="redText"> 30799331 </span> (Kristian Koening)
+            </p>
+            <p><span class="textBold">Email:</span>
+                <span><?= $block->escapeHtml($block->getCustomer()->getEmail()) ?> </span> (<span class="textBlue"><a
+                        href="!#">Change</a></span>)</p>
+            <div id="changePass" onclick="displayLoginBox()">Change Password</div>
+            <div id="passBox" style="display:none;">
+                <form>
+                    <div class="form-group">
+                        <label class="inputLevel">Current Password <span>*</span> </label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
-        <?php endif; ?>
-    </div>
-    <div class="col-md addBox">
-        <div class="boxTitle">
-                <span class="SalesRep"><?= $block->escapeHtml(__('Sales representtative contact details')) ?></span>
+                    <div class="form-group">
+                        <label class="inputLevel">New Password <span>*</span></label>
+                        <input type="password" class="form-control" id="newpassword">
+                        <small id="emailHelp" class="form-text text-muted">Password Strength: No Password</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="inputLevel">Confirm New Password <span>*</span></label>
+                        <input type="password" class="form-control" id="confirmpassword">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+
+            </div>
         </div>
+
+        <div class="col-md addBox">
+            <div class="boxTitle">
+                <span><?= $block->escapeHtml(__('Newsletters')) ?></span>
+            </div>
+            <?php if ($block->isNewsletterEnabled()): ?>
+
+                <form class="form form-newsletter-manage" action="http://wc.b2b.com/newsletter/manage/save/"
+                      method="post" id="form-validate">
+                    <?= $block->getBlockHtml('formkey') ?>
+                    <div class="subscription-checkbox no-display">
+                        <input type="checkbox"
+                               name="is_subscribed"
+                               id="subscription"
+                               value="1"
+                               title="<?= $block->escapeHtmlAttr(__('General Subscription')) ?>"
+                               class="checkbox"
+                            <?php if (!$block->getIsSubscribed()) : ?> checked="checked"<?php endif; ?>
+                        >
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="newslettertext">
+                            <?php if ($block->getIsSubscribed()): ?>
+                                <div class="primary">
+                                    <button type="submit"
+                                            title="<?= $block->escapeHtmlAttr(__('Unsubscribe from the Newsletter')) ?>"
+                                            class="action save primary">
+                                        <span><?= $block->escapeHtml(__('Unsubscribe from the Newsletter')) ?></span>
+                                    </button>
+                                </div>
+                            <?php else: ?>
+                                <div class="primary">
+                                    <button type="submit"
+                                            title="<?= $block->escapeHtmlAttr(__('Sign up for the Newsletter')) ?>"
+                                            class="action save primary">
+                                        <span><?= $block->escapeHtml(__('Sign up for the Newsletter')) ?></span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </form>
+            <?php endif; ?>
+        </div>
+        <div class="col-md addBox">
+            <div class="boxTitle">
+                <span class="SalesRep"><?= $block->escapeHtml(__('Sales representtative contact details')) ?></span>
+            </div>
             <p><span class="textBold">Name: </span>Damir Pavlovic</p>
-            <div class="emailBox"><span class="icon-wuerth-e-mail"> </span> Email: damir.pavlovic@gmail.com </div>
-    
-</div>
-<div class="seprator"></div>
+            <div class="emailBox"><span class="icon-wuerth-e-mail"> </span> Email: damir.pavlovic@gmail.com</div>
+
+        </div>
+        <div class="seprator"></div>
         <div class="col-md-3 addBoxs">
-        <div class="boxTitle"> Contact Center </div>
+            <div class="boxTitle"> Contact Center</div>
             <p class="textBold">Würth-Hrvatska doo ,</p>
             <p>Franje Lučića 32, 10 090 , Zagreb</p>
             <p><span class="icon-com-phone-a"></span> Tel: +385 (01) 3498-784 </p>
-            <p><span class="cil-fax icon-doc-print"></span> Fax: +385 (01) 3498-783</p>  
-            <p class="emailCom"><span class="icon-wuerth-e-mail"> </span> <b>Email: </b> wuerth@wuerth.com.hr </p>      
+            <p><span class="cil-fax icon-doc-print"></span> Fax: +385 (01) 3498-783</p>
+            <p class="emailCom"><span class="icon-wuerth-e-mail"> </span> <b>Email: </b> wuerth@wuerth.com.hr </p>
 
         </div>
         <div class="col-md-9">
-        <div class="boxTitle"> Welcome to contact center WÜRTH-HRVATSKA DOO</div>
-        <p class="textBluebold">Working hours contact center <br/> mon-fri: 8:00 - 16:00</p> 
-        <div class="row"> 
-            <div class="col-md-4"> 
-               <div class="supportBox">
-                   <div class="supportIcon"><img src="<?php echo $this->getViewFileUrl('Magento_Customer::images/consult-1.svg'); ?>"></div>
-                   <div class="phoneDetails">
-                       <p class="redColor">08004260</p>
-                       <p class="genText">Sales, support and information</p>
-                  </div>
-                </div>   
-            </div>
-            <div class="col-md-4"> 
-               <div class="supportBox">
-                   <div class="supportIcon"> <img src="<?php echo $this->getViewFileUrl('Magento_Customer::images/consult-2.svg'); ?>"> </div>
-                   <div class="phoneDetails">
-                       <p class="redColor">08004260</p>
-                       <p class="genText">Complaints, service and shipment status</p>
-                  </div>
-                </div>   
-            </div>
-            <div class="col-md-4"> 
-               <div class="supportBox">
-                   <div class="supportIcon"> <img src="<?php echo $this->getViewFileUrl('Magento_Customer::images/consult-3.svg'); ?>"> </div>
-                   <div class="phoneDetails">
-                       <p class="redColor">08004260</p>
-                       <p class="genText last">Complaints, service and shipment status</p>
-                  </div>
-                </div>   
-            </div>
-    
-</div>
-    </div>                    
+            <div class="boxTitle"> Welcome to contact center WÜRTH-HRVATSKA DOO</div>
+            <p class="textBluebold">Working hours contact center <br/> mon-fri: 8:00 - 16:00</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="supportBox">
+                        <div class="supportIcon"><img
+                                src="<?php echo $this->getViewFileUrl('Magento_Customer::images/consult-1.svg'); ?>">
+                        </div>
+                        <div class="phoneDetails">
+                            <p class="redColor">08004260</p>
+                            <p class="genText">Sales, support and information</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="supportBox">
+                        <div class="supportIcon"><img
+                                src="<?php echo $this->getViewFileUrl('Magento_Customer::images/consult-2.svg'); ?>">
+                        </div>
+                        <div class="phoneDetails">
+                            <p class="redColor">08004260</p>
+                            <p class="genText">Complaints, service and shipment status</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="supportBox">
+                        <div class="supportIcon"><img
+                                src="<?php echo $this->getViewFileUrl('Magento_Customer::images/consult-3.svg'); ?>">
+                        </div>
+                        <div class="phoneDetails">
+                            <p class="redColor">08004260</p>
+                            <p class="genText last">Complaints, service and shipment status</p>
+                        </div>
+                    </div>
+                </div>
 
-        
+            </div>
+        </div>
+
+
         <?php //echo $block->getChildHtml('additional_blocks'); ?>
     </div>
 </section>
 <script type="text/javascript">
-require(['jquery'], function($) {
-$('#changePass').on('click', function(e){
-$("#passBox").toggle();
-});
-$('.block.block-dashboard-addresses').css('display','none');
-$('.block.block-dashboard-orders').css('display','none');
-});
- </script> 
+    require(['jquery'], function ($) {
+        $('#changePass').on('click', function (e) {
+            $("#passBox").toggle();
+        });
+        $('.block.block-dashboard-addresses').css('display', 'none');
+        $('.block.block-dashboard-orders').css('display', 'none');
+    });
+</script>
