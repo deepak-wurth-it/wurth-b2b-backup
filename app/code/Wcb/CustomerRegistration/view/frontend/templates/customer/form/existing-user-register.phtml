@@ -71,7 +71,7 @@ $formData = $block->getFormData();
             </div>
         </div>
 
-        <div class="field confirm-customer-code _required">
+        <div class="field confirm-customer-code _required no-display">
             <label class="label" for="confirm_customer_code">
                 <span><?= $block->escapeHtml(__('Confirm Customer Code')) ?></span>
             </label>
@@ -145,7 +145,7 @@ $formData = $block->getFormData();
                     <input name="phone_code" title="Phone Code" type="text" value="+385" readonly>
                 </div>
                 <div class="col-md-10 telephone-filed">
-                     <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-ponumber-custom validate-length minimum-length-10 maximum-length-20 v-validate"
+                     <input name="telephone" id="telephone" title="Phone" value="" class="input-text validate-ponumber-custom validate-length minimum-length-9 maximum-length-20 v-validate"
                         type="text" data-validate="{required:true}">
                 </div>
             </div>

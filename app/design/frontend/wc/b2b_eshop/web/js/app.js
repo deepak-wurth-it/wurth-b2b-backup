@@ -96,4 +96,30 @@ require(
 			
 			// counter in about us page 
 
+            // where-do-we-meet js start for search 
+            $("#wcb-search").keyup(function() {
+                // Retrieve the input field text and reset the count to zero
+                var filter = $(this).val(),
+                  count = 0;          
+                // Loop through the comment list
+                $('.wcb-card-body').each(function() {          
+          
+                  // If the list item does not contain the text phrase fade it out
+                  if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                    $(this).hide();
+                    $('.no-record').show();
+          
+                    // Show the list item if the phrase matches and increase the count by 1
+                  } else {
+                   $('.no-record').hide();
+                    $(this).show();
+                    count++;
+                  }
+          
+                });
+          
+              });
+
+            // where-do-we-meet end
+
     });
