@@ -131,5 +131,28 @@ require(
             })
         })
           // for navigation
+          // order history start for search 
+          
+          $("#wcbsearchInput").keyup(function() {
+              // Retrieve the input field text and reset the count to zero
+              var filter = $(this).val(),
+                count = 0;          
+              // Loop through the comment list
+              $('tbody').each(function() {       
+        
+                if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                  $(this).hide();
+                  $('.wcb-no-record').show();
+                } else {
+                 $('.wcb-no-record').hide();
+                  $(this).show();
+                  count++;
+                }
+        
+              });
+        
+            });
+
+            // order history start for search 
 
     });

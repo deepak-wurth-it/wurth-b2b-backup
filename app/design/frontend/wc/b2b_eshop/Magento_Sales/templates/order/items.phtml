@@ -20,7 +20,7 @@
          </div>
       </div>
       <div class="col-md-3 tab-head">
-         <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
+         <div class="input-box"> <input type="text" class="form-control" id="wcbsearchInput"> <i class="fa fa-search"></i> </div>
       </div>
       <div class="col-xs-3 tab-foot">
          <div class="limiter">
@@ -116,7 +116,9 @@
             <?= $block->getChildHtml('order_totals') ?>
         </tfoot>         
     </table>
-
+    
+    <p class="wcb-no-record"> No record founds.</p>
+    
     <div class="pager">
             <div class="limiter pull-right footer-limiter">
                   <strong class="limiter-label">Show</strong>
