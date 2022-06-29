@@ -1,0 +1,149 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Sales\Block\Order\Items $block */
+?>
+
+<div class="table-wrapper order-items order-detail">
+   
+
+    <table class="data table table-order-items" id="my-orders-table" summary="<?= $block->escapeHtml(__('Items Ordered')) ?>">
+    <div class="row filter-contaner">
+      <div class="col-md-7">
+         <div class="sales-title"> 
+            <?php echo __("Online shop number - 15986"); ?> 
+         </div>
+      </div>
+      <div class="col-md-3 tab-head">
+         <div class="input-box"> <input type="text" class="form-control" id="wcbsearchInput"> <i class="fa fa-search"></i> </div>
+      </div>
+      <div class="col-xs-3 tab-foot">
+         <div class="limiter">
+            <strong class="limiter-label">Show</strong>
+            <select id="limiter" class="limiter-options">
+               <option value="#" selected="selected">
+                  10                    
+               </option>
+               <option value="#">
+                  20                    
+               </option>
+               <option value="#">
+                  50                    
+               </option>
+            </select>
+            <span class="limiter-text">per page</span>
+         </div>
+      </div>
+   </div>
+
+        <caption class="table-caption"><?= $block->escapeHtml(__('Items Ordered')) ?></caption>
+        <thead class="wcb-first-row">
+            <?php if ($block->isPagerDisplayed()) : ?>
+                <tr>
+                    <td colspan="5" data-block="order-items-pager-top" class="order-pager-wrapper order-pager-wrapper-top">
+                        <?= $block->getPagerHtml() ?>
+                    </td>
+                </tr>
+            <?php endif ?>
+            <tr> 
+               <th class="cols rb"><?= $block->escapeHtml(__('RB')) ?></th>
+               <th class="cols status"><?= $block->escapeHtml(__('Status')) ?></th>
+               <th class="cols br-art"><?= $block->escapeHtml(__('Br. art')) ?></th>
+               <th class="cols order-quantity"><?= $block->escapeHtml(__('Ordered quantity')) ?></th> 
+               <th class="cols pack"><?= $block->escapeHtml(__('Pack')) ?></th> 
+               <th class="cols delivered-quantity"><?= $block->escapeHtml(__('Delivered quantity')) ?></th>             
+                <th class="cols sku"><?= $block->escapeHtml(__('Name')) ?></th>
+                <th class="cols delivery-note"><?= $block->escapeHtml(__('Delivery note number')) ?></th>
+                <th class="cols d-o-despatch"><?= $block->escapeHtml(__('Date of dispatch')) ?></th>
+                <th class="cols invoice-no"><?= $block->escapeHtml(__('Invoice number')) ?></th>
+                <th class="cols invoice-date"><?= $block->escapeHtml(__('Invoice date')) ?></th>
+                <th class="cols plan-del-date"><?= $block->escapeHtml(__('Planned delivery date')) ?></th>
+            </tr>
+        </thead>
+        <?php $items = $block->getItems(); ?>
+        <?php $giftMessage = ''?>
+        <?php foreach ($items as $item) :
+            if ($item->getParentItem()) :
+                continue;
+            endif;
+            ?>
+            <tbody>
+                <?= $block->getItemHtml($item) ?>
+                <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)->isMessagesAllowed('order_item', $item) && $item->getGiftMessageId()) : ?>
+                    <?php $giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($item); ?>
+                    <tr>
+                        <td class="col options" colspan="5">
+                            <a href="#"
+                               id="order-item-gift-message-link-<?= (int) $item->getId() ?>"
+                               class="action show"
+                               aria-controls="order-item-gift-message-<?= (int) $item->getId() ?>"
+                               data-item-id="<?= (int) $item->getId() ?>">
+                                <?= $block->escapeHtml(__('Gift Message')) ?>
+                            </a>
+                            <?php $giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($item); ?>
+                            <div class="order-gift-message" id="order-item-gift-message-<?= (int) $item->getId() ?>" role="region" aria-expanded="false" tabindex="-1">
+                                <a href="#"
+                                   title="<?= $block->escapeHtml(__('Close')) ?>"
+                                   aria-controls="order-item-gift-message-<?= (int) $item->getId() ?>"
+                                   data-item-id="<?= (int) $item->getId() ?>"
+                                   class="action close">
+                                    <?= $block->escapeHtml(__('Close')) ?>
+                                </a>
+                                <dl class="item-options">
+                                    <dt class="item-sender"><strong class="label"><?= $block->escapeHtml(__('From')) ?></strong><?= $block->escapeHtml($giftMessage->getSender()) ?></dt>
+                                    <dt class="item-recipient"><strong class="label"><?= $block->escapeHtml(__('To')) ?></strong><?= $block->escapeHtml($giftMessage->getRecipient()) ?></dt>
+                                    <dd class="item-message"><?= /* @noEscape */ $this->helper(\Magento\GiftMessage\Helper\Message::class)->getEscapedGiftMessage($item) ?></dd>
+                                </dl>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif ?>
+            </tbody>
+        <?php endforeach; ?>
+        <tfoot>
+            <?php if ($block->isPagerDisplayed()) : ?>
+                <tr>
+                    <td colspan="5" data-block="order-items-pager-bottom" class="order-pager-wrapper order-pager-wrapper-bottom">
+                        <?= $block->getPagerHtml() ?>
+                    </td>
+                </tr>
+            <?php endif ?>
+            <?= $block->getChildHtml('order_totals') ?>
+        </tfoot>         
+    </table>
+    
+    <p class="wcb-no-record"> No record founds.</p>
+    
+    <div class="pager">
+            <div class="limiter pull-right footer-limiter">
+                  <strong class="limiter-label">Show</strong>
+                  <select id="limiter" class="limiter-options">
+                     <option value="#" selected="selected">
+                        10                    
+                     </option>
+                     <option value="#">
+                        20                    
+                     </option>
+                     <option value="#">
+                        50                    
+                     </option>
+                  </select>
+                  <span class="limiter-text">per page</span>
+            </div>
+      </div>
+    
+</div>
+<?php if ($giftMessage) : ?>
+<script type="text/x-magento-init">
+    {
+        "a.action.show, a.action.close": {
+            "giftMessage": {}
+        }
+    }
+</script>
+<?php endif; ?>
