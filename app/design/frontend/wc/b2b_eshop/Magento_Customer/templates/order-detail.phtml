@@ -1,0 +1,166 @@
+<div class="order-detail">
+   <div class="row filter-contaner">
+      <div class="col-md-7">
+         <div class="sales-title"> 
+            <?php echo __("Online shop number - 15986"); ?> 
+         </div>
+      </div>
+      <div class="col-md-3 tab-head">
+         <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
+      </div>
+      <div class="col-xs-3 tab-foot">
+         <div class="limiter">
+            <strong class="limiter-label">Show</strong>
+            <select id="limiter" class="limiter-options">
+               <option value="#" selected="selected">
+                  10                    
+               </option>
+               <option value="#">
+                  20                    
+               </option>
+               <option value="#">
+                  50                    
+               </option>
+            </select>
+            <span class="limiter-text">per page</span>
+         </div>
+      </div>
+   </div>
+   <div id="elements">
+      <ol class="collection collection-container" id="filter">
+         <li class="item item-container" >
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>"><?= $block->escapeHtml(__('RB')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><?= $block->escapeHtml(__('Status')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. art')) ?>"><?= $block->escapeHtml(__('Br. art')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>"><?= $block->escapeHtml(__('Ordered quantity')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Pack')) ?>"><?= $block->escapeHtml(__('Pack')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivered quantity')) ?>"><?= $block->escapeHtml(__('Delivered quantity')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>"><?= $block->escapeHtml(__('Name')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivery note number')) ?>"><?= $block->escapeHtml(__('Delivery note number')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Date of dispatch')) ?>"><?= $block->escapeHtml(__('Date of dispatch')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice number')) ?>"><?= $block->escapeHtml(__('Invoice number')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice date')) ?>"><?= $block->escapeHtml(__('Invoice date')) ?></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Planned delivery date')) ?>"><?= $block->escapeHtml(__('Planned delivery date')) ?></div>
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="red-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. art')) ?>">K8921050A</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Pack')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivered quantity')) ?>">12</div>            
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">LEPEZ.BR.PLOCA-OPTIMIM-ZAOB.-INOX / CEL. -G120-D115MM </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivery note number')) ?>">---- </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Date of dispatch')) ?>" >08/27/2020</div> 
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice number')) ?>" >-----</div>   
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice date')) ?>" >08/27/2020</div>  
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Planned delivery date')) ?>" > </div>           
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="green-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. art')) ?>">K8921050A</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Pack')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivered quantity')) ?>">12</div>            
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">LEPEZ.BR.PLOCA-OPTIMIM-ZAOB.-INOX / CEL. -G120-D115MM </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivery note number')) ?>">---- </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Date of dispatch')) ?>" >08/27/2020</div> 
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice number')) ?>" >-----</div>   
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice date')) ?>" >08/27/2020</div>  
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Planned delivery date')) ?>" > </div>           
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="blue-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. art')) ?>">K8921050A</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Pack')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivered quantity')) ?>">12</div>            
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">LEPEZ.BR.PLOCA-OPTIMIM-ZAOB.-INOX / CEL. -G120-D115MM </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivery note number')) ?>">---- </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Date of dispatch')) ?>" >08/27/2020</div> 
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice number')) ?>" >-----</div>   
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice date')) ?>" >08/27/2020</div>  
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Planned delivery date')) ?>" > </div>           
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="red-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. art')) ?>">K8921050A</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Pack')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivered quantity')) ?>">12</div>            
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">LEPEZ.BR.PLOCA-OPTIMIM-ZAOB.-INOX / CEL. -G120-D115MM </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivery note number')) ?>">---- </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Date of dispatch')) ?>" >08/27/2020</div> 
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice number')) ?>" >-----</div>   
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice date')) ?>" >08/27/2020</div>  
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Planned delivery date')) ?>" > </div>           
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="green-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. art')) ?>">K8921050A</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Pack')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivered quantity')) ?>">12</div>            
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">LEPEZ.BR.PLOCA-OPTIMIM-ZAOB.-INOX / CEL. -G120-D115MM </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivery note number')) ?>">---- </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Date of dispatch')) ?>" >08/27/2020</div> 
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice number')) ?>" >-----</div>   
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice date')) ?>" >08/27/2020</div>  
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Planned delivery date')) ?>" > </div>           
+         </li>
+         <li class="item item-container" data-role="collapsible">
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('RB')) ?>">1</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="blue-box"></span></div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. art')) ?>">K8921050A</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Pack')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Ordered quantity')) ?>">12</div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivered quantity')) ?>">12</div>            
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">LEPEZ.BR.PLOCA-OPTIMIM-ZAOB.-INOX / CEL. -G120-D115MM </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Delivery note number')) ?>">---- </div>
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Date of dispatch')) ?>" >08/27/2020</div> 
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice number')) ?>" >-----</div>   
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Invoice date')) ?>" >08/27/2020</div>  
+            <div class="attribute" data-name="<?= $block->escapeHtml(__('Planned delivery date')) ?>" > </div>           
+         </li>
+      </ol>
+   </div>
+   <div class="pager">
+      <div class="limiter pull-right">
+         <strong class="limiter-label">Show</strong>
+         <select id="limiter" class="limiter-options">
+            <option value="#" selected="selected">
+               10                    
+            </option>
+            <option value="#">
+               20                    
+            </option>
+            <option value="#">
+               50                    
+            </option>
+         </select>
+         <span class="limiter-text">per page</span>
+      </div>
+   </div>
+</div>
+<script>
+   require(['jquery', 'jquery/ui'], function($){ 
+       $('#searchInput').keyup(function(){
+      var searchText = $(this).val();    
+      $('ol > li').each(function(){
+          var currentLiText = $(this).text(),
+              showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
+              $(this).toggle(showCurrentLi);          
+      });     
+   });
+   });
+</script>
