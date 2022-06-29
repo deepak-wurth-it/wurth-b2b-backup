@@ -36,9 +36,9 @@ class AddCartProductAfter implements ObserverInterface
             $item = $observer->getEvent()->getData('quote_item');
             $product = $observer->getEvent()->getData('product');
             $quantityUnitByQuantity = $this->data->getQuantityUnitByQuantity($item->getQty(), $product);
-            $wcbQuantityByUnit = $this->data->getMinimumAndMeasureQty($product);
-            $item->setWcbQuantityOrdered($quantityUnitByQuantity);
-            $item->setWcbOrderUnit($wcbQuantityByUnit);
+            $wcbMinUnitQuantity = $this->data->getMinimumAndMeasureQty($product);
+            $item->setWcbQuantityOrdered($wcbMinUnitQuantity);
+            $item->setWcbOrderUnit($quantityUnitByQuantity);
         } catch (Exception $e) {
             $this->logger->info($e->getMessage());
         }
