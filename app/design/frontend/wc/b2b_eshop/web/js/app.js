@@ -97,6 +97,7 @@ require(
 			// counter in about us page 
 
             // where-do-we-meet js start for search 
+            $('.wcb-no-record').hide();
             $("#wcb-search").keyup(function() {
                 // Retrieve the input field text and reset the count to zero
                 var filter = $(this).val(),
@@ -107,11 +108,11 @@ require(
                   // If the list item does not contain the text phrase fade it out
                   if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                     $(this).hide();
-                    $('.no-record').show();
+                    $('.wcb-no-record').show();
           
                     // Show the list item if the phrase matches and increase the count by 1
                   } else {
-                   $('.no-record').hide();
+                   $('.wcb-no-record').hide();
                     $(this).show();
                     count++;
                   }
@@ -121,5 +122,14 @@ require(
               });
 
             // where-do-we-meet end
+          // for navigation
+          $(document).ready(function(){
+            //alert(window.location.href);
+            $(".parentMenu a").each(function(){
+                if($(this).attr("href")==window.location.href)
+                    $(this).addClass("actv");
+            })
+        })
+          // for navigation
 
     });

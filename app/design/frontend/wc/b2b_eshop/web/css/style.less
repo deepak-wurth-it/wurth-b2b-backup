@@ -1211,6 +1211,18 @@ label.sorter-label {
 		margin: 0px;
 	}
 }
+	// order detail page
+	.sales-order-view{
+		ul.items.order-links {
+			display: none;
+		}
+		.footer-limiter{
+			margin-bottom: 60px;
+			margin-top:30px;
+		}
+	}
+		
+	// order detail page
 
 // pdp page
 .report-a-bug { 
@@ -5803,6 +5815,28 @@ a.action.print.hidden-print {
         align-items: center;
 		width: fit-content;
         padding: 0px 20px 0 20px;
+
+		button.action.save.primary span {
+			color: #ffffff;
+			background: #0093dd;
+		}
+		.button.action.save.primary:hover {
+			background: #0093dd;
+			color: #ffffff;
+			border: none;
+			outline: none;
+		}
+		button.action.save.primary:active {
+			background: #0093dd;
+			color: #ffffff;
+			border: none;
+			outline: none;
+		}
+		.action.primary:hover {
+			background-color: #0093dd;
+			color: #fff;
+			border: none;
+		}
 	}
 	.newslettertext a {
 		font-family: 'wuerthbold';
@@ -8212,7 +8246,7 @@ form#form-validate {
 					border-bottom: 2px solid transparent;
 				}
 				&:hover,
-				&.act {
+				&.actv {
 					span {
 						color: @general_link_hover_color;
 					}
@@ -8346,10 +8380,10 @@ form#form-validate {
 		text-align: left;
 		margin-left: 15px;
 	}
-	a.act {
+	a.actv {
 		position: relative;
 	}
-	a.act:before {
+	a.actv:before {
 		border-bottom: solid 2px #cc0000;
 		position: absolute;
 		width: 94%;
@@ -8459,7 +8493,7 @@ span.Cflag {
 	padding: 10px;
 	margin: 0;
 	color: @general_product_name_color;
-	a.act:before {
+	a.actv:before {
 		border: none;
 	}
 	.parentMenu {
@@ -13911,6 +13945,137 @@ margin-top: 10px;
 		}
 	}
 	// Order No Page end by Amit
+
+	// Order detail Page start by Amit
+
+	.order-detail {	
+		.sales-title {
+			font-family: 'wuerthbold';
+			font-size: 16px;
+			color: rgba(0, 0, 0, 0.87);
+			padding: 0px 0px 20px 0px;
+		}
+		button.add-to-basket {
+			background: @general_link_hover_color_cyan;
+			border: 1px solid @general_link_hover_color_cyan;
+			border-radius: 20px;
+			color: @general_bg_color;
+			height: 26px;		
+			font-family: 'wuerthbook';
+			font-size: 14px;
+			cursor: pointer;
+		}
+		span.qty-contaner {
+			display: flex;
+			align-items: center;
+		}
+		.control-qty-cart {
+			width: 100px;
+			border: 1px solid rgba(0, 0, 0, 12%);
+			border-radius: 4px;
+			padding: 2px 0px 0px 7px;
+            margin-right: 10px;
+		}
+		.col-md-3.tab-head {
+			display: table-footer-group;
+		}
+		.col-xs-3.tab-foot {
+			float: right;
+		}
+		.row.filter-contaner {
+			display: table;
+			margin: 20px 0px 10px 0px;
+			width: 100%;
+		}
+		.limiter {
+			margin-bottom: 20px;
+		}
+		.input-box {
+			width: 68%;
+			float: right;
+		}
+		
+		.input-box i {
+			position: absolute;
+			right: 10px;
+			top: 7px;
+			color: #ced4da;
+		}
+		
+		
+		span.product-image {
+			width: 60px;
+			height: 52px;
+			padding: 2px;
+		}
+		.blue-box {
+			display: inline-block;
+			background: url(../images/blueBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.green-box {
+			display: inline-block;
+			background: url(../images/greenBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+		.red-box {
+			display: inline-block;
+			background: url(../images/redBox.svg);
+			background-repeat: no-repeat;
+			height: 17px;
+			width: 21px;
+		}
+
+		
+
+		td.cols {
+			display: grid !important;
+			grid-template-columns: minmax(9em, 55%) 1fr;
+            padding-bottom: 10px;
+		}
+		table > tbody > tr > td{
+			vertical-align: inherit;
+		}
+		 tbody > tr td{
+			border-bottom: none;
+			display: grid;
+			padding: 5px 0;
+			vertical-align: inherit;
+		}
+
+		 tbody > tr td[data-th]:before
+		{
+			padding-right: 10px;
+			content: attr(data-th) ': ';
+			display: inline-block;
+			color: #000000;
+			font-weight: 700;
+	    }
+
+		td.cols:before {
+			padding-right: 10px;
+			content: attr(data-th) ': ';
+			display: inline-block;
+			color: #111111;
+			font-weight: 700;
+		}
+		thead.wcb-first-row {
+			display: none;
+		}	
+		
+		 
+	}
+    .sales-order-view{
+		.account .page-main{
+			padding-top:0px;
+		}
+    }
+
+	// Order detail Page end by Amit
 	
   
 } // responsive end
@@ -15403,6 +15568,87 @@ margin-top: 10px;
 
 	}
 		// Order No page end by Amit
+
+		// Order detail page start by Amit
+		.order-detail{	
+
+			thead.wcb-first-row {
+				background: #ECECEC;
+				font-family: 'wuerthbold';
+				font-size: 14px;
+			}
+
+			.sales-title {
+				font-family: 'wuerthbold';
+				font-size: 24px;
+				color: rgba(0, 0, 0, 0.87);
+				padding: 0px 0px 20px 0px;
+			}	
+			
+			.item-container {
+				display: grid;
+				grid-template-columns: 3% 6% 10% 7% 5% 7% 6% 13% 9% 10% 10% 10%;
+				background: @general_bg_color;
+				margin: 0px;
+				align-items: center;
+				padding: 10px 5px;
+				font-family: 'wuerthbook';
+				border-bottom: 1px solid #DEDEED;
+			}
+			.toolbar-amount {
+				padding: 5px 0 0;
+				display: block;
+			}
+			
+			.group-arrow {
+				background: url(../images/group-arrow.svg);
+				background-repeat: no-repeat;
+				height: 17px;
+				width: 20px;
+				margin: 0px 0px 0px 5px;
+				cursor:pointer;
+			}
+			
+			
+
+			.row.filter-contaner {
+				margin-top: 20px;
+			}
+			.input-box i {
+				position: absolute;
+				right: 26px;
+				top: 7px;
+				color: #ced4da;
+			}
+			
+			.blue-box {
+				display: inline-block;
+				background: url(../images/blueBox.svg);
+				background-repeat: no-repeat;
+				height: 17px;
+				width: 21px;
+				margin: 0px 0px -5px 6px;
+			}
+			.green-box {
+				display: inline-block;
+				background: url(../images/greenBox.svg);
+				background-repeat: no-repeat;
+				height: 17px;
+				width: 21px;
+				margin: 0px 0px -5px 6px;
+			}
+			.red-box {
+				display: inline-block;
+				background: url(../images/redBox.svg);
+				background-repeat: no-repeat;
+				height: 17px;
+				width: 21px;
+				margin: 0px 0px -5px 6px;
+			}		
+		
+
+	}
+		// Order detail page end by Amit
 
 		
 
