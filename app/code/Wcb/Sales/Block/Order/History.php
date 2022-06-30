@@ -55,6 +55,8 @@ class History extends \Magento\Sales\Block\Order\History
         $this->_orderConfig = $orderConfig;
         $this->resource = $resource;
         $this->customerFactory = $customerFactory;
+        $this->context =  $context;
+        //print_r(get_class_methods($this->context));exit;
         parent::__construct($context, $orderCollectionFactory, $customerSession, $orderConfig, $data);
     }
 
@@ -89,28 +91,6 @@ class History extends \Magento\Sales\Block\Order\History
         return $this->orders;
     }
 
-
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        $this->pageConfig->getTitle()->set(__('Tracking orders'));
-        if ($this->getOrders()) {
-            $pager = $this->getLayout()->createBlock(
-                'Magento\Theme\Block\Html\Pager',
-                'wcb.sales.order.history.pager'
-            )->setAvailableLimit($this->getAvailableLimit())
-                ->setShowPerPage(true)->setCollection(
-                    $this->getOrders()
-                );
-            $this->setChild('pager', $pager);
-            $this->getOrders()->load();
-        }
-        return $this;
-    }
-
-
-
-
     private function getOrderCollectionFactory()
     {
         if ($this->orderCollectionFactory === null) {
@@ -134,13 +114,49 @@ class History extends \Magento\Sales\Block\Order\History
 
     public function getAvailableLimit()
     {
-        return [5 => 5,50 => 50, 100 => 100, 150 => 150, 200 => 200];
+        return [5 => 5, 50 => 50, 100 => 100, 150 => 150, 200 => 200];
     }
-
 
     public function getPagerHtml()
     {
+        $pagerBlock = $this->getChildBlock('pager');
+       
+        if ($pagerBlock instanceof \Magento\Framework\DataObject) {
+            /* @var $pagerBlock \Magento\Theme\Block\Html\Pager */
+            $pagerBlock->setAvailableLimit($this->getAvailableLimit());
+            $pagerBlock->setShowPerPage(true);
+            $pagerBlock->setCollection($this->getOrders());
+            return $pagerBlock->toHtml();
+        }
 
-        return $this->getChildHtml('pager');
+        return '';
+    }
+
+    public function _prepareLayout()
+    { 
+        $breadcrumbsBlock = $this->getLayout()->getBlock('wcb_breadcrumb');
+        $baseUrl = $this->context->getStoreManager()->getStore()->getBaseUrl();
+
+        if ($breadcrumbsBlock) {
+
+            $breadcrumbsBlock->addCrumb(
+                'online_shop',
+                [
+                'label' => __('Online Shop'), //lable on breadCrumbes
+                'title' => __('Online Shop'),
+                'link' => $baseUrl
+                ]
+            );
+            $breadcrumbsBlock->addCrumb(
+                'tracking_order',
+                [
+                'label' => __('Tracking Order'),
+                'title' => __('Tracking Order'),
+                'link' => '/sales/order/history/'
+                ]
+            );
+        }
+        $this->pageConfig->getTitle()->set(__('FAQ')); // set page name
+        return parent::_prepareLayout();
     }
 }

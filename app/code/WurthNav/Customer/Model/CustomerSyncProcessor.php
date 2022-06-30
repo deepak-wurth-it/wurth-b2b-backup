@@ -34,6 +34,8 @@ class CustomerSyncProcessor
         \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Magento\Company\Api\CompanyRepositoryInterface $companyRepositoryInterface,
+        \Magento\Framework\App\ResourceConnection $resourceConnection,
+
 
         LoggerInterface $logger
     ) {
@@ -50,6 +52,10 @@ class CustomerSyncProcessor
         $this->customerRepository = $customerRepository;
         $this->customerRepository = $customerRepository;
         $this->companyRepositoryInterface = $companyRepositoryInterface;
+        $this->_resourceConnection = $resourceConnection;
+
+        $this->connectionWurthNav = $this->_resourceConnection->getConnection('wurthnav');
+        $this->connectionDefault  = $this->_resourceConnection->getConnection();
         $this->logger = $logger;
     }
 
@@ -108,18 +114,20 @@ class CustomerSyncProcessor
                     $customerType =  $customer->getSuperUserId() ? '0' : '1';
                     $customerCode = $customer->getData('customer_code');
                     $customerEmail = $customer->getEmail();
-					$newsletter = $this->isCustomerSubscribeByEmail($customerEmail) ? '1' : '0';
+                    $newsletter = $this->isCustomerSubscribeByEmail($customerEmail) ? '1' : '0';
 
                     $customerRepoObject = $this->customerRepository->getById($customer->getId());
 
 
                     #================ About the company & Address =========================#
                     if ($company && empty($customerType)) {
-                      
+
+                        $dataDimensionCode2 = $this->getDimensionCode($company->getActivities());
+
                         $companyRepoObject = $this->companyRepositoryInterface->get($company->getId());
                         $shopContactFactory->setData('Company Name', $company->getCompanyName());
                         $shopContactFactory->setData('Employees', $company->getNumberOfEmployees());
-                        $shopContactFactory->setData('Global Dimension 2 Code',  $company->getActivities());
+                        $shopContactFactory->setData('Global Dimension 2 Code',  $dataDimensionCode2);
                         //$shopContactFactory->setData('Global Dimension 1 Code', $company->getDivision());//not required
                         $shopContactFactory->setData('Country', $company->getCountryId());
 
@@ -138,54 +146,50 @@ class CustomerSyncProcessor
 
                     #=================  About the user  ===========================# 
                     if ($customerRepoObject && $customer) {
-                        
+
                         $shopContactFactory->setData('No_', $customer->getId());
-                        
+
                         $shopContactFactory->setData('Name', $customer->getName());
-                        
+
                         $shopContactFactory->setData('E-Mail', $customer->getEmail());
-                        
-                        
+
+
                         if ($customer->getCustomAttribute("position")) {
-							$position = $customer->getCustomAttribute("position")->getValue();
-							$shopContactFactory->setData('position', $position);
+                            $position = $customer->getCustomAttribute("position")->getValue();
+                            $shopContactFactory->setData('position', $position);
+                        }
 
-						}
-                        
-                        
+
                         $superUser = $customer->getSuperUserId() ? '' : $customer->getId();
-                       
+
                         $shopContactFactory->setData('Customer No_', $superUser);
-                       
+
                         $shopContactFactory->setData('Type', $customerType);
-                       
+
                         $shopContactFactory->setData('Newsletter', $newsletter);
-                       
-                        $newsletter->setCustomAttribute('verified', true);
 
-						if ($customer->getCustomAttribute("position")) {
-							$position = $customer->getCustomAttribute("position")->getValue();
-							$shopContactFactory->setData('Job Title', $position);
+                        $shopContactFactory->setCustomAttribute('verified', true);
 
-						}
+                        if ($customer->getCustomAttribute("position")) {
+                            $position = $customer->getCustomAttribute("position")->getValue();
+                            $shopContactFactory->setData('Job Title', $position);
+                        }
 
 
 
 
                         if ($customerRepoObject->getCustomAttribute('phone')) {
-                            $data['Contact No_'] = $data['Phone No_'] = $customerRepoObject->getCustomAttribute('phone')->getValue();
-                            $shopContactFactory->setData('Contact No_', $data['Contact No_']);
-                            //$shopContactFactory->setData('Phone No_', $data['Phone No_']); // Not Required
+                            $data['mobile_phone_no'] = $data['Phone No_'] = $customerRepoObject->getCustomAttribute('phone')->getValue();
+                            $shopContactFactory->setData('Mobile Phone No_', $data['mobile_phone_no']);
                         }
-     
+
 
                         //If user is not admin
-  
-                        if($customerType){
-                            echo $customerCode.PHP_EOL;
-                            $shopContactFactory->setData('Customer No_',$customerCode);
-                        }
 
+                        if ($customerType) {
+                            echo $customerCode . PHP_EOL;
+                            $shopContactFactory->setData('Customer No_', $customerCode);
+                        }
                     }
                     #================//////////////////==========================#
 
@@ -202,7 +206,7 @@ class CustomerSyncProcessor
                     #==================///////////////=============================#
 
                     #================= User Billing =============================#
-                    if ($billingAddressId && $getDefaultShippingAddress && empty($customerType))  {
+                    if ($billingAddressId && $getDefaultShippingAddress && empty($customerType)) {
                         $data['Invoice To Post Code'] = $getDefaultBillingAddress ? $getDefaultBillingAddress->getPostcode() : '';
                         $data['Invoice To City'] =  $getDefaultBillingAddress ? $getDefaultBillingAddress->getCity() : '';
                         $data['Invoice To Address'] =  $billingAddressId ? implode(',', $this->addressRepository->getById($billingAddressId)->getStreet()) : '';
@@ -274,11 +278,28 @@ class CustomerSyncProcessor
 
         return (bool)$status;
     }
-    
-    public function isCustomerSubscribeByEmail($email) {
+
+    public function isCustomerSubscribeByEmail($email)
+    {
         $status = $this->subscriberFactory->create()->loadByEmail($email)->isSubscribed();
 
         return (bool)$status;
+    }
+
+    public function getDimensionCode($name)
+    {
+        $dataDimensionCode2 = '';
+        if ($name) {
+            $tableDivision = $this->connectionDefault->getTableName('division');
+            $select = $this->connectionDefault->select()
+                ->from(
+                    ['d' => $tableDivision],
+                    ['*']
+                )->where("d.name = '$name'");
+            $data = $this->connectionDefault->fetchOne($select);
+            $dataDimensionCode2 =   $data ?? $data['branch_code'];
+        }
+        return $dataDimensionCode2;
     }
 
     public function wurthNavLogger($log)
