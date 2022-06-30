@@ -17,6 +17,7 @@ class SalesOrderSyncToNavProcessor
 
 	public $log;
 	const SHIPPING_DETAILS = 'ShippingDetails';
+	const PAYMENT_CODE = ['CashOnDelivery'=>'POUZ','Virman'=>'T'];
 	public function __construct(
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
 		\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
@@ -59,9 +60,11 @@ class SalesOrderSyncToNavProcessor
 						$this->log .= 'Imported order Id  =>>' . $orderId . PHP_EOL;
 					}
 
-
 					$method = $order->getPayment()->getMethodInstance();
 					$methodTitle = $method->getTitle();
+					$methodTitle = str_replace(' ', '', $methodTitle);
+					
+					$methodCode = self::PAYMENT_CODE[$methodTitle];
 					$name = $order->getCustomerFirstname() . ' ' . $order->getCustomerLastname();
 					$ordersNav->setData('OrderID', $order->getId());
 
@@ -79,12 +82,11 @@ class SalesOrderSyncToNavProcessor
 					$ordersNav->setData('Total', $order->getGrandTotal()); //Total with tax
 					$ordersNav->setData('CreatedDate', $order->getCreatedAt()); //Order Created Date
 					$ordersNav->setData('OrderStatus', $order->getOrderStatus()); //Order Status/This should to be 1 after order palce
-					$ordersNav->setData('PaymentType', $methodTitle); //Order Payment Method
+					$ordersNav->setData('PaymentType', $methodCode); //Order Payment Method
 					$ordersNav->setData('Comment', $order->getRemarks()); //Order Comment
 					//Other Field
 
 					$ordersNav->setData('ExternalId', $order->getExternalId()); //ERP Order Id
-					$ordersNav->setData('DeliveryAddressCode', $order->getExternalId()); //it displays delivery address code Linkage with dboCustomerDeliveryAddress
 					$ordersNav->setData('CustomerOrderNo', $order->getInternalOrderNumber()); //User enters Internal order number during checkout
 					$ordersNav->setData('CostCenter', $order->getCostCenter()); //cost center
 					$ordersNav->setData('LocationCode', $order->getLocationCode()); //Order is placed for Delivery or Store Number
