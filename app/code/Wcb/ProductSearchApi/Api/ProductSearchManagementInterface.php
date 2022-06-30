@@ -13,9 +13,10 @@ interface ProductSearchManagementInterface
      *
      * @param int $customerId
      * @param string $search
+     * @param int $page
      * @return array
      */
-    public function getProductList($customerId,$search);
+    public function getProductList($customerId,$search,$page);
 
 
 }
