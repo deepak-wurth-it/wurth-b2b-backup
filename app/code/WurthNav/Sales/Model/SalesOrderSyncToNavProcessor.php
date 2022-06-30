@@ -199,7 +199,7 @@ class SalesOrderSyncToNavProcessor
 
 				$orderItemsNav->setData('MagentoOrderItemId', $items->getId());//
 				$orderItemsNav->setData('OrderItemID', $i);//Loop Id
-				$orderItemsNav->setData('ProductNumber', $items->getId());//Product Code
+				$orderItemsNav->setData('ProductNumber', $items->getProductCode());//Product Code
 				$orderItemsNav->setData('OrderID', $items->getOrderId());
 				$orderItemsNav->setData('LocationCode', $order->getLocationCode()); // will update
 				$orderItemsNav->setData('TotalNoTax', $items->getRowTotal()); //It's subtotal (without tax) of purchased qty of an item
