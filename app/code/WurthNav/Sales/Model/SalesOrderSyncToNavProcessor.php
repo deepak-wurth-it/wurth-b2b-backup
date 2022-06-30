@@ -17,7 +17,7 @@ class SalesOrderSyncToNavProcessor
 
 	public $log;
 	const SHIPPING_DETAILS = 'ShippingDetails';
-	const PAYMENT_CODE = ['CashOnDelivery'=>'POUZ','Virman'=>'T'];
+	const PAYMENT_CODE = ['CashOnDelivery' => 'POUZ', 'Virman' => 'T'];
 	public function __construct(
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
 		\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
@@ -61,10 +61,12 @@ class SalesOrderSyncToNavProcessor
 					}
 
 					$method = $order->getPayment()->getMethodInstance();
-					$methodTitle = $method->getTitle();
-					$methodTitle = str_replace(' ', '', $methodTitle);
-					
-					$methodCode = self::PAYMENT_CODE[$methodTitle];
+					$methodCode = 'no_payment_method_found';
+					if ($method) {
+						$methodTitle = $method->getTitle();
+						$methodTitle = str_replace(' ', '', $methodTitle);
+						$methodCode = isset(self::PAYMENT_CODE[$methodTitle]) ? self::PAYMENT_CODE[$methodTitle] :  '';
+					}
 					$name = $order->getCustomerFirstname() . ' ' . $order->getCustomerLastname();
 					$ordersNav->setData('OrderID', $order->getId());
 
@@ -116,7 +118,7 @@ class SalesOrderSyncToNavProcessor
 		$row = $shippingAddress = $order->getShippingAddress()->getData();
 		if (count($shippingAddress)) {
 			try {
-				
+
 				$data = [
 					'OrderID' => $order->getId(),
 					'Name' =>  $row['firstname'] . ' ' . $row['lastname'],
@@ -182,10 +184,10 @@ class SalesOrderSyncToNavProcessor
 
 	public function SaveOrderItems($order)
 	{
-        
+
 		$orderItems = $order->getAllItems();
-		$i=1;
-		foreach ($orderItems as $key=>$items) {
+		$i = 1;
+		foreach ($orderItems as $key => $items) {
 			try {
 				$orderItemsNav = $this->orderItemsFactory->create();
 				$orderItemId = $items->getId();
@@ -197,9 +199,9 @@ class SalesOrderSyncToNavProcessor
 					$this->log .= 'Imported order items Id =>>' .  $orderItemId . PHP_EOL;
 				}
 
-				$orderItemsNav->setData('MagentoOrderItemId', $items->getId());//
-				$orderItemsNav->setData('OrderItemID', $i);//Loop Id
-				$orderItemsNav->setData('ProductNumber', $items->getProductCode());//Product Code
+				$orderItemsNav->setData('MagentoOrderItemId', $items->getId()); //
+				$orderItemsNav->setData('OrderItemID', $i); //Loop Id
+				$orderItemsNav->setData('ProductNumber', $items->getProduct()->getProductCode()); //Product Code
 				$orderItemsNav->setData('OrderID', $items->getOrderId());
 				$orderItemsNav->setData('LocationCode', $order->getLocationCode()); // will update
 				$orderItemsNav->setData('TotalNoTax', $items->getRowTotal()); //It's subtotal (without tax) of purchased qty of an item
