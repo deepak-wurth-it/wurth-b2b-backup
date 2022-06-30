@@ -22,6 +22,7 @@ class CustomerSyncProcessor
 
     protected $customer;
     public $log;
+    const CUSTOMER_TABLE = 'customer_entity';
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
@@ -80,11 +81,10 @@ class CustomerSyncProcessor
                     'company_name' => 'company.company_name',
                     'super_user_id' => 'company.super_user_id'
                 ]
+            )->where(
+                'e.sync_status = ?',
+                '0'
             );
-        //)->where(
-        //'e.sync_status = ?',
-        //'0'
-        // );
 
         $x = 0;
 
@@ -221,6 +221,7 @@ class CustomerSyncProcessor
 
                     $shopContactFactory->setData('needs_update', '1');
 
+                    $this->updateSyncStatus($customer->getId());
                     if ($customer->getId() && $shopContactFactory->getData()) {
                         $shopContactFactory2 = $this->shopContactFactory->create();
                         $shopContactExist = $shopContactFactory2->load($customer->getId(), 'No_');
@@ -296,10 +297,20 @@ class CustomerSyncProcessor
                     ['d' => $tableDivision],
                     ['*']
                 )->where("d.name = '$name'");
-            $data = $this->connectionDefault->fetchOne($select);
-            $dataDimensionCode2 =   $data ?? $data['branch_code'];
+            //print_r(get_class_methods($this->connectionDefault));exit;
+            $data = $this->connectionDefault->fetchRow($select);
+            $dataDimensionCode2 =   $data ? $data['branch_code'] : '';
         }
         return $dataDimensionCode2;
+    }
+
+    public function updateSyncStatus($customerId)
+    {   $status = ['sync_status'=>'1'];
+        $this->connectionDefault->update(
+            $this->connectionDefault->getTableName(self::CUSTOMER_TABLE),
+            $status,
+            ['entity_id = ?' => (int)$customerId]
+        );
     }
 
     public function wurthNavLogger($log)

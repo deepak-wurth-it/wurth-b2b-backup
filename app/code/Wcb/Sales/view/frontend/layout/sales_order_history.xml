@@ -8,10 +8,6 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="customer_account"/>
     <body>
-
-        <referenceContainer name="page.top">
-            <block class="Magento\Framework\View\Element\Template" name="dashboard_menus" before="breadcrumbs" template="Magento_Customer::dashboard-menu.phtml" as='dashboard_menuh' />
-        </referenceContainer>
         <referenceContainer name="content">
             <block class="Magento\Sales\Block\Order\History" name="sales.order.history" cacheable="false">
                 <container name="sales.order.history.info" as="info" label="Order History Info"/>
