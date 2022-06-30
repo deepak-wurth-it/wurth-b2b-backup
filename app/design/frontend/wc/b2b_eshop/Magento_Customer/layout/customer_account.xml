@@ -39,5 +39,8 @@
             </block>
         </referenceContainer>
         <move element="page.main.title" destination="content.top" before="-"/>
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" name="dashboard_menus" before="-" template="Magento_Customer::dashboard-menu.phtml" as='dashboard_menuh' />
+        </referenceContainer>
     </body>
 </page>
