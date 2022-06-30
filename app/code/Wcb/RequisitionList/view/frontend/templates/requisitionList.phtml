@@ -1,0 +1,99 @@
+<?php $requisitionList = $block->getRequisitionList(); ?>
+<?php $customerCode = $block->getCustomerCode(); ?>
+<div class="orderTemplate">
+    <div class="quoteTitle">
+        <div class="columnTitle">
+            <h2><?= __("Order templates for branch partners (Code: $customerCode)") ?></h2>
+        </div>
+    </div>
+
+    <section id="elements">
+        <ol class="collection collection-container">
+            <!-- The first list item is the header of the table -->
+            <li class="item item-container">
+                <div class="attribute" data-name="Name"><?= __("Name") ?></div>
+                <div class="attribute" data-name="Date"><?= __("Date") ?></div>
+                <div class="attribute" data-name="Time"><?= __("Time") ?></div>
+                <div class="attribute" data-name="Created"><?= __("Created") ?></div>
+            </li>
+            <?php foreach ($requisitionList as $item) { ?>
+                <!-- The rest of the items in the list are the actual data -->
+                <li class="item item-container" data-role="collapsible">
+                    <div class="attribute" data-name="Name"><?= $item->getName() ?></div>
+                    <div class="attribute" data-name="Date"><?= $block->getCreateDateFormat($item->getUpdatedAt()) ?></div>
+                    <div class="attribute" data-name="Time"><?= $block->getCreateDateTimeFormat($item->getUpdatedAt()) ?></div>
+                    <div class="attribute" data-name="Created"><?= $block->getCustomerName($item->getCustomerId()) ?></div>
+                    <div class="attribute butContaner">
+                        <div class="apply"><span>Apply</span></div>
+                        <div class="show" data-role="trigger"><span> Show</span></div>
+                        <div class="delete"><span>Delete</span></div>
+                    </div>
+                </li>
+                <div class="resp-row-three" data-role="content">
+                    <div class="row-three">
+                        <ol class="collection collection-container">
+                            <!-- The first list item is the header of the table -->
+                            <li class="item item-sub-container">
+                                <div class="attribute"></div>
+                                <div class="attribute"></div>
+                                <div class="attribute" data-name="Article no. Item description">Article no. Item
+                                    description
+                                </div>
+                                <div class="attribute" data-name="stock"></div>
+                                <div class="attribute " data-name="Quantity x pack. = Total QTY">Quantity x pack. =
+                                    Total
+                                    QTY
+                                </div>
+                                <div class="attribute" data-name="Packaging mark">Packaging mark</div>
+                                <div class="attribute"></div>
+                            </li>
+                            <!-- The rest of the items in the list are the actual data -->
+                            <li class="item item-sub-container" data-role="collapsible">
+                                <div class="attribute"></div>
+                                <div class="attribute">Images-1</div>
+                                <div class="attribute" data-name="Article no. Item description">892332840A <br/>Winter
+                                    liquid for glass-60 C-1I-five packaging
+                                </div>
+                                <div class="attribute"><span class="blueBox"></span></div>
+                                <div class="attribute" data-name="Quantity x pack. = Total QTY"><span
+                                        class="boxContaner"><input type="text"> <span class="xpad">X</span> <input
+                                            type="text"> <span class="xpad">=</span> <input type="text"></span></div>
+                                <div class="attribute"></div>
+                                <div class="attribute"></div>
+                            </li>
+                            <li class="item item-sub-container" data-role="collapsible">
+                                <div class="attribute"></div>
+                                <div class="attribute">Images-2</div>
+                                <div class="attribute" data-name="Article no. Item description">892332840A <br/>Winter
+                                    liquid for glass-60 C-1I-five packaging
+                                </div>
+                                <div class="attribute"><span class="greenBox"></span></div>
+                                <div class="attribute" data-name="Quantity x pack. = Total QTY"><span
+                                        class="boxContaner"><input type="text"> <span class="xpad">X</span> <input
+                                            type="text"> <span class="xpad">=</span> <input type="text"></span></div>
+                                <div class="attribute"></div>
+                                <div class="attribute"></div>
+                            </li>
+                            <!-- The rest of the items in the list are the actual data -->
+                        </ol>
+                    </div>
+                </div>
+            <?php } ?>
+        </ol>
+    </section>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'accordion'], function ($) {
+        $("#elements").accordion({
+            multipleCollapsible: true,
+            collapsible: true,
+            active: false,
+            animate: {
+                duration: 400
+            }
+        });
+    });
+</script>

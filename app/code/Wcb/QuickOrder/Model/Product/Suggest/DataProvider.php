@@ -158,7 +158,7 @@ class DataProvider extends \Magento\QuickOrder\Model\Product\Suggest\DataProvide
         $replaceProductCode = $product->getSuccessorProductCode();
         $returnData = [];
         $returnData['msg'] = '';
-        if ($wcbProductStatus == 3 || $wcbProductStatus == 2) {
+        if ($wcbProductStatus == 3) {
             if ($replaceProductCode) {
                 $returnMsg = __("This is replacement product for this " . $replaceProductCode);
                 $returnData['replace_code'] = $replaceProductCode;
