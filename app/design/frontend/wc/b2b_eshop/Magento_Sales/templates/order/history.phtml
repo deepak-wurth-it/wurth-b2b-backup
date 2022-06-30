@@ -76,45 +76,48 @@
     </div>
         
     <?php endif ?>
-<div class="tracking-order-table">
-<div id="elements"> 
-   <ol class="collection collection-container" id="filter">
-      <li class="item item-container" >
-         <div class="attribute" data-name="Rb">Rb <span class="down-arrow"></span></div>
-         <div class="attribute" data-name="Status">Status <span class="group-arrow"></span></div>
-         <div class="attribute" data-name="Name">Name <span class="group-arrow"></span></div>
-         <div class="attribute" data-name="Date">Date <span class="group-arrow"></span></div> 
-         <div class="attribute" data-name="Online shop number">Online shop number <span class="group-arrow"></span></div>
-         <div class="attribute" data-name="Internal order code">Internal order code <span class="group-arrow"></span></div>
-         <div class="attribute" data-name="ERP Number">ERP Number <span class="group-arrow"></span></div> 
-         <div class="attribute" data-name="Follow Order">Follow Order <span class="group-arrow"></span></div> 
-         <div class="attribute"></div>           
-      </li>
-      <?php  foreach ($_orders as $_order) : ?>
-      <li class="item item-container" data-role="collapsible">
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb')) ?>">1.</div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="green-box"></span></div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>">Kristian Koenig</div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Date')) ?>"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Online shop number')) ?>">15986</div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"><?= $block->escapeHtml($_order->getRealOrderId()) ?></div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('ERP Number')) ?>">PP20-0119803</div>
-         <div class="attribute follow-order" data-name="<?= $block->escapeHtml(__('Follow Order')) ?>"><?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
+    <div class="table-wrapper order-items order-detail">
+    <table id="wcb-data-table" class="table table-striped table-bordered nowrap" style="width:100%">
+        <thead class="wcb-first-row">
+            <tr>
+                <th class="name">Rb</th>
+                <th data-orderable="false">Status</th>
+                <th class="position">Name</th>
+                <th>Date</th>
+                <th>Online shop number</th>
+                <th>Internal order code</th>
+                <th>ERP Number</th>
+                <th>Follow Order</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php  foreach ($_orders as $_order) : ?>
+           <tr>
+                <td data-th="RB">1.</td>
+                <td data-th="Status"><span class="green-box"></span></td>
+                <td data-th="Name">Kristian Koenig</td>
+                <td data-th="Date"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></td>
+                <td data-th="Online shop number">15986</td>
+                <td data-th="Internal order code"><?= $block->escapeHtml($_order->getRealOrderId()) ?></td>
+                <td data-th="ERP Number">PP20-0119803</td>
+                <td data-th="Follow Order" ><?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
                                 <a href="#" data-post='<?= /* @noEscape */
                                 $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
                                     ->getPostData($block->getReorderUrl($_order))
                                 ?>' class="action order">
                                     <span><?= $block->escapeHtml(__('Follow Order')) ?></span>
                                 </a>
-                            <?php endif ?></div>
-         <div class="attribute details-botton" ><a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>">Details</a></div>
-      </li> 
-      <?php endforeach; ?>
-     
-     
-   </ol>
+                            <?php endif ?></td>
+                <td data-th="<?= $block->escapeHtml(__('Follow Order')) ?>"><a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>">Details</a></td>
+            </tr>
+
+        <?php endforeach; ?>
+          
+        </tbody>
+    </table>
  </div>
-</div>
+
 <?php if ($block->getPagerHtml()) : ?>
         <div class="order-products-toolbar toolbar bottom bottom-pager"><?= $block->getPagerHtml() ?></div>
     <?php endif ?>
