@@ -49,7 +49,7 @@
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Date')) ?>"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Online shop number')) ?>"><?= $block->escapeHtml($_order->getRealOrderId()) ?></div>
          <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"><?= $block->escapeHtml($_order->getInternalOrderNumber()) ?></div>
-         <div class="attribute" data-name="<?= $block->escapeHtml(__('ERP Number')) ?>">PP20-0119803</div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('ERP Number')) ?>"><?= $block->escapeHtml($_order->getWcbExternalId()) ?></div>
          <div class="attribute follow-order" data-name="<?= $block->escapeHtml(__('Follow Order')) ?>"><?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
                                 <a href="<?= $block->escapeHtml($_order->getWcbTrackingLink()) ?>" data-post='<?= /* @noEscape */
                                 $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
