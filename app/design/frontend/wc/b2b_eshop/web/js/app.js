@@ -154,5 +154,15 @@ require(
             });
 
             // order history start for search 
+            	// data table
+                  $(document).ready(function() {
+                    var table = $('#wcb-data-table').DataTable( {
+                      responsive: true
+                    } );
+                  
+                    new jQuery.fn.dataTable.FixedHeader( table );
+                  } );
+			
+			      // datatable
 
     });
