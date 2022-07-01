@@ -4,7 +4,7 @@ var config = {
         },                                                                
     shim: {
     'jquery.dataTables.min': {
-        deps: ['jquery']
+        deps: ['jquery'] 
     },
   }
 };

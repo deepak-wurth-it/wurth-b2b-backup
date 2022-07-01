@@ -12,57 +12,6 @@
 <?php $_orders = $block->getOrders(); ?>
 <?= $block->getChildHtml('info') ?>
 
-<!--<?php if ($_orders && count($_orders)) : ?>
-    <div class="table-wrapper orders-history">
-        <table class="data table table-order-items history" id="my-orders-table">
-            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
-            <thead>
-                <tr>
-                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Order #')) ?></th>
-                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
-                    <?= $block->getChildHtml('extra.column.header') ?>
-                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Order Total')) ?></th>
-                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
-                    <th scope="col" class="col actions"><?= $block->escapeHtml(__('Action')) ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($_orders as $_order) : ?>
-                    <tr>
-                        <td data-th="<?= $block->escapeHtml(__('Order #')) ?>" class="col id"><?= $block->escapeHtml($_order->getRealOrderId()) ?></td>
-                        <td data-th="<?= $block->escapeHtml(__('Date')) ?>" class="col date"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></td>
-                        <?php $extra = $block->getChildBlock('extra.container'); ?>
-                        <?php if ($extra) : ?>
-                            <?php $extra->setOrder($_order); ?>
-                            <?= $extra->getChildHtml() ?>
-                        <?php endif; ?>
-                        <td data-th="<?= $block->escapeHtml(__('Order Total')) ?>" class="col total"><?= /* @noEscape */ $_order->formatPrice($_order->getGrandTotal()) ?></td>
-                        <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status"><?= $block->escapeHtml($_order->getStatusLabel()) ?></td>
-                        <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
-                            <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
-                                <span><?= $block->escapeHtml(__('View Order')) ?></span>
-                            </a>
-                            <?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
-                                <a href="#" data-post='<?= /* @noEscape */
-                                $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
-                                    ->getPostData($block->getReorderUrl($_order))
-                                ?>' class="action order">
-                                    <span><?= $block->escapeHtml(__('Reorder')) ?></span>
-                                </a>
-                            <?php endif ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <?php if ($block->getPagerHtml()) : ?>
-        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
-    <?php endif ?>
-<?php else : ?>
-    <div class="message info empty"><span><?= $block->escapeHtml($block->getEmptyOrdersMessage()) ?></span></div>
-<?php endif ?> -->
-
 <?php if ($_orders && count($_orders)) : ?>   
     <?php if ($block->getPagerHtml()) : ?>
     <div class="mt-5">
@@ -126,18 +75,11 @@
 <?php endif ?>
 
 <script>
- require(['jquery', 'jquery/ui'], function($){ 
-     $('#searchInput').keyup(function(){
-    var searchText = $(this).val();
-  
-    $('ol > li').each(function(){
-        var currentLiText = $(this).text(),
-            showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
-            $(this).toggle(showCurrentLi);
-        
-    });     
-});
- });
+    require(['jquery.dataTables.min'],function($) {
+    $(window).load(function () {
+        // alert('load from external jquery');
+    });});
 </script>
+
 
 
