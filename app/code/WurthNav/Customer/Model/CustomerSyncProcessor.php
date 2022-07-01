@@ -22,6 +22,8 @@ class CustomerSyncProcessor
 
     protected $customer;
     public $log;
+    const CUSTOMER_TABLE = 'customer_entity';
+    const NEWSLETTER_TABLE = 'newsletter_subscriber';
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
@@ -80,11 +82,10 @@ class CustomerSyncProcessor
                     'company_name' => 'company.company_name',
                     'super_user_id' => 'company.super_user_id'
                 ]
+            )->where(
+                'e.sync_status = ?',
+                '0'
             );
-        //)->where(
-        //'e.sync_status = ?',
-        //'0'
-        // );
 
         $x = 0;
 
@@ -104,6 +105,8 @@ class CustomerSyncProcessor
                         continue;
                     }
                     $this->customer = $customer;
+                    $customerEmail = $customer->getEmail();
+
                     $billingAddressId = $customer->getDefaultBilling();
                     $shippingAddressId = $customer->getDefaultShipping();
                     $address = $customer->getDefaultBillingAddress();
@@ -113,9 +116,7 @@ class CustomerSyncProcessor
                     $shopContactFactory = $this->shopContactFactory->create();
                     $customerType =  $customer->getSuperUserId() ? '0' : '1';
                     $customerCode = $customer->getData('customer_code');
-                    $customerEmail = $customer->getEmail();
-                    $newsletter = $this->isCustomerSubscribeByEmail($customerEmail) ? '1' : '0';
-
+                    
                     $customerRepoObject = $this->customerRepository->getById($customer->getId());
 
 
@@ -165,6 +166,8 @@ class CustomerSyncProcessor
                         $shopContactFactory->setData('Customer No_', $superUser);
 
                         $shopContactFactory->setData('Type', $customerType);
+
+                        $newsletter = $this->isCustomerSubscribedForNewsLetter($customer->getId());
 
                         $shopContactFactory->setData('Newsletter', $newsletter);
 
@@ -221,6 +224,7 @@ class CustomerSyncProcessor
 
                     $shopContactFactory->setData('needs_update', '1');
 
+                    $this->updateSyncStatus($customer->getId());
                     if ($customer->getId() && $shopContactFactory->getData()) {
                         $shopContactFactory2 = $this->shopContactFactory->create();
                         $shopContactExist = $shopContactFactory2->load($customer->getId(), 'No_');
@@ -296,10 +300,36 @@ class CustomerSyncProcessor
                     ['d' => $tableDivision],
                     ['*']
                 )->where("d.name = '$name'");
-            $data = $this->connectionDefault->fetchOne($select);
-            $dataDimensionCode2 =   $data ?? $data['branch_code'];
+            //print_r(get_class_methods($this->connectionDefault));exit;
+            $data = $this->connectionDefault->fetchRow($select);
+            $dataDimensionCode2 =   $data ? $data['branch_code'] : '';
         }
         return $dataDimensionCode2;
+    }
+
+    public function isCustomerSubscribedForNewsLetter($customerId = null)
+    {   //echo $customerId;exit;
+        $newsletter_status = '';
+        if ($customerId) {
+            $select = $this->connectionDefault->select()
+                ->from(
+                    ['news' => self::NEWSLETTER_TABLE],
+                    ['*']
+                )->where("news.customer_id = '$customerId'");
+            $data = $this->connectionDefault->fetchRow($select);
+            $newsletter_status =   $data ? $data['subscriber_status'] : '';
+        }
+        return $newsletter_status;
+    }
+
+    public function updateSyncStatus($customerId)
+    {
+        $status = ['sync_status' => '1'];
+        $this->connectionDefault->update(
+            $this->connectionDefault->getTableName(self::CUSTOMER_TABLE),
+            $status,
+            ['entity_id = ?' => (int)$customerId]
+        );
     }
 
     public function wurthNavLogger($log)
