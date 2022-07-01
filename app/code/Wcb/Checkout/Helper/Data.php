@@ -252,7 +252,8 @@ class Data extends AbstractHelper
             $returnData['price'] = $price;
             $returnData['discount'] = $discount;
             $returnData['discount_price'] = $discountPrice;
-            $returnData['discount_amount'] = $price - $discountPrice;
+            //$returnData['discount_amount'] = $price - $discountPrice;
+            $returnData['discount_amount'] = $discount;
         }
         return $returnData;
     }

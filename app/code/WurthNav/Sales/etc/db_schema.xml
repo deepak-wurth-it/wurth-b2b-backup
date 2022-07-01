@@ -39,6 +39,7 @@
 		<column name="wcb_order_status" nullable="true" xsi:type="varchar" length="255" comment="ERP order status "/>
 		<column name="wcb_delivery_status_code" nullable="true" xsi:type="varchar" length="255" comment="ERP order status code "/>
 		<column name="wcb_delivery_status_desc" nullable="true" xsi:type="text"  comment="ERP delivery status description "/>
+		<column name="wcb_is_default_billing_use" nullable="true" xsi:type="int" unsigned="false" comment="use default billing address as shipping address"/>
    </table>
 
    <table name="sales_order_item" resource="default" engine="innodb" comment="Sales Order Table">

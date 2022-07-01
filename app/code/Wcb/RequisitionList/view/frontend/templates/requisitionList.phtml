@@ -1,9 +1,11 @@
 <?php $requisitionList = $block->getRequisitionList(); ?>
-<?php $customerCode = $block->getCustomerCode(); ?>
+<?php $companyDetail = $block->getCompanyAndCustomerCode(); ?>
+<?php $customerCode = isset($companyDetail['customer_code']) ? $companyDetail['customer_code'] : ''; ?>
+<?php $companyName = isset($companyDetail['company_name']) ? $companyDetail['company_name'] : ''; ?>
 <div class="orderTemplate">
     <div class="quoteTitle">
         <div class="columnTitle">
-            <h2><?= __("Order templates for branch partners (Code: $customerCode)") ?></h2>
+            <h2><?= __("Order templates for $companyName (Code: $customerCode)") ?></h2>
         </div>
     </div>
 
@@ -82,7 +84,9 @@
         </ol>
     </section>
 </div>
-
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>
 <script>
     require([
         'jquery',
