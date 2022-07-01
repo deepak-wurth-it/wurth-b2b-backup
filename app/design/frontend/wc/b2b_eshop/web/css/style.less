@@ -2105,8 +2105,16 @@ label.sorter-label {
 			.wcb-second{
 				order:1;
 			}
+			
 	    }
-
+        
+		.wcb-cms-location-wrapper {
+			display: flex;
+			align-items: center;
+		}
+		.wcb-cms-location-wrapper a {
+			color: #0093DD;
+		}
 		.map-responsive{
 			overflow:hidden;		
 			padding-bottom:56.25%;		
@@ -2169,6 +2177,94 @@ label.sorter-label {
 		
 		
 		// Where do we meet page end
+
+		// Sales order history page start
+
+		/* Datatables sort icons */
+		#wcb-data-table_length {
+			float: right;
+			padding-left: 30px;
+			padding-bottom: 20px;
+		}
+		div.dataTables_wrapper div#wcb-data-table_filter input {
+			margin-left: 0.5em;
+			display: inline-block;
+			width: 25%;
+		}
+		#wcb-data-table_filter:after {
+			content: "\f002";
+			font-family: 'FontAwesome';
+			opacity:0.3;
+			margin: 0px 0px 0px -25px;
+		}
+
+		table#wcb-data-table tr td {
+			border-bottom: 1px solid rgba(0, 0, 0, 12%);
+			a.action.order {
+				font-family: 'wuerthbook';
+				font-size: 16px;
+				text-decoration-line: underline;
+				color: #0093dd;
+			}
+			a.details-botton {
+				color: #CC0000;
+			}
+		}
+	 	    #wcb-data-table thead .sorting::before,
+			#wcb-data-table thead .sorting_asc::before,
+			#wcb-data-table thead .sorting_desc::before,
+			#wcb-data-table thead .sorting_asc_disabled::before,
+			#wcb-data-table thead .sorting_desc_disabled::before {
+				/* Up arrow */
+				content: "\F176";
+				font-family: 'FontAwesome';
+				margin: 0px -9px -8px 0px;
+				font-size:16px;
+				opacity:0.6;
+			}
+			
+			#wcb-data-table thead .sorting::after,
+			#wcb-data-table thead .sorting_asc::after,
+			#wcb-data-table thead .sorting_desc::after,
+			#wcb-data-table thead .sorting_asc_disabled::after,
+			#wcb-data-table thead .sorting_desc_disabled::after {
+				/* Down arrow */
+				content: "\F175";
+				font-family: 'FontAwesome';
+				margin: 0px 0px 9px 0px;
+				font-size:16px;
+				cursor: pointer;
+				opacity:0.6;
+			}			
+			
+			/* Active sort icon */
+			#wcb-data-table thead .sorting_asc::before,
+			#wcb-data-table thead .sorting_desc::after {
+				opacity:0.9;
+			}
+			a.paginate_button {
+				border: 1px solid;
+				padding: 10px 15px 8px 15px;
+				background: rgba(0, 0, 0, 0.08);
+				border:1px solid rgba(0, 0, 0, 0.08);
+				font-family: 'wuerthbook';
+			}
+			a.paginate_button.current {
+				border: 1px solid;
+				padding: 10px 15px 8px 15px;
+				background: #0093dd;
+				border:1px solid #0093DD;
+				color: #ffffff;
+				font-family: 'wuerthbook';
+			}
+			.pagination-fa i.fa.fa-chevron-left,
+			.pagination-fa i.fa.fa-chevron-right {
+				font-size: 14px;
+			}
+
+			/* Datatables sort icons */
+			// Sales order history page end
+
 		// about us page start
 		.counter-box {
 			display: block;
@@ -10761,6 +10857,11 @@ print {
 	.page-layout-2columns-left .column.main {
 		width: 100%;
 	}
+	
+	#wcb-data-table_filter:after {
+		margin: 0px -20% 16px -23px;
+		position: relative;
+	}
    
 }
 
@@ -14084,6 +14185,28 @@ margin-top: 10px;
     }
 
 	// Order detail Page end by Amit
+
+	// sales order history page start
+		table#wcb-data-table td {
+			display: grid !important;
+			grid-template-columns: minmax(9em, 55%) 1fr;
+		}
+		table#wcb-data-table tr td {
+			border-bottom: none;
+		}
+		table#wcb-data-table tr td:last-child {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+		}
+		#wcb-data-table_length {
+			float: right;
+		}
+		
+		
+		div.dataTables_wrapper div#wcb-data-table_filter input {
+			width: 75%;
+			position: relative;
+		}
+	// sales order history page end
 	
   
 } // responsive end
@@ -15722,5 +15845,10 @@ margin-top: 10px;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 		}
    }
+
+   #wcb-data-table_filter:after {
+	margin: 0px -20% 16px -23px;
+	position: relative;
+}
 	
 }

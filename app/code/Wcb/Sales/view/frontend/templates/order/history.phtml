@@ -9,9 +9,8 @@
 
 /** @var \Magento\Sales\Block\Order\History $block */
 ?>
-<?php $_orders = $block->getOrders(); ?>
-<?= $block->getChildHtml('info') ?>
 
+<?php  $_orders = $block->getOrders(); ?>
 <?php if ($_orders && count($_orders)) : ?>   
     <?php if ($block->getPagerHtml()) : ?>
     <div class="mt-5">
@@ -25,50 +24,49 @@
     </div>
         
     <?php endif ?>
-    <div class="table-wrapper order-items order-detail">
-    <table id="wcb-data-table" class="table table-striped table-bordered nowrap" style="width:100%">
-        <thead class="wcb-first-row">
-            <tr>
-                <th class="name"><?= $block->escapeHtml(__('Rb')) ?></th>
-                <th data-orderable="false"><?= $block->escapeHtml(__('Status')) ?></th>
-                <th class="position"><?= $block->escapeHtml(__('Name')) ?></th>
-                <th><?= $block->escapeHtml(__('Date')) ?></th>
-                <th><?= $block->escapeHtml(__('Online shop number')) ?></th>
-                <th><?= $block->escapeHtml(__('Internal order code')) ?></th>
-                <th><?= $block->escapeHtml(__('ERP Number')) ?></th>
-                <th><?= $block->escapeHtml(__('Follow Order')) ?></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php $index=1; ?>
-        <?php  foreach ($_orders as $_order) : ?>
-        <?php $customer = $this->LoadCustomerById($_order->getCustomerId()); ?>    
-           <tr>
-                <td data-th="RB">1.</td>
-                <td data-th="Status"><span class="green-box"></span></td>
-                <td data-th="Name"><?= $block->escapeHtml($customer->getName()); ?></td>
-                <td data-th="Date"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></td>
-                <td data-th="Online shop number"><?= $block->escapeHtml($_order->getRealOrderId()) ?></td>
-                <td data-th="Internal order code"><?= $block->escapeHtml($_order->getInternalOrderNumber()) ?></td>
-                <td data-th="ERP Number"><?= $block->escapeHtml($_order->getWcbExternalId()) ?></td>
-                <td data-th="Follow Order" ><?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
-                                <a href="#" data-post='<?= /* @noEscape */
+<div class="tracking-order-table">
+<div id="elements"> 
+   <ol class="collection collection-container" id="filter">
+      <li class="item item-container" >
+         <div class="attribute" data-name="Rb">Rb <span class="down-arrow"></span></div>
+         <div class="attribute" data-name="Status">Status <span class="group-arrow"></span></div>
+         <div class="attribute" data-name="Name">Name <span class="group-arrow"></span></div>
+         <div class="attribute" data-name="Date">Date <span class="group-arrow"></span></div> 
+         <div class="attribute" data-name="Online shop number">Online shop number <span class="group-arrow"></span></div>
+         <div class="attribute" data-name="Internal order code">Internal order code <span class="group-arrow"></span></div>
+         <div class="attribute" data-name="ERP Number">ERP Number <span class="group-arrow"></span></div> 
+         <div class="attribute" data-name="Follow Order">Follow Order <span class="group-arrow"></span></div> 
+         <div class="attribute"></div>           
+      </li>
+      <?php $index=1; ?>
+      <?php  foreach ($_orders as $_order) : ?>
+      <?php $customer = $this->LoadCustomerById($_order->getCustomerId()); ?>    
+
+      <li class="item item-container" data-role="collapsible">
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb')) ?>"><?php echo $index; ?></div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Status')) ?>"><span class="green-box"></span></div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Name')) ?>"><?= $block->escapeHtml($customer->getName()); ?></div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Date')) ?>"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Online shop number')) ?>"><?= $block->escapeHtml($_order->getRealOrderId()) ?></div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('Internal order code')) ?>"><?= $block->escapeHtml($_order->getInternalOrderNumber()) ?></div>
+         <div class="attribute" data-name="<?= $block->escapeHtml(__('ERP Number')) ?>"><?= $block->escapeHtml($_order->getWcbExternalId()) ?></div>
+         <div class="attribute follow-order" data-name="<?= $block->escapeHtml(__('Follow Order')) ?>"><?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
+                                <a href="<?= $block->escapeHtml($_order->getWcbTrackingLink()) ?>" data-post='<?= /* @noEscape */
                                 $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
                                     ->getPostData($block->getReorderUrl($_order))
                                 ?>' class="action order">
                                     <span><?= $block->escapeHtml(__('Follow Order')) ?></span>
                                 </a>
-                            <?php endif ?></td>
-                <td data-th="<?= $block->escapeHtml(__('Details')) ?>"><a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>">Details</a></td>
-            </tr>
-            <?php $index++; ?>
-        <?php endforeach; ?>
-          
-        </tbody>
-    </table>
+                            <?php endif ?></div>
+         <div class="attribute details-botton" ><a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>">Details</a></div>
+      </li> 
+      <?php $index++; ?>
+      <?php endforeach; ?>
+     
+     
+   </ol>
  </div>
-
+</div>
 <?php if ($block->getPagerHtml()) : ?>
         <div class="order-products-toolbar toolbar bottom bottom-pager"><?= $block->getPagerHtml() ?></div>
     <?php endif ?>
@@ -77,10 +75,18 @@
 <?php endif ?>
 
 <script>
-    require(['jquery.dataTables.min'],function($) {
-    $(window).load(function () {
-        // alert('load from external jquery');
-    });});
+ require(['jquery', 'jquery/ui'], function($){ 
+     $('#searchInput').keyup(function(){
+    var searchText = $(this).val();
+  
+    $('ol > li').each(function(){
+        var currentLiText = $(this).text(),
+            showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
+            $(this).toggle(showCurrentLi);
+        
+    });     
+});
+ });
 </script>
 
 
