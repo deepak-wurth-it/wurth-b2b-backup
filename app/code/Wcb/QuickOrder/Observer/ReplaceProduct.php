@@ -105,7 +105,7 @@ class ReplaceProduct implements ObserverInterface
             $wcbProductStatus = $product->getWcbProductStatus();
             $replaceProductCode = $product->getSuccessorProductCode();
 
-            if (($wcbProductStatus == '3' || $wcbProductStatus == '2') && $replaceProductCode) {
+            if (($wcbProductStatus == '3') && $replaceProductCode) {
                 if ($replaceProductCode) {
                     $replaceProductsData[$product->getProductCode()] = $replaceProductCode;
                 }
