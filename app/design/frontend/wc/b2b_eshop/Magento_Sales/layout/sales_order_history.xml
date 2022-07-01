@@ -7,6 +7,10 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="customer_account"/>
+      <head>
+      <!-- for css file -->
+       <css src="css/dataTables.bootstrap.min.css"/>
+    </head>
     <body>
     <referenceContainer name="columns">
             <container name="columns.main" htmlTag="div" htmlClass="column main col-md tracking-order" before="-" />

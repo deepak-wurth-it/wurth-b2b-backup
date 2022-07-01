@@ -106,8 +106,7 @@ class ModifyAffectedItemsPlugin
                     $productId =  $this->getItemParam($affectedData, 'id', $code);
                     $qty = $this->getItemParam($affectedData, 'qty');
 
-                    /*
-                     $statusResult = $this->checkProductCustomStatus($productId, $qty);
+                    $statusResult = $this->checkProductCustomStatus($productId, $qty);
                     if ($statusResult != '') {
                         if (!$statusResult['allow_add_to_cart']) {
                             $item['code'] = 'failed_qty_allowed';
@@ -115,7 +114,7 @@ class ModifyAffectedItemsPlugin
                             $item['result'] = $statusResult['notAllowMsg'] . $statusResult['replacementMsg'];
                         }
                     }
-                    */
+
                     $items[$sku] = $item;
                 }
             }
