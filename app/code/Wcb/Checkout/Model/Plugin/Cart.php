@@ -32,8 +32,8 @@ class Cart
         }
 
         $product = $this->productRepository->getById($productId);
-        $minimum_sales_quantity =  (int)$product->getMinimumSalesUnitQuantity();
-        $base_unit_of_measure_id = (int) $product->getBaseUnitOfMeasureId();
+        $minimum_sales_quantity =  (float) $product->getMinimumSalesUnitQuantity();
+        $base_unit_of_measure_id = (float) $product->getBaseUnitOfMeasureId();
         //$base_unit_of_measure_id = '2';
         if ($base_unit_of_measure_id) {
             $type = $this->getType($base_unit_of_measure_id);

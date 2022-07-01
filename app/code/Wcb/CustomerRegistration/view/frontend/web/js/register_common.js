@@ -80,7 +80,7 @@ define([
             $.validator.addMethod(
                 "validate-ponumber-custom",
                 function(value, element) {
-                    return /^[1-9][0-9]*$/i.test(value);
+                    return /^[0-9][0-9]*$/i.test(value);
                 },
                 $.mage.__("Please enter valid phone number.")
             );

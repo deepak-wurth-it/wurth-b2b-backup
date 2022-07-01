@@ -3,7 +3,6 @@
 namespace Wcb\RequisitionList\Block;
 
 use DateTime;
-use Exception;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -48,6 +47,28 @@ class RequisitionList extends Template
         parent::__construct($context, $data);
     }
 
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        $this->pageConfig->getTitle()->set(__('My Pagination'));
+        if ($this->getRequisitionList()) {
+            $pager = $this->getLayout()->createBlock(
+                'Magento\Theme\Block\Html\Pager',
+                'custom.requisition.pager'
+            )->setAvailableLimit([5 => 5, 10 => 10, 15 => 15, 20 => 20, 50 => 50])
+                ->setShowPerPage(true)->setCollection(
+                    $this->getRequisitionList()
+                );
+            $this->setChild('pager', $pager);
+            $this->getRequisitionList()->load();
+        }
+        return $this;
+    }
+    public function getPagerHtml()
+    {
+        return $this->getChildHtml('pager');
+    }
+
     /**
      * @return Collection
      * @throws LocalizedException
@@ -60,9 +81,16 @@ class RequisitionList extends Template
         foreach ($sameCustomerCodeCustomers as $_customer) {
             $this->storeCustomer[$_customer->getId()] = $_customer->getName();
         }
+        $currentPage = $this->getRequest()->getParam('p');
+        $currentLimit = $this->getRequest()->getParam('limit');
+        $page = ($currentPage) ? $currentPage : 1;
+        $pageSize = ($currentLimit) ? $currentLimit : 10;
+
         return $this->requisitionList->create()
             ->addFieldToFilter("customer_id", ["in", $sameCustomerCodeCustomers->getAllIds()])
-            ->setOrder('entity_id', 'DESC');
+            ->setOrder('entity_id', 'DESC')
+            ->setPageSize($pageSize)
+            ->setCurPage($page);
     }
 
     /**
@@ -79,7 +107,6 @@ class RequisitionList extends Template
                 $customerCode = $customer->getCustomAttribute("customer_code")->getValue();
             }
         }
-
         return $customerCode;
     }
 
@@ -91,6 +118,31 @@ class RequisitionList extends Template
     public function getCurrentCustomer()
     {
         return $this->customerHelper->getCurrentCustomer();
+    }
+
+    /**
+     * @return array
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
+     */
+    public function getCompanyAndCustomerCode()
+    {
+        $customerCode = "";
+        $companyName = "";
+        $customer = $this->getCurrentCustomer();
+        if ($customer) {
+            $company = $this->customerHelper->getCompany($customer);
+            if ($customer->getCustomAttribute("customer_code")) {
+                $customerCode = $customer->getCustomAttribute("customer_code")->getValue();
+            }
+            if ($company) {
+                $companyName = $company->getCompanyName();
+            }
+        }
+        return [
+            "customer_code" => $customerCode,
+            "company_name" => $companyName,
+        ];
     }
 
     /**
@@ -113,7 +165,7 @@ class RequisitionList extends Template
 
     /**
      * @param $customerId
-     * @return string
+     * @return stringwc
      */
     public function getCustomerName($customerId)
     {
@@ -123,4 +175,5 @@ class RequisitionList extends Template
         }
         return $customerName;
     }
+
 }
