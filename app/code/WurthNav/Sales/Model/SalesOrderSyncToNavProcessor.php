@@ -187,7 +187,7 @@ class SalesOrderSyncToNavProcessor
 
 		$orderItems = $order->getAllItems();
 		$i = 1;
-		foreach ($orderItems as $key => $items) {
+		foreach ($orderItems as $key => $items) { //print_r($items->getStatus()).'========'.PHP_EOL;
 			try {
 				$orderItemsNav = $this->orderItemsFactory->create();
 				$orderItemId = $items->getId();
@@ -213,6 +213,12 @@ class SalesOrderSyncToNavProcessor
 				$orderItemsNav->setData('Quantity', $items->getWcbOrderUnit()); // only discount
 				$orderItemsNav->setData('Promised Delivery Date', $items->getPromisedDeliveryDate()); // Discount for the respective item
 			
+				$mageOrderstatus = (string)$items->getStatusName($items->getStatusId());
+				//echo $mageOrderstatus.'================================='.PHP_EOL;
+				$orderStatus = $this->updateOrderStatus($mageOrderstatus);
+				$orderItemsNav->setData('Status', $orderStatus);
+
+
 				$CreatedDate = (string)$this->dataTimeFormat($items->getCreatedAt());
 				$orderItemsNav->setData('CreatedDate', $CreatedDate); //Order Created Date
 
