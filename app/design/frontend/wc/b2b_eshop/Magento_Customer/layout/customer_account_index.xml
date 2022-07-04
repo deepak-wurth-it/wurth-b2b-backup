@@ -7,7 +7,7 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="customer_account"/>
-    <body>    
+    <body>
     <referenceBlock name="sale.order.recent" remove="true"/>
      <referenceBlock name="sale.order.sidebar" remove="true"/>
         <referenceBlock name="page.main.title">
@@ -21,5 +21,23 @@
             </block>
             <block class="Magento\Customer\Block\Account\Dashboard\Address" name="customer_account_dashboard_address" as="address" template="Magento_Customer::account/dashboard/address.phtml" cacheable="false"/>
         </referenceContainer>
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">custommyaccount.online.shop</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Online Shop</item>
+                    <item name="label" xsi:type="string" translate="true">Online Shop</item>
+                    <item name="link" xsi:type="string">/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">custommyaccount.profile</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">My Profile</item>
+                    <item name="label" xsi:type="string" translate="true">My Profile</item>
+                    <item name="last" xsi:type="boolean">true</item>
+                </argument>
+            </action>
+        </referenceBlock>
     </body>
 </page>

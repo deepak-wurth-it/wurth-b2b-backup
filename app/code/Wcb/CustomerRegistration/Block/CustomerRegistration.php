@@ -52,6 +52,22 @@ class CustomerRegistration extends \Magento\Framework\View\Element\Template
             ->addFieldToFilter("branch_code", ["neq" => 'NULL']);
     }
 
+    public function getCustomerGroupLabel($branchCode, $groupCode)
+    {
+        $codeLabel =[
+            "A" => "Auto",
+            "B" => "Auto Trade",
+            "C" => "Cargo",
+            "D" => "Drvo",
+            "G" => "Građevina",
+            "I" => "Industrija",
+            "M" => "Metal",
+            "T" => "Trgovina"
+        ];
+
+        return isset($codeLabel[$branchCode]) ? $codeLabel[$branchCode] : $groupCode;
+    }
+
     /**
      * Get the list of regions present in the given Country
      * Returns empty array if no regions available for Country

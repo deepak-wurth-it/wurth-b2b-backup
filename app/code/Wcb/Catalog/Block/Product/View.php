@@ -54,7 +54,7 @@ class View extends BaseView
         $this->pimProductFactory = $pimProductFactory;
 
         $this->priceCurrency = $priceCurrency;
-        parent::__construct( 
+        parent::__construct(
                         $context,
                         $urlEncoder,
                         $jsonEncoder,
@@ -76,18 +76,18 @@ class View extends BaseView
 			return $product->getPackageBox();
         }
     }
-    
+
      public function getPackaging(){
         //die('ok');
         $product =  $this->getProduct();
-        
+
         if($product){
-			 $minimum_sales_quantity =  (int)$product->getMinimumSalesUnitQuantity();
-             $base_unit_of_measure_id = (int) $product->getBaseUnitOfMeasureId();
-             
-            
+			 $minimum_sales_quantity =  (float)$product->getMinimumSalesUnitQuantity();
+             $base_unit_of_measure_id = (float) $product->getBaseUnitOfMeasureId();
+
+
              if($base_unit_of_measure_id == '2'){
-			
+
 			 return $totalPkg = 	$minimum_sales_quantity * 100;
 			}
           return $minimum_sales_quantity;
