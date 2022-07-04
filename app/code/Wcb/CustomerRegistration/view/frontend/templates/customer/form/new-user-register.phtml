@@ -64,7 +64,7 @@
                                 <option value=""><?php echo __("Please select Division") ?></option>
                                 <?php foreach ($divisions as $division) { ?>
                                     <option value="<?= $division->getCustomerGroupId() ?>" data-id="<?= $division->getCustomerGroupId() ?>">
-                                        <?php echo $division->getCustomerGroupCode(); ?>
+                                        <?php echo $blockObj->getCustomerGroupLabel($division->getBranchCode(), $division->getCustomerGroupCode()); ?>
                                     </option>
                                 <?php } ?>
                             </select>

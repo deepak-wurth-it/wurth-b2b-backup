@@ -50,32 +50,49 @@
                                 <div class="attribute"></div>
                             </li>
                             <!-- The rest of the items in the list are the actual data -->
-                            <li class="item item-sub-container" data-role="collapsible">
-                                <div class="attribute"></div>
-                                <div class="attribute">Images-1</div>
-                                <div class="attribute" data-name="Article no. Item description">892332840A <br/>Winter
-                                    liquid for glass-60 C-1I-five packaging
-                                </div>
-                                <div class="attribute"><span class="blueBox"></span></div>
-                                <div class="attribute" data-name="Quantity x pack. = Total QTY"><span
-                                        class="boxContaner"><input type="text"> <span class="xpad">X</span> <input
-                                            type="text"> <span class="xpad">=</span> <input type="text"></span></div>
-                                <div class="attribute"></div>
-                                <div class="attribute"></div>
-                            </li>
-                            <li class="item item-sub-container" data-role="collapsible">
-                                <div class="attribute"></div>
-                                <div class="attribute">Images-2</div>
-                                <div class="attribute" data-name="Article no. Item description">892332840A <br/>Winter
-                                    liquid for glass-60 C-1I-five packaging
-                                </div>
-                                <div class="attribute"><span class="greenBox"></span></div>
-                                <div class="attribute" data-name="Quantity x pack. = Total QTY"><span
-                                        class="boxContaner"><input type="text"> <span class="xpad">X</span> <input
-                                            type="text"> <span class="xpad">=</span> <input type="text"></span></div>
-                                <div class="attribute"></div>
-                                <div class="attribute"></div>
-                            </li>
+                            <?php $listItems = $block->getRequisitionListItems($item->getId()); ?>
+                            <?php foreach ($listItems as $listItem) { ?>
+                                <?php $product = $block->getProductBySku($listItem->getSku()); ?>
+                                <?php if ($product) { ?>
+                                    <?php $stockData = $block->getStockDataByProductCode($product, $listItem->getQty()); ?>
+                                    <?php $stockColor = isset($stockData['color']) ? $stockData['color'] : ''; ?>
+                                    <?php $availQty = isset($stockData['avail_qty']) ? $stockData['avail_qty'] : 0; ?>
+                                    <?php $qty = (int) $listItem->getQty(); ?>
+                                    <li class="item item-sub-container" data-role="collapsible">
+                                        <div class="attribute"></div>
+                                        <div class="attribute">
+                                            <img src="<?= $block->getProductImage($product) ?>" >
+                                        </div>
+                                        <div class="attribute" data-name="Article no. Item description"><?= $product->getProductCode() ?> <br/>
+                                            <?= $product->getName() ?>
+                                        </div>
+                                        <div class="attribute"><span class="<?= $stockColor ?>Box" id="stock-color-<?= $listItem->getId() ?>"></span></div>
+                                        <div class="attribute" data-name="Quantity x pack. = Total QTY">
+                                            <span class="boxContaner">
+                                                <div id="<?= $listItem->getId() ?>-dec" class="decreaseQty icon-interface-minus" data-item-id="<?= $listItem->getId() ?>"></div>
+                                                <input type="text"
+                                                       class="qty-input"
+                                                       id="qty-input-<?= $listItem->getId() ?>"
+                                                       value="<?= $block->getQuantityUnitByQuantity($qty, $product) ?>"
+                                                       data-item-id="<?= $listItem->getId() ?>"
+                                                       data-availableqty="<?= $availQty ?>"
+                                                >
+                                                <div id="<?= $listItem->getId() ?>-upt" class="increaseQty icon-interface-plus" data-item-id="<?= $listItem->getId() ?>"></div>
+
+                                                <span class="xpad">X</span>
+                                                <input type="text" value="<?= $block->getMinimumAndMeasureQty($product) ?>" class="minimum-qty-<?= $listItem->getId() ?>" readonly>
+                                                <span class="xpad">=</span>
+                                                <input type="text" value="<?= $qty ?>" class="total-qty-<?= $listItem->getId() ?>" readonly>
+                                            </span>
+                                        </div>
+                                        <div class="attribute pdPage">
+                                            <span class="itembox"> </span>
+                                            <?= (float) $product->getPackageBox() ?>
+                                        </div>
+                                        <div class="attribute"></div>
+                                    </li>
+                                <?php } ?>
+                            <?php } ?>
                             <!-- The rest of the items in the list are the actual data -->
                         </ol>
                     </div>
@@ -87,17 +104,11 @@
 <?php if ($block->getPagerHtml()): ?>
     <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
 <?php endif ?>
-<script>
-    require([
-        'jquery',
-        'accordion'], function ($) {
-        $("#elements").accordion({
-            multipleCollapsible: true,
-            collapsible: true,
-            active: false,
-            animate: {
-                duration: 400
-            }
-        });
-    });
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Wcb_RequisitionList/js/requisitionlist" : {}
+        }
+    }
 </script>
