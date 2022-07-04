@@ -53,7 +53,7 @@ class AddPimCategoryChannelIdCategoryAttribute implements DataPatchInterface, Pa
             'pim_category_channel_id',
             [
                 'type' => 'varchar',
-                'label' => 'Pim Category Code',
+                'label' => 'Pim Category Channel Id',
                 'input' => 'text',
                 'sort_order' => 334,
                 'source' => '',

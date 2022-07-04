@@ -53,7 +53,7 @@ class AddPimCategoryCodeCategoryAttribute implements DataPatchInterface, PatchRe
             'pim_category_code',
             [
                 'type' => 'varchar',
-                'label' => 'Pim Parent Category ID',
+                'label' => 'Pim Category Code',
                 'input' => 'text',
                 'sort_order' => 335,
                 'source' => '',
