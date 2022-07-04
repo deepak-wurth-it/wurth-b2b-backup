@@ -93,8 +93,12 @@ class SaveOrderDetail implements ObserverInterface
                 if ($customer->getCustomAttribute('customer_code')) {
                     $customerCode = $customer->getCustomAttribute('customer_code')->getValue();
                 }
+                $addressData = $this->getAddressCode($order);
+                $addressCode = isset($addressData['address_code']) ? $addressData['address_code'] : null;
+                $isDefaultBilling = isset($addressData['is_use_default_billing']) ? $addressData['is_use_default_billing'] : 0;
                 $order->setCustomerCode($customerCode);
-                $order->setDeliveryAddressCode($this->getAddressCode($order));
+                $order->setDeliveryAddressCode($addressCode);
+                $order->setWcbIsDefaultBillingUse($isDefaultBilling);
                 $order->setCostCenter($this->getCostCenterCode($quote));
                 $order->setLocationCode($this->getLocationCode($quote));
             }
@@ -114,17 +118,22 @@ class SaveOrderDetail implements ObserverInterface
         $addressCode = null;
         $billingAddressId = $order->getBillingAddress()->getData('customer_address_id');
         $shippingAddressId = $order->getShippingAddress()->getData('customer_address_id');
-
+        $isDefaultBillingUse = 0;
         if ($billingAddressId && $shippingAddressId) {
             if ($billingAddressId != $shippingAddressId) {
                 $addressInfo = $this->getAddressData($shippingAddressId);
                 if ($addressInfo->getCustomAttribute('address_code')) {
                     $addressCode = $addressInfo->getCustomAttribute('address_code')->getValue();
                 }
+            } else {
+                $isDefaultBillingUse = 1;
             }
         }
 
-        return $addressCode;
+        return [
+            'address_code' => $addressCode,
+            'is_use_default_billing' => $isDefaultBillingUse,
+        ];
     }
 
     /**

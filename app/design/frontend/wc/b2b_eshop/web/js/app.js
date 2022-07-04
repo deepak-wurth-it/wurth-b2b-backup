@@ -59,7 +59,7 @@ require(
                     this.value = this.value.replace(value, '1');
                 }
             });
-            
+
             // On checkout page button enable disable start
 				$('#accept_terms').click(function() {
 					if ($(this).is(':checked')) {
@@ -68,8 +68,8 @@ require(
 					$('.action.primary.checkout').attr('disabled',true);}
 			});
             // On checkout page button enable disable end
-			
-			// counter in about us  page          
+
+			// counter in about us  page
 
             $(window).scroll(startCounter);
             function startCounter() {
@@ -93,35 +93,32 @@ require(
                     });
                 }
             }
-			
-			// counter in about us page 
 
-            // where-do-we-meet js start for search 
+			// counter in about us page
+
+        // where-do-we-meet js start for search
             $('.wcb-no-record').hide();
             $("#wcb-search").keyup(function() {
-                // Retrieve the input field text and reset the count to zero
                 var filter = $(this).val(),
-                  count = 0;          
+                  count = 0;
                 // Loop through the comment list
-                $('.wcb-card-body').each(function() {          
-          
-                  // If the list item does not contain the text phrase fade it out
+                $('.wcb-card-body').each(function() {
+
                   if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                     $(this).hide();
-                    $('.wcb-no-record').show();
-          
-                    // Show the list item if the phrase matches and increase the count by 1
+                    $('.wcb-no-record').hide();
                   } else {
-                   $('.wcb-no-record').hide();
+                   $('.wcb-no-record').show();
                     $(this).show();
                     count++;
                   }
-          
+
                 });
-          
+
               });
 
             // where-do-we-meet end
+
           // for navigation
           $(document).ready(function(){
             //alert(window.location.href);
@@ -131,38 +128,24 @@ require(
             })
         })
           // for navigation
-          // order history start for search 
-          
-          $("#wcbsearchInput").keyup(function() {
-              // Retrieve the input field text and reset the count to zero
-              var filter = $(this).val(),
-                count = 0;          
-              // Loop through the comment list
-              $('tbody').each(function() {       
-        
-                if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                  $(this).hide();
-                  $('.wcb-no-record').show();
-                } else {
-                 $('.wcb-no-record').hide();
-                  $(this).show();
-                  count++;
-                }
-        
-              });
-        
-            });
 
-            // order history start for search 
-            	// data table
-                  $(document).ready(function() {
-                    var table = $('#wcb-data-table').DataTable( {
-                      responsive: true
-                    } );
-                  
-                    new jQuery.fn.dataTable.FixedHeader( table );
-                  } );
-			
-			      // datatable
+            	// js for data table order details page
+              $(document).ready(function() {
+                  if($('#wcb-data-table').length > 0){
+                      var table = $('#wcb-data-table').DataTable( {
+                          responsive: true,
+                          language: { search: "" },
+                          oLanguage: {
+                              oPaginate: {
+                                  sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                                  sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
+                              }
+                          }
+                      } );
+                  }
+               //  new jQuery.fn.dataTable.FixedHeader( table );
+              } );
+
+        // js for datatable order details page
 
     });
