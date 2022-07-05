@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Copyright ©  All rights reserved.
  * See COPYING.txt for license details.
  */
+
 declare(strict_types=1);
 
 namespace Pim\Category\Setup\Patch\Data;
@@ -14,7 +16,7 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 
-class AddPimCategoryChannelIdCategoryAttribute implements DataPatchInterface, PatchRevertableInterface
+class UpdatePimCategoryCategoryAttribute implements DataPatchInterface, PatchRevertableInterface
 {
 
     /**
@@ -48,36 +50,61 @@ class AddPimCategoryChannelIdCategoryAttribute implements DataPatchInterface, Pa
         $this->moduleDataSetup->getConnection()->startSetup();
         /** @var EavSetup $eavSetup */
         $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-        $eavSetup->addAttribute(
+        $eavSetup->updateAttribute(
+            \Magento\Catalog\Model\Category::ENTITY,
+            'pim_category_id',
+            [
+                'label' => 'Pim Category Id'
+            ]
+        );
+
+        $eavSetup->updateAttribute(
+            \Magento\Catalog\Model\Category::ENTITY,
+            'pim_category_external_id',
+            [
+                'label' => 'Pim Category External Id'
+            ]
+        );
+
+        $eavSetup->updateAttribute(
+            \Magento\Catalog\Model\Category::ENTITY,
+            'pim_category_code',
+            [
+                'label' => 'Pim Category Code'
+            ]
+        );
+
+        $eavSetup->updateAttribute(
             \Magento\Catalog\Model\Category::ENTITY,
             'pim_category_channel_id',
             [
-                'type' => 'varchar',
-                'label' => 'Pim Category Channel Id',
-                'input' => 'text',
-                'sort_order' => 334,
-                'source' => '',
-                'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
-                'visible' => true,
-                'required' => false,
-                'user_defined' => false,
-                'default' => null,
-                'group' => 'General Information',
-                'backend' => ''
+                'label' => 'Pim Category Channel Id'
             ]
         );
+
+        $eavSetup->updateAttribute(
+            \Magento\Catalog\Model\Category::ENTITY,
+            'pim_category_active_status',
+            [
+                'label' => 'Pim Category Active Status'
+            ]
+        );
+
+        $eavSetup->updateAttribute(
+            \Magento\Catalog\Model\Category::ENTITY,
+            'pim_category_parent_id',
+            [
+                'label' => 'Pim Category Parent Id'
+            ]
+        );
+
 
         $this->moduleDataSetup->getConnection()->endSetup();
     }
 
     public function revert()
     {
-        $this->moduleDataSetup->getConnection()->startSetup();
-        /** @var EavSetup $eavSetup */
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-        $eavSetup->removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'pim_category_channel_id');
-
-        $this->moduleDataSetup->getConnection()->endSetup();
+        return [];
     }
 
     /**
@@ -93,9 +120,6 @@ class AddPimCategoryChannelIdCategoryAttribute implements DataPatchInterface, Pa
      */
     public static function getDependencies()
     {
-        return [
-        
-        ];
+        return [];
     }
 }
-
