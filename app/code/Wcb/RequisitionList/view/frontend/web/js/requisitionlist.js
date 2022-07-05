@@ -1,15 +1,18 @@
 define([
         'jquery',
         'uiComponent',
+        'mage/url',
         'accordion'
     ],
-    function ($, Component) {
+    function ($, Component, urlBuilder) {
         'use strict';
         return Component.extend({
             initialize: function () {
                 this._super();
                 this.addAccordion();
                 this.increDecreQty();
+                this.deleteItemList();
+                this.addItemsToCart();
             },
             increDecreQty: function(){
                 let self = this;
@@ -25,12 +28,12 @@ define([
                     if ($(this).hasClass('increaseQty')) {
                         qty = parseInt(currentQty) + parseInt(1);
                         inputElem.val(qty);
-                        self.updateQty(qty, item_id);
+                        self.updateQty(item_id);
                     } else {
                         if (currentQty > 1) {
                             qty = parseInt(currentQty) - parseInt(1);
                             inputElem.val(parseInt(currentQty) - parseInt(1));
-                            self.updateQty(qty, item_id);
+                            self.updateQty(item_id);
                         }
                     }
                 });
@@ -43,26 +46,28 @@ define([
                         $(this).val(1);
                     }
                     if(qty && qty != "0" && item_id){
-                        self.updateQty($(this).val(), item_id);
+                        self.updateQty(item_id);
                     }
 
                 });
             },
-            updateQty: function (qty, item_id){
+            updateQty: function (item_id){
                 let self = this;
-                self.updateColor(item_id);
-                /*let self = this;
                 let url = urlBuilder.build("wcbrequisition/items/updateitem");
+                let unit_qty = parseFloat($("#qty-input-" + item_id).val());
+                let minimum_qty = parseFloat($(".minimum-qty-" + item_id).val());
+                let total_qty = unit_qty * minimum_qty;
+
                 $.ajax({
                     url: url,
                     type: "POST",
-                    data: {item_id:item_id, qty:qty},
+                    data: {item_id:item_id, qty: total_qty},
                     showLoader: true,
                 }).success(function (response) {
-                    self.updateColor(item_id);
+                    if(response.success == 'true'){
+                        self.updateColor(item_id);
+                    }
                 });
-                */
-
             },
             updateColor: function(item_id){
                 //Update qty field
@@ -87,6 +92,37 @@ define([
                 if (availableQty == 0) {
                     $("#stock-color-" + item_id).addClass('redBox');
                 }
+            },
+            deleteItemList: function(){
+                $(document).on('click', '.delete-list', function () {
+                    let listId = $(this).attr('data-id');
+                    let url = urlBuilder.build("wcbrequisition/items/deletelist");
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {list_id : listId},
+                        showLoader: true,
+                    }).success(function (response) {
+                        if(response.success == 'true'){
+                            location.reload();
+                        }
+                    });
+
+                });
+            },
+            addItemsToCart: function(){
+                $(document).on('click', '.add-to-cart-list', function () {
+                    let listId = $(this).attr('data-id');
+                    let url = urlBuilder.build("wcbrequisition/items/addtocartlist");
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {list_id : listId},
+                        showLoader: true,
+                    }).success(function (response) {
+
+                    });
+                });
             },
             addAccordion: function(){
                 $("#elements").accordion({

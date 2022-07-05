@@ -10,9 +10,9 @@ use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Message\ManagerInterface;
-use Magento\RequisitionList\Model\RequisitionListItemFactory;
+use Magento\RequisitionList\Model\RequisitionListFactory;
 
-class Updateitem extends Action
+class Deletelist extends Action
 {
     /**
      * @var JsonFactory
@@ -23,26 +23,26 @@ class Updateitem extends Action
      */
     protected $messageManager;
     /**
-     * @var RequisitionListItemFactory
+     * @var RequisitionListFactory
      */
-    protected $requisitionListItemFactory;
+    protected $requisitionListFactory;
 
     /**
      * Updateitem constructor.
      * @param Context $context
      * @param JsonFactory $resultJsonFactory
      * @param ManagerInterface $messageManager
-     * @param RequisitionListItemFactory $requisitionListItemFactory
+     * @param RequisitionListFactory $requisitionListFactory
      */
     public function __construct(
         Context $context,
         JsonFactory $resultJsonFactory,
         ManagerInterface $messageManager,
-        RequisitionListItemFactory $requisitionListItemFactory
+        RequisitionListFactory $requisitionListFactory
     ) {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->messageManager = $messageManager;
-        $this->requisitionListItemFactory = $requisitionListItemFactory;
+        $this->requisitionListFactory = $requisitionListFactory;
         parent::__construct($context);
     }
 
@@ -55,18 +55,16 @@ class Updateitem extends Action
         $result = [];
 
         try {
-            $itemId = $this->getRequest()->getParam('item_id');
-            $qty = $this->getRequest()->getParam('qty');
-            $listItemData = $this->requisitionListItemFactory->create()->load($itemId);
-            if ($listItemData->getId()) {
-                $listItemData->setQty($qty);
-                $listItemData->save();
+            $listId = $this->getRequest()->getParam('list_id');
+            $listData = $this->requisitionListFactory->create()->load($listId);
+            if ($listData->getId()) {
+                $listData->delete();
                 $result['success'] = "true";
-                $result['message'] = __("Item has been updated successfully.");
+                $result['message'] = __("List has been deleted successfully.");
                 $this->messageManager->addSuccess($result['message']);
             } else {
                 $result['success'] = "false";
-                $result['message'] = __("Item not found in list.");
+                $result['message'] = __("List not found in list.");
                 $this->messageManager->addError($result['message']);
             }
         } catch (Exception $e) {

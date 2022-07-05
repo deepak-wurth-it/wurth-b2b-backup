@@ -26,9 +26,9 @@
                     <div class="attribute" data-name="Time"><?= $block->getCreateDateTimeFormat($item->getUpdatedAt()) ?></div>
                     <div class="attribute" data-name="Created"><?= $block->getCustomerName($item->getCustomerId()) ?></div>
                     <div class="attribute butContaner">
-                        <div class="apply"><span>Apply</span></div>
+                        <div class="apply add-to-cart-list" data-id="<?= $item->getId() ?>"><span>Apply</span></div>
                         <div class="show" data-role="trigger"><span> Show</span></div>
-                        <div class="delete"><span>Delete</span></div>
+                        <div class="delete delete-list" data-id="<?= $item->getId() ?>"><span>Delete</span></div>
                     </div>
                 </li>
                 <div class="resp-row-three" data-role="content">
