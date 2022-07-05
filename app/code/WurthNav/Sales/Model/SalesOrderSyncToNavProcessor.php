@@ -309,7 +309,7 @@ class SalesOrderSyncToNavProcessor
 
 	public function updateOrderItemStatus($status)
 	{
-		$orderStatus = '11';
+		$orderStatus = '';
 		if (array_key_exists($status, self::ORDER_ITEM_STATUS_CODE)) {
 
 			$orderStatus = self::ORDER_ITEM_STATUS_CODE[$status];
