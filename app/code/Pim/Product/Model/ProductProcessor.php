@@ -326,9 +326,10 @@ class ProductProcessor
                     'use_config_manage_stock' => 0,
                     'manage_stock' => 0,
                     'min_sale_qty' => $saleQuantity,
-                    //'max_sale_qty' => 2,
+                    'max_sale_qty' => 10000000,
                     'is_in_stock' => true,
-                    'qty' => 100
+                    'qty' => 100,
+                    'enable_qty_increments'=>0
                 ]
             );
         }
