@@ -324,7 +324,7 @@ class ProductProcessor
             $this->product->setStockData(
                 [
                     'use_config_manage_stock' => 0,
-                    'manage_stock' => 1,
+                    'manage_stock' => 0,
                     'min_sale_qty' => $saleQuantity,
                     //'max_sale_qty' => 2,
                     'is_in_stock' => true,
