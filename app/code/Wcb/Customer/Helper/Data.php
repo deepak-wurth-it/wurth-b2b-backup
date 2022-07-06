@@ -13,6 +13,7 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Company\Api\CompanyRepositoryInterface;
 
 class Data extends AbstractHelper
 {
@@ -32,6 +33,10 @@ class Data extends AbstractHelper
      * @var Session
      */
     protected $customerSession;
+    /**
+     * @var CompanyRepositoryInterface
+     */
+    protected $companyRepository;
 
     /**
      * Data constructor.
@@ -40,18 +45,21 @@ class Data extends AbstractHelper
      * @param CustomerRepository $customerRepository
      * @param CompositeUserContext $compositeUserContext
      * @param SessionFactory $customerSession
+     * @param CompanyRepositoryInterface $companyRepository
      */
     public function __construct(
         Context $context,
         CustomerCollectionFactory $customerCollectionFactory,
         CustomerRepository $customerRepository,
         CompositeUserContext $compositeUserContext,
-        SessionFactory $customerSession
+        SessionFactory $customerSession,
+        CompanyRepositoryInterface $companyRepository
     ) {
         $this->customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
         $this->customerCollectionFactory = $customerCollectionFactory;
         $this->compositeUserContext = $compositeUserContext;
+        $this->companyRepository = $companyRepository;
         parent::__construct($context);
     }
 
@@ -75,6 +83,22 @@ class Data extends AbstractHelper
     {
         try {
             return $this->customerRepository->getById($this->customerSession->create()->getCustomer()->getId());
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param $customer
+     * @return bool
+     */
+    public function getCompany($customer)
+    {
+        try {
+            if ($customer->getExtensionAttributes()->getCompanyAttributes()) {
+                $companyId = $customer->getExtensionAttributes()->getCompanyAttributes()->getCompanyId();
+                return $this->companyRepository->get($companyId);
+            }
         } catch (Exception $e) {
             return false;
         }

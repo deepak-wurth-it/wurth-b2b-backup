@@ -1,9 +1,10 @@
 <?php
 namespace Wcb\ProductSearchApi\Model;
 
-use Magento\Catalog\Api\CategoryLinkManagementInterface;
+//use Magento\Catalog\Api\CategoryLinkManagementInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
+
+//use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Api\ProductCustomOptionRepositoryInterface;
 use Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper;
@@ -19,6 +20,7 @@ use Magento\Catalog\Model\ProductRepository;
 use Magento\Catalog\Model\ProductRepository\MediaGalleryProcessor;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Customer\Model\ResourceModel\Group\CollectionFactory as CustomerCollectionFactory;
 use Magento\Framework\Api\Data\ImageContentInterfaceFactory;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
@@ -40,7 +42,7 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Store\Model\StoreManagerInterface;
 use Wcb\ProductSearchApi\Api\ProductSearchManagementInterface;
-
+use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 /**
  * Defines the implementaiton class of the \Wcb\ProductSearchApi\Api\ProductSearchManagementInterface
  */
@@ -198,6 +200,14 @@ class ProductSearchManagement implements ProductSearchManagementInterface
      * @var SortOrderBuilder
      */
     private $sortOrderBuilder;
+    /**
+     * @var CustomerCollectionFactory
+     */
+    private $customerCollectionFactory;
+    /**
+     * @var CategoryCollectionFactory
+     */
+    private $categoryCollectionFactory;
 
     /**
      * ProductRepository constructor.
@@ -232,10 +242,10 @@ class ProductSearchManagement implements ProductSearchManagementInterface
     public function __construct(
         ProductFactory $productFactory,
         Helper $initializationHelper,
-        ProductSearchResultsInterfaceFactory $searchResultsFactory,
+        //ProductSearchResultsInterfaceFactory $searchResultsFactory,
         CollectionFactory $collectionFactory,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        ProductAttributeRepositoryInterface $attributeRepository,
+        //ProductAttributeRepositoryInterface $attributeRepository,
         \Magento\Catalog\Model\ResourceModel\Product $resourceModel,
         ProductLinks $linkInitializer,
         LinkTypeProvider $linkTypeProvider,
@@ -244,37 +254,39 @@ class ProductSearchManagement implements ProductSearchManagementInterface
         ProductAttributeRepositoryInterface $metadataServiceInterface,
         ExtensibleDataObjectConverter $extensibleDataObjectConverter,
         Converter $optionConverter,
-        Filesystem $fileSystem,
-        ImageContentValidatorInterface $contentValidator,
-        ImageContentInterfaceFactory $contentFactory,
-        MimeTypeExtensionMap $mimeTypeExtensionMap,
-        ImageProcessorInterface $imageProcessor,
+        //Filesystem $fileSystem,
+        //ImageContentValidatorInterface $contentValidator,
+        //ImageContentInterfaceFactory $contentFactory,
+        //MimeTypeExtensionMap $mimeTypeExtensionMap,
+        //ImageProcessorInterface $imageProcessor,
         JoinProcessorInterface $extensionAttributesJoinProcessor,
         CollectionProcessorInterface $collectionProcessor = null,
         Json $serializer = null,
         $cacheLimit = 1000,
         ReadExtensions $readExtensions = null,
-        CategoryLinkManagementInterface $linkManagement = null,
+        //CategoryLinkManagementInterface $linkManagement = null,
         SearchCriteriaInterface $searchCriteriaInterface,
         FilterGroupBuilder $filterGroupBuilder,
-        SortOrderBuilder $sortOrderBuilder
+        SortOrderBuilder $sortOrderBuilder,
+        CustomerCollectionFactory $customerCollectionFactory,
+        CategoryCollectionFactory $categoryCollectionFactory
     ) {
         $this->productFactory = $productFactory;
         $this->collectionFactory = $collectionFactory;
         $this->initializationHelper = $initializationHelper;
-        $this->searchResultsFactory = $searchResultsFactory;
+        //$this->searchResultsFactory = $searchResultsFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->resourceModel = $resourceModel;
         $this->linkInitializer = $linkInitializer;
         $this->linkTypeProvider = $linkTypeProvider;
         $this->storeManager = $storeManager;
-        $this->attributeRepository = $attributeRepository;
+        //$this->attributeRepository = $attributeRepository;
         $this->filterBuilder = $filterBuilder;
         $this->metadataService = $metadataServiceInterface;
         $this->extensibleDataObjectConverter = $extensibleDataObjectConverter;
-        $this->fileSystem = $fileSystem;
-        $this->contentFactory = $contentFactory;
-        $this->imageProcessor = $imageProcessor;
+        //$this->fileSystem = $fileSystem;
+        //$this->contentFactory = $contentFactory;
+        //$this->imageProcessor = $imageProcessor;
         $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
         $this->collectionProcessor = $collectionProcessor ?: $this->getCollectionProcessor();
         $this->serializer = $serializer ?: ObjectManager::getInstance()
@@ -282,11 +294,13 @@ class ProductSearchManagement implements ProductSearchManagementInterface
         $this->cacheLimit = (int)$cacheLimit;
         $this->readExtensions = $readExtensions ?: ObjectManager::getInstance()
             ->get(ReadExtensions::class);
-        $this->linkManagement = $linkManagement ?: ObjectManager::getInstance()
-            ->get(CategoryLinkManagementInterface::class);
+        //$this->linkManagement = $linkManagement ?: ObjectManager::getInstance()
+        //  ->get(CategoryLinkManagementInterface::class);
         $this->searchCriteriaInterface = $searchCriteriaInterface;
         $this->filterGroupBuilder = $filterGroupBuilder;
         $this->sortOrderBuilder = $sortOrderBuilder;
+        $this->customerCollectionFactory = $customerCollectionFactory;
+        $this->categoryCollectionFactory = $categoryCollectionFactory;
     }
 
     /**
@@ -314,7 +328,7 @@ class ProductSearchManagement implements ProductSearchManagementInterface
      * @param int $page
      * @return array
      */
-    public function getProductList($customerId, $search, $page=1)
+    public function getProductList($customerId, $search, $page = 1, $group_id)
     {
         $result = [];
         $pageSize = 10;
@@ -336,23 +350,6 @@ class ProductSearchManagement implements ProductSearchManagementInterface
             ->setConditionType('like')
             ->create();
 
-
-
-//        $filter4 = $this->filterBuilder
-//            ->setField('category_id')
-//            ->setValue('')
-//            ->setConditionType('nin')
-//            ->create();
-
-//        $filter_group = $this->filterGroupBuilder
-//            ->addFilter($filter1)
-//            ->addFilter($filter2)
-//            ->addFilter($filter3)
-//            ->create();
-//        $filter_group1 = $this->filterGroupBuilder
-//            ->addFilter($filter4)
-//            ->create();
-
         $sortOrder = $this->sortOrderBuilder
             ->setField('sort_order')
             ->setDirection('DESC')
@@ -361,12 +358,10 @@ class ProductSearchManagement implements ProductSearchManagementInterface
         $this->searchCriteriaBuilder->addFilters([$filter1, $filter2, $filter3]);
         $this->searchCriteriaBuilder->addSortOrder($sortOrder);
         $searchCriteria = $this->searchCriteriaBuilder->create()
-            // $this->searchCriteriaBuilder->addFilters([$filter4]);
-            //$searchCriteria->setFilterGroups([$filter_group, $filter_group1])
             ->setPageSize($pageSize)
             ->setCurrentPage($page);
 
-        /** @var Collection $collection */
+        /** @var CollectionAlias $collection */
         $collection = $this->collectionFactory->create();
 
         $this->extensionAttributesJoinProcessor->process($collection);
@@ -374,22 +369,31 @@ class ProductSearchManagement implements ProductSearchManagementInterface
         $collection->addAttributeToSelect('*');
         $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
         $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
-        $collectionClone  = clone $collection;
+        $collectionClone = clone $collection;
         $collection->getSelect()->join(['cats' => 'catalog_category_product'], 'cats.product_id = e.entity_id');
-//        $collection->getSelect()->where('cats.category_id!=""');
-
-        //$this->collectionProcessor->process($searchCriteria, $collection);
+     /*   if ($group_id) {
+            $customerCollection = $this->customerCollectionFactory->create()
+                ->addFieldToFilter('customer_group_id', ['eq' => $group_id]);
+            $branch_code = $customerCollection->getFirstItem()->getDataByKey('branch_code');
+            if ($branch_code == 'B' || $branch_code == "T") {
+                $catCollection = $this->categoryCollectionFactory->create()
+                    ->addFieldToFilter('pim_category_code', ['like' => 'Ex%']);
+                   $catAllIds = $catCollection->getAllIds();
+                   print_r($catAllIds);
+                    // $collection->getSelect()->where('cats.category_id!=""');
+                   // ->getItemsByColumnValue('entity_id');
+                echo $catCollection->getSelect();
+            } else {
+                echo "No";
+            }
+        }
+        exit;*/
         $this->collectionProcessor->process($searchCriteria, $collection);
 
         $collection->load();
 
-        $collection->addCategoryIds();
-        $this->addExtensionAttributes($collection);
-        $searchResult = $this->searchResultsFactory->create();
-        $searchResult->setSearchCriteria($searchCriteria);
-        $searchResult->setItems($collection->getItems());
-        $searchResult->setTotalCount($collection->getSize());
-
+        // $collection->addCategoryIds();
+        //$this->addExtensionAttributes($collection);
         $productItems = [];
         foreach ($collection->getItems() as $product) {
             $productData = [];
@@ -402,26 +406,25 @@ class ProductSearchManagement implements ProductSearchManagementInterface
                 ),
                 $product
             );
-            $wcbProductStatus = $product->getWcbProductStatus();
-            $productCode = $product->getProductCode();
+            $product_id = ($product->getProductId() != null) ? $product->getProductId() : $product->getEntityId();
+            $productObj = $this->getById($product_id);
+            $wcbProductStatus = $productObj->getWcbProductStatus();
+            $successor_product_value = $productObj->getSuccessorProductCode();
             $successor_product_code = [];
-
             if ($wcbProductStatus == 2 || $wcbProductStatus == 3) {
-                if ($search == $product->getProductCode()) {
-                    $successor_product_code[] =   $product->getSuccessorProductCode();
+//                if ($search == $product->getProductCode()) {
+//                    $successor_product_code[] =   $product->getSuccessorProductCode();
+//                }
+                if ($successor_product_value) {
+                    $successor_product_code[] = $successor_product_value;
                 }
             } else {
-                $productData['product_id'] = $product->getProductId();
-                $productData['sku'] = $product->getSku();
-                $productData['name'] = $product->getName();
-                $productData['product_code'] = $productCode;
-                $productData['minimum_sales_unit_quantity'] = $product->getMinimumSalesUnitQuantity();
-                $productData['sales_unit_of_measure_id'] = $product->getSalesUnitOfMeasureId();
-                $productData['thumbnail'] = $product->getThumbnail();
-                $productItems[] = $productData;
+                $productItems[] = $this->prepareGetProductResponse($productObj);
             }
         }
-        if(!empty($successor_product_code)){}
+        if (!empty($successor_product_code)) {
+            $productItems = $this->successorProductCollections($collectionClone, $successor_product_code, $productItems);
+        }
         $data['search'] = ['search_term' => $search];
         $data['data'] = [
             'total_count' => $collection->getSize(),
@@ -430,37 +433,7 @@ class ProductSearchManagement implements ProductSearchManagementInterface
             'items' => $productItems
         ];
         $result[] = $data;
-
         return $result;
-        /*$productData['product_id'] = $product->getProductId();
-        $productData['sku'] = $product->getSku();
-        $productData['name'] = $product->getName();
-        $productData['product_code'] = $productCode;
-        $productData['minimum_sales_unit_quantity'] = $product->getMinimumSalesUnitQuantity();
-        $productData['sales_unit_of_measure_id'] = $product->getSalesUnitOfMeasureId();
-        $productData['thumbnail'] = $product->getThumbnail();
-        $productData['wcb_product_status'] = $wcbProductStatus;
-        $productData['successor_product_code'] = $replaceProductCode;*/
-    }
-
-
-
-//    public function successorProductCollections($collectionClone,$collectionClone){
-//
-//    }
-
-    /**
-     * Add extension attributes to loaded items.
-     *
-     * @param Collection $collection
-     * @return Collection
-     */
-    private function addExtensionAttributes(Collection $collection): Collection
-    {
-        foreach ($collection->getItems() as $item) {
-            $this->readExtensions->execute($item);
-        }
-        return $collection;
     }
 
     /**
@@ -527,6 +500,74 @@ class ProductSearchManagement implements ProductSearchManagementInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getById($productId, $editMode = false, $storeId = null, $forceReload = false)
+    {
+        $cacheKey = $this->getCacheKey([$editMode, $storeId]);
+        if (!isset($this->instancesById[$productId][$cacheKey]) || $forceReload) {
+            $product = $this->productFactory->create();
+            if ($editMode) {
+                $product->setData('_edit_mode', true);
+            }
+            if ($storeId !== null) {
+                $product->setData('store_id', $storeId);
+            }
+            $product->load($productId);
+            if (!$product->getId()) {
+                throw new NoSuchEntityException(
+                    __("The product that was requested doesn't exist. Verify the product and try again.")
+                );
+            }
+            $this->cacheProduct($cacheKey, $product);
+        }
+        return $this->instancesById[$productId][$cacheKey];
+    }
+
+    /**
+     * @param $product
+     */
+    public function prepareGetProductResponse($product)
+    {
+        $productData = [];
+        $productData['product_id'] = ($product->getProductId() != null) ? $product->getProductId() : $product->getEntityId();
+        $productData['sku'] = $product->getSku();
+        $productData['name'] = $product->getName();
+        $productData['product_code'] = $product->getProductCode();
+        $productData['minimum_sales_unit_quantity'] = $product->getMinimumSalesUnitQuantity();
+        $productData['sales_unit_of_measure_id'] = $product->getSalesUnitOfMeasureId();
+        $productData['thumbnail'] = $product->getThumbnail();
+        return $productData;
+    }
+
+    public function successorProductCollections($collectionClone, $successor_product_code, $productItems)
+    {
+        $filterObject = $this->filterBuilder
+            ->setField('product_code')
+            ->setValue($successor_product_code)
+            ->setConditionType('in')
+            ->create();
+
+        $filter_group = $this->filterGroupBuilder
+            ->addFilter($filterObject)
+            ->create();
+        $successorSearchCriteria = $this->searchCriteriaBuilder->create()
+            ->setFilterGroups([$filter_group]);
+
+        $this->collectionProcessor->process($successorSearchCriteria, $collectionClone);
+
+        $collectionClone->load();
+
+        //$collectionClone->addCategoryIds();
+        //$this->addExtensionAttributes($collectionClone);
+
+        foreach ($collectionClone->getItems() as $product) {
+            $productItems[] = $this->prepareGetProductResponse($product);
+        }
+        return $productItems;
+    }
+
+    /**
      * Process new gallery media entry.
      *
      * @param ProductInterface $product
@@ -551,13 +592,13 @@ class ProductSearchManagement implements ProductSearchManagementInterface
      * Helper function that adds a FilterGroup to the collection.
      *
      * @param FilterGroup $filterGroup
-     * @param Collection $collection
+     * @param CollectionAlias $collection
      * @return void
      * @deprecated 102.0.0
      */
     protected function addFilterGroupToCollection(
         FilterGroup $filterGroup,
-        Collection $collection
+        CollectionAlias $collection
     ) {
         $fields = [];
         $categoryFilter = [];
@@ -578,5 +619,19 @@ class ProductSearchManagement implements ProductSearchManagementInterface
         if ($fields) {
             $collection->addFieldToFilter($fields);
         }
+    }
+
+    /**
+     * Add extension attributes to loaded items.
+     *
+     * @param CollectionAlias $collection
+     * @return CollectionAlias
+     */
+    private function addExtensionAttributes(CollectionAlias $collection): CollectionAlias
+    {
+        foreach ($collection->getItems() as $item) {
+            $this->readExtensions->execute($item);
+        }
+        return $collection;
     }
 }

@@ -1,29 +1,29 @@
-<div class="dashboardMenu"> 
+<div class="dashboardMenu">
    <nav class='greedys'>
   <ul class='links'>
     <li><a href='<?php echo $this->getUrl('customer/account');?>'>My profile</a></li>
     <li><a href='<?php echo $this->getUrl('sales/order/history');?>'>Tracking orders</a></li>
     <li><a href='<?php echo $this->getUrl('sales-history');?>'>Sales history</a></li>
-    <li><a href='#'>Order templates</a></li>
+    <li><a href='<?php echo $this->getUrl('requisition_list/requisition/index'); ?>'>Order templates</a></li>
     <li><a href='<?php echo $this->getUrl('ios-overview');?>'>IOS overview</a></li>
-    <li><a href='<?php echo $this->getUrl('wishlist/index/index');?>'>Favorites</a></li>    
+    <li><a href='<?php echo $this->getUrl('wishlist/index/index');?>'>Favorites</a></li>
     <li><a href='<?php echo $this->getUrl('offers');?>'>Offers</a></li>
-    <li><a href='<?php echo $this->getUrl('undelivered-lines');?>'>Undelivered lines</a></li>
-    <li><a href='<?php echo $this->getUrl('trade-agreement');?>'>Trade Agreement</a></li>    
+    <li><a href='<?php echo $this->getUrl('wcbsales/order/undelivered');?>'>Undelivered lines</a></li>
+    <li><a href='<?php echo $this->getUrl('trade-agreement');?>'>Trade Agreement</a></li>
     <li><a href='#'>Click and collect orders</a></li>
     <li><a href='<?php echo $this->getUrl('confirm-order');?>'>Confirm order</a></li>
   </ul>
   <button class="more">More</button>
-  <ul class='hidden-links hidden'></ul>   
+  <ul class='hidden-links hidden'></ul>
 </nav>
 </div>
- 
+
 <script type="text/javascript">
 require(['jquery'], function($) {
 
   // Create the dropdown base
   $("<select />").appendTo(".greedys");
-      
+
       // Populate dropdown with menu items
       $(".greedys a").each(function() {
        var el = $(this);
@@ -31,7 +31,7 @@ require(['jquery'], function($) {
            "value"   : el.attr("href"),
            "text"    : el.text()
        }).appendTo(".greedys select");
-      });      
+      });
 	   // To make dropdown actually work
       $(".greedys select").change(function() {
         window.location = $(this).find("option:selected").val();
@@ -104,4 +104,4 @@ require(['jquery'], function($) {
   check();
 
 });
- </script>   
+ </script>
