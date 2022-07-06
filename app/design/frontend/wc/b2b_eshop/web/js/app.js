@@ -129,22 +129,22 @@ require(
         })
           // for navigation
 
-            	// js for data table order details page
-              $(document).ready(function() {
-                  if($('#wcb-data-table').length > 0){
-                      var table = $('#wcb-data-table').DataTable( {
-                          responsive: true,
-                          language: { search: "" },
-                          oLanguage: {
-                              oPaginate: {
-                                  sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
-                                  sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
-                              }
-                          }
-                      } );
-                  }
-               //  new jQuery.fn.dataTable.FixedHeader( table );
-              } );
+            // js for data table order details page=>> Not required
+            //   $(document).ready(function() {
+            //       if($('#wcb-data-table').length > 0){
+            //           var table = $('#wcb-data-table').DataTable( {
+            //               responsive: true,
+            //               language: { search: "" },
+            //               oLanguage: {
+            //                   oPaginate: {
+            //                       sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+            //                       sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
+            //                   }
+            //               }
+            //           } );
+            //       }
+            //    //  new jQuery.fn.dataTable.FixedHeader( table );
+            //   } );
 
         // js for datatable order details page
 

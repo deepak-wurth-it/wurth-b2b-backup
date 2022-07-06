@@ -16,6 +16,7 @@ class SalesOrderSyncToNavProcessor
 {
 
 	public $log;
+	public $isBillingIsShipping = '';
 	const SHIPPING_DETAILS = 'ShippingDetails';
 	const PAYMENT_CODE = ['CashOnDelivery' => 'POUZ', 'Virman' => 'T'];
 	const ORDER_STATUS_CODE = [
@@ -24,6 +25,14 @@ class SalesOrderSyncToNavProcessor
 		'preparing_for_shipment' => '2',
 		'complete' => '3',
 		'canceled' => '4'
+	];
+
+	const ORDER_ITEM_STATUS_CODE = [
+		'Ordered' => '1',
+		'Ordered' => '1',
+		'Invoiced' => '2',
+		'Shipped' => '3',
+		'Canceled' => '4'
 	];
 	public function __construct(
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
@@ -110,11 +119,11 @@ class SalesOrderSyncToNavProcessor
 
 					$CreatedDate = (string)$this->dataTimeFormat($order->getCreatedAt());
 					$ordersNav->setData('CreatedDate', $CreatedDate); //Order Created Date
-	
+
 					$LastUpdate = (string)$this->dataTimeFormat($order->getUpdatedAt());
 					//echo $LastUpdate;exit;
-					$ordersNav->setData('LastUpdate',$LastUpdate); //Order Last Update
-				
+					$ordersNav->setData('LastUpdate', $LastUpdate); //Order Last Update
+					$this->isBillingIsShipping = $order->getData('wcb_is_default_billing_use');
 					$ordersNav->setData('NeedsUpdate', '1'); // Needs Update
 					$ordersNav->setData('Synchronized', '1'); // Needs Update
 					$ordersNav->save(); // New Save
@@ -139,20 +148,26 @@ class SalesOrderSyncToNavProcessor
 		$row = $shippingAddress = $order->getShippingAddress()->getData();
 		if (count($shippingAddress)) {
 			try {
-				
+
+				$name = $row['firstname'] . ' ' . $row['lastname'];
+				$name =   $this->isBillingIsShipping ? '' : $name;
+				$street = $this->isBillingIsShipping ? '' : $row['street'];
+				$postal = $this->isBillingIsShipping ? '' : $row['postcode'];
+				$city =   $this->isBillingIsShipping ? '' : $row['city'];
+				$telephone = $this->isBillingIsShipping ? '' : $row['telephone'];
+
 				$data = [
 					'OrderID' => $order->getId(),
-					'Name' =>  $row['firstname'] . ' ' . $row['lastname'],
-					'Street' => $row['street'],
+					'Name' => $name ,
+					'Street' => $street,
 					'Country' => $row['country_id'],
-					'PostalCode' => $row['postcode'],
-					'City' => $row['city'],
-					'Phone' => $row['telephone'],
-					'Email'=> $row['email'],
+					'PostalCode' => $postal,
+					'City' => $city,
+					'Phone' =>$telephone,
+					'Email' => $row['email'],
 					'IsWholesale' => '1',
 					'FullDelivery' => $order->getDeliveryOrder()
 				];
-
 
 
 				$selectExist = $this->connectionWurthNav->select()
@@ -212,10 +227,10 @@ class SalesOrderSyncToNavProcessor
 				$orderItemsNav->setData('Packaging', $items->getWcbQuantityOrdered()); // only discount
 				$orderItemsNav->setData('Quantity', $items->getWcbOrderUnit()); // only discount
 				$orderItemsNav->setData('Promised Delivery Date', $items->getPromisedDeliveryDate()); // Discount for the respective item
-			
+
 				$mageOrderstatus = (string)$items->getStatusName($items->getStatusId());
 				//echo $mageOrderstatus.'================================='.PHP_EOL;
-				$orderStatus = $this->updateOrderStatus($mageOrderstatus);
+				$orderStatus = $this->updateOrderItemStatus($mageOrderstatus);
 				$orderItemsNav->setData('Status', $orderStatus);
 
 
@@ -223,7 +238,7 @@ class SalesOrderSyncToNavProcessor
 				$orderItemsNav->setData('CreatedDate', $CreatedDate); //Order Created Date
 
 				$LastUpdate = (string)$this->dataTimeFormat($items->getUpdatedAt());
-				$orderItemsNav->setData('LastUpdate',$LastUpdate); //Order Last Update
+				$orderItemsNav->setData('LastUpdate', $LastUpdate); //Order Last Update
 
 				$orderItemsNav->save(); // New Save
 				$i++;
@@ -278,7 +293,7 @@ class SalesOrderSyncToNavProcessor
 			$dateModel = $this->dateTimeFactory->create();
 			$realFormat = $dateModel->date('d.m.Y H:i', $date);
 		}
-		
+
 		return $realFormat;
 	}
 
@@ -291,6 +306,17 @@ class SalesOrderSyncToNavProcessor
 		}
 		return $orderStatus;
 	}
+
+	public function updateOrderItemStatus($status)
+	{
+		$orderStatus = '';
+		if (array_key_exists($status, self::ORDER_ITEM_STATUS_CODE)) {
+
+			$orderStatus = self::ORDER_ITEM_STATUS_CODE[$status];
+		}
+		return $orderStatus;
+	}
+
 	public function wurthNavLogger($log = null)
 	{
 		echo $log;
