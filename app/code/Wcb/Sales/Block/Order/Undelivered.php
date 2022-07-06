@@ -17,7 +17,7 @@ use Magento\Framework\App\ResourceConnection;
  * @api
  * @since 100.0.2
  */
-class History extends \Magento\Sales\Block\Order\History
+class Undelivered extends \Magento\Sales\Block\Order\History
 {
 
     /**
@@ -30,7 +30,7 @@ class History extends \Magento\Sales\Block\Order\History
     /**
      * @var string
      */
-    protected $_template = 'Wcb_Sales::order/history.phtml';
+    protected $_template = 'Wcb_Sales::order/undelivered-lines.phtml';
 
 
 
@@ -159,13 +159,13 @@ class History extends \Magento\Sales\Block\Order\History
             $breadcrumbsBlock->addCrumb(
                 'tracking_order',
                 [
-                'label' => __('Tracking Order'),
-                'title' => __('Tracking Order'),
-                'link' => '/sales/order/history/'
+                'label' => __('Undelivered Item'),
+                'title' => __('Undelivered Item'),
+                'link' => '/wcbsales/order/undelivered/'
                 ]
             );
         }
-        $this->pageConfig->getTitle()->set(__('FAQ')); // set page name
+        $this->pageConfig->getTitle()->set(__('Undelivered Item')); // set page name
         return parent::_prepareLayout();
     }
 }
