@@ -19,8 +19,8 @@
         <table id="wcb-data-table" data-order="[]" class="table  table-bordered" style="width:100%">
             <thead class="wcb-first-row">
                 <tr>
-                    <th  data-orderable="false" >Rb</th>
-                    <th  data-orderable="false">Status</th>
+                    <th data-orderable="false" >Rb</th>
+                    <th data-orderable="false" >Status</th>
                     <th style="width:18%">Name</th>
                     <th>Date</th>
                     <th style="width:12%">Online shop number</th>
@@ -65,6 +65,15 @@
 
 <script>
     require(['jquery', 'dataTables'], function($, dt) {
-        $('#wcb-data-table').DataTable();
+        $('#wcb-data-table').DataTable( {
+                          responsive: true,
+                          language: { search: "" },
+                          oLanguage: {
+                              oPaginate: {
+                                  sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                                  sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
+                              }
+                          }
+                      } );
     });
 </script>
