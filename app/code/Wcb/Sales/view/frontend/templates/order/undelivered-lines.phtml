@@ -13,11 +13,11 @@
          <div class="row date-pad">
             <div class="col-md-6 date-fr">
                <label class="date-title">Date from:</label> 
-               <input type="text" class="input-date" id="date-from" placeholder="DD. MM. YYYY."  name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button>               
+               <input type="text" class="input-date date-from" id="date-from" placeholder="DD. MM. YYYY."  name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle date-from"></button>               
             </div>
             <div class="col-md-6">
                <label class="date-titleto">To:</label> 
-               <input type="text" class="input-date" id="date-to" placeholder="DD. MM. YYYY." name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button> 
+               <input type="text" class="input-date date-to" id="date-to" placeholder="DD. MM. YYYY." name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle date-to"></button> 
             </div>
          </div>
          <div class="col-md-10 select-wrapper">
@@ -35,113 +35,64 @@
      
    </div>
 </div>
-<div class="row filter-contaner">
-   <div class="col-md-7">
-      <p class="toolbar-amount">
-         <span class="toolbar-number">
-         Items 1 to 10 of 13 total                        </span>
-      </p>
-   </div>
-   <div class="col-md-3 tab-head">
-      <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
-   </div>
-   <div class="col-xs-3 tab-foot">
-      <div class="limiter">
-         <strong class="limiter-label">Show</strong>
-         <select id="limiter" class="limiter-options">
-            <option value="#" selected="selected">
-               10                    
-            </option>
-            <option value="#">
-               20                    
-            </option>
-            <option value="#">
-               50                    
-            </option>
-         </select>
-         <span class="limiter-text">per page</span>
-      </div>
-   </div>
-</div>
-<div id="elements">
-<ol class="collection collection-container" id="filter">
-   <li class="item item-container" >
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>"><?= $block->escapeHtml(__('Rb.')) ?><span class="down-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>"><?= $block->escapeHtml(__('Slika')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>"><?= $block->escapeHtml(__('Br.art.')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>"><?= $block->escapeHtml(__('Opis')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>"><?= $block->escapeHtml(__('Naruceno')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>"><?= $block->escapeHtml(__('Isporuceno')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>"><?= $block->escapeHtml(__('Br. narudzbe')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"><?= $block->escapeHtml(__('Expected delivery date')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>"><?= $block->escapeHtml(__('Datum narudzbe')) ?> <span class="group-arrow"></span></div>
-      <div class="attribute" ></div>
-   </li>
-   <li class="item item-container" data-role="collapsible">
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">1.</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
-      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
-      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
-   </li>
-   <li class="item item-container" data-role="collapsible">
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">2.</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
-      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
-      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
-   </li>
-   <li class="item item-container" data-role="collapsible">
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">3.</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
-      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
-      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
-   </li>
-   <li class="item item-container" data-role="collapsible">
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Rb.')) ?>">4.</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Slika')) ?>">Image</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Naruceno')) ?>">20</div>
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</div>
-      <div class="attribute last-purchased" data-name="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840 </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Expected delivery date')) ?>"> </div>  
-      <div class="attribute" data-name="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021 </div>  
-      <div class="attribute qty-order"><span><button type="button" class="cancel-order">Cancel order</button></span> </div>
-   </li>
-</ol>
-<div class="pager">
-   <div class="limiter pull-right">
-      <strong class="limiter-label">Show</strong>
-      <select id="limiter" class="limiter-options">
-         <option value="#" selected="selected">
-            10                    
-         </option>
-         <option value="#">
-            20                    
-         </option>
-         <option value="#"> 
-            50                    
-         </option>
-      </select>
-      <span class="limiter-text">per page</span>
-   </div>
+
+
+<div class="table-wrapper order-items order-detail">
+        <table id="wcb-data-table" class="table  table-bordered" style="width:100%">
+            <thead class="wcb-first-row">
+                <tr>
+                    <th  style="width:5%" data-orderable="false"><?= $block->escapeHtml(__('Rb')) ?></th>
+                    <th style="width:8%" data-orderable="false"><?= $block->escapeHtml(__('Slika')) ?></th>
+                    <th style="width:8%"><?= $block->escapeHtml(__('Br.art.')) ?></th>
+                    <th style="width:15%"><?= $block->escapeHtml(__('Opis')) ?></th>
+                    <th style="width:10%"><?= $block->escapeHtml(__('Naruceno')) ?></th>
+                    <th style="width:10%"><?= $block->escapeHtml(__('Isporuceno')) ?></th>
+                    <th style="width:10%"><?= $block->escapeHtml(__('Br. narudzbe')) ?></th>
+                    <th style="width:12%"><?= $block->escapeHtml(__('Expected delivery date')) ?></th>
+                    <th style="width:10%"><?= $block->escapeHtml(__('Datum narudzbe')) ?></th>
+                    <th style="width:12%" data-orderable="false"></th>
+                </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td data-th="RB">1</td>
+                  <td data-th="<?= $block->escapeHtml(__('Slika')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product.png"></span></td>
+                  <td data-th="<?= $block->escapeHtml(__('Br.art.')) ?>">6143130</td>
+                  <td data-th="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</td>
+                  <td data-th="<?= $block->escapeHtml(__('Naruceno')) ?>">20</td>
+                  <td data-th="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</td>
+                  <td data-th="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840</td>
+                  <td data-th="<?= $block->escapeHtml(__('Expected delivery date')) ?>">25.05.2021</td>
+                  <td data-th="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021</td>
+                  <td data-th=""><button type="button" class="cancel-order">Cancel order</button></td>
+               </tr>
+               <tr>
+                  <td data-th="RB">2</td>
+                  <td data-th="<?= $block->escapeHtml(__('Slika')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product.png"></span></td>
+                  <td data-th="<?= $block->escapeHtml(__('Br.art.')) ?>">8784637</td>
+                  <td data-th="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</td>
+                  <td data-th="<?= $block->escapeHtml(__('Naruceno')) ?>">30</td>
+                  <td data-th="<?= $block->escapeHtml(__('Isporuceno')) ?>">0</td>
+                  <td data-th="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840</td>
+                  <td data-th="<?= $block->escapeHtml(__('Expected delivery date')) ?>">25.05.2021</td>
+                  <td data-th="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021</td>
+                  <td data-th=""><button type="button" class="cancel-order">Cancel order</button></td>
+               </tr>
+               <tr>
+                  <td data-th="RB">3</td>
+                  <td data-th="<?= $block->escapeHtml(__('Slika')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product.png"></span></td>
+                  <td data-th="<?= $block->escapeHtml(__('Br.art.')) ?>">8784637</td>
+                  <td data-th="<?= $block->escapeHtml(__('Opis')) ?>">BIT-TEX30-CRVENI-1/4-L25MM</td>
+                  <td data-th="<?= $block->escapeHtml(__('Naruceno')) ?>">40</td>
+                  <td data-th="<?= $block->escapeHtml(__('Isporuceno')) ?>">256</td>
+                  <td data-th="<?= $block->escapeHtml(__('Br. narudzbe')) ?>">25312/PP21-0088840</td>
+                  <td data-th="<?= $block->escapeHtml(__('Expected delivery date')) ?>">27.05.2021</td>
+                  <td data-th="<?= $block->escapeHtml(__('Datum narudzbe')) ?>">25.05.2021</td>
+                  <td data-th=""><button type="button" class="cancel-order">Cancel order</button></td>
+               </tr>
+
+           </tbody>
+      </table>
 </div>
 
 <script>
@@ -150,7 +101,7 @@
      'mage/translate',
      'mage/calendar'
      ], function ($, $t) {
-       $('#date-from').calendar({
+       $('.date-from').calendar({
          changeMonth: true,
          changeYear: true,
          showButtonPanel: true,
@@ -166,7 +117,7 @@
      'mage/translate',
      'mage/calendar'
      ], function ($, $t) {
-       $('#date-to').calendar({
+       $('.date-to').calendar({
          changeMonth: true,
          changeYear: true,
          showButtonPanel: true,
@@ -176,17 +127,18 @@
        });
      })
 </script>
+
 <script>
- require(['jquery', 'jquery/ui'], function($){ 
-     $('#searchInput').keyup(function(){
-    var searchText = $(this).val();
-  
-    $('ol > li').each(function(){
-        var currentLiText = $(this).text(),
-            showCurrentLi = currentLiText.indexOf(searchText) !== -1;        
-            $(this).toggle(showCurrentLi);
-        
-    });     
-});
- });
+    require(['jquery', 'dataTables'], function($, dt) {
+        $('#wcb-data-table').DataTable( {
+                          responsive: true,
+                          language: { search: "" },
+                          oLanguage: {
+                              oPaginate: {
+                                  sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                                  sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
+                              }
+                          }
+                      } );
+    });
 </script>
