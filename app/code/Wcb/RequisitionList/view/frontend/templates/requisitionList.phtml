@@ -61,7 +61,7 @@
                                     <li class="item item-sub-container" data-role="collapsible">
                                         <div class="attribute"></div>
                                         <div class="attribute">
-                                            <img src="<?= $block->getProductImage($product) ?>" >
+                                            <img src="<?= $block->getProductImage($product) ?>" class="wcb-r-image">
                                         </div>
                                         <div class="attribute" data-name="Article no. Item description"><?= $product->getProductCode() ?> <br/>
                                             <?= $product->getName() ?>
@@ -69,6 +69,7 @@
                                         <div class="attribute"><span class="<?= $stockColor ?>Box" id="stock-color-<?= $listItem->getId() ?>"></span></div>
                                         <div class="attribute" data-name="Quantity x pack. = Total QTY">
                                             <span class="boxContaner">
+                                            <div class="wcb-qty-field">
                                                 <div id="<?= $listItem->getId() ?>-dec" class="decreaseQty icon-interface-minus" data-item-id="<?= $listItem->getId() ?>"></div>
                                                 <input type="text"
                                                        class="qty-input"
@@ -78,6 +79,7 @@
                                                        data-availableqty="<?= $availQty ?>"
                                                 >
                                                 <div id="<?= $listItem->getId() ?>-upt" class="increaseQty icon-interface-plus" data-item-id="<?= $listItem->getId() ?>"></div>
+                                            </div>
 
                                                 <span class="xpad">X</span>
                                                 <input type="text" value="<?= $block->getMinimumAndMeasureQty($product) ?>" class="minimum-qty-<?= $listItem->getId() ?>" readonly>

@@ -1213,6 +1213,12 @@ label.sorter-label {
 }
 	// order detail page
 	.sales-order-view{
+		div#wcb-data-table_paginate {
+			display: none;
+		}
+		.order-details-items {
+			border-bottom: none;
+		}
 		ul.items.order-links {
 			display: none;
 		}
@@ -5894,6 +5900,9 @@ a.action.print.hidden-print {
 	.redText {
 		color: @general_price_color;
 	}
+	.wcb-width {
+		max-width: 78%;
+	}
 	.textBlue a {
 		font-family: 'wuerthbook';
 		color: @general_link_hover_color_cyan;
@@ -5911,34 +5920,16 @@ a.action.print.hidden-print {
 		border-top:1px solid rgba(0, 0, 0, 0.12);
 	}
 	.newslettertext {
-		height: 45px;
-		background: @general_link_hover_color_cyan;
-		border-radius: 50px;
-		display: flex;
-        align-items: center;
-		width: fit-content;
-        padding: 0px 20px 0 20px;
 
-		button.action.save.primary span {
-			color: #ffffff;
+		button.action.save.primary {
+			height: 45px;
 			background: #0093dd;
-		}
-		.button.action.save.primary:hover {
-			background: #0093dd;
+			border-radius: 50px;
+			display: flex;
+			align-items: center;
+			width: fit-content;
+			padding: 0px 20px 0 20px;
 			color: #ffffff;
-			border: none;
-			outline: none;
-		}
-		button.action.save.primary:active {
-			background: #0093dd;
-			color: #ffffff;
-			border: none;
-			outline: none;
-		}
-		.action.primary:hover {
-			background-color: #0093dd;
-			color: #fff;
-			border: none;
 		}
 	}
 	.newslettertext a {
@@ -10547,6 +10538,9 @@ print {
 		.redColor {
 			display: none;
 		}
+		.wcb-width {
+			max-width: 100%;
+		}
 		.genText {
 			padding-bottom: 20px;
 		}
@@ -12792,6 +12786,27 @@ margin-top: 10px;
 	}
 	.boxContaner {
 		display: flex;
+		align-items: center;
+	}
+	.wcb-qty-field {
+		border: solid 1px rgba(0, 0, 0, 0.08);
+		border-radius: 4px;
+		display: inherit;
+		justify-content: center;
+		align-items: center;
+		background: #ffffff;
+		padding: 0px 2px 0 2px;
+	}
+	input.qty-input {
+		width: 28px;
+		font-size: 1.6rem;
+		display: inline-block;
+		border: none;
+		text-align: center;
+	}
+	.attribute.pdPage {
+		display: flex;
+		align-items: center;
 	}
 .collection-container {
 	display: inherit;
@@ -12809,7 +12824,10 @@ background: rgba(0, 147, 221, 0.12);
 	border-radius: 2px;
 	padding: 10px;
 }
-
+	img.wcb-r-image {
+		height: 75px;
+		width: auto;
+	}
 .collection-container>li:first-child {
 	display: none;
 }
@@ -13998,13 +14016,20 @@ margin-top: 10px;
 	// Order No Page end by Amit
 
 	// Order detail Page start by Amit
+	.sales-order-view{
+		main#maincontent {
+			padding-top: 0px;
+		}
+	}
 
 	.order-detail {	
+		
 		.sales-title {
 			font-family: 'wuerthbold';
 			font-size: 16px;
 			color: rgba(0, 0, 0, 0.87);
 			padding: 0px 0px 20px 0px;
+			
 		}
 		button.add-to-basket {
 			background: @general_link_hover_color_cyan;
@@ -14035,22 +14060,10 @@ margin-top: 10px;
 		}
 		.row.filter-contaner {
 			display: table;
-			margin: 20px 0px 10px 0px;
 			width: 100%;
 		}
 		.limiter {
 			margin-bottom: 20px;
-		}
-		.input-box {
-			width: 68%;
-			float: right;
-		}
-		
-		.input-box i {
-			position: absolute;
-			right: 10px;
-			top: 7px;
-			color: #ced4da;
 		}
 		
 		
@@ -14480,14 +14493,17 @@ margin-top: 10px;
 	  
 	  .item-sub-container {
 			display: grid;
-			grid-template-columns: 1fr 1fr 4fr 1fr 4fr 3fr;
+			grid-template-columns: 0% 8% 35% 6% 30% 20%;
 			background: @general_bg_color;
 			margin: 0px;
 			border-bottom:solid 1px rgba(0, 0, 0, 12%);
 			align-items: center;
 			padding: 10px 5px;
 	  }
-	  
+	  img.wcb-r-image {
+		height: 75px;
+		width: auto;
+	}
 		  .attribute {        
 			  padding: 2px;
 			  text-overflow: ellipsis;
@@ -14519,6 +14535,26 @@ margin-top: 10px;
 		  
 		.butContaner{
 			display:flex;
+			align-items: center;
+		}
+		.wcb-qty-field {
+			border: solid 1px rgba(0, 0, 0, 0.08);
+			border-radius: 4px;
+			display: inherit;
+			justify-content: center;
+			align-items: center;
+			background: #ffffff;
+			padding: 0px 10px 0 10px;
+		}
+		input.qty-input {
+			width: 52px;
+			font-size: 1.6rem;
+			display: inline-block;
+			border: none;
+			text-align: center;
+		}
+		.attribute.pdPage {
+			display: flex;
 			align-items: center;
 		}
 		  .apply {
@@ -15587,6 +15623,7 @@ margin-top: 10px;
 		// Order No page end by Amit
 
 		// Order detail page start by Amit
+		
 		.order-detail{	
 
 			thead.wcb-first-row {
@@ -15599,7 +15636,8 @@ margin-top: 10px;
 				font-family: 'wuerthbold';
 				font-size: 24px;
 				color: rgba(0, 0, 0, 0.87);
-				padding: 0px 0px 20px 0px;
+				padding: 0px;
+			    margin: 0 0 -38px 0px;
 			}	
 			
 			.item-container {
