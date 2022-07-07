@@ -62,9 +62,9 @@ class IsCompanyDefaultBillingAddressAttribute implements DataPatchInterface
     public function apply()
     {
         $customerSetup = $this->customerSetupFactory->create(['setup' => $this->moduleDataSetup]);
-        $customerSetup->addAttribute('customer_address', 'is_company_default_billing_address', [
+        $customerSetup->addAttribute('customer_address', 'is_company_main_address', [
             'type' => 'int',
-            'label' => 'Is Company Default Billing Address',
+            'label' => 'Is Company Main Address',
             'input' => 'boolean',
             'required' => false,
             'visible' => true,
@@ -75,7 +75,7 @@ class IsCompanyDefaultBillingAddressAttribute implements DataPatchInterface
             'position' => 334,
         ]);
 
-        $attribute = $customerSetup->getEavConfig()->getAttribute('customer_address', 'is_company_default_billing_address');
+        $attribute = $customerSetup->getEavConfig()->getAttribute('customer_address', 'is_company_main_address');
 
         $attribute->setData('used_in_forms', [
             'adminhtml_customer',
