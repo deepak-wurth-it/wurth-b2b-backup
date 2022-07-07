@@ -85,6 +85,16 @@ class CompanyDetail implements ConfigProviderInterface
                     $customerCode = $customer->getCustomAttribute("customer_code")->getValue();
                 }
 
+                // if found bill to customer no
+                if ($billingAddress->getCustomAttribute('bill_to_customer_code') &&
+                    $billingAddress->getCustomAttribute('is_bill_to_customer_number')) {
+                    $isBillToCustomerNumber = $billingAddress->getCustomAttribute("is_bill_to_customer_number")->getValue();
+                    $billToCustomerCode = $billingAddress->getCustomAttribute("bill_to_customer_code")->getValue();
+                    if ($isBillToCustomerNumber && $billToCustomerCode) {
+                        $companyName = $billingAddress->getFirstname() . " " . $billingAddress->getLastname();
+                        $customerCode = $billToCustomerCode;
+                    }
+                }
                 $companyName .= " (" . $customerCode . ")";
                 $addressData = [];
                 $addressData['name'] = $companyName;
