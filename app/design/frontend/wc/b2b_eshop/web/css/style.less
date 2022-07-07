@@ -2209,6 +2209,7 @@ label.sorter-label {
 
 		table#wcb-data-table tr td {
 			border-bottom: 1px solid rgba(0, 0, 0, 12%);
+			vertical-align: middle;
 			a.action.order {
 				font-family: 'wuerthbook';
 				font-size: 16px;
@@ -2219,38 +2220,7 @@ label.sorter-label {
 				color: #CC0000;
 			}
 		}
-	 	    #wcb-data-table thead .sorting::before,
-			#wcb-data-table thead .sorting_asc::before,
-			#wcb-data-table thead .sorting_desc::before,
-			#wcb-data-table thead .sorting_asc_disabled::before,
-			#wcb-data-table thead .sorting_desc_disabled::before {
-				/* Up arrow */
-				content: "\F176";
-				font-family: 'FontAwesome';
-				margin: 0px -9px -8px 0px;
-				font-size:16px;
-				opacity:0.6;
-			}
-			
-			#wcb-data-table thead .sorting::after,
-			#wcb-data-table thead .sorting_asc::after,
-			#wcb-data-table thead .sorting_desc::after,
-			#wcb-data-table thead .sorting_asc_disabled::after,
-			#wcb-data-table thead .sorting_desc_disabled::after {
-				/* Down arrow */
-				content: "\F175";
-				font-family: 'FontAwesome';
-				margin: 0px 0px 9px 0px;
-				font-size:16px;
-				cursor: pointer;
-				opacity:0.6;
-			}			
-			
-			/* Active sort icon */
-			#wcb-data-table thead .sorting_asc::before,
-			#wcb-data-table thead .sorting_desc::after {
-				opacity:0.9;
-			}
+	 	    
 			a.paginate_button {
 				border: 1px solid;
 				padding: 10px 15px 8px 15px;
@@ -2272,7 +2242,38 @@ label.sorter-label {
 			}
 
 			/* Datatables sort icons */
-			// Sales order history page end
+
+			/* Datatables sort icons for popup */
+		#wcb-data-table-popup_length {
+			float: right;
+			padding-left: 30px;
+			padding-bottom: 20px;
+		}
+		div.dataTables_wrapper div#wcb-data-table-popup_filter input {
+			margin-left: 0.5em;
+			display: inline-block;
+			width: 25%;
+		}
+		#wcb-data-table-popup_filter:after {
+			content: "\f002";
+			font-family: 'FontAwesome';
+			opacity:0.3;
+			margin: 0px 0px 0px -25px;
+		}
+		table#wcb-data-table-popup tr td {
+			border-bottom: 1px solid rgba(0, 0, 0, 12%);
+			vertical-align: middle;
+			a.action.order {
+				font-family: 'wuerthbook';
+				font-size: 16px;
+				text-decoration-line: underline;
+				color: #0093dd;
+			}
+			a.details-botton {
+				color: #CC0000;
+			}
+		}
+	 	   
 
 		// about us page start
 		.counter-box {
@@ -3140,6 +3141,7 @@ table.ReqListTable
 	.filter-wrapper {
 		border: solid 1px rgba(0, 0, 0, 0.08);
 		padding: 10px;
+		margin-bottom: 20px;
 	}
 	.filter{
 		font-family: 'wuerthbold';
@@ -10743,6 +10745,19 @@ print {
 			order:2;
 		}
    }  
+
+   // Datatable pagination remove from specific page
+    .sales-order-history,
+	.wcbsales-order-saleshistory{
+		.dataTables_info {
+			display: none;
+		}
+		div#wcb-data-table_paginate {
+			display: none;
+		}
+    }
+	 // Datatable pagination remove from specific page
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -12632,10 +12647,12 @@ margin-top: 10px;
 // My Inquery (Request a quote end by Amit)
 
 // Tracking Order start by Amit
-.sales-order-history main#maincontent{
-	padding-top:0px;
-	
-}
+	.sales-order-history,
+	.wcbsales-order-saleshistory {
+		main#maincontent{
+		padding-top:0px;
+		}
+	}
 
 .tracking-order {	
 	
@@ -13311,6 +13328,11 @@ margin-top: 10px;
 // Open Tenders CMS Page end by Amit
 
 // Undelivered lines page end by Amit
+
+.wcb-product-image img {
+	height: 77px;
+	width: auto;
+}
 .undelivered-lines {	
 	.sales-title {
 		font-family: 'wuerthbold';
@@ -13322,10 +13344,6 @@ margin-top: 10px;
 		border: solid 1px rgba(0, 0, 0, 0.08);
 		padding: 10px;
 		margin-bottom: 20px;
-	}
-	.wcb-product-image img {
-		height: 77px;
-		width: auto;
 	}
 	button.repeat {
 		background: @general_price_color;
@@ -14139,7 +14157,7 @@ margin-top: 10px;
 
 	// Order detail Page end by Amit
 
-	// sales order history page start
+	// For datatable start
 		table#wcb-data-table td {
 			display: grid !important;
 			grid-template-columns: minmax(9em, 55%) 1fr;
@@ -14159,7 +14177,29 @@ margin-top: 10px;
 			width: 75%;
 			position: relative;
 		}
-	// sales order history page end
+	// For data table end
+
+	//  For Data table popup statrt
+	table#wcb-data-table-popup td {
+		display: grid !important;
+		grid-template-columns: minmax(9em, 55%) 1fr;
+	}
+	table#wcb-data-table-popup tr td {
+		border-bottom: none;
+	}
+	table#wcb-data-table-popup tr td:last-child {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	#wcb-data-table-popup_length {
+		float: right;
+	}
+	
+	
+	div.dataTables_wrapper div#wcb-data-table-popup_filter input {
+		width: 75%;
+		position: relative;
+	}
+//  For Data table popup end
 	
   
 } // responsive end
@@ -15763,6 +15803,10 @@ margin-top: 10px;
    #wcb-data-table_filter:after {
 	margin: 0px -20% 16px -23px;
 	position: relative;
-}
+   }
+   #wcb-data-table-popup_filter:after {
+	margin: 0px -20% 16px -23px;
+	position: relative;
+   }
 	
 }

@@ -42,18 +42,18 @@
                <th style="width:5%" data-orderable="false"><?= $block->escapeHtml(__('Rb')) ?></th>
                <th style="width:8%" data-orderable="false"><?= $block->escapeHtml(__('Slika')) ?></th>
                <th style="width:8%"><?= $block->escapeHtml(__('Br.art.')) ?></th>
-               <th style="width:15%"><?= $block->escapeHtml(__('Opis')) ?></th>
+               <th style="width:13%"><?= $block->escapeHtml(__('Opis')) ?></th>
                <th style="width:10%"><?= $block->escapeHtml(__('Naruceno')) ?></th>
                <th style="width:10%"><?= $block->escapeHtml(__('Isporuceno')) ?></th>
                <th style="width:10%"><?= $block->escapeHtml(__('Br. narudzbe')) ?></th>
                <th style="width:12%"><?= $block->escapeHtml(__('Expected delivery date')) ?></th>
                <th style="width:10%"><?= $block->escapeHtml(__('Datum narudzbe')) ?></th>
-               <th style="width:12%" data-orderable="false"></th>
+               <th style="width:15%" data-orderable="false"></th>
             </tr>
          </thead>
          <tbody>
             <?php $_orders = $block->getOrders(); ?>
-            <?php echo $_orders->getSize(); ?>
+            <?php $_orders->getSize(); ?>
             <?php if ($_orders && count($_orders)) : ?>
                <?php $index = 1; ?>
                <?php foreach ($_orders as $_order) : ?>
