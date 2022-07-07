@@ -14,24 +14,13 @@
 <?= $block->getChildHtml('info') ?>
 
 <?php if ($_orders && count($_orders)) : ?>
-    <?php if ($block->getPagerHtml()) : ?>
-        <div class="mt-5">
-            <div class="col-md-3  text-contaner">
-                <div class="input-box"> <input type="text" class="form-control" id="searchInput"> <i class="fa fa-search"></i> </div>
-            </div>
 
-            <div class="col-md top-pager-contaner">
-                <div class="order-products-toolbar toolbar bottom top-pager"><?= $block->getPagerHtml() ?></div>
-            </div>
-        </div>
-
-    <?php endif ?>
     <div class="table-wrapper order-items order-detail">
-        <table id="wcb-data-table" class="table  table-bordered" style="width:100%">
+        <table id="wcb-data-table" data-order="[]" class="table  table-bordered" style="width:100%">
             <thead class="wcb-first-row">
                 <tr>
-                    <th data-orderable="false">Rb</th>
-                    <th data-orderable="false">Status</th>
+                    <th data-orderable="false" >Rb</th>
+                    <th data-orderable="false" >Status</th>
                     <th style="width:18%">Name</th>
                     <th>Date</th>
                     <th style="width:12%">Online shop number</th>
@@ -71,15 +60,20 @@
         </table>
     </div>
 
-    <?php if ($block->getPagerHtml()) : ?>
-        <div class="order-products-toolbar toolbar bottom bottom-pager"><?= $block->getPagerHtml() ?></div>
-    <?php endif ?>
-<?php else : ?>
-    <div class="message info empty"><span><?= $block->escapeHtml($block->getEmptyOrdersMessage()) ?></span></div>
-<?php endif ?>
+
+<?php endif  ?>
 
 <script>
     require(['jquery', 'dataTables'], function($, dt) {
-        $('#wcb-data-table').DataTable();
+        $('#wcb-data-table').DataTable( {
+                          responsive: true,
+                          language: { search: "" },
+                          oLanguage: {
+                              oPaginate: {
+                                  sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                                  sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
+                              }
+                          }
+                      } );
     });
 </script>

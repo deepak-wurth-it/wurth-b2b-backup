@@ -47,6 +47,8 @@ class Undelivered extends \Magento\Sales\Block\Order\History
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Sales\Model\Order\Config $orderConfig,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Magento\Catalog\Helper\ImageFactory $imageHelperFactory,
         ResourceConnection $resource,
         array $data = []
     ) {
@@ -55,6 +57,9 @@ class Undelivered extends \Magento\Sales\Block\Order\History
         $this->_orderConfig = $orderConfig;
         $this->resource = $resource;
         $this->customerFactory = $customerFactory;
+        $this->_productRepository = $productRepository;
+        $this->imageHelperFactory = $imageHelperFactory;
+
         $this->context =  $context;
         //print_r(get_class_methods($this->context));exit;
         parent::__construct($context, $orderCollectionFactory, $customerSession, $orderConfig, $data);
@@ -72,9 +77,6 @@ class Undelivered extends \Magento\Sales\Block\Order\History
             return false;
         }
 
-        //$page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
-        //$pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
-
         if (!$this->orders) {
             $this->orders = $this->getOrderCollectionFactory()->create($customerId)->addFieldToSelect(
                 '*'
@@ -86,9 +88,13 @@ class Undelivered extends \Magento\Sales\Block\Order\History
                 'desc'
             );
         }
-        //$this->orders->setPageSize($pageSize);
-        //$this->orders->setCurPage($page);
+
         return $this->orders;
+    }
+
+
+    public function getPartialShippedOrderItem()
+    {
     }
 
     private function getOrderCollectionFactory()
@@ -112,37 +118,27 @@ class Undelivered extends \Magento\Sales\Block\Order\History
     }
 
 
-    public function getAvailableLimit()
+
+    public function getProduct($pid)
     {
-        return [5 => 5, 50 => 50, 100 => 100, 150 => 150, 200 => 200];
+
+        $product = $this->_productRepository->getById($pid);
+        return  $product;
     }
-
-
-    public function getOrderStatusColor($order){
-        // 2. Order Status (Yellow would be by default till it does not sync with ERP)
-        // - Processing - Yellow (ID - 1)
-        // - Preparing for Shipment - Blue (ID - 2)
-        // - Shipped/Completed - Green (ID - 3)
-        // - Cancelled - Red (ID - 4)
-
-    }
-    public function getPagerHtml()
+    public function getProductThumbUrl($product)
     {
-        // $pagerBlock = $this->getChildBlock('pager');
-       
-        // if ($pagerBlock instanceof \Magento\Framework\DataObject) {
-        //     /* @var $pagerBlock \Magento\Theme\Block\Html\Pager */
-        //     $pagerBlock->setAvailableLimit($this->getAvailableLimit());
-        //     $pagerBlock->setShowPerPage(true);
-        //     $pagerBlock->setCollection($this->getOrders());
-        //     return $pagerBlock->toHtml();
-        // }
 
-        return '';
+
+        $thumbUrl = $this->imageHelperFactory->create()
+            ->init($product, 'product_thumbnail_image')->getUrl();
+        //$thumb = $product->getData('thumbnail');
+        return $thumbUrl;
     }
+
+
 
     public function _prepareLayout()
-    { 
+    {
         $breadcrumbsBlock = $this->getLayout()->getBlock('wcb_breadcrumb');
         $baseUrl = $this->context->getStoreManager()->getStore()->getBaseUrl();
 
@@ -151,17 +147,17 @@ class Undelivered extends \Magento\Sales\Block\Order\History
             $breadcrumbsBlock->addCrumb(
                 'online_shop',
                 [
-                'label' => __('Online Shop'), //lable on breadCrumbes
-                'title' => __('Online Shop'),
-                'link' => $baseUrl
+                    'label' => __('Online Shop'), //lable on breadCrumbes
+                    'title' => __('Online Shop'),
+                    'link' => $baseUrl
                 ]
             );
             $breadcrumbsBlock->addCrumb(
                 'tracking_order',
                 [
-                'label' => __('Undelivered Item'),
-                'title' => __('Undelivered Item'),
-                'link' => '/wcbsales/order/undelivered/'
+                    'label' => __('Undelivered Item'),
+                    'title' => __('Undelivered Item'),
+                    'link' => '/wcbsales/order/undelivered/'
                 ]
             );
         }
