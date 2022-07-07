@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">custommyaccount.online.shop.negotiable.quote</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Online Shop</item>
+                    <item name="label" xsi:type="string" translate="true">Online Shop</item>
+                    <item name="link" xsi:type="string">/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">custommyaccount.negotiable.offer</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Offers</item>
+                    <item name="label" xsi:type="string" translate="true">Offers</item>
+                    <item name="link" xsi:type="string">/negotiable_quote/quote/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">custommyaccount.negotiable.inquiry</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">My Inquiry</item>
+                    <item name="label" xsi:type="string" translate="true">My Inquiry</item>
+                    <item name="last" xsi:type="boolean">true</item>
+                </argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>
