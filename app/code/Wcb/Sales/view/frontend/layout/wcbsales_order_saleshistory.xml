@@ -14,9 +14,9 @@
         <referenceBlock name="page.main.title" remove="true"/>
 
         <referenceContainer name="content">
-           <!-- <block class="Wcb\Sales\Block\Order\Saleshistory" name="sales.order.saleshistory" cacheable="false">
+           <block class="Wcb\Sales\Block\Order\Saleshistory" name="sales.order.saleshistory" cacheable="false">
             
-            </block> -->
+            </block> 
 			
             <block class="Magento\Framework\View\Element\Template" name="customer.account.link.saleshistory" template="Wcb_Sales::order/sales-history.phtml" cacheable="false"/>
         </referenceContainer>
