@@ -15,5 +15,7 @@
         <column xsi:type="text" name="remarks" nullable="true"  comment="Remarks"/>
         <column xsi:type="boolean" name="delivery_order" nullable="true"
                 default="1" comment="Delivery Order"/>
+        <column xsi:type="boolean" name="api_req_quote" nullable="true"
+                default="0" comment="API Request Quote"/>
     </table>
 </schema>

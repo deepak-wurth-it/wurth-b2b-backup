@@ -113,6 +113,12 @@ class AddRemoveShippingProduct extends AbstractHelper
         if ($quote === '') {
             $quote = $this->checkoutSession->getQuote();
         }
+        /* For APi skip plugins through filed value api_req_quote
+           Below condition is fullfill on the behalf of request a Quote : PS
+        */
+        if ($quote->getData('api_req_quote') == "1" ) {
+            return;
+        }
         $items = $quote->getAllVisibleItems();
         $cartAmountLimit = $this->helperData->getCartAmountLimit();
 
@@ -172,8 +178,7 @@ class AddRemoveShippingProduct extends AbstractHelper
             ) {
                 $price = ($price * 1) / 100;
             }
-            /*var_dump($price);
-            exit;*/
+
             $price = (float)$price;
             $item->setCustomPrice($price);
             $item->setPrice($price);
