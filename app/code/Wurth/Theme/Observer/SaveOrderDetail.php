@@ -118,6 +118,8 @@ class SaveOrderDetail implements ObserverInterface
         $addressCode = null;
         $billingAddressId = $order->getBillingAddress()->getData('customer_address_id');
         $shippingAddressId = $order->getShippingAddress()->getData('customer_address_id');
+        $billToCustomerCode = $order->getBillingAddress()->getData('bill_to_customer_code');
+        $isBillToCustomerNumber = $order->getBillingAddress()->getData('is_bill_to_customer_number');
         $isDefaultBillingUse = 0;
         if ($billingAddressId && $shippingAddressId) {
             if ($billingAddressId != $shippingAddressId) {
@@ -128,6 +130,12 @@ class SaveOrderDetail implements ObserverInterface
             } else {
                 $isDefaultBillingUse = 1;
             }
+        }
+
+        // if found bill to customer no
+        if ($isBillToCustomerNumber && $billToCustomerCode) {
+            $addressCode = null;
+            $isDefaultBillingUse = 1;
         }
 
         return [

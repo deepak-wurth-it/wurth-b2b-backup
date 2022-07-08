@@ -4,6 +4,7 @@
  * See COPYING.txt for license details.
  */
 -->
+<!-- ko if: (displayaddress(address())) -->
 <div class="shipping-address-item" css="'selected-item' : isSelected() , 'not-selected-item':!isSelected()">
     <text args="address().prefix"/> <text args="address().firstname"/> <text args="address().middlename"/>
     <text args="address().lastname"/> <text args="address().suffix"/><br/>
@@ -28,3 +29,4 @@
     </button>
     <!-- /ko -->
 </div>
+<!-- /ko -->
