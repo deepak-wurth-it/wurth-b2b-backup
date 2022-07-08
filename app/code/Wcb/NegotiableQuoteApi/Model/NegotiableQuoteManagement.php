@@ -1,6 +1,6 @@
 <?php
 
-namespace Wcb\NegotiableQuote\Model;
+namespace Wcb\NegotiableQuoteApi\Model;
 
 use Exception;
 use Magento\Checkout\Model\Cart as CustomerCart;
@@ -17,6 +17,8 @@ use Magento\NegotiableQuote\Model\QuoteUpdater;
 use Magento\NegotiableQuote\Model\Validator\ValidatorInterfaceFactory;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartInterface;
+use Magento\Quote\Model\Quote\Item;
+use Magento\Quote\Model\QuoteFactory;
 use Wurth\Shippingproduct\Helper\Data as ShippingProductHelper;
 
 /**
@@ -68,6 +70,14 @@ class NegotiableQuoteManagement extends \Magento\NegotiableQuote\Model\Negotiabl
      * @var ValidatorInterfaceFactory
      */
     private $validatorFactory;
+    /**
+     * @var QuoteFactory
+     */
+    private $quoteFactory;
+    /**
+     * @var Item
+     */
+    private $quoteItem;
 
     /**
      * NegotiableQuoteManagement constructor.
@@ -82,6 +92,8 @@ class NegotiableQuoteManagement extends \Magento\NegotiableQuote\Model\Negotiabl
      * @param CustomerCart $cart
      * @param ShippingProductHelper $shippingProductHelper
      * @param Registry $registry
+     * @param QuoteFactory $quoteFactory
+     * @param Item $quoteItem
      */
     public function __construct(
         CartRepositoryInterface $quoteRepository,
@@ -94,7 +106,9 @@ class NegotiableQuoteManagement extends \Magento\NegotiableQuote\Model\Negotiabl
         ValidatorInterfaceFactory $validatorFactory,
         CustomerCart $cart,
         ShippingProductHelper $shippingProductHelper,
-        Registry $registry
+        Registry $registry,
+        QuoteFactory $quoteFactory,
+        Item $quoteItem
     ) {
         $this->quoteRepository = $quoteRepository;
         $this->emailSender = $emailSender;
@@ -117,6 +131,8 @@ class NegotiableQuoteManagement extends \Magento\NegotiableQuote\Model\Negotiabl
             $quoteHistory,
             $validatorFactory
         );
+        $this->quoteFactory = $quoteFactory;
+        $this->quoteItem = $quoteItem;
     }
 
     /**
@@ -124,6 +140,8 @@ class NegotiableQuoteManagement extends \Magento\NegotiableQuote\Model\Negotiabl
      */
     public function create($quoteId, $quoteName, $commentText = '', array $files = [])
     {
+        /*set value for the api quote request to remove shipping product */
+        $this->saveApiReqQuote($quoteId, 1);
         $quote = $this->retrieveQuote($quoteId);
         $validator = $this->validatorFactory->create(['action' => 'create']);
         $validateResult = $validator->validate(['quote' => $quote, 'files' => $files]);
@@ -182,6 +200,16 @@ class NegotiableQuoteManagement extends \Magento\NegotiableQuote\Model\Negotiabl
     }
 
     /**
+     * @param $quote
+     */
+    public function saveApiReqQuote($quoteId, $value)
+    {
+        $quote = $this->quoteFactory->create()->load($quoteId);
+        $quote->setApiReqQuote($value);
+        $quote->save();
+    }
+
+    /**
      * Remove cart discounts on negotiable quote.
      *
      * @param CartInterface $quote
@@ -210,45 +238,11 @@ class NegotiableQuoteManagement extends \Magento\NegotiableQuote\Model\Negotiabl
         try {
             foreach ($quote->getAllVisibleItems() as $item) {
                 if ($item->getProduct()->getProductCode() === $shippingProductCode) {
-                    $this->registry->register('skip_plugin', 'true');
-                    $this->cart->removeItem($item->getId());
-                    $this->cart->save();
-                    $this->cart->getQuote()->setTriggerRecollect(1);
-                    $this->cart->getQuote()->collectTotals()->save();
-                    $this->registry->register('skip_plugin', 'false');
-
-
-                     /* if($quoteName == ''){
-                        $writer = new \Laminas\Log\Writer\Stream(BP . '/var/log/fromBrowser.log');
-                        $logger = new  \Laminas\Log\Logger();
-                        $logger->addWriter($writer);
-                        $logger->info('From Browser '.$quoteName);
-                        $logger->info('If==============');
-                        
-                        $this->registry->register('skip_plugin', 'true');
-                        $this->cart->removeItem($item->getId());
-                        $this->cart->save();
-                        $this->cart->getQuote()->setTriggerRecollect(1);
-                        $this->cart->getQuote()->collectTotals()->save();
-                        $this->registry->register('skip_plugin', 'false');
-                    }else{
-                        $writer = new \Laminas\Log\Writer\Stream(BP . '/var/log/fromApi.log');
-                        $logger = new  \Laminas\Log\Logger();
-                        $logger->addWriter($writer);
-                        $logger->info('API Browser '.$quoteName);
-                        $logger->info('Else==============');
-                        
-                         $quoteObject = $this->cartRepositoryInterface->get($quote->getId());
-                         $quoteObject->deleteItem($item);
-                         $quoteObject->setTriggerRecollect(1);
-                         $quoteObject->setIsActive(true);
-                         $quoteObject->collectTotals()->save();
-                    }*/
-
-                    
+                    $quote->removeItem($item->getId())->save();
                 }
             }
         } catch (Exception $e) {
+            //echo $e->getMessage();
         }
     }
 }

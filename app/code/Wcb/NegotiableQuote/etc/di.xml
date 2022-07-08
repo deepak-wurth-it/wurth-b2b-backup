@@ -5,6 +5,6 @@
         <plugin name="change_redirect_quote_url"
                 type="Wcb\NegotiableQuote\Plugin\Model\SettingsProvider" sortOrder="10"/>
     </type>
-    <preference for="Magento\NegotiableQuote\Model\NegotiableQuoteManagement"
-                type="Wcb\NegotiableQuote\Model\NegotiableQuoteManagement"/>
+    <!-- <preference for="Magento\NegotiableQuote\Model\NegotiableQuoteManagement"
+                type="Wcb\NegotiableQuote\Model\NegotiableQuoteManagement"/> -->
 </config>
