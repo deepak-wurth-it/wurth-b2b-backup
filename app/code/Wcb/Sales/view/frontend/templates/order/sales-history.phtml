@@ -1,0 +1,361 @@
+<div class="sales-history">
+<div class="sales-title"> 
+   Sales history 
+</div>
+<div class="filter-wrapper">
+   <div class="row">
+      <div class="col-md">
+         <label class="filter">Filter</label> 
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="row date-pad">
+            <div class="col-md-6 date-fr">
+               <label class="date-title">Date from:</label> 
+               <input type="text" class="input-date" id="date-from" placeholder="DD. MM. YYYY."  name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button>               
+            </div>
+            <div class="col-md-6">
+               <label class="date-titleto">To:</label> 
+               <input type="text" class="input-date" id="date-to" placeholder="DD. MM. YYYY." name="example-date" /><button type="button" class="ui-datepicker-trigger v-middle"></button> 
+            </div>
+         </div>
+         <div class="col-md-6 select-wrapper">
+            <select class="form-select">
+               <option selected>branch office (30793301 - ZAGREB)</option>
+               <option value="1">One</option>
+               <option value="2">Two</option>
+               <option value="3">Three</option>
+            </select>
+         </div>
+      </div>
+      <div class="col-md-6 pad-ord">
+         <label class="date-title"><span>Or</span> Orders placed in  </label>             
+         <button type="button" class="btn btn-months current">Last 6 months</button>
+         <button type="button" class="btn btn-months">Last 12 months</button>
+         <button type="button" class="btn btn-months">Last 24 months</button>
+      </div>
+   </div>
+</div>
+
+<div class="table-wrapper order-items order-detail sales-history">
+      <table id="wcb-data-table" data-order="[]" class="table  table-bordered" style="width:100%">
+         <thead class="wcb-first-row">
+            <tr>
+               <th style="width:5%" data-orderable="false"><?= $block->escapeHtml(__('Picture')) ?></th>
+               <th style="width:8%"><?= $block->escapeHtml(__('Br.art')) ?></th>
+               <th style="width:15%"><?= $block->escapeHtml(__('Description')) ?></th>
+               <th style="width:10%"><?= $block->escapeHtml(__('The cusomer')) ?></th>
+               <th style="width:10%"><?= $block->escapeHtml(__('Last order number')) ?></th>
+               <th style="width:10%"><?= $block->escapeHtml(__('Last date of purchase')) ?></th>
+               <th style="width:12%" ><?= $block->escapeHtml(__('last purchased QTY')) ?></th>
+               <th style="width:12%" data-orderable="false"></th>               
+            </tr>
+         </thead>
+         <tbody>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Br.art.')) ?>">947 111</td>
+                        <td data-th="<?= $block->escapeHtml(__('Description')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('The cusomer')) ?>">KRISTIAN KOENIG (900453)</td>
+                        <td data-th="<?= $block->escapeHtml(__('Last order number')) ?>" class="attribute last-order"><span>PP21-0127073</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Last date of purchase')) ?>">08/27/2020</td>
+                        <td data-th="<?= $block->escapeHtml(__('last purchased QTY')) ?>" class="last-purchased"><span> <p> 40 </p> <button type="button" class="repeat">Repeat</button> </span> </td>   
+                        <td class="attribute qty-order">
+                              <span>
+                                 <p>
+                                 <div class="control-qty-cart">
+                                    <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                    <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                    <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                                 </div>
+                                 </p>
+                                 <button type="button" class="add-to-basket">Add to basket</button>
+                              </span>
+                        </td>                    
+                     </tr>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Br.art.')) ?>">111 111</td>
+                        <td data-th="<?= $block->escapeHtml(__('Description')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('The cusomer')) ?>">KRISTIAN KOENIG (900453)</td>
+                        <td data-th="<?= $block->escapeHtml(__('Last order number')) ?>" class="attribute last-order"><span>PP21-0127073</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Last date of purchase')) ?>">08/27/2020</td>
+                        <td data-th="<?= $block->escapeHtml(__('last purchased QTY')) ?>" class="last-purchased"><span> <p> 500 </p> <button type="button" class="repeat">Repeat</button> </span> </td>   
+                        <td class="attribute qty-order">
+                              <span>
+                                 <p>
+                                 <div class="control-qty-cart">
+                                    <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                    <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                    <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                                 </div>
+                                 </p>
+                                 <button type="button" class="add-to-basket">Add to basket</button>
+                              </span>
+                        </td>                    
+                     </tr>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Br.art.')) ?>">827 111</td>
+                        <td data-th="<?= $block->escapeHtml(__('Description')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('The cusomer')) ?>">KRISTIAN KOENIG (900453)</td>
+                        <td data-th="<?= $block->escapeHtml(__('Last order number')) ?>" class="attribute last-order"><span>PP21-0127073</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Last date of purchase')) ?>">08/27/2020</td>
+                        <td data-th="<?= $block->escapeHtml(__('last purchased QTY')) ?>" class="last-purchased"><span> <p> 500 </p> <button type="button" class="repeat">Repeat</button> </span> </td>   
+                        <td class="attribute qty-order">
+                              <span>
+                                 <p>
+                                 <div class="control-qty-cart">
+                                    <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                    <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                    <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                                 </div>
+                                 </p>
+                                 <button type="button" class="add-to-basket">Add to basket</button>
+                              </span>
+                        </td>                    
+                     </tr>
+         </tbody>
+      </table>
+   </div>
+
+<!-- modal popup content -->
+<div id="modal">
+<div class="modal-body-content sales-history-popup order-detail table-wrapper">
+      <table id="wcb-data-table-popup" data-order="[]" class="table  table-bordered" style="width:100%">
+         <thead class="wcb-first-row">
+            <tr>
+               <th style="width:5%" data-orderable="false"><?= $block->escapeHtml(__('RB')) ?></th>
+               <th style="width:8%" data-orderable="false"><?= $block->escapeHtml(__('Picture')) ?></th>
+               <th style="width:15%"><?= $block->escapeHtml(__('Product Name')) ?></th>
+               <th style="width:10%"><?= $block->escapeHtml(__('Product ID')) ?></th>
+               <th style="width:10%"><?= $block->escapeHtml(__('QTY ordered')) ?> </th>
+               <th style="width:10%"> <?= $block->escapeHtml(__('QTY delivered')) ?></th>
+               <th style="width:12%" ><?= $block->escapeHtml(__('Payment status')) ?></th>
+               <th style="width:12%" data-orderable="false"></th>               
+            </tr>
+         </thead>
+         <tbody>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('RB')) ?>"><span class="wcb-product-image">1</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</td>
+                        <td data-th="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>200</span></td>
+                        <td data-th=" <?= $block->escapeHtml(__('QTY delivered')) ?>">200</td>
+                        <td data-th="<?= $block->escapeHtml(__('Payment status')) ?>">Pending </td>   
+                        <td class="attribute qty-order">
+                           <span>
+                              <div class="control-qty-cart">
+                                 <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                 <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                 <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                              </div>
+                              <button type="button" class="add-to-basket">Add to basket</button>
+                          </span>
+                        </td>                    
+                     </tr>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('RB')) ?>"><span class="wcb-product-image">2</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('Product ID')) ?>">567 454</td>
+                        <td data-th="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>500</span></td>
+                        <td data-th=" <?= $block->escapeHtml(__('QTY delivered')) ?>">300</td>
+                        <td data-th="<?= $block->escapeHtml(__('Payment status')) ?>">Pending </td>   
+                        <td class="attribute qty-order">
+                           <span>
+                              <div class="control-qty-cart">
+                                 <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                 <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                 <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                              </div>
+                              <button type="button" class="add-to-basket">Add to basket</button>
+                          </span>
+                        </td>                    
+                     </tr>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('RB')) ?>"><span class="wcb-product-image">2</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('Product ID')) ?>">567 454</td>
+                        <td data-th="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>500</span></td>
+                        <td data-th=" <?= $block->escapeHtml(__('QTY delivered')) ?>">300</td>
+                        <td data-th="<?= $block->escapeHtml(__('Payment status')) ?>">Pending </td>   
+                        <td class="attribute qty-order">
+                           <span>
+                              <div class="control-qty-cart">
+                                 <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                 <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                 <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                              </div>
+                              <button type="button" class="add-to-basket">Add to basket</button>
+                          </span>
+                        </td>                    
+                     </tr>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('RB')) ?>"><span class="wcb-product-image">4</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('Product ID')) ?>">827 111</td>
+                        <td data-th="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>200</span></td>
+                        <td data-th=" <?= $block->escapeHtml(__('QTY delivered')) ?>">200</td>
+                        <td data-th="<?= $block->escapeHtml(__('Payment status')) ?>">Pending </td>   
+                        <td class="attribute qty-order">
+                           <span>
+                              <div class="control-qty-cart">
+                                 <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                 <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                 <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                              </div>
+                              <button type="button" class="add-to-basket">Add to basket</button>
+                          </span>
+                        </td>                    
+                     </tr>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('RB')) ?>"><span class="wcb-product-image">5</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('Product ID')) ?>">567 454</td>
+                        <td data-th="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>500</span></td>
+                        <td data-th=" <?= $block->escapeHtml(__('QTY delivered')) ?>">300</td>
+                        <td data-th="<?= $block->escapeHtml(__('Payment status')) ?>">Pending </td>   
+                        <td class="attribute qty-order">
+                           <span>
+                              <div class="control-qty-cart">
+                                 <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                 <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                 <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                              </div>
+                              <button type="button" class="add-to-basket">Add to basket</button>
+                          </span>
+                        </td>                    
+                     </tr>
+                     <tr>
+                        <td data-th="<?= $block->escapeHtml(__('RB')) ?>"><span class="wcb-product-image">6</span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Picture')) ?>"><span class="wcb-product-image"><img src="http://m2.wc.b2b.com/media/catalog/product/placeholder/default/replacement_product_2.png"></span></td>
+                        <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>">BATTERY-ALKALI-HIGH POWER-AAA MICRO-LR03-1,5V</td>
+                        <td data-th="<?= $block->escapeHtml(__('Product ID')) ?>">567 454</td>
+                        <td data-th="<?= $block->escapeHtml(__('QTY ordered')) ?>"><span>500</span></td>
+                        <td data-th=" <?= $block->escapeHtml(__('QTY delivered')) ?>">300</td>
+                        <td data-th="<?= $block->escapeHtml(__('Payment status')) ?>">Pending </td>   
+                        <td class="attribute qty-order">
+                           <span>
+                              <div class="control-qty-cart">
+                                 <span class=" icon-interface-minus quantity-controls quantity-minus"></span>
+                                 <input type="number" name="qty" id="qty" maxlength="12" value="1" title="Kol" class="qty-default input-text qty" data-validate="null">
+                                 <span class="quantity-controls quantity-plus icon-interface-plus"></span>
+                              </div>
+                              <button type="button" class="add-to-basket">Add to basket</button>
+                          </span>
+                        </td>                    
+                     </tr>
+                    
+         </tbody>
+      </table>
+   </div>
+</div>
+
+
+<!-- modal popup content -->
+<script type="text/javascript">
+   require([
+       "jquery",
+       "Magento_Ui/js/modal/modal"
+   ],function($, modal) {
+   
+     var options = {
+               type: 'popup',
+               title: '',
+               modalClass: 'termsCodition',
+               responsive: false,
+               innerScroll: true,
+               title: 'Order number - PP21-0127073',
+               buttons: false
+           };
+   
+       var popup = modal(options, $('#modal'));
+       $(".last-order").click(function() {
+           $('#modal').modal('openModal');
+       });
+   });
+</script>
+<script>
+   require([
+     'jquery',
+     'mage/translate',
+     'mage/calendar'
+     ], function ($, $t) {
+       $('#date-from').calendar({
+         changeMonth: true,
+         changeYear: true,
+         showButtonPanel: true,
+         currentText: $t('Go Today'),
+         closeText: $t('Close'),
+         showWeek: true
+       });
+     })
+</script>
+<script>
+   require([
+     'jquery',
+     'mage/translate',
+     'mage/calendar'
+     ], function ($, $t) {
+       $('#date-to').calendar({
+         changeMonth: true,
+         changeYear: true,
+         showButtonPanel: true,
+         currentText: $t('Go Today'),
+         closeText: $t('Close'),
+         showWeek: true
+       });
+     })
+</script>
+
+<script type="text/javascript">
+        require([
+            'jquery'
+        ], function ($) {
+            $('.quantity-plus').click(function () {
+                var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
+                currentQTY = currentQTY + 1;
+                $(this).parent().parent().find(".qty-default").val(currentQTY);
+            });
+
+            $('.quantity-minus').click(function () {
+                var currentQTY = parseInt($(this).parent().parent().find(".qty-default").val());
+                currentQTY = currentQTY - 1;
+                if (currentQTY > 0) {
+                    $(this).parent().parent().find(".qty-default").val(currentQTY);
+                }
+            });            
+        });
+    </script>
+    <script>
+      require(['jquery', 'dataTables'], function($, dt) {
+         $('#wcb-data-table').DataTable({
+            responsive: true,
+            language: {
+               search: ""
+            },
+            oLanguage: {
+               oPaginate: {
+                  sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                  sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
+               }
+            }
+         });
+      });
+   </script>
+   <script>
+      require(['jquery', 'dataTables'], function($, dt) {
+         $('#wcb-data-table-popup').DataTable({
+            responsive: true,
+            paging: false,
+            info: false,
+            "searching": false
+         });
+      });
+   </script>

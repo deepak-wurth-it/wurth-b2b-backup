@@ -1,4 +1,5 @@
 <?php
+
 namespace Wcb\ProductSearchApi\Model;
 
 //use Magento\Catalog\Api\CategoryLinkManagementInterface;
@@ -18,6 +19,7 @@ use Magento\Catalog\Model\Product\Option\Converter;
 use Magento\Catalog\Model\ProductFactory;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Catalog\Model\ProductRepository\MediaGalleryProcessor;
+use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Customer\Model\ResourceModel\Group\CollectionFactory as CustomerCollectionFactory;
@@ -42,7 +44,7 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Store\Model\StoreManagerInterface;
 use Wcb\ProductSearchApi\Api\ProductSearchManagementInterface;
-use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
+
 /**
  * Defines the implementaiton class of the \Wcb\ProductSearchApi\Api\ProductSearchManagementInterface
  */
@@ -321,6 +323,31 @@ class ProductSearchManagement implements ProductSearchManagementInterface
     }
 
     /**
+     * @param string $product_code
+     * @return mixed|void
+     */
+    public function getProductByCode($product_code)
+    {
+        $result = [];
+        $filter1 = $this->filterBuilder
+            ->setField('product_code')
+            ->setValue($product_code)
+            ->setConditionType('eq')
+            ->create();
+        $this->searchCriteriaBuilder->addFilters([$filter1]);
+        $searchCriteria = $this->searchCriteriaBuilder->create();
+
+        /** @var CollectionAlias $collection */
+        $collection = $this->collectionFactory->create();
+        $this->collectionProcessor->process($searchCriteria, $collection);
+        $collection->load();
+        $sku = $collection->getFirstItem()->getSku();
+        $data['sku'] = $sku;
+        $result[] = $data;
+        return $result;
+    }
+
+    /**
      * Return ProductSearchApi items.
      *
      * @param int $customerId
@@ -332,8 +359,7 @@ class ProductSearchManagement implements ProductSearchManagementInterface
     {
         $result = [];
         $pageSize = 10;
-        //$data['customer_id'] = $customerId;
-
+        
         $filter1 = $this->filterBuilder
             ->setField('name')
             ->setValue('%' . $search . '%')
@@ -371,23 +397,23 @@ class ProductSearchManagement implements ProductSearchManagementInterface
         $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
         $collectionClone = clone $collection;
         $collection->getSelect()->join(['cats' => 'catalog_category_product'], 'cats.product_id = e.entity_id');
-     /*   if ($group_id) {
-            $customerCollection = $this->customerCollectionFactory->create()
-                ->addFieldToFilter('customer_group_id', ['eq' => $group_id]);
-            $branch_code = $customerCollection->getFirstItem()->getDataByKey('branch_code');
-            if ($branch_code == 'B' || $branch_code == "T") {
-                $catCollection = $this->categoryCollectionFactory->create()
-                    ->addFieldToFilter('pim_category_code', ['like' => 'Ex%']);
-                   $catAllIds = $catCollection->getAllIds();
-                   print_r($catAllIds);
-                    // $collection->getSelect()->where('cats.category_id!=""');
-                   // ->getItemsByColumnValue('entity_id');
-                echo $catCollection->getSelect();
-            } else {
-                echo "No";
-            }
-        }
-        exit;*/
+        /*   if ($group_id) {
+               $customerCollection = $this->customerCollectionFactory->create()
+                   ->addFieldToFilter('customer_group_id', ['eq' => $group_id]);
+               $branch_code = $customerCollection->getFirstItem()->getDataByKey('branch_code');
+               if ($branch_code == 'B' || $branch_code == "T") {
+                   $catCollection = $this->categoryCollectionFactory->create()
+                       ->addFieldToFilter('pim_category_code', ['like' => 'Ex%']);
+                      $catAllIds = $catCollection->getAllIds();
+                      print_r($catAllIds);
+                       // $collection->getSelect()->where('cats.category_id!=""');
+                      // ->getItemsByColumnValue('entity_id');
+                   echo $catCollection->getSelect();
+               } else {
+                   echo "No";
+               }
+           }
+           exit;*/
         $this->collectionProcessor->process($searchCriteria, $collection);
 
         $collection->load();

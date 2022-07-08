@@ -29,11 +29,11 @@ class UpgradeData implements UpgradeDataInterface
 	public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
 	{
 
-		
+
 		if (version_compare($context->getVersion(), '1.0.6', '<')) {
 
 			$attributesInfoP1 = [
-				
+
 				'product_unit_of_measure_code' => [
 
 					'type' => 'text',
@@ -163,8 +163,7 @@ class UpgradeData implements UpgradeDataInterface
 					'attribute_set' => 'Default',
 					'group' => 'Product Details'
 
-				]
-				,
+				],
 				'alternative_name' => [
 
 					'type' => 'text',
@@ -226,12 +225,12 @@ class UpgradeData implements UpgradeDataInterface
 				$this->moduleDataSetup->getConnection()->endSetup();
 			}
 		}
-		
-		
-	if (version_compare($context->getVersion(), '1.0.9', '<')) {
+
+
+		if (version_compare($context->getVersion(), '1.0.9', '<')) {
 			$attributesInfoUpdate = [
 				'base_unit_of_measure_id' => [
-				    'visible_on_front' => false,
+					'visible_on_front' => false,
 					'attribute_set' => 'Default',
 					'group' => 'Product Details'
 
@@ -243,12 +242,12 @@ class UpgradeData implements UpgradeDataInterface
 
 				],
 				'sales_unit_of_measure_id' => [
-				    'visible_on_front' => false,
+					'visible_on_front' => false,
 					'attribute_set' => 'Default',
 					'group' => 'Product Details'
 				],
 				'abc_group_code' => [
-				'	visible_on_front' => false,
+					'	visible_on_front' => false,
 					'attribute_set' => 'Default',
 					'group' => 'Product Details'
 				],
@@ -308,7 +307,40 @@ class UpgradeData implements UpgradeDataInterface
 			}
 		}
 
-		
+		if (version_compare($context->getVersion(), '1.1.0', '<')) {
+			$this->moduleDataSetup->getConnection()->startSetup();
+			$eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
+			$eavSetup->addAttribute(
+				\Magento\Catalog\Model\Product::ENTITY,
+				'product_bar_code',
+				[
+					'type' => 'varchar',
+					'label' => 'Product Bar Codes',
+					'backend' => '',
+					'frontend' => '',
+					'label' => 'Product Bar Codes',
+					'input' => 'text',
+					'class' => '',
+					'source' => '',
+					'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+					'visible' => true,
+					'required' => false,
+					'user_defined' => true,
+					'default' => '',
+					'searchable' => false,
+					'filterable' => false,
+					'comparable' => false,
+					'visible_on_front' => false,
+					'used_in_product_listing' => true,
+					'unique' => false,
+					'apply_to' => '',
+					'attribute_set' => 'Default',
+					'group' => 'Product Details'
+				]
+			);
+
+			$this->moduleDataSetup->getConnection()->endSetup();
+		}
 	}
 }
