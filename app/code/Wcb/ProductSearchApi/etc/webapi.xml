@@ -12,5 +12,10 @@
             <parameter name="customerId" force="true">%customer_id%</parameter>
         </data>
     </route>
-
+    <route url="/V1/products/getbycode/:product_code" method="GET">
+        <service class="Wcb\ProductSearchApi\Api\ProductSearchManagementInterface" method="getProductByCode"/>
+        <resources>
+            <resource ref="Magento_Catalog::products" />
+        </resources>
+    </route>
 </routes>

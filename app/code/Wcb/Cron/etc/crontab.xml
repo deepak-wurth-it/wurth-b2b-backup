@@ -98,7 +98,12 @@
         </job>
     </group>
 
-
+    <!-- Every 30 minute -->
+    <group id="eshop">
+        <job name="requisition_quote_sync" instance="Wcb\Cron\WurthNavCron\RequisitionQuoteSync" method="execute">
+            <schedule>*/30 * * * *</schedule>
+        </job>
+    </group>
     <!-- #================================================ Wurth Nav Group Cron  ==============================================================# -->
 
     <!-- Once in a month -->

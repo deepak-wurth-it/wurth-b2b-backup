@@ -19,5 +19,11 @@ interface ProductSearchManagementInterface
      */
     public function getProductList($customerId,$search,$page,$group_id);
 
+    /**
+     * @param string $product_code
+     * @return mixed
+     */
+
+    public function getProductByCode($product_code);
 
 }

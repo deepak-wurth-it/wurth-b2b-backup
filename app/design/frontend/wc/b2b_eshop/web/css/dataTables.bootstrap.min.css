@@ -80,7 +80,11 @@ table.dataTable thead>tr>td.sorting_desc:before,
 table.dataTable thead>tr>td.sorting_asc_disabled:before,
 table.dataTable thead>tr>td.sorting_desc_disabled:before {
 	bottom: 50%;
-	content: "▴"
+	content: "\F176";
+	font-family: 'FontAwesome';
+	margin: 0px -9px -8px 0px;
+	font-size:16px;
+	opacity:0.6;
 }
 
 table.dataTable thead>tr>th.sorting:after,
@@ -94,14 +98,19 @@ table.dataTable thead>tr>td.sorting_desc:after,
 table.dataTable thead>tr>td.sorting_asc_disabled:after,
 table.dataTable thead>tr>td.sorting_desc_disabled:after {
 	top: 50%;
-	content: "▾"
+	content: "\F175";
+	font-family: 'FontAwesome';
+	margin: 0px 0px 9px 0px;
+	font-size:16px;
+	cursor: pointer;
+	opacity:0.6;
 }
 
 table.dataTable thead>tr>th.sorting_asc:before,
 table.dataTable thead>tr>th.sorting_desc:after,
 table.dataTable thead>tr>td.sorting_asc:before,
 table.dataTable thead>tr>td.sorting_desc:after {
-	opacity: .6
+	opacity: .9
 }
 
 table.dataTable thead>tr>th.sorting_desc_disabled:after,
