@@ -28,6 +28,8 @@ class DefaultConfigProvider
 
     protected $companyRepository;
 
+    protected $findIsBillToCustomerNo = false;
+
     public function __construct(
         CustomerRepository $customerRepository,
         CustomerSession $customerSession,
@@ -53,7 +55,6 @@ class DefaultConfigProvider
         if (isset($result['customerData']['addresses'])) {
             $currentCustomer = $this->getCurrentCustomer();// add your custom here;
             // $newAddress = [];
-
 
             //get Customer address using main user id only
             $company = $this->getCompany($currentCustomer);
@@ -105,6 +106,17 @@ class DefaultConfigProvider
         $customerOriginAddresses = $customer->getAddresses();
         $customerAddresses = [];
         foreach ($customerOriginAddresses as $address) {
+            // if found bill to customer no
+            if ($address->getCustomAttribute('bill_to_customer_code') &&
+                $address->getCustomAttribute('is_bill_to_customer_number')) {
+                $isBillToCustomerNumber = $address->getCustomAttribute("is_bill_to_customer_number")->getValue();
+                $billToCustomerCode = $address->getCustomAttribute("bill_to_customer_code")->getValue();
+                if ($isBillToCustomerNumber && $billToCustomerCode) {
+                    $this->findIsBillToCustomerNo = true;
+                    continue;
+                }
+            }
+
             $addressData = $this->customerAddressDataFormatter->prepareAddress($address);
             //Set address_code as a key and value
             if (isset($addressData['custom_attributes']['address_code'])) {
@@ -132,6 +144,19 @@ class DefaultConfigProvider
     {
         $updateAddress = [];
         $currentPosition = "";
+        // if found bill to customer no
+        if ($this->findIsBillToCustomerNo) {
+            foreach ($newAddress as $_address) {
+                if (isset($_address['custom_attributes']['is_company_main_address'])) {
+                    $isCompanyDefaultBillingAddress = $_address['custom_attributes']['is_company_main_address']['value'];
+                    if ($isCompanyDefaultBillingAddress) {
+                        $billingAddressId = $_address['id'];
+                        break;
+                    }
+                }
+            }
+        }
+
         foreach ($newAddress as $key => $_address) {
             if ($billingAddressId === $_address['id']) {
                 $_address["default_shipping"] = 1;

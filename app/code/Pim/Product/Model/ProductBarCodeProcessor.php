@@ -6,6 +6,7 @@
  */
 
 namespace Pim\Product\Model;
+
 use Psr\Log\LoggerInterface;
 
 
@@ -17,7 +18,7 @@ use Psr\Log\LoggerInterface;
  */
 class ProductBarCodeProcessor
 {
-    CONST PRICE_INDEXER_ID = 'catalog_product_price';
+    const PRICE_INDEXER_ID = 'catalog_product_price';
     /**
      * @var \Magento\Indexer\Model\IndexerFactory
      */
@@ -56,8 +57,7 @@ class ProductBarCodeProcessor
 
 
 
-    )
-    {
+    ) {
 
         $this->storeManager = $storeManager;
         $this->pimProductFactory = $pimProductFactory;
@@ -80,80 +80,73 @@ class ProductBarCodeProcessor
      */
     public function install()
     {
-		$log = '';
+        $log = '';
+        $codes = [];
         $this->product = '';
         $indexLists = ['catalog_category_product', 'catalog_product_category', 'catalog_product_attribute'];
 
-        $objPimBarCodeProduct = $this->productBarCodeFactory->create();
-        $connectionPimBarCode = $objPimBarCodeProduct->getResource()->getConnection();
+        $this->product = '';
+        $magePro = $this->productFactory->create();
 
-        $collectionPimBarCode = $objPimBarCodeProduct->getCollection()
-          ->addFieldToFilter('Active', ['eq' => '1'])
-          ->addFieldToFilter('UpdateRequired', ['eq' => '1']);
-          
+        $collection = $magePro->getCollection()->addAttributeToSelect('*');
 
         $x = 0;
-        if ($collectionPimBarCode->getSize() && $collectionPimBarCode->count()) {
+        if ($collection->getSize() && $collection->count()) {
 
-            foreach ($collectionPimBarCode as $item) {
-				
-
+            foreach ($collection as $productObj) {              
                 try {
+                    $sku = $productObj->getSku();
+                    $barCodes = $this->productBarCodeFactory->create()->getCollection()
+                        //->addFieldToSelect("Code")
+                        ->addFieldToFilter('ProductId', ['in' => '22'])
+                        ->addFieldToFilter('Active', [['eq' => '1']])
+                        ->addFieldToFilter('UpdateRequired', [['eq' => '1']]);
 
-					$sku = $item->getData('ProductId');
-					$code = $item->getData('Code');
-					
-					$productObj =$this->productFactory->create();
-					if(!$productObj->getIdBySku($sku)) {
-						continue;   
-					}
-					
+                    if ($barCodes->getSize() < 1) {
+                        continue;
+                    }
+
                     $this->product = $this->productRepository->get($sku);
-                   
-                   
-                    if ($this->product->getId() && $sku && $code) {
 
-                       
-					try {
-							
-							$this->product->setData('product_bar_code',$code);
-							$this->productRepository->save($this->product);
-                            $log = 'Updated Product Bar Code of sku'.$sku.PHP_EOL;
-                            
-                           
-                            $item->setData('UpdateRequired','0');
-                            $item->save();
-                            
-                          
+                    if ($this->product->getId() && $barCodes->getSize() &&  $barCodes->count()) {
 
+
+                        try {
+                            $code = implode('|', array_column($barCodes->getData(), 'Code'));
+
+                            $this->product->setData('product_bar_code', $code);
+                            $this->productRepository->save($this->product);
+                            $log = 'Updated Product Bar Code of sku' . $sku . PHP_EOL;
+
+                            foreach ($barCodes as $code) {
+                                $code->setData('UpdateRequired', '0');
+                                $code->save();
+                            }
                         } catch (\Exception $e) {
-                            echo $e->getMessage().PHP_EOL;
+                            echo $e->getMessage() . PHP_EOL;
                             $this->logger->info('Error Updating Product Bar Code of sku: ' . $sku . '. ' . $e->getMessage());
                             continue;
                         }
-                        
-
                     }
                 } catch (Exception $e) {
                     echo $e->getMessage();
                 }
                 $x++;
                 if ($x == 500) {
-                    $x=0;
-                
-                $this->reindexByKey($indexLists);
+                    $x = 0;
 
-                    //break;
+
+                    $this->reindexByKey($indexLists);
+
+                    break;
                 }
-               echo  $log;
-               $this->getBarCodeLogger($log);
-
+                echo  $log;
+                $this->getBarCodeLogger($log);
             }
-
         }
     }
 
-    
+
 
     /**
      * Regenerate single index
@@ -161,7 +154,8 @@ class ProductBarCodeProcessor
      * @return void
      * @throws \Exception
      */
-    private function reindexOne($indexId){
+    private function reindexOne($indexId)
+    {
         $indexer = $this->indexerFactory->create()->load($indexId);
         $indexer->reindexAll();
     }
@@ -171,32 +165,32 @@ class ProductBarCodeProcessor
      * @return void
      * @throws \Exception
      */
-    private function reindexAll(){
-        echo 'Full Reindex started .....'.PHP_EOL;
+    private function reindexAll()
+    {
+        echo 'Full Reindex started .....' . PHP_EOL;
         foreach (array_keys($this->config->getIndexers()) as $indexerId) {
             $indexer = $this->indexerFactory->create()->load($indexerId);
             $indexer->reindexAll();
         }
-        echo 'Full Reindex Done.'.PHP_EOL;;
+        echo 'Full Reindex Done.' . PHP_EOL;;
     }
-    
-   public function getBarCodeLogger($log)
+
+    public function getBarCodeLogger($log)
     {
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/product_barcode.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
         $logger->info($log);
     }
-    
 
-    private function reindexByKey($indexLists){
-        echo 'Full Reindex started .....'.PHP_EOL;
+
+    private function reindexByKey($indexLists)
+    {
+        echo 'Full Reindex started .....' . PHP_EOL;
         foreach ($indexLists as $indexerId) {
             $indexer = $this->indexerFactory->create()->load($indexerId);
             $indexer->reindexAll();
         }
-        echo 'Full Reindex Done.'.PHP_EOL;;
+        echo 'Full Reindex Done.' . PHP_EOL;;
     }
-
 }
-

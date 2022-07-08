@@ -6,6 +6,7 @@ use Magento\Authorization\Model\UserContextInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\ProductFactory;
+use Magento\Company\Api\CompanyManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -74,6 +75,10 @@ class Data extends AbstractHelper
      * @var UrlInterface
      */
     private $urlInterface;
+    /**
+     * @var CompanyManagementInterface
+     */
+    private $companyRepositoryInterface;
 
     /**
      * Data constructor.
@@ -96,7 +101,8 @@ class Data extends AbstractHelper
         ShippingHelper $_shippingHelper,
         StoreManagerInterface $storeManager,
         UrlInterface $urlInterface,
-        Context $context
+        Context $context,
+        CompanyManagementInterface $companyRepositoryInterface
     ) {
         $this->productLoader = $productFactory;
         $this->productRepository = $productRepositoryInterface;
@@ -109,6 +115,7 @@ class Data extends AbstractHelper
         $this->_shppingHelper = $_shippingHelper;
         $this->storeManager = $storeManager;
         $this->urlInterface = $urlInterface;
+        $this->companyRepositoryInterface = $companyRepositoryInterface;
     }
 
     /**
@@ -167,17 +174,7 @@ class Data extends AbstractHelper
         $data['shipping_cart_min_amt'] = $this->_shppingHelper->getCartAmountLimit();
         $data['shipping_cart_product_code'] = $this->getConfig(self::SHIPPING_PRODUCT_CODE);
         $data['shipping_cart_product_sku'] = $this->_shppingHelper->getShippingProductCode();
-        return $data;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAppFeedbackData(){
-        $data = [];
-        $data['feedback_email'] = $this->getConfig(self::API_FEEDBACK_EMAIL);
-        $data['general_conditions_url'] = $this->getConfig(self::API_GENERAL_CONDITION_URL);
-        $data['privacy_policy_url'] = $this->getConfig(self::API_PRIVACY_POLICY_URL);
+        $data['is_allow_request_a_quote'] = $this->getAllowedRequestQuote();
         return $data;
     }
 
@@ -224,6 +221,39 @@ class Data extends AbstractHelper
     public function getConfig($path)
     {
         return $this->_scopeConfigInterface->getValue($path, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAllowedRequestQuote()
+    {
+        $customerId = $this->userContext->getUserId();
+        try {
+            $company = $this->companyRepositoryInterface->getByCustomerId($customerId);
+            if ($company
+                && $company->getExtensionAttributes()
+                && $company->getExtensionAttributes()->getQuoteConfig()
+            ) {
+                return $company->getExtensionAttributes()->getQuoteConfig()->getIsQuoteEnabled();
+            }
+        } catch (NoSuchEntityException $e) {
+            //do nothing, just return false
+        }
+        return false;
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getAppFeedbackData()
+    {
+        $data = [];
+        $data['feedback_email'] = $this->getConfig(self::API_FEEDBACK_EMAIL);
+        $data['general_conditions_url'] = $this->getConfig(self::API_GENERAL_CONDITION_URL);
+        $data['privacy_policy_url'] = $this->getConfig(self::API_PRIVACY_POLICY_URL);
+        return $data;
     }
 
     /**
