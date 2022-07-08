@@ -194,6 +194,7 @@ class NewCustomerCreate extends \Magento\Framework\App\Action\Action
             $address->setIsDefaultShipping(1);
         } elseif ($type === 'invoice') {
             $address->setIsDefaultBilling(1);
+            $address->setCustomAttribute('is_company_main_address', 1);
         }
         $address->setCustomerId($cusId);
         try {

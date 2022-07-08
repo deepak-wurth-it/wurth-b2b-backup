@@ -9,8 +9,7 @@ namespace Wcb\Sales\Block\Order;
 
 use \Magento\Framework\App\ObjectManager;
 use \Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface;
-use \Magento\Framework\App\ResourceConnection;
-use  \Magento\Company\Model\CustomerFactory;
+use Magento\Framework\App\ResourceConnection;
 
 /**
  * Sales order history block
@@ -18,7 +17,7 @@ use  \Magento\Company\Model\CustomerFactory;
  * @api
  * @since 100.0.2
  */
-class History extends \Magento\Sales\Block\Order\History
+class Saleshistory extends \Magento\Sales\Block\Order\Saleshistory
 {
 
     /**
@@ -31,7 +30,7 @@ class History extends \Magento\Sales\Block\Order\History
     /**
      * @var string
      */
-    protected $_template = 'Wcb_Sales::order/history.phtml';
+    protected $_template = 'Wcb_Sales::order/sales-history.phtml';
 
 
 
@@ -50,13 +49,11 @@ class History extends \Magento\Sales\Block\Order\History
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Catalog\Helper\ImageFactory $imageHelperFactory,
-        CustomerFactory $companyCustomerFactory,
         ResourceConnection $resource,
         array $data = []
     ) {
         $this->_orderCollectionFactory = $orderCollectionFactory;
         $this->_customerSession = $customerSession;
-        $this->companyCustomerFactory = $companyCustomerFactory;
         $this->_orderConfig = $orderConfig;
         $this->resource = $resource;
         $this->customerFactory = $customerFactory;
@@ -64,6 +61,7 @@ class History extends \Magento\Sales\Block\Order\History
         $this->imageHelperFactory = $imageHelperFactory;
 
         $this->context =  $context;
+        //print_r(get_class_methods($this->context));exit;
         parent::__construct($context, $orderCollectionFactory, $customerSession, $orderConfig, $data);
     }
 
@@ -78,33 +76,25 @@ class History extends \Magento\Sales\Block\Order\History
         if (!($customerId = $this->_customerSession->getCustomerId())) {
             return false;
         }
-        if ($companyObject = $this->companyCustomerFactory->create()->load($customerId)) {
-            $comapanyId = $companyObject->getCompanyId();
-        }
-
-
-        //$page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
-        //$pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
 
         if (!$this->orders) {
-            $this->orders = $this->getOrderCollectionFactory()->create()->addFieldToSelect(
+            $this->orders = $this->getOrderCollectionFactory()->create($customerId)->addFieldToSelect(
                 '*'
             )->addFieldToFilter(
                 'status',
                 ['in' => $this->_orderConfig->getVisibleOnFrontStatuses()]
-            )->addFieldToFilter(
-                'company_order.company_id',
-                ['in' => $comapanyId]
             )->setOrder(
                 'created_at',
                 'desc'
             );
         }
 
-
-        //$this->orders->setPageSize($pageSize);
-        //$this->orders->setCurPage($page);
         return $this->orders;
+    }
+
+
+    public function getPartialShippedOrderItem()
+    {
     }
 
     private function getOrderCollectionFactory()
@@ -123,42 +113,10 @@ class History extends \Magento\Sales\Block\Order\History
     public function LoadCustomerById($customerId)
     {
         $customer = $this->customerFactory->create();
-        //$customer = $this->customerRepo->getById($customerId);
         $cst = $customer->load($customerId);
-        //echo $customer->getName();exit;
-        return $customer;
+        return $cst;
     }
 
-
-    public function getAvailableLimit()
-    {
-        return [5 => 5, 50 => 50, 100 => 100, 150 => 150, 200 => 200];
-    }
-
-
-    public function getOrderStatusColor($order)
-    {
-        // 2. Order Status (Yellow would be by default till it does not sync with ERP)
-        // - Processing - Yellow (ID - 1)
-        // - Preparing for Shipment - Blue (ID - 2)
-        // - Shipped/Completed - Green (ID - 3)
-        // - Cancelled - Red (ID - 4)
-
-    }
-    public function getPagerHtml()
-    {
-        // $pagerBlock = $this->getChildBlock('pager');
-
-        // if ($pagerBlock instanceof \Magento\Framework\DataObject) {
-        //     /* @var $pagerBlock \Magento\Theme\Block\Html\Pager */
-        //     $pagerBlock->setAvailableLimit($this->getAvailableLimit());
-        //     $pagerBlock->setShowPerPage(true);
-        //     $pagerBlock->setCollection($this->getOrders());
-        //     return $pagerBlock->toHtml();
-        // }
-
-        return '';
-    }
 
 
     public function getProduct($pid)
@@ -176,6 +134,8 @@ class History extends \Magento\Sales\Block\Order\History
         //$thumb = $product->getData('thumbnail');
         return $thumbUrl;
     }
+
+
 
     public function _prepareLayout()
     {
@@ -195,13 +155,13 @@ class History extends \Magento\Sales\Block\Order\History
             $breadcrumbsBlock->addCrumb(
                 'tracking_order',
                 [
-                    'label' => __('Tracking Order'),
-                    'title' => __('Tracking Order'),
-                    'link' => '/sales/order/history/'
+                    'label' => __('Undelivered Item'),
+                    'title' => __('Undelivered Item'),
+                    'link' => '/wcbsales/order/undelivered/'
                 ]
             );
         }
-        $this->pageConfig->getTitle()->set(__('FAQ')); // set page name
+        $this->pageConfig->getTitle()->set(__('Undelivered Item')); // set page name
         return parent::_prepareLayout();
     }
 }

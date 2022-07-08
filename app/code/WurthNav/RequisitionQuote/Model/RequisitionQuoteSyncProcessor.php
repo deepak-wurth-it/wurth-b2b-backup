@@ -8,6 +8,7 @@ use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Stdlib\DateTime\DateTimeFactory;
 use Magento\NegotiableQuote\Model\ResourceModel\Quote\Collection;
 use Magento\NegotiableQuote\Model\ResourceModel\Quote\CollectionFactory as NegotiableQuoteCollection;
+use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\QuoteFactory as MagentoQuoteFactory;
 use Zend\Log\Logger;
 use Zend\Log\Writer\Stream;
@@ -38,6 +39,10 @@ class RequisitionQuoteSyncProcessor
      * @var QuotesLineFactory
      */
     protected $quotesLineFactory;
+    /**
+     * @var CartRepositoryInterface
+     */
+    protected $quoteRepository;
 
     /**
      * RequisitionQuoteSyncProcessor constructor.
@@ -47,6 +52,7 @@ class RequisitionQuoteSyncProcessor
      * @param CustomerRepository $customerRepository
      * @param DateTimeFactory $dateTimeFactory
      * @param MagentoQuoteFactory $magentoQuote
+     * @param CartRepositoryInterface $quoteRepository
      */
     public function __construct(
         NegotiableQuoteCollection $negotiableQuoteCollection,
@@ -54,7 +60,8 @@ class RequisitionQuoteSyncProcessor
         QuotesLineFactory $quotesLineFactory,
         CustomerRepository $customerRepository,
         DateTimeFactory $dateTimeFactory,
-        MagentoQuoteFactory $magentoQuote
+        MagentoQuoteFactory $magentoQuote,
+        CartRepositoryInterface $quoteRepository
     ) {
         $this->customerRepository = $customerRepository;
         $this->quotes = $quotes;
@@ -62,6 +69,7 @@ class RequisitionQuoteSyncProcessor
         $this->dateTimeFactory = $dateTimeFactory;
         $this->magentoQuote = $magentoQuote;
         $this->quotesLineFactory = $quotesLineFactory;
+        $this->quoteRepository = $quoteRepository;
     }
 
     public function install()
@@ -163,7 +171,7 @@ class RequisitionQuoteSyncProcessor
     public function setQuoteItems($navQuoteId, $quoteId)
     {
         try {
-            $quoteItems = $this->magentoQuote->create()->load($quoteId)->getAllVisibleItems();
+            $quoteItems = $this->quoteRepository->get($quoteId)->getAllVisibleItems();
             $i = 1;
             foreach ($quoteItems as $quoteItem) {
                 $quoteLine = $this->quotesLineFactory->create();
@@ -185,10 +193,12 @@ class RequisitionQuoteSyncProcessor
      */
     public function changeQuoteSyncStatus($quoteId)
     {
-        $quote = $this->magentoQuote->create()->load($quoteId);
-        $quote->setData('wcb_nav_sync', 1);
-        $quote->save();
-        $this->wurthNavLogger("successfully sync quote -" . $quoteId);
+        $quote = $this->quoteRepository->get($quoteId);
+        if ($quote->getId()) {
+            $quote->setData('wcb_nav_sync', 1);
+            $this->quoteRepository->save($quote);
+            $this->wurthNavLogger("successfully sync quote -" . $quoteId);
+        }
     }
 
     /**

@@ -97,27 +97,31 @@ require(
 			// counter in about us page
 
         // where-do-we-meet js start for search
-            $('.wcb-no-record').hide();
-            $("#wcb-search").keyup(function() {
-                var filter = $(this).val(),
-                  count = 0;
-                // Loop through the comment list
-                $('.wcb-card-body').each(function() {
+        $('.wcb-no-record').hide();
+        $("#wcb-search").keyup(function() {
+            var filter = $(this).val(),
+              count = 0;
+            // Loop through the comment list
+            $('.wcb-card-body').each(function() {
+              console.log(count);
+              if(count > 0){
+                $('.wcb-no-record').hide();
+              }
+              else{
+                $('.wcb-no-record').show();
+              }
+              if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                $(this).hide();
+              } else {
+                $(this).show();
+                count++;
+              }
 
-                  if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                    $(this).hide();
-                    $('.wcb-no-record').hide();
-                  } else {
-                   $('.wcb-no-record').show();
-                    $(this).show();
-                    count++;
-                  }
+            });
 
-                });
+          });
 
-              });
-
-            // where-do-we-meet end
+        // where-do-we-meet end
 
           // for navigation
           $(document).ready(function(){
@@ -127,25 +131,5 @@ require(
                     $(this).addClass("actv");
             })
         })
-          // for navigation
-
-            // js for data table order details page=>> Not required
-            //   $(document).ready(function() {
-            //       if($('#wcb-data-table').length > 0){
-            //           var table = $('#wcb-data-table').DataTable( {
-            //               responsive: true,
-            //               language: { search: "" },
-            //               oLanguage: {
-            //                   oPaginate: {
-            //                       sNext: '<span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
-            //                       sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
-            //                   }
-            //               }
-            //           } );
-            //       }
-            //    //  new jQuery.fn.dataTable.FixedHeader( table );
-            //   } );
-
-        // js for datatable order details page
 
     });
