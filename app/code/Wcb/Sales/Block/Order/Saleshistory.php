@@ -17,7 +17,7 @@ use Magento\Framework\App\ResourceConnection;
  * @api
  * @since 100.0.2
  */
-class Saleshistory extends \Magento\Sales\Block\Order\Saleshistory
+class Saleshistory extends \Magento\Sales\Block\Order\History
 {
 
     /**
