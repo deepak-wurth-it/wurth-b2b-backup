@@ -9,6 +9,7 @@
 		 <column name="wcb_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb price"/>
 		 <column name="wcb_after_discount_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb after discount price"/>
 		 <column name="wcb_discount_price" nullable="true" xsi:type="varchar" length="200" comment="Wcb discount price"/>
+         <column name="is_shipping_product" nullable="true" xsi:type="int" comment="Is Shipping Product"/>
    </table>
 </schema>
 
