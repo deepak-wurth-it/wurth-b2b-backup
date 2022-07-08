@@ -113,7 +113,7 @@ class DefaultConfigProvider
                 $billToCustomerCode = $address->getCustomAttribute("bill_to_customer_code")->getValue();
                 if ($isBillToCustomerNumber && $billToCustomerCode) {
                     $this->findIsBillToCustomerNo = true;
-                    continue;
+                    //continue;
                 }
             }
 

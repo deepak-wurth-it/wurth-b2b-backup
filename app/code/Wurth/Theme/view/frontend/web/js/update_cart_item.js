@@ -42,7 +42,14 @@ define([
                     }
                 }
             });
-            $(document).on('keyup','.cart-item-qty-box',function(){
+            $(document).on('keyup','.cart-item-qty-box',function(event){
+                let qty = $(this).val();
+                if (qty < 1 ) {
+                    $(this).val(1);
+                    return;
+                }
+            });
+            $(document).on('change keypress','.cart-item-qty-box',function(event){
                 let qty = $(this).val();
                 if (qty < 1 ) {
                     $(this).val(1);
@@ -50,7 +57,12 @@ define([
                 }
                 let item_id = $(this).attr("data-item-id");
                 if(qty && qty != "0" && item_id){
-                    self.updateQty(item_id, qty, $(this))
+                    if(event.type == 'change' || event.keyCode == 13){
+                        self.updateQty(item_id, qty, $(this))
+                    }
+                }
+                if (event.keyCode == 13) {
+                    event.preventDefault();
                 }
             });
 
